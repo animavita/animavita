@@ -1,12 +1,9 @@
-const userList = [
-  {
-    _id: 1,
-    name: "Wendel"
-  }
-];
+import User from "../../../models/User";
 
 const users = async (parent, args, context, info) => {
-  return userList;
+  return await User.find({})
+    .populate()
+    .exec();
 };
 
 export { users };

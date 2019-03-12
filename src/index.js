@@ -1,6 +1,8 @@
+require("dotenv").config();
 import { GraphQLServer, PubSub } from "graphql-yoga";
 import mongoose from "mongoose";
 import schema from "./graphql/";
+import models from "./models";
 
 class Server {
   constructor() {
@@ -10,6 +12,7 @@ class Server {
     };
 
     this.server = new GraphQLServer(graphql);
+    this.database();
 
     this.server.start(this.options(), ({ port }) => this.initialized(port));
   }
@@ -30,9 +33,15 @@ class Server {
   context() {
     const pubsub = new PubSub();
     return {
-      // models,
+      models,
       pubsub
     };
+  }
+
+  async database() {
+    return await mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true
+    });
   }
 }
 
