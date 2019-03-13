@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run server",
-    "server": "nodemon --exec babel-node src/index.js"
+    "server": "nodemon --exec babel-node src/index.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,17 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.3.4"
+    "@babel/preset-env": "^7.3.4",
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "jest": "^24.5.0"
   },
   "dependencies": {
+    "bcrypt": "^3.0.4",
     "dotenv": "^6.2.0",
     "graphql": "^14.1.1",
+    "graphql-middleware": "^3.0.2",
     "graphql-subscriptions": "^1.0.0",
     "graphql-tools": "^4.0.4",
     "graphql-yoga": "^1.17.4",
