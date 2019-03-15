@@ -1,6 +1,6 @@
-import { mergeTypes } from "merge-graphql-schemas";
+import { mergeTypes } from 'merge-graphql-schemas';
 
-import User from "./User";
+import User from './User';
 
 const typeDefs = [User];
 

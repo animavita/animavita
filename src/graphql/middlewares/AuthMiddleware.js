@@ -31,9 +31,10 @@ export default {
   /*
    * Auth: is a Middleware function above
    * Resolvers.Query: my query object with all resolvers
-   * exceptions: array of resolvers exceptions (name of resolvers that middleware will not be applied)
+   * exceptions: array of resolvers exceptions (name of resolvers that
+   * middleware will not be applied)
    */
 
   Query: applyMiddlewareRule(Auth, resolvers.Query),
-  Mutation: applyMiddlewareRule(Auth, resolvers.Mutation, exceptions), // No exceptions
+  Mutation: applyMiddlewareRule(Auth, resolvers.Mutation, exceptions) // No exceptions
 };

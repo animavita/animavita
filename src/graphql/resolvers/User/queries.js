@@ -1,9 +1,10 @@
-import User from "../../../models/User";
+import User from '../../../models/User';
 
 const users = async (parent, args, context, info) => {
-  return await User.find({})
+  const user = await User.find({})
     .populate()
     .exec();
+  return user;
 };
 
 export { users };

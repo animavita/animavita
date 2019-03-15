@@ -1,6 +1,6 @@
-import { mergeResolvers } from "merge-graphql-schemas";
+import { mergeResolvers } from 'merge-graphql-schemas';
 
-import User from "./User";
+import User from './User';
 
 const resolvers = [User];
 
