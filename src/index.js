@@ -1,32 +1,35 @@
-require("dotenv").config();
-import { GraphQLServer, PubSub } from "graphql-yoga";
-import mongoose from "mongoose";
-import schema from "./graphql/";
-import models from "./models";
+import { GraphQLServer, PubSub } from 'graphql-yoga';
+import mongoose from 'mongoose';
+import schema from './graphql';
+import models from './models';
+import middlewares from './graphql/middlewares';
+
+require('dotenv').config();
 
 class Server {
   constructor() {
-    let graphql = {
-      schema,
-      context: this.context()
-    };
-
-    this.server = new GraphQLServer(graphql);
+    const server = new GraphQLServer(this.graphql());
     this.database();
 
-    this.server.start(this.options(), ({ port }) => this.initialized(port));
+    server.start(this.options(), ({ port }) =>
+      console.log(`🚀 Server is running on http://localhost:${port}`)
+    );
   }
 
-  initialized(port) {
-    console.log(`🚀 Server is running on http://localhost:${port}`);
+  graphql() {
+    return {
+      schema,
+      context: request => Object.assign(this.context(), { ...request }),
+      middlewares: middlewares
+    };
   }
 
   options() {
     return {
-      port: process.env.PORT || "4000",
-      endpoint: "/graphql",
-      subscriptions: "/subscriptions",
-      playground: "/playground"
+      port: process.env.PORT || '4000',
+      endpoint: '/graphql',
+      subscriptions: '/subscriptions',
+      playground: '/playground'
     };
   }
 

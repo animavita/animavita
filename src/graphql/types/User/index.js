@@ -8,4 +8,8 @@ export default `
     users: [User!]!
   }
 
+  type Mutation {
+    login: User!
+  }
+
 `;
