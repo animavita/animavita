@@ -9,9 +9,9 @@ require('dotenv').config();
 class Server {
   constructor() {
     const server = new GraphQLServer(this.graphql());
-    this.database();
+    Server.database();
 
-    server.start(this.options(), ({ port }) =>
+    server.start(Server.options(), ({ port }) =>
       console.log(`🚀 Server is running on http://localhost:${port}`)
     );
   }
@@ -20,11 +20,11 @@ class Server {
     return {
       schema,
       context: request => Object.assign(this.context(), { ...request }),
-      middlewares: middlewares
+      middlewares
     };
   }
 
-  options() {
+  static options() {
     return {
       port: process.env.PORT || '4000',
       endpoint: '/graphql',
@@ -33,7 +33,7 @@ class Server {
     };
   }
 
-  context() {
+  static context() {
     const pubsub = new PubSub();
     return {
       models,
@@ -41,10 +41,15 @@ class Server {
     };
   }
 
-  async database() {
-    return await mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true
-    });
+  /* Set up database connection with mongoose */
+  static async database() {
+    try {
+      return await mongoose.connect(process.env.MONGO_URL, {
+        useNewUrlParser: true
+      });
+    } catch (error) {
+      throw new Error('Mongoose connect failed!');
+    }
   }
 }
 
