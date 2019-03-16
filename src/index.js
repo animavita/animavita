@@ -8,7 +8,7 @@ require('dotenv').config();
 
 class Server {
   constructor() {
-    const server = new GraphQLServer(this.graphql());
+    const server = new GraphQLServer(Server.graphql());
     Server.database();
 
     server.start(Server.options(), ({ port }) =>
@@ -16,10 +16,10 @@ class Server {
     );
   }
 
-  graphql() {
+  static graphql() {
     return {
       schema,
-      context: request => Object.assign(this.context(), { ...request }),
+      context: request => Object.assign(Server.context(), { ...request }),
       middlewares
     };
   }
