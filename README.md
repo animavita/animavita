@@ -19,6 +19,16 @@
 
 Todo.....
 
+## Features
+
+Kraken have the following features:
+
+- :zap: **graphql-yoga** — Fully-featured GraphQL Server basead em express and apollo-server
+- :shield: **Graphql-Middleware** — To create your middlewares in resolvers (with exceptions list of resolvers)
+- :tophat: **Babel** — ES6 syntax, Airbnb styleguide
+- :fire: **Jest** — Jest, for your tests
+- :heavy_check_mark: **ESlint** — To clean code and beautiful code
+
 ## Getting started
 
 1. Clone this repo using `https://github.com/wendelfreitas/kraken.git`
@@ -32,4 +42,4 @@ Todo.....
 
 ## License
 
-MIT license, Copyright (c) 2018 Wendel Freitas.
+MIT license, Copyright (c) 2019 Wendel Freitas.
