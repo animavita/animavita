@@ -23,11 +23,11 @@ Todo.....
 
 Kraken have the following features:
 
-- :zap: **graphql-yoga** — Fully-featured GraphQL Server basead em express and apollo-server
+- :zap: **Graphql-Yoga** — Fully-featured GraphQL Server basead em express and apollo-server
 - :shield: **Graphql-Middleware** — To create your middlewares in resolvers (with exceptions list of resolvers)
 - :tophat: **Babel** — ES6 syntax, Airbnb styleguide
 - :fire: **Jest** — Jest, for your tests
-- :heavy_check_mark: **ESlint** — To clean code and beautiful code
+- :heavy_check_mark: **ESlint** — To clean and beautiful code
 
 ## Getting started
 
