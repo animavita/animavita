@@ -1,4 +1,4 @@
-import { applyMiddlewareRule } from '../../utils/common';
+import { applyMiddlewareRule } from '../../utils/middleware';
 import resolvers from '../resolvers';
 
 /* The middleware will not be applied to the resolvers of this array */
