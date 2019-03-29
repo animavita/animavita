@@ -17,7 +17,7 @@
 
 ## Introduction
 
-Todo.....
+A simple boilerplate using graphql to create a service with layers of middlewares and a simple folder structure, this project is only for studies feel free to fork and send pull request to help me to evolue.
 
 ## Features
 
