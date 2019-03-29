@@ -34,7 +34,8 @@ Kraken have the following features:
 1. Clone this repo using `https://github.com/wendelfreitas/kraken.git`
 2. Move to the appropriate directory: `cd kraken`.<br />
 3. Run `yarn` or `npm install` to install dependencies.<br />
-4. Run `npm start` to see the example app at `http://localhost:4000/playground`.
+4. Set your `MONGO_URL` in env.<br />
+5. Run `npm start` to see the example app at `http://localhost:4000/playground`.
 
 ## Commands
 
