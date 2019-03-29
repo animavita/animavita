@@ -1,5 +1,5 @@
 <h1 align="center">
-  <a href="https://github.com/wendelfreitas/kraken"><img src="https://i.imgur.com/02ZtQpg.png" alt="XO" width="200"></a>
+  <a href="https://github.com/wendelfreitas/kraken"><img src="https://i.imgur.com/02ZtQpg.png" alt="kraken" width="200"></a>
 </h1>
 
 <p align="center">A simple boilerplate to create a <b>tenta</b>cool service!</p>
@@ -25,9 +25,9 @@ Kraken have the following features:
 
 - :zap: **Graphql-Yoga** — Fully-featured GraphQL Server basead em express and apollo-server
 - :shield: **Graphql-Middleware** — To create your middlewares in resolvers (with exceptions list of resolvers)
-- :tophat: **Babel** — ES6 syntax, Airbnb styleguide
+- :tophat: **Babel** — ES6 syntax
 - :fire: **Jest** — Jest, for your tests
-- :heavy_check_mark: **ESlint** — To clean and beautiful code
+- :heavy_check_mark: **ESlint** — To clean and beautiful code (Airbnb styleguide)
 
 ## Getting started
 
