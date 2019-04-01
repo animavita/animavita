@@ -1,8 +1,8 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga';
 import mongoose from 'mongoose';
 import schema from './graphql';
-import models from './models';
 import middlewares from './graphql/middlewares';
+import { getAuth } from './utils/auth';
 
 require('dotenv').config();
 
@@ -11,15 +11,18 @@ class Server {
     const server = new GraphQLServer(Server.graphql());
     Server.database();
 
-    server.start(Server.options(), ({ port }) =>
-      console.log(`🚀 Server is running on http://localhost:${port}`)
-    );
+    server.start(Server.options(), ({ port }) => console.log(`🚀 Server is running on http://localhost:${port}`));
   }
 
   static graphql() {
+    const pubsub = new PubSub();
     return {
       schema,
-      context: request => Object.assign(Server.context(), { ...request }),
+      context: request => ({
+        ...request,
+        pubsub,
+        user: getAuth(request)
+      }),
       middlewares
     };
   }
@@ -30,14 +33,6 @@ class Server {
       endpoint: '/graphql',
       subscriptions: '/subscriptions',
       playground: '/playground'
-    };
-  }
-
-  static context() {
-    const pubsub = new PubSub();
-    return {
-      models,
-      pubsub
     };
   }
 
