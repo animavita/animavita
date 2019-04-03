@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import User from '../../../models/User';
+import User from '../../../models/User/user.model';
 
 const createToken = async (parent, { email, password }, context) => {
   const user = await User.findOne({ email }).select('+password');
