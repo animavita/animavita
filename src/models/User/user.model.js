@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const { Schema } = mongoose;
 
@@ -18,7 +19,11 @@ const UserSchema = new Schema({
   }
 });
 
-const encrypt = next => next();
+const encrypt = async (next) => {
+  const hash = await bcrypt.hash(this.password, 10);
+  this.password = hash;
+  next();
+};
 
 UserSchema.pre('save', next => encrypt(next));
 
