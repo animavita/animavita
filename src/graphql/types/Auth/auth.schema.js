@@ -1,5 +1,6 @@
 export default `
   type Token {
+    user: User!
     token: String!
   }
 
