@@ -28,6 +28,7 @@ Kraken have the following features:
 - :tophat: **Babel** — ES6 syntax
 - :fire: **Jest** — Jest, for your tests
 - :heavy_check_mark: **ESlint** — To clean and beautiful code (Airbnb styleguide)
+- :whale: **Docker** — To make your life easier
 
 ## Getting started
 
