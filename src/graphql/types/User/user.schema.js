@@ -8,6 +8,7 @@ export default `
   type User {
     _id: String!
     name: String!
+    email: String!
   }
 
   type Query {
