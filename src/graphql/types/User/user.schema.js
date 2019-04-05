@@ -1,4 +1,10 @@
 export default `
+  input UserCreateInput {
+    name: String!
+    email: String!
+    password: String!
+  }
+
   type User {
     _id: String!
     name: String!
@@ -10,6 +16,7 @@ export default `
 
   type Mutation {
     login: User!
+    createUser(input: UserCreateInput!): User
   }
 
 `;
