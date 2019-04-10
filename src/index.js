@@ -1,51 +1,34 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga';
-import mongoose from 'mongoose';
+import { getAuth } from './utils/auth';
+import { database } from './database';
 import schema from './graphql';
 import middlewares from './graphql/middlewares';
-import { getAuth } from './utils/auth';
 
 require('dotenv').config();
 
-class Server {
-  constructor() {
-    const server = new GraphQLServer(Server.graphql());
-    Server.database();
+/* Connect to mongodb */
+database();
 
-    server.start(Server.options(), ({ port }) => console.log(`🚀 Server is running on http://localhost:${port}`));
-  }
+const { PORT } = process.env;
+const pubsub = new PubSub();
 
-  static graphql() {
-    const pubsub = new PubSub();
-    return {
-      schema,
-      context: request => ({
-        ...request,
-        pubsub,
-        user: getAuth(request)
-      }),
-      middlewares
-    };
-  }
+const options = {
+  port: PORT || '4000',
+  endpoint: '/graphql',
+  subscriptions: '/subscriptions',
+  playground: '/playground'
+};
 
-  static options() {
-    return {
-      port: process.env.PORT || '4000',
-      endpoint: '/graphql',
-      subscriptions: '/subscriptions',
-      playground: '/playground'
-    };
-  }
+const server = new GraphQLServer({
+  schema,
+  context: request => ({
+    ...request,
+    pubsub,
+    user: getAuth(request)
+  }),
+  middlewares
+});
 
-  /* Set up database connection with mongoose */
-  static async database() {
-    try {
-      return await mongoose.connect(process.env.MONGO_URL, {
-        useNewUrlParser: true
-      });
-    } catch (error) {
-      throw new Error('Mongoose connect failed!');
-    }
-  }
-}
-
-export default new Server();
+server.start(options, ({ port }) => {
+  console.log(`🚀 Server is running on http://localhost:${port}`);
+});
