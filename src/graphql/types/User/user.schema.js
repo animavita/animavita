@@ -15,9 +15,10 @@ export default `
     users: [User!]!
   }
 
+  # User related mutations
   type Mutation {
-    login: User!
-    createUser(input: UserCreateInput!): User
+    # Create user using input, returning user created and token generated
+    createUser(data: UserCreateInput!): Token!
   }
 
 `;
