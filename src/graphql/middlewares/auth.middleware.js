@@ -2,7 +2,7 @@ import { applyMiddlewareRule } from '../../utils/middleware';
 import resolvers from '../resolvers';
 
 /* The middleware will not be applied to the resolvers of this array */
-const exceptions = ['login', 'register'];
+const exceptions = ['createToken', 'createUser'];
 
 /* The middleware handle function ( Rule ) */
 const handle = async (resolve, parent, args, context) => {
