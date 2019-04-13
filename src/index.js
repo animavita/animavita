@@ -1,5 +1,5 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga';
-import { getAuth } from './utils/auth';
+import { getUser } from './utils/auth';
 import { database } from './database';
 import schema from './graphql';
 import middlewares from './graphql/middlewares';
@@ -19,13 +19,18 @@ const options = {
   playground: '/playground'
 };
 
-const server = new GraphQLServer({
-  schema,
-  context: request => ({
+const contextSettings = async ({ request }) => {
+  const { user } = await getUser(request.headers.authorization);
+  return {
     ...request,
     pubsub,
-    user: getAuth(request)
-  }),
+    user
+  };
+};
+
+const server = new GraphQLServer({
+  schema,
+  context: contextSettings,
   middlewares
 });
 
