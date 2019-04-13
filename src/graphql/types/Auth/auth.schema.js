@@ -1,10 +1,13 @@
 export default `
   type Token {
-    user: User!
     token: String!
   }
 
+
   type Mutation {
-    createToken(email: String!, password: String!): Token!
+    login(email: String!, password: String!): Token!
+    # Create user using input, returning user created and token generated
+    register(data: UserCreateInput!): Token!
+
   }
 `;
