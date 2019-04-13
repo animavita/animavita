@@ -1,5 +1,5 @@
-import User from '~/models/User/user.model';
-import { generateToken } from '~/utils/auth';
+import User from '../../../models/User/user.model';
+import { generateToken } from '../../../utils/auth';
 
 export const createUser = async (parent, { input }) => {
   try {
