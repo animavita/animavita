@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import User from '../models/User/user.model';
 
 require('dotenv').config();
 
@@ -9,7 +9,17 @@ export const generateToken = payload => jwt.sign(payload, APP_SECRET, {
   expiresIn: TOKEN_TIME
 });
 
-export const getAuth = request => ({
-  _id: '1',
-  name: 'Wendel Freitas'
-});
+export const getUser = async (token) => {
+  if (!token) return { user: null };
+  try {
+    const decodedToken = jwt.verify(token.substring(7), APP_SECRET);
+    const user = await User.findOne({ _id: decodedToken.id });
+
+    return {
+      user
+    };
+  } catch (err) {
+    console.log(err);
+    return { user: null };
+  }
+};
