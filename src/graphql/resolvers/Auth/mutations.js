@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import User from '../../../models/User/user.model';
+import User from '../../../models/user.model';
 import { generateToken } from '../../../utils/auth';
 
 export const login = async (parent, { email, password }, context) => {

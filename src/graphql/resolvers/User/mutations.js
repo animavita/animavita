@@ -1,4 +1,4 @@
-import User from '../../../models/User/user.model';
+import User from '../../../models/user.model';
 
 export const createUser = async (parent, { input }) => {
   try {
