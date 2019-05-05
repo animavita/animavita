@@ -17,7 +17,7 @@
 
 ## Introduction
 
-A simple boilerplate using graphql to create a service with layers of middlewares and a simple folder structure, this project for study purposes so feel free to fork and send pull requests to help me improve it.
+A simple boilerplate using graphql to create a service with layers of middlewares and a simple folder structure, this project is for study purposes so feel free to fork and send pull requests to help me improve it.
 
 ## Features
 
@@ -33,7 +33,7 @@ Kraken have the following features:
 ## Getting started
 
 1. Clone this repo using `https://github.com/wendelfreitas/kraken.git`
-2. Go to the appropriate directory: `cd kraken`.<br />
+2. Go to the newly created directory: `cd kraken`.<br />
 3. Run `yarn` or `npm install` to install dependencies.<br />
 4. Set your `MONGO_URL` in env.<br />
 5. Run `npm start` or `docker-compose up` to see the example app at `http://localhost:4000/playground`.
