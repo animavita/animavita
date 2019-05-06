@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {  Picker } from 'react-native';
+import { View, Text, Picker } from 'react-native';
 
 import { Container } from './styles';
 
