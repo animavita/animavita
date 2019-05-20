@@ -32,20 +32,16 @@ export const Heart = styled.View`
   padding: 20px 20px;
 `;
 
+export const Card = styled.View`
+  width: 100%;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60%;
+  margin-top: 10;
+  border-radius: 520;
+`;
+
 export const styles = StyleSheet.create({
-  card: {
-    width: '100%',
-    justifyContent: 'flex-end',
-    height: '91%',
-    borderRadius: 520,
-    shadowColor: 'rgba(0,0,0,0.8)',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    marginTop: 10,
-    shadowOpacity: 0.5,
-  },
   image: { borderRadius: 15 },
   shadow: {
     textShadowColor: 'rgba(0, 0, 0, 0.30)',

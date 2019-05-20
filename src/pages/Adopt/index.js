@@ -4,7 +4,7 @@ import { View } from 'react-native';
 import PropTypes from 'prop-types';
 import Filter from './components/Filter';
 import Header from './components/Header';
-import Pet from './components/Pet';
+import Pet from '~/pages/Home/components/Adopt/Pet';
 
 import { Container } from './styles';
 

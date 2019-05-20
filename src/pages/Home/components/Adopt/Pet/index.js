@@ -1,14 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 import {
-  PetImage, Informations, Name, SubText, Heart, styles,
+  PetImage, Informations, Name, SubText, Heart, Card, styles,
 } from './styles';
 
+import { THEME_COLORS } from '~/utils/constants';
+
 const Pet = ({ animal }) => (
-  <View style={styles.card}>
+  <Card>
     <PetImage
       imageStyle={styles.image}
       source={{
@@ -17,7 +19,7 @@ const Pet = ({ animal }) => (
     >
       <Heart>
         <TouchableOpacity onPress={() => alert('s')}>
-          <Icon name="heart-o" type="font-awesome" color="black" size={30} />
+          <Icon name="heart-o" type="font-awesome" color={THEME_COLORS.BLACK} size={28} />
         </TouchableOpacity>
       </Heart>
       <Informations>
@@ -26,7 +28,7 @@ const Pet = ({ animal }) => (
         <SubText style={styles.shadow}>{animal.distance} kilômetros de distância</SubText>
       </Informations>
     </PetImage>
-  </View>
+  </Card>
 );
 
 Pet.propTypes = {
