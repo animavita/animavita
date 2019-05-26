@@ -5,6 +5,7 @@ import {
 } from './styles';
 
 import Adopt from './components/Adopt';
+import Statistics from './components/Statistics';
 import Profile from './components/Profile';
 import Loading from '~/components/Loading';
 
@@ -32,7 +33,8 @@ class Home extends Component {
     switch (active) {
       case 'Adoções':
         return <Adopt />;
-
+      case 'Estatísticas':
+        return <Statistics />;
       default:
         return <Loading />;
     }

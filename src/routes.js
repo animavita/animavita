@@ -5,7 +5,9 @@ import { Icon } from 'react-native-elements';
 
 import Home from '~/pages/Home';
 import Settings from '~/pages/Settings';
-import Notification from '~/pages/Notification';
+import Messages from '~/pages/Messages';
+import Chat from '~/pages/Chat';
+import Notifications from '~/pages/Notifications';
 
 const configs = {
   defaultNavigationOptions: {
@@ -31,7 +33,9 @@ const configs = {
 const screens = createStackNavigator(
   {
     Home,
-    Notification,
+    Notifications,
+    Messages,
+    Chat,
     Settings,
   },
   configs,

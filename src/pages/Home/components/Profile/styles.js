@@ -11,7 +11,7 @@ export const Notification = styled.View`
   justify-content: space-between;
   align-items: center;
   margin: 0 20px;
-  width: 65;
+  width: 105;
 `;
 
 export const Salutation = styled.View`

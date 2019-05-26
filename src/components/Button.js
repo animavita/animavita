@@ -17,8 +17,10 @@ const Title = styled.Text`
   font-size: 12;
 `;
 
-const Button = ({ title, fontColor, containerColor }) => (
-  <Container color={containerColor}>
+const Button = ({
+  title, fontColor, containerColor, onPress,
+}) => (
+  <Container color={containerColor} onPress={onPress}>
     <Title color={fontColor}>{title}</Title>
   </Container>
 );
@@ -27,6 +29,7 @@ Button.propTypes = {
   title: PropTypes.string.isRequired,
   fontColor: PropTypes.string,
   containerColor: PropTypes.string,
+  onPress: PropTypes.func.isRequired,
 };
 
 Button.defaultProps = {

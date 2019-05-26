@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Modal from 'react-native-modal';
 import { StyleSheet } from 'react-native';
-import { PRIMARY_COLOR } from '~/utils/constants';
+import { PRIMARY_COLOR, THEME_COLORS } from '~/utils/constants';
 
 export const ModalContainer = styled(Modal)`
   justify-content: center;
@@ -12,7 +12,7 @@ export const Container = styled.View`
   align-items: center;
   justify-content: space-between;
   width: 85%;
-  height: 70%;
+  height: 60%;
   border-radius: 20;
   background-color: white;
 `;
@@ -34,7 +34,6 @@ export const ButtonContainer = styled.View`
 `;
 
 export const PetTypeContainer = styled.View`
-  height: 150;
   margin-top: 10;
   width: 100%;
   padding: 0 25px;
@@ -42,7 +41,7 @@ export const PetTypeContainer = styled.View`
   justify-content: space-between;
 `;
 export const GenderContainer = styled.View`
-  margin-top: 10;
+  margin-top: 0;
   align-items: center;
   width: 100%;
 `;
@@ -57,10 +56,17 @@ export const AnimalType = styled.View`
 `;
 
 export const SizeContainer = styled.View`
-  margin-top: 10;
+  margin-top: 0;
   align-items: center;
   width: 100%;
 `;
+
+export const Field = styled.Text`
+  color: #c5ccd6;
+  margin-bottom: 5;
+  font-size: 12;
+`;
+
 export const styles = StyleSheet.create({
   card: {
     width: '100%',
@@ -91,10 +97,10 @@ export const styles = StyleSheet.create({
   modalTitle: {
     marginBottom: 10,
   },
-  selectedButtonStyle: { backgroundColor: PRIMARY_COLOR },
-  selectedTextStyle: { fontWeight: 'bold', fontSize: 12 },
-  textStyle: { fontWeight: 'bold', fontSize: 12 },
+  selectedButtonStyle: { backgroundColor: THEME_COLORS.SECONDARY },
+  selectedTextStyle: { fontSize: 12 },
+  textStyle: { color: THEME_COLORS.BLACK, fontSize: 12 },
   containerStyle: { height: 25 },
-  checkboxText: { fontSize: 12, fontWeight: 'bold', color: 'black' },
+  checkboxText: { fontSize: 12, color: THEME_COLORS.BLACK, fontWeight: 'normal' },
   checkboxContainer: { backgroundColor: 'white', borderWidth: 0 },
 });

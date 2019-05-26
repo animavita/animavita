@@ -9,6 +9,23 @@ import {
 
 import { THEME_COLORS } from '~/utils/constants';
 
+const NotificationItem = ({
+  openScreen, iconName, iconType, badgeStatus,
+}) => (
+  <TouchableOpacity
+    hitSlop={{
+      top: 20,
+      bottom: 20,
+      left: 20,
+      right: 20,
+    }}
+    onPress={openScreen}
+  >
+    <Icon name={iconName} type={iconType} color={THEME_COLORS.BLACK} size={22} />
+    <Badge status={badgeStatus} containerStyle={styles.badge} />
+  </TouchableOpacity>
+);
+
 const Profile = ({ navigation, user }) => (
   <Fragment>
     <Salutation>
@@ -17,14 +34,26 @@ const Profile = ({ navigation, user }) => (
     </Salutation>
     <ProfileContainer>
       <Notification>
-        <TouchableOpacity onPress={() => console.log('oi')}>
-          <Icon name="map-pin" type="feather" color={THEME_COLORS.BLACK} size={22} />
-          <Badge status="error" containerStyle={styles.badge} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Notification')}>
-          <Icon name="bell" type="feather" color={THEME_COLORS.BLACK} size={22} />
-          <Badge status="success" containerStyle={styles.badge} />
-        </TouchableOpacity>
+        <NotificationItem
+          openScreen={() => navigation.navigate('Messages')}
+          iconName="mail"
+          iconType="feather"
+          badgeStatus="primary"
+        />
+
+        <NotificationItem
+          openScreen={() => navigation.navigate('Messages')}
+          iconName="map-pin"
+          iconType="feather"
+          badgeStatus="error"
+        />
+
+        <NotificationItem
+          openScreen={() => navigation.navigate('Notifications')}
+          iconName="bell"
+          iconType="feather"
+          badgeStatus="success"
+        />
       </Notification>
       <Avatar
         rounded

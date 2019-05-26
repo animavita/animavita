@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import Button from '~/components/Button';
+import PropTypes from 'prop-types';
 import Swiper from 'react-native-deck-swiper';
 import Pet from './Pet';
 import { Container, TopButtons } from './styles';
+import Filter from './Filter';
 
 const pets = [
   {
@@ -23,11 +25,19 @@ const pets = [
   },
 ];
 
+const handleNextPet = () => {
+  console.log('next');
+};
+
+const handleRequestAdopt = () => {
+  console.log('adopt');
+};
+
 const Adopt = () => (
   <Fragment>
     <TopButtons>
-      <Button title="FILTRAR" />
-      <Button title="CADASTRAR ADOÇÃO" />
+      <Button title="FILTRAR" onPress={() => console.log('open')} />
+      <Button title="CADASTRAR ADOÇÃO" onPress={() => console.log('open')} />
     </TopButtons>
     <Container>
       <Swiper

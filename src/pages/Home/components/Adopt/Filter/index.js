@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { ButtonGroup, CheckBox, Icon } from 'react-native-elements';
 import { BallIndicator } from 'react-native-indicators';
 import { View, TouchableOpacity, ImageBackground } from 'react-native';
-import { Title } from '~/components';
-import { PRIMARY_COLOR } from '~/utils/constants';
-
+import { Title, H1 } from '~/components';
+import { PRIMARY_COLOR, THEME_COLORS } from '~/utils/constants';
+import Button from '~/components/Button';
 import {
   ModalContainer,
   PetTypeContainer,
@@ -16,56 +16,20 @@ import {
   CheckBoxGroup,
   AnimalType,
   SizeContainer,
+  Field,
   styles,
 } from './styles';
 
 const PetType = ({ type, handlePetType }) => (
   <PetTypeContainer>
-    <TouchableOpacity activeOpacity={0.8} onPress={() => handlePetType('dogs')}>
-      <ImageBackground
-        source={{
-          uri: 'https://s.abcnews.com/images/Lifestyle/puppy-ht-3-er-170907_4x3_992.jpg',
-        }}
-        style={styles.petType}
-        imageStyle={styles.petTypeImage}
-      >
-        <Title size={16} color="white" style={styles.shadow}>
-          CÃES
-        </Title>
-        <Icon
-          name="check"
-          type="entypo"
-          size={30}
-          color={type === 'dogs' ? PRIMARY_COLOR : 'transparent'}
-        />
-      </ImageBackground>
-    </TouchableOpacity>
-    <TouchableOpacity activeOpacity={0.8} onPress={() => handlePetType('cats')}>
-      <ImageBackground
-        source={{
-          uri:
-            'https://pbs.twimg.com/profile_images/378800000532546226/dbe5f0727b69487016ffd67a6689e75a_400x400.jpeg',
-        }}
-        style={styles.petType}
-        imageStyle={styles.petTypeImage}
-      >
-        <Title size={16} color="white" style={styles.shadow}>
-          GATOS
-        </Title>
-        <Icon
-          name="check"
-          type="entypo"
-          size={30}
-          color={type === 'cats' ? PRIMARY_COLOR : 'transparent'}
-        />
-      </ImageBackground>
-    </TouchableOpacity>
+    <Button title="CÃES" onPress={() => alert('oi')} />
+    <Button title="GATOS" onPress={() => alert('oi')} />
   </PetTypeContainer>
 );
 
 const Size = ({ updateSize, index }) => (
   <SizeContainer>
-    <Title size={12}>Qual o porte do animal?</Title>
+    <Field size={12}>Qual o porte do animal?</Field>
     <ButtonGroup
       onPress={updateSize}
       selectedIndex={index}
@@ -80,7 +44,7 @@ const Size = ({ updateSize, index }) => (
 
 const Gender = ({ gender, setGender }) => (
   <GenderContainer>
-    <Title size={12}>Qual o gênero do animal?</Title>
+    <Field size={12}>Qual o gênero do animal?</Field>
     <CheckBoxGroup>
       <CheckBox
         center
@@ -88,7 +52,7 @@ const Gender = ({ gender, setGender }) => (
         iconType="feather"
         uncheckedIcon="square"
         checkedIcon="x-square"
-        checkedColor={PRIMARY_COLOR}
+        checkedColor={THEME_COLORS.SECONDARY}
         textStyle={styles.checkboxText}
         onPress={() => setGender('M')}
         containerStyle={styles.checkboxContainer}
@@ -100,7 +64,7 @@ const Gender = ({ gender, setGender }) => (
         iconType="feather"
         checkedIcon="x-square"
         uncheckedIcon="square"
-        checkedColor={PRIMARY_COLOR}
+        checkedColor={THEME_COLORS.SECONDARY}
         textStyle={styles.checkboxText}
         containerStyle={styles.checkboxContainer}
         onPress={() => setGender('F')}
@@ -165,10 +129,10 @@ class Filter extends Component {
             <Fragment>
               <AnimalType>
                 <View style={styles.modalTitle}>
-                  <Title size={20}>FILTROS</Title>
+                  <H1 size={20}>FILTROS</H1>
                 </View>
-                <Title size={12}>Que tipo de animal você está procurando?</Title>
-                <PetType type={type} handlePetType={newType => this.handlePetType(newType)} />
+                <Field>Que tipo de animal você está procurando?</Field>
+                <PetType />
               </AnimalType>
               <Size index={size} updateSize={index => this.updateSize(index)} />
               <Gender gender={gender} setGender={newGender => this.setGender(newGender)} />
