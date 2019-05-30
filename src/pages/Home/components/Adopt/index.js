@@ -33,10 +33,10 @@ const handleRequestAdopt = () => {
   console.log('adopt');
 };
 
-const Adopt = () => (
+const Adopt = ({ navigation }) => (
   <Fragment>
     <TopButtons>
-      <Button title="FILTRAR" onPress={() => console.log('open')} />
+      <Button title="FILTRAR" onPress={() => navigation.navigate('Filter')} />
       <Button title="CADASTRAR ADOÇÃO" onPress={() => console.log('open')} />
     </TopButtons>
     <Container>
