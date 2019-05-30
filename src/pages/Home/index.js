@@ -28,11 +28,11 @@ class Home extends Component {
     );
   };
 
-  renderContent = () => {
+  renderContent = (navigation) => {
     const { active } = this.state;
     switch (active) {
       case 'Adoções':
-        return <Adopt />;
+        return <Adopt navigation={navigation} />;
       case 'Estatísticas':
         return <Statistics />;
       default:
@@ -55,7 +55,7 @@ class Home extends Component {
         <TabContainer>
           <Tabs>{tabs.map(tab => this.renderTab(tab))}</Tabs>
         </TabContainer>
-        {this.renderContent()}
+        {this.renderContent(navigation)}
       </Container>
     );
   }
