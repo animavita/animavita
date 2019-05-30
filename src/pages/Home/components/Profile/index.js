@@ -9,18 +9,17 @@ import {
 
 import { THEME_COLORS } from '~/utils/constants';
 
+const hitSlop = {
+  top: 20,
+  bottom: 20,
+  left: 20,
+  right: 20,
+};
+
 const NotificationItem = ({
   openScreen, iconName, iconType, badgeStatus,
 }) => (
-  <TouchableOpacity
-    hitSlop={{
-      top: 20,
-      bottom: 20,
-      left: 20,
-      right: 20,
-    }}
-    onPress={openScreen}
-  >
+  <TouchableOpacity hitSlop={hitSlop} onPress={openScreen}>
     <Icon name={iconName} type={iconType} color={THEME_COLORS.BLACK} size={22} />
     <Badge status={badgeStatus} containerStyle={styles.badge} />
   </TouchableOpacity>
@@ -73,6 +72,13 @@ Profile.propTypes = {
     name: PropTypes.string.isRequired,
     avatar: PropTypes.string.isRequired,
   }).isRequired,
+};
+
+NotificationItem.propTypes = {
+  openScreen: PropTypes.func.isRequired,
+  iconName: PropTypes.string.isRequired,
+  iconType: PropTypes.string.isRequired,
+  badgeStatus: PropTypes.string.isRequired,
 };
 
 export default Profile;

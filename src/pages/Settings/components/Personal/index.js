@@ -5,35 +5,41 @@ import {
 import PropTypes from 'prop-types';
 import { TextInput } from './styles';
 
-const Personal = ({ name, lastname, email }) => (
+const Personal = ({ user }) => (
   <FormContainer>
     <Input>
       <Wrapper>
         <Field>Nome</Field>
-        <TextInput defaultValue={name} onChangeText={text => console.log(text)} />
+        <TextInput defaultValue={user.name} onChangeText={text => console.log(text)} />
       </Wrapper>
       <Small>Editar</Small>
     </Input>
     <Input>
       <Wrapper>
         <Field>Sobrenome</Field>
-        <TextInput defaultValue={lastname} onChangeText={text => console.log(text)} />
+        <TextInput defaultValue={user.lastname} onChangeText={text => console.log(text)} />
       </Wrapper>
       <Small>Editar</Small>
     </Input>
     <Input>
       <Wrapper>
         <Field>E-mail</Field>
-        <TextInput editable={false} defaultValue={email} onChangeText={text => console.log(text)} />
+        <TextInput
+          editable={false}
+          defaultValue={user.email}
+          onChangeText={text => console.log(text)}
+        />
       </Wrapper>
     </Input>
   </FormContainer>
 );
 
 Personal.propTypes = {
-  name: PropTypes.string.isRequired,
-  lastname: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Personal;
