@@ -28,7 +28,7 @@ const Small = styled.Text`
 `;
 
 const Slider = ({
-  minimum, maximum, value, onChange,
+  minimum, maximum, value, valueText, onChange,
 }) => (
   <Wrapper>
     <DefaultSlider
@@ -41,7 +41,9 @@ const Slider = ({
       value={value}
       onValueChange={onChange}
     />
-    <Small>{value} km</Small>
+    <Small>
+      {value} {valueText}
+    </Small>
   </Wrapper>
 );
 
@@ -49,6 +51,7 @@ Slider.propTypes = {
   minimum: PropTypes.number.isRequired,
   maximum: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
+  valueText: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 
