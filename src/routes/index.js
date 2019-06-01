@@ -8,7 +8,9 @@ import Settings from '~/pages/Settings';
 import Messages from '~/pages/Messages';
 import Chat from '~/pages/Chat';
 import Notifications from '~/pages/Notifications';
+
 import Filter from '~/pages/Filter';
+import Adopt from '~/pages/Adopt';
 
 const configs = {
   defaultNavigationOptions: {
@@ -51,6 +53,7 @@ const RootNavigator = createStackNavigator(
       },
     },
     Filter,
+    Adopt,
   },
   configs,
   {
