@@ -3,6 +3,7 @@ import React from 'react';
 
 import { Icon } from 'react-native-elements';
 
+import Login from '~/pages/Login';
 import Home from '~/pages/Home';
 import Settings from '~/pages/Settings';
 import Messages from '~/pages/Messages';
@@ -10,7 +11,7 @@ import Chat from '~/pages/Chat';
 import Notifications from '~/pages/Notifications';
 
 import Filter from '~/pages/Filter';
-import Adopt from '~/pages/Adopt';
+import Adoption from '~/pages/Adoption';
 
 const configs = {
   defaultNavigationOptions: {
@@ -20,7 +21,7 @@ const configs = {
       borderBottomColor: 'transparent',
       elevation: 0,
     },
-    headerBackImage: <Icon name="ios-arrow-round-back" type="ionicon" color="#323643" size={40} />,
+    headerBackImage: <Icon name="ios-arrow-round-back" type="ionicon" color="#C5CCD6" size={40} />,
     headerBackTitle: null,
     headerLeftContainerStyle: {
       alignItems: 'center',
@@ -35,6 +36,7 @@ const configs = {
 };
 const MainNavigator = createStackNavigator(
   {
+    Login,
     Home,
     Notifications,
     Messages,
@@ -53,7 +55,7 @@ const RootNavigator = createStackNavigator(
       },
     },
     Filter,
-    Adopt,
+    Adoption,
   },
   configs,
   {
