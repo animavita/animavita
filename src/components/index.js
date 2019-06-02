@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { THEME_COLORS } from '~/utils/constants';
 
 export const Title = styled.Text`
-  font-weight: bold;
+  font-weight: 500;
   font-size: ${props => (props.size ? props.size : 16)};
   letter-spacing: ${props => (props.spacing ? props.spacing : 0)};
   color: ${props => (props.color ? props.color : THEME_COLORS.BLACK)};
@@ -43,4 +43,6 @@ export const Wrapper = styled.View`
 
 export const FormContainer = styled.View`
   margin-top: ${16 * 0.7};
+  ${props => (props.withButton ? 'height:78%' : '')};
+  margin-bottom: ${props => (props.withButton ? '15px' : 0)};
 `;
