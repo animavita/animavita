@@ -34,6 +34,7 @@ const Slider = ({
     <DefaultSlider
       minimumValue={minimum}
       maximumValue={maximum}
+      step={1}
       thumbStyle={styles.thumb}
       trackStyle={styles.track}
       minimumTrackTintColor={THEME_COLORS.SECONDARY}
