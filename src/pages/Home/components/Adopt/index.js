@@ -36,8 +36,8 @@ const handleRequestAdopt = () => {
 const Adopt = ({ navigation }) => (
   <Fragment>
     <TopButtons>
-      <Button title="FILTRAR" onPress={() => navigation.navigate('Filter')} />
-      <Button title="CADASTRAR ADOÇÃO" onPress={() => console.log('open')} />
+      <Button title="FILTRAR" active onPress={() => navigation.navigate('Filter')} />
+      <Button title="CADASTRAR ADOÇÃO" active onPress={() => navigation.navigate('Adoption')} />
     </TopButtons>
     <Container>
       <Swiper
