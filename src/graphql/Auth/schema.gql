@@ -1,0 +1,20 @@
+input UserRegisterInput {
+  name: String!
+  email: String!
+  password: String!
+}
+
+type Token {
+  token: String!
+}
+
+type Query {
+  # Query Root type
+  me: User!
+}
+
+type Mutation {
+  login(email: String!, password: String!): Token!
+  # Create user using input, returning user created and token generated
+  register(data: UserRegisterInput!): Token!
+}
