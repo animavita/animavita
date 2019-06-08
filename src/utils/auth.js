@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/user.model';
+import User from '~/models/User';
 
 require('dotenv').config();
 
-const { APP_SECRET, TOKEN_TIME } = process.env;
+const { APP_SECRET } = process.env;
 
 export const generateToken = payload => jwt.sign(payload, APP_SECRET, {
-  expiresIn: TOKEN_TIME
+  expiresIn: 86400
 });
 
 export const getUser = async (token) => {
@@ -19,7 +19,6 @@ export const getUser = async (token) => {
       user
     };
   } catch (err) {
-    console.log(err);
     return { user: null };
   }
 };
