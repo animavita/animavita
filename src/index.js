@@ -1,8 +1,8 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga';
-import { getUser } from './utils/auth';
-import { database } from './database';
+import middlewares from '../core/middleware';
+import { database } from '../core/database';
+import { getUser } from '../core/auth';
 import schema from './graphql';
-import middlewares from './graphql/middlewares';
 
 require('dotenv').config();
 
