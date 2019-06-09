@@ -30,8 +30,8 @@ const Notifications = () => (
           source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' },
         }}
         title="Chris Jackson"
-        titleStyle={{ color: 'white', fontWeight: '500' }}
-        subtitleStyle={{ color: 'white' }}
+        titleStyle={{ color: 'white', fontWeight: '500', fontSize: 14 }}
+        subtitleStyle={{ color: 'white', fontSize: 12 }}
         subtitle="enviou solicitação para adotar Luke!"
       />
       <ListItem
@@ -51,8 +51,9 @@ const Notifications = () => (
           source: { uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg' },
         }}
         title="Chris Jackson"
-        titleStyle={{ color: 'white', fontWeight: '500' }}
-        subtitleStyle={{ color: 'white' }}
+        titleStyle={{ color: 'white', fontWeight: '500', fontSize: 14 }}
+        onPress={() => navigation.navigate('Chat')}
+        subtitleStyle={{ color: 'white', fontSize: 12 }}
         subtitle="enviou solicitação para adotar Luke!"
       />
     </Content>

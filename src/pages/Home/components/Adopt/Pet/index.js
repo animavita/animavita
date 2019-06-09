@@ -9,6 +9,10 @@ import {
 
 import { THEME_COLORS } from '~/utils/constants';
 
+const handleFavoritePet = () => {
+  console.log('favorited');
+};
+
 const Pet = ({ animal }) => (
   <Card>
     <PetImage
@@ -18,7 +22,7 @@ const Pet = ({ animal }) => (
       }}
     >
       <Heart>
-        <TouchableOpacity onPress={() => alert('s')}>
+        <TouchableOpacity onPress={() => handleFavoritePet()}>
           <Icon name="heart-o" type="font-awesome" color={THEME_COLORS.BLACK} size={28} />
         </TouchableOpacity>
       </Heart>

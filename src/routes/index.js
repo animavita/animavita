@@ -12,6 +12,7 @@ import Notifications from '~/pages/Notifications';
 
 import Filter from '~/pages/Filter';
 import Adoption from '~/pages/Adoption';
+import Details from '~/pages/Details';
 
 const configs = {
   defaultNavigationOptions: {
@@ -56,6 +57,12 @@ const RootNavigator = createStackNavigator(
     },
     Filter,
     Adoption,
+    Details: {
+      screen: Details,
+      navigationOptions: {
+        header: () => null,
+      },
+    },
   },
   configs,
   {

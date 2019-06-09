@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 import { THEME_COLORS } from '~/utils/constants';
 
 export const Title = styled.Text`
-  font-weight: 500;
+  font-weight: ${props => (props.weight ? props.weight : 500)};
   font-size: ${props => (props.size ? props.size : 16)};
   letter-spacing: ${props => (props.spacing ? props.spacing : 0)};
   color: ${props => (props.color ? props.color : THEME_COLORS.BLACK)};

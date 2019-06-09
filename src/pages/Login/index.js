@@ -13,8 +13,8 @@ const Login = () => (
       Greener
     </Title>
     <GradientButton onPress={() => setFinishStep(false)}>
-      <Title size={14} color="white">
-        Login
+      <Title size={12} color="white">
+        Entrar com facebook
       </Title>
     </GradientButton>
   </Container>
