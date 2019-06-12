@@ -3,6 +3,9 @@ import User from '~/models/User';
 import { generateToken } from '~/utils/auth';
 
 export default {
+  Query: {
+    me: async (parent, args, context) => context.user
+  },
   Mutation: {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email }).select('+password');
@@ -14,7 +17,8 @@ export default {
       const token = generateToken({ id: user.id });
 
       return {
-        token
+        token,
+        user
       };
     },
     register: async (parent, { input }) => {
@@ -26,8 +30,5 @@ export default {
         throw new Error(err);
       }
     }
-  },
-  Query: {
-    me: async (parent, args, context) => context.user
   }
 };

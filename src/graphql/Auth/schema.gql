@@ -6,6 +6,7 @@ input UserRegisterInput {
 
 type Token {
   token: String!
+  user: User!
 }
 
 type Query {
