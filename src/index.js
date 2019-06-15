@@ -1,12 +1,18 @@
 import React from 'react';
+import { createRootNavigator } from './routes';
 
 import '~/config/ReactotronConfig';
 
-import { Provider } from 'react-redux';
-import store from './store';
+const App = () => {
+  const signed = true;
+  const signLoaded = true;
 
-import Routes from '~/routes';
+  if (!signLoaded) {
+    return null;
+  }
 
-const App = () => <Routes />;
+  const Routes = createRootNavigator(signed);
+  return <Routes />;
+};
 
 export default App;

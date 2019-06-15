@@ -35,23 +35,23 @@ const configs = {
     },
   },
 };
-const MainNavigator = createStackNavigator(
-  {
-    Login,
 
-    Home,
-    Notifications,
-    Messages,
-    Chat,
-    Settings,
-  },
-  configs,
-);
+const SignedOutRoutes = createStackNavigator({
+  Login,
+});
 
-const RootNavigator = createStackNavigator(
+const MainStackNavigator = createStackNavigator({
+  Home,
+  Notifications,
+  Messages,
+  Chat,
+  Settings,
+}, configs);
+
+const SignedInRoutes = createStackNavigator(
   {
     Main: {
-      screen: MainNavigator,
+      screen: MainStackNavigator,
       navigationOptions: {
         header: () => null,
       },
@@ -71,4 +71,17 @@ const RootNavigator = createStackNavigator(
   },
 );
 
-export default createAppContainer(RootNavigator);
+export const createRootNavigator = (signedIn = false) => {
+  return createAppContainer(createStackNavigator({
+    SignedIn: { screen: SignedInRoutes },
+    SignedOut: { screen: SignedOutRoutes },
+  },
+  {
+    headerMode: 'none',
+    initialRouteName: signedIn ? 'SignedIn' : 'SignedOut',
+    navigationOptions: {
+      gesturesEnabled: false,
+    },
+  }));
+};
+
