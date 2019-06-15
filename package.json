@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.4.2",
     "axios": "0.18.0",
     "prop-types": "15.7.2",
     "react": "16.8.3",
@@ -15,6 +16,7 @@
     "react-native-chart-kit": "^2.6.1",
     "react-native-deck-swiper": "^1.6.7",
     "react-native-elements": "^1.1.0",
+    "react-native-fbsdk": "^0.8.0",
     "react-native-gesture-handler": "1.1.0",
     "react-native-indicators": "^0.13.0",
     "react-native-linear-gradient": "^2.5.4",

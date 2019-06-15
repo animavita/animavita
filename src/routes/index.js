@@ -38,6 +38,7 @@ const configs = {
 const MainNavigator = createStackNavigator(
   {
     Login,
+
     Home,
     Notifications,
     Messages,
