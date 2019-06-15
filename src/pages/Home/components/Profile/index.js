@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import { Avatar, Icon, Badge } from 'react-native-elements';
 import { H1 } from '~/components';
 import { TouchableOpacity } from 'react-native';
@@ -6,9 +6,9 @@ import PropTypes from 'prop-types';
 import {
   ProfileContainer, Salutation, Notification, styles,
 } from './styles';
-import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import { THEME_COLORS } from '~/utils/constants';
+import useProfile from '~/hooks/useProfile';
 
 const hitSlop = {
   top: 20,
@@ -27,23 +27,7 @@ const NotificationItem = ({
 );
 
 const Profile = ({ navigation }) => {
-  const [user, setUser] = useState({});
-
-  const getUserProfile = async () => {
-    const { name, picture} = JSON.parse(await AsyncStorage.getItem('@animativa:facebook_user'));
-    console.log(name);
-    console.log(picture);
-
-    const user = {
-      name: name.split(' ')[0],
-      avatar: picture.data.url,
-    };
-
-    setUser(user);
-  }
-  useEffect(() => {
-    getUserProfile();
-  }, []);  
+  const user = useProfile();
 
   return (
     <Fragment>
@@ -90,17 +74,17 @@ const Profile = ({ navigation }) => {
 Profile.propTypes = {
   navigation: PropTypes.shape().isRequired,
   user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    avatar: PropTypes.string.isRequired,
-  }).isRequired,
+    name: PropTypes.string,
+    avatar: PropTypes.string,
+  }),
 };
 
 Profile.defaultProps = {
   user: {
     name: '',
-    avatar: ''
-  }
-}
+    avatar: '',
+  },
+};
 
 NotificationItem.propTypes = {
   openScreen: PropTypes.func.isRequired,

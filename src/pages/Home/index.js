@@ -1,58 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Container, Header, Tabs, TabButton, TabTitle, TabContainer,
 } from './styles';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import Adopt from './components/Adopt';
 import Statistics from './components/Statistics';
 import Profile from './components/Profile';
 import Loading from '~/components/Loading';
 
-const Home = ({navigation}) => {
-  const [tab, setTab ] = useState('Adoções');
+const Home = ({ navigation }) => {
+  const [tab, setTab] = useState('Adoções');
   const tabs = ['Adoções', 'Solicitações', 'Estatísticas'];
 
   const renderContent = () => {
-      switch (tab) {
-        case 'Adoções':
-          return <Adopt navigation={navigation} />;
-        case 'Estatísticas':
-          return <Statistics />;
-        default:
-          return <Loading />;
-      }
-  }
-
-
-
-  handleTab = (tab) => {
-    setTab(tab)
+    switch (tab) {
+      case 'Adoções':
+        return <Adopt navigation={navigation} />;
+      case 'Estatísticas':
+        return <Statistics />;
+      default:
+        return <Loading />;
+    }
   };
 
-  renderTab = (name) => {
+  const handleTab = (newTab) => {
+    setTab(newTab);
+  };
+
+  const renderTab = (name) => {
     const isActive = tab === name;
     return (
-      <TabButton key={`tab-${name}`} active={isActive} onPress={() => this.handleTab(name)}>
+      <TabButton key={`tab-${name}`} active={isActive} onPress={() => handleTab(name)}>
         <TabTitle active={isActive}>{name}</TabTitle>
       </TabButton>
     );
-  };  
-
+  };
 
   return (
     <Container>
       <Header>
-        <Profile navigation={navigation}  />
+        <Profile navigation={navigation} />
       </Header>
       <TabContainer>
-        <Tabs>{tabs.map(tab => renderTab(tab))}</Tabs>
+        <Tabs>{tabs.map(tabName => renderTab(tabName))}</Tabs>
       </TabContainer>
-      {renderContent()}
-    </Container>    
-  )
-}
+      { renderContent() }
+    </Container>
+  );
+};
 
 Home.navigationOptions = {
   header: null,

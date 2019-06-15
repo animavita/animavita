@@ -17,7 +17,7 @@ const Personal = ({ user }) => (
     <Input>
       <Wrapper>
         <Field>Sobrenome</Field>
-        <TextInput defaultValue={user.lastname} onChangeText={text => console.log(text)} />
+        <TextInput defaultValue={user.lastName} onChangeText={text => console.log(text)} />
       </Wrapper>
       <Small>Editar</Small>
     </Input>
@@ -36,10 +36,18 @@ const Personal = ({ user }) => (
 
 Personal.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    lastname: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  }).isRequired,
+    name: PropTypes.string,
+    lastName: PropTypes.string,
+    email: PropTypes.string,
+  }),
+};
+
+Personal.defaultProps = {
+  user: {
+    name: '',
+    lastName: '',
+    email: '',
+  },
 };
 
 export default Personal;

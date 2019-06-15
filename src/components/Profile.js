@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { Avatar } from 'react-native-elements';
 import { H1 } from '~/components';
-import { useAsyncStorage } from '@react-native-community/async-storage';
+import useProfile from '~/hooks/useProfile';
 
 const Header = styled.View`
   flex-direction: row;
@@ -16,6 +16,8 @@ export const Wrapper = styled.View`
 `;
 
 const Profile = ({ title }) => {
+  const user = useProfile();
+
   return (
     <Header>
       <H1>{title}</H1>
@@ -24,12 +26,12 @@ const Profile = ({ title }) => {
           rounded
           size={16 * 2.2}
           source={{
-            uri: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+            uri: user.avatar,
           }}
         />
       </Wrapper>
     </Header>
   );
-}
+};
 
 export default Profile;
