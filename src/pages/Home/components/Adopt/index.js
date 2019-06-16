@@ -4,31 +4,24 @@ import PropTypes from 'prop-types';
 import Swiper from 'react-native-deck-swiper';
 import Pet from './Pet';
 import { Container, TopButtons } from './styles';
+import gql from 'graphql-tag';
+import Loading from '~/components/Loading';
+import { useQuery } from 'react-apollo-hooks';
 
-const pets = [
+
+const GET_DOGS = gql`
   {
-    id: 1,
-    name: 'Kenji',
-    breed: 'Golden Retrivier',
-    size: 'bigger',
-    distance: 1,
-    sex: 'male',
-    age: 9,
-    image:
-      'https://cdn1.medicalnewstoday.com/content/images/articles/322/322868/golden-retriever-puppy.jpg',
-  },
-  {
-    id: 2,
-    distance: 1,
-    name: 'Astolfinho',
-    size: 'bigger',
-    breed: 'SRD',
-    sex: 'male',
-    age: 9,
-    image:
-      'https://ichef.bbci.co.uk/news/660/cpsprodpb/9776/production/_105247783_e5718d3b-172c-40d4-b6d6-6e4040221049.jpg',
-  },
-];
+    allAdopts{
+      id,
+      name,
+      breed,
+      images {
+        url
+      }
+    }
+  }
+`;
+
 
 const handleNextPet = () => {
   console.log('next');
@@ -39,9 +32,13 @@ const handleRequestAdopt = () => {
 };
 
 const Adopt = ({ navigation }) => {
+  const {data,error, loading} = useQuery(GET_DOGS);
+
   function handleRedirectToDetail(index) {
     navigation.navigate('Details', { animal: pets[index] });
   }
+
+
   return (
     <Fragment>
       <TopButtons>
@@ -49,8 +46,11 @@ const Adopt = ({ navigation }) => {
         <Button title="CADASTRAR ADOÇÃO" active onPress={() => navigation.navigate('Adoption')} />
       </TopButtons>
       <Container>
-        <Swiper
-          cards={pets}
+        { loading || data.allAdopts.length == 0 ? (
+          <Loading />
+        ) : (
+          <Swiper
+          cards={data.allAdopts}
           cardVerticalMargin={0}
           useViewOverflow={false}
           verticalSwipe={false}
@@ -68,6 +68,7 @@ const Adopt = ({ navigation }) => {
           backgroundColor="#ffffff"
           stackSize={3}
         />
+        )}
       </Container>
     </Fragment>
   );

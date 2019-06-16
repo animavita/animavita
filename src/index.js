@@ -1,6 +1,8 @@
 import React from 'react';
 import { createRootNavigator } from './routes';
-
+import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
+import client from './services/client';
 import '~/config/ReactotronConfig';
 
 const App = () => {
@@ -12,7 +14,13 @@ const App = () => {
   }
 
   const Routes = createRootNavigator(signed);
-  return <Routes />;
+  return (
+    <ApolloProvider client={client}>
+      <ApolloHooksProvider client={client}>
+      <Routes />
+      </ApolloHooksProvider>
+    </ApolloProvider>
+  )
 };
 
 export default App;

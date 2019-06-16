@@ -9,7 +9,8 @@ import {
 import { withNavigation } from 'react-navigation';
 import { THEME_COLORS } from '~/utils/constants';
 import useProfile from '~/hooks/useProfile';
-
+import { useSubscription } from 'react-apollo-hooks';
+import gql from 'graphql-tag';
 const hitSlop = {
   top: 20,
   bottom: 20,
@@ -17,18 +18,43 @@ const hitSlop = {
   right: 20,
 };
 
+const NOTIFICATIONS_SUBSCRIPTION = gql`
+  subscription onNotificationReceived{
+    Notification(filter: {mutation_in:[CREATED]}) {
+      node{
+        id
+        message
+      }
+    }
+    
+  } 
+  
+`;
+
+const MESSAGES_SUBSCRIPTIONS = gql`
+  subscription onMessageReceived{
+    Message(filter: {mutation_in:[CREATED]}) {
+      node{
+        id
+        message
+      }
+    }
+  }  
+`
+
 const NotificationItem = ({
-  openScreen, iconName, iconType, badgeStatus,
+  openScreen, iconName, iconType, badgeStatus, news
 }) => (
   <TouchableOpacity hitSlop={hitSlop} onPress={openScreen}>
     <Icon name={iconName} type={iconType} color={THEME_COLORS.BLACK} size={22} />
-    <Badge status={badgeStatus} containerStyle={styles.badge} />
+    
+    { news ? <Badge status={badgeStatus} containerStyle={styles.badge} /> : null}
   </TouchableOpacity>
 );
 
 const Profile = ({ navigation }) => {
   const user = useProfile();
-
+  const { data, error, loading } = useSubscription(NOTIFICATIONS_SUBSCRIPTION);
   return (
     <Fragment>
       <Salutation>
@@ -56,6 +82,7 @@ const Profile = ({ navigation }) => {
             iconName="bell"
             iconType="feather"
             badgeStatus="success"
+            news={ !loading && data.Notification.node ? true : false }
           />
         </Notification>
         <Avatar
@@ -91,6 +118,7 @@ NotificationItem.propTypes = {
   iconName: PropTypes.string.isRequired,
   iconType: PropTypes.string.isRequired,
   badgeStatus: PropTypes.string.isRequired,
+  news: PropTypes.bool
 };
 
 export default withNavigation(Profile);
