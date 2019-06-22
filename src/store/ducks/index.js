@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
+import filter from './filter';
 
 const reducers = combineReducers({
-  // Remova essa linha depois de adicionar seus ducks
-  example: () => [],
+  filter,
 });
 
 export default reducers;

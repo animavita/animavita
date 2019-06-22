@@ -1,9 +1,11 @@
 import React from 'react';
-import { createRootNavigator } from './routes';
 import { ApolloProvider } from 'react-apollo';
+import { Provider } from 'react-redux';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
-import client from './services/client';
+import { createRootNavigator } from './routes';
+import client from './apollo/client';
 import '~/config/ReactotronConfig';
+import store from './store';
 
 const App = () => {
   const signed = true;
@@ -17,10 +19,12 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <ApolloHooksProvider client={client}>
-      <Routes />
+        <Provider store={store}>
+          <Routes />
+        </Provider>
       </ApolloHooksProvider>
     </ApolloProvider>
-  )
+  );
 };
 
 export default App;

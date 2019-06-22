@@ -43,11 +43,10 @@ const MESSAGES_SUBSCRIPTIONS = gql`
 `
 
 const NotificationItem = ({
-  openScreen, iconName, iconType, badgeStatus, news
+  openScreen, iconName, iconType, badgeStatus, news,
 }) => (
   <TouchableOpacity hitSlop={hitSlop} onPress={openScreen}>
     <Icon name={iconName} type={iconType} color={THEME_COLORS.BLACK} size={22} />
-    
     { news ? <Badge status={badgeStatus} containerStyle={styles.badge} /> : null}
   </TouchableOpacity>
 );

@@ -25,15 +25,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  opacity: {
+    opacity: 0.7,
+    borderRadius: 6,
+    height: 16 * 3,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
-const GradientButton = ({ children, onPress, loading }) => (
-  <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.8} opacity={0.8}>
+const GradientButton = ({
+  children, onPress, loading, disabled,
+}) => (
+  <TouchableOpacity
+    style={styles.button}
+    onPress={disabled ? null : onPress}
+    activeOpacity={disabled ? 1 : 0.8}
+    opacity={0.8}
+  >
     <LinearGradient
       start={cardinals.start}
       end={cardinals.end}
       locations={locations}
-      style={styles.button}
+      style={disabled ? styles.opacity : styles.button}
       colors={[THEME_COLORS.PRIMARY, THEME_COLORS.SECONDARY]}
     >
       {loading ? <Loading size={23} color="white" /> : children}
@@ -45,10 +60,12 @@ GradientButton.propTypes = {
   children: PropTypes.node.isRequired,
   onPress: PropTypes.func.isRequired,
   loading: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 GradientButton.defaultProps = {
   loading: false,
+  disabled: true,
 };
 
 export default GradientButton;

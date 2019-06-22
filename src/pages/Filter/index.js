@@ -10,10 +10,19 @@ import { THEME_COLORS } from '~/utils/constants';
 import Button from '~/components/Button';
 import GradientButton from '~/components/GradientButton';
 import useForm from '~/hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { Creators as FilterCreators } from '~/store/ducks/filter';
 
-const Filter = () => {
-  const [values, handleChange, handleSubmit] = useForm({ age: 1 });
 
+const Filter = ({ navigation }) => {
+  const [values, handleChange, handleSubmit, disabled] = useForm({ age: 1 });
+  const dispatch = useDispatch();
+
+  function setFilters() {
+    dispatch(FilterCreators.setFilters({ quantity: 2 }));
+    navigation.goBack();
+  }
+  
   return (
     <Container>
       <Profile title="Filtros" />
@@ -89,7 +98,7 @@ const Filter = () => {
           </Wrapper>
         </Input>
       </FormContainer>
-      <GradientButton onPress={() => setFinishStep(false)}>
+      <GradientButton disabled={disabled} onPress={() => setFilters()}>
         <Title size={14} color="white">
           Aplicar Filtros
         </Title>
