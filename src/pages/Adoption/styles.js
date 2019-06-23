@@ -12,13 +12,6 @@ export const FormContainer = styled.ScrollView`
   margin-bottom: 15px;
 `;
 
-export const PhotoContainer = styled.View`
-  margin-top: ${16 * 0.7};
-  max-height: 78%;
-  height: 78%;
-  margin-bottom: 15px;
-`;
-
 export const ButtonGroup = styled.View`
   flex-direction: row;
   justify-content: space-between;
