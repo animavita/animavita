@@ -29,7 +29,7 @@ const Details = ({ navigation, animal }) => (
       <Swiper style={styles.wrapper} activeDotColor={THEME_COLORS.SECONDARY} dotColor="white">
         <PetImage
           source={{
-            uri: navigation.state.params.animal.image,
+            uri: navigation.state.params.animal.images[0].url,
           }}
         />
         <PetImage

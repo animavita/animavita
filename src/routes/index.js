@@ -41,10 +41,10 @@ const SignedOutRoutes = createStackNavigator({
 });
 
 const MainStackNavigator = createStackNavigator({
+  Chat,
   Home,
   Notifications,
   Messages,
-  Chat,
   Settings,
 }, configs);
 
