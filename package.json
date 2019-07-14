@@ -27,6 +27,7 @@
     "react-native-deck-swiper": "^1.6.7",
     "react-native-elements": "^1.1.0",
     "react-native-fbsdk": "^0.8.0",
+    "react-native-flash-message": "^0.1.13",
     "react-native-gesture-handler": "1.1.0",
     "react-native-image-picker": "^0.28.1",
     "react-native-indicators": "^0.13.0",

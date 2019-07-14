@@ -1,12 +1,12 @@
-import React, { useRef } from 'react';
+import React,{useRef, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
+import gql from 'graphql-tag';
 import { useQuery, useSubscription } from 'react-apollo-hooks';
-import { Text, FlatList } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { Text, FlatList, KeyboardAvoidingView } from 'react-native';
+import { Avatar, Button } from 'react-native-elements';
 import Message from './components/Message';
 import Input from './components/Input';
 import { H1 } from '~/components';
-import gql from 'graphql-tag';
 import Loading from '~/components/Loading';
 
 import { Container, Header, Profile, Content } from './styles';
@@ -39,9 +39,9 @@ const GET_CONVERSATION_MESSAGES_QUERY = gql`
 const NEW_MESSAGES_SUBSCRIPTION = gql`
   subscription onMessagesReceived {
     Message(filter:{
-      mutation_in: [CREATED], node:{
+      mutation_in: CREATED, node:{
         from_not: "Wendel Freitas",
-        
+
       }
     }){
       node{
@@ -54,15 +54,19 @@ const NEW_MESSAGES_SUBSCRIPTION = gql`
 `;
 
 const Chat = () => {
+  const [messages, useMessages] = useState([]);
+  const ref = useRef();
+
   const { data, error, loading } = useQuery(GET_CONVERSATION_MESSAGES_QUERY, {
     variables: {
       id: 'cjxjllghd96ec0162kjwb0ft0',
     },
+
+  
   });
-  const flatList = useRef();
-  const { subData, subErro, subloading } = useSubscription(NEW_MESSAGES_SUBSCRIPTION);
 
 
+  const { data: subData, error: subError, loading: subloading } = useSubscription(NEW_MESSAGES_SUBSCRIPTION);
 
   function renderItem({ item }) {
     return (
@@ -71,6 +75,28 @@ const Chat = () => {
       </Message>
     );
   }
+
+  useEffect(() => {
+    if (data && data.Conversation) {
+      useMessages(data.Conversation.messages);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    ref.current.scrollToEnd();
+  });
+
+  function addMesageTest() {
+    if (data && data.Conversation) {
+      data.Conversation.messages.push({
+        id: Math.random(),
+        from: 'Wendel Freitas',
+        message: 'Testing',
+      });
+    }
+
+  }
+
 
   return (
     <Container>
@@ -86,20 +112,21 @@ const Chat = () => {
           />
         </Profile>
       </Header>
-      <Content>
-        {loading ? (
-          <Loading />
-        ) : (
+      {loading ? (
+        <Loading />
+      ) : (
+        <Container behavior={null}>
           <FlatList
-            data={data.Conversation.messages}
+            data={messages}
             renderItem={renderItem}
+            ref={ref}
             showsVerticalScrollIndicator={false}
             keyExtractor={item => item.id.toString()}
           />
-        )}
-
-      </Content>
-        <Input onAddMessage={console.log('oi')} />
+        </Container>
+      )}
+      <Button title="oi" onPress={() => addMesageTest()}/>
+      <Input onAddMessage={console.log('oi')} />
     </Container>
   );
 };

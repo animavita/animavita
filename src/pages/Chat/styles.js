@@ -17,12 +17,8 @@ export const Profile = styled.View`
   align-items: center;
 `;
 
-export const Content = styled.View`
-  margin-top: ${25 * 0.7};
-  margin-bottom: 10px;
+export const Content = styled.KeyboardAvoidingView`
   flex: 1;
-  padding: 0 10px;
-  justify-content: space-between;
 `;
 
 export const Item = styled.View`

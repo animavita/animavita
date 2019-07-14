@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Avatar, Icon, Badge } from 'react-native-elements';
 import { H1 } from '~/components';
+import { showMessage } from 'react-native-flash-message';
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -26,21 +27,11 @@ const NOTIFICATIONS_SUBSCRIPTION = gql`
         message
       }
     }
-    
-  } 
-  
+
+  }
+
 `;
 
-const MESSAGES_SUBSCRIPTIONS = gql`
-  subscription onMessageReceived{
-    Message(filter: {mutation_in:[CREATED]}) {
-      node{
-        id
-        message
-      }
-    }
-  }  
-`
 
 const NotificationItem = ({
   openScreen, iconName, iconType, badgeStatus, news,
@@ -53,12 +44,26 @@ const NotificationItem = ({
 
 const Profile = ({ navigation }) => {
   const user = useProfile();
+  let username = '';
+  if (user.name && user.name.length > 8) {
+    username = `\n ${user.name}`;
+  } else {
+    username = user.name;
+  }
+
   const { data, error, loading } = useSubscription(NOTIFICATIONS_SUBSCRIPTION);
+
+  if (!loading && data.Notification.node) {
+    showMessage({
+      message: 'Notificação!',
+      description: 'Você tem uma nova notificação',
+      type: 'primary',
+    });
+  }
   return (
     <Fragment>
       <Salutation>
-        <H1 size={22}>Olá, </H1>
-        <H1>{user.name}</H1>
+        <H1 size={22}>{`Olá, ${username}`}</H1>
       </Salutation>
       <ProfileContainer>
         <Notification>
@@ -68,14 +73,14 @@ const Profile = ({ navigation }) => {
             iconType="feather"
             badgeStatus="primary"
           />
-  
+
           <NotificationItem
             openScreen={() => navigation.navigate('Messages')}
             iconName="map-pin"
             iconType="feather"
             badgeStatus="error"
           />
-  
+
           <NotificationItem
             openScreen={() => navigation.navigate('Notifications')}
             iconName="bell"
