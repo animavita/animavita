@@ -29,7 +29,7 @@ const Pet = ({ animal }) => (
       <Informations>
         <Name style={styles.shadow}>{animal.name}</Name>
         <SubText style={styles.shadow}>{animal.breed}</SubText>
-        <SubText style={styles.shadow}>{animal.distance} kilômetros de distância</SubText>
+        <SubText style={styles.shadow}>Macho / Médio</SubText>
       </Informations>
     </PetImage>
   </Card>
@@ -41,9 +41,7 @@ Pet.propTypes = {
     name: PropTypes.string,
     breed: PropTypes.string,
     distance: PropTypes.number,
-  }),
+  }).isRequired,
 };
-
-
 
 export default Pet;

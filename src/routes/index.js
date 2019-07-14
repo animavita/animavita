@@ -37,14 +37,19 @@ const configs = {
 };
 
 const SignedOutRoutes = createStackNavigator({
-  Login,
+  Login: {
+    screen: Login,
+    navigationOptions: {
+      header: () => null,
+    },
+  },
 });
 
 const MainStackNavigator = createStackNavigator({
-  Chat,
   Home,
   Notifications,
   Messages,
+  Chat,
   Settings,
 }, configs);
 
@@ -84,4 +89,3 @@ export const createRootNavigator = (signedIn = false) => {
     },
   }));
 };
-

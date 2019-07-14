@@ -4,6 +4,7 @@ export const THEME_COLORS = {
   BLACK: '#323643',
   PRIMARY: '#0AC4BA',
   SECONDARY: '#2BDA8E',
+  GREY: '#C5CCD6',
 };
 
 export const ANIMAL_TYPES = [
