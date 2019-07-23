@@ -1,5 +1,7 @@
 import styled from 'styled-components/native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const { width } = Dimensions.get('window');
 
 export const BackButton = styled.TouchableOpacity`
   position: absolute;
@@ -16,48 +18,46 @@ export const PetImage = styled.ImageBackground`
 `;
 
 export const Slide = styled.View`
-  height: 50%;
+  height: 62%;
 `;
 
 export const PetDetail = styled.View`
-  flex: 1;
   align-items: center;
+  position: absolute;
+  bottom: 0;
+  background-color: white;
   justify-content: space-between;
-  padding: 10px 30px;
+  border-radius: 30px;
+  padding: 20px 30px;
+  width: ${width};
+  height: 42%;
 `;
 
 export const PetData = styled.View`
-  width: 60%;
   flex-direction: row;
+  width: 100%;
   justify-content: space-between;
-  align-items: center;
-  margin-top: 10;
+  align-items: flex-start;
+  margin-top: 10px;
+  margin-bottom: 15px;
 `;
 
 export const FooterContent = styled.View`
-  align-items: center;
-`;
-export const Observations = styled.View`
-  padding: 0 10px;
-`;
-
-export const Action = styled.TouchableOpacity`
-  justify-content: center;
+  width: 100%;
+  align-items: flex-start;
+  margin-bottom: 20px;
 `;
 
-export const ActionButtons = styled.View`
-  width: 90%;
-  flex-direction: row;
+export const TopContent = styled.View`
+  width: 100%;
+  flex-direction: row; 
   justify-content: space-between;
-  margin: 20px 0;
-`;
-
-export const ScrollScreen = styled.ScrollView`
-  margin-bottom: 10;
 `;
 
 export const styles = StyleSheet.create({
   wrapper: {
     height: '50%',
   },
+  dot: { marginBottom: 15 },
+  heart: { position: 'absolute', right: 0, bottom: 35 }
 });
