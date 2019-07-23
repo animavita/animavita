@@ -6,7 +6,7 @@ export const Container = styled.View`
   background-color: white;
   justify-content: space-between;
   padding: 30px 32px;
-  padding-top: 40px;
+  padding-top: 25px;
 `;
 
 export const Header = styled.View`
