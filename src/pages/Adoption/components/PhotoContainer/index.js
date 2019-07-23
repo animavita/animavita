@@ -66,7 +66,7 @@ const PhotoContainer = ({ setStep, data, setData }) => {
   return (
     <>
       <Container>
-        <DrawImage source={require('~/images/playCat.png')} />
+        <DrawImage source={require('~/images/photoContainerImage.jpg')} />
         <Title size={12} weight="normal">Que tal umas fotos fofíssimas do animalzíneo?</Title>
         <Box>
           {photos.map(item => (!item.save ? (
