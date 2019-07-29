@@ -33,10 +33,12 @@
     "jest": "^24.8.0"
   },
   "dependencies": {
-    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^6.2.0",
+    "fb": "^2.0.0",
     "graphql": "^14.3.1",
     "graphql-middleware": "^3.0.2",
+    "graphql-relay": "^0.6.0",
     "graphql-subscriptions": "^1.1.0",
     "graphql-tools": "^4.0.4",
     "graphql-yoga": "^1.17.4",
