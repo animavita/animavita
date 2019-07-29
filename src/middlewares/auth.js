@@ -1,8 +1,9 @@
 import { applyMiddlewareRule } from '../utils/middleware';
-import resolvers from '../graphql/resolvers';
+import Query from '~/types/QueryType';
+import Mutation from '~/types/MutationType';
 
 /* The middleware will not be applied to the resolvers of this array */
-const exceptions = ['login', 'register'];
+const exceptions = ['login', 'register', 'SignInWithFacebookMutation'];
 
 /* The middleware handle function ( Rule ) */
 const handle = async (resolve, parent, args, context) => {
@@ -21,6 +22,6 @@ export default {
    * middleware will not be applied)
    */
 
-  Query: applyMiddlewareRule(handle, resolvers.Query),
-  Mutation: applyMiddlewareRule(handle, resolvers.Mutation, exceptions) // No exceptions
+  Query: applyMiddlewareRule(handle, Query),
+  Mutation: applyMiddlewareRule(handle, Mutation, exceptions) // No exceptions
 };

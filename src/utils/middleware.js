@@ -11,8 +11,9 @@ const mergeRuleInResolvers = (rule, resolvers, exceptions) => {
 
 /* Apply middleware rule in all resolvers of the 'type' received  */
 export const applyMiddlewareRule = (rule, type, exceptions = []) => {
-  /* Transform resolvers queries in array */
-  let resolvers = type instanceof Object ? Object.keys(type) : [];
+  /* Transform resolvers name queries in array */
+
+  let resolvers = Object.keys(type.getFields());
 
   resolvers = mergeRuleInResolvers(rule, resolvers, exceptions);
   return resolvers;
