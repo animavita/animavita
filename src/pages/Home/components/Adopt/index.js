@@ -1,12 +1,13 @@
 import React, { Fragment } from 'react';
+import { isEmpty } from '~/utils/helpers';
+import { gql } from 'apollo-boost';
 import Button from '~/components/Button';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@apollo/react-hooks';
 import Swiper from 'react-native-deck-swiper';
 import Pet from './Pet';
-import { Container, TopButtons } from './styles';
-import gql from 'graphql-tag';
 import Loading from '~/components/Loading';
+import { Container, TopButtons } from './styles';
 
 const GET_ADOPTS_QUERY = gql`
   query getAllAdopts($filter: AdoptsFilter, $skip: Int, $first: Int) {
@@ -64,14 +65,7 @@ const Adopt = ({ navigation }) => {
   }
 
   function renderSwiper() {
-    if (loading) {
-      return <Loading />;
-    }
-    if (adoptsData.length === 0) {
-      return null;
-    }
-
-    return (
+    return isEmpty(adoptsData) ? null : (
       <Swiper
         cards={adoptsData}
         cardVerticalMargin={0}
@@ -94,7 +88,7 @@ const Adopt = ({ navigation }) => {
         <Button title="FILTRAR" active onPress={() => navigation.navigate('Filter')} />
         <Button title="CADASTRAR ADOÇÃO" active onPress={() => navigation.navigate('Adoption')} />
       </TopButtons>
-      <Container>{renderSwiper()}</Container>
+      <Container>{loading ? <Loading /> : renderSwiper()}</Container>
     </Fragment>
   );
 };
