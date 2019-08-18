@@ -1,30 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import FlashMessage from 'react-native-flash-message';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider } from '@apollo/react-hooks';
 import { Provider } from 'react-redux';
-import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 import { createRootNavigator } from './routes';
 import client from './apollo/client';
 import '~/config/ReactotronConfig';
+import { getUser } from '~/utils/helpers';
 import store from './store';
 
 const App = () => {
-  const signed = false;
-  const signLoaded = true;
+  const [signed, setSigned] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
-  if (!signLoaded) {
+  async function getData() {
+    const { user } = getUser();
+    setLoaded(true);
+    setSigned(!!user);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  if (!loaded) {
     return null;
   }
 
   const Routes = createRootNavigator(signed);
   return (
     <ApolloProvider client={client}>
-      <ApolloHooksProvider client={client}>
-        <Provider store={store}>
-          <Routes />
-          <FlashMessage position="top" />
-        </Provider>
-      </ApolloHooksProvider>
+      <Provider store={store}>
+        <Routes />
+        <FlashMessage position="top" />
+      </Provider>
     </ApolloProvider>
   );
 };

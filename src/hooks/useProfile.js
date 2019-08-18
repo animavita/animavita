@@ -5,18 +5,17 @@ const useProfile = () => {
   const [user, setUser] = useState({});
 
   const getUserProfile = async () => {
-    const { name, email, picture } = JSON.parse(
-      await AsyncStorage.getItem('@animativa:facebook_user'),
-    );
+    const { user: storagedUser } = JSON.parse(await AsyncStorage.getItem('@animativa:user'));
+    const { name, email, avatar } = storagedUser;
     const [firstName, lastName] = name.split(' ');
-    const storageUser = {
+    const userData = {
       name: firstName,
-      avatar: picture.data.url,
-      email,
       lastName,
+      email,
+      avatar,
     };
 
-    setUser(storageUser);
+    setUser(userData);
   };
 
   useEffect(() => {
