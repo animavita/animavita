@@ -8,4 +8,5 @@ export const TopButtons = styled.View`
   flex-direction: row;
   justify-content: space-between;
   padding: 0 30px;
+  margin-bottom: 10px;
 `;

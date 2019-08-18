@@ -2,27 +2,33 @@ import React from 'react';
 import {
   FormContainer, Input, Field, Wrapper, Title,
 } from '~/components';
+import { useSelector, useDispatch } from 'react-redux';
+
 import Profile from '~/components/Profile';
-import { Container, ButtonGroup } from './styles';
 import Slider from '~/components/Slider';
 import { Picker } from 'react-native';
 import { THEME_COLORS } from '~/utils/constants';
 import Button from '~/components/Button';
 import GradientButton from '~/components/GradientButton';
 import useForm from '~/hooks/useForm';
-import { useDispatch } from 'react-redux';
 import { Creators as FilterCreators } from '~/store/ducks/filter';
+import { Container, ButtonGroup, Footer, ClearText } from './styles';
 
 
 const Filter = ({ navigation }) => {
-  const [values, handleChange, handleSubmit, disabled] = useForm({ age: 1 });
+  const filters = useSelector(state => state.filter);
+  const [values, handleChange, handleSubmit, resetValues, disabled] = useForm(filters);
   const dispatch = useDispatch();
 
   function setFilters() {
-    dispatch(FilterCreators.setFilters({ quantity: 2 }));
+    dispatch(FilterCreators.setFilters(values));
     navigation.goBack();
   }
-  
+
+  function clearFilters() {
+    resetValues();
+    dispatch(FilterCreators.clearFilters());
+  }
   return (
     <Container>
       <Profile title="Filtros" />
@@ -91,18 +97,26 @@ const Filter = ({ navigation }) => {
             <Slider
               minimum={1}
               maximum={15}
-              value={values.age}
-              valueText={values.age > 1 ? 'anos' : 'ano'}
-              onChange={value => handleChange('age', value)}
+              value={values.age_lte}
+              valueText={values.age_lte > 1 ? 'anos' : 'ano'}
+              onChange={value => handleChange('age_lte', value)}
             />
           </Wrapper>
         </Input>
       </FormContainer>
-      <GradientButton disabled={disabled} onPress={() => setFilters()}>
-        <Title size={14} color="white">
-          Aplicar Filtros
-        </Title>
-      </GradientButton>
+      <Footer>
+
+        <GradientButton disabled={disabled} onPress={() => setFilters()}>
+          <Title size={14} color="white">
+            Aplicar Filtros
+          </Title>
+        </GradientButton>
+        <ClearText onPress={() => clearFilters()}>
+          <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+            Limpar Filtros
+          </Title>
+        </ClearText>
+      </Footer>
     </Container>
   );
 };

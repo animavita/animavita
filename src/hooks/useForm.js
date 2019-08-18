@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const useForm = (initialValues) => {
   const [values, setValues] = useState(initialValues);
@@ -13,7 +13,15 @@ const useForm = (initialValues) => {
     setDisabled(false);
   };
 
-  return [values, handleChange, handleSubmit, disabled];
+  const resetValues = () => {
+    setValues(initialValues);
+  };
+
+  useEffect(() => {
+    resetValues();
+  }, [initialValues]);
+
+  return [values, handleChange, handleSubmit, resetValues, disabled];
 };
 
 export default useForm;

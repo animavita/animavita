@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import Statistics from './components/Statistics';
 import PropTypes from 'prop-types';
 import {
   Container, Header, Tabs, TabButton, TabTitle, TabContainer,
 } from './styles';
 
 import Adopt from './components/Adopt';
-import Statistics from './components/Statistics';
 import Profile from './components/Profile';
 import Loading from '~/components/Loading';
 
@@ -24,14 +24,10 @@ const Home = ({ navigation }) => {
     }
   };
 
-  const handleTab = (newTab) => {
-    setTab(newTab);
-  };
-
   const renderTab = (name) => {
     const isActive = tab === name;
     return (
-      <TabButton key={`tab-${name}`} active={isActive} onPress={() => handleTab(name)}>
+      <TabButton key={`tab-${name}`} active={isActive} onPress={() => setTab(name)}>
         <TabTitle active={isActive}>{name}</TabTitle>
       </TabButton>
     );

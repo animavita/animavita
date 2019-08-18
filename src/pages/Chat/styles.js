@@ -17,8 +17,9 @@ export const Profile = styled.View`
   align-items: center;
 `;
 
-export const Content = styled.KeyboardAvoidingView`
+export const Content = styled.View`
   flex: 1;
+  margin-top: 10px;
 `;
 
 export const Item = styled.View`

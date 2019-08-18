@@ -18,7 +18,7 @@ const Pet = ({ animal }) => (
     <PetImage
       imageStyle={styles.image}
       source={{
-        uri: animal.images[0].url,
+        uri: animal.firstImage,
       }}
     >
       <Heart>
@@ -38,6 +38,7 @@ const Pet = ({ animal }) => (
 Pet.propTypes = {
   animal: PropTypes.shape({
     image: PropTypes.string,
+    firstImage: PropTypes.string,
     name: PropTypes.string,
     breed: PropTypes.string,
     distance: PropTypes.number,

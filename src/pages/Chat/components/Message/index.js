@@ -2,6 +2,7 @@ import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
 import { styles } from './styles';
+import { Title } from '~/components';
 
 const colors = {
   me: ['#0AC4BA', '#2BDA8E'],
@@ -20,19 +21,20 @@ const cardinals = {
 };
 
 const me = 'Wendel Freitas';
-const Message = ({ from, children }) => (
-  <LinearGradient
-    colors={from === me ? colors.me : colors.from}
-    start={cardinals.start}
-    end={cardinals.from}
-    style={from === me ? styles.me : styles.from}
-  >
-    {children}
-  </LinearGradient>
-);
-
-Message.propTypes = {
-  from: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
+const Message = ({ currentMessage }) => {
+  const { user } = currentMessage;
+  return (
+    <LinearGradient
+      colors={user.name !== me ? colors.from : colors.me}
+      start={cardinals.start}
+      end={cardinals.from}
+      style={user.name !== me ? styles.from : styles.me}
+    >
+      <Title color="white" size={12} weight="normal">
+        {currentMessage.text}
+      </Title>
+    </LinearGradient>
+  );
 };
+
 export default Message;

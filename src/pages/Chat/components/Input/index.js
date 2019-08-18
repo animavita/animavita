@@ -8,19 +8,12 @@ import {
   Text
 } from "react-native";
 import { THEME_COLORS } from "~/utils/constants";
+import { Send } from 'react-native-gifted-chat';
 
 class Input extends Component {
   state = {
-    message: ""
-  };
-
-  handleAddMessage = async () => {
-    const { author } = this.props;
-    const { message } = this.state;
-
-  
-    this.setState({ message: "" });
-  };
+    message: ''
+  }
 
   render() {
     return (
@@ -31,9 +24,10 @@ class Input extends Component {
           style={styles.input}
           underlineColorAndroid="rgba(0,0,0,0)"
         />
-        <TouchableOpacity onPress={this.handleAddMessage}>
-          <Text style={styles.button}>Enviar</Text>
-        </TouchableOpacity>
+          <Send {...this.props}>
+
+            <Text style={styles.button}>Enviar</Text>
+          </Send>
       </View>
     );
   }

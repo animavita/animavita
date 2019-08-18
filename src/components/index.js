@@ -44,5 +44,5 @@ export const Wrapper = styled.View`
 export const FormContainer = styled.View`
   margin-top: ${16 * 0.7};
   ${props => (props.withButton ? 'height:78%' : '')};
-  margin-bottom: ${props => (props.withButton ? '15px' : 0)};
+  margin-bottom: ${props => (props.withButton ? '5px' : 0)};
 `;

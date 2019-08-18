@@ -18,7 +18,7 @@ export const Footer = styled.View`
   width: 100%;
 `;
 
-export const Terms = styled.View`
+export const Terms = styled.TouchableOpacity`
   margin-top: 15px;
 `;
 

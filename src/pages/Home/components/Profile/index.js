@@ -10,8 +10,10 @@ import {
 import { withNavigation } from 'react-navigation';
 import { THEME_COLORS } from '~/utils/constants';
 import useProfile from '~/hooks/useProfile';
-import { useSubscription } from 'react-apollo-hooks';
+import { useSubscription } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+import { sanitizeUsername } from '~/utils/helpers';
+
 const hitSlop = {
   top: 20,
   bottom: 20,
@@ -44,22 +46,10 @@ const NotificationItem = ({
 
 const Profile = ({ navigation }) => {
   const user = useProfile();
-  let username = '';
-  if (user.name && user.name.length > 8) {
-    username = `\n ${user.name}`;
-  } else {
-    username = user.name;
-  }
+  let username = sanitizeUsername(user.name)
 
   const { data, error, loading } = useSubscription(NOTIFICATIONS_SUBSCRIPTION);
 
-  if (!loading && data.Notification.node) {
-    showMessage({
-      message: 'Notificação!',
-      description: 'Você tem uma nova notificação',
-      type: 'primary',
-    });
-  }
   return (
     <Fragment>
       <Salutation>
@@ -86,7 +76,6 @@ const Profile = ({ navigation }) => {
             iconName="bell"
             iconType="feather"
             badgeStatus="success"
-            news={ !loading && data.Notification.node ? true : false }
           />
         </Notification>
         <Avatar
