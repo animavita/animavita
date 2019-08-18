@@ -7,23 +7,24 @@ import client from './apollo/client';
 import '~/config/ReactotronConfig';
 import { getUser } from '~/utils/helpers';
 import store from './store';
+import Loading from '~/components/Loading';
 
 const App = () => {
   const [signed, setSigned] = useState(false);
-  const [loaded, setLoaded] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   async function getData() {
-    const { user } = getUser();
-    setLoaded(true);
+    const { user } = await getUser();
     setSigned(!!user);
+    setLoading(false);
   }
 
   useEffect(() => {
     getData();
   }, []);
 
-  if (!loaded) {
-    return null;
+  if (loading) {
+    return <Loading />;
   }
 
   const Routes = createRootNavigator(signed);
