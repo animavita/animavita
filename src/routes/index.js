@@ -76,16 +76,14 @@ const SignedInRoutes = createStackNavigator(
   },
 );
 
-export const createRootNavigator = (signedIn = false) => {
-  return createAppContainer(createStackNavigator({
-    SignedIn: { screen: SignedInRoutes },
-    SignedOut: { screen: SignedOutRoutes },
+export const createRootNavigator = (signedIn = false) => createAppContainer(createStackNavigator({
+  SignedIn: { screen: SignedInRoutes },
+  SignedOut: { screen: SignedOutRoutes },
+},
+{
+  headerMode: 'none',
+  initialRouteName: signedIn ? 'SignedIn' : 'SignedOut',
+  navigationOptions: {
+    gesturesEnabled: false,
   },
-  {
-    headerMode: 'none',
-    initialRouteName: signedIn ? 'SignedIn' : 'SignedOut',
-    navigationOptions: {
-      gesturesEnabled: false,
-    },
-  }));
-};
+}));
