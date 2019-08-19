@@ -24,10 +24,11 @@ const Filter = ({ navigation }) => {
     dispatch(FilterCreators.setFilters(values));
     navigation.goBack();
   }
-
+  
   function clearFilters() {
     resetValues();
     dispatch(FilterCreators.clearFilters());
+    navigation.goBack();
   }
   return (
     <Container>

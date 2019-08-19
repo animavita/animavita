@@ -1,5 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Image } from 'react-native';
+import { Title } from '~/components';
+import { THEME_COLORS } from '~/utils/constants';
 import { showMessage } from 'react-native-flash-message';
 import { isEmpty } from '~/utils/helpers';
 import { gql } from 'apollo-boost';
@@ -9,7 +12,9 @@ import { useQuery } from '@apollo/react-hooks';
 import Swiper from 'react-native-deck-swiper';
 import Pet from './Pet';
 import Loading from '~/components/Loading';
-import { Container, TopButtons } from './styles';
+import {
+  Container, TopButtons, ImageContainer, styles,
+} from './styles';
 
 
 const GET_ADOPTS_QUERY = gql`
@@ -26,6 +31,7 @@ const GET_ADOPTS_QUERY = gql`
 
 const Adopt = ({ navigation }) => {
   const filters = useSelector(state => state.filter);
+  const [swipedAll, setSwipedAll] = useState(false);
   const {
     loading, error, data, fetchMore,
   } = useQuery(GET_ADOPTS_QUERY, {
@@ -47,6 +53,12 @@ const Adopt = ({ navigation }) => {
     }
   }, [error]);
 
+  useEffect(() => {
+    if (!isEmpty(data.adopts)) {
+      setSwipedAll(false);
+    }
+  }, [data]);
+
   function handleRedirectToDetail(animal) {
     navigation.navigate('Details', { animal });
   }
@@ -67,17 +79,23 @@ const Adopt = ({ navigation }) => {
     }
   }
 
-  if(data.adopts){
-
-    alert(JSON.stringify(data.adopts))
-  }
-
-
   function renderSwiper() {
-    return isEmpty(data.adopts) ? null : (
+    return isEmpty(data.adopts) || swipedAll ? (
+      <ImageContainer>
+        <Title size={13} color={THEME_COLORS.GREY}>
+          Sem resultados para adoção no momento.
+        </Title>
+        <Image
+          resizeMode="contain"
+          style={styles.image}
+          source={require('~/images/emptyAdoptions.jpg')}
+        />
+      </ImageContainer>
+    ) : (
       <Swiper
         cards={data.adopts || []}
         cardVerticalMargin={0}
+        onSwipedAll={() => setSwipedAll(true)}
         useViewOverflow={false}
         verticalSwipe={false}
         onTapCard={index => handleRedirectToDetail(data.adopts[index])}
@@ -86,7 +104,7 @@ const Adopt = ({ navigation }) => {
         onSwiped={cardIndex => nextAdoption(cardIndex)}
         cardIndex={0}
         backgroundColor="#ffffff"
-        stackSize={3}
+        stackSize={2}
       />
     );
   }

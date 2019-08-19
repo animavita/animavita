@@ -17,7 +17,7 @@ import {
   styles,
 } from './styles';
 
-const Details = ({ navigation }) => { 
+const Details = ({ navigation }) => {
   const { animal } = navigation.state.params;
   return (
     <Container>
@@ -31,7 +31,7 @@ const Details = ({ navigation }) => {
         >
           <PetImage
             source={{
-              uri: animal.images[0].url,
+              uri: animal.firstImage,
             }}
           />
           <PetImage
@@ -57,7 +57,7 @@ const Details = ({ navigation }) => {
               onPress={() => console.log('hello')}
             />
           </TopContent>
-  
+
           <PetData>
             <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
               {'Raça \n'}
@@ -93,6 +93,6 @@ const Details = ({ navigation }) => {
       </PetDetail>
     </Container>
   );
-} 
+};
 
 export default Details;
