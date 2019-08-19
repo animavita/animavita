@@ -2,6 +2,7 @@ import {
   GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList
 } from 'graphql';
 import UserType from '../user/UserType';
+import AddressType from '../address/AddressType';
 import UserModel from '../user/UserModel';
 
 const AdoptType = new GraphQLObjectType({
@@ -23,9 +24,17 @@ const AdoptType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: adopt => adopt.name
     },
-    email: {
+    breed: {
       type: GraphQLString,
-      resolve: adopt => adopt.email
+      resolve: adopt => adopt.breed
+    },
+    type: {
+      type: GraphQLString,
+      resolve: adopt => adopt.type
+    },
+    sex: {
+      type: GraphQLString,
+      resolve: adopt => adopt.sex
     },
     images: {
       type: GraphQLList(GraphQLString),
@@ -34,6 +43,10 @@ const AdoptType = new GraphQLObjectType({
     firstImage: {
       type: GraphQLString,
       resolve: adopt => adopt.images[0]
+    },
+    address: {
+      type: AddressType,
+      resolve: adopt => adopt.address
     }
   })
 });

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import AddressModel from '../address/AddressModel';
 
 const { Schema, ObjectId } = mongoose;
 
@@ -20,6 +21,11 @@ const AdoptSchema = new Schema(
       type: String,
       required: true
     },
+    sex: {
+      type: String,
+      required: true,
+      enum: ['male', 'female']
+    },
     type: {
       type: String,
       required: true,
@@ -40,7 +46,8 @@ const AdoptSchema = new Schema(
         type: String,
         required: true
       }
-    ]
+    ],
+    address: AddressModel
   },
   {
     timestamps: true

@@ -15,6 +15,20 @@ export default mutationWithClientMutationId({
     breed: {
       type: new GraphQLNonNull(GraphQLString)
     },
+    sex: {
+      type: new GraphQLEnumType({
+        name: 'Sex',
+        description: 'Sex of animal (male or female)',
+        values: {
+          MALE: {
+            value: 'male'
+          },
+          FEMALE: {
+            value: 'female'
+          }
+        }
+      })
+    },
     type: {
       type: new GraphQLEnumType({
         name: 'Type',

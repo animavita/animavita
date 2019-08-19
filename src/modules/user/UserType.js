@@ -1,4 +1,5 @@
 import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql';
+import AddressType from '../address/AddressType';
 
 const UserType = new GraphQLObjectType({
   name: 'User',
@@ -24,6 +25,10 @@ const UserType = new GraphQLObjectType({
     facebookId: {
       type: GraphQLString,
       resolve: user => user.facebookId
+    },
+    address: {
+      type: AddressType,
+      resolve: user => user.address
     }
   })
 });

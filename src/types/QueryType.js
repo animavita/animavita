@@ -2,8 +2,7 @@ import { GraphQLObjectType, GraphQLList } from 'graphql';
 
 import UserType from '../modules/user/UserType';
 import UserModel from '../modules/user/UserModel';
-import AdoptType from '../modules/adopt/AdoptType';
-import AdoptModel from '../modules/adopt/AdoptModel';
+import AdoptQuery from '../modules/adopt/AdoptQuery';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -18,10 +17,6 @@ export default new GraphQLObjectType({
       type: GraphQLList(UserType),
       resolve: async () => UserModel.find({})
     },
-    adopts: {
-      description: 'Get all users on Animavita',
-      type: GraphQLList(AdoptType),
-      resolve: async () => AdoptModel.find({})
-    }
+    ...AdoptQuery
   })
 });

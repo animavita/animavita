@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import AddressModel from '../address/AddressModel';
 
 const { Schema } = mongoose;
 
@@ -27,7 +28,8 @@ const UserSchema = new Schema(
       type: String,
       unique: true,
       required: true
-    }
+    },
+    address: AddressModel
   },
   {
     timestamps: true

@@ -33,6 +33,7 @@
     "jest": "^24.8.0"
   },
   "dependencies": {
+    "@entria/graphql-mongo-helpers": "0.0.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^6.2.0",
     "fb": "^2.0.0",
