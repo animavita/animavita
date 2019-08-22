@@ -32,6 +32,7 @@ const GET_ADOPTS_QUERY = gql`
 const Adopt = ({ navigation }) => {
   const filters = useSelector(state => state.filter);
   const [swipedAll, setSwipedAll] = useState(false);
+  const [adopts, setAdopts] = useState([]);
   const {
     loading, error, data, fetchMore,
   } = useQuery(GET_ADOPTS_QUERY, {
@@ -40,37 +41,45 @@ const Adopt = ({ navigation }) => {
       skip: 0,
       first: 2,
     },
-  });
-
-  useEffect(() => {
-    if (error) {
+    notifyOnNetworkStatusChange: true,
+    onError: () => {
       showMessage({
         message: 'Erro na listagem de adoções!',
         description:
           'Ops! Alguns animais escaparam dos nossos abraços, tente novamente mais tarde!',
         type: 'danger',
       });
-    }
-  }, [error]);
+    },
+    onCompleted: () => alert('tchau')
+  });
+
+  if (data && data.adopts) {
+    setAdopts(data.adopts);
+  }
+
 
   useEffect(() => {
-    if (!isEmpty(data.adopts)) {
+    if (!error && !isEmpty(adopts)) {
       setSwipedAll(false);
     }
   }, [data]);
+
 
   function handleRedirectToDetail(animal) {
     navigation.navigate('Details', { animal });
   }
 
   function nextAdoption(index) {
-    if (data.adopts[index + 1]) {
+    if (adopts[index + 1]) {
       fetchMore({
         variables: {
-          skip: data.adopts.length,
+          skip: adopts.length,
+          filter: filters,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
+
+          setAdopts([...adopts, fetchMoreResult.adopts]);
           return Object.assign({}, prev, {
             adopts: [...prev.adopts, ...fetchMoreResult.adopts],
           });
@@ -80,25 +89,28 @@ const Adopt = ({ navigation }) => {
   }
 
   function renderSwiper() {
-    return isEmpty(data.adopts) || swipedAll ? (
+    return !data || error || isEmpty(adopts) || swipedAll ? (
       <ImageContainer>
-        <Title size={13} color={THEME_COLORS.GREY}>
-          Sem resultados para adoção no momento.
-        </Title>
         <Image
           resizeMode="contain"
           style={styles.image}
-          source={require('~/images/emptyAdoptions.jpg')}
+          source={require('~/images/emptyAdoptions.png')}
         />
+        <Title size={18} align="center" color={THEME_COLORS.BLACK}>
+          {error ? 'Ops! Alguma coisa deu errado' : 'Sem resultados para adoção no momento.'}
+        </Title>
+        <Title size={13} align="center" weight="normal" color={THEME_COLORS.GREY}>
+          {!error ? 'Aah! Something went wrong' : '\nSem resultados para adoção no momento, \n acredito que eles estejam tirando uma soneca'}
+        </Title>
       </ImageContainer>
     ) : (
       <Swiper
-        cards={data.adopts || []}
+        cards={adopts}
         cardVerticalMargin={0}
         onSwipedAll={() => setSwipedAll(true)}
         useViewOverflow={false}
         verticalSwipe={false}
-        onTapCard={index => handleRedirectToDetail(data.adopts[index])}
+        onTapCard={index => handleRedirectToDetail(adopts[index])}
         // eslint-disable-next-line no-underscore-dangle
         renderCard={animal => <Pet key={animal._id} animal={animal} />}
         onSwiped={cardIndex => nextAdoption(cardIndex)}
