@@ -1,0 +1,51 @@
+{
+  "name": "kraken",
+  "version": "1.0.0",
+  "description": "A simple boilerplate to create a tentacool service!",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run server",
+    "server": "rm -rf ./node_modules/.cache/babel-loader && nodemon --exec babel-node src/index.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wendelfreitas/kraken.git"
+  },
+  "keywords": [],
+  "author": "Wendel Freitas <wendelfreitasbranco@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wendelfreitas/kraken/issues"
+  },
+  "homepage": "https://github.com/wendelfreitas/kraken#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/node": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-plugin-import-graphql": "^2.7.0",
+    "babel-plugin-root-import": "^6.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-import-resolver-babel-plugin-root-import": "^1.1.1",
+    "eslint-plugin-import": "^2.17.3",
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "@entria/graphql-mongo-helpers": "0.0.1",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^6.2.0",
+    "fb": "^2.0.0",
+    "graphql": "^14.3.1",
+    "graphql-middleware": "^3.0.2",
+    "graphql-relay": "^0.6.0",
+    "graphql-subscriptions": "^1.1.0",
+    "graphql-tools": "^4.0.4",
+    "graphql-yoga": "^1.17.4",
+    "jsonwebtoken": "^8.5.1",
+    "merge-graphql-schemas": "^1.5.8",
+    "mongoose": "^5.5.13",
+    "nodemon": "^1.19.1"
+  }
+}
