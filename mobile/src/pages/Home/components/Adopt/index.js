@@ -19,6 +19,8 @@ const GET_ADOPTS_QUERY = gql`
       name
       breed
       type
+      size
+      sex
       firstImage
     }
   }
@@ -33,7 +35,7 @@ const Adopt = ({ navigation }) => {
     variables: {
       filter: filters,
       skip: 0,
-      first: 50,
+      first: 2,
     },
     onError: () => {
       showMessage({

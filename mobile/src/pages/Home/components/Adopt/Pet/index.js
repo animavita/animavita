@@ -29,7 +29,7 @@ const Pet = ({ animal }) => (
       <Informations>
         <Name style={styles.shadow}>{animal.name}</Name>
         <SubText style={styles.shadow}>{animal.breed}</SubText>
-        <SubText style={styles.shadow}>Macho / Médio</SubText>
+        <SubText style={styles.shadow}>{animal.sex} / {animal.size}</SubText>
       </Informations>
     </PetImage>
   </Card>
