@@ -32,9 +32,13 @@ const AdoptType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: adopt => adopt.type
     },
-    sex: {
+    size: {
       type: GraphQLString,
-      resolve: adopt => adopt.sex
+      resolve: adopt => adopt.size
+    },
+    gender: {
+      type: GraphQLString,
+      resolve: adopt => adopt.gender
     },
     images: {
       type: GraphQLList(GraphQLString),

@@ -21,7 +21,7 @@ const AdoptSchema = new Schema(
       type: String,
       required: true
     },
-    sex: {
+    gender: {
       type: String,
       required: true,
       enum: ['male', 'female']
