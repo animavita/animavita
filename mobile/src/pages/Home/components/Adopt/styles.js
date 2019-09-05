@@ -7,5 +7,6 @@ export const Container = styled.View`
 export const TopButtons = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  padding: 0 30px;
+  padding: 0 35px;
+  margin-bottom: 10px;
 `;
