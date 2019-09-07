@@ -1,5 +1,10 @@
 import {
-  GraphQLInt, GraphQLList, GraphQLString, GraphQLInputObjectType
+  GraphQLInt,
+  GraphQLList,
+  GraphQLString,
+  GraphQLInputObjectType,
+  GraphQLID,
+  GraphQLNonNull
 } from 'graphql';
 import {
   FILTER_CONDITION_TYPE,
@@ -75,17 +80,26 @@ export default {
         type: GraphQLInt
       }
     },
-    resolve: async (_, { filter, first = null, skip = null }, context) => {
+    resolve: (_, { filter, first = null, skip = null }, context) => {
       const { user } = context;
       const filterResult = buildMongoConditionsFromFilters(context, filter, mapping);
       const conditions = {
         ...filterResult.conditions,
         'address.city': user.address.city
       };
-
       return AdoptModel.find(conditions)
         .skip(skip)
         .limit(first);
     }
+  },
+  adopt: {
+    type: AdoptType,
+    description: 'Take specific adopt by id',
+    args: {
+      id: {
+        type: new GraphQLNonNull(GraphQLID)
+      }
+    },
+    resolve: (_, { id }) => AdoptModel.findById(id)
   }
 };
