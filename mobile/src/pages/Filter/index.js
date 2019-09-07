@@ -61,12 +61,12 @@ const Filter = ({ navigation }) => {
             <Field>Sexo do animal</Field>
 
             <Picker
-              selectedValue={values.sex}
+              selectedValue={values.gender}
               style={{ height: 50, width: '100%', color: THEME_COLORS.BLACK }}
-              onValueChange={value => handleChange('sex', value)}
+              onValueChange={value => handleChange('gender', value)}
             >
               <Picker.Item label="Macho" value="male" />
-              <Picker.Item label="Femêa" value="female" />
+              <Picker.Item label="Fêmea" value="female" />
             </Picker>
           </Wrapper>
         </Input>
