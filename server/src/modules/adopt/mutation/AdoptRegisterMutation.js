@@ -15,10 +15,10 @@ export default mutationWithClientMutationId({
     breed: {
       type: new GraphQLNonNull(GraphQLString)
     },
-    sex: {
+    gender: {
       type: new GraphQLEnumType({
-        name: 'Sex',
-        description: 'Sex of animal (male or female)',
+        name: 'Gender',
+        description: 'Gender of animal (male or female)',
         values: {
           MALE: {
             value: 'male'
@@ -65,6 +65,9 @@ export default mutationWithClientMutationId({
     },
     images: {
       type: new GraphQLNonNull(GraphQLList(GraphQLString))
+    },
+    observations: {
+      type: GraphQLString
     }
   },
   mutateAndGetPayload: async ({
