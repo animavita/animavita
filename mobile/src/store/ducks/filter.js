@@ -6,7 +6,7 @@ export const Types = {
 };
 
 const INITIAL_STATE = Immutable({
-  sex: '',
+  gender: '',
   type: '',
   size: '',
   age_lte: 1,

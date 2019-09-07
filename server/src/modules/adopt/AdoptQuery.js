@@ -23,11 +23,11 @@ const mapping = {
       return null;
     }
   },
-  sex: {
+  gender: {
     type: FILTER_CONDITION_TYPE.CUSTOM_CONDITION,
-    format: (sex) => {
-      if (sex !== '') {
-        return { sex };
+    format: (gender) => {
+      if (gender !== '') {
+        return { gender };
       }
       return null;
     }
@@ -59,7 +59,7 @@ export default {
             size: {
               type: GraphQLString
             },
-            sex: {
+            gender: {
               type: GraphQLString
             },
             type: {
