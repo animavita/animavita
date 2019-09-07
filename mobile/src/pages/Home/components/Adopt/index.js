@@ -20,7 +20,7 @@ const GET_ADOPTS_QUERY = gql`
       breed
       type
       size
-      sex
+      gender
       firstImage
     }
   }
@@ -35,8 +35,9 @@ const Adopt = ({ navigation }) => {
     variables: {
       filter: filters,
       skip: 0,
-      first: 2,
+      first: 10,
     },
+    fetchPolicy: 'no-cache',
     onError: () => {
       showMessage({
         message: 'Erro na listagem de adoções!',

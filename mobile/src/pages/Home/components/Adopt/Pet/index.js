@@ -2,11 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-
 import {
   PetImage, Informations, Name, SubText, Heart, Card, styles,
 } from './styles';
-
 import { THEME_COLORS } from '~/utils/constants';
 
 const handleFavoritePet = () => {
@@ -29,7 +27,9 @@ const Pet = ({ animal }) => (
       <Informations>
         <Name style={styles.shadow}>{animal.name}</Name>
         <SubText style={styles.shadow}>{animal.breed}</SubText>
-        <SubText style={styles.shadow}>{animal.sex} / {animal.size}</SubText>
+        <SubText style={styles.shadow}>
+          {animal.gender} / {animal.size}
+        </SubText>
       </Informations>
     </PetImage>
   </Card>
