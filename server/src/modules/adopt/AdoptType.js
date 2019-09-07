@@ -4,10 +4,11 @@ import {
 import UserType from '../user/UserType';
 import AddressType from '../address/AddressType';
 import UserModel from '../user/UserModel';
+import { getAnimalGender, getAnimalSize } from '~/utils/helpers';
 
 const AdoptType = new GraphQLObjectType({
   name: 'Adopt',
-  description: 'Adopt data',
+  description: 'All fields possible in adopt schema',
   fields: () => ({
     _id: {
       type: GraphQLID,
@@ -34,11 +35,11 @@ const AdoptType = new GraphQLObjectType({
     },
     size: {
       type: GraphQLString,
-      resolve: adopt => adopt.size
+      resolve: adopt => getAnimalSize(adopt.size)
     },
     gender: {
       type: GraphQLString,
-      resolve: adopt => adopt.gender
+      resolve: adopt => getAnimalGender(adopt.gender)
     },
     images: {
       type: GraphQLList(GraphQLString),
@@ -51,6 +52,10 @@ const AdoptType = new GraphQLObjectType({
     address: {
       type: AddressType,
       resolve: adopt => adopt.address
+    },
+    observations: {
+      type: GraphQLString,
+      resolve: adopt => adopt.observations
     }
   })
 });
