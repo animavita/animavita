@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">A minimal, clean and beautiful mobile app to help people find your lovely friends, rescue lifes and improve the world.</h4>
+<h4 align="center">A minimal, clean and beautiful mobile app to help people find your lovely friends, rescue lifes and bring hapiness for pets.</h4>
 
 <p align="center"><i >"How to save a life?" - The Fray</i> </p>
 
@@ -30,30 +30,27 @@
   <a href="#tech-stack">Tech Stack</a> •
   <a href="#credits">Credits</a> •
   <a href="#related">Related</a> •
-  <a href="#license">License</a>
+  <a href="#license">License</a> •
+  <a href="#about-me">About Me</a>
 </p>
 
 ![screenshot](https://raw.githubusercontent.com/amitmerchant1990/electron-markdownify/master/app/img/markdownify.gif)
 
 ## Why
 
--   LivePreview - Make changes, See changes
-    -   Instantly see what your Markdown documents look like in HTML as you create them.
--   Sync Scrolling
-    -   While you type, LivePreview will automatically scroll to the current location you're editing.
--   GitHub Flavored Markdown
--   Syntax highlighting
--   [KaTeX](https://khan.github.io/KaTeX/) Support
--   Dark/Light mode
--   Toolbar for basic Markdown formatting
--   Supports multiple cursors
--   Save the Markdown preview as PDF
--   Emoji support in preview :tada:
--   App will keep alive in tray for quick usage
--   Full screen mode
-    -   Write distraction free.
--   Cross platform
-    -   Windows, macOS and Linux ready.
+A project is nothing less than a story, it's up to you to decide whether or not to tell people.
+
+**Here is my story...**
+
+I've always been passionate about learning new things, things that challenge your skills and solve big problems, when I learned to write code, I challenged myself to do 1 big project a year, this year I turn 3 and this is my third project (the first two are games made with unity C #).
+
+**What is Animavita?**
+
+Animavita is the combination of the following Latin words: "animalis" and "vitae" which mean respectively "animal" and "life", the idea of ​​creating animavita was born a while ago, when I realized that facebook is used to spread the word adoption and also solicit help for stray animals.
+
+**What is your purpose?**
+
+The purpose of Animavita is not to migrate people who use facebook to the activities described above, but to centralize information in a single application. Anyone can make an adoption request, this does not mean that the animal has been adopted, but that the person can talk directly to the person who registered the pet to be adopted, so that the person is free to do a "search" . It will also be possible to trigger alerts for street rescue requests, the system then, based on user-provided information about the pet, will attempt to search for disappearance requests to warn potential owners of the found pet, also calculating the radius in which the pet can move. from the starting point.
 
 ## How To Use
 
@@ -77,11 +74,16 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 
 ## Tech Stack
 
+<h1 align="center">
+  <img src="https://miro.medium.com/max/2600/1*pD7ShcZ7YHIMXe2mgiFzbg.png" alt="Animavita" height="125" width="600">
+  <br>
+</h1>
+
 -   [React](https://github.com/facebook/react) _(100% [Hooks](https://reactjs.org/docs/hooks-intro.html), zero classes)_
 -   [React Native](https://github.com/facebook/react-native)
 -   [Redux](https://github.com/reduxjs/react-redux)
 -   [MongoDB](https://www.mongodb.com/)
--   [Redux Saga](https://github.com/redux-saga/redux-saga/)
+-   [Formik + Yup](https://jaredpalmer.com/formik/)
 -   [Apollo](https://apollographql.com)
 -   [GraphQL](https://github.com/facebook/graphql)
 -   [Kraken](https://github.com/wendelfreitas/kraken)
@@ -127,6 +129,9 @@ MIT
 
 ---
 
-> [amitmerchant.com](https://www.amitmerchant.com) &nbsp;&middot;&nbsp;
-> GitHub [@amitmerchant1990](https://github.com/amitmerchant1990) &nbsp;&middot;&nbsp;
-> Twitter [@amit_merchant](https://twitter.com/amit_merchant)
+## About Me
+
+> Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
+> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br>
+> GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
+> Twitter - [@amit_merchant](https://twitter.com/hey_wendelzinho)
