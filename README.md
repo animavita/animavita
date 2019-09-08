@@ -40,7 +40,7 @@ A project is nothing less than a story, it's up to you to decide whether or not 
 
 **Here is my story...**
 
-I've always been passionate about learning new things, things that challenge your skills and solve big problems, when I learned to write code, I challenged myself to do 1 big project a year, this year I turn 3 and this is my third project (the first two are games made with unity C #).
+I've always been passionate about learning new things, things that challenge your skills and solve big problems, when I learned to write code, I challenged myself to do 1 big project a year, this year I turn 3 and this is my third project (the first two are games made with unity C#).
 
 **What is Animavita?**
 
@@ -75,7 +75,7 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 ## **Tech Stack**
 
 <h1 align="center">
-  <img src="https://miro.medium.com/max/2600/1*pD7ShcZ7YHIMXe2mgiFzbg.png" alt="Animavita" height="125" width="600">
+  <img src="https://miro.medium.com/max/2600/1*pD7ShcZ7YHIMXe2mgiFzbg.png" alt="Stack" height="150" width="600">
   <br>
 </h1>
 
