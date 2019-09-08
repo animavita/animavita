@@ -54,20 +54,24 @@ The purpose of Animavita is not to migrate people who use facebook to the activi
 
 ## **How To Use**
 
-To clone and run this application, you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download/) (which comes with [npm](http://npmjs.com)) installed on your computer. From your command line:
-
 ```bash
 # Clone this repository
-$ git clone https://github.com/amitmerchant1990/electron-markdownify
+$ git clone https://github.com/wendelfreitas/animavita
 
 # Go into the repository
-$ cd electron-markdownify
+$ cd animavita
+
+# Go to mobile repository
+$ cd mobile
 
 # Install dependencies
 $ npm install
 
+# Link dependencies
+$ react-native link
+
 # Run the app
-$ npm start
+$ react-native run-android
 ```
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
@@ -107,6 +111,6 @@ MIT
 ## **About Me**
 
 > Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
-> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br>
 > GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
-> Twitter - [@amit_merchant](https://twitter.com/hey_wendelzinho)
+> Twitter - [@hey_wendelzinho](https://twitter.com/hey_wendelzinho) <br>
+> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br>
