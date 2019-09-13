@@ -19,6 +19,7 @@ const GET_ADOPTS_QUERY = gql`
       name
       breed
       type
+      age
       size
       gender
       firstImage
@@ -91,8 +92,8 @@ const Adopt = ({ navigation }) => {
 
     if (isEmpty(data.adopts) || swipedAll) {
       const description = isEmpty(data.adopts)
-        ? '\nSem resultados para adoção no momento, \n acredito que eles estejam tirando uma soneca'
-        : '\nSem resultados para esses filtros, \n como você não gostou dessas fofuras que apareceram?';
+        ? '\nSem resultados para esses filtros, \n acredito que eles estejam tirando uma soneca.'
+        : '\nSem resultados para adoção no momento, \n como você não gostou dessas fofuras que apareceram?';
       return (
         <ErrorContainer
           image={require('~/images/emptyAdoptions.png')}
@@ -110,7 +111,6 @@ const Adopt = ({ navigation }) => {
         useViewOverflow={false}
         verticalSwipe={false}
         onTapCard={cardIndex => handleRedirectToDetail(data.adopts[cardIndex])}
-        // eslint-disable-next-line no-underscore-dangle
         renderCard={animal => <Pet key={animal._id} animal={animal} />}
         onSwiped={cardIndex => nextAdoption(cardIndex)}
         cardIndex={0}

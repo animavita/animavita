@@ -9,7 +9,6 @@ import { Icon } from 'react-native-elements';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Loading from '~/components/Loading';
-
 import {
   TopContent,
   FooterContent,
@@ -28,6 +27,7 @@ const GET_SPECIFIC_ADOPT_BY_ID = gql`
     adopt(id: $id) {
       type
       images
+      age
       observations
     }
   }
@@ -37,7 +37,6 @@ const Details = ({ navigation }) => {
   const { animal } = navigation.state.params;
   const { loading, data } = useQuery(GET_SPECIFIC_ADOPT_BY_ID, {
     variables: {
-      // eslint-disable-next-line no-underscore-dangle
       id: animal._id,
     },
     onError: () => {
@@ -52,6 +51,19 @@ const Details = ({ navigation }) => {
     },
   });
 
+  function showAdoptImages() {
+    const { adopt } = data;
+
+    return adopt.images.map(image => (
+      <PetImage
+        key={image}
+        source={{
+          uri: image,
+        }}
+      />
+    ));
+  }
+
   return (
     <Container>
       <Slide>
@@ -62,20 +74,15 @@ const Details = ({ navigation }) => {
           activeDotColor={THEME_COLORS.SECONDARY}
           dotColor="white"
         >
-          <PetImage
-            source={{
-              uri: animal.firstImage,
-            }}
-          />
-          {!loading
-            && data.adopt.images.slice(1).map(image => (
-              <PetImage
-                key={image}
-                source={{
-                  uri: image,
-                }}
-              />
-            ))}
+          {loading ? (
+            <PetImage
+              source={{
+                uri: animal.firstImage,
+              }}
+            />
+          ) : (
+            showAdoptImages()
+          )}
         </Swiper>
       </Slide>
       <BackButton onPress={() => navigation.goBack()}>
@@ -117,7 +124,7 @@ const Details = ({ navigation }) => {
             <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
               {'Idade \n'}
               <Title weight="normal" color="#c5ccd6" size={11}>
-                1 ano
+                {animal.age} {animal.age > 1 ? 'anos' : 'ano'}
               </Title>
             </Title>
           </PetData>

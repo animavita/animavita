@@ -14,6 +14,7 @@
   },
   "rules": {
     "import/prefer-default-export": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "comma-dangle": ["error", { "functions": "ignore" }],
     "no-unused-vars": [
       "error",

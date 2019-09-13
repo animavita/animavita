@@ -26,6 +26,7 @@
     "import/prefer-default-export": "off",
     "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
     "react/jsx-one-expression-per-line": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "react-native/no-color-literals": "off",
     "react-native/sort-styles": "off",
     "react-native/no-raw-text": "off",
