@@ -10,8 +10,11 @@ import {
   FILTER_CONDITION_TYPE,
   buildMongoConditionsFromFilters
 } from '@entria/graphql-mongo-helpers';
+import mongoose from 'mongoose';
 import AdoptType from './AdoptType';
 import AdoptModel from './AdoptModel';
+
+const { ObjectId } = mongoose.Types;
 
 const mapping = {
   size: {
@@ -85,8 +88,12 @@ export default {
       const filterResult = buildMongoConditionsFromFilters(context, filter, mapping);
       const conditions = {
         ...filterResult.conditions,
-        'address.city': user.address.city
+        'address.city': user.address.city,
+        user: {
+          $ne: ObjectId(context.user._id)
+        }
       };
+
       return AdoptModel.find(conditions)
         .skip(skip)
         .limit(first);
