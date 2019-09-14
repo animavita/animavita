@@ -1,5 +1,5 @@
 import {
-  GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList
+  GraphQLObjectType, GraphQLString, GraphQLID, GraphQLList, GraphQLInt
 } from 'graphql';
 import UserType from '../user/UserType';
 import AddressType from '../address/AddressType';
@@ -24,6 +24,10 @@ const AdoptType = new GraphQLObjectType({
     name: {
       type: GraphQLString,
       resolve: adopt => adopt.name
+    },
+    age: {
+      type: GraphQLInt,
+      resolve: adopt => adopt.age
     },
     breed: {
       type: GraphQLString,
