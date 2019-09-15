@@ -2,32 +2,32 @@ export const getAnimalGender = (gender) => {
   const genders = [
     {
       key: 'male',
-      trans: 'Macho'
+      translate: 'Macho'
     },
     {
       key: 'female',
-      trans: 'Fêmea'
+      translate: 'Fêmea'
     }
   ];
 
-  return genders.find(element => element.key === gender).trans;
+  return genders.find(element => element.key === gender).translate;
 };
 
 export const getAnimalSize = (size) => {
   const sizes = [
     {
       key: 'small',
-      trans: 'Pequeno'
+      translate: 'Pequeno'
     },
     {
       key: 'medium',
-      trans: 'Médio'
+      translate: 'Médio'
     },
     {
       key: 'bigger',
-      trans: 'Grande'
+      translate: 'Grande'
     }
   ];
 
-  return sizes.find(element => element.key === size).trans;
+  return sizes.find(element => element.key === size).translate;
 };
