@@ -6,3 +6,5 @@ export const TextInput = styled(DefaultInput)`
   padding: 0;
   color: ${THEME_COLORS.BLACK};
 `;
+
+export const EditButton = styled.TouchableOpacity``;
