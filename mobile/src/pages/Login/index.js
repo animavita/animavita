@@ -22,6 +22,8 @@ const USER_LOGIN_MUTATION = gql`
         name
         email
         avatar
+        hero
+        notifications
       }
       token
     }
@@ -67,7 +69,7 @@ const Login = ({ navigation }) => {
 
       if (response.user) {
         const { accessToken } = JSON.parse(await AsyncStorage.getItem('@facebook:accessData'));
-        await AsyncStorage.setItem('@animativa:facebook_user', JSON.stringify(response.user));
+        await AsyncStorage.setItem('@animavita:facebook_user', JSON.stringify(response.user));
         loginUser({
           variables: { accessToken },
         });
@@ -81,7 +83,7 @@ const Login = ({ navigation }) => {
 
   async function saveLoggedUser() {
     await AsyncStorage.setItem(
-      '@animativa:user',
+      '@animavita:user',
       JSON.stringify(data.SignInWithFacebookMutation),
     );
   }
