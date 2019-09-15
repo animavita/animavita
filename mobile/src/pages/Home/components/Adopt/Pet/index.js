@@ -7,7 +7,7 @@ import {
 } from './styles';
 import { THEME_COLORS } from '~/utils/constants';
 
-const handleFavoritePet = () => {
+const handleShareAdoption = () => {
   console.log('favorited');
 };
 
@@ -20,8 +20,8 @@ const Pet = ({ animal }) => (
       }}
     >
       <Heart>
-        <TouchableOpacity onPress={() => handleFavoritePet()}>
-          <Icon name="heart-o" type="font-awesome" color={THEME_COLORS.BLACK} size={28} />
+        <TouchableOpacity onPress={() => handleShareAdoption()}>
+          <Icon name="share" type="entypo" color={THEME_COLORS.BLACK} size={28} />
         </TouchableOpacity>
       </Heart>
       <Informations>
