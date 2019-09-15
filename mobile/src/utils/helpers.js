@@ -10,4 +10,4 @@ export const sanitizeUsername = (name) => {
 
 export const isEmpty = array => array instanceof Array && array.length === 0;
 
-export const getUser = async () => JSON.parse(await AsyncStorage.getItem('@animativa:user'));
+export const getUser = async () => JSON.parse(await AsyncStorage.getItem('@animavita:user')) || {};
