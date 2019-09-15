@@ -1,4 +1,6 @@
-import { GraphQLObjectType, GraphQLString, GraphQLID } from 'graphql';
+import {
+  GraphQLObjectType, GraphQLString, GraphQLID, GraphQLBoolean
+} from 'graphql';
 import AddressType from '../address/AddressType';
 
 const UserType = new GraphQLObjectType({
@@ -7,7 +9,6 @@ const UserType = new GraphQLObjectType({
   fields: () => ({
     _id: {
       type: GraphQLID,
-      // eslint-disable-next-line no-underscore-dangle
       resolve: user => user._id
     },
     name: {
@@ -21,6 +22,15 @@ const UserType = new GraphQLObjectType({
     avatar: {
       type: GraphQLString,
       resolve: user => user.avatar
+    },
+    notifications: {
+      description: 'Field to define if user are able to receive notifications',
+      type: GraphQLBoolean,
+      resolve: user => user.notifications
+    },
+    hero: {
+      type: GraphQLBoolean,
+      resolve: user => user.hero
     },
     facebookId: {
       type: GraphQLString,
