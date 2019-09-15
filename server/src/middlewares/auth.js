@@ -3,7 +3,7 @@ import Query from '~/types/QueryType';
 import Mutation from '~/types/MutationType';
 
 /* The middleware will not be applied to the resolvers of this array */
-const exceptions = ['login', 'register', 'SignInWithFacebookMutation'];
+const exceptions = ['SignInWithFacebookMutation'];
 
 /* The middleware handle function ( Rule ) */
 const handle = async (resolve, parent, args, context) => {
