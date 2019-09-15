@@ -5,7 +5,6 @@ import {
 import { showMessage } from 'react-native-flash-message';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import Loading from '~/components/Loading';
 import PropTypes from 'prop-types';
 import { TextInput, EditButton } from './styles';
 
@@ -21,12 +20,8 @@ const USER_CHANGE_NAME_MUTATION = gql`
 
 const Personal = ({ user }) => {
   const [fields, setFields] = useState({
-    name: user.name,
-    lastname: user.lastName,
     nameEditable: false,
     lastnameEditable: false,
-    hero: user.hero,
-    notifications: user.notifications,
   });
 
   const [updateName] = useMutation(USER_CHANGE_NAME_MUTATION, {
@@ -39,7 +34,7 @@ const Personal = ({ user }) => {
     },
     onError: () => {
       showMessage({
-        message: 'Erro na autenticação!',
+        message: 'Erro na atualização de dados!',
         description:
           'Ops! Algum erro no momento da atualização dos dados aconteceu, tente novamente mais tarde.',
         type: 'danger',
@@ -51,7 +46,7 @@ const Personal = ({ user }) => {
     setFields({
       ...fields,
       name: user.name,
-      lastname: user.lastName,
+      lastname: user.lastname,
     });
   }, [user]);
 
@@ -114,7 +109,6 @@ const Personal = ({ user }) => {
           <TextInput
             editable={false}
             defaultValue={user.email}
-            onChangeText={text => console.log(text)}
           />
         </Wrapper>
       </Input>
