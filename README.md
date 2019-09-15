@@ -8,7 +8,7 @@
 
 <h4 align="center">A minimal, clean and beautiful mobile app to help people find your lovely friends, rescue lifes and bring hapiness for pets.</h4>
 
-<p align="center"><i >"How to save a life?" - The Fray</i> </p>
+<p align="center"><i>"How to save a life?" - The Fray</i> </p>
 
 <p align="center">
   <a href="https://badge.fury.io/js/electron-markdownify">
@@ -34,22 +34,22 @@
 
 ## Here goes Screenshot
 
-## **Why**
+## 🤔 &nbsp; **Why**
 
-A project is basically a history,  it's up to you whether tell people or not. This is my story,
+A project is basically a history, it's up to you whether tell people or not. This is my story,
 
-I’ve always been passionate about learning new things and solving complicated problems. When I started coding, I’ve challenged my self to do at least one big project per year, but, only this year I’ve done three, and this is my third project (The first two games were made with C# unit). 
+I’ve always been passionate about learning new things and solving complicated problems. When I started coding, I’ve challenged my self to do at least one big project per year, but, only this year I’ve done three, and this is my third project (The first two games were made with C# unit).
 
 **What is Animavita?**
 
-Animation is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. This is an idea to create or animate something that was born a while ago, when I realized that facebook is used to publicize adoption and also ask for help for animals that lives on the streets. 
+Animation is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. This is an idea to create or animate something that was born a while ago, when I realized that facebook is used to publicize adoption and also ask for help for animals that lives on the streets.
 
 **What is its purpose??**
 
 Animavita's purpose is not to change how people use facebook to the activities described above, but to centralize the helpful information in a single application. Anyone can make an adoption request, but it doesn’t mean that the pet will be automatically adopted. It means that the person interested can talk to the person who registered the pet, allowing both sides to have a conversation, and the user to research and decide his favorite pet.
 (Sorry for the bad english)
 
-## **How To Use**
+## :fire: &nbsp; **How To Use**
 
 ```bash
 # Clone this repository
@@ -73,7 +73,7 @@ $ react-native run-android
 
 Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
-## **Tech Stack**
+## :zap: &nbsp; **Tech Stack**
 
 <h1 align="center">
   <img src="https://miro.medium.com/max/2600/1*pD7ShcZ7YHIMXe2mgiFzbg.png" alt="Stack" height="150" width="600">
@@ -89,7 +89,7 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 -   [GraphQL](https://github.com/facebook/graphql)
 -   [Kraken](https://github.com/wendelfreitas/kraken)
 
-## **Support**
+## :beer: &nbsp; **Support**
 
 <a href="https://www.buymeacoffee.com/5Zn8Xh3l9" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
@@ -99,15 +99,17 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
 </a>
 
-## **License**
+## 🎩 &nbsp; **License**
 
 MIT
 
 ---
 
-## **About Me**
+## :speech_balloon: &nbsp; **About Me**
 
 > Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
 > GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
 > Twitter - [@hey_wendelzinho](https://twitter.com/hey_wendelzinho) <br>
 > E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br>
+
+<p >Made with :hearts: by Wendel Freitas</p>
