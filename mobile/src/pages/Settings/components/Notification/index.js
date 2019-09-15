@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { FormContainer, Input, Field } from '~/components';
 import PropTypes from 'prop-types';
+import { showMessage } from 'react-native-flash-message';
 
 const USER_CHANGE_SETTING_MUTATION = gql`
   mutation ChangeSettingMutation($option: String!) {
@@ -25,6 +26,14 @@ const Notification = ({ user }) => {
       setSettings({
         hero: ChangeSettingMutation.user.hero,
         notifications: ChangeSettingMutation.user.notifications,
+      });
+    },
+    onError: () => {
+      showMessage({
+        message: 'Erro ao salvar configuração!',
+        description:
+          'Ops! Algum erro no momento da atualização da configuração aconteceu, tente novamente mais tarde.',
+        type: 'danger',
       });
     },
   });
