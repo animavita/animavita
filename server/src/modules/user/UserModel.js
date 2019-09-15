@@ -29,6 +29,14 @@ const UserSchema = new Schema(
       unique: true,
       required: true
     },
+    notifications: {
+      type: Boolean,
+      default: false
+    },
+    hero: {
+      type: Boolean,
+      default: false
+    },
     address: AddressModel
   },
   {
