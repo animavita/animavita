@@ -13,7 +13,14 @@ const UserType = new GraphQLObjectType({
     },
     name: {
       type: GraphQLString,
+      resolve: user => user.name.split(' ').shift()
+    },
+    lastname: {
+      type: GraphQLString,
       resolve: user => user.name
+        .split(' ')
+        .splice(1)
+        .join(' ')
     },
     email: {
       type: GraphQLString,
