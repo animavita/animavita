@@ -16,7 +16,7 @@
          alt="Gitter">
   </a>
   <a href="https://gitter.im/amitmerchant1990/electron-markdownify"><img src="https://badges.gitter.im/amitmerchant1990/electron-markdownify.svg"></a>
-  <a href="https://saythanks.io/to/amitmerchant1990">
+  <a href="https://saythanks.io/to/wendelfreitas">
       <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
   </a>
   <a href="https://www.paypal.me/AmitMerchant">
@@ -36,20 +36,17 @@
 
 ## **Why**
 
-A project is nothing less than a story, it's up to you to decide whether or not to tell people.
+A project is basically a history,  it's up to you whether tell people or not. This is my story,
 
-**Here is my story...**
-
-I've always been passionate about learning new things, things that challenge your skills and solve big problems, when I learned to write code, I challenged myself to do 1 big project a year, this year I turn 3 and this is my third project (the first two are games made with unity C#).
+I’ve always been passionate about learning new things and solving complicated problems. When I started coding, I’ve challenged my self to do at least one big project per year, but, only this year I’ve done three, and this is my third project (The first two games were made with C# unit). 
 
 **What is Animavita?**
 
-Animavita is the combination of the following Latin words: "animalis" and "vitae" which mean respectively "animal" and "life", the idea of ​​creating animavita was born a while ago, when I realized that facebook is used to spread the word adoption and also solicit help for stray animals.
+Animation is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. This is an idea to create or animate something that was born a while ago, when I realized that facebook is used to publicize adoption and also ask for help for animals that lives on the streets. 
 
-**What is your purpose?**
+**What is its purpose??**
 
-The purpose of Animavita is not to migrate people who use facebook to the activities described above, but to centralize information in a single application. Anyone can make an adoption request, this does not mean that the animal has been adopted, but that the person can talk directly to the person who registered the pet to be adopted, so that the person is free to do a "search" . It will also be possible to trigger alerts for street rescue requests, the system then, based on user-provided information about the pet, will attempt to search for disappearance requests to warn potential owners of the found pet, also calculating the radius in which the pet can move from the starting point.
-
+Animavita's purpose is not to change how people use facebook to the activities described above, but to centralize the helpful information in a single application. Anyone can make an adoption request, but it doesn’t mean that the pet will be automatically adopted. It means that the person interested can talk to the person who registered the pet, allowing both sides to have a conversation, and the user to research and decide his favorite pet.
 (Sorry for the bad english)
 
 ## **How To Use**
