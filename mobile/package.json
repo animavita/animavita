@@ -26,7 +26,6 @@
     "react-apollo": "^2.5.7",
     "react-apollo-hooks": "^0.4.5",
     "react-native": "0.59.4",
-    "react-native-chart-kit": "^2.6.1",
     "react-native-deck-swiper": "^1.6.7",
     "react-native-elements": "^1.1.0",
     "react-native-fbsdk": "^0.8.0",
