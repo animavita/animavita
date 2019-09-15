@@ -66,5 +66,5 @@ export const styles = StyleSheet.create({
     height: '50%',
   },
   dot: { marginBottom: 15 },
-  heart: { position: 'absolute', right: 0, bottom: 35 },
+  share: { position: 'absolute', right: 0, bottom: 35 },
 });

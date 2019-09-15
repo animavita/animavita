@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import GradientButton from '~/components/GradientButton';
 import PropTypes from 'prop-types';
 import { Title, H1 } from '~/components';
@@ -25,6 +25,14 @@ import {
 const GET_SPECIFIC_ADOPT_BY_ID = gql`
   query getAdopt($id: ID!) {
     adopt(id: $id) {
+      _id
+      name
+      breed
+      type
+      age
+      size
+      gender
+      firstImage
       type
       images
       age
@@ -34,22 +42,28 @@ const GET_SPECIFIC_ADOPT_BY_ID = gql`
 `;
 
 const Details = ({ navigation }) => {
-  const { animal } = navigation.state.params;
+  const [animal, setAnimal] = useState(navigation.state.params.animal);
   const { loading, data } = useQuery(GET_SPECIFIC_ADOPT_BY_ID, {
     variables: {
       id: animal._id,
     },
     onError: () => {
       showMessage({
-        message: 'Erro na listagem de adoções!',
+        message: 'Erro ao exibir detalhes da adoção!',
         description:
-          'Ops! Alguns animais escaparam dos nossos abraços, tente novamente mais tarde!',
+          'Ops! Algum erro aconteceu ao buscar informações mais detalhadas sobre esta adoção, tente novamente mais tarde!',
         type: 'danger',
       });
 
       navigation.goBack();
     },
   });
+
+  useEffect(() => {
+    if (data.adopt) {
+      setAnimal(data.adopt);
+    }
+  }, [data]);
 
   function showAdoptImages() {
     const { adopt } = data;
@@ -94,10 +108,10 @@ const Details = ({ navigation }) => {
             <H1 size={35}>{animal.name}</H1>
             <Icon
               raised
-              name="heart"
-              type="font-awesome"
-              color="#FF6767"
-              containerStyle={styles.heart}
+              name="share"
+              type="entypo"
+              color={THEME_COLORS.SECONDARY}
+              containerStyle={styles.share}
               onPress={() => console.log('hello')}
             />
           </TopContent>
