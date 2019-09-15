@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Switch } from 'react-native';
 import { THEME_COLORS } from '~/utils/constants';
 import { useMutation } from '@apollo/react-hooks';
@@ -18,15 +18,23 @@ const USER_CHANGE_SETTING_MUTATION = gql`
 `;
 
 const Notification = ({ user }) => {
-  const [settings, setSettings] = useState({
-    notifications: user.notifications,
-    hero: user.hero,
-  });
+  const [settings, setSettings] = useState({});
+
   const [changeSetting] = useMutation(USER_CHANGE_SETTING_MUTATION, {
     onCompleted: ({ ChangeSettingMutation }) => {
-      setSettings(ChangeSettingMutation.user);
+      setSettings({
+        hero: ChangeSettingMutation.user.hero,
+        notifications: ChangeSettingMutation.user.notifications,
+      });
     },
   });
+
+  useEffect(() => {
+    setSettings({
+      notifications: user.notifications,
+      hero: user.hero,
+    });
+  }, [user]);
 
   return (
     <FormContainer>
