@@ -12,7 +12,6 @@ const AdoptType = new GraphQLObjectType({
   fields: () => ({
     _id: {
       type: GraphQLID,
-      // eslint-disable-next-line no-underscore-dangle
       resolve: adopt => adopt._id
     },
     user: {
