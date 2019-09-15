@@ -8,15 +8,6 @@ import UserType from '../UserType';
 export default mutationWithClientMutationId({
   name: 'UserLoginWithFacebook',
   inputFields: {
-    name: {
-      type: GraphQLString
-    },
-    email: {
-      type: GraphQLString
-    },
-    avatar: {
-      type: GraphQLString
-    },
     accessToken: {
       type: new GraphQLNonNull(GraphQLString)
     }
@@ -34,7 +25,11 @@ export default mutationWithClientMutationId({
           facebookId: facebookUser.id,
           name: facebookUser.name,
           email: facebookUser.email,
-          avatar
+          avatar,
+          address: {
+            state: 'São Paulo',
+            city: 'Bauru'
+          }
         });
       }
 
