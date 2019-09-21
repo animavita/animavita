@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { useSelector } from 'react-redux';
 import { Divider } from 'react-native-elements';
 import { StackActions, NavigationActions } from 'react-navigation';
 import {
@@ -15,27 +14,8 @@ import Notification from './components/Notification';
 import Profile from '~/components/Profile';
 import { Title } from '~/components';
 
-const GET_ME_QUERY = gql`
-  query getAuthenticatedUser {
-    me {
-      name
-      lastname
-      email
-      hero
-      notifications
-    }
-  }
-`;
-
 const Settings = ({ navigation }) => {
-  const [user, setUser] = useState({});
-  const { data, loading } = useQuery(GET_ME_QUERY, { fetchPolicy: 'no-cache' });
-
-  useEffect(() => {
-    if (!loading) {
-      setUser(data.me);
-    }
-  }, [data]);
+  const user = useSelector(state => state.auth);
 
   async function logout() {
     await AsyncStorage.clear();
