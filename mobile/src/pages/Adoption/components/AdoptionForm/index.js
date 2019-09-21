@@ -142,35 +142,24 @@ const AdoptionForm = ({ setData, data, setStep }) => {
   );
 };
 
+
+const adoptProps = {
+  name: PropTypes.string,
+  observations: PropTypes.string,
+  animal: PropTypes.string,
+  age: PropTypes.number,
+  sex: PropTypes.string,
+  size: PropTypes.string,
+};
+
 AdoptionForm.propTypes = {
-  errors: PropTypes.shape({
-    name: PropTypes.string,
-    observations: PropTypes.string,
-    animal: PropTypes.string,
-    age: PropTypes.string,
-    sex: PropTypes.string,
-    size: PropTypes.string,
-  }),
-  values: PropTypes.shape({
-    name: PropTypes.string,
-    observations: PropTypes.string,
-    animal: PropTypes.string,
-    sex: PropTypes.string,
-    age: PropTypes.number,
-    size: PropTypes.string,
-  }),
+  errors: PropTypes.shape(adoptProps),
+  values: PropTypes.shape(adoptProps),
   handleSubmit: PropTypes.func,
   handleChange: PropTypes.func,
   setFieldValue: PropTypes.func,
   setData: PropTypes.func.isRequired,
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    observations: PropTypes.string,
-    animal: PropTypes.string,
-    sex: PropTypes.string,
-    age: PropTypes.number,
-    size: PropTypes.string,
-  }).isRequired,
+  data: PropTypes.shape(adoptProps).isRequired,
   setStep: PropTypes.func.isRequired,
 };
 
