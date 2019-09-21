@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Creators as AuthCreators } from '~/store/ducks/auth';
 import { useMutation } from '@apollo/react-hooks';
+import { useDispatch } from 'react-redux';
 import gql from 'graphql-tag';
 import { Image } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -20,8 +22,12 @@ const USER_LOGIN_MUTATION = gql`
       user {
         _id
         name
-        email
+        lastname
         avatar
+        email
+        hero
+        notifications
+
       }
       token
     }
@@ -30,15 +36,14 @@ const USER_LOGIN_MUTATION = gql`
 
 const Login = ({ navigation }) => {
   const [loader, useLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const [loginUser, { data, loading, error }] = useMutation(USER_LOGIN_MUTATION);
-
-  function navigateToHome() {
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'SignedIn' })],
-    });
-    navigation.dispatch(resetAction);
+  async function saveAuthenticatedUser(data) {
+    await AsyncStorage.setItem(
+      '@animavita:authToken',
+      JSON.stringify(data.token),
+    );
+    dispatch(AuthCreators.setAuth(data.user));
   }
 
   function throwAuthenticationError() {
@@ -51,49 +56,36 @@ const Login = ({ navigation }) => {
     useLoading(false);
   }
 
+  const [loginUser] = useMutation(USER_LOGIN_MUTATION, {
+    onCompleted: ({ SignInWithFacebookMutation }) => {
+      saveAuthenticatedUser(SignInWithFacebookMutation);
+      const resetAction = StackActions.reset({
+        index: 0,
+        actions: [NavigationActions.navigate({ routeName: 'SignedIn' })],
+      });
+      navigation.dispatch(resetAction);
+    },
+    onError: () => throwAuthenticationError(),
+  });
+
   async function handleLogin() {
     useLoading(true);
 
-    const user = JSON.parse(await AsyncStorage.getItem('@animavita:user'));
+    const response = await handleLoginFacebook();
 
-    if (user) {
-      navigateToHome();
-    } else {
-      const response = await handleLoginFacebook();
+    if (response.error) {
+      throwAuthenticationError();
+    }
 
-      if (response.error) {
-        throwAuthenticationError();
-      }
+    if (response.user) {
+      const { accessToken } = JSON.parse(await AsyncStorage.getItem('@facebook:accessData'));
+      await AsyncStorage.setItem('@animavita:facebook_user', JSON.stringify(response.user));
 
-      if (response.user) {
-        const { accessToken } = JSON.parse(await AsyncStorage.getItem('@facebook:accessData'));
-        await AsyncStorage.setItem('@animavita:facebook_user', JSON.stringify(response.user));
-        loginUser({
-          variables: { accessToken },
-        });
-
-        if (error) {
-          throwAuthenticationError();
-        }
-      }
+      loginUser({
+        variables: { accessToken },
+      });
     }
   }
-
-  async function saveLoggedUser() {
-    await AsyncStorage.setItem(
-      '@animavita:user',
-      JSON.stringify(data.SignInWithFacebookMutation),
-    );
-  }
-
-  useEffect(() => {
-    if (!loading && data) {
-      saveLoggedUser();
-      useLoading(false);
-      navigateToHome();
-    }
-  }, [data]);
-
 
   return (
     <Container>
