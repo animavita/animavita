@@ -3,14 +3,14 @@ import { HttpLink, InMemoryCache, split } from 'apollo-boost';
 import { setContext } from 'apollo-link-context';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-import { getUser } from '~/utils/helpers';
+import { getToken } from '~/utils/helpers';
 
 const httpLink = new HttpLink({
-  uri: 'http://10.10.10.9:4000/graphql',
+  uri: 'http://10.10.10.7:4000/graphql',
 });
 
 const authLink = setContext(async (_, { headers }) => {
-  const { token } = await getUser();
+  const token = await getToken();
   return {
     headers: {
       ...headers,
@@ -26,7 +26,7 @@ const wsLink = new WebSocketLink({
   options: {
     reconnect: true,
     connectionParams: async () => {
-      const { token } = await getUser();
+      const { token } = await getToken();
       return {
         headers: {
           Authorization: token ? `Bearer ${token}` : '',
