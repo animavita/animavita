@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Small, FormContainer, Input, Field, Wrapper,
 } from '~/components';
 import { showMessage } from 'react-native-flash-message';
 import { useMutation } from '@apollo/react-hooks';
+import { useDispatch } from 'react-redux';
+import { Creators as AuthCreators } from '~/store/ducks/auth';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { TextInput, EditButton } from './styles';
@@ -13,6 +15,7 @@ const USER_CHANGE_NAME_MUTATION = gql`
     UpdateUserNameMutation(input: { name: $name, lastname: $lastname }) {
       user {
         name
+        lastname
       }
     }
   }
@@ -22,7 +25,11 @@ const Personal = ({ user }) => {
   const [fields, setFields] = useState({
     nameEditable: false,
     lastnameEditable: false,
+    name: user.name,
+    lastname: user.lastname,
   });
+
+  const dispatch = useDispatch();
 
   const [updateName] = useMutation(USER_CHANGE_NAME_MUTATION, {
     onCompleted: () => {
@@ -31,6 +38,14 @@ const Personal = ({ user }) => {
         description: 'Os seus dados foram atualizados com sucesso!',
         type: 'success',
       });
+
+      dispatch(
+        AuthCreators.setAuth({
+          ...user,
+          name: fields.name,
+          lastname: fields.lastname,
+        }),
+      );
     },
     onError: () => {
       showMessage({
@@ -41,14 +56,6 @@ const Personal = ({ user }) => {
       });
     },
   });
-
-  useEffect(() => {
-    setFields({
-      ...fields,
-      name: user.name,
-      lastname: user.lastname,
-    });
-  }, [user]);
 
   function handleChange(field, enabled) {
     if (!enabled) {
@@ -73,7 +80,7 @@ const Personal = ({ user }) => {
         <Wrapper>
           <Field>Nome</Field>
           <TextInput
-            defaultValue={fields.name}
+            defaultValue={user.name}
             editable={fields.nameEditable}
             onChangeText={text => setFields({
               ...fields,
@@ -90,7 +97,7 @@ const Personal = ({ user }) => {
         <Wrapper>
           <Field>Sobrenome</Field>
           <TextInput
-            defaultValue={fields.lastname}
+            defaultValue={user.lastname}
             editable={fields.lastnameEditable}
             onChangeText={text => setFields({
               ...fields,
@@ -106,10 +113,7 @@ const Personal = ({ user }) => {
       <Input>
         <Wrapper>
           <Field>E-mail</Field>
-          <TextInput
-            editable={false}
-            defaultValue={user.email}
-          />
+          <TextInput editable={false} defaultValue={user.email} />
         </Wrapper>
       </Input>
     </FormContainer>
@@ -118,18 +122,10 @@ const Personal = ({ user }) => {
 
 Personal.propTypes = {
   user: PropTypes.shape({
-    name: PropTypes.string,
-    lastName: PropTypes.string,
-    email: PropTypes.string,
-  }),
-};
-
-Personal.defaultProps = {
-  user: {
-    name: '',
-    lastName: '',
-    email: '',
-  },
+    name: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Personal;
