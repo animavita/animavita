@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { THEME_COLORS } from '~/utils/constants';
 
@@ -31,10 +32,22 @@ export const Photo = styled.TouchableOpacity`
 export const PhotoSource = styled.Image`
   width: 80px;
   height: 80px;
+  z-index: -1;
   border-radius: 5px;
 `;
+
+export const Wrapper = styled.View``;
 
 export const DrawImage = styled.Image`
   width: 300px;
   height: 300px;
 `;
+
+export const styles = StyleSheet.create({
+  exclude: {
+    position: 'absolute',
+    zIndex: 10,
+    top: -14,
+    right: -7,
+  },
+});
