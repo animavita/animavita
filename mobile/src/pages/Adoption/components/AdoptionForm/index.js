@@ -22,7 +22,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
     size: '',
   };
 
-  const adoptionFormSchema = Yup.object().shape({
+  const schema = Yup.object().shape({
     name: Yup.string().required('O campo nome é obrigatório!'),
     observations: Yup.string().trim('O campo observações não pode conter apenas espaços!'),
     animal: Yup.string().required('É obrigatório escolher um tipo de animal!'),
@@ -38,9 +38,11 @@ const AdoptionForm = ({ setData, data, setStep }) => {
     <Formik
       initialValues={data.name ? data : state}
       onSubmit={values => handleSubmit(values)}
-      validationSchema={adoptionFormSchema}
+      validationSchema={schema}
     >
-      { props => (
+      {({
+        errors, values, setFieldValue, handleChange,
+      }) => (
         <>
           <FormContainer showsVerticalScrollIndicator={false}>
             <Input>
@@ -49,12 +51,12 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 <TextInput
                   style={styles.input}
                   placeholder="Digite o nome do animal"
-                  value={props.values.name}
-                  onChangeText={props.handleChange('name')}
+                  value={values.name}
+                  onChangeText={handleChange('name')}
                 />
               </Wrapper>
             </Input>
-            {props.errors.name && <Title size={12} weight="normal" color="red">{props.errors.name}</Title>}
+            {errors.name && <Title size={12} weight="normal" color="red">{errors.name}</Title>}
             <Input>
               <Wrapper>
                 <Field>Observações</Field>
@@ -62,11 +64,11 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                   style={styles.input}
                   multiline
                   placeholder="Observações adicionais sobre o animal"
-                  onChangeText={props.handleChange('observations')}
+                  onChangeText={handleChange('observations')}
                 />
               </Wrapper>
             </Input>
-            {props.errors.observations && <Title size={10} weight="normal" color="red">{props.errors.observations}</Title>}
+            {errors.observations && <Title size={10} weight="normal" color="red">{errors.observations}</Title>}
             <Input>
               <Wrapper>
                 <Field size={14}>Tipo de animal</Field>
@@ -75,34 +77,34 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                     <Button
                       key={animal.value}
                       title={animal.title}
-                      active={props.values.animal === animal.value}
-                      onPress={() => props.setFieldValue('animal', animal.value)}
+                      active={values.animal === animal.value}
+                      onPress={() => setFieldValue('animal', animal.value)}
                     />
                   ))}
                 </ButtonGroup>
               </Wrapper>
             </Input>
-            {props.errors.animal && <Title size={12} weight="normal" color="red">{props.errors.animal}</Title>}
+            {errors.animal && <Title size={12} weight="normal" color="red">{errors.animal}</Title>}
             <Input>
               <Wrapper>
                 <Field>Idade do animal (aproximadamente)</Field>
                 <Slider
                   minimum={1}
                   maximum={15}
-                  value={props.values.age}
-                  valueText={props.values.age > 1 ? 'anos' : 'ano'}
-                  onChange={props.handleChange('age')}
+                  value={values.age}
+                  valueText={values.age > 1 ? 'anos' : 'ano'}
+                  onChange={handleChange('age')}
                 />
               </Wrapper>
             </Input>
-            {props.errors.age && <Title size={12} weight="normal" color="red">{props.errors.age}</Title>}
+            {errors.age && <Title size={12} weight="normal" color="red">{errors.age}</Title>}
             <Input>
               <Wrapper>
                 <Field>Sexo do animal</Field>
                 <Picker
-                  selectedValue={props.values.sex}
+                  selectedValue={values.sex}
                   style={styles.picker}
-                  onValueChange={value => props.setFieldValue('sex', value)}
+                  onValueChange={value => setFieldValue('sex', value)}
                 >
                   <Picker.Item label="Selecione o sexo do animal" value="" />
                   <Picker.Item label="Macho" value="male" />
@@ -110,7 +112,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 </Picker>
               </Wrapper>
             </Input>
-            {props.errors.sex && <Title size={12} weight="normal" color="red">{props.errors.sex}</Title>}
+            {errors.sex && <Title size={12} weight="normal" color="red">{errors.sex}</Title>}
 
             <Input>
               <Wrapper>
@@ -120,17 +122,17 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                     <Button
                       key={size.value}
                       title={size.title}
-                      active={props.values.size === size.value}
-                      onPress={() => props.setFieldValue('size', size.value)}
+                      active={values.size === size.value}
+                      onPress={() => setFieldValue('size', size.value)}
                     />
 
                   ))}
                 </ButtonGroup>
               </Wrapper>
             </Input>
-            {props.errors.size && <Title size={12} weight="normal" color="red">{props.errors.size}</Title>}
+            {errors.size && <Title size={12} weight="normal" color="red">{errors.size}</Title>}
           </FormContainer>
-          <GradientButton disabled={false} onPress={props.handleSubmit}>
+          <GradientButton disabled={false} onPress={handleSubmit}>
             <Title size={14} color="white">
               Próxima Etapa
             </Title>
@@ -153,29 +155,8 @@ const adoptProps = {
 };
 
 AdoptionForm.propTypes = {
-  errors: PropTypes.shape(adoptProps),
-  values: PropTypes.shape(adoptProps),
-  handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
-  setFieldValue: PropTypes.func,
   setData: PropTypes.func.isRequired,
   data: PropTypes.shape(adoptProps).isRequired,
   setStep: PropTypes.func.isRequired,
 };
-
-AdoptionForm.defaultProps = {
-  errors: {},
-  handleSubmit: PropTypes.func,
-  handleChange: PropTypes.func,
-  setFieldValue: PropTypes.func,
-  values: {
-    name: '',
-    observations: '',
-    animal: '',
-    sex: '',
-    age: 1,
-    size: '',
-  },
-};
-
 export default AdoptionForm;
