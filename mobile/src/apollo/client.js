@@ -6,7 +6,7 @@ import { getMainDefinition } from 'apollo-utilities';
 import { getToken } from '~/utils/helpers';
 
 const httpLink = new HttpLink({
-  uri: 'http://10.10.10.7:4000/graphql',
+  uri: 'http://10.10.10.9:4000/graphql',
 });
 
 const authLink = setContext(async (_, { headers }) => {
