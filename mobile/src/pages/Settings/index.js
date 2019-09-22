@@ -10,7 +10,7 @@ import {
 } from './styles';
 import Distance from './components/Distance';
 import Personal from './components/Personal';
-import Notification from './components/Notification';
+import Configuration from './components/Configuration';
 import Profile from '~/components/Profile';
 import { Title } from '~/components';
 
@@ -35,7 +35,7 @@ const Settings = ({ navigation }) => {
         <Divider style={styles.divider} />
         <Distance />
         <Divider style={styles.divider} />
-        <Notification user={user} />
+        <Configuration user={user} />
         <System>
           <Logout onPress={() => logout()}>
             <Title color="red" size={14} weight="normal">
