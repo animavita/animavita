@@ -22,14 +22,13 @@ const USER_CHANGE_NAME_MUTATION = gql`
 `;
 
 const Personal = ({ user }) => {
+  const dispatch = useDispatch();
   const [fields, setFields] = useState({
     nameEditable: false,
     lastnameEditable: false,
     name: user.name,
     lastname: user.lastname,
   });
-
-  const dispatch = useDispatch();
 
   const [updateName] = useMutation(USER_CHANGE_NAME_MUTATION, {
     onCompleted: () => {
@@ -123,7 +122,7 @@ const Personal = ({ user }) => {
 Personal.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    lastName: PropTypes.string.isRequired,
+    lastname: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
   }).isRequired,
 };
