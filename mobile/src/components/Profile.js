@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import { Avatar } from 'react-native-elements';
+import PropTypes from 'prop-types';
 import { H1 } from '~/components';
-import useProfile from '~/hooks/useProfile';
+import { useSelector } from 'react-redux';
 
 const Header = styled.View`
   flex-direction: row;
@@ -16,7 +17,7 @@ export const Wrapper = styled.View`
 `;
 
 const Profile = ({ title }) => {
-  const user = useProfile();
+  const user = useSelector(state => state.auth);
 
   return (
     <Header>
@@ -32,6 +33,10 @@ const Profile = ({ title }) => {
       </Wrapper>
     </Header>
   );
+};
+
+Profile.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 
 export default Profile;
