@@ -1,5 +1,5 @@
 import React, {
-  Fragment, useEffect, useState, useCallback,
+  Fragment, useEffect, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import { showMessage } from 'react-native-flash-message';
@@ -57,9 +57,9 @@ const Adopt = ({ navigation }) => {
     }
   }, [filters]);
 
-  const handleRedirectToDetail = useCallback((animal) => {
+  function handleRedirectToDetail(animal) {
     navigation.navigate('Details', { animal });
-  });
+  }
 
   function nextAdoption(currentIndex) {
     const nextCard = data.adopts[currentIndex + 2];
