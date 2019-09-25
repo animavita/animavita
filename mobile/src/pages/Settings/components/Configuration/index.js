@@ -51,11 +51,12 @@ const Configuration = ({ user }) => {
     },
   });
 
-  function updateUserConfig(args, config) {
+  function updateUserConfig(args) {
+    const { variables } = args;
     setSettings({
       ...settings,
-      [config]: !settings[config],
-      field: config,
+      [variables.option]: !settings[variables.option],
+      field: variables.option,
     });
     changeSetting(args);
   }
@@ -70,8 +71,7 @@ const Configuration = ({ user }) => {
           trackColor={{
             true: THEME_COLORS.SECONDARY,
           }}
-          onValueChange={() => updateUserConfig({ variables: { option: 'notifications' } }, 'notifications')
-          }
+          onValueChange={() => updateUserConfig({ variables: { option: 'notifications' } })}
         />
       </Input>
       <Input>
@@ -82,7 +82,7 @@ const Configuration = ({ user }) => {
           trackColor={{
             true: THEME_COLORS.SECONDARY,
           }}
-          onValueChange={() => updateUserConfig({ variables: { option: 'hero' } }, 'hero')}
+          onValueChange={() => updateUserConfig({ variables: { option: 'hero' } })}
         />
       </Input>
     </FormContainer>
