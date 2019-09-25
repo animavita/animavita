@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import { showMessage } from 'react-native-flash-message';
 import { Title } from '~/components';
 import ImagePicker from 'react-native-image-picker';
 import { THEME_COLORS } from '~/utils/constants';
 import { Icon } from 'react-native-elements';
+import { TouchableOpacity } from 'react-native';
 import {
-  Container, Box, Photo, PhotoSource, DrawImage,
+  Container, Box, Photo, PhotoSource, DrawImage, Wrapper, styles,
 } from './styles';
 import GradientButton from '~/components/GradientButton';
 
@@ -20,9 +22,19 @@ const PhotoContainer = ({ setStep, data, setData }) => {
       },
       (upload) => {
         if (upload.error) {
-          console.log('Error');
+          showMessage({
+            message: 'Erro ao fazer upload de imagem!',
+            description:
+              'Ops! Algum erro aconteceu ao fazer upload desta imagem!',
+            type: 'danger',
+          });
         } else if (upload.didCancel) {
-          console.log('Used canceled');
+          showMessage({
+            message: 'Você cancelou a ação de upload de imagem!',
+            description:
+              'Ops! Parece que temos alguém indeciso.',
+            type: 'danger',
+          });
         } else {
           const preview = {
             uri: `data:image/jpeg;base64, ${upload.data}`,
@@ -48,7 +60,10 @@ const PhotoContainer = ({ setStep, data, setData }) => {
           const newArrayPhotos = [...photos];
 
           newArrayPhotos[index] = {
-            preview, image, save: true, order: index,
+            preview,
+            image,
+            save: true,
+            order: index,
           };
 
           usePhoto(newArrayPhotos);
@@ -57,23 +72,55 @@ const PhotoContainer = ({ setStep, data, setData }) => {
     );
   }
 
+  function removeImage(index) {
+    const resetPhotos = photos.map((photo) => {
+      if (photo.order === index) {
+        return {
+          order: index,
+        };
+      }
+
+      return photo;
+    });
+    usePhoto(resetPhotos);
+  }
+
   function backStep() {
     setData(data);
     setStep(0);
   }
 
-
   return (
     <>
       <Container>
         <DrawImage source={require('~/images/photoContainerImage.jpg')} />
-        <Title size={12} weight="normal">Que tal umas fotos fofíssimas do animalzíneo?</Title>
+        <Title size={12} weight="normal">
+          Que tal umas fotos fofíssimas do animalzíneo?
+        </Title>
         <Box>
           {photos.map(item => (!item.save ? (
             <Photo key={item.order} onPress={() => handleSelectImage(item.order)}>
               <Icon name="camera" type="feather" color={THEME_COLORS.SECONDARY} />
             </Photo>
-          ) : <PhotoSource key={item.order} source={photos[item.order].preview} />))}
+          ) : (
+            <Wrapper key={item.order}>
+              <TouchableOpacity
+                hitSlop={{
+                  top: 20, bottom: 20, left: 20, right: 20,
+                }}
+                onPress={() => removeImage(item.order)}
+              >
+                <Icon
+                  name="ios-close-circle"
+                  type="ionicon"
+                  color="red"
+                  reverseColor="white"
+                  iconStyle={styles.exclude}
+                />
+              </TouchableOpacity>
+              <PhotoSource source={photos[item.order].preview} />
+            </Wrapper>
+          )))}
         </Box>
       </Container>
       <GradientButton disabled={false} onPress={() => backStep()}>
@@ -84,7 +131,6 @@ const PhotoContainer = ({ setStep, data, setData }) => {
     </>
   );
 };
-
 
 PhotoContainer.propTypes = {
   setData: PropTypes.func.isRequired,
