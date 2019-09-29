@@ -36,7 +36,7 @@ export const Card = styled.View`
   width: 100%;
   justify-content: flex-end;
   align-items: center;
-  height: 57%;
+  height: 58%;
   margin-top: 10;
   border-radius: 520;
 `;
