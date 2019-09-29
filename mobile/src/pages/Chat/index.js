@@ -1,47 +1,19 @@
 import React, { useState } from 'react';
-import { GiftedChat, Send } from 'react-native-gifted-chat';
+import { GiftedChat, Send, InputToolbar } from 'react-native-gifted-chat';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
-import { useQuery, useSubscription } from '@apollo/react-hooks';
-import { Text, StyleSheet, View } from 'react-native';
 import { Avatar } from 'react-native-elements';
 import Message from './components/Message';
 import { H1 } from '~/components';
 import Loading from '~/components/Loading';
-import { THEME_COLORS } from '~/utils/constants';
 
-import { Container, Header, Profile, Content } from './styles';
+import {
+  Container, Header, Profile, Content, styles,
+} from './styles';
 
 const user = {
   name: 'Ada Lovelace',
-  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
+  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
 };
-
-const GET_CONVERSATION_MESSAGES_QUERY = gql`
-  query getConversationMessages($id: ID!) {
-    Conversation(id: $id) {
-      id
-      messages {
-        id
-        from
-        message
-      }
-    }
-  }
-`;
-
-const NEW_MESSAGES_SUBSCRIPTION = gql`
-  subscription onMessagesReceived {
-    Message(
-      filter: { mutation_in: CREATED, node: { from_not: "Wendel Freitas" } }
-    ) {
-      node {
-        from
-        message
-      }
-    }
-  }
-`;
 
 const Chat = () => {
   const [messages, useMessages] = useState([
@@ -49,29 +21,34 @@ const Chat = () => {
       _id: 1,
       text: 'Hello developer',
       createdAt: new Date(),
+      quickReplies: {
+        type: 'radio', // or 'checkbox',
+        keepIt: true,
+        values: [
+          {
+            title: '😋 Yes',
+            value: 'yes',
+          },
+          {
+            title: '📷 Yes, let me show you with a picture!',
+            value: 'yes_picture',
+          },
+          {
+            title: '😞 Nope. What?',
+            value: 'no',
+          },
+        ],
+      },
       user: {
         _id: 2,
         name: 'Ada Lovelace',
-        avatar:
-          'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg'
-      }
-    }
+        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
+      },
+    },
   ]);
-
-  const { data, error, loading } = useQuery(GET_CONVERSATION_MESSAGES_QUERY, {
-    variables: {
-      id: 'cjxjllghd96ec0162kjwb0ft0'
-    }
-  });
-
   function onSend(typedMessage) {
     useMessages(GiftedChat.append(messages, typedMessage));
   }
-  const {
-    data: subData,
-    error: subError,
-    loading: subloading
-  } = useSubscription(NEW_MESSAGES_SUBSCRIPTION);
 
   return (
     <Container>
@@ -87,17 +64,25 @@ const Chat = () => {
           />
         </Profile>
       </Header>
-      {loading ? (
+      {!true ? (
         <Loading />
       ) : (
         <Content>
           <GiftedChat
             inverted
             scrollToBottom
+            renderInputToolbar={props => (
+              <InputToolbar
+                {...props}
+                containerStyle={styles.inputContainer}
+                textInputStyle={styles.input}
+              />
+            )}
             renderBubble={props => <Message {...props} />}
             messages={messages}
-            locale="ptbr"
+            locale="pt-BR"
             alwaysShowSend
+            showAvatarForEveryMessage={false}
             listViewProps={{ showsVerticalScrollIndicator: false }}
             placeholder=""
             onSend={typedMessage => onSend(typedMessage)}
@@ -106,11 +91,13 @@ const Chat = () => {
               name: 'Wendel Freitas',
             }}
             renderSend={props => (
-              <Send {...props}>
-                <View>
-                  <Text style={styles.button}>Enviar</Text>
-                </View>
-              </Send>
+              <Send
+                {...props}
+                containerStyle={styles.sendContainer}
+                textStyle={styles.sendLabelText}
+                label="Enviar"
+                disabled={!props.text.trim()}
+              />
             )}
           />
         </Content>
@@ -124,21 +111,15 @@ Chat.propTypes = {
     name: PropTypes.string,
     avatar: PropTypes.string,
   }),
+  text: PropTypes.string,
 };
 
 Chat.defaultProps = {
   user: {
     name: '',
-    avatar: ''
-  }
-};
-
-const styles = StyleSheet.create({
-  button: {
-    marginLeft: 10,
-    color: THEME_COLORS.SECONDARY,
-    fontWeight: 'bold',
+    avatar: '',
   },
-});
+  text: '',
+};
 
 export default Chat;
