@@ -1,13 +1,13 @@
-export const PRIMARY_COLOR = '#03da27';
+const PRIMARY_COLOR = '#03da27';
 
-export const THEME_COLORS = {
+const THEME_COLORS = {
   BLACK: '#323643',
   PRIMARY: '#0AC4BA',
   SECONDARY: '#2BDA8E',
   GREY: '#C5CCD6',
 };
 
-export const ANIMAL_TYPES = [
+const ANIMAL_TYPES = [
   {
     title: 'CÃO',
     value: 'dog',
@@ -22,7 +22,7 @@ export const ANIMAL_TYPES = [
   },
 ];
 
-export const ANIMAL_SIZES = [
+const ANIMAL_SIZES = [
   {
     title: 'PEQUENO',
     value: 'small',
@@ -36,3 +36,7 @@ export const ANIMAL_SIZES = [
     value: 'bigger',
   },
 ];
+
+export {
+  PRIMARY_COLOR, THEME_COLORS, ANIMAL_TYPES, ANIMAL_SIZES,
+};
