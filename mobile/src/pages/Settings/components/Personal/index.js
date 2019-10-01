@@ -88,7 +88,7 @@ const Personal = ({ user }) => {
             }
           />
         </Wrapper>
-        <EditButton onPress={() => handleChange('nameEditable', !fields.nameEditable)}>
+        <EditButton hitSlop={{ top: 15, bottom: 15 }} onPress={() => handleChange('nameEditable', !fields.nameEditable)}>
           <Small>{fields.nameEditable ? 'Salvar' : 'Editar'}</Small>
         </EditButton>
       </Input>
@@ -105,7 +105,7 @@ const Personal = ({ user }) => {
             }
           />
         </Wrapper>
-        <EditButton onPress={() => handleChange('lastnameEditable', !fields.lastnameEditable)}>
+        <EditButton hitSlop={{ top: 15, bottom: 15 }} onPress={() => handleChange('lastnameEditable', !fields.lastnameEditable)}>
           <Small>{fields.lastnameEditable ? 'Salvar' : 'Editar'}</Small>
         </EditButton>
       </Input>
