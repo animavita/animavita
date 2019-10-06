@@ -36,6 +36,7 @@ const UserType = new GraphQLObjectType({
       resolve: user => user.notifications
     },
     hero: {
+      description: 'Setting that defines whether the user accepts to receive alert notifications near them',
       type: GraphQLBoolean,
       resolve: user => user.hero
     },
