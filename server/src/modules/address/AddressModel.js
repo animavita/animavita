@@ -8,5 +8,3 @@ export default {
     required: true
   }
 };
-
-/* insta livros */
