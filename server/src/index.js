@@ -1,8 +1,9 @@
-import { GraphQLServer, PubSub } from 'graphql-yoga';
+import { GraphQLServer } from 'graphql-yoga';
 import { database } from '../core/database';
 import middlewares from '../core/middleware';
 import { getUser } from '~/utils/auth';
 import { schema } from './schema';
+import pubSub from './pubSub';
 
 require('dotenv').config();
 
@@ -10,7 +11,6 @@ require('dotenv').config();
 database();
 
 const { PORT } = process.env;
-const pubsub = new PubSub();
 
 const options = {
   port: PORT || '4000',
@@ -23,7 +23,7 @@ const contextSettings = async ({ request }) => {
   const { user } = await getUser(request.headers.authorization);
   return {
     ...request,
-    pubsub,
+    pubSub,
     user
   };
 };
