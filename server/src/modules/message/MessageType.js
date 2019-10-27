@@ -3,6 +3,7 @@ import {
 } from 'graphql';
 
 import UserType from '../user/UserType';
+import UserModel from '../user/UserModel';
 
 const MessageType = new GraphQLObjectType({
   name: 'Message',
@@ -14,7 +15,9 @@ const MessageType = new GraphQLObjectType({
     },
     author: {
       type: UserType,
-      resolve: message => message.messages
+      resolve: async message => UserModel.findOne({
+        _id: message.author
+      })
     },
     content: {
       type: GraphQLNonNull(GraphQLString),
