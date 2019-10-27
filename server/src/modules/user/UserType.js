@@ -22,6 +22,10 @@ const UserType = new GraphQLObjectType({
         .splice(1)
         .join(' ')
     },
+    fullname: {
+      type: GraphQLString,
+      resolve: user => user.name
+    },
     email: {
       type: GraphQLString,
       resolve: user => user.email
@@ -36,7 +40,8 @@ const UserType = new GraphQLObjectType({
       resolve: user => user.notifications
     },
     hero: {
-      description: 'Setting that defines whether the user accepts to receive alert notifications near them',
+      description:
+        'Setting that defines whether the user accepts to receive alert notifications near them',
       type: GraphQLBoolean,
       resolve: user => user.hero
     },
