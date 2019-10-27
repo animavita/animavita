@@ -9,12 +9,6 @@ const ConversationSchema = new Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
       }
-    ],
-    messages: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Message'
-      }
     ]
   },
   {
