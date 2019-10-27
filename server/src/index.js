@@ -3,7 +3,6 @@ import { database } from '../core/database';
 import middlewares from '../core/middleware';
 import { getUser } from '~/utils/auth';
 import { schema } from './schema';
-import pubSub from './pubSub';
 
 require('dotenv').config();
 
@@ -16,14 +15,15 @@ const options = {
   port: PORT || '4000',
   endpoint: '/graphql',
   subscriptions: '/subscriptions',
-  playground: '/playground'
+  playground: process.env.NODE_ENV === 'production' ? false : '/playground'
 };
 
-const contextSettings = async ({ request }) => {
-  const { user } = await getUser(request.headers.authorization);
+const contextSettings = async ({ request, connection }) => {
+  const { user } = await getUser(
+    request ? request.headers.authorization : connection.context.Authorization
+  );
   return {
     ...request,
-    pubSub,
     user
   };
 };

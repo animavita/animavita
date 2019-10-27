@@ -7,5 +7,5 @@ import SubscriptionType from './types/SubscriptionType';
 export const schema = new GraphQLSchema({
   query: QueryType,
   mutation: MutationType,
-  subscritpion: SubscriptionType
+  subscription: SubscriptionType
 });
