@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { GraphQLList } from 'graphql';
+import { GraphQLList, GraphQLInt } from 'graphql';
 import ConversationType from './ConversationType';
 import ConversationModel from './ConversationModel';
 
@@ -9,8 +9,20 @@ export default {
   conversations: {
     type: GraphQLList(ConversationType),
     description: 'Take conversations of authenticated user',
-    resolve: (obj, args, { user }) => ConversationModel.find({
+    args: {
+      first: {
+        name: 'first',
+        type: GraphQLInt
+      },
+      skip: {
+        name: 'skip',
+        type: GraphQLInt
+      }
+    },
+    resolve: (obj, { first = null, skip = null }, { user }) => ConversationModel.find({
       members: ObjectId(user._id)
     })
+      .skip(skip)
+      .limit(first)
   }
 };
