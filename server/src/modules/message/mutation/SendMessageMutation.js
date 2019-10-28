@@ -1,4 +1,5 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
+import mongoose from 'mongoose';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import MessageModel from '../MessageModel';
 import ConversationModel from '../../conversation/ConversationModel';
@@ -20,7 +21,7 @@ export default mutationWithClientMutationId({
   },
   mutateAndGetPayload: async ({ conversationId, userId, content }, { user }) => {
     const conversation = conversationId
-      ? await ConversationModel.findOne({ 'conversation._id': conversationId })
+      ? await ConversationModel.findById(conversationId)
       : await ConversationModel.create({
         members: [userId, user._id]
       });
