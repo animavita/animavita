@@ -95,6 +95,6 @@ MIT
 > Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
 > GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
 > Twitter - [@hey_wendelzinho](https://twitter.com/hey_wendelzinho) <br>
-> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br> > <br>
+> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br> <br>
 
-**<p align="center"> Made with :hearts: by Wendel Freitas</p>**
+**<p align="center"> Made with :hearts:</p>**
