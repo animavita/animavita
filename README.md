@@ -34,21 +34,6 @@
 
 ## Here goes Screenshot
 
-## 🤔 &nbsp; **Why**
-
-A project is basically a history, it's up to you whether tell people or not. This is my story,
-
-I’ve always been passionate about learning new things and solving complicated problems. When I started coding, I’ve challenged my self to do at least one big project per year, but, only this year I’ve done three, and this is my third project (The first two games were made with C# unit).
-
-**What is Animavita?**
-
-Animation is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. This is an idea to create or animate something that was born a while ago, when I realized that facebook is used to publicize adoption and also ask for help for animals that lives on the streets.
-
-**What is its purpose??**
-
-Animavita's purpose is not to change how people use facebook to the activities described above, but to centralize the helpful information in a single application. Anyone can make an adoption request, but it doesn’t mean that the pet will be automatically adopted. It means that the person interested can talk to the person who registered the pet, allowing both sides to have a conversation, and the user to research and decide his favorite pet.
-(Sorry for the bad english)
-
 ## :fire: **How To Use**
 
 ```bash
@@ -110,6 +95,6 @@ MIT
 > Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
 > GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
 > Twitter - [@hey_wendelzinho](https://twitter.com/hey_wendelzinho) <br>
-> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br>
-> <br>
-> **<p align="center"> Made with :hearts: by Wendel Freitas</p>**
+> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br> > <br>
+
+**<p align="center"> Made with :hearts: by Wendel Freitas</p>**
