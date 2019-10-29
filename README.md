@@ -1,8 +1,9 @@
 <h1 align="center">
   <br>
-  <img src="https://i.imgur.com/rKw44Fn.png" alt="Animavita" height="125" width="125">
+  <img src="https://i.imgur.com/amrsFJK.png" alt="Animavita" height="125" width="125">
+  <br><br>
+  <img src="https://i.imgur.com/iSizpPl.png" alt="Animavita" height="60" width="">
   <br>
-  <b>Animavita</b>
   <br>
 </h1>
 
