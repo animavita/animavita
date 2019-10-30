@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Small, FormContainer, Input, Field, Wrapper,
 } from '~/components';
+import { THEME_COLORS } from '~/utils/constants';
 import { showMessage } from 'react-native-flash-message';
 import { useMutation } from '@apollo/react-hooks';
 import { useDispatch } from 'react-redux';
@@ -86,9 +87,13 @@ const Personal = ({ user }) => {
               name: text,
             })
             }
+            style={{ color: fields.nameEditable ? THEME_COLORS.SECONDARY : THEME_COLORS.BLACK }}
           />
         </Wrapper>
-        <EditButton hitSlop={{ top: 15, bottom: 15 }} onPress={() => handleChange('nameEditable', !fields.nameEditable)}>
+        <EditButton
+          hitSlop={{ top: 15, bottom: 15 }}
+          onPress={() => handleChange('nameEditable', !fields.nameEditable)}
+        >
           <Small>{fields.nameEditable ? 'Salvar' : 'Editar'}</Small>
         </EditButton>
       </Input>
@@ -103,9 +108,13 @@ const Personal = ({ user }) => {
               lastname: text,
             })
             }
+            style={{ color: fields.lastnameEditable ? THEME_COLORS.SECONDARY : THEME_COLORS.BLACK }}
           />
         </Wrapper>
-        <EditButton hitSlop={{ top: 15, bottom: 15 }} onPress={() => handleChange('lastnameEditable', !fields.lastnameEditable)}>
+        <EditButton
+          hitSlop={{ top: 15, bottom: 15 }}
+          onPress={() => handleChange('lastnameEditable', !fields.lastnameEditable)}
+        >
           <Small>{fields.lastnameEditable ? 'Salvar' : 'Editar'}</Small>
         </EditButton>
       </Input>
