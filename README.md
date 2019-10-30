@@ -2,8 +2,8 @@
   <br>
   <img src="https://i.imgur.com/amrsFJK.png" alt="Animavita" height="125" width="125">
   <br>
-  <img src="https://i.imgur.com/iSizpPl.png" alt="Animavita" height="60" width="">
-  <br>
+  <img src="https://i.imgur.com/iSizpPl.png" alt="Animavita" height="45" width="">
+  <br><br>
 </h1>
 
 <h4 align="center">A minimal, clean and beautiful mobile app to help people find your lovely friends, rescue lifes and bring hapiness for pets.</h4>
