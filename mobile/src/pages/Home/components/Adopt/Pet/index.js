@@ -1,15 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { THEME_COLORS } from '~/utils/constants';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
 import {
-  PetImage, Informations, Name, SubText, Heart, Card, styles,
+  PetImage, Informations, Name, SubText, Gender, Card, styles,
 } from './styles';
-import { THEME_COLORS } from '~/utils/constants';
-
-const handleShareAdoption = () => {
-  console.log('favorited');
-};
 
 const Pet = ({ animal }) => (
   <Card>
@@ -19,16 +15,23 @@ const Pet = ({ animal }) => (
         uri: animal.firstImage,
       }}
     >
-      <Heart>
-        <TouchableOpacity onPress={() => handleShareAdoption()}>
-          <Icon name="share" type="entypo" color={THEME_COLORS.BLACK} size={28} />
+      <Gender>
+        <TouchableOpacity>
+          <Icon
+            name={`${animal.gender}-symbol`}
+            type="foundation"
+            color={animal.gender === 'male' ? THEME_COLORS.MALE_GENDER : THEME_COLORS.FEMALE_GENDER}
+            size={45}
+          />
         </TouchableOpacity>
-      </Heart>
+      </Gender>
       <Informations>
         <Name style={styles.shadow}>{animal.name}</Name>
-        <SubText style={styles.shadow}>{animal.breed}</SubText>
         <SubText style={styles.shadow}>
-          {animal.gender} / {animal.size}
+          {animal.breed}
+        </SubText>
+        <SubText style={styles.shadow}>
+          {animal.size}
         </SubText>
       </Informations>
     </PetImage>

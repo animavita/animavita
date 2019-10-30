@@ -25,7 +25,7 @@ export const Informations = styled.View`
   margin-bottom: 15px;
 `;
 
-export const Heart = styled.View`
+export const Gender = styled.View`
   justify-content: flex-end;
   flex-direction: row;
   width: 100%;

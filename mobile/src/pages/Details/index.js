@@ -108,11 +108,13 @@ const Details = ({ navigation }) => {
             <H1 size={35}>{animal.name}</H1>
             <Icon
               raised
-              name="share"
-              type="entypo"
-              color={THEME_COLORS.BLACK}
+              name={`${animal.gender}-symbol`}
+              type="foundation"
+              color={
+                animal.gender === 'male' ? THEME_COLORS.MALE_GENDER : THEME_COLORS.FEMALE_GENDER
+              }
               containerStyle={styles.share}
-              onPress={() => console.log('hello')}
+              iconStyle={styles.icon}
             />
           </TopContent>
 
@@ -121,12 +123,6 @@ const Details = ({ navigation }) => {
               {'Raça \n'}
               <Title weight="normal" color="#c5ccd6" size={11}>
                 {animal.breed}
-              </Title>
-            </Title>
-            <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
-              {'Sexo \n'}
-              <Title weight="normal" color="#c5ccd6" size={11}>
-                {animal.gender}
               </Title>
             </Title>
             <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>

@@ -65,6 +65,7 @@ export const styles = StyleSheet.create({
   wrapper: {
     height: '50%',
   },
+  icon: { fontSize: 35 },
   dot: { marginBottom: 15 },
   share: { position: 'absolute', right: 0, bottom: 35 },
 });
