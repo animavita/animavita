@@ -7,24 +7,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import Profile from '~/components/Profile';
 import Slider from '~/components/Slider';
 import { Picker } from 'react-native';
-import { THEME_COLORS } from '~/utils/constants';
+import { THEME_COLORS, ANIMAL_SIZES, ANIMAL_TYPES } from '~/utils/constants';
 import Button from '~/components/Button';
 import GradientButton from '~/components/GradientButton';
 import useForm from '~/hooks/useForm';
 import { Creators as FilterCreators } from '~/store/ducks/filter';
-import { Container, ButtonGroup, Footer, ClearText } from './styles';
-
+import {
+  Container, ButtonGroup, Footer, ClearText,
+} from './styles';
 
 const Filter = ({ navigation }) => {
   const filters = useSelector(state => state.filter);
-  const [values, handleChange, handleSubmit, resetValues, disabled] = useForm(filters);
+  const [values, handleChange, resetValues, disabled] = useForm(filters);
   const dispatch = useDispatch();
+
 
   function setFilters() {
     dispatch(FilterCreators.setFilters(values));
     navigation.goBack();
   }
-  
+
   function clearFilters() {
     resetValues();
     dispatch(FilterCreators.clearFilters());
@@ -38,21 +40,14 @@ const Filter = ({ navigation }) => {
           <Wrapper>
             <Field size={14}>Tamanho do animal</Field>
             <ButtonGroup>
-              <Button
-                title="PEQUENO"
-                active={values.size === 'small'}
-                onPress={() => handleChange('size', 'small')}
-              />
-              <Button
-                title="MÉDIO"
-                active={values.size === 'medium'}
-                onPress={() => handleChange('size', 'medium')}
-              />
-              <Button
-                title="GRANDE"
-                active={values.size === 'bigger'}
-                onPress={() => handleChange('size', 'bigger')}
-              />
+              {ANIMAL_SIZES.map(size => (
+                <Button
+                  key={size.value}
+                  title={size.title}
+                  active={values.size === size.value}
+                  onPress={() => handleChange('size', size.value)}
+                />
+              ))}
             </ButtonGroup>
           </Wrapper>
         </Input>
@@ -74,21 +69,14 @@ const Filter = ({ navigation }) => {
           <Wrapper>
             <Field size={14}>Tipo de animal</Field>
             <ButtonGroup>
-              <Button
-                title="CÃES"
-                active={values.type === 'dogs'}
-                onPress={() => handleChange('type', 'dogs')}
-              />
-              <Button
-                title="GATOS"
-                active={values.type === 'cats'}
-                onPress={() => handleChange('type', 'cats')}
-              />
-              <Button
-                title="OUTROS"
-                active={values.type === 'others'}
-                onPress={() => handleChange('type', 'others')}
-              />
+              {ANIMAL_TYPES.map(type => (
+                <Button
+                  key={type.value}
+                  title={type.title}
+                  active={values.type === type.value}
+                  onPress={() => handleChange('type', type.value)}
+                />
+              ))}
             </ButtonGroup>
           </Wrapper>
         </Input>
@@ -106,7 +94,6 @@ const Filter = ({ navigation }) => {
         </Input>
       </FormContainer>
       <Footer>
-
         <GradientButton disabled={disabled} onPress={() => setFilters()}>
           <Title size={14} color="white">
             Aplicar Filtros
