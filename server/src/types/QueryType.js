@@ -3,6 +3,7 @@ import { GraphQLObjectType } from 'graphql';
 import UserType from '../modules/user/UserType';
 import AdoptQuery from '../modules/adopt/AdoptQuery';
 import ConversationQuery from '../modules/conversation/ConversationQuery';
+import MessageQuery from '../modules/message/MessageQuery';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -14,6 +15,7 @@ export default new GraphQLObjectType({
       resolve: (root, args, context) => (context.user ? context.user : null)
     },
     ...AdoptQuery,
-    ...ConversationQuery
+    ...ConversationQuery,
+    ...MessageQuery
   })
 });
