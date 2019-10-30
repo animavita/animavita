@@ -4,6 +4,7 @@ export const Types = {
 };
 
 const INITIAL_STATE = {
+  _id: null,
   name: '',
   lastname: '',
   avatar: '',
