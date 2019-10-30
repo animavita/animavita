@@ -22,19 +22,19 @@ const MessageType = new GraphQLObjectType({
         _id: message.conversation
       })
     },
-    author: {
+    user: {
       type: UserType,
       resolve: async message => UserModel.findOne({
         _id: message.author
       })
     },
-    content: {
+    text: {
       type: GraphQLNonNull(GraphQLString),
-      resolve: message => message.content
+      resolve: message => message.text
     },
     createdAt: {
       type: GraphQLNonNull(GraphQLString),
-      resolve: message => message.createdAt
+      resolve: message => new Date(message.createdAt).toISOString()
     },
     updatedAt: {
       type: GraphQLNonNull(GraphQLString),
