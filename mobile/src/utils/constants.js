@@ -5,6 +5,8 @@ const THEME_COLORS = {
   PRIMARY: '#0AC4BA',
   SECONDARY: '#2BDA8E',
   GREY: '#C5CCD6',
+  MALE_GENDER: '#45b6fe',
+  FEMALE_GENDER: '#FF69BA',
 };
 
 const ANIMAL_TYPES = [
