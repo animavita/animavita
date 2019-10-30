@@ -42,7 +42,7 @@ const AdoptType = new GraphQLObjectType({
     },
     gender: {
       type: GraphQLString,
-      resolve: adopt => getAnimalGender(adopt.gender)
+      resolve: adopt => adopt.gender
     },
     images: {
       type: GraphQLList(GraphQLString),
