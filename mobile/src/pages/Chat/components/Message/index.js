@@ -1,6 +1,7 @@
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { styles } from './styles';
 import { Title } from '~/components';
 
@@ -20,21 +21,26 @@ const cardinals = {
   },
 };
 
-const me = 'Wendel Freitas';
 const Message = ({ currentMessage }) => {
-  const { user } = currentMessage;
+  const { user, text } = currentMessage;
+  const auth = useSelector(state => state.auth);
+
   return (
     <LinearGradient
-      colors={user.name !== me ? colors.from : colors.me}
+      colors={user._id !== auth._id ? colors.from : colors.me}
       start={cardinals.start}
       end={cardinals.from}
-      style={user.name !== me ? styles.from : styles.me}
+      style={user._id !== auth._id ? styles.from : styles.me}
     >
       <Title color="white" size={12} weight="normal">
-        {currentMessage.text}
+        {text}
       </Title>
     </LinearGradient>
   );
+};
+
+Message.propTypes = {
+  currentMessage: PropTypes.shape({}).isRequired,
 };
 
 export default Message;
