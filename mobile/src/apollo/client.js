@@ -22,14 +22,14 @@ const authLink = setContext(async (_, { headers }) => {
 const cache = new InMemoryCache();
 
 const wsLink = new WebSocketLink({
-  uri: 'wss://subscriptions.graph.cool/v1/cjwy764420xxs0185sx3a5pd3',
+  uri: 'http://10.10.10.9:4000/subscriptions',
   options: {
     reconnect: true,
     connectionParams: async () => {
-      const { token } = await getToken();
+      const token = await getToken();
       return {
         headers: {
-          Authorization: token ? `Bearer ${token}` : '',
+          authorization: token ? `Bearer ${token}` : '',
         },
       };
     },
