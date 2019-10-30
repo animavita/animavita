@@ -7,7 +7,7 @@ import { THEME_COLORS } from '~/utils/constants';
 import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
 import {
-  Container, Box, Photo, PhotoSource, DrawImage, Wrapper, styles,
+  BackButton, Footer, Container, Box, Photo, PhotoSource, DrawImage, Wrapper, styles,
 } from './styles';
 import GradientButton from '~/components/GradientButton';
 
@@ -123,11 +123,26 @@ const PhotoContainer = ({ setStep, data, setData }) => {
           )))}
         </Box>
       </Container>
-      <GradientButton disabled={false} onPress={() => backStep()}>
-        <Title size={14} color="white">
-          Finalizar
-        </Title>
-      </GradientButton>
+      <Footer>
+        <GradientButton disabled={false} onPress={() => alert(JSON.stringify(data))}>
+          <Title size={14} color="white">
+            Finalizar
+          </Title>
+        </GradientButton>
+        <BackButton
+          hitSlop={{
+            top: 10,
+            bottom: 10,
+            left: 30,
+            right: 30,
+          }}
+          onPress={() => backStep()}
+        >
+          <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+            Voltar para os detalhes
+          </Title>
+        </BackButton>
+      </Footer>
     </>
   );
 };

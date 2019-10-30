@@ -21,7 +21,7 @@ const useForm = (initialValues) => {
     resetValues();
   }, [initialValues]);
 
-  return [values, handleChange, handleSubmit, resetValues, disabled];
+  return [values, handleChange, resetValues, disabled];
 };
 
 export default useForm;

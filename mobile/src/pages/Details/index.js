@@ -110,7 +110,7 @@ const Details = ({ navigation }) => {
               raised
               name="share"
               type="entypo"
-              color={THEME_COLORS.SECONDARY}
+              color={THEME_COLORS.BLACK}
               containerStyle={styles.share}
               onPress={() => console.log('hello')}
             />

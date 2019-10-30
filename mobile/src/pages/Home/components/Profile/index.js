@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { Avatar, Icon, Badge } from 'react-native-elements';
 import { H1 } from '~/components';
-import { showMessage } from 'react-native-flash-message';
+import { useSelector } from 'react-redux';
+
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
@@ -9,9 +10,6 @@ import {
 } from './styles';
 import { withNavigation } from 'react-navigation';
 import { THEME_COLORS } from '~/utils/constants';
-import useProfile from '~/hooks/useProfile';
-import { useSubscription } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
 import { sanitizeUsername } from '~/utils/helpers';
 
 const hitSlop = {
@@ -21,34 +19,34 @@ const hitSlop = {
   right: 20,
 };
 
+/*
 const NOTIFICATIONS_SUBSCRIPTION = gql`
-  subscription onNotificationReceived{
-    Notification(filter: {mutation_in:[CREATED]}) {
-      node{
+  subscription onNotificationReceived {
+    Notification(filter: { mutation_in: [CREATED] }) {
+      node {
         id
         message
       }
     }
-
   }
-
 `;
 
+*/
 
 const NotificationItem = ({
   openScreen, iconName, iconType, badgeStatus, news,
 }) => (
   <TouchableOpacity hitSlop={hitSlop} onPress={openScreen}>
     <Icon name={iconName} type={iconType} color={THEME_COLORS.BLACK} size={22} />
-    { news ? <Badge status={badgeStatus} containerStyle={styles.badge} /> : null}
+    {news ? <Badge status={badgeStatus} containerStyle={styles.badge} /> : null}
   </TouchableOpacity>
 );
 
 const Profile = ({ navigation }) => {
-  const user = useProfile();
-  let username = sanitizeUsername(user.name)
+  const user = useSelector(state => state.auth);
+  const username = sanitizeUsername(user.name);
 
-  const { data, error, loading } = useSubscription(NOTIFICATIONS_SUBSCRIPTION);
+  // const { data, error, loading } = useSubscription(NOTIFICATIONS_SUBSCRIPTION);
 
   return (
     <Fragment>
@@ -89,7 +87,7 @@ const Profile = ({ navigation }) => {
       </ProfileContainer>
     </Fragment>
   );
-}
+};
 
 Profile.propTypes = {
   navigation: PropTypes.shape().isRequired,
@@ -111,7 +109,10 @@ NotificationItem.propTypes = {
   iconName: PropTypes.string.isRequired,
   iconType: PropTypes.string.isRequired,
   badgeStatus: PropTypes.string.isRequired,
-  news: PropTypes.bool
+  news: PropTypes.bool,
 };
 
+NotificationItem.defaultProps = {
+  news: false,
+};
 export default withNavigation(Profile);

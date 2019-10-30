@@ -3,12 +3,11 @@ import styled from 'styled-components/native';
 import { THEME_COLORS } from '~/utils/constants';
 
 export const Container = styled.View`
-  margin-top: ${16 * 0.7};
   max-height: 78%;
   height: 78%;
   justify-content: center;
   align-items: center;
-  margin-bottom: 15px;
+  margin-bottom: 5px;
 `;
 
 export const Box = styled.View`
@@ -40,7 +39,16 @@ export const Wrapper = styled.View``;
 
 export const DrawImage = styled.Image`
   width: 300px;
-  height: 300px;
+  height: 280px;
+`;
+
+export const Footer = styled.View`
+  align-items: center;
+  width: 100%;
+`;
+
+export const BackButton = styled.TouchableOpacity`
+  margin-top: 8px;
 `;
 
 export const styles = StyleSheet.create({

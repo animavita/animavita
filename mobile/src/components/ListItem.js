@@ -6,9 +6,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { ListItem as Item } from 'react-native-elements';
 
 const styles = StyleSheet.create({
-  title: { color: 'white', fontWeight: '500', fontSize: 14 },
-  container: { borderRadius: 15 },
-  subtitle: { color: 'white', fontSize: 12 },
+  title: { color: 'white', fontWeight: '500', fontSize: 15 },
+  container: { borderRadius: 15, marginVertical: 5 },
 });
 
 const ListItem = ({
@@ -33,8 +32,6 @@ const ListItem = ({
     title={title}
     titleStyle={styles.title}
     onPress={onPress}
-    subtitleStyle={styles.subtitle}
-    subtitle={subtitle}
     chevronColor="white"
     chevron
   />
@@ -42,7 +39,6 @@ const ListItem = ({
 
 ListItem.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
 };
