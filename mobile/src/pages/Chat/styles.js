@@ -53,6 +53,6 @@ export const styles = StyleSheet.create({
     borderRadius: 12,
   },
 
-  sendLabelText: { color: THEME_COLORS.SECONDARY, fontSize: 15 },
+  sendLabelText: { color: THEME_COLORS.SECONDARY, fontSize: 14 },
   sendContainer: { borderWidth: 0 },
 });

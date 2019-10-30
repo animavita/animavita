@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { GiftedChat, Send, InputToolbar } from 'react-native-gifted-chat';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
 import { Avatar } from 'react-native-elements';
+import { useQuery, useMutation, useSubscription } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 import Message from './components/Message';
 import { H1 } from '~/components';
 import Loading from '~/components/Loading';
@@ -10,44 +14,107 @@ import {
   Container, Header, Profile, Content, styles,
 } from './styles';
 
-const user = {
-  name: 'Ada Lovelace',
-  avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-};
+const GET_CONVERSATIONS_QUERY = gql`
+  query getAllMessagesFromConversation($conversation: String!, $skip: Int, $first: Int) {
+    messages(conversationId: $conversation, skip: $skip, first: $first) {
+      _id
+      text
+      createdAt
+      user {
+        _id
+        name
+        avatar
+      }
+    }
+  }
+`;
 
-const Chat = () => {
-  const [messages, useMessages] = useState([
-    {
-      _id: 1,
-      text: 'Hello developer',
-      createdAt: new Date(),
-      quickReplies: {
-        type: 'radio', // or 'checkbox',
-        keepIt: true,
-        values: [
-          {
-            title: '😋 Yes',
-            value: 'yes',
-          },
-          {
-            title: '📷 Yes, let me show you with a picture!',
-            value: 'yes_picture',
-          },
-          {
-            title: '😞 Nope. What?',
-            value: 'no',
-          },
-        ],
-      },
-      user: {
-        _id: 2,
-        name: 'Ada Lovelace',
-        avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-      },
+const USER_SEND_MESSAGE_MUTATION = gql`
+  mutation SendMessageMutation($conversation: String!, $user: String!, $content: String!) {
+    SendMessageMutation(
+      input: { conversationId: $conversation, userId: $user, content: $content }
+    ) {
+      message {
+        user {
+          _id
+          name
+          avatar
+        }
+        text
+      }
+    }
+  }
+`;
+
+const MESSAGE_SUBSCRIPTION = gql`
+  subscription onMessageReceived($conversation: String!) {
+    MessageSended(conversationId: $conversation) {
+      _id
+      text
+      user {
+        _id
+        name
+        avatar
+      }
+      createdAt
+    }
+  }
+`;
+
+const Chat = ({ navigation }) => {
+  const { conversation, user } = navigation.state.params;
+  const auth = useSelector(state => state.auth);
+
+  const [messages, useMessages] = useState([]);
+
+  useSubscription(MESSAGE_SUBSCRIPTION, {
+    variables: {
+      conversation: conversation._id,
     },
-  ]);
+    onSubscriptionData: ({ subscriptionData }) => {
+      useMessages(GiftedChat.append(messages, subscriptionData.data.MessageSended));
+    },
+  });
+
+  useQuery(GET_CONVERSATIONS_QUERY, {
+    variables: {
+      conversation: conversation._id,
+      skip: 0,
+      first: 50,
+    },
+    onCompleted: (response) => {
+      useMessages(response.messages);
+    },
+    onError: () => {
+      showMessage({
+        message: 'Erro ao carregar mensagens!',
+        description: 'Ops! Algum erro aconteceu, tente novamente mais tarde!',
+        type: 'danger',
+      });
+    },
+  });
+
+  function throwMessageError() {
+    showMessage({
+      message: 'Erro ao enviar a mensagem!',
+      description: 'Ops! Algum erro ao enviar a mensagem aconteceu, tente novamente mais tarde.',
+      type: 'danger',
+    });
+  }
+
+  const [sendMessage] = useMutation(USER_SEND_MESSAGE_MUTATION, {
+    onError: () => throwMessageError(),
+  });
+
   function onSend(typedMessage) {
     useMessages(GiftedChat.append(messages, typedMessage));
+    sendMessage({
+      variables: {
+        conversation: conversation._id,
+        user: user._id,
+        content: typedMessage[0].text,
+      },
+    });
   }
 
   return (
@@ -64,61 +131,60 @@ const Chat = () => {
           />
         </Profile>
       </Header>
-      {!true ? (
-        <Loading />
-      ) : (
-        <Content>
-          <GiftedChat
-            inverted
-            scrollToBottom
-            renderInputToolbar={props => (
-              <InputToolbar
-                {...props}
-                containerStyle={styles.inputContainer}
-                textInputStyle={styles.input}
-              />
-            )}
-            renderBubble={props => <Message {...props} />}
-            messages={messages}
-            locale="pt-BR"
-            alwaysShowSend
-            showAvatarForEveryMessage={false}
-            listViewProps={{ showsVerticalScrollIndicator: false }}
-            placeholder=""
-            onSend={typedMessage => onSend(typedMessage)}
-            user={{
-              _id: 1,
-              name: 'Wendel Freitas',
-            }}
-            renderSend={props => (
-              <Send
-                {...props}
-                containerStyle={styles.sendContainer}
-                textStyle={styles.sendLabelText}
-                label="Enviar"
-                disabled={!props.text.trim()}
-              />
-            )}
-          />
-        </Content>
-      )}
+      <Content>
+        <GiftedChat
+          inverted
+          renderLoading={() => <Loading />}
+          renderInputToolbar={props => (
+            <InputToolbar
+              {...props}
+              containerStyle={styles.inputContainer}
+              textInputStyle={styles.input}
+            />
+          )}
+          renderBubble={props => <Message {...props} />}
+          messages={messages}
+          locale="pt-BR"
+          alwaysShowSend
+          showAvatarForEveryMessage={false}
+          listViewProps={{ showsVerticalScrollIndicator: false }}
+          placeholder=""
+          onSend={typedMessage => onSend(typedMessage)}
+          user={auth}
+          renderSend={props => (
+            <Send
+              {...props}
+              containerStyle={styles.sendContainer}
+              textStyle={styles.sendLabelText}
+              label="Enviar"
+              disabled={!props.text.trim()}
+            />
+          )}
+        />
+      </Content>
     </Container>
   );
 };
 
 Chat.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    avatar: PropTypes.string,
-  }),
+  navigation: PropTypes.shape({
+    state: PropTypes.shape({
+      params: PropTypes.shape({
+        conversation: PropTypes.shape({
+          _id: PropTypes.string.isRequired,
+        }),
+        user: PropTypes.shape({
+          _id: PropTypes.string.isRequired,
+          name: PropTypes.string.isRequired,
+          avatar: PropTypes.string.isRequired,
+        }),
+      }),
+    }),
+  }).isRequired,
   text: PropTypes.string,
 };
 
 Chat.defaultProps = {
-  user: {
-    name: '',
-    avatar: '',
-  },
   text: '',
 };
 
