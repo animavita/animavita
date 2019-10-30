@@ -1,4 +1,5 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
+import OneSignal from '~/services/onesignal';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import MessageModel from '../MessageModel';
 import ConversationModel from '../../conversation/ConversationModel';
@@ -30,6 +31,13 @@ export default mutationWithClientMutationId({
         conversation: conversation._id,
         author: user._id,
         text: content
+      });
+
+      OneSignal.post('notifications', {
+        contents: {
+          en: 'Testing notification with interceptor'
+        },
+        included_segments: ['All']
       });
 
       pubSub.publish(EVENTS.MESSAGE.SENDED, {
