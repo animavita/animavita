@@ -119,7 +119,7 @@ const Adopt = ({ navigation }) => {
         onSwiped={cardIndex => fetchMoreAdoptions(cardIndex)}
         cardIndex={0}
         backgroundColor="#ffffff"
-        stackSize={3}
+        stackSize={2}
       />
     );
   }

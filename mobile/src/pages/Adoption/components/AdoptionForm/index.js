@@ -24,6 +24,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
 
   const schema = Yup.object().shape({
     name: Yup.string().required('O campo nome é obrigatório!'),
+    breed: Yup.string().required('O campo raça é obrigatório!'),
     observations: Yup.string().trim('O campo observações não pode conter apenas espaços!'),
     animal: Yup.string().required('É obrigatório escolher um tipo de animal!'),
     sex: Yup.string().trim().required('É obrigatório escolher o sexo do animal!'),
@@ -57,6 +58,18 @@ const AdoptionForm = ({ setData, data, setStep }) => {
               </Wrapper>
             </Input>
             {errors.name && <Title size={12} weight="normal" color="red">{errors.name}</Title>}
+            <Input>
+              <Wrapper>
+                <Field>Raça do Animal</Field>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Digite a raça do animal"
+                  value={values.breed}
+                  onChangeText={handleChange('breed')}
+                />
+              </Wrapper>
+            </Input>
+            {errors.breed && <Title size={12} weight="normal" color="red">{errors.breed}</Title>}            
             <Input>
               <Wrapper>
                 <Field>Observações</Field>
