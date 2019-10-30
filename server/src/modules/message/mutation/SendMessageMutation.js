@@ -1,5 +1,4 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
-import mongoose from 'mongoose';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import MessageModel from '../MessageModel';
 import ConversationModel from '../../conversation/ConversationModel';
@@ -30,7 +29,7 @@ export default mutationWithClientMutationId({
       const message = await MessageModel.create({
         conversation: conversation._id,
         author: user._id,
-        content
+        text: content
       });
 
       pubSub.publish(EVENTS.MESSAGE.SENDED, {
