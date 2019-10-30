@@ -20,7 +20,7 @@ const options = {
 
 const contextSettings = async ({ request, connection }) => {
   const { user } = await getUser(
-    request ? request.headers.authorization : connection.context.Authorization
+    request ? request.headers.authorization : connection.context.headers.authorization
   );
   return {
     ...request,
