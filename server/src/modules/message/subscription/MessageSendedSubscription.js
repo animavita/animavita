@@ -13,7 +13,10 @@ const MessageSendedSubscription = {
   },
   subscribe: withFilter(
     () => pubSub.asyncIterator(EVENTS.MESSAGE.SENDED),
-    (payload, args) => payload.MessageSended.conversation.toString() === args.conversationId.toString()
+    (payload, args, { user }) => (
+      payload.MessageSended.conversation.toString() === args.conversationId.toString()
+        && payload.MessageSended.author.toString() !== user._id.toString()
+    )
   )
 };
 
