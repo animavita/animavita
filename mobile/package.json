@@ -36,6 +36,7 @@
     "react-native-indicators": "^0.13.0",
     "react-native-linear-gradient": "^2.5.4",
     "react-native-modal": "^10.0.0",
+    "react-native-onesignal": "^3.5.0",
     "react-native-slider": "^0.11.0",
     "react-native-svg": "^9.5.1",
     "react-native-swiper": "^1.5.14",
