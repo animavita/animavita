@@ -37,7 +37,13 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false
     },
-    address: AddressModel
+    address: AddressModel,
+    pushTokens: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'UserPushToken'
+      }
+    ]
   },
   {
     timestamps: true
