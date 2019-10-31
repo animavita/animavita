@@ -21,16 +21,18 @@
 
 <p align="center">
   <a href="#blush-why">Why</a> •
-  <a href="#how-to-use">Roadmap</a> •
+  <a href="#dizzy-roadmap">Roadmap</a> •
   <a href="#zap-tech-stack">Tech Stack</a> •
-  <a href="#handshaking-contributing">Contributing</a> •  
+  <a href="#handshake-contributing">Contributing</a> •  
   <a href="#tophat-license">License</a> •
   <a href="#art-about-me">About Me</a>
 </p>
 
 ## :blush: **Why?**
 
-Animavita is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. Animavita was born to help rescue abandoned animals and to facilitate adoption.
+Animavita is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. This is an idea to create or animate something that was born a while ago, when I realized that facebook is used to publicize adoption and also ask for help for animals that lives on the streets.
+
+Animavita's purpose is not to change how people use facebook to the activities described above, but to centralize the helpful information in a single application. Anyone can make an adoption request, but it doesn’t mean that the pet will be automatically adopted. It means that the person interested can talk to the person who registered the pet, allowing both sides to have a conversation, and the user to research and decide his favorite pet.
 
 ## :dizzy: **Roadmap**
 
@@ -55,22 +57,20 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 -   [Kraken](https://github.com/wendelfreitas/kraken)
 -   [OneSignal](https://onesignal.com)
 
-## :handshaking: **Contributing**
+## :handshake: **Contributing**
 
 This project is for study purposes too, so send me an email telling me what you are doing and why you are doing it, teach me what you know
 
 All kinds of contributions are very welcome and appreciated!
 
-1. ⭐️ Star the project
-2. 🐛 Find and report issues
-3. 📥 Submit PRs to help solve issues or add features
-4. ✋ Influence the future of Animavita with feature requests
-
-If you're looking for a place to start make sure to check issues tagged with
+-   ⭐️ Star the project
+-   🐛 Find and report issues
+-   📥 Submit PRs to help solve issues or add features
+-   ✋ Influence the future of Animavita with feature requests
 
 And make sure to read the [Contributing Guide](/CONTRIBUTING.md) before making a pull request.
 
-You can also contribute money to help secure docz's future.
+You can also contribute money to help secure Animavita's future.
 
 <p align="center">
   <a href="https://www.patreon.com/wendelfreitas" target="_blank">
@@ -87,6 +87,4 @@ You can also contribute money to help secure docz's future.
 > Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
 > GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
 > Twitter - [@hey_wendelzinho](https://twitter.com/hey_wendelzinho) <br>
-> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br> <br>
-
-**<p align="center"> Made with :hearts:</p>**
+> E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br>
