@@ -8,11 +8,12 @@ import {
 import Adopt from './components/Adopt';
 import Profile from './components/Profile';
 import Loading from '~/components/Loading';
+import useOneSignal from '~/hooks/useOneSignal';
 
 const Home = ({ navigation }) => {
   const [tab, setTab] = useState('Adoções');
   const tabs = ['Adoções', 'Solicitações', 'Estatísticas'];
-
+  useOneSignal();
   const renderContent = () => {
     switch (tab) {
       case 'Adoções':
@@ -41,7 +42,7 @@ const Home = ({ navigation }) => {
       <TabContainer>
         <Tabs>{tabs.map(tabName => renderTab(tabName))}</Tabs>
       </TabContainer>
-      { renderContent() }
+      {renderContent()}
     </Container>
   );
 };
