@@ -11,16 +11,11 @@
 <p align="center"><i>"How to save a life?" - The Fray</i> </p>
 
 <p align="center">
-  <a href="https://badge.fury.io/js/electron-markdownify">
-    <img src="https://badge.fury.io/js/electron-markdownify.svg"
-         alt="Gitter">
+  <a href="http://makeapullrequest.com">
+    <img src="https://img.shields.io/badge/contribuition-welcome-brightgreen.svg" alt="PRs Welcome">
   </a>
-  <a href="https://gitter.im/amitmerchant1990/electron-markdownify"><img src="https://badges.gitter.im/amitmerchant1990/electron-markdownify.svg"></a>
   <a href="https://saythanks.io/to/wendelfreitas">
       <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
-  </a>
-  <a href="https://www.paypal.me/AmitMerchant">
-    <img src="https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&amp;style=flat">
   </a>
 </p>
 
@@ -46,6 +41,9 @@ $ cd animavita
 # Go to mobile repository
 $ cd mobile
 
+# Open folder with your IDE
+$ code .
+
 # Install dependencies
 $ npm install
 
@@ -55,8 +53,6 @@ $ react-native link
 # Run the app
 $ react-native run-android
 ```
-
-Note: If you're using Linux Bash for Windows, [see this guide](https://www.howtogeek.com/261575/how-to-run-graphical-linux-desktop-applications-from-windows-10s-bash-shell/) or use `node` from the command prompt.
 
 ## :zap: **Tech Stack**
 
@@ -73,6 +69,7 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 -   [Apollo](https://apollographql.com)
 -   [GraphQL](https://github.com/facebook/graphql)
 -   [Kraken](https://github.com/wendelfreitas/kraken)
+-   [OneSignal](https://onesignal.com)
 
 ## :beer: **Support**
 

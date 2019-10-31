@@ -1,4 +1,5 @@
 import { GraphQLString, GraphQLNonNull } from 'graphql';
+import OneSignal from '~/services/onesignal';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import MessageModel from '../MessageModel';
 import ConversationModel from '../../conversation/ConversationModel';
@@ -31,6 +32,15 @@ export default mutationWithClientMutationId({
         author: user._id,
         text: content
       });
+
+      OneSignal.notification(
+        {
+          contents: {
+            en: `${user.name} enviou uma mensagem`
+          }
+        },
+        userId
+      );
 
       pubSub.publish(EVENTS.MESSAGE.SENDED, {
         MessageSended: message
