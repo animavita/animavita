@@ -33,12 +33,14 @@ export default mutationWithClientMutationId({
         text: content
       });
 
-      OneSignal.post('notifications', {
-        contents: {
-          en: 'Testing notification with interceptor'
+      OneSignal.notification(
+        {
+          contents: {
+            en: `${user.name} enviou uma mensagem`
+          }
         },
-        included_segments: ['All']
-      });
+        userId
+      );
 
       pubSub.publish(EVENTS.MESSAGE.SENDED, {
         MessageSended: message
