@@ -6,7 +6,7 @@
   <br><br>
 </h1>
 
-<h4 align="center">A minimal, clean and beautiful mobile app to help people find your lovely friends, rescue lifes and bring hapiness for pets.</h4>
+<p align="center">A minimal, clean and beautiful mobile app to help people find the closet pet friend to adopt, rescue lifes and change the world.</p>
 
 <p align="center"><i>"How to save a life?" - The Fray</i> </p>
 
@@ -20,39 +20,23 @@
 </p>
 
 <p align="center">
-  <a href="#why">Why</a> •
-  <a href="#how-to-use">How To Use</a> •
-  <a href="#tech-stack">Tech Stack</a> •
-  <a href="#license">License</a> •
-  <a href="#about-me">About Me</a>
+  <a href="#blush-why">Why</a> •
+  <a href="#how-to-use">Roadmap</a> •
+  <a href="#zap-tech-stack">Tech Stack</a> •
+  <a href="#handshaking-contributing">Contributing</a> •  
+  <a href="#tophat-license">License</a> •
+  <a href="#art-about-me">About Me</a>
 </p>
 
-## Here goes Screenshot
+## :blush: **Why?**
 
-## :fire: **How To Use**
+Animavita is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. Animavita was born to help rescue abandoned animals and to facilitate adoption.
 
-```bash
-# Clone this repository
-$ git clone https://github.com/wendelfreitas/animavita
+## :dizzy: **Roadmap**
 
-# Go into the repository
-$ cd animavita
+Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 
-# Go to mobile repository
-$ cd mobile
-
-# Open folder with your IDE
-$ code .
-
-# Install dependencies
-$ npm install
-
-# Link dependencies
-$ react-native link
-
-# Run the app
-$ react-native run-android
-```
+-   [x] Google Maps
 
 ## :zap: **Tech Stack**
 
@@ -71,23 +55,34 @@ $ react-native run-android
 -   [Kraken](https://github.com/wendelfreitas/kraken)
 -   [OneSignal](https://onesignal.com)
 
-## :beer: **Support**
+## :handshaking: **Contributing**
 
-<a href="https://www.buymeacoffee.com/5Zn8Xh3l9" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/purple_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+This project is for study purposes too, so send me an email telling me what you are doing and why you are doing it, teach me what you know
 
-<p>Or</p>
+All kinds of contributions are very welcome and appreciated!
 
-<a href="https://www.patreon.com/amitmerchant">
-	<img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" width="160">
-</a>
+1. ⭐️ Star the project
+2. 🐛 Find and report issues
+3. 📥 Submit PRs to help solve issues or add features
+4. ✋ Influence the future of Animavita with feature requests
 
-## 🎩 **License**
+If you're looking for a place to start make sure to check issues tagged with
 
-MIT
+And make sure to read the [Contributing Guide](/CONTRIBUTING.md) before making a pull request.
+
+You can also contribute money to help secure docz's future.
+
+<p align="center">
+  <a href="https://www.patreon.com/wendelfreitas" target="_blank">
+    <img src="https://cdn-std.dprcdn.net/files/acc_649651/plrSCT" height="80" alt="Patreon">
+  </a>
+</p>
+
+## :tophat: **License**
 
 ---
 
-## :speech_balloon: **About Me**
+## :art: **About Me**
 
 > Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
 > GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
