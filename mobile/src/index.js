@@ -8,7 +8,16 @@ import client from './apollo/client';
 import '~/config/ReactotronConfig';
 import { getToken } from '~/utils/helpers';
 import { store, persistor } from './store';
+import styled from 'styled-components';
 import Loading from '~/components/Loading';
+
+const Container = styled.View`
+  flex: 1;
+`;
+
+const styles = {
+  loading: { marginTop: 120 },
+};
 
 const App = () => {
   const [signed, setSigned] = useState(false);
@@ -27,7 +36,11 @@ const App = () => {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return (
+      <Container>
+        <Loading style={styles.loading} />
+      </Container>
+    );
   }
 
   const Routes = createRootNavigator(signed);
