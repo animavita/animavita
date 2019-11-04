@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { StyleSheet } from 'react-native';
 
 export const Name = styled.Text`
