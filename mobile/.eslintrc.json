@@ -17,7 +17,7 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-native", "jsx-a11y", "import"],
+  "plugins": ["react", "react-native", "jsx-a11y", "import", "react-hooks"],
   "rules": {
     "react/jsx-filename-extension": [
       "error",
@@ -30,6 +30,8 @@
     "react-native/no-color-literals": "off",
     "react-native/sort-styles": "off",
     "react-native/no-raw-text": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
     "global-require": "off"
   },
   "settings": {
