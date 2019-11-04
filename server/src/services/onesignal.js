@@ -16,7 +16,6 @@ onesignal.interceptors.request.use(async (config) => {
 const OneSignal = {
   notification: async (contents, user) => {
     let userPushTokens = await UserPushTokenModel.find({ user });
-
     userPushTokens = userPushTokens.map(token => token.playerId);
     if (userPushTokens.length > 0) {
       onesignal.post('notifications', {
