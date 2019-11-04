@@ -10,19 +10,21 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const Loading = ({ size, color }) => (
+const Loading = ({ size, color, style }) => (
   <Container>
-    <BallIndicator size={size} color={color} />
+    <BallIndicator style={style} size={size} color={color} />
   </Container>
 );
 
 Loading.propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
+  style: PropTypes.shape({}),
 };
 
 Loading.defaultProps = {
   size: 40,
   color: THEME_COLORS.SECONDARY,
+  style: {},
 };
 export default Loading;
