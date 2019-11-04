@@ -38,7 +38,15 @@ Animavita's purpose is not to change how people use facebook to the activities d
 
 Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 
--   [x] Google Maps
+-   [] Rescue system (WIP)
+-   [] Make it work on IOS
+-   [] Write tests in backend
+-   [] Write tests in frontentd
+-   [] Transform into responsive
+-   [] Create Landing Page
+-   [] i18n
+-   [] Offline-first
+-   [] Create/Apply Dataloaders
 
 ## :zap: **Tech Stack**
 
@@ -56,6 +64,8 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 -   [GraphQL](https://github.com/facebook/graphql)
 -   [Kraken](https://github.com/wendelfreitas/kraken)
 -   [OneSignal](https://onesignal.com)
+-   [AWS](https://aws.amazon.com/pt/)
+-   [Redux-Persist](https://github.com/rt2zz/redux-persist)
 
 ## :handshake: **Contributing**
 
