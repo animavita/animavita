@@ -39,7 +39,7 @@ const Settings = ({ navigation }) => {
         <System>
           <Logout onPress={() => logout()}>
             <Title color="red" size={14} weight="normal">
-              SAIR
+              SAIR DO APLICATIVO
             </Title>
           </Logout>
         </System>
