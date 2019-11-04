@@ -1,25 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const useForm = (initialValues) => {
   const [values, setValues] = useState(initialValues);
   const [disabled, setDisabled] = useState(true);
-
-  const handleSubmit = () => {
-    // do Something
-  };
 
   const handleChange = (name, value) => {
     setValues(prevState => ({ ...prevState, [name]: value }));
     setDisabled(false);
   };
 
-  const resetValues = () => {
+  const resetValues = useCallback(() => {
     setValues(initialValues);
-  };
+  }, [initialValues]);
 
   useEffect(() => {
     resetValues();
-  }, [initialValues]);
+  }, [initialValues, resetValues]);
 
   return [values, handleChange, resetValues, disabled];
 };
