@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import { StyleSheet } from 'react-native';
 
 export const Name = styled.Text`
@@ -36,7 +40,7 @@ export const Card = styled.View`
   width: 100%;
   justify-content: flex-end;
   align-items: center;
-  height: 58%;
+  height: ${hp('61%')};
   margin-top: 10;
   border-radius: 520;
 `;
