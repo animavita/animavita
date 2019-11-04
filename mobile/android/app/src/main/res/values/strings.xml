@@ -2,6 +2,6 @@
     <string name="app_name">Animavita</string>
     <!-- No trecho abaixo troque o <id_do_app> pelo ID do Aplicativo do
     Facebook for Developers -->
-    <string name="facebook_app_id">323287791906077</string>
-    <string name="fb_login_protocol_scheme">fb323287791906077</string>
+    <string name="facebook_app_id"></string>
+    <string name="fb_login_protocol_scheme"></string>
 </resources>
