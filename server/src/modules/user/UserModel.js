@@ -31,7 +31,7 @@ const UserSchema = new Schema(
     },
     notifications: {
       type: Boolean,
-      default: false
+      default: true
     },
     hero: {
       type: Boolean,
