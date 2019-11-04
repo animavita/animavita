@@ -90,7 +90,9 @@ You can also contribute money to help secure Animavita's future.
 
 ## :tophat: **License**
 
----
+For more details read [License](/LICENSE.md)
+
+Copyright (c) 2019 Wendel de Freitas Branco
 
 ## :art: **About Me**
 
