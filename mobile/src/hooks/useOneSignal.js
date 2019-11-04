@@ -34,7 +34,7 @@ const useOneSignal = () => {
     return () => {
       OneSignal.removeEventListener('ids', this.onIds);
     };
-  }, []);
+  });
 };
 
 export default useOneSignal;
