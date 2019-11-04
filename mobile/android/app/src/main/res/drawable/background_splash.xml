@@ -9,7 +9,7 @@
         android:height="200dp"
     >
       <bitmap
-        android:src="@drawable/splash_icon"
+        android:src="@drawable/animavita"
         android:gravity="center" />
     </item>
 
