@@ -10,4 +10,4 @@ export const sanitizeUsername = (name) => {
 
 export const isEmpty = array => array instanceof Array && array.length === 0;
 
-export const getToken = async () => JSON.parse(await AsyncStorage.getItem('@animavita:authToken')) || {};
+export const getToken = async () => JSON.parse(await AsyncStorage.getItem('@animavita:authToken')) || null;
