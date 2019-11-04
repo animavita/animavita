@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import { Avatar, Icon, Badge } from 'react-native-elements';
 import { H1 } from '~/components';
 import { useSelector } from 'react-redux';
+import { showMessage } from 'react-native-flash-message';
 
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
@@ -34,10 +35,10 @@ const NOTIFICATIONS_SUBSCRIPTION = gql`
 */
 
 const NotificationItem = ({
-  openScreen, iconName, iconType, badgeStatus, news,
+  openScreen, iconName, iconType, badgeStatus, news, color,
 }) => (
   <TouchableOpacity hitSlop={hitSlop} onPress={openScreen}>
-    <Icon name={iconName} type={iconType} color={THEME_COLORS.BLACK} size={22} />
+    <Icon name={iconName} type={iconType} color={color} size={22} />
     {news ? <Badge status={badgeStatus} containerStyle={styles.badge} /> : null}
   </TouchableOpacity>
 );
@@ -63,9 +64,15 @@ const Profile = ({ navigation }) => {
           />
 
           <NotificationItem
-            openScreen={() => navigation.navigate('Messages')}
+            openScreen={() => showMessage({
+              message: 'Lamento deixá-lo curioso!',
+              description: 'Porém, ainda estamos trabalhando nessa funcionalidade!',
+              type: 'info',
+            })
+            }
             iconName="map-pin"
             iconType="feather"
+            color={THEME_COLORS.GREY}
             badgeStatus="error"
           />
 
@@ -107,6 +114,7 @@ Profile.defaultProps = {
 NotificationItem.propTypes = {
   openScreen: PropTypes.func.isRequired,
   iconName: PropTypes.string.isRequired,
+  color: PropTypes.string,
   iconType: PropTypes.string.isRequired,
   badgeStatus: PropTypes.string.isRequired,
   news: PropTypes.bool,
@@ -114,5 +122,6 @@ NotificationItem.propTypes = {
 
 NotificationItem.defaultProps = {
   news: false,
+  color: THEME_COLORS.BLACK,
 };
 export default withNavigation(Profile);

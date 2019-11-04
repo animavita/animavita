@@ -1,4 +1,4 @@
-const ONE_SIGNAL_APP_KEY = '8734c8ad-4596-408d-b3bf-142cee72d34e';
+const ONE_SIGNAL_APP_KEY = '';
 
 const THEME_COLORS = {
   BLACK: '#323643',
