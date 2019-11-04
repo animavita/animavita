@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import OneSignal from 'react-native-onesignal';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
@@ -17,15 +17,22 @@ const USER_SAVE_PUSH_TOKEN = gql`
 `;
 
 const useOneSignal = () => {
-  const [savePushToken] = useMutation(USER_SAVE_PUSH_TOKEN);
+  const [token, tokenSave] = useState(false);
+  const [savePushToken] = useMutation(USER_SAVE_PUSH_TOKEN, {
+    onCompleted: () => {
+      tokenSave(true);
+    },
+  });
 
   function onIds(device) {
-    savePushToken({
-      variables: {
-        token: device.pushToken,
-        playerId: device.userId,
-      },
-    });
+    if (!token) {
+      savePushToken({
+        variables: {
+          token: device.pushToken,
+          playerId: device.userId,
+        },
+      });
+    }
   }
   useEffect(() => {
     OneSignal.init(ONE_SIGNAL_APP_KEY);
