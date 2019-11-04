@@ -65,14 +65,14 @@ const Chat = ({ navigation }) => {
   const { conversation, user } = navigation.state.params;
   const auth = useSelector(state => state.auth);
 
-  const [messages, useMessages] = useState([]);
+  const [messages, setMessages] = useState([]);
 
   useSubscription(MESSAGE_SUBSCRIPTION, {
     variables: {
       conversation: conversation._id,
     },
     onSubscriptionData: ({ subscriptionData }) => {
-      useMessages(GiftedChat.append(messages, subscriptionData.data.MessageSended));
+      setMessages(GiftedChat.append(messages, subscriptionData.data.MessageSended));
     },
   });
 
@@ -82,8 +82,9 @@ const Chat = ({ navigation }) => {
       skip: 0,
       first: 50,
     },
+    fetchPolicy: 'no-cache',
     onCompleted: (response) => {
-      useMessages(response.messages);
+      setMessages(response.messages);
     },
     onError: () => {
       showMessage({
@@ -107,7 +108,7 @@ const Chat = ({ navigation }) => {
   });
 
   function onSend(typedMessage) {
-    useMessages(GiftedChat.append(messages, typedMessage));
+    setMessages(GiftedChat.append(messages, typedMessage));
     sendMessage({
       variables: {
         conversation: conversation._id,

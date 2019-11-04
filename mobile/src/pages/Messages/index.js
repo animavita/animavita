@@ -27,18 +27,19 @@ const GET_CONVERSATIONS_QUERY = gql`
 `;
 
 const Messages = ({ navigation }) => {
-  const [conversations, useConversations] = useState([]);
-  const [loading, useLoading] = useState(true);
-  const [fetchMoreLoading, usefetchMoreLoading] = useState(false);
+  const [conversations, setConversations] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [fetchMoreLoading, setfetchMoreLoading] = useState(false);
 
   const { data, fetchMore } = useQuery(GET_CONVERSATIONS_QUERY, {
     variables: {
       skip: 0,
       first: 10,
     },
+    fetchPolicy: 'no-cache',
     onCompleted: (response) => {
-      useConversations(response.conversations);
-      useLoading(false);
+      setConversations(response.conversations);
+      setLoading(false);
     },
     onError: () => {
       showMessage({
@@ -46,21 +47,21 @@ const Messages = ({ navigation }) => {
         description: 'Ops! Algum erro aconteceu, tente novamente mais tarde!',
         type: 'danger',
       });
-      useLoading(false);
+      setLoading(false);
     },
   });
 
   function fetchMoreConversations() {
     if (conversations.length >= 10) {
-      usefetchMoreLoading(true);
+      setfetchMoreLoading(true);
       fetchMore({
         variables: {
           skip: data.conversations.length,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
-          usefetchMoreLoading(false);
+          setfetchMoreLoading(false);
           if (!fetchMoreResult) return prev;
-          return useConversations([...prev.conversations, ...fetchMoreResult.conversations]);
+          return setConversations([...prev.conversations, ...fetchMoreResult.conversations]);
         },
       });
     }

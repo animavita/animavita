@@ -30,8 +30,8 @@ const GET_ADOPTS_QUERY = gql`
 const Adopt = ({ navigation }) => {
   const filters = useSelector(state => state.filter);
   const [swipedAll, setSwipedAll] = useState(false);
-  const [adopts, useAdopts] = useState([]);
-  const [loading, useLoading] = useState(true);
+  const [adopts, setAdopts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { error, data, fetchMore } = useQuery(GET_ADOPTS_QUERY, {
     variables: {
       filter: filters,
@@ -39,8 +39,8 @@ const Adopt = ({ navigation }) => {
       first: 3,
     },
     onCompleted: (newData) => {
-      useAdopts(newData.adopts);
-      useLoading(false);
+      setAdopts(newData.adopts);
+      setLoading(false);
     },
     fetchPolicy: 'no-cache',
     onError: () => {
@@ -50,15 +50,18 @@ const Adopt = ({ navigation }) => {
           'Ops! Alguns animais escaparam dos nossos abraços, tente novamente mais tarde!',
         type: 'danger',
       });
-      useLoading(false);
+      setLoading(false);
     },
   });
 
   useEffect(() => {
-    useLoading(true);
     if (data.adopts && !isEmpty(data.adopts)) {
       setSwipedAll(false);
     }
+  }, [data.adopts]);
+
+  useEffect(() => {
+    setLoading(true);
   }, [filters]);
 
   function handleRedirectToDetail(animal) {
@@ -75,7 +78,7 @@ const Adopt = ({ navigation }) => {
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
-          return useAdopts([...prev.adopts, ...fetchMoreResult.adopts]);
+          return setAdopts([...prev.adopts, ...fetchMoreResult.adopts]);
         },
       });
     }

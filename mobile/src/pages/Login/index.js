@@ -35,7 +35,7 @@ const USER_LOGIN_MUTATION = gql`
 `;
 
 const Login = ({ navigation }) => {
-  const [loader, useLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   async function saveAuthenticatedUser(data) {
@@ -53,7 +53,6 @@ const Login = ({ navigation }) => {
         'Ops! Algum erro no momento da autenticação aconteceu, tente novamente mais tarde.',
       type: 'danger',
     });
-    useLoading(false);
   }
 
   const [loginUser] = useMutation(USER_LOGIN_MUTATION, {
@@ -69,7 +68,7 @@ const Login = ({ navigation }) => {
   });
 
   async function handleLogin() {
-    useLoading(true);
+    setLoading(true);
 
     const response = await handleLoginFacebook();
 
@@ -101,7 +100,7 @@ const Login = ({ navigation }) => {
         source={require('~/images/loginImage.jpg')}
       />
       <Footer>
-        <GradientButton onPress={() => handleLogin()} disabled={loader} loading={loader}>
+        <GradientButton onPress={() => handleLogin()} disabled={loading} loading={loading}>
           <Title size={12} color="white">
             Entrar com facebook
           </Title>
