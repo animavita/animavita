@@ -1,20 +1,23 @@
 import { StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { THEME_COLORS } from '~/utils/constants';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export const Container = styled.View`
-  max-height: 78%;
-  height: 78%;
+  max-height: ${hp('77%')};
+  height: ${hp('77%')};
   justify-content: center;
   align-items: center;
-  margin-bottom: 5px;
 `;
 
 export const Box = styled.View`
   flex-direction: row;
   justify-content: space-between;
   width: 95%;
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
 export const Photo = styled.TouchableOpacity`
@@ -38,17 +41,18 @@ export const PhotoSource = styled.Image`
 export const Wrapper = styled.View``;
 
 export const DrawImage = styled.Image`
-  width: 300px;
-  height: 280px;
+  width: ${wp('80%')};
+  height: ${hp('40%')};
 `;
 
 export const Footer = styled.View`
   align-items: center;
+  margin-top: 40px;
   width: 100%;
 `;
 
 export const BackButton = styled.TouchableOpacity`
-  margin-top: 8px;
+  margin-top: 20px;
 `;
 
 export const styles = StyleSheet.create({

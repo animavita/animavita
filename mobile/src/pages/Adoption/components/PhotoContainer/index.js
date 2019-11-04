@@ -1,130 +1,109 @@
 import PropTypes from 'prop-types';
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 import React, { useState } from 'react';
-import { showMessage } from 'react-native-flash-message';
 import { Title } from '~/components';
-import ImagePicker from 'react-native-image-picker';
 import { THEME_COLORS } from '~/utils/constants';
 import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native';
+import usePhoto from '~/hooks/usePhoto';
+import { showMessage } from 'react-native-flash-message';
 import {
   BackButton, Footer, Container, Box, Photo, PhotoSource, DrawImage, Wrapper, styles,
 } from './styles';
 import GradientButton from '~/components/GradientButton';
 
-const PhotoContainer = ({ setStep, data, setData }) => {
-  const [photos, usePhoto] = useState([{ order: 0 }, { order: 1 }, { order: 2 }]);
-  function handleSelectImage(index) {
-    ImagePicker.showImagePicker(
-      {
-        title: 'Selecionar Imagem',
-        takePhotoButtonTitle: 'Tirar foto...',
-        chooseFromLibraryButtonTitle: 'Escolher da galeria...',
-      },
-      (upload) => {
-        if (upload.error) {
-          showMessage({
-            message: 'Erro ao fazer upload de imagem!',
-            description:
-              'Ops! Algum erro aconteceu ao fazer upload desta imagem!',
-            type: 'danger',
-          });
-        } else if (upload.didCancel) {
-          showMessage({
-            message: 'Você cancelou a ação de upload de imagem!',
-            description:
-              'Ops! Parece que temos alguém indeciso.',
-            type: 'danger',
-          });
-        } else {
-          const preview = {
-            uri: `data:image/jpeg;base64, ${upload.data}`,
-          };
-
-          let prefix;
-          let ext;
-
-          if (upload.filename) {
-            [prefix, ext] = upload.fileName.split('.');
-            ext = ext.toLocaleLowerCase() === 'heic' ? 'jpg' : ext;
-          } else {
-            prefix = new Date().getTime();
-            ext = 'jpg';
-          }
-
-          const image = {
-            uri: upload.uri,
-            type: upload.type,
-            name: `${prefix}.${ext}`,
-          };
-
-          const newArrayPhotos = [...photos];
-
-          newArrayPhotos[index] = {
-            preview,
-            image,
-            save: true,
-            order: index,
-          };
-
-          usePhoto(newArrayPhotos);
-        }
-      },
-    );
-  }
-
-  function removeImage(index) {
-    const resetPhotos = photos.map((photo) => {
-      if (photo.order === index) {
-        return {
-          order: index,
-        };
+const ADOPT_REGISTER_MUTATION = gql`
+  mutation AdoptRegisterMutation($name: String!,
+  $breed: String!, $gender: Gender!, $type: Type!, $age: Int!, $size: Size!, $observations: String! $images: [Upload]!) {
+    AdoptRegisterMutation(input: { name: $name, breed: $breed, gender: $gender, type: $type , age: $age, size: $size, observations: $observations, images: $images}) {
+      adopt {
+        images
       }
-
-      return photo;
-    });
-    usePhoto(resetPhotos);
+    }
   }
+`;
 
-  function backStep() {
-    setData(data);
-    setStep(0);
+
+const PhotoContainer = ({
+  setStep, data, navigation,
+}) => {
+  const [loading, setLoading] = useState(false);
+  const [photos, handleSelectImage, removeImage] = usePhoto();
+  const [registerAdopt] = useMutation(ADOPT_REGISTER_MUTATION, {
+    onCompleted: () => {
+      showMessage({
+        message: 'Salvo com sucesso!',
+        description: `Os dados dessa adoção foram salvos com sucesso, você receberá uma notificação quando solicitarem a a doção de ${data.name}!`,
+        type: 'success',
+        duration: 4000,
+      });
+      setLoading(false);
+      navigation.goBack();
+    },
+  });
+
+
+  function submitAdopt() {
+    setLoading(true);
+    const images = photos.filter(item => item.image);
+    if (images.length > 0) {
+      registerAdopt({
+        variables: {
+          ...data,
+          gender: data.gender.toUpperCase(),
+          type: data.type.toUpperCase(),
+          size: data.size.toUpperCase(),
+          images,
+        },
+      });
+    } else {
+      setLoading(false);
+      showMessage({
+        message: 'Nenhuma imagem enviada!',
+        description: `Por favor, adicione pelo menos uma foto do ${data.name}`,
+        type: 'danger',
+      });
+    }
   }
 
   return (
-    <>
-      <Container>
-        <DrawImage source={require('~/images/photoContainerImage.jpg')} />
-        <Title size={12} weight="normal">
-          Que tal umas fotos fofíssimas do animalzíneo?
-        </Title>
-        <Box>
-          {photos.map(item => (!item.save ? (
-            <Photo key={item.order} onPress={() => handleSelectImage(item.order)}>
-              <Icon name="camera" type="feather" color={THEME_COLORS.SECONDARY} />
-            </Photo>
-          ) : (
-            <Wrapper key={item.order}>
-              <TouchableOpacity
-                hitSlop={{
-                  top: 20, bottom: 20, left: 20, right: 20,
-                }}
-                onPress={() => removeImage(item.order)}
-              >
-                <Icon
-                  name="ios-close-circle"
-                  type="ionicon"
-                  color="red"
-                  reverseColor="white"
-                  iconStyle={styles.exclude}
-                />
-              </TouchableOpacity>
-              <PhotoSource source={photos[item.order].preview} />
-            </Wrapper>
-          )))}
-        </Box>
-      </Container>
+    <Container>
+      <DrawImage source={require('~/images/photoContainerImage.jpg')} />
+      <Title size={12} weight="normal">
+        Que tal umas fotos fofíssimas do {data.name}?
+      </Title>
+      <Box>
+        {photos.map(item => (!item.save ? (
+          <Photo key={item.order} onPress={() => handleSelectImage(item.order)}>
+            <Icon name="camera" type="feather" color={THEME_COLORS.SECONDARY} />
+          </Photo>
+        ) : (
+          <Wrapper key={item.order}>
+            <TouchableOpacity
+              hitSlop={{
+                top: 20, bottom: 20, left: 20, right: 20,
+              }}
+              onPress={() => removeImage(item.order)}
+            >
+              <Icon
+                name="ios-close-circle"
+                type="ionicon"
+                color="red"
+                reverseColor="white"
+                iconStyle={styles.exclude}
+              />
+            </TouchableOpacity>
+            <PhotoSource source={photos[item.order].preview} />
+          </Wrapper>
+        )))}
+      </Box>
       <Footer>
-        <GradientButton disabled={false} onPress={() => alert(JSON.stringify(data))}>
+        <GradientButton
+          disabled={loading}
+          onPress={() => submitAdopt()}
+          loading={loading}
+        >
           <Title size={14} color="white">
             Finalizar
           </Title>
@@ -136,19 +115,18 @@ const PhotoContainer = ({ setStep, data, setData }) => {
             left: 30,
             right: 30,
           }}
-          onPress={() => backStep()}
+          onPress={() => setStep(0)}
         >
           <Title size={12} color={THEME_COLORS.GREY} weight="normal">
             Voltar para os detalhes
           </Title>
         </BackButton>
       </Footer>
-    </>
+    </Container>
   );
 };
 
 PhotoContainer.propTypes = {
-  setData: PropTypes.func.isRequired,
   data: PropTypes.shape({
     name: PropTypes.string,
     observations: PropTypes.string,
@@ -157,6 +135,7 @@ PhotoContainer.propTypes = {
     age: PropTypes.number,
     size: PropTypes.string,
   }).isRequired,
+  navigation: PropTypes.shape({}).isRequired,
   setStep: PropTypes.func.isRequired,
 };
 

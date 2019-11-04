@@ -15,9 +15,10 @@ import { ANIMAL_TYPES, ANIMAL_SIZES } from '~/utils/constants';
 const AdoptionForm = ({ setData, data, setStep }) => {
   const state = {
     name: '',
+    breed: '',
     observations: '',
-    animal: '',
-    sex: '',
+    type: '',
+    gender: '',
     age: 1,
     size: '',
   };
@@ -26,23 +27,23 @@ const AdoptionForm = ({ setData, data, setStep }) => {
     name: Yup.string().required('O campo nome é obrigatório!'),
     breed: Yup.string().required('O campo raça é obrigatório!'),
     observations: Yup.string().trim('O campo observações não pode conter apenas espaços!'),
-    animal: Yup.string().required('É obrigatório escolher um tipo de animal!'),
-    sex: Yup.string().trim().required('É obrigatório escolher o sexo do animal!'),
+    type: Yup.string().required('É obrigatório escolher um tipo de animal!'),
+    gender: Yup.string().trim().required('É obrigatório escolher o sexo do animal!'),
     size: Yup.string().required('Escolha o tamanho do animal!'),
   });
 
-  function handleSubmit(formData) {
+  function nextStep(formData) {
     setData(formData);
     setStep(1);
   }
   return (
     <Formik
       initialValues={data.name ? data : state}
-      onSubmit={values => handleSubmit(values)}
+      onSubmit={values => nextStep(values)}
       validationSchema={schema}
     >
       {({
-        errors, values, setFieldValue, handleChange,
+        errors, values, setFieldValue, handleChange, handleSubmit,
       }) => (
         <>
           <FormContainer showsVerticalScrollIndicator={false}>
@@ -69,7 +70,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 />
               </Wrapper>
             </Input>
-            {errors.breed && <Title size={12} weight="normal" color="red">{errors.breed}</Title>}            
+            {errors.breed && <Title size={12} weight="normal" color="red">{errors.breed}</Title>}
             <Input>
               <Wrapper>
                 <Field>Observações</Field>
@@ -90,14 +91,14 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                     <Button
                       key={animal.value}
                       title={animal.title}
-                      active={values.animal === animal.value}
-                      onPress={() => setFieldValue('animal', animal.value)}
+                      active={values.type === animal.value}
+                      onPress={() => setFieldValue('type', animal.value)}
                     />
                   ))}
                 </ButtonGroup>
               </Wrapper>
             </Input>
-            {errors.animal && <Title size={12} weight="normal" color="red">{errors.animal}</Title>}
+            {errors.type && <Title size={12} weight="normal" color="red">{errors.type}</Title>}
             <Input>
               <Wrapper>
                 <Field>Idade do animal (aproximadamente)</Field>
@@ -115,9 +116,9 @@ const AdoptionForm = ({ setData, data, setStep }) => {
               <Wrapper>
                 <Field>Sexo do animal</Field>
                 <Picker
-                  selectedValue={values.sex}
+                  selectedValue={values.gender}
                   style={styles.picker}
-                  onValueChange={value => setFieldValue('sex', value)}
+                  onValueChange={value => setFieldValue('gender', value)}
                 >
                   <Picker.Item label="Selecione o sexo do animal" value="" />
                   <Picker.Item label="Macho" value="male" />
@@ -125,7 +126,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 </Picker>
               </Wrapper>
             </Input>
-            {errors.sex && <Title size={12} weight="normal" color="red">{errors.sex}</Title>}
+            {errors.gender && <Title size={12} weight="normal" color="red">{errors.gender}</Title>}
 
             <Input>
               <Wrapper>
