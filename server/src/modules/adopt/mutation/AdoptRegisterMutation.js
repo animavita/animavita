@@ -1,8 +1,10 @@
 import {
   GraphQLString, GraphQLNonNull, GraphQLEnumType, GraphQLInt, GraphQLList
 } from 'graphql';
+import { GraphQLUpload } from 'graphql-upload';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import AdoptModel from '../AdoptModel';
+import { uploadFile } from '~/utils/helpers';
 
 import AdoptType from '../AdoptType';
 
@@ -64,24 +66,27 @@ export default mutationWithClientMutationId({
       })
     },
     images: {
-      type: new GraphQLNonNull(GraphQLList(GraphQLString))
+      type: new GraphQLNonNull(GraphQLList(GraphQLUpload))
     },
     observations: {
       type: GraphQLString
     }
   },
   mutateAndGetPayload: async ({
-    name, breed, type, age, size, images
+    name, breed, type, gender, age, size, images
   }, { user }) => {
+    const uploads = await Promise.all(images.map(uploadFile));
     try {
       const adopt = AdoptModel.create({
         user,
         name,
         breed,
         type,
+        gender,
         age,
         size,
-        images
+        images: uploads,
+        address: user.address
       });
 
       return {

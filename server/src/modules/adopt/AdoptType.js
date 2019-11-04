@@ -4,7 +4,7 @@ import {
 import UserType from '../user/UserType';
 import AddressType from '../address/AddressType';
 import UserModel from '../user/UserModel';
-import { getAnimalGender, getAnimalSize } from '~/utils/helpers';
+import { getAnimalSize } from '~/utils/helpers';
 
 const AdoptType = new GraphQLObjectType({
   name: 'Adopt',
