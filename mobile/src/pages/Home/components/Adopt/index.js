@@ -36,7 +36,7 @@ const Adopt = ({ navigation }) => {
     variables: {
       filter: filters,
       skip: 0,
-      first: 3,
+      first: 5,
     },
     onCompleted: (newData) => {
       setAdopts(newData.adopts);
