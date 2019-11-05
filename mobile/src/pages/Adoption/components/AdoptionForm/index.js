@@ -46,7 +46,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
         errors, values, setFieldValue, handleChange, handleSubmit,
       }) => (
         <>
-          <FormContainer showsVerticalScrollIndicator={false}>
+          <FormContainer>
             <Input>
               <Wrapper>
                 <Field>Nome do animal</Field>
