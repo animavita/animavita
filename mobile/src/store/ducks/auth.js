@@ -1,9 +1,11 @@
+import Immutable from 'seamless-immutable';
+
 export const Types = {
   SET_AUTH: 'auth/SET_USER_AUTHENTICATED',
   CLEAR_AUTH: 'auth/CLEAR_USER_AUTHENTICATED',
 };
 
-const INITIAL_STATE = {
+const INITIAL_STATE = Immutable({
   _id: null,
   name: '',
   lastname: '',
@@ -12,7 +14,7 @@ const INITIAL_STATE = {
   distance: 10,
   notifications: false,
   hero: false,
-};
+});
 
 export default function auth(state = INITIAL_STATE, action) {
   switch (action.type) {
