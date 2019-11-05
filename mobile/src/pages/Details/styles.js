@@ -9,11 +9,8 @@ export const BackButton = styled.TouchableOpacity`
   left: 20;
 `;
 
-export const ObservationContainer = styled.View`
-  flex: 1;
-  margin-top: 10px;
-  justify-content: center;
-  align-items: center;
+export const ObservationContainer = styled.ScrollView`
+  height: 25%;
   width: 100%;
 `;
 
@@ -47,7 +44,7 @@ export const PetData = styled.View`
   justify-content: space-between;
   align-items: flex-start;
   margin-top: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 `;
 
 export const FooterContent = styled.View`
@@ -67,5 +64,10 @@ export const styles = StyleSheet.create({
   },
   icon: { fontSize: 35 },
   dot: { marginBottom: 15 },
-  share: { position: 'absolute', right: 0, bottom: 35 },
+  heart: {
+    position: 'absolute',
+    right: 0,
+    bottom: 35,
+    zIndex: 99,
+  },
 });
