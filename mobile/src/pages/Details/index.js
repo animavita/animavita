@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GradientButton from '~/components/GradientButton';
+import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import { Title, H1 } from '~/components';
 import { showMessage } from 'react-native-flash-message';
@@ -9,6 +10,8 @@ import { Icon } from 'react-native-elements';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import Loading from '~/components/Loading';
+import useFavorite from '~/hooks/useFavorite';
+
 import {
   TopContent,
   FooterContent,
@@ -43,6 +46,7 @@ const GET_SPECIFIC_ADOPT_BY_ID = gql`
 
 const Details = ({ navigation }) => {
   const [animal, setAnimal] = useState(navigation.state.params.animal);
+  const [favorited, handleFavorite] = useFavorite(animal);
   const { loading, data } = useQuery(GET_SPECIFIC_ADOPT_BY_ID, {
     variables: {
       id: animal._id,
@@ -106,16 +110,14 @@ const Details = ({ navigation }) => {
         <FooterContent>
           <TopContent>
             <H1 size={35}>{animal.name}</H1>
-            <Icon
-              raised
-              name={`${animal.gender}-symbol`}
-              type="foundation"
-              color={
-                animal.gender === 'male' ? THEME_COLORS.MALE_GENDER : THEME_COLORS.FEMALE_GENDER
-              }
-              containerStyle={styles.share}
-              iconStyle={styles.icon}
-            />
+            <TouchableOpacity style={styles.heart} onPress={() => handleFavorite()}>
+              <Icon
+                name={favorited ? 'heart' : 'heart-o'}
+                raised
+                type="font-awesome"
+                color={favorited ? '#FF6767' : THEME_COLORS.BLACK}
+              />
+            </TouchableOpacity>
           </TopContent>
 
           <PetData>
@@ -123,6 +125,12 @@ const Details = ({ navigation }) => {
               {'Raça \n'}
               <Title weight="normal" color="#c5ccd6" size={11}>
                 {animal.breed}
+              </Title>
+            </Title>
+            <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
+              {'Sexo \n'}
+              <Title weight="normal" color="#c5ccd6" size={11}>
+                {animal.gender}
               </Title>
             </Title>
             <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
@@ -142,13 +150,13 @@ const Details = ({ navigation }) => {
             {loading ? (
               <Loading size={30} />
             ) : (
-              <Title weight="normal" color="#c5ccd6" numberOfLines={4} size={11}>
-                {data.adopt.observations ? data.adopt.observations : '\nSem observações'}
+              <Title weight="normal" color="#c5ccd6"  size={11}>
+                {animal.observations ? animal.observations : '\nSem observações'}
               </Title>
             )}
           </ObservationContainer>
         </FooterContent>
-        <GradientButton disabled={false} onPress={() => setFinishStep(false)}>
+        <GradientButton disabled={!!animal.adopted} onPress={() => setFinishStep(false)}>
           <Title size={14} color="white">
             Solicitar Adoção
           </Title>
