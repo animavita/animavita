@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import {
   Small, FormContainer, Input, Field, Wrapper,
 } from '~/components';
-import { THEME_COLORS } from '~/utils/constants';
 import { showMessage } from 'react-native-flash-message';
 import { useMutation } from '@apollo/react-hooks';
 import { useDispatch } from 'react-redux';
@@ -21,7 +20,6 @@ const USER_CHANGE_NAME_MUTATION = gql`
     }
   }
 `;
-
 const Personal = ({ user }) => {
   const dispatch = useDispatch();
   const [fields, setFields] = useState({
@@ -30,7 +28,6 @@ const Personal = ({ user }) => {
     name: user.name,
     lastname: user.lastname,
   });
-
   const [updateName] = useMutation(USER_CHANGE_NAME_MUTATION, {
     onCompleted: () => {
       showMessage({
@@ -38,7 +35,6 @@ const Personal = ({ user }) => {
         description: 'Os seus dados foram atualizados com sucesso!',
         type: 'success',
       });
-
       dispatch(
         AuthCreators.setAuth({
           ...user,
@@ -56,7 +52,6 @@ const Personal = ({ user }) => {
       });
     },
   });
-
   function handleChange(field, enabled) {
     if (!enabled) {
       const { name, lastname } = fields;
@@ -67,13 +62,11 @@ const Personal = ({ user }) => {
         },
       });
     }
-
     setFields({
       ...fields,
       [field]: enabled,
     });
   }
-
   return (
     <FormContainer>
       <Input>
@@ -87,7 +80,6 @@ const Personal = ({ user }) => {
               name: text,
             })
             }
-            style={{ color: fields.nameEditable ? THEME_COLORS.SECONDARY : THEME_COLORS.BLACK }}
           />
         </Wrapper>
         <EditButton
@@ -108,7 +100,6 @@ const Personal = ({ user }) => {
               lastname: text,
             })
             }
-            style={{ color: fields.lastnameEditable ? THEME_COLORS.SECONDARY : THEME_COLORS.BLACK }}
           />
         </Wrapper>
         <EditButton
@@ -127,7 +118,6 @@ const Personal = ({ user }) => {
     </FormContainer>
   );
 };
-
 Personal.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
@@ -135,5 +125,4 @@ Personal.propTypes = {
     email: PropTypes.string.isRequired,
   }).isRequired,
 };
-
 export default Personal;
