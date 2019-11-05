@@ -14,6 +14,7 @@ const middlewares = [];
 const composer = __DEV__
   ? compose(
     applyMiddleware(...middlewares),
+    // eslint-disable-next-line no-console
     console.tron.createEnhancer(),
   )
   : compose(applyMiddleware(...middlewares));
