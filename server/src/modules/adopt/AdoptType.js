@@ -4,7 +4,7 @@ import {
 import UserType from '../user/UserType';
 import AddressType from '../address/AddressType';
 import UserModel from '../user/UserModel';
-import { getAnimalSize } from '~/utils/helpers';
+import { getAnimalSize, getAnimalGender } from '~/utils/helpers';
 
 const AdoptType = new GraphQLObjectType({
   name: 'Adopt',
@@ -42,7 +42,7 @@ const AdoptType = new GraphQLObjectType({
     },
     gender: {
       type: GraphQLString,
-      resolve: adopt => adopt.gender
+      resolve: adopt => getAnimalGender(adopt.gender)
     },
     images: {
       type: GraphQLList(GraphQLString),
