@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Statistics from './components/Statistics';
 import PropTypes from 'prop-types';
 import {
   Container, Header, Tabs, TabButton, TabTitle, TabContainer,
 } from './styles';
 
+import Favorites from './components/Favorites';
 import Adopt from './components/Adopt';
 import Profile from './components/Profile';
 import Loading from '~/components/Loading';
@@ -12,14 +12,14 @@ import useOneSignal from '~/hooks/useOneSignal';
 
 const Home = ({ navigation }) => {
   const [tab, setTab] = useState('Adoções');
-  const tabs = ['Adoções', 'Solicitações', 'Estatísticas'];
+  const tabs = ['Adoções', 'Solicitações', 'Favoritos'];
   useOneSignal();
   const renderContent = () => {
     switch (tab) {
       case 'Adoções':
         return <Adopt navigation={navigation} />;
-      case 'Estatísticas':
-        return <Statistics />;
+      case 'Favoritos':
+        return <Favorites />;
       default:
         return <Loading />;
     }
