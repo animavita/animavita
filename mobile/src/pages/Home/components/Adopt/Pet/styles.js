@@ -11,7 +11,8 @@ export const Name = styled.Text`
 
 export const PetImage = styled.ImageBackground`
   flex: 1;
-  justify-content: space-between;
+  width: 100%;
+  justify-content: flex-end;
 `;
 
 export const SubText = styled.Text`
@@ -26,10 +27,9 @@ export const Informations = styled.View`
   margin-bottom: 15px;
 `;
 
-export const Gender = styled.View`
+export const Heart = styled.View`
   justify-content: flex-end;
   flex-direction: row;
-  width: 100%;
   padding: 20px 20px;
 `;
 
@@ -37,7 +37,7 @@ export const Card = styled.View`
   width: 100%;
   justify-content: flex-end;
   align-items: center;
-  height: ${hp('61%')};
+  height: ${hp('59%')};
   margin-top: 10;
   border-radius: 520;
 `;
