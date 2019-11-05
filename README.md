@@ -47,6 +47,7 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 -   [ ] i18n
 -   [ ] Offline-first
 -   [ ] Create/Apply Dataloaders
+-   [ ] Update to latest React Native version
 
 ## :zap: **Tech Stack**
 
@@ -57,6 +58,9 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 
 -   [React](https://github.com/facebook/react) _(100% [Hooks](https://reactjs.org/docs/hooks-intro.html), zero classes)_
 -   [React Native](https://github.com/facebook/react-native)
+-   [Styled Components](https://www.styled-components.com/)
+-   [Reactotron](https://infinite.red/reactotron)
+-   [Eslint](https://eslint.org/)
 -   [Redux](https://github.com/reduxjs/react-redux)
 -   [MongoDB](https://www.mongodb.com/)
 -   [Formik + Yup](https://jaredpalmer.com/formik/)
@@ -66,6 +70,8 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 -   [OneSignal](https://onesignal.com)
 -   [AWS](https://aws.amazon.com/pt/)
 -   [Redux-Persist](https://github.com/rt2zz/redux-persist)
+
+and much more...
 
 ## :handshake: **Contributing**
 
@@ -92,11 +98,10 @@ You can also contribute money to help secure Animavita's future.
 
 For more details read [License](/LICENSE.md)
 
-Copyright (c) 2019 Wendel de Freitas Branco
+Copyright (c) 2019 [Wendel de Freitas Branco](https://www.linkedin.com/in/wendelfb)
 
 ## :art: **About Me**
 
 > Linkedin - [@wendelfb](https://www.linkedin.com/in/wendelfb) <br>
-> GitHub - [@wendelfreitas](https://github.com/wendelfreitas) <br>
 > Twitter - [@hey_wendelzinho](https://twitter.com/hey_wendelzinho) <br>
 > E-mail - [wendelfreitasbranco@gmail.com](wendelfreitasbranco@gmail.com) <br>
