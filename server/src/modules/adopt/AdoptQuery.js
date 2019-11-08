@@ -88,7 +88,7 @@ export default {
       const filterResult = buildMongoConditionsFromFilters(context, filter, mapping);
       const conditions = {
         ...filterResult.conditions,
-        'address.city': user.address.city,
+        'address.city': user.address ? user.address.city : null,
         user: {
           $ne: ObjectId(context.user._id)
         },
