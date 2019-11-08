@@ -37,6 +37,7 @@ const PhotoContainer = ({
         description: `Os dados dessa adoção foram salvos com sucesso, você receberá uma notificação quando solicitarem a adoção de ${data.name}!`,
         type: 'success',
         duration: 4000,
+        backgroundColor: THEME_COLORS.SECONDARY,
       });
       setLoading(false);
       navigation.goBack();

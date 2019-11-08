@@ -9,6 +9,7 @@ import { Creators as AuthCreators } from '~/store/ducks/auth';
 import gql from 'graphql-tag';
 import PropTypes from 'prop-types';
 import { TextInput, EditButton } from './styles';
+import { THEME_COLORS } from '~/utils/constants';
 
 const USER_CHANGE_NAME_MUTATION = gql`
   mutation UpdateUserNameMutation($name: String!, $lastname: String!) {
@@ -34,6 +35,7 @@ const Personal = ({ user }) => {
         message: 'Salvo com sucesso!',
         description: 'Os seus dados foram atualizados com sucesso!',
         type: 'success',
+        backgroundColor: THEME_COLORS.SECONDARY,
       });
       dispatch(
         AuthCreators.setAuth({

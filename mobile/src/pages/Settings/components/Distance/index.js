@@ -20,6 +20,7 @@ const Distance = () => (
         />
       </Wrapper>
     </Input>
+    <Field>Esta configuração funcionará para o sistema de resgate (em desenvolvimento)</Field>
   </FormContainer>
 );
 

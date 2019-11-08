@@ -5,7 +5,7 @@ const { width } = Dimensions.get('window');
 export const styles = StyleSheet.create({
   me: {
     padding: 10,
-    marginTop: 5,
+    marginBottom: 5,
     borderRadius: 15,
     borderBottomRightRadius: 0,
     maxWidth: width - 60,
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   },
   from: {
     padding: 10,
-    marginTop: 5,
+    marginBottom: 5,
     borderRadius: 15,
     borderTopLeftRadius: 0,
     maxWidth: width - 60,

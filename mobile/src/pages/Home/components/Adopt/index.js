@@ -99,7 +99,7 @@ const Adopt = ({ navigation }) => {
 
     if (isEmpty(adopts) || swipedAll) {
       const description = isEmpty(adopts)
-        ? '\nSem resultados para esses filtros, \n acredito que eles estejam tirando uma soneca.'
+        ? '\nNão existem adoções cadastradas, \n acredito que eles estejam tirando uma soneca.'
         : '\nSem resultados para adoção no momento, \n como você não gostou dessas fofuras que apareceram?';
       return (
         <ErrorContainer

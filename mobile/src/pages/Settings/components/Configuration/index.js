@@ -85,6 +85,9 @@ const Configuration = ({ user }) => {
           onValueChange={() => updateUserConfig({ variables: { option: 'hero' } })}
         />
       </Input>
+      <Field>
+        Esta configuração permitirá que você receba notificações de resgates próximos a você
+      </Field>
     </FormContainer>
   );
 };

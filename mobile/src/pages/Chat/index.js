@@ -29,12 +29,15 @@ const GET_CONVERSATIONS_QUERY = gql`
   }
 `;
 
-const USER_SEND_MESSAGE_MUTATION = gql`
-  mutation SendMessageMutation($conversation: String!, $user: String!, $content: String!) {
+export const USER_SEND_MESSAGE_MUTATION = gql`
+  mutation SendMessageMutation($conversation: String, $user: String!, $content: String!) {
     SendMessageMutation(
       input: { conversationId: $conversation, userId: $user, content: $content }
     ) {
       message {
+        conversation {
+          _id
+        }        
         user {
           _id
           name

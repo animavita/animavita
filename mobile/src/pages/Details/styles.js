@@ -10,7 +10,7 @@ export const BackButton = styled.TouchableOpacity`
 `;
 
 export const ObservationContainer = styled.ScrollView`
-  height: 25%;
+  height: 30%;
   width: 100%;
 `;
 
@@ -63,6 +63,7 @@ export const styles = StyleSheet.create({
     height: '50%',
   },
   icon: { fontSize: 35 },
+  observations: { textAlign: 'center' },
   dot: { marginBottom: 15 },
   heart: {
     position: 'absolute',

@@ -4,8 +4,9 @@ import {
   Container, Header, Tabs, TabButton, TabTitle, TabContainer,
 } from './styles';
 
-import Favorites from './components/Favorites';
 import Adopt from './components/Adopt';
+import Solicitations from './components/Solicitations';
+import Favorites from './components/Favorites';
 import Profile from './components/Profile';
 import Loading from '~/components/Loading';
 import useOneSignal from '~/hooks/useOneSignal';
@@ -18,6 +19,8 @@ const Home = ({ navigation }) => {
     switch (tab) {
       case 'Adoções':
         return <Adopt navigation={navigation} />;
+      case 'Solicitações':
+        return <Solicitations />;
       case 'Favoritos':
         return <Favorites />;
       default:

@@ -7,9 +7,9 @@ import { showMessage } from 'react-native-flash-message';
 import Swiper from 'react-native-swiper';
 import { THEME_COLORS } from '~/utils/constants';
 import { Icon } from 'react-native-elements';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import Loading from '~/components/Loading';
+import { USER_SEND_MESSAGE_MUTATION } from '../Chat';
 import useFavorite from '~/hooks/useFavorite';
 
 import {
@@ -40,28 +40,115 @@ const GET_SPECIFIC_ADOPT_BY_ID = gql`
       images
       age
       observations
+      user {
+        _id
+        fullname
+        avatar
+      }
+    }
+  }
+`;
+
+const GET_SOLICITATION_IF_EXIST = gql`
+  query getSolicitation($id: ID!) {
+    solicitationByAdopt(adoptId: $id) {
+      _id
+    }
+  }
+`;
+
+const SOLICITATION_TO_ADOPT_MUTATION = gql`
+  mutation SolicitationAdoptMutation($adoptId: String!) {
+    SolicitationAdoptMutation(input: { adoptId: $adoptId }) {
+      solicitation {
+        adopt {
+          user {
+            _id
+          }
+        }
+      }
     }
   }
 `;
 
 const Details = ({ navigation }) => {
   const [animal, setAnimal] = useState(navigation.state.params.animal);
+  const [solicited, setSolicited] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [favorited, handleFavorite] = useFavorite(animal);
-  const { loading, data } = useQuery(GET_SPECIFIC_ADOPT_BY_ID, {
+
+  function throwError() {
+    showMessage({
+      message: 'Erro ao exibir detalhes da adoção!',
+      description:
+        'Ops! Algum erro aconteceu ao buscar informações mais detalhadas sobre esta adoção, tente novamente mais tarde!',
+      type: 'danger',
+    });
+
+    navigation.goBack();
+  }
+
+  const { data } = useQuery(GET_SPECIFIC_ADOPT_BY_ID, {
     variables: {
       id: animal._id,
     },
-    onError: () => {
-      showMessage({
-        message: 'Erro ao exibir detalhes da adoção!',
-        description:
-          'Ops! Algum erro aconteceu ao buscar informações mais detalhadas sobre esta adoção, tente novamente mais tarde!',
-        type: 'danger',
-      });
+    onError: () => throwError(),
+  });
 
-      navigation.goBack();
+  useQuery(GET_SOLICITATION_IF_EXIST, {
+    variables: {
+      id: animal._id,
+    },
+    fetchPolicy: 'no-cache',
+    onCompleted: ({ solicitationByAdopt }) => {
+      if (solicitationByAdopt) {
+        setSolicited(true);
+      }
+      setLoading(false);
+    },
+    onError: () => throwError(),
+  });
+
+  const [sendMessage] = useMutation(USER_SEND_MESSAGE_MUTATION, {
+    onCompleted: ({ SendMessageMutation }) => {
+      showMessage({
+        message: 'Solicitação enviada com sucesso!',
+        description: `Você enviou com sucesso uma solicitação para adotar ${
+          animal.name
+        }, aguarde até que o responsável envie uma mensagem!`,
+        type: 'success',
+        duration: 4000,
+        backgroundColor: THEME_COLORS.SECONDARY,
+      });
+      navigation.navigate('Chat', {
+        conversation: SendMessageMutation.message.conversation,
+        user: {
+          _id: animal.user._id,
+          name: animal.user.fullname,
+          avatar: animal.user.avatar,
+        },
+      });
     },
   });
+
+  const [solicitationToAdopt, { loading: loadingMutation }] = useMutation(
+    SOLICITATION_TO_ADOPT_MUTATION,
+    {
+      onCompleted: ({ SolicitationAdoptMutation }) => {
+        sendMessage({
+          variables: {
+            user: SolicitationAdoptMutation.solicitation.adopt.user._id,
+            content: `Olá, eu acabei de solicitar a adoção de ${animal.name}`,
+          },
+        });
+      },
+      onError: () => showMessage({
+        message: 'Erro ao solicitar adoção!',
+        description: `Ops! Algum erro aconteceu ao solicitar a adoção de ${animal.name}`,
+        type: 'danger',
+      }),
+    },
+  );
 
   useEffect(() => {
     if (data.adopt) {
@@ -80,6 +167,11 @@ const Details = ({ navigation }) => {
         }}
       />
     ));
+  }
+
+  function handleSolicitation() {
+    setLoading(true)
+    solicitationToAdopt({ variables: { adoptId: animal._id } })
   }
 
   return (
@@ -148,17 +240,23 @@ const Details = ({ navigation }) => {
           </PetData>
           <ObservationContainer>
             {loading ? (
-              <Loading size={30} />
+              <Title weight="normal" style={styles.observations} color="#c5ccd6" size={11}>
+                Carregando...
+              </Title>
             ) : (
-              <Title weight="normal" color="#c5ccd6"  size={11}>
-                {animal.observations ? animal.observations : '\nSem observações'}
+              <Title weight="normal" style={styles.observations} color="#c5ccd6" size={11}>
+                {animal.observations ? animal.observations : 'Sem observações'}
               </Title>
             )}
           </ObservationContainer>
         </FooterContent>
-        <GradientButton disabled={!!animal.adopted} onPress={() => setFinishStep(false)}>
+        <GradientButton
+          disabled={loadingMutation || solicited || loading}
+          loading={loadingMutation || loading}
+          onPress={() => handleSolicitation()}
+        >
           <Title size={14} color="white">
-            Solicitar Adoção
+            {solicited ? 'Aguardando Resposta da Solicitação' : 'Solicitar Adoção'}
           </Title>
         </GradientButton>
       </PetDetail>
