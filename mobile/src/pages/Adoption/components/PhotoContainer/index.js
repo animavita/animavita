@@ -34,7 +34,7 @@ const PhotoContainer = ({
     onCompleted: () => {
       showMessage({
         message: 'Salvo com sucesso!',
-        description: `Os dados dessa adoção foram salvos com sucesso, você receberá uma notificação quando solicitarem a a doção de ${data.name}!`,
+        description: `Os dados dessa adoção foram salvos com sucesso, você receberá uma notificação quando solicitarem a adoção de ${data.name}!`,
         type: 'success',
         duration: 4000,
       });
@@ -61,7 +61,7 @@ const PhotoContainer = ({
       setLoading(false);
       showMessage({
         message: 'Nenhuma imagem enviada!',
-        description: `Por favor, adicione pelo menos uma foto do ${data.name}`,
+        description: `Por favor, adicione pelo menos uma foto para ${data.name}`,
         type: 'danger',
       });
     }
@@ -105,7 +105,7 @@ const PhotoContainer = ({
           loading={loading}
         >
           <Title size={14} color="white">
-            Finalizar
+            Cadastrar Adoção
           </Title>
         </GradientButton>
         <BackButton
