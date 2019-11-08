@@ -91,7 +91,8 @@ export default {
         'address.city': user.address.city,
         user: {
           $ne: ObjectId(context.user._id)
-        }
+        },
+        adopted: false
       };
 
       return AdoptModel.find(conditions)

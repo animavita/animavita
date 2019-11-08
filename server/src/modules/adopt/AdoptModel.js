@@ -41,6 +41,10 @@ const AdoptSchema = new Schema(
       required: false,
       default: 1
     },
+    adopted: {
+      type: Boolean,
+      default: false
+    },
     images: [
       {
         type: String,
