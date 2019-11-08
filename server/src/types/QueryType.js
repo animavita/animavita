@@ -4,6 +4,7 @@ import UserType from '../modules/user/UserType';
 import AdoptQuery from '../modules/adopt/AdoptQuery';
 import ConversationQuery from '../modules/conversation/ConversationQuery';
 import MessageQuery from '../modules/message/MessageQuery';
+import SolicitationQuery from '../modules/solicitation/SolicitationQuery';
 
 export default new GraphQLObjectType({
   name: 'Query',
@@ -16,6 +17,7 @@ export default new GraphQLObjectType({
     },
     ...AdoptQuery,
     ...ConversationQuery,
-    ...MessageQuery
+    ...MessageQuery,
+    ...SolicitationQuery
   })
 });
