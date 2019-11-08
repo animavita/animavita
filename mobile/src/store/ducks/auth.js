@@ -14,6 +14,7 @@ const INITIAL_STATE = Immutable({
   distance: 10,
   notifications: false,
   hero: false,
+  address: null,
 });
 
 export default function auth(state = INITIAL_STATE, action) {
