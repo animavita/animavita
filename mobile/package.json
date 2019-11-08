@@ -9,6 +9,7 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
     "@react-native-community/async-storage": "^1.5.0",
+    "@react-native-community/geolocation": "^1.4.2",
     "apollo-boost": "^0.4.3",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.3",

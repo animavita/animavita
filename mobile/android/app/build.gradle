@@ -148,6 +148,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-community_geolocation')
     implementation project(':react-native-onesignal')
     implementation project(':react-native-image-picker')
     implementation project(':@react-native-community_async-storage')
