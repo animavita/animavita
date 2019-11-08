@@ -12,11 +12,15 @@
 
 <p align="center">
   <a href="http://makeapullrequest.com">
+    <img src="https://img.shields.io/badge/progress-40%25-brightgreen.svg" alt="PRs Welcome">
+  </a>
+  <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/contribuition-welcome-brightgreen.svg" alt="PRs Welcome">
   </a>
   <a href="https://saythanks.io/to/wendelfreitas">
       <img src="https://img.shields.io/badge/SayThanks.io-%E2%98%BC-1EAEDB.svg">
   </a>
+<a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public." /></a>  
 </p>
 
 <p align="center">
