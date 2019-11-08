@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 });
 
 const ListItem = ({
-  title, subtitle, avatar, onPress,
+  title, subtitle, avatar, onPress, chevron,
 }) => (
   <Item
     Component={TouchableScale}
@@ -32,8 +32,9 @@ const ListItem = ({
     title={title}
     titleStyle={styles.title}
     onPress={onPress}
+    subtitle={subtitle}
     chevronColor="white"
-    chevron
+    chevron={chevron}
   />
 );
 
@@ -41,6 +42,13 @@ ListItem.propTypes = {
   title: PropTypes.string.isRequired,
   avatar: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
+  subtitle: PropTypes.oneOfType([null, PropTypes.string, PropTypes.element]),
+  chevron: PropTypes.bool,
+};
+
+ListItem.defaultProps = {
+  subtitle: null,
+  chevron: true,
 };
 
 export default ListItem;
