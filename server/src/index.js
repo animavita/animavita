@@ -13,7 +13,6 @@ const { PORT } = process.env;
 
 const options = {
   port: PORT || '4000',
-  bodyParserOptions: { limit: '40mb', type: 'application/json' },
   endpoint: '/graphql',
   subscriptions: '/subscriptions',
   playground: process.env.NODE_ENV === 'production' ? false : '/playground'
@@ -37,5 +36,6 @@ const server = new GraphQLServer({
 });
 
 server.start(options, ({ port }) => {
+  // eslint-disable-next-line no-console
   console.log(`🚀 Server is running on http://localhost:${port}`);
 });
