@@ -20,11 +20,17 @@ export default mutationWithClientMutationId({
     }
   },
   mutateAndGetPayload: async ({ conversationId, userId, content }, { user }) => {
-    const conversation = conversationId
+    let conversation = conversationId
       ? await ConversationModel.findById(conversationId)
-      : await ConversationModel.create({
+      : await ConversationModel.findOne({
         members: [userId, user._id]
       });
+
+    if (!conversation) {
+      conversation = await ConversationModel.create({
+        members: [userId, user._id]
+      });
+    }
 
     if (conversation) {
       const message = await MessageModel.create({
