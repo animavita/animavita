@@ -13,6 +13,7 @@ import Notifications from '~/pages/Notifications';
 import Filter from '~/pages/Filter';
 import Adoption from '~/pages/Adoption';
 import Details from '~/pages/Details';
+import Localization from '~/pages/Localization';
 
 const configs = {
   defaultNavigationOptions: {
@@ -45,13 +46,16 @@ const SignedOutRoutes = createStackNavigator({
   },
 });
 
-const MainStackNavigator = createStackNavigator({
-  Home,
-  Notifications,
-  Messages,
-  Chat,
-  Settings,
-}, configs);
+const MainStackNavigator = createStackNavigator(
+  {
+    Home,
+    Notifications,
+    Messages,
+    Chat,
+    Settings,
+  },
+  configs,
+);
 
 const SignedInRoutes = createStackNavigator(
   {
@@ -69,6 +73,7 @@ const SignedInRoutes = createStackNavigator(
         header: () => null,
       },
     },
+
   },
   configs,
   {
@@ -76,14 +81,24 @@ const SignedInRoutes = createStackNavigator(
   },
 );
 
-export const createRootNavigator = (signedIn = false) => createAppContainer(createStackNavigator({
-  SignedIn: { screen: SignedInRoutes },
-  SignedOut: { screen: SignedOutRoutes },
-},
-{
-  headerMode: 'none',
-  initialRouteName: signedIn ? 'SignedIn' : 'SignedOut',
-  navigationOptions: {
-    gesturesEnabled: false,
-  },
-}));
+export const createRootNavigator = (signedIn = false) => createAppContainer(
+  createStackNavigator(
+    {
+      SignedIn: { screen: SignedInRoutes },
+      SignedOut: { screen: SignedOutRoutes },
+      Localization: {
+        screen: Localization,
+        navigationOptions: {
+          header: () => null,
+        },
+      },
+    },
+    {
+      headerMode: 'none',
+      initialRouteName: signedIn ? 'SignedIn' : 'SignedOut',
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+    },
+  ),
+);

@@ -27,7 +27,10 @@ const USER_LOGIN_MUTATION = gql`
         email
         hero
         notifications
-
+        address {
+          state
+          city
+        }
       }
       token
     }
@@ -39,10 +42,7 @@ const Login = ({ navigation }) => {
   const dispatch = useDispatch();
 
   async function saveAuthenticatedUser(data) {
-    await AsyncStorage.setItem(
-      '@animavita:authToken',
-      JSON.stringify(data.token),
-    );
+    await AsyncStorage.setItem('@animavita:authToken', JSON.stringify(data.token));
     dispatch(AuthCreators.setAuth(data.user));
   }
 
@@ -53,14 +53,17 @@ const Login = ({ navigation }) => {
         'Ops! Algum erro no momento da autenticação aconteceu, tente novamente mais tarde.',
       type: 'danger',
     });
+    setLoading(false);
   }
 
   const [loginUser] = useMutation(USER_LOGIN_MUTATION, {
     onCompleted: ({ SignInWithFacebookMutation }) => {
+      const route = SignInWithFacebookMutation.user.address ? 'SignedIn' : 'Localization';
       saveAuthenticatedUser(SignInWithFacebookMutation);
+
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'SignedIn' })],
+        actions: [NavigationActions.navigate({ routeName: route })],
       });
       navigation.dispatch(resetAction);
     },

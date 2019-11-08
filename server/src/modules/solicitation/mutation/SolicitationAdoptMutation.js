@@ -38,7 +38,7 @@ export default mutationWithClientMutationId({
       return { solicitation };
     }
 
-    throw new Error('Erro on send solicitation to adopt');
+    throw new Error('Error on send solicitation to adopt');
   },
   outputFields: {
     solicitation: {
