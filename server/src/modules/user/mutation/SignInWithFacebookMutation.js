@@ -26,10 +26,7 @@ export default mutationWithClientMutationId({
           name: facebookUser.name,
           email: facebookUser.email,
           avatar,
-          address: {
-            state: 'São Paulo',
-            city: 'Bauru'
-          }
+          address: null
         });
       }
 
