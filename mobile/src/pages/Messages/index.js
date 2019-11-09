@@ -7,8 +7,10 @@ import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 import { showMessage } from 'react-native-flash-message';
 import Profile from '~/components/Profile';
+import ErrorContainer from '~/components/ErrorContainer';
 
 import { Container, Content, styles } from './styles';
+import { isEmpty } from '~/utils/helpers';
 
 const GET_CONVERSATIONS_QUERY = gql`
   query getAllConversations($skip: Int, $first: Int) {
@@ -76,40 +78,51 @@ const Messages = ({ navigation }) => {
     );
   }
 
+  function renderContent() {
+    if (!isEmpty(conversations)) {
+      return (
+        <ErrorContainer
+          image={require('~/images/emptyMessages.jpg')}
+          title="Sua caixa de mensagens está vazia!"
+          description={
+            '\n O chat fica disponível apenas após uma solicitação de adoção, sabemos o quanto você gostaria de conversar sobre seu pet, vamos trabalhar nisso para o futuro.'
+          }
+        />
+      );
+    }
+    return (
+      <FlatList
+        data={conversations}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item: conversation }) => (
+          <ListItem
+            title={conversation.members[0].fullname}
+            onPress={() => navigation.navigate('Chat', {
+              conversation: {
+                _id: conversation._id,
+              },
+              user: {
+                _id: conversation.members[0]._id,
+                name: conversation.members[0].fullname,
+                avatar: conversation.members[0].avatar,
+              },
+            })
+            }
+            avatar={conversation.members[0].avatar}
+          />
+        )}
+        keyExtractor={conversation => conversation._id}
+        onEndReached={fetchMoreConversations}
+        onEndReachedThreshold={0.2}
+        ListFooterComponent={renderFooter}
+      />
+    );
+  }
+
   return (
     <Container>
       <Profile title="Mensagens" />
-      <Content>
-        {loading ? (
-          <Loading />
-        ) : (
-          <FlatList
-            data={conversations}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item: conversation }) => (
-              <ListItem
-                title={conversation.members[0].fullname}
-                onPress={() => navigation.navigate('Chat', {
-                  conversation: {
-                    _id: conversation._id,
-                  },
-                  user: {
-                    _id: conversation.members[0]._id,
-                    name: conversation.members[0].fullname,
-                    avatar: conversation.members[0].avatar,
-                  },
-                })
-                }
-                avatar={conversation.members[0].avatar}
-              />
-            )}
-            keyExtractor={conversation => conversation._id}
-            onEndReached={fetchMoreConversations}
-            onEndReachedThreshold={0.2}
-            ListFooterComponent={renderFooter}
-          />
-        )}
-      </Content>
+      <Content>{loading ? <Loading /> : renderContent()}</Content>
     </Container>
   );
 };
