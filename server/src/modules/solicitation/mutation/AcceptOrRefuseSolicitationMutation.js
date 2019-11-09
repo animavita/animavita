@@ -29,6 +29,19 @@ export default mutationWithClientMutationId({
         await adopt.save();
         await solicitation.save();
 
+        const schedule = new Date();
+        schedule.setDate(schedule.getDate() + 14);
+
+        OneSignal.notification(
+          {
+            contents: {
+              en: `Olá ${user.name} ficamos muito felizes pela adoção de ${adopt.name}, gostariamos que você compartilha-se uma foto de vocês juntinhos para guardarmos no nosso álbum, o que acha ? Clique aqui para enviar :)`
+            },
+            send_after: schedule
+          },
+          solicitation.user
+        );
+
         content = `Ficamos imensamente felizes de dizer que ${user.name} aceitou sua solicitação para adotar ${adopt.name}! Desejamos felicidades e obrigado por nos ajudar a mudar o mundo.`;
       } else {
         content = `${user.name} recusou sua solicitação para adotar ${adopt.name}!`;
