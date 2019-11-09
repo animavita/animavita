@@ -7,6 +7,7 @@ import { ListItem as Item } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   title: { color: 'white', fontWeight: '500', fontSize: 15 },
+  subtitle: { color: 'white' },
   container: { borderRadius: 15, marginVertical: 5 },
 });
 
@@ -33,6 +34,7 @@ const ListItem = ({
     titleStyle={styles.title}
     onPress={onPress}
     subtitle={subtitle}
+    subtitleStyle={styles.subtitle}
     chevronColor="white"
     chevron={chevron}
   />
