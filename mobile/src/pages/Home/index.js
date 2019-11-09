@@ -38,7 +38,7 @@ const Home = ({ navigation }) => {
       case 'Solicitações':
         return <Solicitations />;
       case 'Favoritos':
-        return <Favorites />;
+        return <Favorites navigation={navigation} />;
       default:
         return <Loading />;
     }
@@ -71,7 +71,9 @@ Home.navigationOptions = {
 };
 
 Home.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Home;
