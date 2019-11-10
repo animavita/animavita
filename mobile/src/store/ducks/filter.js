@@ -9,7 +9,8 @@ const INITIAL_STATE = Immutable({
   gender: '',
   type: '',
   size: '',
-  age_lte: 1,
+  age_gte: 1,
+  distance: 10,
 });
 
 export default function filter(state = INITIAL_STATE, action) {
