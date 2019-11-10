@@ -41,6 +41,17 @@ const UserSchema = new Schema(
       type: AddressModel,
       default: null
     },
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point'
+      },
+      coordinates: {
+        type: [Number],
+        default: null
+      }
+    },
     pushTokens: [
       {
         type: Schema.Types.ObjectId,
@@ -52,5 +63,7 @@ const UserSchema = new Schema(
     timestamps: true
   }
 );
+
+UserSchema.index({ location: '2dsphere' });
 
 export default mongoose.model('User', UserSchema);

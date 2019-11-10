@@ -47,6 +47,10 @@ const mapping = {
   },
   age: {
     type: FILTER_CONDITION_TYPE.MATCH_1_TO_1
+  },
+  distance: {
+    type: FILTER_CONDITION_TYPE.CUSTOM_CONDITION,
+    format: () => null
   }
 };
 
@@ -68,7 +72,10 @@ export default {
             type: {
               type: GraphQLString
             },
-            age_lte: {
+            age_gte: {
+              type: GraphQLInt
+            },
+            distance: {
               type: GraphQLInt
             }
           })
@@ -83,14 +90,23 @@ export default {
         type: GraphQLInt
       }
     },
-    resolve: (_, { filter, first = null, skip = null }, context) => {
+    resolve: async (_, { filter, first = null, skip = null }, context) => {
       const { user } = context;
+      const { distance } = filter;
       const filterResult = buildMongoConditionsFromFilters(context, filter, mapping);
       const conditions = {
         ...filterResult.conditions,
-        'address.city': user.address ? user.address.city : null,
         user: {
           $ne: ObjectId(context.user._id)
+        },
+        location: {
+          $near: {
+            $maxDistance: distance * 1000,
+            $geometry: {
+              type: 'Point',
+              coordinates: user.location.coordinates
+            }
+          }
         },
         adopted: false
       };

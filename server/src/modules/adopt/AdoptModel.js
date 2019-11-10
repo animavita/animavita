@@ -51,11 +51,23 @@ const AdoptSchema = new Schema(
         required: true
       }
     ],
+    location: {
+      type: {
+        type: String,
+        enum: ['Point'],
+        default: 'Point'
+      },
+      coordinates: {
+        type: [Number]
+      }
+    },
     address: AddressModel
   },
   {
     timestamps: true
   }
 );
+
+AdoptSchema.index({ location: '2dsphere' });
 
 export default mongoose.model('Adopt', AdoptSchema);
