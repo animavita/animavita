@@ -6,11 +6,10 @@
 
     <item
         android:width="200dp"
-        android:height="200dp"
+        android:height="45dp"
+        android:gravity="center"
     >
-      <bitmap
-        android:src="@drawable/animavita"
-        android:gravity="center" />
+      <bitmap android:src="@drawable/animavita" />
     </item>
 
 </layer-list>
