@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { GraphQLNonNull, GraphQLString } from 'graphql';
+import { GraphQLNonNull, GraphQLString, GraphQLFloat } from 'graphql';
 import { mutationWithClientMutationId } from 'graphql-relay';
 import UserModel from '../../user/UserModel';
 import UserType from '../../user/UserType';
@@ -15,13 +15,26 @@ export default mutationWithClientMutationId({
     },
     city: {
       type: new GraphQLNonNull(GraphQLString)
+    },
+    latitude: {
+      type: new GraphQLNonNull(GraphQLFloat)
+    },
+    longitude: {
+      type: new GraphQLNonNull(GraphQLFloat)
     }
   },
-  mutateAndGetPayload: async ({ city, state }, context) => {
+  mutateAndGetPayload: async ({
+    city, state, latitude, longitude
+  }, context) => {
     const user = await UserModel.findById(ObjectId(context.user._id));
     user.address = {
       state,
       city
+    };
+
+    user.location = {
+      type: 'Point',
+      coordinates: [longitude, latitude]
     };
 
     if (await user.save()) {
