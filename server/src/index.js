@@ -13,6 +13,7 @@ const { PORT } = process.env;
 
 const options = {
   port: PORT || '4000',
+  bodyParserOptions: { limit: '40mb', type: 'application/json' },
   endpoint: '/graphql',
   subscriptions: '/subscriptions',
   playground: process.env.NODE_ENV === 'production' ? false : '/playground'
