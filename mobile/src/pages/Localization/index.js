@@ -25,8 +25,15 @@ const GET_LOCALIZATION = gql`
 `;
 
 const USER_SAVE_ADDRESS_MUTATION = gql`
-  mutation SaveAddressMutation($state: String!, $city: String!) {
-    SaveAddressMutation(input: { state: $state, city: $city }) {
+  mutation SaveAddressMutation(
+    $state: String!
+    $city: String!
+    $latitude: Float!
+    $longitude: Float!
+  ) {
+    SaveAddressMutation(
+      input: { state: $state, city: $city, latitude: $latitude, longitude: $longitude }
+    ) {
       user {
         address {
           state
@@ -39,9 +46,11 @@ const USER_SAVE_ADDRESS_MUTATION = gql`
 
 const Localization = ({ navigation }) => {
   const [local, setLocalization] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
+  const [image] = useState(require('~/images/localization.jpg'));
+  const [loading, setLoading] = useState(false);
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
   const [saveAddress] = useMutation(USER_SAVE_ADDRESS_MUTATION, {
     onCompleted: ({ SaveAddressMutation }) => {
       setLoading(false);
@@ -75,6 +84,7 @@ const Localization = ({ navigation }) => {
       setLoading(false);
     },
   });
+
   function getLocation() {
     setLoading(true);
     Geolocation.getCurrentPosition(
@@ -86,6 +96,7 @@ const Localization = ({ navigation }) => {
             longitude: coords.longitude,
           },
         });
+        setCoordinates(coords);
       },
       () => {
         showMessage({
@@ -111,10 +122,13 @@ const Localization = ({ navigation }) => {
       <Image
         resizeMode="contain"
         style={styles.image}
-        source={require('~/images/localization.jpg')}
+        source={image}
       />
       {local ? (
         <Content>
+          <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+            Você está em
+          </Title>
           <Title size={18} color={THEME_COLORS.BLACK}>
             {local.city} - {local.state}
           </Title>
@@ -126,7 +140,14 @@ const Localization = ({ navigation }) => {
             <GradientButton
               onPress={() => {
                 setLoading(true);
-                saveAddress({ variables: local });
+                saveAddress({
+                  variables: {
+                    state: local.state,
+                    city: local.city,
+                    latitude: coordinates.latitude,
+                    longitude: coordinates.longitude,
+                  },
+                });
               }}
               disabled={loading}
               loading={loading}
@@ -146,14 +167,14 @@ const Localization = ({ navigation }) => {
               onPress={() => getLocation()}
             >
               <Title size={12} color={THEME_COLORS.GREY} weight="normal">
-                Buscar Localização Novamente
+                Buscar localização novamente
               </Title>
             </Research>
           </>
         ) : (
           <GradientButton onPress={() => getLocation()} disabled={loading} loading={loading}>
             <Title size={12} color="white">
-              Buscar Localização
+              Compartilhar minha localização
             </Title>
           </GradientButton>
         )}
