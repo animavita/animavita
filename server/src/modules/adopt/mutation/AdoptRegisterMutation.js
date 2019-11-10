@@ -86,7 +86,8 @@ export default mutationWithClientMutationId({
         age,
         size,
         images: uploads,
-        address: user.address
+        address: user.address,
+        location: user.location
       });
 
       return {
