@@ -22,9 +22,10 @@ const authLink = setContext(async (_, { headers }) => {
 const cache = new InMemoryCache();
 
 const wsLink = new WebSocketLink({
-  uri: 'http://10.10.10.9:4000/subscriptions',
+  uri: 'http://10.10.10.10:4000/subscriptions',
   options: {
     reconnect: true,
+    lazy: true,
     connectionParams: async () => {
       const token = await getToken();
       return {
