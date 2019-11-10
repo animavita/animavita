@@ -42,7 +42,7 @@ export const Wrapper = styled.View`
   flex: 1;
 `;
 
-export const FormContainer = styled.View`
+export const FormContainer = styled.ScrollView`
   margin-top: ${16 * 0.7};
   ${props => (props.withButton ? 'height:78%' : '')};
   margin-bottom: ${props => (props.withButton ? '5px' : 0)};
