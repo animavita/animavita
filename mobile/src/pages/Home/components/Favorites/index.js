@@ -17,8 +17,8 @@ const Favorites = ({ navigation }) => {
     if (isEmpty(favorites)) {
       return (
         <ErrorContainer
-          image={require('~/images/emptyNotifications.jpg')}
-          title={'\nSua caixa de notificações está vazia!'}
+          image={require('~/images/emptyFavorites.jpg')}
+          title="Sua lista de favoritos está vazia!"
           description={
             '\n Hmmm, acho que não temos nada para te contar... Na verdade temos sim, você sabia que ter um pet reduz a chance de depressão e o stress? \nEles são incríveis e fofos.'
           }
