@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID } from 'graphql';
+import { GraphQLObjectType, GraphQLID, GraphQLBoolean } from 'graphql';
 import UserType from '../user/UserType';
 import UserModel from '../user/UserModel';
 import AdoptModel from '../adopt/AdoptModel';
@@ -23,6 +23,10 @@ const SolicitationType = new GraphQLObjectType({
       resolve: async solicitation => UserModel.findOne({
         _id: solicitation.user
       })
+    },
+    accepted: {
+      type: GraphQLBoolean,
+      resolve: solicitation => solicitation.accepted
     }
   })
 });
