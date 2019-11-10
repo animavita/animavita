@@ -32,6 +32,17 @@
   <a href="#art-about-me">About Me</a>
 </p>
 
+<p align="center">
+  <kbd>
+    <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/7CJSiNA.gif" alt="Intro">
+  </kbd>
+  <kbd>
+    <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/CNczcSk.gif" alt="Chat">
+  </kbd><kbd>
+    <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/jxUIe8w.gif" alt="Register adopt">
+  </kbd>
+</p>
+
 ## :blush: **Why?**
 
 Animavita is a combination of two Latin words, ‘Animal’ and ‘Vitae’, which means respectively ‘Animal’ and ‘Life’. This is an idea to create or animate something that was born a while ago, when I realized that facebook is used to publicize adoption and also ask for help for animals that lives on the streets.
