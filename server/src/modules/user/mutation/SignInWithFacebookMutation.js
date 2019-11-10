@@ -26,7 +26,11 @@ export default mutationWithClientMutationId({
           name: facebookUser.name,
           email: facebookUser.email,
           avatar,
-          address: null
+          address: null,
+          location: {
+            type: 'Point',
+            coordinates: [0, 0]
+          }
         });
       }
 
