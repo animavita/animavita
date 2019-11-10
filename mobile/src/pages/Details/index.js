@@ -121,7 +121,9 @@ const Details = ({ navigation }) => {
         backgroundColor: THEME_COLORS.SECONDARY,
       });
       navigation.navigate('Chat', {
-        conversation: SendMessageMutation.message.conversation,
+        conversation: {
+          _id: SendMessageMutation.message.conversation._id,
+        },
         user: {
           _id: animal.user._id,
           name: animal.user.fullname,
