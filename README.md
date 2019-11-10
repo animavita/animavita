@@ -71,7 +71,7 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
   <br>
 </h1>
 
--   [React](https://github.com/facebook/react) _(100% [Hooks](https://reactjs.org/docs/hooks-intro.html), zero classes)_
+-   [Facebook Login](https://github.com/facebook/react-native-fbsdk)
 -   [React Native](https://github.com/facebook/react-native)
 -   [Styled Components](https://www.styled-components.com/)
 -   [Reactotron](https://infinite.red/reactotron)
