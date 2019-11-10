@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { ScrollView } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Divider } from 'react-native-elements';
+import { LoginManager } from 'react-native-fbsdk';
 import { StackActions, NavigationActions } from 'react-navigation';
 import {
   Logout, Container, System, styles,
@@ -19,7 +20,7 @@ const Settings = ({ navigation }) => {
 
   async function logout() {
     await AsyncStorage.clear();
-
+    LoginManager.logOut();
     const resetAction = StackActions.reset({
       index: 0,
       actions: [NavigationActions.navigate({ routeName: 'SignedOut' })],
