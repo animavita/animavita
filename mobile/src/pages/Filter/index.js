@@ -3,7 +3,7 @@ import {
   FormContainer, Input, Field, Wrapper, Title,
 } from '~/components';
 import { useSelector, useDispatch } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import Profile from '~/components/Profile';
 import Slider from '~/components/Slider';
 import { Picker } from 'react-native';
@@ -13,14 +13,13 @@ import GradientButton from '~/components/GradientButton';
 import useForm from '~/hooks/useForm';
 import { Creators as FilterCreators } from '~/store/ducks/filter';
 import {
-  Container, ButtonGroup, Footer, ClearText,
+  Container, ButtonGroup, Footer, ClearText, styles,
 } from './styles';
 
 const Filter = ({ navigation }) => {
   const filters = useSelector(state => state.filter);
   const [values, handleChange, resetValues, disabled] = useForm(filters);
   const dispatch = useDispatch();
-
 
   function setFilters() {
     dispatch(FilterCreators.setFilters(values));
@@ -53,13 +52,26 @@ const Filter = ({ navigation }) => {
         </Input>
         <Input>
           <Wrapper>
+            <Field>Distância máxima</Field>
+            <Slider
+              minimum={10}
+              maximum={60}
+              value={values.distance}
+              valueText="km"
+              onChange={value => handleChange('distance', value)}
+            />
+          </Wrapper>
+        </Input>
+        <Input>
+          <Wrapper>
             <Field>Sexo do animal</Field>
 
             <Picker
               selectedValue={values.gender}
-              style={{ height: 50, width: '100%', color: THEME_COLORS.BLACK }}
+              style={styles.picker}
               onValueChange={value => handleChange('gender', value)}
             >
+              <Picker.Item label="Sem preferência" value="" />
               <Picker.Item label="Macho" value="male" />
               <Picker.Item label="Fêmea" value="female" />
             </Picker>
@@ -86,9 +98,9 @@ const Filter = ({ navigation }) => {
             <Slider
               minimum={1}
               maximum={15}
-              value={values.age_lte}
-              valueText={values.age_lte > 1 ? 'anos' : 'ano'}
-              onChange={value => handleChange('age_lte', value)}
+              value={values.age_gte}
+              valueText={values.age_gte > 1 ? 'anos' : 'ano'}
+              onChange={value => handleChange('age_gte', value)}
             />
           </Wrapper>
         </Input>
@@ -107,6 +119,12 @@ const Filter = ({ navigation }) => {
       </Footer>
     </Container>
   );
+};
+
+Filter.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default Filter;
