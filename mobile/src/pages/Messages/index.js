@@ -79,7 +79,7 @@ const Messages = ({ navigation }) => {
   }
 
   function renderContent() {
-    if (!isEmpty(conversations)) {
+    if (isEmpty(conversations)) {
       return (
         <ErrorContainer
           image={require('~/images/emptyMessages.jpg')}
