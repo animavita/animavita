@@ -4,9 +4,10 @@ import { setContext } from 'apollo-link-context';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { getToken } from '~/utils/helpers';
+import { APP_SERVER } from '~/utils/constants';
 
 const httpLink = new HttpLink({
-  uri: 'http://10.10.10.10:4000/graphql',
+  uri: `${APP_SERVER}/graphql`,
 });
 
 const authLink = setContext(async (_, { headers }) => {
@@ -22,7 +23,7 @@ const authLink = setContext(async (_, { headers }) => {
 const cache = new InMemoryCache();
 
 const wsLink = new WebSocketLink({
-  uri: 'http://10.10.10.10:4000/subscriptions',
+  uri: `${APP_SERVER}/subscriptions`,
   options: {
     reconnect: true,
     lazy: true,
