@@ -6,7 +6,7 @@
   <br><br>
 </h1>
 
-<p align="center">A minimal, clean and beautiful mobile app to help people find the closet pet friend to adopt, rescue lifes and change the world.</p>
+<p align="center">A minimal, clean and beautiful mobile app to help people find the closest pet friend to adopt, rescue lifes and change the world.</p>
 
 <p align="center"><i>"How to save a life?" - The Fray</i> </p>
 
