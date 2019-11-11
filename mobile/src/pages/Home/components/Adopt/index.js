@@ -55,9 +55,9 @@ const Adopt = ({ navigation }) => {
   });
 
   useEffect(() => {
-      if (data && data.adopts && !isEmpty(data.adopts)) {
-        setSwipedAll(false);
-      }
+    if (data && data.adopts && !isEmpty(data.adopts)) {
+      setSwipedAll(false);
+    }
   }, [data.adopts]);
 
   useEffect(() => {
