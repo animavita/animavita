@@ -36,11 +36,11 @@
   <kbd>
     <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/7CJSiNA.gif" alt="Intro">
   </kbd>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
   <kbd>
     <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/jxUIe8w.gif" alt="Register adopt">
   </kbd>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;&nbsp;
   <kbd>
     <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/CNczcSk.gif" alt="Chat">
   </kbd>
