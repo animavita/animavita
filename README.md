@@ -36,10 +36,13 @@
   <kbd>
     <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/7CJSiNA.gif" alt="Intro">
   </kbd>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  <kbd>
+    <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/jxUIe8w.gif" alt="Register adopt">
+  </kbd>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   <kbd>
     <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/CNczcSk.gif" alt="Chat">
-  </kbd><kbd>
-    <img width="250" style="border-radius: 5px" height="450" src="https://i.imgur.com/jxUIe8w.gif" alt="Register adopt">
   </kbd>
 </p>
 
@@ -54,9 +57,10 @@ Animavita's purpose is not to change how people use facebook to the activities d
 Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 
 -   [ ] Rescue system (WIP)
+-   [ ] Write CONTRIBUTING.md + Install instructions
 -   [ ] Make it work on IOS
 -   [ ] Write tests in backend
--   [ ] Write tests in frontentd
+-   [ ] Write tests in frontend
 -   [ ] Transform into responsive
 -   [ ] Create Landing Page
 -   [ ] i18n
