@@ -16,6 +16,10 @@
       "packages/*"
     ]
   },
+  "scripts": {
+    "app:start": "yarn workspace @animavita/mobile start",
+    "server:start": "yarn workspace @animavita/server start"
+  },
   "devDependencies": {
     "jest": "^24.9.0",
     "lerna": "^3.18.4"
