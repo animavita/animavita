@@ -26,10 +26,10 @@
     "react": "16.8.3",
     "react-apollo": "^2.5.7",
     "react-apollo-hooks": "^0.4.5",
-    "react-native": "0.59.4",
+    "react-native": "0.59.10",
     "react-native-deck-swiper": "git+https://wendelfreitas@github.com/wendelfreitas/react-native-deck-swiper.git",
     "react-native-elements": "^1.1.0",
-    "react-native-fbsdk": "^0.8.0",
+    "react-native-fbsdk": "^0.10.0",
     "react-native-flash-message": "^0.1.13",
     "react-native-gesture-handler": "1.1.0",
     "react-native-gifted-chat": "^0.9.11",
@@ -57,10 +57,10 @@
     "yup": "^0.27.0"
   },
   "devDependencies": {
-    "@babel/core": "7.4.3",
-    "@babel/runtime": "7.4.3",
+    "@babel/core": "7.4.5",
+    "@babel/runtime": "7.4.5",
     "babel-eslint": "10.0.1",
-    "babel-jest": "24.7.1",
+    "babel-jest": "24.8.0",
     "babel-plugin-root-import": "6.1.0",
     "eslint": "5.16.0",
     "eslint-config-airbnb": "17.1.0",
@@ -70,8 +70,8 @@
     "eslint-plugin-react": "7.12.4",
     "eslint-plugin-react-hooks": "^2.2.0",
     "eslint-plugin-react-native": "3.6.0",
-    "jest": "24.7.1",
-    "metro-react-native-babel-preset": "0.53.1",
+    "jest": "24.8.0",
+    "metro-react-native-babel-preset": "0.54.1",
     "react-test-renderer": "16.8.3"
   },
   "jest": {
