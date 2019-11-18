@@ -68,6 +68,24 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 -   [ ] Create/Apply Dataloaders
 -   [ ] Update to latest React Native version
 
+## **Install instructions**
+
+### Getting Started
+
+#### 1) Clone & Install Dependencies
+
+- 1.1) `git clone https://github.com/wendelfreitas/animavita`
+- 1.2) `cd animavita` - cd into your newly created project directory.
+- 1.3) Install NPM packages with `yarn install`
+        **Note:** NPM has issues with React Native so `yarn` is recommended over `npm`.
+- 1.4) **[iOS]** `cd ios` and run `pod install` - if you don't have CocoaPods you can follow [these instructions](https://guides.cocoapods.org/using/getting-started.html#getting-started) to install it.
+- 1.5) **[Android]** If you haven't already generated a `debug.keystore` file you will need to complete this step from within the `/android/app` folder. Run `keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000`
+
+#### 2) Start your app
+
+- 2.1) **[iOS]** Build and run the iOS app, run `react-native run-ios` (to run on simulator) or `react-native run-ios --device` (to run on real device) from the root of your project. The first build will take some time.
+- 2.2) **[Android]** If you haven't already got an android device attached/emulator running then you'll need to get one running (make sure the emulator is with Google Play / APIs). When ready run `react-native run-android` from the root of your project.
+
 ## :zap: **Tech Stack**
 
 <h1 align="center">

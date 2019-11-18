@@ -1,0 +1,67 @@
+# Uncomment the next line to define a global platform for your project
+ platform :ios, '9.0'
+
+target 'Animavita' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  pod 'yoga', path: '../node_modules/react-native/ReactCommon/yoga/yoga.podspec'
+  pod 'DoubleConversion', podspec: '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  pod 'glog', podspec: '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', podspec: '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+
+  pod 'React', path: '../node_modules/react-native', subspecs: [
+    'Core',
+    'ART',
+    'RCTActionSheet',
+    'RCTAnimation',
+    'RCTGeolocation',
+    'RCTImage',
+    'RCTLinkingIOS',
+    'RCTNetwork',
+    'RCTSettings',
+    'RCTText',
+    'RCTVibration',
+    'RCTWebSocket',
+    'CxxBridge',
+    'RCTBlob',
+    'DevSupport',
+    'RCTCameraRoll',
+    'RCTGeolocation'
+  ]
+
+  # Pods for Animavita
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+  pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+  pod 'react-native-image-picker', path: '../node_modules/react-native-image-picker'
+
+  pod 'OneSignal', '1.13.3'
+
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKShareKit'
+
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
+  target 'AnimavitaTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
+
+target 'Animavita-tvOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Animavita-tvOS
+
+  target 'Animavita-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
