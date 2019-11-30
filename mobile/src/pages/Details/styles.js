@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import { StyleSheet, Dimensions } from 'react-native';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const { width } = Dimensions.get('window');
 
@@ -54,6 +55,7 @@ export const FooterContent = styled.View`
 
 export const TopContent = styled.View`
   width: 100%;
+  position:relative;
   flex-direction: row;
   justify-content: space-between;
 `;
@@ -62,13 +64,22 @@ export const styles = StyleSheet.create({
   wrapper: {
     height: '50%',
   },
+  slider: wp('100%'),
+  dotContainer: {
+    position: 'absolute', top: (hp('50%') - 20), left: 0, bottom: 0, right: 0,
+  },
   icon: { fontSize: 35 },
   observations: { textAlign: 'center' },
-  dot: { marginBottom: 15 },
+  dot: {
+    width: hp('2%'),
+    height: hp('2%'),
+    borderRadius: hp('2%'),
+    backgroundColor: 'rgba(255, 255, 255, 0.92)',
+  },
   heart: {
     position: 'absolute',
     right: 0,
-    bottom: 35,
+    bottom: (hp('5%')),
     zIndex: 99,
   },
 });

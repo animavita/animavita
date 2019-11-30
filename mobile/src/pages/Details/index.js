@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import GradientButton from '~/components/GradientButton';
-import { TouchableOpacity } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Title, H1 } from '~/components';
 import { showMessage } from 'react-native-flash-message';
-import Swiper from 'react-native-swiper';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { THEME_COLORS } from '~/utils/constants';
 import { Icon } from 'react-native-elements';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { USER_SEND_MESSAGE_MUTATION } from '../Chat';
 import useFavorite from '~/hooks/useFavorite';
+
 
 import {
   TopContent,
@@ -73,6 +75,7 @@ const SOLICITATION_TO_ADOPT_MUTATION = gql`
 
 const Details = ({ navigation }) => {
   const [animal, setAnimal] = useState(navigation.state.params.animal);
+  const [slide, setActiveSlide] = useState(0);
   const [solicited, setSolicited] = useState(false);
   const [loading, setLoading] = useState(true);
   const [favorited, handleFavorite] = useFavorite(animal);
@@ -144,66 +147,85 @@ const Details = ({ navigation }) => {
           },
         });
       },
-      onError: () => showMessage({
-        message: 'Erro ao solicitar adoção!',
-        description: `Ops! Algum erro aconteceu ao solicitar a adoção de ${animal.name}`,
-        type: 'danger',
-      }),
+      onError: () => {
+        setLoading(false);
+        return showMessage({
+          message: 'Erro ao solicitar adoção!',
+          description: `Ops! Algum erro aconteceu ao solicitar a adoção de ${animal.name}`,
+          type: 'danger',
+        });
+      },
     },
   );
 
   useEffect(() => {
-    if (data.adopt) {
+    if (data && data.adopt) {
       setAnimal(data.adopt);
     }
-  }, [data]);
+  }, [animal, data]);
 
-  function showAdoptImages() {
-    const { adopt } = data;
 
-    return adopt.images.map(image => (
+  function showAdoptImages({ item }) {
+    return (
       <PetImage
-        key={image}
         source={{
-          uri: image,
+          uri: item,
         }}
       />
-    ));
+    );
   }
 
   function handleSolicitation() {
-    setLoading(true)
-    solicitationToAdopt({ variables: { adoptId: animal._id } })
+    setLoading(true);
+    solicitationToAdopt({ variables: { adoptId: animal._id } });
   }
 
   return (
     <Container>
       <Slide>
-        <Swiper
-          style={styles.wrapper}
-          dotStyle={styles.dot}
-          activeDotStyle={styles.dot}
-          activeDotColor={THEME_COLORS.SECONDARY}
-          dotColor="white"
-        >
-          {loading ? (
+        {loading
+          ? (
             <PetImage
               source={{
                 uri: animal.firstImage,
               }}
             />
-          ) : (
-            showAdoptImages()
-          )}
-        </Swiper>
+          )
+          : (
+            <Carousel
+              sliderWidth={styles.slider}
+              itemWidth={styles.slider}
+              data={data.adopt.images}
+              renderItem={item => showAdoptImages(item)}
+              onSnapToItem={(index) => {
+                setActiveSlide(index);
+              }
+            }
+            />
+          )
+        }
+        {data && data.adopt
+        && (
+          <View style={styles.dotContainer}>
+            <Pagination
+              dotsLength={data.adopt.images.length}
+              activeDotIndex={slide}
+              containerStyle={styles.container}
+              dotColor={THEME_COLORS.PRIMARY}
+              inactiveDotColor="#FFF"
+              dotStyle={styles.dot}
+            />
+          </View>
+        )
+        }
       </Slide>
       <BackButton onPress={() => navigation.goBack()}>
-        <Icon name="ios-arrow-round-back" type="ionicon" color={THEME_COLORS.BLACK} size={40} />
+        <Icon name="ios-arrow-round-back" type="ionicon" color={THEME_COLORS.BLACK} size={hp('5%')} />
       </BackButton>
       <PetDetail>
         <FooterContent>
           <TopContent>
-            <H1 size={35}>{animal.name}</H1>
+            <H1 size={5}>{animal.name}</H1>
             <TouchableOpacity style={styles.heart} onPress={() => handleFavorite()}>
               <Icon
                 name={favorited ? 'heart' : 'heart-o'}
@@ -213,40 +235,39 @@ const Details = ({ navigation }) => {
               />
             </TouchableOpacity>
           </TopContent>
-
           <PetData>
-            <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
+            <Title size={3} weight="bold" color={THEME_COLORS.BLACK}>
               {'Raça \n'}
-              <Title weight="normal" color="#c5ccd6" size={11}>
+              <Title size={2.3} weight="normal" color="#c5ccd6">
                 {animal.breed}
               </Title>
             </Title>
-            <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
+            <Title size={3} weight="bold" color={THEME_COLORS.BLACK}>
               {'Sexo \n'}
-              <Title weight="normal" color="#c5ccd6" size={11}>
+              <Title size={2.3} weight="normal" color="#c5ccd6">
                 {animal.gender}
               </Title>
             </Title>
-            <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
+            <Title size={3} weight="bold" color={THEME_COLORS.BLACK}>
               {'Tamanho \n'}
-              <Title weight="normal" color="#c5ccd6" size={11}>
+              <Title size={2.3} weight="normal" color="#c5ccd6">
                 {animal.size}
               </Title>
             </Title>
-            <Title weight="bold" color={THEME_COLORS.BLACK} size={13}>
+            <Title size={3} weight="bold" color={THEME_COLORS.BLACK}>
               {'Idade \n'}
-              <Title weight="normal" color="#c5ccd6" size={11}>
+              <Title size={2.3} weight="normal" color="#c5ccd6">
                 {animal.age} {animal.age > 1 ? 'anos' : 'ano'}
               </Title>
             </Title>
           </PetData>
           <ObservationContainer>
             {loading ? (
-              <Title weight="normal" style={styles.observations} color="#c5ccd6" size={11}>
+              <Title size={3} weight="normal" style={styles.observations} color="#c5ccd6">
                 Carregando...
               </Title>
             ) : (
-              <Title weight="normal" style={styles.observations} color="#c5ccd6" size={11}>
+              <Title size={2.3} weight="normal" style={styles.observations} color="#c5ccd6">
                 {animal.observations ? animal.observations : 'Sem observações'}
               </Title>
             )}
@@ -257,7 +278,7 @@ const Details = ({ navigation }) => {
           loading={loadingMutation || loading}
           onPress={() => handleSolicitation()}
         >
-          <Title size={14} color="white">
+          <Title size={2.3} color="white">
             {solicited ? 'Aguardando Resposta da Solicitação' : 'Solicitar Adoção'}
           </Title>
         </GradientButton>
