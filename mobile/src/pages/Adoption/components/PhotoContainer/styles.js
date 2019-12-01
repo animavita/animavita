@@ -41,8 +41,8 @@ export const PhotoSource = styled.Image`
 export const Wrapper = styled.View``;
 
 export const DrawImage = styled.Image`
-  width: ${wp('80%')};
-  height: ${hp('40%')};
+  width: ${wp('70%')};
+  height: ${hp('45%')};
 `;
 
 export const Footer = styled.View`
