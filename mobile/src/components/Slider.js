@@ -4,17 +4,18 @@ import { THEME_COLORS } from '~/utils/constants';
 import { Slider as DefaultSlider } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const styles = StyleSheet.create({
   thumb: {
-    width: 16,
-    height: 16,
+    width: hp('1.7%'),
+    height: hp('1.7%'),
     borderRadius: 16,
     borderColor: 'white',
     borderWidth: 3,
     backgroundColor: '#2bda8e',
   },
-  track: { height: 6, borderRadius: 6 },
+  track: { height: hp('1%'), borderRadius: 6 },
 });
 
 const Wrapper = styled.View`
@@ -24,7 +25,7 @@ const Wrapper = styled.View`
 
 const Small = styled.Text`
   color: #2bda8e;
-  font-size: 14;
+  font-size: ${hp('2%')};
 `;
 
 const Slider = ({
