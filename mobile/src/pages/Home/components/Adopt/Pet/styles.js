@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native';
 
 export const Name = styled.Text`
   font-weight: bold;
-  font-size: 55;
+  font-size: ${hp('4%')};
   font-family: 'Roboto';
   color: #ffffff;
 `;
@@ -17,7 +17,7 @@ export const PetImage = styled.ImageBackground`
 
 export const SubText = styled.Text`
   font-weight: bold;
-  font-size: 14;
+  font-size: ${hp('2%')};
   font-family: 'Roboto';
   color: #ffffff;
 `;

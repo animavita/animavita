@@ -37,17 +37,21 @@ const Favorites = ({ navigation }) => {
             titleStyle={styles.title}
             font
             subtitle={favorite.breed}
+            subtitleStyle={styles.subtitle}
             leftAvatar={{
+              size: styles.size,
               source: favorite.firstImage && { uri: favorite.firstImage },
             }}
             onPress={() => navigation.navigate('Details', { animal: favorite })}
             bottomDivider
             rightIcon={(
               <TouchableOpacity onPress={() => dispatch(FavoriteCreators.removeFavorite(favorite))}>
-                <Icon name="heart" type="font-awesome" color="#FF6767" />
+                <Icon size={styles.heart} name="heart" type="font-awesome" color="#FF6767" />
               </TouchableOpacity>
 )}
-            chevron
+            chevron={{
+              size: styles.chevron,
+            }}
           />
         )}
         keyExtractor={conversation => conversation._id}
