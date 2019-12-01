@@ -9,14 +9,41 @@ import { TouchableOpacity } from 'react-native';
 import usePhoto from '~/hooks/usePhoto';
 import { showMessage } from 'react-native-flash-message';
 import {
-  BackButton, Footer, Container, Box, Photo, PhotoSource, DrawImage, Wrapper, styles,
+  BackButton,
+  Footer,
+  Container,
+  Box,
+  Photo,
+  PhotoSource,
+  DrawImage,
+  Wrapper,
+  styles,
 } from './styles';
 import GradientButton from '~/components/GradientButton';
 
 const ADOPT_REGISTER_MUTATION = gql`
-  mutation AdoptRegisterMutation($name: String!,
-  $breed: String!, $gender: Gender!, $type: Type!, $age: Int!, $size: Size!, $observations: String! $images: [Upload]!) {
-    AdoptRegisterMutation(input: { name: $name, breed: $breed, gender: $gender, type: $type , age: $age, size: $size, observations: $observations, images: $images}) {
+  mutation AdoptRegisterMutation(
+    $name: String!
+    $breed: String!
+    $gender: Gender!
+    $type: Type!
+    $age: Int!
+    $size: Size!
+    $observations: String!
+    $images: [Upload]!
+  ) {
+    AdoptRegisterMutation(
+      input: {
+        name: $name
+        breed: $breed
+        gender: $gender
+        type: $type
+        age: $age
+        size: $size
+        observations: $observations
+        images: $images
+      }
+    ) {
       adopt {
         images
       }
@@ -24,10 +51,7 @@ const ADOPT_REGISTER_MUTATION = gql`
   }
 `;
 
-
-const PhotoContainer = ({
-  setStep, data, navigation,
-}) => {
+const PhotoContainer = ({ setStep, data, navigation }) => {
   const [loading, setLoading] = useState(false);
   const [photos, handleSelectImage, removeImage] = usePhoto();
   const [registerAdopt] = useMutation(ADOPT_REGISTER_MUTATION, {
@@ -42,8 +66,10 @@ const PhotoContainer = ({
       setLoading(false);
       navigation.goBack();
     },
+    onError: () => {
+      setLoading(false);
+    },
   });
-
 
   function submitAdopt() {
     setLoading(true);
@@ -71,19 +97,29 @@ const PhotoContainer = ({
   return (
     <Container>
       <DrawImage source={require('~/images/photoContainerImage.jpg')} />
-      <Title size={12} weight="normal">
+      <Title size={2} weight="normal">
         Que tal umas fotos fofíssimas do {data.name}?
       </Title>
       <Box>
         {photos.map(item => (!item.save ? (
-          <Photo key={item.order} onPress={() => handleSelectImage(item.order)}>
-            <Icon name="camera" type="feather" color={THEME_COLORS.SECONDARY} />
+          <Photo
+            key={item.order}
+            onPress={() => handleSelectImage(item.order)}
+          >
+            <Icon
+              name="camera"
+              type="feather"
+              color={THEME_COLORS.SECONDARY}
+            />
           </Photo>
         ) : (
           <Wrapper key={item.order}>
             <TouchableOpacity
               hitSlop={{
-                top: 20, bottom: 20, left: 20, right: 20,
+                top: 20,
+                bottom: 20,
+                left: 20,
+                right: 20,
               }}
               onPress={() => removeImage(item.order)}
             >
@@ -105,7 +141,7 @@ const PhotoContainer = ({
           onPress={() => submitAdopt()}
           loading={loading}
         >
-          <Title size={14} color="white">
+          <Title size={3} color="white">
             Cadastrar Adoção
           </Title>
         </GradientButton>
@@ -118,7 +154,7 @@ const PhotoContainer = ({
           }}
           onPress={() => setStep(0)}
         >
-          <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+          <Title size={2} color={THEME_COLORS.GREY} weight="normal">
             Voltar para os detalhes
           </Title>
         </BackButton>
