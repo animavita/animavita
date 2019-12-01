@@ -3,6 +3,8 @@ import styled from 'styled-components/native';
 import PropTypes from 'prop-types';
 import { THEME_COLORS } from '~/utils/constants';
 import LinearGradient from 'react-native-linear-gradient';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 
 const Container = styled.TouchableOpacity`
   border-width: 1.5px;
@@ -16,7 +18,7 @@ const Container = styled.TouchableOpacity`
 
 const Title = styled.Text`
   color: ${props => (props.color ? props.color : THEME_COLORS.SECONDARY)};
-  font-size: 12;
+  font-size: ${hp('1.8%')};
   font-weight: ${props => (props.weight ? props.weight : 'normal')};
 `;
 
