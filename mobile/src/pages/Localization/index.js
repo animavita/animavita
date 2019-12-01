@@ -83,6 +83,9 @@ const Localization = ({ navigation }) => {
       setLocalization(localization);
       setLoading(false);
     },
+    onError: () => {
+      setLoading(false);
+    },
   });
 
   function getLocation() {
@@ -115,7 +118,7 @@ const Localization = ({ navigation }) => {
     <Container>
       <Header>
         <H1>{`Olá ${auth.name}, \nprecisamos da sua`}</H1>
-        <Title size={26} color={THEME_COLORS.SECONDARY}>
+        <Title color={THEME_COLORS.SECONDARY}>
           localização
         </Title>
       </Header>
@@ -126,10 +129,10 @@ const Localization = ({ navigation }) => {
       />
       {local ? (
         <Content>
-          <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+          <Title size={1.8} color={THEME_COLORS.GREY} weight="normal">
             Você está em
           </Title>
-          <Title size={18} color={THEME_COLORS.BLACK}>
+          <Title size={2.3} color={THEME_COLORS.BLACK}>
             {local.city} - {local.state}
           </Title>
         </Content>
@@ -152,7 +155,7 @@ const Localization = ({ navigation }) => {
               disabled={loading}
               loading={loading}
             >
-              <Title size={12} color="white">
+              <Title size={2.5} color="white">
                 Confirmar minha localização
               </Title>
             </GradientButton>
@@ -166,14 +169,14 @@ const Localization = ({ navigation }) => {
               disabled={loading}
               onPress={() => getLocation()}
             >
-              <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+              <Title size={1.8} color={THEME_COLORS.GREY} weight="normal">
                 Buscar localização novamente
               </Title>
             </Research>
           </>
         ) : (
           <GradientButton onPress={() => getLocation()} disabled={loading} loading={loading}>
-            <Title size={12} color="white">
+            <Title size={2.5} color="white">
               Compartilhar minha localização
             </Title>
           </GradientButton>
