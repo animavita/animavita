@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
 import { THEME_COLORS } from '~/utils/constants';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   flex: 1;
@@ -55,4 +56,6 @@ export const styles = StyleSheet.create({
 
   sendLabelText: { color: THEME_COLORS.SECONDARY, fontSize: 14 },
   sendContainer: { borderWidth: 0 },
+
+  avatar: hp('5%'),
 });
