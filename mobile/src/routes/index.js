@@ -15,6 +15,8 @@ import Adoption from '~/pages/Adoption';
 import Details from '~/pages/Details';
 import Localization from '~/pages/Localization';
 
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 const configs = {
   defaultNavigationOptions: {
     headerStyle: {
@@ -23,7 +25,7 @@ const configs = {
       borderBottomColor: 'transparent',
       elevation: 0,
     },
-    headerBackImage: <Icon name="ios-arrow-round-back" type="ionicon" color="#C5CCD6" size={40} />,
+    headerBackImage: <Icon name="ios-arrow-round-back" type="ionicon" color="#C5CCD6" size={hp('5%')} />,
     headerBackTitle: null,
     headerLeftContainerStyle: {
       alignItems: 'center',
