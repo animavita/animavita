@@ -4,6 +4,8 @@ import { StyleSheet, Image } from 'react-native';
 import PropTypes from 'prop-types';
 import { Title } from '~/components';
 import { THEME_COLORS } from '~/utils/constants';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
+
 
 export const ImageContainer = styled.View`
   flex: 1;
@@ -12,19 +14,19 @@ export const ImageContainer = styled.View`
 
 export const styles = StyleSheet.create({
   image: {
-    width: '80%',
-    height: '80%',
-    marginBottom: -35,
+    width: wp('55%'),
+    height: hp('55%'),
+    marginBottom: -hp('6%'),
   },
 });
 
 const ErrorContainer = ({ image, title, description }) => (
   <ImageContainer>
     <Image resizeMode="contain" style={styles.image} source={image} />
-    <Title size={18} align="center" color={THEME_COLORS.BLACK}>
+    <Title align="center" color={THEME_COLORS.BLACK}>
       {title}
     </Title>
-    <Title size={13} align="center" weight="normal" color={THEME_COLORS.GREY}>
+    <Title size={2} align="center" weight="normal" color={THEME_COLORS.GREY}>
       {description}
     </Title>
   </ImageContainer>
