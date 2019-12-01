@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { THEME_COLORS } from '~/utils/constants';
 import PropTypes from 'prop-types';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Loading from './Loading';
 
 const cardinals = {
@@ -20,7 +21,8 @@ const locations = [0.1, 0.9];
 const styles = StyleSheet.create({
   button: {
     borderRadius: 6,
-    height: 16 * 3,
+    minHeight: hp('5.2%'),
+    padding: 5,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -28,7 +30,8 @@ const styles = StyleSheet.create({
   opacity: {
     opacity: 0.7,
     borderRadius: 6,
-    height: 16 * 3,
+    minHeight: hp('5.2%'),
+    padding: 5,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -51,7 +54,7 @@ const GradientButton = ({
       style={disabled ? styles.opacity : styles.button}
       colors={[THEME_COLORS.PRIMARY, THEME_COLORS.SECONDARY]}
     >
-      {loading ? <Loading size={23} color="white" /> : children}
+      {loading ? <Loading size={27} color="white" /> : children}
     </LinearGradient>
   </TouchableOpacity>
 );
