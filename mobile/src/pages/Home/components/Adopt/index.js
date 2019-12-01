@@ -7,10 +7,12 @@ import Button from '~/components/Button';
 import { useSelector } from 'react-redux';
 import { useQuery } from '@apollo/react-hooks';
 import Swiper from 'react-native-deck-swiper';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import Pet from './Pet';
 import Loading from '~/components/Loading';
 import ErrorContainer from '~/components/ErrorContainer';
 import { Container, TopButtons } from './styles';
+
 
 const GET_ADOPTS_QUERY = gql`
   query getAllAdopts($filter: AdoptsFilter, $skip: Int, $first: Int) {
@@ -58,7 +60,7 @@ const Adopt = ({ navigation }) => {
     if (data && data.adopts && !isEmpty(data.adopts)) {
       setSwipedAll(false);
     }
-  }, [data.adopts]);
+  }, [data]);
 
   useEffect(() => {
     setLoading(true);
@@ -114,6 +116,7 @@ const Adopt = ({ navigation }) => {
       <Swiper
         cards={adopts}
         cardVerticalMargin={0}
+        cardHorizontalMargin={hp('2%')}
         onSwipedAll={() => setSwipedAll(true)}
         useViewOverflow={false}
         verticalSwipe={false}
@@ -130,8 +133,16 @@ const Adopt = ({ navigation }) => {
   return (
     <Fragment>
       <TopButtons>
-        <Button title="FILTRAR" active onPress={() => navigation.navigate('Filter')} />
-        <Button title="CADASTRAR ADOÇÃO" active onPress={() => navigation.navigate('Adoption')} />
+        <Button
+          title="FILTRAR"
+          active
+          onPress={() => navigation.navigate('Filter')}
+        />
+        <Button
+          title="CADASTRAR ADOÇÃO"
+          active
+          onPress={() => navigation.navigate('Adoption')}
+        />
       </TopButtons>
       <Container>{loading ? <Loading /> : renderSwiper()}</Container>
     </Fragment>
