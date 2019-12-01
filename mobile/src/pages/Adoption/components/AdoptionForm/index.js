@@ -58,7 +58,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 />
               </Wrapper>
             </Input>
-            {errors.name && <Title size={12} weight="normal" color="red">{errors.name}</Title>}
+            {errors.name && <Title size={2} weight="normal" color="red">{errors.name}</Title>}
             <Input>
               <Wrapper>
                 <Field>Raça do Animal</Field>
@@ -70,7 +70,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 />
               </Wrapper>
             </Input>
-            {errors.breed && <Title size={12} weight="normal" color="red">{errors.breed}</Title>}
+            {errors.breed && <Title size={2} weight="normal" color="red">{errors.breed}</Title>}
             <Input>
               <Wrapper>
                 <Field>Observações</Field>
@@ -82,7 +82,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 />
               </Wrapper>
             </Input>
-            {errors.observations && <Title size={10} weight="normal" color="red">{errors.observations}</Title>}
+            {errors.observations && <Title size={2} weight="normal" color="red">{errors.observations}</Title>}
             <Input>
               <Wrapper>
                 <Field size={14}>Tipo de animal</Field>
@@ -98,7 +98,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 </ButtonGroup>
               </Wrapper>
             </Input>
-            {errors.type && <Title size={12} weight="normal" color="red">{errors.type}</Title>}
+            {errors.type && <Title size={2} weight="normal" color="red">{errors.type}</Title>}
             <Input>
               <Wrapper>
                 <Field>Idade do animal (aproximadamente)</Field>
@@ -111,7 +111,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 />
               </Wrapper>
             </Input>
-            {errors.age && <Title size={12} weight="normal" color="red">{errors.age}</Title>}
+            {errors.age && <Title size={2} weight="normal" color="red">{errors.age}</Title>}
             <Input>
               <Wrapper>
                 <Field>Sexo do animal</Field>
@@ -126,7 +126,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 </Picker>
               </Wrapper>
             </Input>
-            {errors.gender && <Title size={12} weight="normal" color="red">{errors.gender}</Title>}
+            {errors.gender && <Title size={2} weight="normal" color="red">{errors.gender}</Title>}
 
             <Input>
               <Wrapper>
@@ -144,10 +144,10 @@ const AdoptionForm = ({ setData, data, setStep }) => {
                 </ButtonGroup>
               </Wrapper>
             </Input>
-            {errors.size && <Title size={12} weight="normal" color="red">{errors.size}</Title>}
+            {errors.size && <Title size={2} weight="normal" color="red">{errors.size}</Title>}
           </FormContainer>
           <GradientButton disabled={false} onPress={handleSubmit}>
-            <Title size={14} color="white">
+            <Title size={3} color="white">
               Próxima Etapa
             </Title>
           </GradientButton>
