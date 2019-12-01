@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
 import { THEME_COLORS } from '~/utils/constants';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   flex: 1;
@@ -8,7 +9,7 @@ export const Container = styled.View`
 `;
 
 export const Header = styled.View`
-  padding: 0 30px;
+  padding: 0px ${`${Math.floor(hp('2%'))}px`};
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -17,13 +18,13 @@ export const Header = styled.View`
 export const Tabs = styled.View`
   border-bottom-color: #c5ccd6;
   border-bottom-width: 0.5;
-  margin: 25px 0;
+  margin-top: 25px;
 
   flex-direction: row;
 `;
 
 export const TabContainer = styled.View`
-  padding: 0 30px;
+  padding: ${`${Math.floor(hp('2%'))}px`} ${`${Math.floor(hp('2%'))}px`};
 `;
 
 export const TabButton = styled.TouchableOpacity`
@@ -36,9 +37,10 @@ export const TabButton = styled.TouchableOpacity`
 
 export const TabTitle = styled.Text`
   font-weight: 500;
-  font-size: 16;
+  font-size: ${hp('2.5%')};
   color: ${props => (props.active ? THEME_COLORS.SECONDARY : '#9DA3B4')};
 `;
+
 
 export const styles = StyleSheet.create({
   container: {
