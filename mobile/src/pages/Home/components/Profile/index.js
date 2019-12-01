@@ -4,20 +4,21 @@ import { H1 } from '~/components';
 import { useSelector } from 'react-redux';
 import { showMessage } from 'react-native-flash-message';
 
-import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import {
-  ProfileContainer, Salutation, Notification, styles,
-} from './styles';
 import { withNavigation } from 'react-navigation';
 import { THEME_COLORS } from '~/utils/constants';
 import { sanitizeUsername } from '~/utils/helpers';
 
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  ProfileContainer, Salutation, Notification, styles, NotificationButton,
+} from './styles';
+
 const hitSlop = {
-  top: 20,
-  bottom: 20,
-  left: 20,
-  right: 20,
+  top: 5,
+  bottom: 5,
+  left: 5,
+  right: 5,
 };
 
 /*
@@ -37,10 +38,10 @@ const NOTIFICATIONS_SUBSCRIPTION = gql`
 const NotificationItem = ({
   openScreen, iconName, iconType, badgeStatus, news, color,
 }) => (
-  <TouchableOpacity hitSlop={hitSlop} onPress={openScreen}>
-    <Icon name={iconName} type={iconType} color={color} size={22} />
+  <NotificationButton hitSlop={hitSlop} onPress={openScreen}>
+    <Icon name={iconName} type={iconType} color={color} size={hp('3.5%')} />
     {news ? <Badge status={badgeStatus} containerStyle={styles.badge} /> : null}
-  </TouchableOpacity>
+  </NotificationButton>
 );
 
 const Profile = ({ navigation }) => {
@@ -52,7 +53,7 @@ const Profile = ({ navigation }) => {
   return (
     <Fragment>
       <Salutation>
-        <H1 size={22}>{`Olá, ${username}`}</H1>
+        <H1 size={3.5}>{`Olá, ${username}`}</H1>
       </Salutation>
       <ProfileContainer>
         <Notification>
@@ -86,7 +87,7 @@ const Profile = ({ navigation }) => {
         <Avatar
           rounded
           onPress={() => navigation.navigate('Settings')}
-          size={16 * 2.2}
+          size={hp('5%')}
           source={{
             uri: user.avatar,
           }}
