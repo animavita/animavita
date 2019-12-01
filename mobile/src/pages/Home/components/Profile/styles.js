@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import styled from 'styled-components';
+import styled from 'styled-components/native';
 
 export const ProfileContainer = styled.View`
   flex-direction: row;
@@ -8,10 +8,12 @@ export const ProfileContainer = styled.View`
 
 export const Notification = styled.View`
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
   margin: 0 20px;
-  width: 105;
+`;
+
+export const NotificationButton = styled.TouchableOpacity`
+  margin: 0 10px;
 `;
 
 export const Salutation = styled.View`
