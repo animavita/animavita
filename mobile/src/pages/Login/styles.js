@@ -1,12 +1,12 @@
 import styled from 'styled-components/native';
 import { StyleSheet } from 'react-native';
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
   flex: 1;
   background-color: white;
   justify-content: space-between;
-  padding: 30px 32px;
-  padding-top: 25px;
+  padding: ${`${Math.floor(hp('2%'))}px`};
 `;
 
 export const Header = styled.View`
@@ -23,5 +23,5 @@ export const Terms = styled.TouchableOpacity`
 `;
 
 export const styles = StyleSheet.create({
-  image: { width: '100%', height: '75%' },
+  image: { width: '100%', height: hp('60%') },
 });

@@ -93,7 +93,7 @@ const Login = ({ navigation }) => {
     <Container>
       <Header>
         <H1>Salve uma vida.</H1>
-        <Title size={26} color={THEME_COLORS.SECONDARY}>
+        <Title color={THEME_COLORS.SECONDARY}>
           Animavita
         </Title>
       </Header>
@@ -104,7 +104,7 @@ const Login = ({ navigation }) => {
       />
       <Footer>
         <GradientButton onPress={() => handleLogin()} disabled={loading} loading={loading}>
-          <Title size={12} color="white">
+          <Title color="white">
             Entrar com facebook
           </Title>
         </GradientButton>
@@ -117,7 +117,7 @@ const Login = ({ navigation }) => {
           }}
           onPress={() => console.log('pressed')}
         >
-          <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+          <Title size="2" color={THEME_COLORS.GREY} weight="normal">
             Termos de uso
           </Title>
         </Terms>
