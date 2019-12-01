@@ -32,7 +32,7 @@ const Message = ({ currentMessage }) => {
       end={cardinals.from}
       style={user._id !== auth._id ? styles.from : styles.me}
     >
-      <Title color="white" size={12} weight="normal">
+      <Title size={2} color="white" weight="normal">
         {text}
       </Title>
     </LinearGradient>

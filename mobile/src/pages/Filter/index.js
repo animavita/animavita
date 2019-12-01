@@ -107,12 +107,12 @@ const Filter = ({ navigation }) => {
       </FormContainer>
       <Footer>
         <GradientButton disabled={disabled} onPress={() => setFilters()}>
-          <Title size={14} color="white">
+          <Title size={3} color="white">
             Aplicar Filtros
           </Title>
         </GradientButton>
         <ClearText onPress={() => clearFilters()}>
-          <Title size={12} color={THEME_COLORS.GREY} weight="normal">
+          <Title size={2} color={THEME_COLORS.GREY} weight="normal">
             Limpar Filtros
           </Title>
         </ClearText>
