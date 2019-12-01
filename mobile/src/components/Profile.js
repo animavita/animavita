@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import { H1 } from '~/components';
 import { useSelector } from 'react-redux';
 
+import { heightPercentageToDP as hp } from 'react-native-responsive-screen';
+
 const Header = styled.View`
   flex-direction: row;
   justify-content: space-between;
@@ -21,11 +23,11 @@ const Profile = ({ title }) => {
 
   return (
     <Header>
-      <H1>{title}</H1>
+      <H1 size={4}>{title}</H1>
       <Wrapper>
         <Avatar
           rounded
-          size={16 * 2.2}
+          size={hp('5%')}
           source={{
             uri: user.avatar,
           }}
