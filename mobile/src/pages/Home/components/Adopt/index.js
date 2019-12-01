@@ -32,6 +32,7 @@ const Adopt = ({ navigation }) => {
   const [swipedAll, setSwipedAll] = useState(false);
   const [adopts, setAdopts] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const { error, data, fetchMore } = useQuery(GET_ADOPTS_QUERY, {
     variables: {
       filter: filters,
@@ -39,7 +40,9 @@ const Adopt = ({ navigation }) => {
       first: 5,
     },
     onCompleted: (newData) => {
-      setAdopts(newData.adopts);
+      if (newData) {
+        setAdopts(newData.adopts);
+      }
       setLoading(false);
     },
     fetchPolicy: 'no-cache',
@@ -58,7 +61,7 @@ const Adopt = ({ navigation }) => {
     if (data && data.adopts && !isEmpty(data.adopts)) {
       setSwipedAll(false);
     }
-  }, [data.adopts]);
+  }, [data]);
 
   useEffect(() => {
     setLoading(true);
