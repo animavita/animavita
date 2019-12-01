@@ -37,7 +37,7 @@ export const USER_SEND_MESSAGE_MUTATION = gql`
       message {
         conversation {
           _id
-        }        
+        }
         user {
           _id
           name
@@ -124,11 +124,11 @@ const Chat = ({ navigation }) => {
   return (
     <Container>
       <Header>
-        <H1>{user.name}</H1>
+        <H1 size={3}>{user.name}</H1>
         <Profile>
           <Avatar
             rounded
-            size={16 * 2.2}
+            size={styles.avatar}
             source={{
               uri: user.avatar,
             }}
