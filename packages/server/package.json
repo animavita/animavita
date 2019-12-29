@@ -8,17 +8,6 @@
     "server": "rm -rf ./node_modules/.cache/babel-loader && nodemon --exec babel-node src/index.js",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/wendelfreitas/kraken.git"
-  },
-  "keywords": [],
-  "author": "Wendel Freitas <wendelfreitasbranco@gmail.com>",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/wendelfreitas/kraken/issues"
-  },
-  "homepage": "https://github.com/wendelfreitas/kraken#readme",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.5",
