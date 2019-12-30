@@ -1,0 +1,6 @@
+framework module react_native_image_picker {
+  umbrella header "react-native-image-picker-umbrella.h"
+
+  export *
+  module * { export * }
+}

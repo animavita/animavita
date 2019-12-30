@@ -14,6 +14,16 @@
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "@animavita/mobile/react-native",
+      "@animavita/mobile/react-native-linear-gradient",
+      "@animavita/mobile/@react-native-community/async-storage",
+      "@animavita/mobile/react-native-gesture-handler",
+      "@animavita/mobile/react-native-fbsdk",
+      "@animavita/mobile/react-native-vector-icons",
+      "@animavita/mobile/react-native-image-picker",
+      "@animavita/mobile/@react-native-community/geolocation"
     ]
   },
   "scripts": {

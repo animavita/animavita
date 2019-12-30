@@ -1,0 +1,6 @@
+framework module RNCAsyncStorage {
+  umbrella header "RNCAsyncStorage-umbrella.h"
+
+  export *
+  module * { export * }
+}

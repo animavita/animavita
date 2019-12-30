@@ -1,0 +1,6 @@
+framework module Pods_Animavita_tvOSTests {
+  umbrella header "Pods-Animavita-tvOSTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
