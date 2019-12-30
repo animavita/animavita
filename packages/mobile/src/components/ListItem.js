@@ -8,11 +8,11 @@ import { ListItem as Item } from 'react-native-elements';
 const styles = StyleSheet.create({
   title: { color: 'white', fontWeight: '500', fontSize: 15 },
   subtitle: { color: 'white' },
-  container: { borderRadius: 15, marginVertical: 5 },
+  container: { borderRadius: 15, marginVertical: 5 }
 });
 
 const ListItem = ({
-  title, subtitle, avatar, onPress, chevron,
+  title, subtitle, avatar, onPress, chevron
 }) => (
   <Item
     Component={TouchableScale}
@@ -23,12 +23,12 @@ const ListItem = ({
     linearGradientProps={{
       colors: ['#0AC4BA', '#2BDA8E'],
       start: { x: 1, y: 0 },
-      end: { x: 0.2, y: 0 },
+      end: { x: 0.2, y: 0 }
     }}
     ViewComponent={LinearGradient}
     leftAvatar={{
       rounded: true,
-      source: { uri: avatar },
+      source: { uri: avatar }
     }}
     title={title}
     titleStyle={styles.title}
@@ -45,12 +45,12 @@ ListItem.propTypes = {
   avatar: PropTypes.string.isRequired,
   onPress: PropTypes.func.isRequired,
   subtitle: PropTypes.oneOfType([null, PropTypes.string, PropTypes.element]),
-  chevron: PropTypes.bool,
+  chevron: PropTypes.bool
 };
 
 ListItem.defaultProps = {
   subtitle: null,
-  chevron: true,
+  chevron: true
 };
 
 export default ListItem;

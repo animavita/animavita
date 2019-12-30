@@ -36,7 +36,7 @@ const Adopt = ({ navigation }) => {
     variables: {
       filter: filters,
       skip: 0,
-      first: 5,
+      first: 5
     },
     onCompleted: (newData) => {
       setAdopts(newData.adopts);
@@ -48,17 +48,17 @@ const Adopt = ({ navigation }) => {
         message: 'Erro na listagem de adoções!',
         description:
           'Ops! Alguns animais escaparam dos nossos abraços, tente novamente mais tarde!',
-        type: 'danger',
+        type: 'danger'
       });
       setLoading(false);
-    },
+    }
   });
 
   useEffect(() => {
     if (data && data.adopts && !isEmpty(data.adopts)) {
       setSwipedAll(false);
     }
-  }, [data.adopts]);
+  }, [data, data.adopts]);
 
   useEffect(() => {
     setLoading(true);
@@ -74,12 +74,12 @@ const Adopt = ({ navigation }) => {
       fetchMore({
         variables: {
           skip: data.adopts.length,
-          filter: filters,
+          filter: filters
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           if (!fetchMoreResult) return prev;
           return setAdopts([...prev.adopts, ...fetchMoreResult.adopts]);
-        },
+        }
       });
     }
   }
@@ -140,8 +140,8 @@ const Adopt = ({ navigation }) => {
 
 Adopt.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Adopt;

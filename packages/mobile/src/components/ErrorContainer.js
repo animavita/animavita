@@ -14,8 +14,8 @@ export const styles = StyleSheet.create({
   image: {
     width: '80%',
     height: '80%',
-    marginBottom: -35,
-  },
+    marginBottom: -35
+  }
 });
 
 const ErrorContainer = ({ image, title, description }) => (
@@ -33,6 +33,6 @@ const ErrorContainer = ({ image, title, description }) => (
 ErrorContainer.propTypes = {
   image: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 export default ErrorContainer;

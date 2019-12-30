@@ -7,18 +7,18 @@ import { Title } from '~/components';
 
 const colors = {
   me: ['#0AC4BA', '#2BDA8E'],
-  from: ['#323643', '#323643'],
+  from: ['#323643', '#323643']
 };
 
 const cardinals = {
   start: {
     x: 1,
-    y: 0,
+    y: 0
   },
   end: {
     x: 0.2,
-    y: 0,
-  },
+    y: 0
+  }
 };
 
 const Message = ({ currentMessage }) => {
@@ -40,7 +40,7 @@ const Message = ({ currentMessage }) => {
 };
 
 Message.propTypes = {
-  currentMessage: PropTypes.shape({}).isRequired,
+  currentMessage: PropTypes.shape({}).isRequired
 };
 
 export default Message;

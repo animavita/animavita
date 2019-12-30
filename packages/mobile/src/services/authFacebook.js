@@ -1,5 +1,5 @@
 import {
-  LoginManager, AccessToken, GraphRequest, GraphRequestManager,
+  LoginManager, AccessToken, GraphRequest, GraphRequestManager
 } from 'react-native-fbsdk';
 
 import AsyncStorage from '@react-native-community/async-storage';
@@ -34,9 +34,9 @@ const getAccountInfo = accessData => new Promise((resolve, reject) => {
           accessToken: accessData.accessToken,
           parameters: {
             fields: {
-              string: 'id, name, email, picture.type(large)',
-            },
-          },
+              string: 'id, name, email, picture.type(large)'
+            }
+          }
         },
         (error, result) => {
           if (error) {

@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     borderBottomRightRadius: 0,
     maxWidth: width - 60,
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-end'
   },
   from: {
     padding: 10,
@@ -17,6 +17,6 @@ export const styles = StyleSheet.create({
     borderRadius: 15,
     borderTopLeftRadius: 0,
     maxWidth: width - 60,
-    alignSelf: 'flex-start',
-  },
+    alignSelf: 'flex-start'
+  }
 });

@@ -19,12 +19,12 @@ const Loading = ({ size, color, style }) => (
 Loading.propTypes = {
   size: PropTypes.number,
   color: PropTypes.string,
-  style: PropTypes.shape({}),
+  style: PropTypes.shape({})
 };
 
 Loading.defaultProps = {
   size: 40,
   color: THEME_COLORS.SECONDARY,
-  style: {},
+  style: {}
 };
 export default Loading;

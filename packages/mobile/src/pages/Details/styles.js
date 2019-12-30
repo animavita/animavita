@@ -60,7 +60,7 @@ export const TopContent = styled.View`
 
 export const styles = StyleSheet.create({
   wrapper: {
-    height: '50%',
+    height: '50%'
   },
   icon: { fontSize: 35 },
   observations: { textAlign: 'center' },
@@ -69,6 +69,6 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     bottom: 35,
-    zIndex: 99,
-  },
+    zIndex: 99
+  }
 });

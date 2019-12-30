@@ -20,5 +20,5 @@ export const Salutation = styled.View`
 `;
 
 export const styles = StyleSheet.create({
-  badge: { position: 'absolute', top: -4, right: -4 },
+  badge: { position: 'absolute', top: -4, right: -4 }
 });

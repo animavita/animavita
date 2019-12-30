@@ -24,7 +24,7 @@ const Configuration = ({ user }) => {
   const [settings, setSettings] = useState({
     notifications: user.notifications,
     hero: user.hero,
-    field: '',
+    field: ''
   });
   const dispatch = useDispatch();
 
@@ -33,22 +33,22 @@ const Configuration = ({ user }) => {
       dispatch(
         AuthCreators.setAuth({
           ...user,
-          [settings.field]: ChangeSettingMutation.user[settings.field],
+          [settings.field]: ChangeSettingMutation.user[settings.field]
         }),
       );
     },
     onError: () => {
       setSettings({
         notifications: user.notifications,
-        hero: user.hero,
+        hero: user.hero
       });
       showMessage({
         message: 'Erro ao salvar configuração!',
         description:
           'Ops! Algum erro no momento da atualização da configuração aconteceu, tente novamente mais tarde.',
-        type: 'danger',
+        type: 'danger'
       });
-    },
+    }
   });
 
   function updateUserConfig(args) {
@@ -56,7 +56,7 @@ const Configuration = ({ user }) => {
     setSettings({
       ...settings,
       [variables.option]: !settings[variables.option],
-      field: variables.option,
+      field: variables.option
     });
     changeSetting(args);
   }
@@ -69,7 +69,7 @@ const Configuration = ({ user }) => {
           value={settings.notifications}
           thumbColor={THEME_COLORS.SECONDARY}
           trackColor={{
-            true: THEME_COLORS.SECONDARY,
+            true: THEME_COLORS.SECONDARY
           }}
           onValueChange={() => updateUserConfig({ variables: { option: 'notifications' } })}
         />
@@ -80,7 +80,7 @@ const Configuration = ({ user }) => {
           value={settings.hero}
           thumbColor={THEME_COLORS.SECONDARY}
           trackColor={{
-            true: THEME_COLORS.SECONDARY,
+            true: THEME_COLORS.SECONDARY
           }}
           onValueChange={() => updateUserConfig({ variables: { option: 'hero' } })}
         />
@@ -95,8 +95,8 @@ const Configuration = ({ user }) => {
 Configuration.propTypes = {
   user: PropTypes.shape({
     hero: PropTypes.bool,
-    notifications: PropTypes.bool,
-  }).isRequired,
+    notifications: PropTypes.bool
+  }).isRequired
 };
 
 export default Configuration;

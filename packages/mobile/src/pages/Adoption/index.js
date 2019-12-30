@@ -13,7 +13,7 @@ const Adoption = ({ navigation }) => {
     setData,
     data,
     setStep,
-    navigation,
+    navigation
   };
 
   return (
@@ -25,6 +25,6 @@ const Adoption = ({ navigation }) => {
 };
 
 Adoption.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
+  navigation: PropTypes.shape({}).isRequired
 };
 export default Adoption;

@@ -47,6 +47,6 @@ export const styles = StyleSheet.create({
   shadow: {
     textShadowColor: 'rgba(0, 0, 0, 0.30)',
     textShadowOffset: { width: -1, height: 5 },
-    textShadowRadius: 10,
-  },
+    textShadowRadius: 10
+  }
 });

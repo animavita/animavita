@@ -7,7 +7,7 @@ import { getToken } from '~/utils/helpers';
 import { APP_SERVER } from '~/utils/constants';
 
 const httpLink = new HttpLink({
-  uri: `${APP_SERVER}/graphql`,
+  uri: `${APP_SERVER}/graphql`
 });
 
 const authLink = setContext(async (_, { headers }) => {
@@ -15,8 +15,8 @@ const authLink = setContext(async (_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
+      authorization: token ? `Bearer ${token}` : ''
+    }
   };
 });
 
@@ -31,11 +31,11 @@ const wsLink = new WebSocketLink({
       const token = await getToken();
       return {
         headers: {
-          authorization: token ? `Bearer ${token}` : '',
-        },
+          authorization: token ? `Bearer ${token}` : ''
+        }
       };
-    },
-  },
+    }
+  }
 });
 
 const link = split(
@@ -50,7 +50,7 @@ const link = split(
 const client = new ApolloClient({
   link,
   cache,
-  onError: e => console.log(e),
+  onError: e => console.log(e)
 });
 
 export default client;

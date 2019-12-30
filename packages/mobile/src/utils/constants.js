@@ -6,42 +6,42 @@ const THEME_COLORS = {
   SECONDARY: '#2BDA8E',
   GREY: '#C5CCD6',
   MALE_GENDER: '#45b6fe',
-  FEMALE_GENDER: '#FF69BA',
+  FEMALE_GENDER: '#FF69BA'
 };
 
 const ANIMAL_TYPES = [
   {
     title: 'CÃO',
-    value: 'dog',
+    value: 'dog'
   },
   {
     title: 'GATO',
-    value: 'cat',
+    value: 'cat'
   },
   {
     title: 'OUTRO',
-    value: 'other',
-  },
+    value: 'other'
+  }
 ];
 
 const ANIMAL_SIZES = [
   {
     title: 'PEQUENO',
-    value: 'small',
+    value: 'small'
   },
   {
     title: 'MÉDIO',
-    value: 'medium',
+    value: 'medium'
   },
   {
     title: 'GRANDE',
-    value: 'bigger',
-  },
+    value: 'bigger'
+  }
 ];
 
 /* 50 MB */
 const MAX_FILE_SIZE = 5000000;
 
 export {
-  ONE_SIGNAL_APP_KEY, THEME_COLORS, ANIMAL_TYPES, ANIMAL_SIZES, MAX_FILE_SIZE, APP_SERVER,
+  ONE_SIGNAL_APP_KEY, THEME_COLORS, ANIMAL_TYPES, ANIMAL_SIZES, MAX_FILE_SIZE, APP_SERVER
 };

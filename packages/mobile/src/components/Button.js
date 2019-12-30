@@ -22,12 +22,12 @@ const Title = styled.Text`
 
 const start = {
   x: 0,
-  y: 0,
+  y: 0
 };
 
 const end = {
   x: 1,
-  y: 1,
+  y: 1
 };
 
 const ButtonGradient = styled(LinearGradient)`
@@ -53,7 +53,7 @@ const Button = ({
   active,
   fontWeight,
   borderColor,
-  buttonColor,
+  buttonColor
 }) => (active ? (
   <GradientContainer color={containerColor} activeOpacity={0.5} onPress={onPress}>
     <ButtonGradient
@@ -83,7 +83,7 @@ Button.propTypes = {
   borderColor: PropTypes.string,
   buttonColor: PropTypes.string,
   onPress: PropTypes.func.isRequired,
-  active: PropTypes.bool,
+  active: PropTypes.bool
 };
 
 Button.defaultProps = {
@@ -92,7 +92,7 @@ Button.defaultProps = {
   buttonColor: 'transparent',
   fontWeight: '500',
   containerColor: THEME_COLORS.SECONDARY,
-  active: false,
+  active: false
 };
 
 export default Button;

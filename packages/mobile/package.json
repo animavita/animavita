@@ -1,5 +1,5 @@
 {
-  "name": "Animavita",
+  "name": "@animavita/mobile",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -59,17 +59,8 @@
   "devDependencies": {
     "@babel/core": "7.4.5",
     "@babel/runtime": "7.4.5",
-    "babel-eslint": "10.0.1",
     "babel-jest": "24.8.0",
     "babel-plugin-root-import": "6.1.0",
-    "eslint": "5.16.0",
-    "eslint-config-airbnb": "17.1.0",
-    "eslint-import-resolver-babel-plugin-root-import": "1.1.1",
-    "eslint-plugin-import": "2.17.1",
-    "eslint-plugin-jsx-a11y": "6.2.1",
-    "eslint-plugin-react": "7.12.4",
-    "eslint-plugin-react-hooks": "^2.2.0",
-    "eslint-plugin-react-native": "3.6.0",
     "jest": "24.8.0",
     "metro-react-native-babel-preset": "0.54.1",
     "react-test-renderer": "16.8.3"

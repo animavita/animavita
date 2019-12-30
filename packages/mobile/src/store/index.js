@@ -7,7 +7,7 @@ const persistConfig = {
   key: 'root',
   timeout: 0,
   storage: AsyncStorage,
-  whitelist: ['auth', 'favorite'],
+  whitelist: ['auth', 'favorite']
 };
 const middlewares = [];
 

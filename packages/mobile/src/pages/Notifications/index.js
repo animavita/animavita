@@ -34,7 +34,7 @@ const Notifications = () => {
   const { data, fetchMore } = useQuery(GET_CONVERSATIONS_QUERY, {
     variables: {
       skip: 0,
-      first: 10,
+      first: 10
     },
     fetchPolicy: 'no-cache',
     onCompleted: (response) => {
@@ -45,10 +45,10 @@ const Notifications = () => {
       showMessage({
         message: 'Erro na listagem de conversas!',
         description: 'Ops! Algum erro aconteceu, tente novamente mais tarde!',
-        type: 'danger',
+        type: 'danger'
       });
       setLoading(false);
-    },
+    }
   });
 
   function fetchMoreConversations() {
@@ -56,13 +56,13 @@ const Notifications = () => {
       setfetchMoreLoading(true);
       fetchMore({
         variables: {
-          skip: data.conversations.length,
+          skip: data.conversations.length
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           setfetchMoreLoading(false);
           if (!fetchMoreResult) return prev;
           return setNotifications([...prev.conversations, ...fetchMoreResult.conversations]);
-        },
+        }
       });
     }
   }

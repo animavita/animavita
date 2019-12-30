@@ -11,7 +11,7 @@ import Profile from './components/Profile';
 import Loading from '~/components/Loading';
 import useOneSignal from '~/hooks/useOneSignal';
 import {
-  Container, Header, Tabs, TabButton, TabTitle, TabContainer,
+  Container, Header, Tabs, TabButton, TabTitle, TabContainer
 } from './styles';
 
 
@@ -25,12 +25,12 @@ const Home = ({ navigation }) => {
     if (!auth.address) {
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'Localization' })],
+        actions: [NavigationActions.navigate({ routeName: 'Localization' })]
       });
       navigation.dispatch(resetAction);
     }
   }, [auth.address, navigation]);
-  
+
   const renderContent = () => {
     switch (tab) {
       case 'Adoções':
@@ -67,13 +67,13 @@ const Home = ({ navigation }) => {
 };
 
 Home.navigationOptions = {
-  header: null,
+  header: null
 };
 
 Home.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Home;

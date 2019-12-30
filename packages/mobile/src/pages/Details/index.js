@@ -22,7 +22,7 @@ import {
   Container,
   PetImage,
   Slide,
-  styles,
+  styles
 } from './styles';
 
 const GET_SPECIFIC_ADOPT_BY_ID = gql`
@@ -82,7 +82,7 @@ const Details = ({ navigation }) => {
       message: 'Erro ao exibir detalhes da adoção!',
       description:
         'Ops! Algum erro aconteceu ao buscar informações mais detalhadas sobre esta adoção, tente novamente mais tarde!',
-      type: 'danger',
+      type: 'danger'
     });
 
     navigation.goBack();
@@ -90,14 +90,14 @@ const Details = ({ navigation }) => {
 
   const { data } = useQuery(GET_SPECIFIC_ADOPT_BY_ID, {
     variables: {
-      id: animal._id,
+      id: animal._id
     },
-    onError: () => throwError(),
+    onError: () => throwError()
   });
 
   useQuery(GET_SOLICITATION_IF_EXIST, {
     variables: {
-      id: animal._id,
+      id: animal._id
     },
     fetchPolicy: 'no-cache',
     onCompleted: ({ solicitationByAdopt }) => {
@@ -106,7 +106,7 @@ const Details = ({ navigation }) => {
       }
       setLoading(false);
     },
-    onError: () => throwError(),
+    onError: () => throwError()
   });
 
   const [sendMessage] = useMutation(USER_SEND_MESSAGE_MUTATION, {
@@ -118,19 +118,19 @@ const Details = ({ navigation }) => {
         }, aguarde até que o responsável envie uma mensagem!`,
         type: 'success',
         duration: 4000,
-        backgroundColor: THEME_COLORS.SECONDARY,
+        backgroundColor: THEME_COLORS.SECONDARY
       });
       navigation.navigate('Chat', {
         conversation: {
-          _id: SendMessageMutation.message.conversation._id,
+          _id: SendMessageMutation.message.conversation._id
         },
         user: {
           _id: animal.user._id,
           name: animal.user.fullname,
-          avatar: animal.user.avatar,
-        },
+          avatar: animal.user.avatar
+        }
       });
-    },
+    }
   });
 
   const [solicitationToAdopt, { loading: loadingMutation }] = useMutation(
@@ -140,15 +140,15 @@ const Details = ({ navigation }) => {
         sendMessage({
           variables: {
             user: SolicitationAdoptMutation.solicitation.adopt.user._id,
-            content: `Olá, eu acabei de solicitar a adoção de ${animal.name}`,
-          },
+            content: `Olá, eu acabei de solicitar a adoção de ${animal.name}`
+          }
         });
       },
       onError: () => showMessage({
         message: 'Erro ao solicitar adoção!',
         description: `Ops! Algum erro aconteceu ao solicitar a adoção de ${animal.name}`,
-        type: 'danger',
-      }),
+        type: 'danger'
+      })
     },
   );
 
@@ -165,15 +165,15 @@ const Details = ({ navigation }) => {
       <PetImage
         key={image}
         source={{
-          uri: image,
+          uri: image
         }}
       />
     ));
   }
 
   function handleSolicitation() {
-    setLoading(true)
-    solicitationToAdopt({ variables: { adoptId: animal._id } })
+    setLoading(true);
+    solicitationToAdopt({ variables: { adoptId: animal._id } });
   }
 
   return (
@@ -189,7 +189,7 @@ const Details = ({ navigation }) => {
           {loading ? (
             <PetImage
               source={{
-                uri: animal.firstImage,
+                uri: animal.firstImage
               }}
             />
           ) : (
@@ -267,7 +267,7 @@ const Details = ({ navigation }) => {
 };
 
 Details.propTypes = {
-  navigation: PropTypes.shape({}).isRequired,
+  navigation: PropTypes.shape({}).isRequired
 };
 
 export default Details;

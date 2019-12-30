@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 import { THEME_COLORS } from '~/utils/constants';
 import {
   widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
+  heightPercentageToDP as hp
 } from 'react-native-responsive-screen';
 
 export const Container = styled.View`
@@ -60,6 +60,6 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 10,
     top: -14,
-    right: -7,
-  },
+    right: -7
+  }
 });

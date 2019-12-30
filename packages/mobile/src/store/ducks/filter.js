@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 
 export const Types = {
   SET_FILTERS: 'filters/SET',
-  CLEAR_FILTERS: 'filters/CLEAR',
+  CLEAR_FILTERS: 'filters/CLEAR'
 };
 
 const INITIAL_STATE = Immutable({
@@ -10,7 +10,7 @@ const INITIAL_STATE = Immutable({
   type: '',
   size: '',
   age_gte: 1,
-  distance: 10,
+  distance: 10
 });
 
 export default function filter(state = INITIAL_STATE, action) {
@@ -28,9 +28,9 @@ export default function filter(state = INITIAL_STATE, action) {
 export const Creators = {
   setFilters: filters => ({
     type: Types.SET_FILTERS,
-    payload: filters,
+    payload: filters
   }),
   clearFilters: () => ({
-    type: Types.CLEAR_FILTERS,
-  }),
+    type: Types.CLEAR_FILTERS
+  })
 };

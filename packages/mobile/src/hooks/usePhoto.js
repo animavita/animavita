@@ -11,20 +11,20 @@ const usePhoto = () => {
       {
         title: 'Selecionar Imagem',
         takePhotoButtonTitle: 'Tirar foto...',
-        chooseFromLibraryButtonTitle: 'Escolher da galeria...',
+        chooseFromLibraryButtonTitle: 'Escolher da galeria...'
       },
       (upload) => {
         if (upload.error) {
           showMessage({
             message: 'Erro ao fazer upload de imagem!',
             description: 'Ops! Algum erro aconteceu ao fazer upload desta imagem!',
-            type: 'danger',
+            type: 'danger'
           });
         } else if (upload.didCancel) {
           showMessage({
             message: 'Você cancelou a ação de upload de imagem!',
             description: 'Ops! Parece que temos alguém indeciso.',
-            type: 'danger',
+            type: 'danger'
           });
         } else {
           if (upload.fileSize > MAX_FILE_SIZE) {
@@ -32,12 +32,12 @@ const usePhoto = () => {
               message: 'A imagem que você está tentando subir é muito pesada!',
               description:
                 'Ops! Só precisamos de algumas imagens simples que mostre a fofura para o mundo, não precisa exagerar',
-              type: 'danger',
+              type: 'danger'
             });
           }
 
           const preview = {
-            uri: `data:image/jpeg;base64, ${upload.data}`,
+            uri: `data:image/jpeg;base64, ${upload.data}`
           };
 
           let prefix;
@@ -54,7 +54,7 @@ const usePhoto = () => {
           const image = {
             uri: upload.uri,
             type: upload.type,
-            name: `${prefix}.${ext}`,
+            name: `${prefix}.${ext}`
           };
 
           const newArrayPhotos = [...photos];
@@ -63,7 +63,7 @@ const usePhoto = () => {
             preview,
             image,
             save: true,
-            order: index,
+            order: index
           };
 
           setPhoto(newArrayPhotos);
@@ -77,7 +77,7 @@ const usePhoto = () => {
     const resetPhotos = photos.map((photo) => {
       if (photo.order === index) {
         return {
-          order: index,
+          order: index
         };
       }
 

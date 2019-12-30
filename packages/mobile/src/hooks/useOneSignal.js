@@ -21,7 +21,7 @@ const useOneSignal = () => {
   const [savePushToken] = useMutation(USER_SAVE_PUSH_TOKEN, {
     onCompleted: () => {
       tokenSave(true);
-    },
+    }
   });
 
   function onIds(device) {
@@ -29,8 +29,8 @@ const useOneSignal = () => {
       savePushToken({
         variables: {
           token: device.pushToken,
-          playerId: device.userId,
-        },
+          playerId: device.userId
+        }
       });
     }
   }

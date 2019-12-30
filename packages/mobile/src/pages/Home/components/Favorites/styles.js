@@ -10,5 +10,5 @@ export const Container = styled.View`
 `;
 
 export const styles = StyleSheet.create({
-  title: { color: THEME_COLORS.SECONDARY, fontWeight: 'bold' },
+  title: { color: THEME_COLORS.SECONDARY, fontWeight: 'bold' }
 });

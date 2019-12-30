@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  FormContainer, Input, Field, Wrapper, Title,
+  FormContainer, Input, Field, Wrapper, Title
 } from '~/components';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +13,7 @@ import GradientButton from '~/components/GradientButton';
 import useForm from '~/hooks/useForm';
 import { Creators as FilterCreators } from '~/store/ducks/filter';
 import {
-  Container, ButtonGroup, Footer, ClearText, styles,
+  Container, ButtonGroup, Footer, ClearText, styles
 } from './styles';
 
 const Filter = ({ navigation }) => {
@@ -123,8 +123,8 @@ const Filter = ({ navigation }) => {
 
 Filter.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Filter;

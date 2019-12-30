@@ -2,11 +2,11 @@ import Immutable from 'seamless-immutable';
 
 export const Types = {
   ADD_FAVORITE: 'favorite/ADD',
-  REMOVE_FAVORITE: 'favorite/REMOVE',
+  REMOVE_FAVORITE: 'favorite/REMOVE'
 };
 
 const INITIAL_STATE = Immutable({
-  data: [],
+  data: []
 });
 
 export default function favorite(state = INITIAL_STATE, action) {
@@ -24,10 +24,10 @@ export default function favorite(state = INITIAL_STATE, action) {
 export const Creators = {
   addFavorite: payload => ({
     type: Types.ADD_FAVORITE,
-    payload,
+    payload
   }),
   removeFavorite: payload => ({
     type: Types.REMOVE_FAVORITE,
-    payload,
-  }),
+    payload
+  })
 };

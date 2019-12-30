@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {
-  FormContainer, Input, Wrapper, Field,
+  FormContainer, Input, Wrapper, Field
 } from '~/components';
 
 import Slider from '~/components/Slider';

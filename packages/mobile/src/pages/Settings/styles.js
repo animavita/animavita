@@ -15,5 +15,5 @@ export const System = styled.View`
 export const Logout = styled.TouchableOpacity``;
 
 export const styles = StyleSheet.create({
-  divider: { height: StyleSheet.hairlineWidth, backgroundColor: '#C5CCD6', marginTop: 16 * 2 },
+  divider: { height: StyleSheet.hairlineWidth, backgroundColor: '#C5CCD6', marginTop: 16 * 2 }
 });

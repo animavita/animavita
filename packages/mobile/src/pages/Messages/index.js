@@ -36,7 +36,7 @@ const Messages = ({ navigation }) => {
   const { data, fetchMore } = useQuery(GET_CONVERSATIONS_QUERY, {
     variables: {
       skip: 0,
-      first: 10,
+      first: 10
     },
     fetchPolicy: 'no-cache',
     onCompleted: (response) => {
@@ -47,10 +47,10 @@ const Messages = ({ navigation }) => {
       showMessage({
         message: 'Erro na listagem de conversas!',
         description: 'Ops! Algum erro aconteceu, tente novamente mais tarde!',
-        type: 'danger',
+        type: 'danger'
       });
       setLoading(false);
-    },
+    }
   });
 
   function fetchMoreConversations() {
@@ -58,13 +58,13 @@ const Messages = ({ navigation }) => {
       setfetchMoreLoading(true);
       fetchMore({
         variables: {
-          skip: data.conversations.length,
+          skip: data.conversations.length
         },
         updateQuery: (prev, { fetchMoreResult }) => {
           setfetchMoreLoading(false);
           if (!fetchMoreResult) return prev;
           return setConversations([...prev.conversations, ...fetchMoreResult.conversations]);
-        },
+        }
       });
     }
   }
@@ -99,13 +99,13 @@ const Messages = ({ navigation }) => {
             title={conversation.members[0].fullname}
             onPress={() => navigation.navigate('Chat', {
               conversation: {
-                _id: conversation._id,
+                _id: conversation._id
               },
               user: {
                 _id: conversation.members[0]._id,
                 name: conversation.members[0].fullname,
-                avatar: conversation.members[0].avatar,
-              },
+                avatar: conversation.members[0].avatar
+              }
             })
             }
             avatar={conversation.members[0].avatar}
@@ -129,8 +129,8 @@ const Messages = ({ navigation }) => {
 
 Messages.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Messages;

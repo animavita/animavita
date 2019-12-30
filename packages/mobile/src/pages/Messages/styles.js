@@ -13,6 +13,6 @@ export const Content = styled.View`
 
 export const styles = StyleSheet.create({
   loadingContainer: {
-    marginVertical: 10,
-  },
+    marginVertical: 10
+  }
 });

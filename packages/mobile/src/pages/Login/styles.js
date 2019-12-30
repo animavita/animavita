@@ -23,5 +23,5 @@ export const Terms = styled.TouchableOpacity`
 `;
 
 export const styles = StyleSheet.create({
-  image: { width: '100%', height: '75%' },
+  image: { width: '100%', height: '75%' }
 });

@@ -9,7 +9,7 @@ import { TouchableOpacity } from 'react-native';
 import usePhoto from '~/hooks/usePhoto';
 import { showMessage } from 'react-native-flash-message';
 import {
-  BackButton, Footer, Container, Box, Photo, PhotoSource, DrawImage, Wrapper, styles,
+  BackButton, Footer, Container, Box, Photo, PhotoSource, DrawImage, Wrapper, styles
 } from './styles';
 import GradientButton from '~/components/GradientButton';
 
@@ -26,7 +26,7 @@ const ADOPT_REGISTER_MUTATION = gql`
 
 
 const PhotoContainer = ({
-  setStep, data, navigation,
+  setStep, data, navigation
 }) => {
   const [loading, setLoading] = useState(false);
   const [photos, handleSelectImage, removeImage] = usePhoto();
@@ -37,11 +37,11 @@ const PhotoContainer = ({
         description: `Os dados dessa adoção foram salvos com sucesso, você receberá uma notificação quando solicitarem a adoção de ${data.name}!`,
         type: 'success',
         duration: 4000,
-        backgroundColor: THEME_COLORS.SECONDARY,
+        backgroundColor: THEME_COLORS.SECONDARY
       });
       setLoading(false);
       navigation.goBack();
-    },
+    }
   });
 
 
@@ -55,15 +55,15 @@ const PhotoContainer = ({
           gender: data.gender.toUpperCase(),
           type: data.type.toUpperCase(),
           size: data.size.toUpperCase(),
-          images,
-        },
+          images
+        }
       });
     } else {
       setLoading(false);
       showMessage({
         message: 'Nenhuma imagem enviada!',
         description: `Por favor, adicione pelo menos uma foto para ${data.name}`,
-        type: 'danger',
+        type: 'danger'
       });
     }
   }
@@ -83,7 +83,7 @@ const PhotoContainer = ({
           <Wrapper key={item.order}>
             <TouchableOpacity
               hitSlop={{
-                top: 20, bottom: 20, left: 20, right: 20,
+                top: 20, bottom: 20, left: 20, right: 20
               }}
               onPress={() => removeImage(item.order)}
             >
@@ -114,7 +114,7 @@ const PhotoContainer = ({
             top: 10,
             bottom: 10,
             left: 30,
-            right: 30,
+            right: 30
           }}
           onPress={() => setStep(0)}
         >
@@ -134,10 +134,10 @@ PhotoContainer.propTypes = {
     animal: PropTypes.string,
     sex: PropTypes.string,
     age: PropTypes.number,
-    size: PropTypes.string,
+    size: PropTypes.string
   }).isRequired,
   navigation: PropTypes.shape({}).isRequired,
-  setStep: PropTypes.func.isRequired,
+  setStep: PropTypes.func.isRequired
 };
 
 export default PhotoContainer;

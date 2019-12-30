@@ -8,12 +8,12 @@ import Loading from './Loading';
 const cardinals = {
   start: {
     x: 0,
-    y: 0,
+    y: 0
   },
   end: {
     x: 1,
-    y: 1,
-  },
+    y: 1
+  }
 };
 
 const locations = [0.1, 0.9];
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     height: 16 * 3,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   opacity: {
     opacity: 0.7,
@@ -31,12 +31,12 @@ const styles = StyleSheet.create({
     height: 16 * 3,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
-  },
+    alignItems: 'center'
+  }
 });
 
 const GradientButton = ({
-  children, onPress, loading, disabled,
+  children, onPress, loading, disabled
 }) => (
   <TouchableOpacity
     style={styles.button}
@@ -60,12 +60,12 @@ GradientButton.propTypes = {
   children: PropTypes.node.isRequired,
   onPress: PropTypes.func.isRequired,
   loading: PropTypes.bool,
-  disabled: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 GradientButton.defaultProps = {
   loading: false,
-  disabled: true,
+  disabled: true
 };
 
 export default GradientButton;

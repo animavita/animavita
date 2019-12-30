@@ -2,7 +2,7 @@ import Immutable from 'seamless-immutable';
 
 export const Types = {
   SET_AUTH: 'auth/SET_USER_AUTHENTICATED',
-  CLEAR_AUTH: 'auth/CLEAR_USER_AUTHENTICATED',
+  CLEAR_AUTH: 'auth/CLEAR_USER_AUTHENTICATED'
 };
 
 const INITIAL_STATE = Immutable({
@@ -14,7 +14,7 @@ const INITIAL_STATE = Immutable({
   distance: 10,
   notifications: false,
   hero: false,
-  address: null,
+  address: null
 });
 
 export default function auth(state = INITIAL_STATE, action) {
@@ -32,9 +32,9 @@ export default function auth(state = INITIAL_STATE, action) {
 export const Creators = {
   setAuth: user => ({
     type: Types.SET_AUTH,
-    payload: user,
+    payload: user
   }),
   clearAuth: () => ({
-    type: Types.CLEAR_AUTH,
-  }),
+    type: Types.CLEAR_AUTH
+  })
 };

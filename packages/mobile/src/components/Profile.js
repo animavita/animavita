@@ -27,7 +27,7 @@ const Profile = ({ title }) => {
           rounded
           size={16 * 2.2}
           source={{
-            uri: user.avatar,
+            uri: user.avatar
           }}
         />
       </Wrapper>
@@ -36,7 +36,7 @@ const Profile = ({ title }) => {
 };
 
 Profile.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired
 };
 
 export default Profile;

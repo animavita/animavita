@@ -17,7 +17,7 @@ export const ButtonGroup = styled.View`
 export const styles = StyleSheet.create({
   input: {
     padding: 0,
-    color: THEME_COLORS.BLACK,
+    color: THEME_COLORS.BLACK
   },
-  picker: { height: 50, width: '100%', color: THEME_COLORS.BLACK },
+  picker: { height: 50, width: '100%', color: THEME_COLORS.BLACK }
 });

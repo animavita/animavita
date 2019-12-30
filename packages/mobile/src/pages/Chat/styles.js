@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
     borderTopColor: '#ccc',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   input: {
     flex: 1,
@@ -50,9 +50,9 @@ export const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     borderWidth: 1,
     borderColor: '#ddd',
-    borderRadius: 12,
+    borderRadius: 12
   },
 
   sendLabelText: { color: THEME_COLORS.SECONDARY, fontSize: 14 },
-  sendContainer: { borderWidth: 0 },
+  sendContainer: { borderWidth: 0 }
 });

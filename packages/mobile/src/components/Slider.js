@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderColor: 'white',
     borderWidth: 3,
-    backgroundColor: '#2bda8e',
+    backgroundColor: '#2bda8e'
   },
-  track: { height: 6, borderRadius: 6 },
+  track: { height: 6, borderRadius: 6 }
 });
 
 const Wrapper = styled.View`
@@ -28,7 +28,7 @@ const Small = styled.Text`
 `;
 
 const Slider = ({
-  minimum, maximum, value, valueText, onChange,
+  minimum, maximum, value, valueText, onChange
 }) => (
   <Wrapper>
     <DefaultSlider
@@ -53,7 +53,7 @@ Slider.propTypes = {
   maximum: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
   valueText: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 export default Slider;

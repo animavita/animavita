@@ -7,7 +7,7 @@ import { showMessage } from 'react-native-flash-message';
 import { TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
 import {
-  ProfileContainer, Salutation, Notification, styles,
+  ProfileContainer, Salutation, Notification, styles
 } from './styles';
 import { withNavigation } from 'react-navigation';
 import { THEME_COLORS } from '~/utils/constants';
@@ -17,7 +17,7 @@ const hitSlop = {
   top: 20,
   bottom: 20,
   left: 20,
-  right: 20,
+  right: 20
 };
 
 /*
@@ -35,7 +35,7 @@ const NOTIFICATIONS_SUBSCRIPTION = gql`
 */
 
 const NotificationItem = ({
-  openScreen, iconName, iconType, badgeStatus, news, color,
+  openScreen, iconName, iconType, badgeStatus, news, color
 }) => (
   <TouchableOpacity hitSlop={hitSlop} onPress={openScreen}>
     <Icon name={iconName} type={iconType} color={color} size={22} />
@@ -67,7 +67,7 @@ const Profile = ({ navigation }) => {
             openScreen={() => showMessage({
               message: 'Lamento deixá-lo curioso!',
               description: 'Porém, ainda estamos trabalhando nessa funcionalidade!',
-              type: 'info',
+              type: 'info'
             })
             }
             iconName="map-pin"
@@ -88,7 +88,7 @@ const Profile = ({ navigation }) => {
           onPress={() => navigation.navigate('Settings')}
           size={16 * 2.2}
           source={{
-            uri: user.avatar,
+            uri: user.avatar
           }}
         />
       </ProfileContainer>
@@ -100,15 +100,15 @@ Profile.propTypes = {
   navigation: PropTypes.shape().isRequired,
   user: PropTypes.shape({
     name: PropTypes.string,
-    avatar: PropTypes.string,
-  }),
+    avatar: PropTypes.string
+  })
 };
 
 Profile.defaultProps = {
   user: {
     name: '',
-    avatar: '',
-  },
+    avatar: ''
+  }
 };
 
 NotificationItem.propTypes = {
@@ -117,11 +117,11 @@ NotificationItem.propTypes = {
   color: PropTypes.string,
   iconType: PropTypes.string.isRequired,
   badgeStatus: PropTypes.string.isRequired,
-  news: PropTypes.bool,
+  news: PropTypes.bool
 };
 
 NotificationItem.defaultProps = {
   news: false,
-  color: THEME_COLORS.BLACK,
+  color: THEME_COLORS.BLACK
 };
 export default withNavigation(Profile);

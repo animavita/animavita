@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { TextInput, Picker } from 'react-native';
 import * as Yup from 'yup';
 import {
-  Input, Field, Wrapper, Title,
+  Input, Field, Wrapper, Title
 } from '~/components';
 import { Formik } from 'formik';
 import Slider from '~/components/Slider';
@@ -20,7 +20,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
     type: '',
     gender: '',
     age: 1,
-    size: '',
+    size: ''
   };
 
   const schema = Yup.object().shape({
@@ -29,7 +29,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
     observations: Yup.string().trim('O campo observações não pode conter apenas espaços!'),
     type: Yup.string().required('É obrigatório escolher um tipo de animal!'),
     gender: Yup.string().trim().required('É obrigatório escolher o sexo do animal!'),
-    size: Yup.string().required('Escolha o tamanho do animal!'),
+    size: Yup.string().required('Escolha o tamanho do animal!')
   });
 
   function nextStep(formData) {
@@ -43,7 +43,7 @@ const AdoptionForm = ({ setData, data, setStep }) => {
       validationSchema={schema}
     >
       {({
-        errors, values, setFieldValue, handleChange, handleSubmit,
+        errors, values, setFieldValue, handleChange, handleSubmit
       }) => (
         <>
           <FormContainer>
@@ -165,12 +165,12 @@ const adoptProps = {
   animal: PropTypes.string,
   age: PropTypes.number,
   sex: PropTypes.string,
-  size: PropTypes.string,
+  size: PropTypes.string
 };
 
 AdoptionForm.propTypes = {
   setData: PropTypes.func.isRequired,
   data: PropTypes.shape(adoptProps).isRequired,
-  setStep: PropTypes.func.isRequired,
+  setStep: PropTypes.func.isRequired
 };
 export default AdoptionForm;

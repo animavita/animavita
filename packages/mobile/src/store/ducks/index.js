@@ -6,7 +6,7 @@ import auth from './auth';
 const reducers = combineReducers({
   filter,
   favorite,
-  auth,
+  auth
 });
 
 export default reducers;

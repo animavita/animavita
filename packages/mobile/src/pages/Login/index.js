@@ -13,7 +13,7 @@ import { THEME_COLORS } from '~/utils/constants';
 import { handleLoginFacebook } from '~/services/authFacebook';
 import { StackActions, NavigationActions } from 'react-navigation';
 import {
-  Container, Header, Footer, Terms, styles,
+  Container, Header, Footer, Terms, styles
 } from './styles';
 
 const USER_LOGIN_MUTATION = gql`
@@ -51,7 +51,7 @@ const Login = ({ navigation }) => {
       message: 'Erro na autenticação!',
       description:
         'Ops! Algum erro no momento da autenticação aconteceu, tente novamente mais tarde.',
-      type: 'danger',
+      type: 'danger'
     });
     setLoading(false);
   }
@@ -63,11 +63,11 @@ const Login = ({ navigation }) => {
 
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: route })],
+        actions: [NavigationActions.navigate({ routeName: route })]
       });
       navigation.dispatch(resetAction);
     },
-    onError: () => throwAuthenticationError(),
+    onError: () => throwAuthenticationError()
   });
 
   async function handleLogin() {
@@ -84,7 +84,7 @@ const Login = ({ navigation }) => {
       await AsyncStorage.setItem('@animavita:facebook_user', JSON.stringify(response.user));
 
       loginUser({
-        variables: { accessToken },
+        variables: { accessToken }
       });
     }
   }
@@ -113,7 +113,7 @@ const Login = ({ navigation }) => {
             top: 10,
             bottom: 10,
             left: 30,
-            right: 30,
+            right: 30
           }}
           onPress={() => console.log('pressed')}
         >
@@ -128,8 +128,8 @@ const Login = ({ navigation }) => {
 
 Login.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Login;

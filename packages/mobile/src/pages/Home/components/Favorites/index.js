@@ -38,7 +38,7 @@ const Favorites = ({ navigation }) => {
             font
             subtitle={favorite.breed}
             leftAvatar={{
-              source: favorite.firstImage && { uri: favorite.firstImage },
+              source: favorite.firstImage && { uri: favorite.firstImage }
             }}
             onPress={() => navigation.navigate('Details', { animal: favorite })}
             bottomDivider
@@ -60,8 +60,8 @@ const Favorites = ({ navigation }) => {
 
 Favorites.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Favorites;

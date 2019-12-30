@@ -11,7 +11,7 @@ import { H1 } from '~/components';
 import Loading from '~/components/Loading';
 
 import {
-  Container, Header, Profile, Content, styles,
+  Container, Header, Profile, Content, styles
 } from './styles';
 
 const GET_CONVERSATIONS_QUERY = gql`
@@ -72,18 +72,18 @@ const Chat = ({ navigation }) => {
 
   useSubscription(MESSAGE_SUBSCRIPTION, {
     variables: {
-      conversation: conversation._id,
+      conversation: conversation._id
     },
     onSubscriptionData: ({ subscriptionData }) => {
       setMessages(GiftedChat.append(messages, subscriptionData.data.MessageSended));
-    },
+    }
   });
 
   useQuery(GET_CONVERSATIONS_QUERY, {
     variables: {
       conversation: conversation._id,
       skip: 0,
-      first: 50,
+      first: 50
     },
     fetchPolicy: 'no-cache',
     onCompleted: (response) => {
@@ -93,21 +93,21 @@ const Chat = ({ navigation }) => {
       showMessage({
         message: 'Erro ao carregar mensagens!',
         description: 'Ops! Algum erro aconteceu, tente novamente mais tarde!',
-        type: 'danger',
+        type: 'danger'
       });
-    },
+    }
   });
 
   function throwMessageError() {
     showMessage({
       message: 'Erro ao enviar a mensagem!',
       description: 'Ops! Algum erro ao enviar a mensagem aconteceu, tente novamente mais tarde.',
-      type: 'danger',
+      type: 'danger'
     });
   }
 
   const [sendMessage] = useMutation(USER_SEND_MESSAGE_MUTATION, {
-    onError: () => throwMessageError(),
+    onError: () => throwMessageError()
   });
 
   function onSend(typedMessage) {
@@ -116,8 +116,8 @@ const Chat = ({ navigation }) => {
       variables: {
         conversation: conversation._id,
         user: user._id,
-        content: typedMessage[0].text,
-      },
+        content: typedMessage[0].text
+      }
     });
   }
 
@@ -130,7 +130,7 @@ const Chat = ({ navigation }) => {
             rounded
             size={16 * 2.2}
             source={{
-              uri: user.avatar,
+              uri: user.avatar
             }}
           />
         </Profile>
@@ -175,21 +175,21 @@ Chat.propTypes = {
     state: PropTypes.shape({
       params: PropTypes.shape({
         conversation: PropTypes.shape({
-          _id: PropTypes.string.isRequired,
+          _id: PropTypes.string.isRequired
         }),
         user: PropTypes.shape({
           _id: PropTypes.string.isRequired,
           name: PropTypes.string.isRequired,
-          avatar: PropTypes.string.isRequired,
-        }),
-      }),
-    }),
+          avatar: PropTypes.string.isRequired
+        })
+      })
+    })
   }).isRequired,
-  text: PropTypes.string,
+  text: PropTypes.string
 };
 
 Chat.defaultProps = {
-  text: '',
+  text: ''
 };
 
 export default Chat;

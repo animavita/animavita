@@ -11,7 +11,7 @@ import { THEME_COLORS } from '~/utils/constants';
 import { useMutation, useLazyQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import {
-  Content, Research, Container, Header, Footer, styles,
+  Content, Research, Container, Header, Footer, styles
 } from './styles';
 import { Creators as AuthCreators } from '~/store/ducks/auth';
 
@@ -57,13 +57,13 @@ const Localization = ({ navigation }) => {
       dispatch(
         AuthCreators.setAuth({
           ...auth,
-          address: SaveAddressMutation.user.address,
+          address: SaveAddressMutation.user.address
         }),
       );
 
       const resetAction = StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'SignedIn' })],
+        actions: [NavigationActions.navigate({ routeName: 'SignedIn' })]
       });
       navigation.dispatch(resetAction);
     },
@@ -72,17 +72,17 @@ const Localization = ({ navigation }) => {
         message: 'Erro ao buscar sua localização!',
         description:
           'Ops! Você acredita que o gatinho quase quebrou o GPS? Tente liga-lo novamente.',
-        type: 'danger',
+        type: 'danger'
       });
       setLoading(false);
-    },
+    }
   });
 
   const [getLocalization] = useLazyQuery(GET_LOCALIZATION, {
     onCompleted: ({ localization }) => {
       setLocalization(localization);
       setLoading(false);
-    },
+    }
   });
 
   function getLocation() {
@@ -93,8 +93,8 @@ const Localization = ({ navigation }) => {
         getLocalization({
           variables: {
             latitude: coords.latitude,
-            longitude: coords.longitude,
-          },
+            longitude: coords.longitude
+          }
         });
         setCoordinates(coords);
       },
@@ -103,7 +103,7 @@ const Localization = ({ navigation }) => {
           message: 'Erro ao buscar sua localização!',
           description:
             'Ops! Você acredita que o gatinho quase quebrou o GPS? Tente liga-lo novamente.',
-          type: 'danger',
+          type: 'danger'
         });
         setLoading(false);
       },
@@ -145,8 +145,8 @@ const Localization = ({ navigation }) => {
                     state: local.state,
                     city: local.city,
                     latitude: coordinates.latitude,
-                    longitude: coordinates.longitude,
-                  },
+                    longitude: coordinates.longitude
+                  }
                 });
               }}
               disabled={loading}
@@ -161,7 +161,7 @@ const Localization = ({ navigation }) => {
                 top: 10,
                 bottom: 10,
                 left: 30,
-                right: 30,
+                right: 30
               }}
               disabled={loading}
               onPress={() => getLocation()}
@@ -185,8 +185,8 @@ const Localization = ({ navigation }) => {
 
 Localization.propTypes = {
   navigation: PropTypes.shape({
-    navigate: PropTypes.func.isRequired,
-  }).isRequired,
+    navigate: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Localization;

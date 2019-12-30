@@ -21,29 +21,29 @@ const configs = {
       height: 16 * 4,
       backgroundColor: '#FFFFFF',
       borderBottomColor: 'transparent',
-      elevation: 0,
+      elevation: 0
     },
     headerBackImage: <Icon name="ios-arrow-round-back" type="ionicon" color="#C5CCD6" size={40} />,
     headerBackTitle: null,
     headerLeftContainerStyle: {
       alignItems: 'center',
       marginLeft: 16,
-      paddingRight: 16,
+      paddingRight: 16
     },
     headerRightContainerStyle: {
       alignItems: 'center',
-      paddingRight: 16,
-    },
-  },
+      paddingRight: 16
+    }
+  }
 };
 
 const SignedOutRoutes = createStackNavigator({
   Login: {
     screen: Login,
     navigationOptions: {
-      header: () => null,
-    },
-  },
+      header: () => null
+    }
+  }
 });
 
 const MainStackNavigator = createStackNavigator(
@@ -52,7 +52,7 @@ const MainStackNavigator = createStackNavigator(
     Notifications,
     Messages,
     Chat,
-    Settings,
+    Settings
   },
   configs,
 );
@@ -62,22 +62,22 @@ const SignedInRoutes = createStackNavigator(
     Main: {
       screen: MainStackNavigator,
       navigationOptions: {
-        header: () => null,
-      },
+        header: () => null
+      }
     },
     Filter,
     Adoption,
     Details: {
       screen: Details,
       navigationOptions: {
-        header: () => null,
-      },
-    },
+        header: () => null
+      }
+    }
 
   },
   configs,
   {
-    mode: 'modal',
+    mode: 'modal'
   },
 );
 
@@ -89,16 +89,16 @@ export const createRootNavigator = (signedIn = false) => createAppContainer(
       Localization: {
         screen: Localization,
         navigationOptions: {
-          header: () => null,
-        },
-      },
+          header: () => null
+        }
+      }
     },
     {
       headerMode: 'none',
       initialRouteName: signedIn ? 'SignedIn' : 'SignedOut',
       navigationOptions: {
-        gesturesEnabled: false,
-      },
+        gesturesEnabled: false
+      }
     },
   ),
 );

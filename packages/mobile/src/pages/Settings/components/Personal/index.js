@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-  Small, FormContainer, Input, Field, Wrapper,
+  Small, FormContainer, Input, Field, Wrapper
 } from '~/components';
 import { showMessage } from 'react-native-flash-message';
 import { useMutation } from '@apollo/react-hooks';
@@ -27,7 +27,7 @@ const Personal = ({ user }) => {
     nameEditable: false,
     lastnameEditable: false,
     name: user.name,
-    lastname: user.lastname,
+    lastname: user.lastname
   });
   const [updateName] = useMutation(USER_CHANGE_NAME_MUTATION, {
     onCompleted: () => {
@@ -35,13 +35,13 @@ const Personal = ({ user }) => {
         message: 'Salvo com sucesso!',
         description: 'Os seus dados foram atualizados com sucesso!',
         type: 'success',
-        backgroundColor: THEME_COLORS.SECONDARY,
+        backgroundColor: THEME_COLORS.SECONDARY
       });
       dispatch(
         AuthCreators.setAuth({
           ...user,
           name: fields.name,
-          lastname: fields.lastname,
+          lastname: fields.lastname
         }),
       );
     },
@@ -50,9 +50,9 @@ const Personal = ({ user }) => {
         message: 'Erro na atualização de dados!',
         description:
           'Ops! Algum erro no momento da atualização dos dados aconteceu, tente novamente mais tarde.',
-        type: 'danger',
+        type: 'danger'
       });
-    },
+    }
   });
   function handleChange(field, enabled) {
     if (!enabled) {
@@ -60,13 +60,13 @@ const Personal = ({ user }) => {
       updateName({
         variables: {
           name,
-          lastname,
-        },
+          lastname
+        }
       });
     }
     setFields({
       ...fields,
-      [field]: enabled,
+      [field]: enabled
     });
   }
   return (
@@ -79,7 +79,7 @@ const Personal = ({ user }) => {
             editable={fields.nameEditable}
             onChangeText={text => setFields({
               ...fields,
-              name: text,
+              name: text
             })
             }
           />
@@ -99,7 +99,7 @@ const Personal = ({ user }) => {
             editable={fields.lastnameEditable}
             onChangeText={text => setFields({
               ...fields,
-              lastname: text,
+              lastname: text
             })
             }
           />
@@ -124,7 +124,7 @@ Personal.propTypes = {
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
     lastname: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-  }).isRequired,
+    email: PropTypes.string.isRequired
+  }).isRequired
 };
 export default Personal;

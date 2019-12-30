@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  PetImage, Informations, Name, SubText, Card, styles,
+  PetImage, Informations, Name, SubText, Card, styles
 } from './styles';
 
 const Pet = ({ animal }) => (
@@ -9,7 +9,7 @@ const Pet = ({ animal }) => (
     <PetImage
       imageStyle={styles.image}
       source={{
-        uri: animal.firstImage,
+        uri: animal.firstImage
       }}
     >
       <Informations>
@@ -29,8 +29,8 @@ Pet.propTypes = {
     firstImage: PropTypes.string,
     name: PropTypes.string,
     breed: PropTypes.string,
-    distance: PropTypes.number,
-  }).isRequired,
+    distance: PropTypes.number
+  }).isRequired
 };
 
 export default Pet;

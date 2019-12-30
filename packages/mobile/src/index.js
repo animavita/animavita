@@ -16,7 +16,7 @@ const Container = styled.View`
 `;
 
 const styles = {
-  loading: { marginTop: 120 },
+  loading: { marginTop: 120 }
 };
 
 const App = () => {
