@@ -1,6 +1,0 @@
-framework module Pods_Animavita_tvOS {
-  umbrella header "Pods-Animavita-tvOS-umbrella.h"
-
-  export *
-  module * { export * }
-}
