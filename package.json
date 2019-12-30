@@ -1,0 +1,56 @@
+{
+  "name": "animavita",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Trigger life-saving alerts, register animals for adoption and find the closest pet friend to adopt :dog:",
+  "bugs": {
+    "url": "https://github.com/wendelfreitas/animavita/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wendelfreitas/animavita"
+  },
+  "author": "Wendel Freitas <wendelfreitasbranco@gmail.com>",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "scripts": {
+    "delete:all": "yarn delete:metro-cache && yarn delete:node_modules && yarn delete:yarn.lock",
+    "delete:metro-cache": "find . -name \"metro-cache\" -exec rm -rf '{}' +",
+    "delete:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
+    "delete:yarn.lock": "find . -name \"yarn.lock\" -exec rm -rf '{}' +",
+    "lint": "eslint --fix --ext .js,jsx,.ts,.tsx",
+    "lint:ci": "eslint --quiet --ext .js,jsx,.ts,.tsx .",
+    "lint:fix": "eslint --fix --ext .js,jsx,.ts,.tsx .",
+    "prettier": "prettier",
+    "start:app": "yarn workspace @animavita/mobile start",
+    "start:server": "yarn workspace @animavita/server start"
+  },
+  "lint-staged": {
+    "*.yml": [
+      "yarn prettier --write",
+      "git add"
+    ],
+    "*.{js,jsx,ts,tsx}": [
+      "yarn prettier --write",
+      "yarn lint",
+      "git add"
+    ],
+    "package.json": [
+      "yarn prettier --write",
+      "yarn sort-package-json",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "sort-package-json": "^1.32.2"
+  }
+}
