@@ -4,12 +4,12 @@
   "private": true,
   "main": "./__generated__/AppEntry.js",
   "scripts": {
-    "start": "expo start",
     "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
     "eject": "expo eject",
-    "postinstall": "expo-yarn-workspaces postinstall"
+    "postinstall": "expo-yarn-workspaces postinstall",
+    "ios": "expo start --ios",
+    "start": "expo start",
+    "web": "expo start --web"
   },
   "dependencies": {
     "expo": "~36.0.0",
@@ -24,7 +24,6 @@
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
     "babel-preset-expo": "~8.0.0",
-    "expo-yarn-workspaces": "^1.2.1",
-    "typescript": "~3.6.3"
+    "expo-yarn-workspaces": "^1.2.1"
   }
 }
