@@ -18,6 +18,7 @@
     "lint:ci": "eslint --quiet --ext .js,jsx,.ts,.tsx .",
     "lint:fix": "eslint --fix --ext .js,jsx,.ts,.tsx .",
     "start": "yarn workspace @animavita/expo start",
+    "storybook": "yarn workspace @animavita/ui storybook",
     "web": "yarn workspace @animavita/expo web"
   },
   "lint-staged": {
