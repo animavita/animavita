@@ -9,3 +9,5 @@ export const heightPercentageToDP = (heightPercent: string) => {
   const screenHeight = Dimensions.get('window').height;
   return PixelRatio.roundToNearestPixel((screenHeight * parseFloat(heightPercent)) / 100);
 };
+
+export const px2ddp = PixelRatio.getPixelSizeForLayoutSize;
