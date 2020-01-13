@@ -3,8 +3,8 @@
     "rootDir": ".",
     "composite": true,
     "noEmit": true,
-    "typeRoots": ["@types", "../theme/@types"]
+    "typeRoots": ["@types"]
   },
   "extends": "../../tsconfig.json",
-  "include": [".", "../theme"]
+  "include": ["."]
 }

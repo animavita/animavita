@@ -1,0 +1,12 @@
+{
+  "name": "@animavita/theme",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "styled-components": "^4.4.1"
+  },
+  "devDependencies": {
+    "@types/styled-components": "^4.4.2"
+  }
+}
