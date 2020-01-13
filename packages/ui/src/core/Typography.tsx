@@ -1,7 +1,6 @@
 import React from 'react';
-import {Text, TextProps} from 'react-native';
-import styled from 'styled-components/native';
-import {heightPercentageToDP} from '@animavita/theme';
+import {TextProps} from 'react-native';
+import styled, {css} from 'styled-components/native';
 
 const LARGE_TITLE = 'large-title';
 const TITLE_1 = 'title-1';
@@ -15,20 +14,74 @@ const FOOTNOTE = 'footnote';
 const CAPTION_1 = 'caption-1';
 const CAPTION_2 = 'caption-2';
 
-const LargeTitle = styled.Text`
-  font-size: ${({theme}) => heightPercentageToDP(theme.sizeLargeTitle)}px;
-`;
-const Title1 = styled.Text`
-  font-size: ${({theme}) => heightPercentageToDP(theme.sizeTitle1)}px;
-`;
-const Title2 = styled.Text`
-  font-size: ${({theme}) => heightPercentageToDP(theme.sizeTitle2)}px;
-`;
-const Title3 = styled.Text`
-  font-size: ${({theme}) => heightPercentageToDP(theme.sizeTitle3)}px;
+type TypographyType = 'bold' | 'italic';
+interface CustomizeProps {
+  type?: TypographyType;
+  color?: string;
+}
+const Customize = ({type, color}: CustomizeProps) => css`
+  ${type &&
+    type === 'bold' &&
+    css`
+      font-weight: bold;
+    `}
+  ${type &&
+    type === 'italic' &&
+    css`
+      font-style: italic;
+    `}
+  ${color &&
+    css`
+      color: ${color};
+    `}
 `;
 
-type TypographyType =
+const LargeTitle = styled.Text`
+  font-size: ${({theme}) => theme.sizeLargeTitle};
+  ${Customize}
+`;
+const Title1 = styled.Text`
+  font-size: ${({theme}) => theme.sizeTitle1};
+  ${Customize}
+`;
+const Title2 = styled.Text`
+  font-size: ${({theme}) => theme.sizeTitle2};
+  ${Customize}
+`;
+const Title3 = styled.Text`
+  font-size: ${({theme}) => theme.sizeTitle3};
+  ${Customize}
+`;
+const Headline = styled.Text`
+  font-size: ${({theme}) => theme.sizeHeadline};
+  ${Customize}
+`;
+const Body = styled.Text`
+  font-size: ${({theme}) => theme.sizeBody};
+  ${Customize}
+`;
+const Callout = styled.Text`
+  font-size: ${({theme}) => theme.sizeCallout};
+  ${Customize}
+`;
+const Subheadline = styled.Text`
+  font-size: ${({theme}) => theme.sizeSubheadline};
+  ${Customize}
+`;
+const Footnote = styled.Text`
+  font-size: ${({theme}) => theme.sizeFootnote};
+  ${Customize}
+`;
+const Caption1 = styled.Text`
+  font-size: ${({theme}) => theme.sizeCaption1};
+  ${Customize}
+`;
+const Caption2 = styled.Text`
+  font-size: ${({theme}) => theme.sizeCaption2};
+  ${Customize}
+`;
+
+type TypographyVariantType =
   | typeof LARGE_TITLE
   | typeof TITLE_1
   | typeof TITLE_2
@@ -41,8 +94,8 @@ type TypographyType =
   | typeof CAPTION_1
   | typeof CAPTION_2;
 
-interface TypographyProps extends TextProps {
-  variant: TypographyType;
+interface TypographyProps extends TextProps, CustomizeProps {
+  variant: TypographyVariantType;
 }
 
 const Typography: React.FC<TypographyProps> = ({variant, children, ...props}) => {
@@ -55,8 +108,22 @@ const Typography: React.FC<TypographyProps> = ({variant, children, ...props}) =>
       return <Title2 {...props}>{children}</Title2>;
     case TITLE_3:
       return <Title3 {...props}>{children}</Title3>;
+    case HEADLINE:
+      return <Headline {...props}>{children}</Headline>;
+    case BODY:
+      return <Body {...props}>{children}</Body>;
+    case CALLOUT:
+      return <Callout {...props}>{children}</Callout>;
+    case SUBHEADLINE:
+      return <Subheadline {...props}>{children}</Subheadline>;
+    case FOOTNOTE:
+      return <Footnote {...props}>{children}</Footnote>;
+    case CAPTION_1:
+      return <Caption1 {...props}>{children}</Caption1>;
+    case CAPTION_2:
+      return <Caption2 {...props}>{children}</Caption2>;
     default:
-      return <Text {...props}>{children}</Text>;
+      return <Body {...props}>{children}</Body>;
   }
 };
 

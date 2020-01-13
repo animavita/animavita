@@ -1,5 +1,7 @@
 import {DefaultTheme} from 'styled-components/native';
 
+import {heightPercentageToDP} from './PixelRatio';
+
 /**
  * Styled components theme
  */
@@ -16,10 +18,17 @@ const StyledTheme: DefaultTheme = {
   greyLighter: '#EBEBEB',
 
   // typography
-  sizeLargeTitle: '8%',
-  sizeTitle1: '5%',
-  sizeTitle2: '4%',
-  sizeTitle3: '3%',
+  sizeLargeTitle: `${heightPercentageToDP('8%')}px`,
+  sizeTitle1: `${heightPercentageToDP('5%')}px`,
+  sizeTitle2: `${heightPercentageToDP('4%')}px`,
+  sizeTitle3: `${heightPercentageToDP('3%')}px`,
+  sizeHeadline: `${heightPercentageToDP('2%')}px`,
+  sizeBody: `${heightPercentageToDP('2%')}px`,
+  sizeCallout: `${heightPercentageToDP('1.8%')}px`,
+  sizeSubheadline: `${heightPercentageToDP('1.6%')}px`,
+  sizeFootnote: `${heightPercentageToDP('1.4%')}px`,
+  sizeCaption1: `${heightPercentageToDP('1.2%')}px`,
+  sizeCaption2: `${heightPercentageToDP('1%')}px`,
 };
 
 export default StyledTheme;

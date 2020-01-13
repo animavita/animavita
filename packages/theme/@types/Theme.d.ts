@@ -17,6 +17,13 @@ declare module 'styled-components/native' {
     sizeTitle1: string;
     sizeTitle2: string;
     sizeTitle3: string;
+    sizeHeadline: string;
+    sizeBody: string;
+    sizeCallout: string;
+    sizeSubheadline: string;
+    sizeFootnote: string;
+    sizeCaption1: string;
+    sizeCaption2: string;
   }
 
   export default {...styled};
