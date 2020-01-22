@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-navigation": "^4.0.10",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {

@@ -2,6 +2,9 @@ import {DefaultTheme} from 'styled-components/native';
 
 import {heightPercentageToDP} from './PixelRatio';
 
+// TODO: detect user theme
+export const initialTheme = 'light';
+
 /**
  * Styled components theme
  */
