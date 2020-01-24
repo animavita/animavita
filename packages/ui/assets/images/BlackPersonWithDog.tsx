@@ -1,6 +1,6 @@
 import React from 'react';
 import Svg, {G, Path} from 'react-native-svg';
-import {Image, Platform} from 'react-native';
+import {Image, Platform, ViewProps} from 'react-native';
 
 import BlackPersonWithDogBinaries from './binaries/BlackPersonWithDog.png';
 
@@ -275,12 +275,12 @@ function BlackPersonWithDogSvg() {
   );
 }
 
-function BlackPersonWithDog() {
+const BlackPersonWithDog: React.FC<ViewProps> = () => {
   if (Platform.OS === 'web') {
     return <BlackPersonWithDogSvg />;
   } else {
     return <Image source={BlackPersonWithDogBinaries} />;
   }
-}
+};
 
 export default BlackPersonWithDog;

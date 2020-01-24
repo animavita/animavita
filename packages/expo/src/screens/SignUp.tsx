@@ -30,22 +30,22 @@ const titleStyle = css`
 const SignUp: React.FC = () => {
   return (
     <Background css={bgStyle}>
-      <Wrapper>
+      <Wrapper testID="wrapper">
         <Space height={heightPercentageToDP('7%')} />
-        <Images.BlackPersonWithDog />
+        <Images.BlackPersonWithDog testID="image" />
         <Space height={heightPercentageToDP('4%')} />
-        <Typography variant="title-3" type="bold" css={titleStyle}>
+        <Typography variant="title-3" type="bold" css={titleStyle} testID="title">
           Animavita
         </Typography>
-        <Typography variant="title-3" type="bold">
+        <Typography variant="title-3" type="bold" testID="subtitle">
           Salve uma vida
         </Typography>
         <Space height={heightPercentageToDP('4%')} />
-        <Button size="small" text="Facebook" type="outline" />
+        <Button size="small" text="Facebook" type="outline" testID="fb-btn" />
         <Space height={heightPercentageToDP('1%')} />
-        <Button size="small" text="Google" type="outline" />
+        <Button size="small" text="Google" type="outline" testID="google-btn" />
         <Space height={heightPercentageToDP('1%')} />
-        <Button size="small" text="Apple" type="outline" />
+        <Button size="small" text="Apple" type="outline" testID="apple-btn" />
       </Wrapper>
     </Background>
   );

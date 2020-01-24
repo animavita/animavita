@@ -19,7 +19,9 @@
     "lint:fix": "eslint --fix --ext .js,jsx,.ts,.tsx .",
     "start": "yarn workspace @animavita/expo start",
     "storybook": "yarn workspace @animavita/ui storybook",
-    "web": "yarn workspace @animavita/expo web"
+    "web": "yarn workspace @animavita/expo web",
+    "test:expo": "yarn workspace @animavita/expo test",
+    "test": "yarn test:expo"
   },
   "lint-staged": {
     "*.yml": [

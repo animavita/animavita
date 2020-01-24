@@ -22,5 +22,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "build"]
+  "exclude": ["build"]
 }

@@ -9,7 +9,12 @@
     "postinstall": "expo-yarn-workspaces postinstall",
     "ios": "expo start --ios",
     "start": "expo start",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "browser": false
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
@@ -23,7 +28,8 @@
     "react-native-screens": "2.0.0-alpha.12",
     "react-native-web": "0.11.7",
     "react-navigation": "^4.0.10",
-    "react-navigation-stack": "^2.0.15"
+    "react-navigation-stack": "^2.0.15",
+    "styled-components": "^5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -34,9 +40,15 @@
     "@babel/preset-react": "^7.8.3",
     "@babel/preset-typescript": "^7.8.3",
     "@expo/webpack-config": "^0.10.11",
+    "@testing-library/jest-native": "^3.1.0",
+    "@types/jest": "^24.9.1",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
     "babel-preset-expo": "~8.0.0",
-    "expo-yarn-workspaces": "^1.2.1"
+    "expo-yarn-workspaces": "^1.2.1",
+    "jest": "24.9.0",
+    "jest-expo": "^36.0.1",
+    "jest-styled-components": "7.0.0",
+    "react-native-testing-library": "^1.12.0"
   }
 }
