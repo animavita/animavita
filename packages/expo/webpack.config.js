@@ -1,7 +1,34 @@
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
+const path = require('path');
+const c = require('console-helpers');
 
 module.exports = async function(env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
-  // Customize the config before returning it.
+
+  // for babel-loader
+
+  config.module.rules[1].oneOf[2].use.options.root = path.resolve(__dirname, '..', '..');
+
+  config.module.rules[1].oneOf[2].use.options.presets = [
+    '@babel/preset-env',
+    '@babel/preset-flow',
+    '@babel/preset-typescript',
+    '@babel/preset-react',
+  ];
+
+  config.module.rules[1].oneOf[2].use.options.plugins = [
+    '@babel/plugin-proposal-class-properties',
+    '@babel/plugin-proposal-export-default-from',
+  ];
+
+  config.module.rules[1].oneOf[2].include = [
+    path.resolve(__dirname),
+    path.resolve(__dirname, '..', 'theme'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-gesture-handler'),
+    path.resolve(__dirname, '..', '..', 'node_modules', '@animavita'),
+    path.resolve(__dirname, '..', '..', 'node_modules', '@react-navigation'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-screens'),
+  ];
+
   return config;
 };
