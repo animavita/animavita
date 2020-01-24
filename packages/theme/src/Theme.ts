@@ -3,7 +3,7 @@ import {DefaultTheme} from 'styled-components/native';
 import {heightPercentageToDP} from './PixelRatio';
 
 // TODO: detect user theme
-export const initialTheme = 'light';
+export const initialTheme = 'dark';
 
 /**
  * Styled components theme
@@ -13,7 +13,7 @@ const StyledTheme: DefaultTheme = {
   // color
   greenLight: '#2ED68F',
   greenDark: '#1BC0B5',
-  white: '#fff',
+  white: '#FFFFFF',
   black: '#353434',
   grey: '#BABABA',
   greyDark: '#717171',

@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {ThemeConsumer} from 'styled-components/native';
 
-import Typography from '../src/core/Typography';
+import Typography from '../core/Typography';
 
 export default {
   title: 'Typography',

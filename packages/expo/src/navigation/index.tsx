@@ -3,9 +3,9 @@ import {createAppContainer} from 'react-navigation';
 
 import {ThemeContext} from '@animavita/theme';
 
-import HomeNavigator from './Home';
+import AuthNavigator from './Auth';
 
-const AppNavigator = createAppContainer(HomeNavigator);
+const AppNavigator = createAppContainer(AuthNavigator);
 
 export default function Navigation() {
   return <ThemeContext.Consumer>{theme => <AppNavigator theme={theme.themeName} />}</ThemeContext.Consumer>;

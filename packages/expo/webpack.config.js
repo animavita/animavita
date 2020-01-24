@@ -1,5 +1,6 @@
-const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 const path = require('path');
+
+const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 const c = require('console-helpers');
 
 module.exports = async function(env, argv) {
@@ -24,6 +25,7 @@ module.exports = async function(env, argv) {
   config.module.rules[1].oneOf[2].include = [
     path.resolve(__dirname),
     path.resolve(__dirname, '..', 'theme'),
+    path.resolve(__dirname, '..', 'ui'),
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-gesture-handler'),
     path.resolve(__dirname, '..', '..', 'node_modules', '@animavita'),
     path.resolve(__dirname, '..', '..', 'node_modules', '@react-navigation'),

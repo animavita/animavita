@@ -1,6 +1,8 @@
 import React from 'react';
 import {TextProps} from 'react-native';
 import styled, {css} from 'styled-components/native';
+import {Themed} from 'react-navigation';
+import {FlattenInterpolation} from 'styled-components';
 
 const LARGE_TITLE = 'large-title';
 const TITLE_1 = 'title-1';
@@ -18,8 +20,9 @@ type TypographyType = 'bold' | 'italic';
 interface CustomizeProps {
   type?: TypographyType;
   color?: string;
+  css?: FlattenInterpolation<any>;
 }
-const Customize = ({type, color}: CustomizeProps) => css`
+const Customize = ({type, color, css: customCss}: CustomizeProps) => css`
   ${type &&
     type === 'bold' &&
     css`
@@ -34,49 +37,50 @@ const Customize = ({type, color}: CustomizeProps) => css`
     css`
       color: ${color};
     `}
+  ${customCss}
 `;
 
-const LargeTitle = styled.Text`
+const LargeTitle = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeLargeTitle};
   ${Customize}
 `;
-const Title1 = styled.Text`
+const Title1 = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeTitle1};
   ${Customize}
 `;
-const Title2 = styled.Text`
+const Title2 = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeTitle2};
   ${Customize}
 `;
-const Title3 = styled.Text`
+const Title3 = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeTitle3};
   ${Customize}
 `;
-const Headline = styled.Text`
+const Headline = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeHeadline};
   ${Customize}
 `;
-const Body = styled.Text`
+const Body = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeBody};
   ${Customize}
 `;
-const Callout = styled.Text`
+const Callout = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeCallout};
   ${Customize}
 `;
-const Subheadline = styled.Text`
+const Subheadline = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeSubheadline};
   ${Customize}
 `;
-const Footnote = styled.Text`
+const Footnote = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeFootnote};
   ${Customize}
 `;
-const Caption1 = styled.Text`
+const Caption1 = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeCaption1};
   ${Customize}
 `;
-const Caption2 = styled.Text`
+const Caption2 = styled(Themed.Text)`
   font-size: ${({theme}) => theme.sizeCaption2};
   ${Customize}
 `;
@@ -98,7 +102,11 @@ interface TypographyProps extends TextProps, CustomizeProps {
   variant: TypographyVariantType;
 }
 
-const Typography: React.FC<TypographyProps> = ({variant, children, ...props}) => {
+const defaultProps: TypographyProps = {
+  variant: 'body',
+};
+
+const Typography: React.FC<TypographyProps> = ({variant, children, ...props} = defaultProps) => {
   switch (variant) {
     case LARGE_TITLE:
       return <LargeTitle {...props}>{children}</LargeTitle>;
