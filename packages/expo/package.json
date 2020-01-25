@@ -26,7 +26,7 @@
     "react-native-web": "0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^2.0.15",
-    "styled-components": "4.2.1"
+    "styled-components": "5.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -46,6 +46,6 @@
     "expo-yarn-workspaces": "^1.2.1",
     "jest": "24.9.0",
     "jest-expo": "^36.0.1",
-    "jest-styled-components": "6.3.1"
+    "jest-styled-components": "7.0.0"
   }
 }

@@ -1,11 +1,12 @@
 import React from 'react';
-import {Platform} from 'react-native';
+import {Alert, Platform} from 'react-native';
 import styled, {css} from 'styled-components/native';
 
 import {heightPercentageToDP, widthPercentageToDP} from '@animavita/theme';
-import {Background} from '@animavita/ui/layout';
-import {Button, Space, Typography} from '@animavita/ui/core';
+import {Background, Space} from '@animavita/ui/layout';
+import {Button, Typography} from '@animavita/ui/core';
 import Images from '@animavita/ui/assets/images';
+import {FacebookButton} from '@animavita/ui/social';
 
 const Wrapper = styled.View`
   ${() =>
@@ -41,7 +42,7 @@ const SignUp: React.FC = () => {
           Salve uma vida
         </Typography>
         <Space height={heightPercentageToDP('4%')} />
-        <Button size="small" text="Facebook" type="outline" testID="fb-btn" />
+        <FacebookButton testID="fb-btn" onPress={() => Alert.alert('ola')}/>
         <Space height={heightPercentageToDP('1%')} />
         <Button size="small" text="Google" type="outline" testID="google-btn" />
         <Space height={heightPercentageToDP('1%')} />
