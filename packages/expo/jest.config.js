@@ -1,5 +1,5 @@
 module.exports = {
-  preset: "jest-expo",
+  preset: 'jest-expo',
   browser: false,
-  setupFilesAfterEnv: ["./tests/setup.ts"]
+  setupFilesAfterEnv: ['./tests/setup.ts'],
 };

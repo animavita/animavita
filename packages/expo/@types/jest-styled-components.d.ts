@@ -1,6 +1,6 @@
 declare namespace jest {
   interface AsymmetricMatcher {
-    $$typeof: Symbol;
+    $$typeof: symbol;
     sample?: string | RegExp | object | Array<any> | Function;
   }
 
