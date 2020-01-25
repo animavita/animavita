@@ -1,6 +1,9 @@
 name: Animavita Lint
 
-on: [push]
+on:
+  push:
+    branches-ignore:
+      - 'expo'
 
 jobs:
   lint:

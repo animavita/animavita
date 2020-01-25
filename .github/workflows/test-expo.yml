@@ -1,14 +1,14 @@
 name: Animavita Expo Tests
 
-on: 
+on:
   push:
-    paths: 
+    paths:
       - '.github/workflows/test-expo.yml'
       - 'packages/expo/**'
       - 'packages/ui/**'
-    branches-ignore: 
+    branches-ignore:
       - 'expo'
-    
+
 
 jobs:
   test-expo:
@@ -38,3 +38,9 @@ jobs:
       - name: Test Expo
         run: |
           yarn test:expo --ci --maxWorkers=4 --coverage --reporters=jest-junit --forceExit
+        env:
+          JEST_SUITE_NAME: 'Animavita Expo Tests'
+          JEST_JUNIT_OUTPUT_DIR: './reports'
+      - uses: codecov/codecov-action@v1.0.2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
