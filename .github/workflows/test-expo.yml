@@ -1,0 +1,40 @@
+name: Animavita Expo Tests
+
+on: 
+  push:
+    paths: 
+      - '.github/workflows/test-expo.yml'
+      - 'packages/expo/**'
+      - 'packages/ui/**'
+    branches-ignore: 
+      - 'expo'
+    
+
+jobs:
+  test-expo:
+    name: Expo Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.14'
+      - name: Get yarn cache dir
+        id: get-yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache yarn.lock
+        id: yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.get-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install
+        run: |
+          yarn config set unsafe-disable-integrity-migration true -g
+          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+      - name: Test Expo
+        run: |
+          yarn test:expo --ci --maxWorkers=4 --coverage --reporters=jest-junit --forceExit
