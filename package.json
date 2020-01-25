@@ -21,7 +21,8 @@
     "storybook": "yarn workspace @animavita/ui storybook",
     "web": "yarn workspace @animavita/expo web",
     "test:expo": "yarn workspace @animavita/expo test",
-    "test": "yarn test:expo"
+    "test": "yarn test:expo",
+    "test:watch": "yarn workspace @animavita/expo test:watch"
   },
   "lint-staged": {
     "*.yml": [

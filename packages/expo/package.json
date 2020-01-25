@@ -10,11 +10,8 @@
     "ios": "expo start --ios",
     "start": "expo start",
     "web": "expo start --web",
-    "test": "jest"
-  },
-  "jest": {
-    "preset": "jest-expo",
-    "browser": false
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
@@ -29,7 +26,7 @@
     "react-native-web": "0.11.7",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^2.0.15",
-    "styled-components": "^5.0.0"
+    "styled-components": "4.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
@@ -41,6 +38,7 @@
     "@babel/preset-typescript": "^7.8.3",
     "@expo/webpack-config": "^0.10.11",
     "@testing-library/jest-native": "^3.1.0",
+    "@testing-library/react-native": "^5.0.3",
     "@types/jest": "^24.9.1",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
@@ -48,7 +46,6 @@
     "expo-yarn-workspaces": "^1.2.1",
     "jest": "24.9.0",
     "jest-expo": "^36.0.1",
-    "jest-styled-components": "7.0.0",
-    "react-native-testing-library": "^1.12.0"
+    "jest-styled-components": "6.3.1"
   }
 }

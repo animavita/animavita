@@ -275,11 +275,13 @@ function BlackPersonWithDogSvg() {
   );
 }
 
-const BlackPersonWithDog: React.FC<ViewProps> = () => {
+const BlackPersonWithDog: React.FC<ViewProps> = props => {
   if (Platform.OS === 'web') {
-    return <BlackPersonWithDogSvg />;
+    // @ts-ignore
+    return <BlackPersonWithDogSvg {...props} />;
   } else {
-    return <Image source={BlackPersonWithDogBinaries} />;
+    // @ts-ignore
+    return <Image source={BlackPersonWithDogBinaries} {...props} />;
   }
 };
 

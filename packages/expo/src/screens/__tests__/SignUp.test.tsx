@@ -1,17 +1,11 @@
 import React from 'react';
-import {render} from 'react-native-testing-library';
-import SignUp from '../SignUp';
-import 'jest-styled-components/native';
-import '@testing-library/jest-native/extend-expect';
 
-import {ThemeContextProvider} from '@animavita/theme';
+import SignUp from '../SignUp';
+
+import {Mount} from '../../../tests/helpers';
 
 test('all elements are rendered', () => {
-  const {queryByTestId} = render(
-    <ThemeContextProvider>
-      <SignUp />
-    </ThemeContextProvider>,
-  );
+  const {queryByTestId} = Mount(<SignUp />);
 
   const wrapper = queryByTestId('wrapper');
   const title = queryByTestId('title');
