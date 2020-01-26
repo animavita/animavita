@@ -2,6 +2,8 @@ import React from 'react';
 import Svg, {Path} from 'react-native-svg';
 import {Image, Platform, ViewProps} from 'react-native';
 
+import FacebookLogoBinaries from './binaries/FacebookLogo.png';
+
 function FacebookLogoSvg() {
   return (
     <Svg width="10.782" height="19.942" viewBox="0 0 10.782 19.942">
@@ -14,8 +16,6 @@ function FacebookLogoSvg() {
     </Svg>
   );
 }
-
-import FacebookLogoBinaries from './binaries/FacebookLogo.png';
 
 const FacebookLogo: React.FC<ViewProps> = props => {
   if (Platform.OS === 'web') {

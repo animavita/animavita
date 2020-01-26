@@ -7,12 +7,11 @@ import {px2ddp} from '@animavita/theme';
 import Typography from '../core/Typography';
 import Row from '../layout/Row';
 import FacebookLogo from '../assets/icons/FacebookLogo';
-import FillSpace from '../layout/FillSpace';
 import Space from '../layout/Space';
 
 const Touchable = styled.TouchableOpacity`
   background-color: #4167b2;
-  padding: ${px2ddp(10)}px ${px2ddp(20)}px;
+  padding: ${px2ddp(6)}px ${px2ddp(20)}px;
   justify-content: center;
   align-items: center;
   border-radius: ${() => `${px2ddp(10)}px`};
@@ -23,9 +22,9 @@ interface FacebookButtonProps extends TouchableOpacityProps {}
 const FacebookButton: React.FC<FacebookButtonProps> = props => {
   return (
     <Touchable {...props}>
-      <Row>
+      <Row justifyContent="space-around">
         <FacebookLogo />
-        {Platform.OS === 'web' ? <Space width={px2ddp(10)} /> : <FillSpace />}
+        {Platform.OS === 'web' && <Space width={px2ddp(10)} />}
         <Typography variant="body" type="bold" color="#fff">
           Continuar com Facebook
         </Typography>

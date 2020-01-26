@@ -1,10 +1,11 @@
 import React from 'react';
 import {fireEvent} from '@testing-library/react-native';
 
+import {FacebookButton, GoogleButton} from '@animavita/ui/social';
+
 import SignUp from '../SignUp';
 
 import {Mount} from '../../../tests/helpers';
-import {FacebookButton} from '@animavita/ui/social';
 
 test('all elements are rendered', () => {
   const {queryByTestId} = Mount(<SignUp />);
@@ -37,4 +38,18 @@ test('if facebook button works', () => {
   expect(loginWithFbMutation).toBeCalledTimes(1);
   expect(loginWithFbMutation).not.toBeCalledTimes(0);
   expect(loginWithFbMutation).not.toBeCalledTimes(2);
+});
+
+test('if google button works', () => {
+  const loginWithGoogleMutation = jest.fn();
+
+  const {queryByTestId} = Mount(<GoogleButton testID="fb-btn" onPress={loginWithGoogleMutation} />);
+
+  const googleBtn = queryByTestId('google-btn');
+
+  fireEvent.press(googleBtn!);
+
+  expect(loginWithGoogleMutation).toBeCalledTimes(1);
+  expect(loginWithGoogleMutation).not.toBeCalledTimes(0);
+  expect(loginWithGoogleMutation).not.toBeCalledTimes(2);
 });

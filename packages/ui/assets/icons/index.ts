@@ -1,5 +1,6 @@
 import FacebookLogo from './FacebookLogo';
+import GoogleLogo from './GoogleLogo';
 
-const Icons = {BlackPersonWithDog: FacebookLogo};
+const Icons = {FacebookLogo, GoogleLogo};
 
 export default Icons;
