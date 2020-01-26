@@ -4,9 +4,9 @@ import styled, {css} from 'styled-components/native';
 
 import {heightPercentageToDP, widthPercentageToDP} from '@animavita/theme';
 import {Background, Space} from '@animavita/ui/layout';
-import {Button, Typography} from '@animavita/ui/core';
+import {Typography} from '@animavita/ui/core';
 import Images from '@animavita/ui/assets/images';
-import {FacebookButton, GoogleButton} from '@animavita/ui/social';
+import {AppleButton, FacebookButton, GoogleButton} from '@animavita/ui/social';
 
 const Wrapper = styled.View`
   ${() =>
@@ -45,8 +45,12 @@ const SignUp: React.FC = () => {
         <FacebookButton testID="fb-btn" />
         <Space height={heightPercentageToDP('1%')} />
         <GoogleButton testID="google-btn" />
-        <Space height={heightPercentageToDP('1%')} />
-        <Button size="small" text="Apple" type="outline" testID="apple-btn" />
+        {Platform.OS === 'ios' && (
+          <>
+            <Space height={heightPercentageToDP('1%')} />
+            <AppleButton testID="apple-btn" />
+          </>
+        )}
       </Wrapper>
     </Background>
   );
