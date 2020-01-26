@@ -1,11 +1,12 @@
 import React from 'react';
-import {Platform} from 'react-native';
+import {Platform, TouchableWithoutFeedback} from 'react-native';
 import styled, {css} from 'styled-components/native';
 
 import {heightPercentageToDP, widthPercentageToDP} from '@animavita/theme';
-import {Background} from '@animavita/ui/layout';
-import {Button, Space, Typography} from '@animavita/ui/core';
+import {Background, Space} from '@animavita/ui/layout';
+import {Typography} from '@animavita/ui/core';
 import Images from '@animavita/ui/assets/images';
+import {AppleButton, FacebookButton, GoogleButton} from '@animavita/ui/social';
 
 const Wrapper = styled.View`
   ${() =>
@@ -26,6 +27,9 @@ const bgStyle = css`
 const titleStyle = css`
   color: ${({theme}) => theme.greenLight};
 `;
+const termsStyle = css`
+  color: ${({theme}) => theme.greyLight};
+`;
 
 const SignUp: React.FC = () => {
   return (
@@ -41,11 +45,21 @@ const SignUp: React.FC = () => {
           Salve uma vida
         </Typography>
         <Space height={heightPercentageToDP('4%')} />
-        <Button size="small" text="Facebook" type="outline" testID="fb-btn" />
+        <FacebookButton testID="fb-btn" />
         <Space height={heightPercentageToDP('1%')} />
-        <Button size="small" text="Google" type="outline" testID="google-btn" />
-        <Space height={heightPercentageToDP('1%')} />
-        <Button size="small" text="Apple" type="outline" testID="apple-btn" />
+        <GoogleButton testID="google-btn" />
+        {Platform.OS === 'ios' && (
+          <>
+            <Space height={heightPercentageToDP('1%')} />
+            <AppleButton testID="apple-btn" />
+          </>
+        )}
+        <Space height={heightPercentageToDP('5%')} />
+        <TouchableWithoutFeedback>
+          <Typography variant="body" css={termsStyle}>
+            Termos de uso
+          </Typography>
+        </TouchableWithoutFeedback>
       </Wrapper>
     </Background>
   );
