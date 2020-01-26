@@ -8,7 +8,7 @@ import Typography from '../core/Typography';
 import Row from '../layout/Row';
 import GoogleLogo from '../assets/icons/GoogleLogo';
 import Space from '../layout/Space';
-import FillSpace from "../layout/FillSpace";
+import FillSpace from '../layout/FillSpace';
 
 const Touchable = styled.TouchableOpacity<{themeName: PossibleThemes}>`
   background-color: transparent;
@@ -20,7 +20,7 @@ const Touchable = styled.TouchableOpacity<{themeName: PossibleThemes}>`
   border-color: ${({themeName, theme}) => (themeName === 'light' ? theme.black : theme.white)};
 `;
 
-interface GoogleButtonProps extends TouchableOpacityProps {}
+type GoogleButtonProps = TouchableOpacityProps;
 
 const GoogleButton: React.FC<GoogleButtonProps> = props => {
   const {themeName} = useTheme();

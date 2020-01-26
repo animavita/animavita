@@ -20,7 +20,7 @@ const Touchable = styled.TouchableOpacity<{themeName: PossibleThemes}>`
   border-color: ${({themeName, theme}) => (themeName === 'light' ? theme.black : theme.white)};
 `;
 
-interface AppleButtonProps extends TouchableOpacityProps {}
+type AppleButtonProps = TouchableOpacityProps;
 
 const AppleButton: React.FC<AppleButtonProps> = props => {
   const {themeName} = useTheme();

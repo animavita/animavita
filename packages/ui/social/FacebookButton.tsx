@@ -18,7 +18,7 @@ const Touchable = styled.TouchableOpacity`
   border-radius: ${() => `${px2ddp(10)}px`};
 `;
 
-interface FacebookButtonProps extends TouchableOpacityProps {}
+type FacebookButtonProps = TouchableOpacityProps;
 
 const FacebookButton: React.FC<FacebookButtonProps> = props => {
   return (
