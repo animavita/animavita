@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform} from 'react-native';
+import {Platform, TouchableWithoutFeedback} from 'react-native';
 import styled, {css} from 'styled-components/native';
 
 import {heightPercentageToDP, widthPercentageToDP} from '@animavita/theme';
@@ -27,6 +27,9 @@ const bgStyle = css`
 const titleStyle = css`
   color: ${({theme}) => theme.greenLight};
 `;
+const termsStyle = css`
+  color: ${({theme}) => theme.greyLight};
+`;
 
 const SignUp: React.FC = () => {
   return (
@@ -51,6 +54,12 @@ const SignUp: React.FC = () => {
             <AppleButton testID="apple-btn" />
           </>
         )}
+        <Space height={heightPercentageToDP('5%')} />
+        <TouchableWithoutFeedback>
+          <Typography variant="body" css={termsStyle}>
+            Termos de uso
+          </Typography>
+        </TouchableWithoutFeedback>
       </Wrapper>
     </Background>
   );
