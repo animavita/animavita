@@ -8,6 +8,7 @@ import Typography from '../core/Typography';
 import Row from '../layout/Row';
 import FacebookLogo from '../assets/icons/FacebookLogo';
 import Space from '../layout/Space';
+import FillSpace from '../layout/FillSpace';
 
 const Touchable = styled.TouchableOpacity`
   background-color: #4167b2;
@@ -24,7 +25,7 @@ const FacebookButton: React.FC<FacebookButtonProps> = props => {
     <Touchable {...props}>
       <Row justifyContent="space-around">
         <FacebookLogo />
-        {Platform.OS === 'web' && <Space width={px2ddp(10)} />}
+        {Platform.OS === 'web' ? <Space width={px2ddp(10)} /> : <FillSpace />}
         <Typography variant="body" type="bold" color="#fff">
           Continuar com Facebook
         </Typography>

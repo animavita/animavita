@@ -8,6 +8,7 @@ import Typography from '../core/Typography';
 import Row from '../layout/Row';
 import GoogleLogo from '../assets/icons/GoogleLogo';
 import Space from '../layout/Space';
+import FillSpace from "../layout/FillSpace";
 
 const Touchable = styled.TouchableOpacity<{themeName: PossibleThemes}>`
   background-color: transparent;
@@ -27,7 +28,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = props => {
     <Touchable {...props} themeName={themeName}>
       <Row justifyContent="space-around">
         <GoogleLogo />
-        {Platform.OS === 'web' && <Space width={px2ddp(10)} />}
+        {Platform.OS === 'web' ? <Space width={px2ddp(10)} /> : <FillSpace />}
         <Typography variant="body" type="bold">
           Continuar com Google
         </Typography>
