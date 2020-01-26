@@ -23,8 +23,6 @@
     "mongoose": "^5.8.9"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
     "@types/dotenv-safe": "^8.1.0",
     "@types/koa": "^2.11.0",
     "@types/koa-bodyparser": "^4.3.0",

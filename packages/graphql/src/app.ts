@@ -11,14 +11,15 @@ import Router from '@koa/router';
 
 import {JWT_KEY} from './common/config';
 import schema from './schema';
+import {KoaContextExt} from './types';
 
-const app = new Koa();
+const app = new Koa<any, KoaContextExt>();
 if (process.env.NODE_ENV === 'production') {
   app.proxy = true;
 }
 app.keys = [JWT_KEY];
 
-const router = new Router();
+const router = new Router<any, KoaContextExt>();
 
 // if production than trick cookies library to think it is always on a secure request
 if (process.env.NODE_ENV === 'production') {
