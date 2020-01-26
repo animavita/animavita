@@ -17,11 +17,10 @@ dotEnvSafe.config({
   sample: root('.env.example'),
 });
 
-// expose COMMIT_SHA
 export const COMMIT_SHA = envVar
-    .get('COMMIT_SHA')
-    .required()
-    .asString();
+  .get('COMMIT_SHA')
+  .required()
+  .asString();
 
 export const JWT_KEY = envVar
   .get('JWT_KEY')
