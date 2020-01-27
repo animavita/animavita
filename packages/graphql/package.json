@@ -1,0 +1,43 @@
+{
+  "name": "@animavita/graphql",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "webpack --watch --progress --config webpack.config.js"
+  },
+  "dependencies": {
+    "@koa/router": "^8.0.6",
+    "core-js": "^3.6.4",
+    "dataloader": "^2.0.0",
+    "dotenv-safe": "^8.2.0",
+    "env-var": "^5.2.0",
+    "graphql": "^14.5.8",
+    "graphql-playground-middleware": "^1.1.2",
+    "isomorphic-fetch": "^2.2.1",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-convert": "^1.2.0",
+    "koa-cors": "^0.0.16",
+    "koa-graphql": "^0.8.0",
+    "koa-logger": "^3.2.1",
+    "mongoose": "^5.8.9"
+  },
+  "devDependencies": {
+    "@types/dotenv-safe": "^8.1.0",
+    "@types/koa": "^2.11.0",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-convert": "^1.2.3",
+    "@types/koa-cors": "^0.0.0",
+    "@types/koa-graphql": "^0.8.3",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-multer": "^1.0.0",
+    "@types/koa__router": "^8.0.2",
+    "@types/mongoose": "^5.5.43",
+    "@types/node": "^13.5.0",
+    "babel-loader": "^8.0.6",
+    "reload-server-webpack-plugin": "^1.0.1",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

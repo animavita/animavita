@@ -22,7 +22,8 @@
     "web": "yarn workspace @animavita/expo web",
     "test:expo": "yarn workspace @animavita/expo test",
     "test": "yarn test:expo",
-    "test:watch": "yarn workspace @animavita/expo test:watch"
+    "test:watch": "yarn workspace @animavita/expo test:watch",
+    "graphql": "yarn workspace @animavita/graphql start"
   },
   "lint-staged": {
     "*.yml": [

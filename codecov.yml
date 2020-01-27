@@ -3,5 +3,4 @@ comment:
   behavior: default
   require_changes: false
   require_base: false
-  require_head: false
-  branches: null
+  require_head: true
