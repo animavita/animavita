@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "webpack --watch --progress --config webpack.config.js"
+    "start": "webpack --watch --progress --config webpack.config.js",
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "@koa/router": "^8.0.6",
@@ -34,7 +36,9 @@
     "@types/koa__router": "^8.0.2",
     "@types/mongoose": "^5.5.43",
     "@types/node": "^13.5.0",
+    "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
+    "jest": "24.9.0",
     "reload-server-webpack-plugin": "^1.0.1",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",

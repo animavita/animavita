@@ -13,17 +13,17 @@
     "delete:metro-cache": "find . -name \"metro-cache\" -exec rm -rf '{}' +",
     "delete:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
     "delete:yarn.lock": "find . -name \"yarn.lock\" -exec rm -rf '{}' +",
+    "graphql": "yarn workspace @animavita/graphql start",
     "ios": "yarn workspace @animavita/expo ios",
     "lint": "eslint --fix --ext .js,jsx,.ts,.tsx",
     "lint:ci": "eslint --quiet --ext .js,jsx,.ts,.tsx .",
     "lint:fix": "eslint --fix --ext .js,jsx,.ts,.tsx .",
     "start": "yarn workspace @animavita/expo start",
     "storybook": "yarn workspace @animavita/ui storybook",
-    "web": "yarn workspace @animavita/expo web",
+    "test": "concurrently \"yarn test:expo\" \"yarn test:graphql\"",
     "test:expo": "yarn workspace @animavita/expo test",
-    "test": "yarn test:expo",
-    "test:watch": "yarn workspace @animavita/expo test:watch",
-    "graphql": "yarn workspace @animavita/graphql start"
+    "test:graphql": "yarn workspace @animavita/graphql test",
+    "web": "yarn workspace @animavita/expo web"
   },
   "lint-staged": {
     "*.yml": [
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
+    "concurrently": "^5.0.2",
     "console-helpers": "^0.0.4",
     "husky": "^4.0.6",
     "jest-junit": "^10.0.0",
