@@ -9,9 +9,9 @@
     "postinstall": "expo-yarn-workspaces postinstall",
     "ios": "expo start --ios",
     "start": "expo start",
-    "web": "expo start --web",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "web": "expo start --web"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",
@@ -29,20 +29,12 @@
     "styled-components": "5.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/plugin-proposal-export-default-from": "^7.8.3",
-    "@babel/preset-env": "^7.8.3",
-    "@babel/preset-flow": "^7.8.3",
-    "@babel/preset-react": "^7.8.3",
-    "@babel/preset-typescript": "^7.8.3",
     "@expo/webpack-config": "^0.10.11",
     "@testing-library/jest-native": "^3.1.0",
     "@testing-library/react-native": "^5.0.3",
     "@types/jest": "^24.9.1",
     "@types/react": "~16.9.0",
     "@types/react-native": "~0.60.23",
-    "babel-preset-expo": "~8.0.0",
     "expo-yarn-workspaces": "^1.2.1",
     "jest": "24.9.0",
     "jest-expo": "^36.0.1",
