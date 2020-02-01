@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "webpack --watch --progress --config webpack.config.js",
+    "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
+    "start": "webpack --config webpack.dev.js --progress",
     "test": "jest",
     "test:watch": "jest --watch"
   },
   "dependencies": {
     "@koa/router": "^8.0.6",
+    "aws-serverless-koa": "^1.0.1",
     "core-js": "^3.6.4",
     "dataloader": "^2.0.0",
     "dotenv-safe": "^8.2.0",
@@ -40,8 +42,10 @@
     "babel-loader": "^8.0.6",
     "jest": "24.9.0",
     "reload-server-webpack-plugin": "^1.0.1",
+    "terser-webpack-plugin": "^2.3.4",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
+    "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2"
   }
 }

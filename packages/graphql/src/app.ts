@@ -62,15 +62,13 @@ router.all(
   convert(
     graphqlHttp(
       async (request, ctx, koaContext): Promise<OptionsData> => {
-        const {appversion, appbuild} = request.header;
-
-        if (process.env.NODE_ENV !== 'test') {
-          // eslint-disable-next-line no-console
-          console.info('Handling request', {
-            appversion,
-            appbuild,
-          });
-        }
+        // if (process.env.NODE_ENV !== 'test') {
+        // eslint-disable-next-line no-console
+        // console.info('Handling request', {
+        //   appversion,
+        //   appbuild,
+        // });
+        // }
 
         return {
           graphiql: process.env.NODE_ENV === 'development',
