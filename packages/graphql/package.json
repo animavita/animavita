@@ -24,7 +24,7 @@
     "koa-cors": "^0.0.16",
     "koa-graphql": "^0.8.0",
     "koa-logger": "^3.2.1",
-    "mongoose": "^5.8.9"
+    "mongoose": "^5.8.11"
   },
   "devDependencies": {
     "@types/dotenv-safe": "^8.1.0",
