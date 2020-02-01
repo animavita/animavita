@@ -29,18 +29,15 @@
   },
   "lint-staged": {
     "*.yml": [
-      "yarn prettier --write",
-      "git add"
+      "yarn prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [
       "yarn prettier --write",
-      "yarn lint",
-      "git add"
+      "yarn lint"
     ],
     "package.json": [
       "yarn prettier --write",
-      "yarn sort-package-json",
-      "git add"
+      "yarn sort-package-json"
     ]
   },
   "devDependencies": {
