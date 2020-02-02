@@ -2,23 +2,13 @@ const path = require('path');
 
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const WebpackNodeExternals = require('webpack-node-externals');
 
 module.exports = {
   target: 'node',
   optimization: {
     minimizer: [new TerserPlugin()],
   },
-  externals: [
-    WebpackNodeExternals({
-      whitelist: ['webpack/hot/poll?1000'],
-    }),
-    WebpackNodeExternals({
-      modulesDir: path.resolve(__dirname, '../../node_modules'),
-      whitelist: [/@animavita/],
-    }),
-    {'aws-sdk': 'aws-sdk'},
-  ],
+  externals: [{'aws-sdk': 'aws-sdk'}],
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.json', '.mjs'],
   },
@@ -48,7 +38,6 @@ module.exports = {
           configFile: './babel.config.js',
         },
         exclude: /node_modules/,
-        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, '../')],
       },
     ],
   },

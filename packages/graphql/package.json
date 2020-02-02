@@ -6,7 +6,8 @@
     "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
     "start": "webpack --config webpack.dev.js --progress",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "deploy:staging": "scripts/deployStaging.sh"
   },
   "dependencies": {
     "@koa/router": "^8.0.6",
@@ -45,7 +46,6 @@
     "terser-webpack-plugin": "^2.3.4",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
-    "webpack-merge": "^4.2.2",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-merge": "^4.2.2"
   }
 }
