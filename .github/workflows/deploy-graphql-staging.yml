@@ -51,3 +51,7 @@ jobs:
       - uses: chrislennon/action-aws-cli@v1.1
       - name: Deploy to AWS Lambda
         run: yarn deploy:graphql:staging
+        env:
+          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          AWS_CLOUD_FORMATION_STACK_NAME: ${{ secrets.AWS_CLOUD_FORMATION_STACK_NAME }}
