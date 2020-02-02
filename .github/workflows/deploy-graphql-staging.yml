@@ -1,14 +1,13 @@
-name: Animavita GraphQL Tests
+name: Animavita GraphQL Deploy on Staging
 
 on:
   push:
+    #    branches:
+    #      - 'master'
     paths:
-      - '.github/workflows/test-graphql.yml'
       - 'packages/graphql/**'
       - 'packages/babel/**'
       - 'packages/eslint-config/**'
-    branches-ignore:
-      - 'master'
 
 jobs:
   test-graphql:
@@ -34,13 +33,21 @@ jobs:
       - name: Install
         run: |
           yarn config set unsafe-disable-integrity-migration true -g
-          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+          yarn install --frozen-lockfile --production=true --non-interactive --cache-folder $(yarn cache dir)
       - name: Test GraphQL
         run: |
-          yarn test:graphql --ci --maxWorkers=4 --coverage --reporters=jest-junit --forceExit
-        env:
-          JEST_SUITE_NAME: 'Animavita GraphQL Tests'
-          JEST_JUNIT_OUTPUT_DIR: './reports'
-      - uses: codecov/codecov-action@v1.0.2
+          yarn test:graphql --ci --maxWorkers=4 --forceExit
+
+  deploy-graphql-staging:
+    name: Deploy GraphQL on Staging
+    needs: [test-graphql]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          node-version: '12.14'
+      - uses: chrislennon/action-aws-cli@v1.1
+      - name: Deploy to AWS Lambda
+        run: deploy:graphql:staging
