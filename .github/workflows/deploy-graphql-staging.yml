@@ -10,37 +10,37 @@ on: [push]
 #      - 'packages/eslint-config/**'
 
 jobs:
-  test-graphql:
-    name: GraphQL Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.14'
-      - name: Get yarn cache dir
-        id: get-yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache yarn.lock
-        id: yarn-cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.get-yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install
-        run: |
-          yarn config set unsafe-disable-integrity-migration true -g
-          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
-      - name: Test GraphQL
-        run: |
-          yarn test:graphql --ci --maxWorkers=4 --forceExit
+#  test-graphql:
+#    name: GraphQL Tests
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: '12.14'
+#      - name: Get yarn cache dir
+#        id: get-yarn-cache
+#        run: echo "::set-output name=dir::$(yarn cache dir)"
+#      - name: Cache yarn.lock
+#        id: yarn-cache
+#        uses: actions/cache@v1
+#        with:
+#          path: ${{ steps.get-yarn-cache.outputs.dir }}
+#          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#          restore-keys: |
+#            ${{ runner.os }}-yarn-
+#      - name: Install
+#        run: |
+#          yarn config set unsafe-disable-integrity-migration true -g
+#          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+#      - name: Test GraphQL
+#        run: |
+#          yarn test:graphql --ci --maxWorkers=4 --forceExit
 
   deploy-graphql-staging:
     name: Deploy GraphQL on Staging
-    needs: [test-graphql]
+#    needs: [test-graphql]
     runs-on: ubuntu-latest
 
     steps:
@@ -64,11 +64,20 @@ jobs:
         run: |
           yarn config set unsafe-disable-integrity-migration true -g
           yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+      - name: Create .env
+        run: |
+          echo "\
+            NODE_ENV=production\n\
+            AWS_S3_BUCKET_NAME=${{ secrets.AWS_S3_BUCKET_NAME }}\n\
+            AWS_REGION=${{ secrets.AWS_REGION }}\n\
+            AWS_CLOUD_FORMATION_STACK_NAME=${{ secrets.AWS_STAGING_STACK_NAME }}\n\
+          "\
+          > ./packages/graphql/.env.staging
       - name: Deploy to AWS Lambda
         run: yarn deploy:graphql:staging
         env:
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_CLOUD_FORMATION_STACK_NAME: ${{ secrets.AWS_STAGING_STACK_NAME }}
+          #          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+          #          AWS_REGION: ${{ secrets.AWS_REGION }}
+          #          AWS_CLOUD_FORMATION_STACK_NAME: ${{ secrets.AWS_STAGING_STACK_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
