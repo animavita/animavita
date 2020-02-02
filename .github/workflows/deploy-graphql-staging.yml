@@ -10,33 +10,33 @@ on: [push]
 #      - 'packages/eslint-config/**'
 
 jobs:
-  test-graphql:
-    name: GraphQL Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.14'
-      - name: Get yarn cache dir
-        id: get-yarn-cache
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache yarn.lock
-        id: yarn-cache
-        uses: actions/cache@v1
-        with:
-          path: ${{ steps.get-yarn-cache.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - name: Install
-        run: |
-          yarn config set unsafe-disable-integrity-migration true -g
-          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
-      - name: Test GraphQL
-        run: |
-          yarn test:graphql --ci --maxWorkers=4 --forceExit
+  #  test-graphql:
+  #    name: GraphQL Tests
+  #    runs-on: ubuntu-latest
+  #
+  #    steps:
+  #      - uses: actions/checkout@v2
+  #      - uses: actions/setup-node@v1
+  #        with:
+  #          node-version: '12.14'
+  #      - name: Get yarn cache dir
+  #        id: get-yarn-cache
+  #        run: echo "::set-output name=dir::$(yarn cache dir)"
+  #      - name: Cache yarn.lock
+  #        id: yarn-cache
+  #        uses: actions/cache@v1
+  #        with:
+  #          path: ${{ steps.get-yarn-cache.outputs.dir }}
+  #          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+  #          restore-keys: |
+  #            ${{ runner.os }}-yarn-
+  #      - name: Install
+  #        run: |
+  #          yarn config set unsafe-disable-integrity-migration true -g
+  #          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+  #      - name: Test GraphQL
+  #        run: |
+  #          yarn test:graphql --ci --maxWorkers=4 --forceExit
 
   deploy-graphql-staging:
     name: Deploy GraphQL on Staging
@@ -50,4 +50,4 @@ jobs:
           node-version: '12.14'
       - uses: chrislennon/action-aws-cli@v1.1
       - name: Deploy to AWS Lambda
-        run: deploy:graphql:staging
+        run: yarn deploy:graphql:staging
