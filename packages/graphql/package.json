@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
+    "deploy:prod": "scripts/deployProd.sh",
+    "deploy:staging": "scripts/deployStaging.sh",
     "start": "webpack --config webpack.dev.js --progress",
     "test": "jest",
     "test:watch": "jest --watch",
-    "deploy:staging": "scripts/deployStaging.sh",
-    "deploy:prod": "scripts/deployProd.sh"
+    "sam": "concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\""
   },
   "dependencies": {
     "@koa/router": "^8.0.6",
