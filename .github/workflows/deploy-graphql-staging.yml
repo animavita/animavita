@@ -1,13 +1,13 @@
 name: Animavita GraphQL Deploy on Staging
 
-on:
-  push:
-    #    branches:
-    #      - 'master'
-    paths:
-      - 'packages/graphql/**'
-      - 'packages/babel/**'
-      - 'packages/eslint-config/**'
+on: [push]
+#  push:
+#    branches:
+#      - 'master'
+#    paths:
+#      - 'packages/graphql/**'
+#      - 'packages/babel/**'
+#      - 'packages/eslint-config/**'
 
 jobs:
   test-graphql:
