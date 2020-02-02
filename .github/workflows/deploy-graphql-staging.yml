@@ -49,6 +49,11 @@ jobs:
         with:
           node-version: '12.14'
       - uses: chrislennon/action-aws-cli@v1.1
+      - name: Configure AWS cli
+        run: aws configure
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - name: Get yarn cache dir
         id: get-yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
