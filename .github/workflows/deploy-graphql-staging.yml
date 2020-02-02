@@ -33,7 +33,7 @@ jobs:
       - name: Install
         run: |
           yarn config set unsafe-disable-integrity-migration true -g
-          yarn install --frozen-lockfile --production=true --non-interactive --cache-folder $(yarn cache dir)
+          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
       - name: Test GraphQL
         run: |
           yarn test:graphql --ci --maxWorkers=4 --forceExit
