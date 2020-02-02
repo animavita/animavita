@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
-Description: Animavita GraphQL server on staging environment
+Description: Animavita GraphQL server on production environment
 
 Resources:
   AnimavitaGraphQLFunction:
@@ -29,7 +29,7 @@ Resources:
   ApiGateway:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: staging
+      StageName: prod
       Variables:
         LambdaFunctionName: !Ref AnimavitaGraphQLFunction
 
@@ -94,7 +94,7 @@ Outputs:
         - !Ref AWS::Region
         - '#/apis/'
         - !Ref ApiGateway
-        - '/stages/staging'
+        - '/stages/prod'
 
   ApiUrl:
     Description: Invoke URL
@@ -104,4 +104,4 @@ Outputs:
         - !Ref ApiGateway
         - '.execute-api.'
         - !Ref AWS::Region
-        - '.amazonaws.com/staging/'
+        - '.amazonaws.com/prod/'

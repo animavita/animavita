@@ -7,7 +7,8 @@
     "start": "webpack --config webpack.dev.js --progress",
     "test": "jest",
     "test:watch": "jest --watch",
-    "deploy:staging": "scripts/deployStaging.sh"
+    "deploy:staging": "scripts/deployStaging.sh",
+    "deploy:prod": "scripts/deployProd.sh"
   },
   "dependencies": {
     "@koa/router": "^8.0.6",

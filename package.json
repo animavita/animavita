@@ -26,7 +26,8 @@
     "test:expo": "yarn workspace @animavita/expo test",
     "test:graphql": "yarn workspace @animavita/graphql test",
     "web": "yarn workspace @animavita/expo web",
-    "deploy:graphql:staging": "yarn workspace @animavita/graphql deploy:staging"
+    "deploy:graphql:staging": "yarn workspace @animavita/graphql deploy:staging",
+    "deploy:graphql:prod": "yarn workspace @animavita/graphql deploy:prod"
   },
   "lint-staged": {
     "*.yml": [
