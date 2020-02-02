@@ -11,7 +11,7 @@ on:
       - 'master'
 
 jobs:
-  test-expo:
+  test-graphql:
     name: GraphQL Tests
     runs-on: ubuntu-latest
 
