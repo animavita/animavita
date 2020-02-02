@@ -73,12 +73,13 @@ jobs:
             AWS_REGION=${{ secrets.AWS_REGION }}\n\
             AWS_CLOUD_FORMATION_STACK_NAME=${{ secrets.AWS_STAGING_STACK_NAME }}\n\
           "\
-          > ./packages/graphql/.env.staging
-      - name: Deploy to AWS Lambda
-        run: yarn deploy:graphql:staging
-        env:
-          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          AWS_CLOUD_FORMATION_STACK_NAME: ${{ secrets.AWS_STAGING_STACK_NAME }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          > ./packages/graphql/.env.staging &&
+          cat ./packages/graphql/.env.staging
+#      - name: Deploy to AWS Lambda
+#        run: yarn deploy:graphql:staging
+#        env:
+#          AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+#          AWS_REGION: ${{ secrets.AWS_REGION }}
+#          AWS_CLOUD_FORMATION_STACK_NAME: ${{ secrets.AWS_STAGING_STACK_NAME }}
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
