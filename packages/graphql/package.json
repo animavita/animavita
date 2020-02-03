@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "copy-env-to-build": "cp .env .env.example ./build",
     "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
     "deploy:prod": "scripts/deployProd.sh",
     "deploy:staging": "scripts/deployStaging.sh",
     "start": "webpack --config webpack.dev.js --progress",
     "test": "jest",
     "test:watch": "jest --watch",
-    "sam": "concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\""
+    "sam": "yarn copy-env-to-build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\""
   },
   "dependencies": {
     "@koa/router": "^8.0.6",
@@ -39,7 +40,7 @@
     "@types/koa-logger": "^3.1.1",
     "@types/koa-multer": "^1.0.0",
     "@types/koa__router": "^8.0.2",
-    "@types/mongoose": "^5.5.43",
+    "@types/mongoose": "^5.7.0",
     "@types/node": "^13.5.0",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",

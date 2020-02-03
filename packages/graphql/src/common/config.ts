@@ -36,3 +36,8 @@ export const GRAPHQL_PORT = envVar.get('GRAPHQL_PORT', '5001').asPortNumber();
 export const AWS_S3_BUCKET_NAME = envVar.get('AWS_S3_BUCKET_NAME').asString();
 export const AWS_REGION = envVar.get('AWS_REGION').asString();
 export const AWS_CLOUD_FORMATION_STACK_NAME = envVar.get('AWS_CLOUD_FORMATION_STACK_NAME').asString();
+
+export const MONGO_URI = envVar
+  .get('MONGO_URI')
+  .required()
+  .asString();
