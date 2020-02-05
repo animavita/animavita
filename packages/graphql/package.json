@@ -3,16 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "copy-env-to-build": "cp .env .env.example ./build",
     "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
+    "copy:env:to:build": "cp .env .env.example ./build",
     "deploy:prod": "scripts/deployProd.sh",
     "deploy:staging": "scripts/deployStaging.sh",
+    "sam": "yarn copy:env:to:build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\"",
     "start": "webpack --config webpack.dev.js --progress",
     "test": "jest",
     "test:watch": "jest --watch",
-    "sam": "yarn copy-env-to-build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\""
+    "update:schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts,.tsx\" ./scripts/updateSchema.ts"
   },
   "dependencies": {
+    "@entria/graphql-mongoose-loader": "^4.3.0",
     "@koa/router": "^8.0.6",
     "aws-serverless-koa": "^1.0.1",
     "core-js": "^3.6.4",
@@ -21,6 +23,7 @@
     "env-var": "^5.2.0",
     "graphql": "^14.5.8",
     "graphql-playground-middleware": "^1.1.2",
+    "graphql-relay": "^0.6.0",
     "isomorphic-fetch": "^2.2.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
@@ -32,6 +35,7 @@
   },
   "devDependencies": {
     "@types/dotenv-safe": "^8.1.0",
+    "@types/graphql-relay": "^0.4.11",
     "@types/koa": "^2.11.0",
     "@types/koa-bodyparser": "^4.3.0",
     "@types/koa-convert": "^1.2.3",

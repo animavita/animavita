@@ -11,6 +11,7 @@ const EmailSchema = new mongoose.Schema(
       trim: true,
       index: true,
       lowercase: true,
+      required: true,
     },
   },
   {
@@ -29,10 +30,12 @@ const UserSchema = new mongoose.Schema(
       description: 'User name',
       trim: true,
       index: true,
+      required: true,
     },
     emails: {
       type: [EmailSchema],
       description: 'E-mails of this user',
+      required: true,
     },
   },
   {

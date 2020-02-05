@@ -27,7 +27,8 @@
     "test": "concurrently \"yarn test:expo\" \"yarn test:graphql\"",
     "test:expo": "yarn workspace @animavita/expo test",
     "test:graphql": "yarn workspace @animavita/graphql test",
-    "web": "yarn workspace @animavita/expo web"
+    "web": "yarn workspace @animavita/expo web",
+    "update:schema": "yarn workspace @animavita/graphql update:schema"
   },
   "lint-staged": {
     "*.yml": [
@@ -41,7 +42,7 @@
     ],
     "package.json": [
       "yarn prettier --write",
-      "yarn sort-package-json",
+      "yarn sort-package-json \"package.json\" \"packages/*/package.json\"",
       "git add"
     ]
   },
