@@ -2,10 +2,13 @@ import DataLoader from 'dataloader';
 import {mongooseLoader} from '@entria/graphql-mongoose-loader';
 import {Types} from 'mongoose';
 
-import UserModel, {IUser} from './UserModel';
 import {DataLoaderKey, GraphQLContext} from '../../types';
 
+import UserModel, {IUser} from './UserModel';
+
 export default class User {
+  public registeredType = 'User';
+
   id: string;
   _id: string;
   name: string;

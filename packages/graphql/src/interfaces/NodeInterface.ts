@@ -27,10 +27,9 @@ export type Loaders = {
 export const {nodeField, nodeInterface: NodeInterface} = nodeDefinitions(
   (globalId, context: GraphQLContext) => {
     const {type, id} = fromGlobalId(globalId);
-    // TODO - convert loaders to Loaders
     const loader: Loader = ((loaders as unknown) as Loaders)[`${type}Loader`];
 
     return (loader && loader.load(context, id)) || null;
   },
-  object => registeredTypes[object.constructor.name] || null,
+  object => registeredTypes[object.registeredType] || null,
 );
