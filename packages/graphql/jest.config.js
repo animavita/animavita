@@ -6,6 +6,9 @@ module.exports = {
   displayName: pkg.name.toUpperCase(),
   testPathIgnorePatterns: ['/node_modules/', './build'],
   coverageReporters: ['lcov', 'html'],
+  globalSetup: '<rootDir>/tests/setup.js',
+  globalTeardown: '<rootDir>/tests/teardown.js',
+  testEnvironment: '<rootDir>/tests/environment/mongodb',
   resetModules: false,
   reporters: ['default'],
   transform: {
