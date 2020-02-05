@@ -27,23 +27,20 @@
     "test": "concurrently \"yarn test:expo\" \"yarn test:graphql\"",
     "test:expo": "yarn workspace @animavita/expo test",
     "test:graphql": "yarn workspace @animavita/graphql test",
-    "web": "yarn workspace @animavita/expo web",
-    "update:schema": "yarn workspace @animavita/graphql update:schema"
+    "update:schema": "yarn workspace @animavita/graphql update:schema",
+    "web": "yarn workspace @animavita/expo web"
   },
   "lint-staged": {
     "*.yml": [
-      "yarn prettier --write",
-      "git add"
+      "yarn prettier --write"
     ],
     "*.{js,jsx,ts,tsx}": [
       "yarn prettier --write",
-      "yarn lint",
-      "git add"
+      "yarn lint"
     ],
     "package.json": [
       "yarn prettier --write",
-      "yarn sort-package-json \"package.json\" \"packages/*/package.json\"",
-      "git add"
+      "yarn sort-package-json \"package.json\" \"packages/*/package.json\""
     ]
   },
   "devDependencies": {
@@ -53,7 +50,7 @@
     "console-helpers": "^0.0.4",
     "husky": "^4.0.6",
     "jest-junit": "^10.0.0",
-    "lint-staged": "9.5.0",
+    "lint-staged": "^10.0.7",
     "prettier": "^1.19.1",
     "sort-package-json": "^1.38.3",
     "typescript": "3.7.5"
