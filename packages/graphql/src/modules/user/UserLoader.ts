@@ -4,7 +4,7 @@ import {Types} from 'mongoose';
 
 import {DataLoaderKey, GraphQLContext} from '../../types';
 
-import UserModel, {IUser} from './UserModel';
+import UserModel, {IEmail, IId, IUserDocument} from './UserModel';
 
 export default class User {
   public registeredType = 'User';
@@ -12,19 +12,22 @@ export default class User {
   id: string;
   _id: string;
   name: string;
-  emails: {email: string}[];
+  emails: IEmail[];
+  providerIds: IId[];
 
-  constructor(data: IUser) {
+  constructor(data: IUserDocument) {
     this.id = data.id;
     this._id = data._id;
     this.name = data.name;
     this.emails = data.emails;
+    this.providerIds = data.ids;
   }
 }
 
-const viewerCanSee = (ctx: GraphQLContext, data: IUser): User => new User(data);
+const viewerCanSee = (ctx: GraphQLContext, data: IUserDocument): User => new User(data);
 
-export const getLoader = () => new DataLoader<DataLoaderKey, IUser>(ids => mongooseLoader(UserModel, ids as string[]));
+export const getLoader = () =>
+  new DataLoader<DataLoaderKey, IUserDocument>(ids => mongooseLoader(UserModel, ids as string[]));
 
 export const load = async (context: GraphQLContext, id: DataLoaderKey) => {
   if (!id) return null;
@@ -40,7 +43,7 @@ export const load = async (context: GraphQLContext, id: DataLoaderKey) => {
 
 export const clearCache = ({dataloaders}: GraphQLContext, id: Types.ObjectId) =>
   dataloaders.UserLoader.clear(id.toString());
-export const primeCache = ({dataloaders}: GraphQLContext, id: Types.ObjectId, data: IUser) =>
+export const primeCache = ({dataloaders}: GraphQLContext, id: Types.ObjectId, data: IUserDocument) =>
   dataloaders.UserLoader.prime(id.toString(), data);
-export const clearAndPrimeCache = (context: GraphQLContext, id: Types.ObjectId, data: IUser) =>
+export const clearAndPrimeCache = (context: GraphQLContext, id: Types.ObjectId, data: IUserDocument) =>
   clearCache(context, id) && primeCache(context, id, data);

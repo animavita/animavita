@@ -1,6 +1,36 @@
 import mongoose, {Document} from 'mongoose';
 
-export interface IEmail {
+export type Providers = 'facebook' | 'google' | 'apple';
+export interface IProvider {
+  providedBy: Providers;
+}
+export const providedByDefinition = {
+  providedBy: {
+    type: String,
+    lowercase: true,
+    required: true,
+  },
+};
+
+export interface IId extends IProvider {
+  id: string;
+}
+const IdSchema = new mongoose.Schema(
+  {
+    id: {
+      type: String,
+      description: 'ID of the user in the provider DB',
+      index: true,
+      required: true,
+    },
+    ...providedByDefinition,
+  },
+  {
+    _id: false,
+  },
+);
+
+export interface IEmail extends IProvider {
   email: string;
 }
 const EmailSchema = new mongoose.Schema(
@@ -13,18 +43,26 @@ const EmailSchema = new mongoose.Schema(
       lowercase: true,
       required: true,
     },
+    ...providedByDefinition,
   },
   {
     _id: false,
   },
 );
 
-export interface IUser extends Document {
+export interface IUser {
+  ids: IId[];
   name: string;
   emails: IEmail[];
 }
+export type IUserDocument = IUser & Document;
 const UserSchema = new mongoose.Schema(
   {
+    ids: {
+      type: [IdSchema],
+      description: 'Ids of the user in the providers',
+      required: true,
+    },
     name: {
       type: String,
       description: 'User name',
@@ -36,6 +74,7 @@ const UserSchema = new mongoose.Schema(
       type: [EmailSchema],
       description: 'E-mails of this user',
       required: true,
+      unique: true,
     },
   },
   {
@@ -49,6 +88,6 @@ const UserSchema = new mongoose.Schema(
 
 UserSchema.index({name: 'text'});
 
-const UserModel = mongoose.model<IUser>('User', UserSchema);
+const UserModel = mongoose.model<IUserDocument>('User', UserSchema);
 
 export default UserModel;

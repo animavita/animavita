@@ -2,12 +2,12 @@ import DataLoader from 'dataloader';
 import {Types} from 'mongoose';
 import {Context} from 'koa';
 
-import {IUser} from './modules/user/UserModel';
+import {IUserDocument} from './modules/user/UserModel';
 
 export type DataLoaderKey = Types.ObjectId | string | undefined | null;
 
 export type GraphQLDataloaders = {
-  UserLoader: DataLoader<DataLoaderKey, IUser>;
+  UserLoader: DataLoader<DataLoaderKey, IUserDocument>;
 };
 
 export interface GraphQLContext {

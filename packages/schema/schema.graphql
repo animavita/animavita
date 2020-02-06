@@ -1,7 +1,23 @@
+type Email {
+  email: ID!
+  providedBy: String!
+}
+
+type Mutation {
+  """Save facebook user data"""
+  SaveFacebookUser(input: SaveFacebookUserInput!): SaveFacebookUserPayload
+}
+
 """An object with an ID"""
 interface Node {
   """The id of the object."""
   id: ID!
+}
+
+"""The id of the user in the provider DB"""
+type ProviderId {
+  id: String!
+  providedBy: String!
 }
 
 """The root of all queries"""
@@ -14,6 +30,19 @@ type Query {
   user(id: ID!): User
 }
 
+input SaveFacebookUserInput {
+  token: String!
+  expires: Int!
+  permissions: [String!]!
+  clientMutationId: String
+}
+
+type SaveFacebookUserPayload {
+  error: String
+  user: User
+  clientMutationId: String
+}
+
 """Animavita user"""
 type User implements Node {
   """The ID of an object"""
@@ -21,4 +50,11 @@ type User implements Node {
 
   """MongoDB _id"""
   _id: ID!
+
+  """The name of the user"""
+  name: String!
+
+  """Emails of the user separed by provider"""
+  emails: [Email!]!
+  providerIds: [ProviderId!]!
 }
