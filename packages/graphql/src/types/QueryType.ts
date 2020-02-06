@@ -1,8 +1,8 @@
 import {GraphQLID, GraphQLObjectType, GraphQLNonNull} from 'graphql';
+import {fromGlobalId} from 'graphql-relay';
 
 import {GraphQLContext} from '../types';
 import {nodeField} from '../interfaces/NodeInterface';
-import {fromGlobalId} from 'graphql-relay';
 import {UserLoader} from '../loaders';
 import UserType from '../modules/user/UserType';
 

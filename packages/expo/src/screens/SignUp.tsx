@@ -40,6 +40,7 @@ const SignUp: React.FC = () => {
       try {
         await Facebook.initializeAsync('877731272663210', 'Animavita');
       } catch ({message}) {
+        // eslint-disable-next-line no-console
         console.log(`Facebook Login Error: ${message}`);
       }
     }
@@ -57,6 +58,7 @@ const SignUp: React.FC = () => {
             permissions: ['public_profile', 'email'],
           });
 
+          // eslint-disable-next-line no-console
           console.log(response);
 
           changeFbLoginLoadingTo(false);

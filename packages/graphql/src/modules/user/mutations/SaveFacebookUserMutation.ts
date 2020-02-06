@@ -37,6 +37,7 @@ export default mutationWithClientMutationId({
     const {url: profileUrl} = await fetch(
       `https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720`,
     );
+    // eslint-disable-next-line no-console
     console.log(profileUrl);
 
     const {id, name, email} = userIncomplete;
