@@ -16,7 +16,7 @@
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^4.3.0",
     "@koa/router": "^8.0.6",
-    "aws-serverless-koa": "^1.0.1",
+    "aws-serverless-express": "^3.3.6",
     "core-js": "^3.6.4",
     "dataloader": "^2.0.0",
     "dotenv-safe": "^8.2.0",

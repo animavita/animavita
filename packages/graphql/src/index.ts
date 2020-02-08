@@ -1,10 +1,13 @@
-import serverless from 'aws-serverless-koa';
+import 'core-js/stable';
+import {createServer, proxy} from 'aws-serverless-express';
 
-import app from './app';
 import connectDatabase from './common/database';
 
-(async () => {
-  await connectDatabase();
-})();
+import app from './app';
 
-export const handler = serverless(app);
+export const handler = (event, ctx) => {
+  connectDatabase()
+    .then(() => proxy(createServer(app.callback()), event, ctx))
+    // eslint-disable-next-line no-console
+    .catch(err => console.log(err));
+};
