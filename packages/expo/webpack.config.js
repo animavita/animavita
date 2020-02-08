@@ -28,7 +28,7 @@ module.exports = async function(env, argv) {
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-gesture-handler'),
     path.resolve(__dirname, '..', '..', 'node_modules', '@animavita'),
     path.resolve(__dirname, '..', '..', 'node_modules', '@react-navigation'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-screens'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-modules'),
   ];
 
   return config;

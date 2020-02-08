@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Platform, TouchableWithoutFeedback} from 'react-native';
 import styled, {css} from 'styled-components/native';
-import * as Facebook from 'expo-facebook';
 
 import {heightPercentageToDP, widthPercentageToDP} from '@animavita/theme';
 import {Background, Space} from '@animavita/ui/layout';
 import {Typography} from '@animavita/ui/core';
 import Images from '@animavita/ui/assets/images';
-import {AppleButton, FacebookButton, GoogleButton} from '@animavita/ui/social';
+import {AppleButton, GoogleButton} from '@animavita/ui/social';
+
+import ContinueWithFacebook from './ContinueWithFacebook';
 
 const Wrapper = styled.View`
   ${() =>
@@ -33,38 +34,6 @@ const termsStyle = css`
 `;
 
 const SignUp: React.FC = () => {
-  const [fbLoginIsLoading, changeFbLoginLoadingTo] = useState(false);
-
-  useEffect(() => {
-    async function inicializeFacebookSDK() {
-      try {
-        await Facebook.initializeAsync('877731272663210', 'Animavita');
-      } catch ({message}) {
-        // eslint-disable-next-line no-console
-        console.log(`Facebook Login Error: ${message}`);
-      }
-    }
-
-    Platform.OS !== 'web' && inicializeFacebookSDK();
-  }, []);
-
-  // TODO: make this work on the web
-  const handleFacebookLogin =
-    Platform.OS !== 'web'
-      ? async () => {
-          changeFbLoginLoadingTo(true);
-
-          const response = await Facebook.logInWithReadPermissionsAsync({
-            permissions: ['public_profile', 'email'],
-          });
-
-          // eslint-disable-next-line no-console
-          console.log(response);
-
-          changeFbLoginLoadingTo(false);
-        }
-      : () => null;
-
   return (
     <Background css={bgStyle}>
       <Wrapper testID="wrapper">
@@ -78,7 +47,7 @@ const SignUp: React.FC = () => {
           Salve uma vida
         </Typography>
         <Space height={heightPercentageToDP('4%')} />
-        <FacebookButton testID="fb-btn" onPress={handleFacebookLogin} />
+        <ContinueWithFacebook />
         <Space height={heightPercentageToDP('1%')} />
         <GoogleButton testID="google-btn" />
         {Platform.OS === 'ios' && (

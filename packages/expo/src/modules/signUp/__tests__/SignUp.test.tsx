@@ -5,7 +5,7 @@ import {AppleButton, FacebookButton, GoogleButton} from '@animavita/ui/social';
 
 import SignUp from '../SignUp';
 
-import {Mount} from '../../../tests/helpers';
+import {Mount} from '../../../../tests/helpers';
 
 test('all elements are rendered', () => {
   const {queryByTestId} = Mount(<SignUp />);
