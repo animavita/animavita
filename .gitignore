@@ -107,3 +107,5 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+
+__generated__
