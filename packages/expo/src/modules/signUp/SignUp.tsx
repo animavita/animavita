@@ -3,10 +3,12 @@ import {Platform, TouchableWithoutFeedback} from 'react-native';
 import styled, {css} from 'styled-components/native';
 
 import {heightPercentageToDP, widthPercentageToDP} from '@animavita/theme';
-import {Background, Space} from '@animavita/ui/layout';
+import {Background, FillSpace, Space} from '@animavita/ui/layout';
 import {Typography} from '@animavita/ui/core';
 import Images from '@animavita/ui/assets/images';
 import {AppleButton, GoogleButton} from '@animavita/ui/social';
+
+import BottomBar from '../common/BottomBar';
 
 import ContinueWithFacebook from './ContinueWithFacebook';
 
@@ -63,6 +65,8 @@ const SignUp: React.FC = () => {
           </Typography>
         </TouchableWithoutFeedback>
       </Wrapper>
+      <FillSpace />
+      <BottomBar />
     </Background>
   );
 };

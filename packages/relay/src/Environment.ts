@@ -1,4 +1,4 @@
-import {Environment, FetchFunction, Network, RecordSource, Store} from 'relay-runtime';
+import {commitLocalUpdate, Environment, FetchFunction, Network, RecordSource, Store} from 'relay-runtime';
 
 const GRAPHQL_URI = 'https://4slt44fyic.execute-api.sa-east-1.amazonaws.com/staging/graphql';
 
@@ -41,6 +41,10 @@ export const store = new Store(source);
 const env = new Environment({
   network,
   store,
+});
+
+commitLocalUpdate(env, store => {
+  store.getRoot().setValue(false, 'showBottomBar');
 });
 
 export default env;

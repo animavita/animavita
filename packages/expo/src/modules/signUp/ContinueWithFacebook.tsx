@@ -1,9 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {Platform} from 'react-native';
 import * as Facebook from 'expo-facebook';
+import {NavigationScreenProp, withNavigation} from 'react-navigation';
 
 import {FacebookButton} from '@animavita/ui/social';
 import {graphql, useMutation} from '@animavita/relay';
+
+import {changeShowBottomBar} from '../../utils/bottomBar';
 
 import {ContinueWithFacebookMutation as ContinueWithFacebookMutationType} from './__generated__/ContinueWithFacebookMutation.graphql';
 
@@ -18,12 +21,16 @@ const ContinueWithFacebookMutation = graphql`
   }
 `;
 
-const ContinueWithFacebook: React.FC = () => {
+const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = ({navigation}) => {
   const [isSavingPending, saveFacebookUser] = useMutation<ContinueWithFacebookMutationType>(
     ContinueWithFacebookMutation,
   );
 
   const [fbLoginIsLoading, changeFbLoginLoadingTo] = useState(false);
+
+  useEffect(() => {
+    changeShowBottomBar(fbLoginIsLoading);
+  }, [fbLoginIsLoading]);
 
   // TODO: initialize this sooner
   useEffect(() => {
@@ -59,6 +66,10 @@ const ContinueWithFacebook: React.FC = () => {
         },
         onCompleted: () => {
           changeFbLoginLoadingTo(false);
+          navigation.navigate('Home');
+        },
+        onError: () => {
+          changeFbLoginLoadingTo(false);
         },
       });
     } else {
@@ -67,7 +78,13 @@ const ContinueWithFacebook: React.FC = () => {
   };
 
   // TODO: implement login with facebook on web
-  const loginWithFacebookWeb = async () => null;
+  const loginWithFacebookWeb = async () => {
+    changeFbLoginLoadingTo(true);
+
+    setTimeout(() => {
+      navigation.navigate('Home');
+    }, 3000);
+  };
 
   const handleFacebookLogin = async () => {
     // prevent the user from firing too much requests
@@ -83,4 +100,4 @@ const ContinueWithFacebook: React.FC = () => {
   return <FacebookButton testID="fb-btn" onPress={handleFacebookLogin} />;
 };
 
-export default ContinueWithFacebook;
+export default withNavigation(ContinueWithFacebook);

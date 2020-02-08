@@ -17,6 +17,7 @@ module.exports = async function(env, argv) {
   ];
 
   config.module.rules[1].oneOf[2].use.options.plugins = [
+    'relay',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-export-default-from',
   ];
@@ -28,7 +29,7 @@ module.exports = async function(env, argv) {
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-gesture-handler'),
     path.resolve(__dirname, '..', '..', 'node_modules', '@animavita'),
     path.resolve(__dirname, '..', '..', 'node_modules', '@react-navigation'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-modules'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-screens'),
   ];
 
   return config;
