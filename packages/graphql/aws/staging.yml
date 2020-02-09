@@ -12,6 +12,7 @@ Resources:
       Runtime: nodejs12.x
       MemorySize: 128
       Timeout: 30
+      Role: !GetAtt LambdaExecutionRole.Arn
       Events:
         ProxyApiRoot:
           Type: Api
@@ -55,6 +56,14 @@ Resources:
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: arn:aws:logs:*:*:*
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                  - s3:PutObject
+                  - s3:GetObject
+                  - s3:DeleteObject
+                Resource: arn:aws:s3:::*
 
   LambdaApiGatewayExecutionPermission:
     Type: AWS::Lambda::Permission

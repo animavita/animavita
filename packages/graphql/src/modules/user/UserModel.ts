@@ -50,10 +50,41 @@ const EmailSchema = new mongoose.Schema(
   },
 );
 
+export interface IProfileImage extends IProvider {
+  key: string;
+  location: string;
+  originUri: string;
+}
+const ProfileImageSchema = new mongoose.Schema(
+  {
+    key: {
+      type: String,
+      description: 'The key of the image on S3 Bucket',
+      required: true,
+    },
+    location: {
+      type: String,
+      description: 'The location/url of the image on S3 Bucket',
+      required: true,
+    },
+    originUri: {
+      type: String,
+      description: 'Original uri given by provider',
+      required: true,
+    },
+    ...providedByDefinition,
+  },
+  {
+    _id: false,
+    timestamps: true,
+  },
+);
+
 export interface IUser {
   ids: IId[];
   name: string;
   emails: IEmail[];
+  profileImages?: IProfileImage[];
 }
 export type IUserDocument = IUser & Document;
 const UserSchema = new mongoose.Schema(
@@ -62,6 +93,7 @@ const UserSchema = new mongoose.Schema(
       type: [IdSchema],
       description: 'Ids of the user in the providers',
       required: true,
+      unique: true,
     },
     name: {
       type: String,
@@ -76,13 +108,15 @@ const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    profileImages: {
+      type: [ProfileImageSchema],
+      description: 'Profile images of this user',
+      unique: true,
+    },
   },
   {
     collection: 'User',
-    timestamps: {
-      createdAt: 'createdAt',
-      updatedAt: 'updatedAt',
-    },
+    timestamps: true,
   },
 );
 

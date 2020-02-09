@@ -16,6 +16,7 @@
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^4.3.0",
     "@koa/router": "^8.0.6",
+    "aws-sdk": "^2.614.0",
     "aws-serverless-express": "^3.3.6",
     "core-js": "^3.6.4",
     "dataloader": "^2.0.0",
@@ -24,6 +25,7 @@
     "graphql": "^14.6.0",
     "graphql-playground-middleware": "^1.1.2",
     "graphql-relay": "^0.6.0",
+    "image-to-base64": "^2.0.1",
     "isomorphic-fetch": "^2.2.1",
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.2.1",
@@ -34,6 +36,7 @@
     "mongoose": "^5.8.11"
   },
   "devDependencies": {
+    "@types/aws-sdk": "^2.7.0",
     "@types/dotenv-safe": "^8.1.0",
     "@types/graphql-relay": "^0.4.11",
     "@types/koa": "^2.11.0",
