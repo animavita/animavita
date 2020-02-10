@@ -58,12 +58,9 @@ Resources:
                 Resource: arn:aws:logs:*:*:*
               - Effect: Allow
                 Action:
-                  - s3:ListBucket
-                  - s3:GetBucketLocation
                   - s3:PutObject
-                  - s3:GetObject
-                  - s3:DeleteObject
-                Resource: arn:aws:s3:::*
+                  - s3:PutObjectAcl
+                Resource: arn:aws:s3:::animavita/*
 
   LambdaApiGatewayExecutionPermission:
     Type: AWS::Lambda::Permission
@@ -80,6 +77,21 @@ Resources:
           - ':'
           - !Ref ApiGateway
           - '/*/*'
+
+  BucketPolicyLambdaUploadFiles:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: animavita
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !GetAtt LambdaExecutionRole.Arn
+            Action:
+              - s3:PutObject
+              - s3:PutObjectAcl
+            Resource: arn:aws:s3:::animavita/*
 
 Outputs:
   LambdaFunctionConsoleUrl:
