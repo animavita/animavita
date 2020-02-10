@@ -53,6 +53,10 @@ export const AWS_SECRET_ACCESS_KEY = envVar
   .get('AWS_SECRET_ACCESS_KEY')
   .required()
   .asString();
+export const AWS_STANDARD_QUEUE_URL = envVar
+  .get('AWS_STANDARD_QUEUE_URL')
+  .required()
+  .asString();
 
 export const MONGO_URI = envVar
   .get('MONGO_URI')

@@ -61,6 +61,13 @@ Resources:
                   - s3:PutObject
                   - s3:PutObjectAcl
                 Resource: arn:aws:s3:::animavita/*
+              - Effect: Allow
+                Action:
+                  - sqs:SendMessage
+                  - sqs:GetQueueAttributes
+                  - sqs:GetQueueUrl
+                  - sqs:ListQueues
+                Resource: !GetAtt AnimavitaStandardQueue.Arn
 
   LambdaApiGatewayExecutionPermission:
     Type: AWS::Lambda::Permission
@@ -93,6 +100,29 @@ Resources:
               - s3:PutObjectAcl
             Resource: arn:aws:s3:::animavita/*
 
+  AnimavitaStandardQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: AnimavitaStandardQueue
+
+  SQSPolicyLambda:
+    Type: AWS::SQS::QueuePolicy
+    Properties:
+      Queues:
+        - !Ref AnimavitaStandardQueue
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: !GetAtt LambdaExecutionRole.Arn
+            Action:
+              - sqs:SendMessage
+              - sqs:GetQueueAttributes
+              - sqs:GetQueueUrl
+              - sqs:ListQueues
+            Resource: !GetAtt AnimavitaStandardQueue.Arn
+
 Outputs:
   LambdaFunctionConsoleUrl:
     Description: Console URL for the Lambda Function.
@@ -118,7 +148,7 @@ Outputs:
         - '/stages/staging'
 
   ApiUrl:
-    Description: Invoke URL
+    Description: Invoke URL.
     Value: !Join
       - ''
       - - https://
@@ -126,3 +156,7 @@ Outputs:
         - '.execute-api.'
         - !Ref AWS::Region
         - '.amazonaws.com/staging/'
+
+  StandardQueue:
+    Description: The standard queue for Animavita.
+    Value: !Ref AnimavitaStandardQueue
