@@ -14,7 +14,6 @@ import schema from './schema';
 import {KoaContextExt} from './types';
 import {getDataloaders} from './helper';
 import * as loaders from './loaders';
-import {standardQueue} from './common/queue';
 
 const app = new Koa<any, KoaContextExt>();
 if (process.env.NODE_ENV === 'production') {
@@ -48,10 +47,6 @@ app.use(async (ctx, next) => {
 
 router.get('/health', async ctx => {
   try {
-    standardQueue.send(['StandardQueueHealth'], (err, info) => {
-      if (err) throw new Error('Standard Queue isn’t working');
-    });
-
     ctx.body = 'Animavita its good to go';
     ctx.status = 200;
   } catch (err) {

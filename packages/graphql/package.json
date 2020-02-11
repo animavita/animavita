@@ -33,8 +33,7 @@
     "koa-cors": "^0.0.16",
     "koa-graphql": "^0.8.0",
     "koa-logger": "^3.2.1",
-    "mongoose": "^5.8.11",
-    "sqs-producer": "^1.6.3"
+    "mongoose": "^5.8.11"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
@@ -50,7 +49,6 @@
     "@types/koa__router": "^8.0.2",
     "@types/mongoose": "^5.7.0",
     "@types/node": "^13.5.0",
-    "@types/sqs-producer": "^1.6.0",
     "babel-jest": "^25.1.0",
     "babel-loader": "^8.0.6",
     "jest": "^25.1.0",

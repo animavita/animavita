@@ -1,11 +1,39 @@
-import Producer from 'sqs-producer';
+import AWS from 'aws-sdk';
 
-import {AWS_ACCESS_KEY_ID, AWS_REGION, AWS_SECRET_ACCESS_KEY, AWS_STANDARD_QUEUE_URL} from './config';
+import {AWS_STANDARD_QUEUE_URL} from './config';
 
-export const standardQueue = Producer.create({
-  queueUrl: AWS_STANDARD_QUEUE_URL,
-  region: AWS_REGION,
-  accessKeyId: AWS_ACCESS_KEY_ID,
-  secretAccessKey: AWS_SECRET_ACCESS_KEY,
-  ...(process.env.NODE_ENV === 'production' ? {sessionToken: process.env.AWS_SESSION_TOKEN} : {}),
-});
+import './aws';
+
+const sqs = new AWS.SQS();
+
+export default sqs;
+
+interface Job {
+  jobName: string;
+  data: {
+    [key: string]: string;
+  };
+}
+export async function queueStandardJob(job: Job) {
+  const transformToMessageAttributes = (messageAttributes: {}, key: string) => {
+    const StringValue = typeof job.data[key] === 'string' ? job.data[key] : job.data[key].toString();
+
+    return {
+      ...messageAttributes,
+      [key]: {
+        DataType: 'String',
+        StringValue,
+      },
+    };
+  };
+
+  const MessageAttributes = Object.keys(job.data).reduce<{}>(transformToMessageAttributes, {});
+
+  await sqs
+    .sendMessage({
+      QueueUrl: AWS_STANDARD_QUEUE_URL,
+      MessageBody: job.jobName,
+      MessageAttributes,
+    })
+    .promise();
+}

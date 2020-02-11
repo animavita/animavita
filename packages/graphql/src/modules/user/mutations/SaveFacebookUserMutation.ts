@@ -3,10 +3,14 @@ import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
 import imageToBase64 from 'image-to-base64';
 import AWS from 'aws-sdk';
 
-import {AWS_ACCESS_KEY_ID, AWS_REGION, AWS_S3_BUCKET_NAME, AWS_SECRET_ACCESS_KEY} from '../../../common/config';
+import {AWS_S3_BUCKET_NAME} from '../../../common/config';
 import {GraphQLContext} from '../../../types';
 import UserModel, {IProfileImage, IUser, IUserDocument} from '../UserModel';
 import UserType from '../UserType';
+import {queueStandardJob} from '../../../common/queue';
+import {USER_JOBS} from '../jobs';
+
+import '../../../common/aws';
 
 interface SaveFacebookUserMutationArgs {
   token: string;
@@ -42,7 +46,7 @@ export default mutationWithClientMutationId({
 
     const {id, name, email} = userIncomplete;
 
-    let newUserDocument: IUser = {
+    const newUserDocument: IUser = {
       ids: [{id, providedBy: 'facebook'}],
       name,
       emails: [{email, providedBy: 'facebook'}],
@@ -91,7 +95,12 @@ export default mutationWithClientMutationId({
       }
 
       // @ts-ignore
-      const user = (await new UserModel(newUserDocument).save())._doc;
+      const user: IUserDocument = (await new UserModel(newUserDocument).save())._doc;
+
+      await queueStandardJob({
+        jobName: USER_JOBS.USER.EMAIL_WELCOME,
+        data: {userId: user._id},
+      });
 
       return {
         user: {
@@ -115,14 +124,6 @@ export default mutationWithClientMutationId({
 
 async function uploadProfileImage(url: string, user: UserIncomplete) {
   const base64Image = await imageToBase64(url);
-
-  AWS.config.update({
-    accessKeyId: AWS_ACCESS_KEY_ID,
-    secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    // needed for Lambda to be authorized to upload files on S3 (also Lambda role should be listed on bucket policy, see https://aws.amazon.com/pt/premiumsupport/knowledge-center/access-denied-lambda-s3-bucket/)
-    ...(process.env.NODE_ENV === 'production' ? {sessionToken: process.env.AWS_SESSION_TOKEN} : {}),
-    region: AWS_REGION,
-  });
 
   const buffer = Buffer.from(base64Image, 'base64');
 
@@ -181,7 +182,7 @@ async function saveOrUpdateProfileImage(dbUser: IUserDocument, profileUrl: strin
       providedBy: 'facebook',
     };
 
-    let profileImages: IProfileImage[] = [];
+    const profileImages: IProfileImage[] = [];
     if (dbUser.profileImages) {
       profileImages.push(...dbUser.profileImages, fbProfileImage);
     } else {
