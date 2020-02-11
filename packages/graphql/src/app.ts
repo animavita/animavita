@@ -49,7 +49,7 @@ app.use(async (ctx, next) => {
 router.get('/health', async ctx => {
   try {
     standardQueue.send(['StandardQueueHealth'], (err, info) => {
-      if (err) console.log(err);
+      if (err) throw new Error('Standard Queue isn’t working');
     });
 
     ctx.body = 'Animavita its good to go';

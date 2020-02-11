@@ -46,7 +46,7 @@ Resources:
           Action: sts:AssumeRole
       Path: '/'
       Policies:
-        - PolicyName: root
+        - PolicyName: LambdaExecutionPolicy
           PolicyDocument:
             Version: '2012-10-17'
             Statement:
@@ -122,6 +122,52 @@ Resources:
               - sqs:GetQueueUrl
               - sqs:ListQueues
             Resource: !GetAtt AnimavitaStandardQueue.Arn
+
+  WorkerExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: '/'
+      Policies:
+        - PolicyName: WorkerExecutionPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+              - Effect: Allow
+                Action:
+                  - sqs:ReceiveMessage
+                  - sqs:DeleteMessage
+                  - sqs:GetQueueAttributes
+                  - sqs:GetQueueUrl
+                  - sqs:ListQueues
+                Resource: !GetAtt AnimavitaStandardQueue.Arn
+
+  AnimavitaWorkerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ../build
+      Handler: worker.handler
+      Runtime: nodejs12.x
+      MemorySize: 128
+      Timeout: 30
+      Role: !GetAtt WorkerExecutionRole.Arn
+      Events:
+        SQSRegistry:
+          Type: SQS
+          Properties:
+            Queue: !GetAtt AnimavitaStandardQueue.Arn
 
 Outputs:
   LambdaFunctionConsoleUrl:
