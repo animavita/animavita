@@ -11,7 +11,7 @@ Resources:
       Handler: index.handler
       Runtime: nodejs12.x
       MemorySize: 128
-      Timeout: 30
+      Timeout: 15
       Role: !GetAtt LambdaExecutionRole.Arn
       Events:
         ProxyApiRoot:
@@ -161,7 +161,7 @@ Resources:
       Handler: worker.handler
       Runtime: nodejs12.x
       MemorySize: 128
-      Timeout: 30
+      Timeout: 15
       Role: !GetAtt WorkerExecutionRole.Arn
       Events:
         SQSRegistry:

@@ -1,5 +1,3 @@
-import 'core-js/stable';
-
 import {createServer} from 'http';
 
 import app from './app';

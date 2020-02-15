@@ -5,7 +5,6 @@
   "scripts": {
     "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
     "copy:env:to:build": "cp .env .env.example ./build",
-    "deploy:prod": "scripts/deployProd.sh",
     "deploy:staging": "scripts/deployStaging.sh",
     "sam": "yarn copy:env:to:build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\"",
     "start": "webpack --config webpack.dev.js --progress",
@@ -18,7 +17,6 @@
     "@koa/router": "^8.0.6",
     "aws-sdk": "^2.614.0",
     "aws-serverless-express": "^3.3.6",
-    "core-js": "^3.6.4",
     "dataloader": "^2.0.0",
     "dotenv-safe": "^8.2.0",
     "env-var": "^5.2.0",

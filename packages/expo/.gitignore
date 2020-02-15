@@ -1,3 +1,4 @@
-.expo/web/cache
-.expo/packager-info.json
 junit.xml
+.expo
+.expo-shared
+web-build

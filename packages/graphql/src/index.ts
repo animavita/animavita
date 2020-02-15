@@ -1,4 +1,3 @@
-import 'core-js/stable';
 import {createServer, proxy} from 'aws-serverless-express';
 
 import connectDatabase from './common/database';
