@@ -1,8 +1,8 @@
 {
   "name": "@animavita/aws",
   "version": "1.0.0",
-  "main": "index.ts",
   "private": true,
+  "main": "index.ts",
   "scripts": {
     "cdk": "cdk",
     "compile": "cdk synth",

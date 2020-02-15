@@ -5,14 +5,14 @@
   "main": "./__generated__/AppEntry.js",
   "scripts": {
     "android": "expo start --android",
+    "build:web": "expo build:web",
     "eject": "expo eject",
     "postinstall": "expo-yarn-workspaces postinstall",
     "ios": "expo start --ios",
     "start": "expo start",
     "test": "jest",
     "test:watch": "jest --watch",
-    "web": "expo start --web",
-    "build:web": "expo build:web"
+    "web": "expo start --web"
   },
   "dependencies": {
     "@react-native-community/masked-view": "0.1.5",

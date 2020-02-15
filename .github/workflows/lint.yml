@@ -30,6 +30,9 @@ jobs:
         run: |
           yarn config set unsafe-disable-integrity-migration true -g
           yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+      - name: Relay
+        run: |
+          yarn relay
       - name: Lint
         run: |
           yarn lint:ci
