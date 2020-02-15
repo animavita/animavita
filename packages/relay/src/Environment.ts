@@ -1,6 +1,6 @@
 import {commitLocalUpdate, Environment, FetchFunction, Network, RecordSource, Store} from 'relay-runtime';
 
-const GRAPHQL_URI = 'https://hrpmzjm0j8.execute-api.sa-east-1.amazonaws.com/staging/graphql';
+const GRAPHQL_URI = 'https://de43yx3b55.execute-api.us-east-1.amazonaws.com/prod/graphql';
 
 const fetchQuery: FetchFunction = async (params, variables, _cacheConfig) => {
   // Fetch data from GraphQL API:
