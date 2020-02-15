@@ -41,10 +41,6 @@ export const AWS_REGION = envVar
   .get('AWS_REGION')
   .required()
   .asString();
-export const AWS_CLOUD_FORMATION_STACK_NAME = envVar
-  .get('AWS_CLOUD_FORMATION_STACK_NAME')
-  .required()
-  .asString();
 export const AWS_ACCESS_KEY_ID = envVar
   .get('AWS_ACCESS_KEY_ID')
   .required()

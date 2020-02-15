@@ -9,8 +9,9 @@
   },
   "scripts": {
     "android": "yarn workspace @animavita/expo android",
-    "delete:all": "yarn delete:metro-cache && yarn delete:node_modules && yarn delete:yarn.lock && yarn delete:dist && yarn delete:build && yarn delete:generated",
+    "delete:all": "yarn delete:metro-cache && yarn delete:node_modules && yarn delete:yarn.lock && yarn delete:dist && yarn delete:build && yarn delete:generated && yarn delete:cdk",
     "delete:build": "find . -name \"build\" -exec rm -rf '{}' +",
+    "delete:cdk": "find . -name \"cdk.out\" -exec rm -rf '{}' +",
     "delete:dist": "find . -name \"dist\" -exec rm -rf '{}' +",
     "delete:generated": "find . -name \"__generated__\" -exec rm -rf '{}' +",
     "delete:metro-cache": "find . -name \"metro-cache\" -exec rm -rf '{}' +",

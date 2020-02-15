@@ -5,6 +5,7 @@
 **/node_modules/**
 **/__generated__/**
 **/public/**
+**/cdk.out/**
 
 /coverage/**
 /docs/**
