@@ -218,7 +218,7 @@
     "@aws-cdk/aws-iam" "1.24.0"
     "@aws-cdk/core" "1.24.0"
 
-"@aws-cdk/aws-iam@1.24.0":
+"@aws-cdk/aws-iam@1.24.0", "@aws-cdk/aws-iam@^1.24.0":
   version "1.24.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-iam/-/aws-iam-1.24.0.tgz#a94ff2a17f90a53986658698d2e6ff17eae2dfbe"
   integrity sha512-M+0CeKRr6aQbppyjWNuBDmFS6VSimA3Y3nonKwtLUFBGk656t743cW2q+KxwB98c3iPTcGVcyUJ08VoNC3V29w==

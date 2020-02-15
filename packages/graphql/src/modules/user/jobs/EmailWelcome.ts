@@ -1,4 +1,5 @@
-import UserModel, {IUser} from '../UserModel';
+import UserModel, {IUserDocument} from '../UserModel';
+import {sendEmail} from '../../../common/email';
 
 type Data = {
   userId: string;
@@ -11,7 +12,7 @@ export default async ({userId}: Data) => {
     return;
   }
 
-  const user = await UserModel.findOne({_id: userId}).lean<IUser>();
+  const user = await UserModel.findOne({_id: userId}).lean<IUserDocument>();
 
   if (!user) {
     // eslint-disable-next-line no-console
@@ -19,6 +20,10 @@ export default async ({userId}: Data) => {
     return;
   }
 
-  // eslint-disable-next-line no-console
-  console.log(user);
+  await sendEmail({
+    userId: user._id,
+    email: user.emails[0].email,
+    subject: 'Prazer em te conhecer 😄',
+    htmlBody: 'Estamos muito felizes por ter você aqui. Aproveite o app.',
+  });
 };

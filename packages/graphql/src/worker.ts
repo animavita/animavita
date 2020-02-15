@@ -69,6 +69,8 @@ export const handler = async (event, ctx) => {
         console.log(`[FINISH:JOB]: ${jobName}`);
       } catch (err) {
         // eslint-disable-next-line no-console
+        console.log(err);
+        // eslint-disable-next-line no-console
         console.log(`[FAILED:JOB]: ${jobName}`);
       }
     }

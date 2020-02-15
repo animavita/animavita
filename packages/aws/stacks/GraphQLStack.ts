@@ -3,6 +3,7 @@ import * as S3 from '@aws-cdk/aws-s3';
 import * as Lambda from '@aws-cdk/aws-lambda';
 import * as ApiGateway from '@aws-cdk/aws-apigateway';
 import * as SQS from '@aws-cdk/aws-sqs';
+import * as IAM from '@aws-cdk/aws-iam';
 import {SqsEventSource} from '@aws-cdk/aws-lambda-event-sources';
 
 export class GraphQLStack extends CDK.Stack {
@@ -61,6 +62,13 @@ export class GraphQLStack extends CDK.Stack {
         AWS_S3_BUCKET_NAME: bucket.bucketName,
         AWS_STANDARD_QUEUE_URL: standardQueue.queueUrl,
       },
+      initialPolicy: [
+        new IAM.PolicyStatement({
+          effect: IAM.Effect.ALLOW,
+          actions: ['ses:SendEmail', 'ses:SendRawEmail'],
+          resources: ['*'],
+        }),
+      ],
     });
 
     worker.addEventSource(new SqsEventSource(standardQueue));
