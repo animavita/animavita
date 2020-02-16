@@ -80,6 +80,7 @@ export default mutationWithClientMutationId({
           ...dbUser,
           providerIds: dbUser.ids,
         },
+        token: generateToken(dbUser),
       };
     } else {
       if (profileUrl) {

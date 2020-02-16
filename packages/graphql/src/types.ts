@@ -10,11 +10,11 @@ export type GraphQLDataloaders = {
   UserLoader: DataLoader<DataLoaderKey, IUserDocument>;
 };
 
-export interface GraphQLContext {
-  dataloaders: GraphQLDataloaders;
-  koaContext: Context;
-}
-
 export interface KoaContextExt {
   dataloaders: GraphQLDataloaders;
+  user: IUserDocument | null;
+}
+
+export interface GraphQLContext extends KoaContextExt {
+  koaContext: Context;
 }

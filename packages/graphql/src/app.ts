@@ -14,6 +14,7 @@ import schema from './schema';
 import {KoaContextExt} from './types';
 import {getDataloaders} from './helper';
 import * as loaders from './loaders';
+import {getUser} from './token';
 
 const app = new Koa<any, KoaContextExt>();
 if (process.env.NODE_ENV === 'production') {
@@ -45,6 +46,11 @@ app.use(async (ctx, next) => {
   await next();
 });
 
+app.use(async (ctx, next) => {
+  ctx.user = await getUser(ctx.request.headers.authorization);
+  await next();
+});
+
 router.get('/health', async ctx => {
   try {
     ctx.body = 'Animavita its good to go';
@@ -70,7 +76,7 @@ router.all(
     graphqlHttp(
       // @ts-ignore
       async (request, ctx, koaContext: Context & KoaContextExt): Promise<OptionsData> => {
-        const {dataloaders} = koaContext;
+        const {dataloaders, user} = koaContext;
 
         return {
           graphiql: process.env.NODE_ENV === 'development',
@@ -80,6 +86,7 @@ router.all(
           },
           context: {
             dataloaders,
+            user,
           },
           formatError: error => {
             if (error.name && error.name === 'BadRequestError') {

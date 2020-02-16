@@ -13,7 +13,7 @@ module.exports = merge(common, {
   watch: true,
   plugins: [
     new ReloadServerPlugin({
-      script: path.resolve('build', 'index.js'),
+      script: path.resolve('build', 'main.js'),
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
