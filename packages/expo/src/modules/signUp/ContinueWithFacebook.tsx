@@ -17,6 +17,7 @@ const ContinueWithFacebookMutation = graphql`
       user {
         name
       }
+      token
     }
   }
 `;
@@ -64,7 +65,7 @@ const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = 
             permissions,
           },
         },
-        onCompleted: () => {
+        onCompleted: data => {
           changeFbLoginLoadingTo(false);
           navigation.navigate('Home');
         },

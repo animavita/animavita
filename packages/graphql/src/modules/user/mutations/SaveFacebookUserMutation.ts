@@ -3,14 +3,15 @@ import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
 import imageToBase64 from 'image-to-base64';
 import AWS from 'aws-sdk';
 
+import '../../../common/aws';
+
 import {AWS_S3_BUCKET_NAME} from '../../../common/config';
 import {GraphQLContext} from '../../../types';
 import UserModel, {IProfileImage, IUser, IUserDocument} from '../UserModel';
 import UserType from '../UserType';
 import {queueStandardJob} from '../../../common/queue';
 import {USER_JOBS} from '../jobs';
-
-import '../../../common/aws';
+import {generateToken} from '../../../token';
 
 interface SaveFacebookUserMutationArgs {
   token: string;
@@ -107,6 +108,7 @@ export default mutationWithClientMutationId({
           ...user,
           providerIds: user.ids,
         },
+        token: generateToken(user),
       };
     }
   },
@@ -118,6 +120,10 @@ export default mutationWithClientMutationId({
     user: {
       type: UserType,
       resolve: obj => obj.user,
+    },
+    token: {
+      type: GraphQLString,
+      resolve: obj => obj.token,
     },
   },
 });
@@ -131,7 +137,7 @@ async function uploadProfileImage(url: string, user: UserIncomplete) {
 
   const params = {
     Bucket: AWS_S3_BUCKET_NAME,
-    Key: `${user.id}${new Date().getTime()}.jpeg`,
+    Key: `profile-pictures/${user.id}${new Date().getTime()}.jpeg`,
     Body: buffer,
     ACL: 'public-read',
     ContentEncoding: 'base64',
