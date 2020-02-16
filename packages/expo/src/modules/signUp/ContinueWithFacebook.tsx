@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Platform} from 'react-native';
+import {Platform, AsyncStorage} from 'react-native';
 import * as Facebook from 'expo-facebook';
 import {NavigationScreenProp, withNavigation} from 'react-navigation';
 
@@ -65,9 +65,12 @@ const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = 
             permissions,
           },
         },
-        onCompleted: data => {
+        onCompleted: async data => {
+          if (data.SaveFacebookUser && data.SaveFacebookUser.token) {
+            await AsyncStorage.setItem('token', data.SaveFacebookUser.token);
+            navigation.navigate('Home');
+          }
           changeFbLoginLoadingTo(false);
-          navigation.navigate('Home');
         },
         onError: () => {
           changeFbLoginLoadingTo(false);
