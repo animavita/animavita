@@ -109,3 +109,5 @@ dist
 .vscode-test
 
 __generated__
+packages/*/environment.*
+!packages/*/environment.example.*

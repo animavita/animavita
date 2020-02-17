@@ -9,10 +9,14 @@ import {graphql, useMutation} from '@animavita/relay';
 
 import {changeShowBottomBar} from '../../utils/bottomBar';
 
+import getEnvVars from '../../../environment';
+
 import {
   ContinueWithFacebookMutation as ContinueWithFacebookMutationType,
   ContinueWithFacebookMutationResponse,
 } from './__generated__/ContinueWithFacebookMutation.graphql';
+
+const {fbAppID, fbAppName} = getEnvVars();
 
 interface FacebookWebSuccessfulResponse {
   profile: {
@@ -59,7 +63,7 @@ const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = 
   useEffect(() => {
     async function initializeFacebookSDK() {
       try {
-        await Facebook.initializeAsync('877731272663210', 'Animavita');
+        await Facebook.initializeAsync(fbAppID, fbAppName);
       } catch ({message}) {
         // eslint-disable-next-line no-console
         console.log(`Facebook Login Error: ${message}`);
@@ -136,7 +140,7 @@ const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = 
 
   if (Platform.OS === 'web') {
     return (
-      <FacebookProvider appId="877731272663210">
+      <FacebookProvider appId={fbAppID}>
         <Login scope="public_profile,email" onResponse={loginWithFacebookWeb} onError={handleLoginWithFacebookWebError}>
           <FacebookButton testID="fb-btn" />
         </Login>
