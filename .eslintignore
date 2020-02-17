@@ -6,6 +6,7 @@
 **/__generated__/**
 **/public/**
 **/cdk.out/**
+**/web-build/**
 
 /coverage/**
 /docs/**
