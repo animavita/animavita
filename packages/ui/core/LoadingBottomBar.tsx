@@ -13,7 +13,6 @@ interface LoadingBottomBarProps {
   show: boolean;
 }
 
-// TODO: make this a global component that can be enable with local mutation
 const LoadingBottomBar: React.FC<LoadingBottomBarProps> = ({show}) => {
   return show ? <Wrapper /> : null;
 };
