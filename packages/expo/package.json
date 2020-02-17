@@ -6,7 +6,6 @@
   "scripts": {
     "android": "expo start --android",
     "eject": "expo eject",
-    "postinstall": "expo-yarn-workspaces postinstall",
     "ios": "expo start --ios",
     "start": "expo start",
     "test": "jest",

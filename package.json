@@ -18,6 +18,7 @@
     "deploy:graphql:prod": "yarn workspace @animavita/graphql deploy:prod",
     "deploy:graphql:staging": "yarn workspace @animavita/graphql deploy:staging",
     "graphql": "yarn workspace @animavita/graphql start",
+    "postinstall": "expo-yarn-workspaces postinstall",
     "ios": "yarn workspace @animavita/expo ios",
     "lint": "eslint --fix --ext .js,jsx,.ts,.tsx",
     "lint:ci": "eslint --quiet --ext .js,jsx,.ts,.tsx .",
