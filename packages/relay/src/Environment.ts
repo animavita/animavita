@@ -1,15 +1,21 @@
 import {commitLocalUpdate, Environment, FetchFunction, Network, RecordSource, Store} from 'relay-runtime';
+import {AsyncStorage} from 'react-native';
+
+import {keys} from '@animavita/expo/src/utils/asyncStorage';
 
 import getEnvVars from '../environment';
 
 const {graphqlApi} = getEnvVars();
 
 const fetchQuery: FetchFunction = async (params, variables, _cacheConfig) => {
+  const token = await AsyncStorage.getItem(keys.token);
+
   // Fetch data from GraphQL API:
   const response = await fetch(graphqlApi, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      ...(token ? {Authorization: token} : {}),
     },
     body: JSON.stringify({
       query: params.text,

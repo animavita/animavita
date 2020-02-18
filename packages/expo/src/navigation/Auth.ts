@@ -1,6 +1,7 @@
 import {createStackNavigator} from 'react-navigation-stack';
 
-import SignUp from '../modules/signUp/SignUp';
+import SignUp from '../modules/auth/SignUp';
+import CheckLogin from '../modules/auth/CheckLogin';
 
 const AuthNavigator = createStackNavigator(
   {
@@ -8,8 +9,12 @@ const AuthNavigator = createStackNavigator(
       screen: SignUp,
       navigationOptions: {header: () => null},
     },
+    CheckLogin: {
+      screen: CheckLogin,
+      navigationOptions: {header: () => null},
+    },
   },
-  {initialRouteName: 'SignUp'},
+  {initialRouteName: 'CheckLogin'},
 );
 
 export default AuthNavigator;

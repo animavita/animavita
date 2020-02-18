@@ -8,6 +8,7 @@ import {FacebookButton} from '@animavita/ui/social';
 import {graphql, useMutation} from '@animavita/relay';
 
 import {changeShowBottomBar} from '../../utils/bottomBar';
+import {keys} from '../../utils/asyncStorage';
 
 import getEnvVars from '../../../environment';
 
@@ -76,7 +77,7 @@ const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = 
   const onCompleted = async (data: ContinueWithFacebookMutationResponse) => {
     changeFbLoginLoadingTo(false);
     if (data.SaveFacebookUser && data.SaveFacebookUser.token) {
-      await AsyncStorage.setItem('token', data.SaveFacebookUser.token);
+      await AsyncStorage.setItem(keys.token, data.SaveFacebookUser.token);
       navigation.navigate('Home');
     }
   };
