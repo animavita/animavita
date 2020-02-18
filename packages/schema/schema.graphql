@@ -28,6 +28,7 @@ type Query {
     id: ID!
   ): Node
   user(id: ID!): User
+  me: User
 }
 
 input SaveFacebookUserInput {
