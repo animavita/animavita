@@ -33,6 +33,10 @@ jobs:
       - name: Relay
         run: |
           yarn relay
+      - name: Create environment.ts files
+        run: |
+          cp packages/expo/environment.example.ts packages/expo/environment.ts &&
+          cp packages/relay/environment.example.ts packages/relay/environment.ts
       - name: Lint
         run: |
           yarn lint:ci
