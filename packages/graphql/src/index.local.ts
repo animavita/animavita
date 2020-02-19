@@ -1,11 +1,21 @@
-import 'core-js/stable';
-
 import {createServer} from 'http';
 
 import app from './app';
 import {GRAPHQL_PORT} from './common/config';
 
+import connectDatabase from './common/database';
+
 const runServer = async () => {
+  try {
+    // eslint-disable-next-line no-console
+    console.log('Connecting to database...');
+    await connectDatabase();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('Could not connect to database', {error});
+    throw error;
+  }
+
   const server = createServer(app.callback());
 
   server.listen(GRAPHQL_PORT, () => {

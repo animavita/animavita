@@ -1,7 +1,6 @@
 const path = require('path');
 
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
-const c = require('console-helpers');
 
 module.exports = async function(env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
@@ -18,6 +17,7 @@ module.exports = async function(env, argv) {
   ];
 
   config.module.rules[1].oneOf[2].use.options.plugins = [
+    'relay',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-export-default-from',
   ];

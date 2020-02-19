@@ -1,0 +1,25 @@
+{
+  "name": "@animavita/aws",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "cdk": "cdk",
+    "compile": "cdk synth",
+    "deploy": "cdk deploy"
+  },
+  "dependencies": {
+    "@aws-cdk/aws-apigateway": "^1.24.0",
+    "@aws-cdk/aws-iam": "^1.24.0",
+    "@aws-cdk/aws-lambda": "^1.24.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.24.0",
+    "@aws-cdk/aws-s3": "^1.24.0",
+    "@aws-cdk/aws-sqs": "^1.24.0",
+    "@aws-cdk/core": "^1.24.0",
+    "aws-cdk": "^1.24.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.1",
+    "ts-node": "^8.6.2"
+  }
+}

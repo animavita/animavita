@@ -1,0 +1,24 @@
+{
+  "name": "@animavita/relay",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "compile": "relay-compiler",
+    "watch": "relay-compiler --watch"
+  },
+  "dependencies": {
+    "expo-constants": "~8.0.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-relay": "^8.0.0",
+    "relay-hooks": "^3.0.0",
+    "relay-runtime": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/react-relay": "^7.0.3",
+    "@types/relay-runtime": "^8.0.6",
+    "graphql": "^14.6.0",
+    "relay-compiler": "^8.0.0",
+    "relay-compiler-language-typescript": "^10.1.4",
+    "relay-config": "^8.0.0"
+  }
+}

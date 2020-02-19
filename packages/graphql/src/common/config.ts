@@ -33,6 +33,28 @@ export const DEBUG_GRAPHQL = envVar.get('DEBUG_GRAPHQL', 'false').asBoolStrict()
 export const GRAPHQL_PORT = envVar.get('GRAPHQL_PORT', '5001').asPortNumber();
 
 // AWS
-export const AWS_S3_BUCKET_NAME = envVar.get('AWS_S3_BUCKET_NAME').asString();
-export const AWS_REGION = envVar.get('AWS_REGION').asString();
-export const AWS_CLOUD_FORMATION_STACK_NAME = envVar.get('AWS_CLOUD_FORMATION_STACK_NAME').asString();
+export const AWS_S3_BUCKET_NAME = envVar
+  .get('AWS_S3_BUCKET_NAME')
+  .required()
+  .asString();
+export const AWS_REGION = envVar
+  .get('AWS_REGION')
+  .required()
+  .asString();
+export const AWS_ACCESS_KEY_ID = envVar
+  .get('AWS_ACCESS_KEY_ID')
+  .required()
+  .asString();
+export const AWS_SECRET_ACCESS_KEY = envVar
+  .get('AWS_SECRET_ACCESS_KEY')
+  .required()
+  .asString();
+export const AWS_STANDARD_QUEUE_URL = envVar
+  .get('AWS_STANDARD_QUEUE_URL')
+  .required()
+  .asString();
+
+export const MONGO_URI = envVar
+  .get('MONGO_URI')
+  .required()
+  .asString();

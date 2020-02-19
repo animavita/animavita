@@ -1,7 +1,7 @@
 import 'isomorphic-fetch';
 
 import {koaPlayground} from 'graphql-playground-middleware';
-import Koa from 'koa';
+import Koa, {Context} from 'koa';
 import bodyParser from 'koa-bodyparser';
 import convert from 'koa-convert';
 import cors from 'koa-cors';
@@ -12,6 +12,9 @@ import Router from '@koa/router';
 import {JWT_KEY} from './common/config';
 import schema from './schema';
 import {KoaContextExt} from './types';
+import {getDataloaders} from './helper';
+import * as loaders from './loaders';
+import {getUser} from './token';
 
 const app = new Koa<any, KoaContextExt>();
 if (process.env.NODE_ENV === 'production') {
@@ -38,6 +41,16 @@ if (process.env.NODE_ENV !== 'test') {
 
 app.use(convert(cors({maxAge: 86400, origin: '*'})));
 
+app.use(async (ctx, next) => {
+  ctx.dataloaders = getDataloaders(loaders);
+  await next();
+});
+
+app.use(async (ctx, next) => {
+  ctx.user = await getUser(ctx.request.headers.authorization);
+  await next();
+});
+
 router.get('/health', async ctx => {
   try {
     ctx.body = 'Animavita its good to go';
@@ -61,20 +74,19 @@ router.all(
   '/graphql',
   convert(
     graphqlHttp(
-      async (request, ctx, koaContext): Promise<OptionsData> => {
-        // if (process.env.NODE_ENV !== 'test') {
-        // eslint-disable-next-line no-console
-        // console.info('Handling request', {
-        //   appversion,
-        //   appbuild,
-        // });
-        // }
+      // @ts-ignore
+      async (request, ctx, koaContext: Context & KoaContextExt): Promise<OptionsData> => {
+        const {dataloaders, user} = koaContext;
 
         return {
           graphiql: process.env.NODE_ENV === 'development',
           schema,
           rootValue: {
             request: ctx.req,
+          },
+          context: {
+            dataloaders,
+            user,
           },
           formatError: error => {
             if (error.name && error.name === 'BadRequestError') {
