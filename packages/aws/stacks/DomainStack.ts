@@ -24,7 +24,7 @@ export class DomainStack extends CDK.Stack {
     });
 
     const graphqlDomainName = new ApiGateway.DomainName(this, 'AnimavitaGraphQLDomainName', {
-      domainName: `${this.graphqlWhitecard}.${this.domainName}`,
+      domainName: `${this.graphqlWhitecard}.${this.domainName}:prod`,
       endpointType: ApiGateway.EndpointType.REGIONAL,
       certificate: {
         certificateArn: this.certificateArn,

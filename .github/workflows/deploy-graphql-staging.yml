@@ -1,6 +1,11 @@
 name: Animavita GraphQL Deploy on Staging
 
 on: [push]
+#  pull_request:
+#    types: [closed]
+#    branches:
+#      - master
+
 #  push:
 #    branches:
 #      - 'master'
@@ -44,7 +49,8 @@ jobs:
     name: Deploy GraphQL on Staging
     #    needs: [test-graphql]
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    #    if: !contains(github.event.head_commit.message , '[skip ci]') && github.event.pull_request.merged
+    if: !contains(github.event.head_commit.message , '[skip ci]')
 
     steps:
       - uses: actions/checkout@v2
