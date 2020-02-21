@@ -24,7 +24,7 @@ export class DomainStack extends CDK.Stack {
     });
 
     const graphqlDomainName = new ApiGateway.DomainName(this, 'AnimavitaGraphQLDomainName', {
-      domainName: `${this.graphqlWhitecard}.${this.domainName}:prod`,
+      domainName: `${this.graphqlWhitecard}.${this.domainName}`,
       endpointType: ApiGateway.EndpointType.REGIONAL,
       certificate: {
         certificateArn: this.certificateArn,
@@ -35,11 +35,16 @@ export class DomainStack extends CDK.Stack {
 
     const restApiId = getParam(this, `/Animavita${this.Mode}GraphQLStack/APIGateway/ApiId`);
 
-    graphqlDomainName.addBasePathMapping({
-      stack: this,
-      node: this.node,
-      restApiId,
-    });
+    graphqlDomainName.addBasePathMapping(
+      {
+        stack: this,
+        node: this.node,
+        restApiId,
+      },
+      {
+        basePath: 'prod',
+      },
+    );
 
     new Route53.ARecord(this, 'AnimavitaGraphQLAlias', {
       recordName: this.graphqlWhitecard,
