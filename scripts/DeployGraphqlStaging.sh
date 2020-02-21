@@ -3,7 +3,7 @@ yarn workspace @animavita/graphql prepare:staging
 yarn workspace @animavita/aws deploy AnimavitaStagingGraphQLStack \
   -c mode=staging \
   -c JWT_KEY=$JWT_KEY \
-  -c MONGO_URI=$MONGO_STAGING_URI \
+  -c MONGO_URI=$MONGO_URI \
   --require-approval=never
 
 yarn workspace @animavita/aws deploy AnimavitaStagingDomainStack \
