@@ -65,19 +65,6 @@ jobs:
         run: |
           yarn config set unsafe-disable-integrity-migration true -g
           yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
-      - name: Create .env
-        run: |
-          echo "\
-            NODE_ENV=staging\n\
-            AWS_S3_BUCKET_NAME=${{ secrets.AWS_STAGING_S3_BUCKET_NAME }}\n\
-            AWS_STANDARD_QUEUE_URL=${{ secrets.AWS_STAGING_STANDARD_QUEUE_URL }}\n\
-            AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}\n\
-            AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}\n\
-            AWS_REGION=${{ secrets.AWS_REGION }}\n\
-            JWT_KEY=${{ secrets.JWT_KEY }}\n\
-            MONGO_URI=${{ secrets.MONGO_STAGING_URI }}\n\
-          "\
-          > ./packages/graphql/.env.staging
       - name: Relay
         run: |
           yarn relay
@@ -87,3 +74,18 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
+      - name: Setup environment of Lambda
+        run: |
+          aws lambda update-function-configuration \
+            --function-name animavita-staging-graphql-function \
+            --environment \
+                { \
+                  "Variables": { \
+                    "NODE_ENV": "staging", \
+                    "AWS_ACCESS_KEY_ID": "${{ secrets.AWS_ACCESS_KEY_ID }}", \
+                    "AWS_SECRET_ACCESS_KEY": "${{ secrets.AWS_SECRET_ACCESS_KEY }}", \
+                    "AWS_REGION": "${{ secrets.AWS_REGION }}", \
+                    "JWT_KEY": "${{ secrets.JWT_KEY }}", \
+                    "MONGO_URI": "${{ secrets.MONGO_STAGING_URI }}" \
+                  } \
+                }

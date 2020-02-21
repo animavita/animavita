@@ -27,12 +27,8 @@ export const JWT_KEY = envVar
   .required()
   .asString();
 
-export const DEBUG_GRAPHQL = envVar.get('DEBUG_GRAPHQL', 'false').asBoolStrict();
-
-// Ports
 export const GRAPHQL_PORT = envVar.get('GRAPHQL_PORT', '5001').asPortNumber();
 
-// AWS
 export const AWS_S3_BUCKET_NAME = envVar
   .get('AWS_S3_BUCKET_NAME')
   .required()
