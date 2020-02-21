@@ -21,8 +21,6 @@ jobs:
   #      - uses: actions/setup-node@v1
   #        with:
   #          node-version: '12.x'
-  #      - name: Skip based on commit message
-  #        uses: veggiemonk/skip-commit@1.0.0
   #      - name: Get yarn cache dir
   #        id: get-yarn-cache
   #        run: echo "::set-output name=dir::$(yarn cache dir)"
