@@ -35,16 +35,11 @@ export class DomainStack extends CDK.Stack {
 
     const restApiId = getParam(this, `/Animavita${this.Mode}GraphQLStack/APIGateway/ApiId`);
 
-    graphqlDomainName.addBasePathMapping(
-      {
-        stack: this,
-        node: this.node,
-        restApiId,
-      },
-      {
-        basePath: 'prod',
-      },
-    );
+    graphqlDomainName.addBasePathMapping({
+      stack: this,
+      node: this.node,
+      restApiId,
+    });
 
     new Route53.ARecord(this, 'AnimavitaGraphQLAlias', {
       recordName: this.graphqlWhitecard,
