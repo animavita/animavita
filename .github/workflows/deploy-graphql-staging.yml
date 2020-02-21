@@ -14,12 +14,15 @@ jobs:
   #  test-graphql:
   #    name: GraphQL Tests
   #    runs-on: ubuntu-latest
+  #    if: "!contains(github.event.head_commit.message, '[skip ci]')"
   #
   #    steps:
   #      - uses: actions/checkout@v2
   #      - uses: actions/setup-node@v1
   #        with:
   #          node-version: '12.x'
+  #      - name: Skip based on commit message
+  #        uses: veggiemonk/skip-commit@1.0.0
   #      - name: Get yarn cache dir
   #        id: get-yarn-cache
   #        run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -43,12 +46,15 @@ jobs:
     name: Deploy GraphQL on Staging
     #    needs: [test-graphql]
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
+      - name: Skip based on commit message
+        uses: veggiemonk/skip-commit@1.0.0
       - uses: chrislennon/action-aws-cli@v1.1
       - name: Get yarn cache dir
         id: get-yarn-cache
@@ -65,9 +71,6 @@ jobs:
         run: |
           yarn config set unsafe-disable-integrity-migration true -g
           yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
-      - name: Relay
-        run: |
-          yarn relay
       - name: Deploy to AWS Lambda
         run: yarn deploy:graphql:staging
         env:

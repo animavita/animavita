@@ -10,7 +10,7 @@ const root = path.join.bind(cwd);
 dotEnvSafe.config({
   allowEmptyValues: true,
   path: root('.env'),
-  sample: root('.env.example'),
+  // sample: root('.env.example'),
 });
 
 export const JWT_KEY = envVar
