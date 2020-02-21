@@ -33,6 +33,9 @@ export class GraphQLStack extends CDK.Stack {
       description: 'Lambda function that runs GraphQL koa server',
       functionName: `animavita-${this.mode}-graphql-function`,
       environment: {
+        NODE_ENV: 'production',
+        JWT_KEY: this.node.tryGetContext('JWT_KEY'),
+        MONGO_URI: this.node.tryGetContext('MONGO_URI'),
         AWS_S3_BUCKET_NAME: bucket.bucketName,
         AWS_STANDARD_QUEUE_URL: standardQueue.queueUrl,
       },
