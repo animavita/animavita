@@ -16,6 +16,7 @@
     "@aws-cdk/aws-route53": "^1.25.0",
     "@aws-cdk/aws-route53-targets": "^1.25.0",
     "@aws-cdk/aws-s3": "^1.25.0",
+    "@aws-cdk/aws-s3-deployment": "^1.25.0",
     "@aws-cdk/aws-sqs": "^1.25.0",
     "@aws-cdk/aws-ssm": "^1.25.0",
     "@aws-cdk/core": "^1.25.0",
