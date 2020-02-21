@@ -53,8 +53,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Skip based on commit message
-        uses: veggiemonk/skip-commit@1.0.0
       - uses: chrislennon/action-aws-cli@v1.1
       - name: Get yarn cache dir
         id: get-yarn-cache
