@@ -9,14 +9,17 @@
     "deploy": "cdk deploy"
   },
   "dependencies": {
-    "@aws-cdk/aws-apigateway": "^1.24.0",
-    "@aws-cdk/aws-iam": "^1.24.0",
-    "@aws-cdk/aws-lambda": "^1.24.0",
-    "@aws-cdk/aws-lambda-event-sources": "^1.24.0",
-    "@aws-cdk/aws-s3": "^1.24.0",
-    "@aws-cdk/aws-sqs": "^1.24.0",
-    "@aws-cdk/core": "^1.24.0",
-    "aws-cdk": "^1.24.0"
+    "@aws-cdk/aws-apigateway": "^1.25.0",
+    "@aws-cdk/aws-iam": "^1.25.0",
+    "@aws-cdk/aws-lambda": "^1.25.0",
+    "@aws-cdk/aws-lambda-event-sources": "^1.25.0",
+    "@aws-cdk/aws-route53": "^1.25.0",
+    "@aws-cdk/aws-route53-targets": "^1.25.0",
+    "@aws-cdk/aws-s3": "^1.25.0",
+    "@aws-cdk/aws-sqs": "^1.25.0",
+    "@aws-cdk/aws-ssm": "^1.25.0",
+    "@aws-cdk/core": "^1.25.0",
+    "aws-cdk": "^1.25.0"
   },
   "devDependencies": {
     "@types/node": "^13.7.1",

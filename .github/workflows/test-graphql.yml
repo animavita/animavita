@@ -14,12 +14,13 @@ jobs:
   test-graphql:
     name: GraphQL Tests
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message , '[skip ci]')"
 
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.14'
+          node-version: '12.x'
       - name: Get yarn cache dir
         id: get-yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"

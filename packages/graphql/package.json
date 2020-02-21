@@ -17,7 +17,6 @@
     "aws-sdk": "^2.614.0",
     "aws-serverless-express": "^3.3.6",
     "dataloader": "^2.0.0",
-    "dotenv-safe": "^8.2.0",
     "env-var": "^5.2.0",
     "graphql": "^14.6.0",
     "graphql-playground-middleware": "^1.1.2",
