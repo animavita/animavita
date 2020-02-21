@@ -71,7 +71,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 router.all(
-  '/graphql',
+  '/',
   convert(
     graphqlHttp(
       // @ts-ignore
