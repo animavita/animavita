@@ -31,6 +31,14 @@ export class GraphQLStack extends ModeStack {
       queueName: `animavita-${this.mode}-standard-queue`,
     });
 
+    const environment = {
+      NODE_ENV: 'production',
+      JWT_KEY: this.node.tryGetContext('JWT_KEY'),
+      MONGO_URI: this.node.tryGetContext('MONGO_URI'),
+      AWS_S3_BUCKET_NAME: bucket.bucketName,
+      AWS_STANDARD_QUEUE_URL: standardQueue.queueUrl,
+    };
+
     /**
      * GraphQL
      */
@@ -44,13 +52,7 @@ export class GraphQLStack extends ModeStack {
       timeout: CDK.Duration.seconds(15),
       description: 'Lambda function that runs GraphQL koa server',
       functionName: `animavita-${this.mode}-graphql-function`,
-      environment: {
-        NODE_ENV: 'production',
-        JWT_KEY: this.node.tryGetContext('JWT_KEY'),
-        MONGO_URI: this.node.tryGetContext('MONGO_URI'),
-        AWS_S3_BUCKET_NAME: bucket.bucketName,
-        AWS_STANDARD_QUEUE_URL: standardQueue.queueUrl,
-      },
+      environment,
     });
 
     bucket.grantPut(graphql);
@@ -107,10 +109,7 @@ export class GraphQLStack extends ModeStack {
       timeout: CDK.Duration.seconds(15),
       description: 'Lambda function that runs worker',
       functionName: `animavita-${this.mode}-worker-function`,
-      environment: {
-        AWS_S3_BUCKET_NAME: bucket.bucketName,
-        AWS_STANDARD_QUEUE_URL: standardQueue.queueUrl,
-      },
+      environment,
       initialPolicy: [
         new IAM.PolicyStatement({
           effect: IAM.Effect.ALLOW,
