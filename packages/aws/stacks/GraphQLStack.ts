@@ -4,10 +4,13 @@ import * as Lambda from '@aws-cdk/aws-lambda';
 import * as ApiGateway from '@aws-cdk/aws-apigateway';
 import * as SQS from '@aws-cdk/aws-sqs';
 import * as IAM from '@aws-cdk/aws-iam';
+import * as SSM from '@aws-cdk/aws-ssm';
 import {SqsEventSource} from '@aws-cdk/aws-lambda-event-sources';
 
 export class GraphQLStack extends CDK.Stack {
   public readonly mode: string = this.node.tryGetContext('mode') || 'development';
+  public readonly Mode: string =
+    this.node.tryGetContext('mode').replace(/^\w/, (c: string) => c.toUpperCase()) || 'Development';
 
   constructor(app: CDK.App, id: string) {
     super(app, id);
@@ -48,6 +51,12 @@ export class GraphQLStack extends CDK.Stack {
 
     root.addMethod('ANY', integration);
     path.addMethod('ANY', integration);
+
+    new SSM.StringParameter(this, 'AnimavitaApiGatewayId', {
+      description: 'API Gateway ID',
+      parameterName: `/Animavita${this.Mode}GraphQLStack/APIGateway/ApiId`,
+      stringValue: api.restApiId,
+    });
 
     const worker = new Lambda.Function(this, 'AnimavitaWorkerFunction', {
       code: Lambda.Code.fromAsset('../graphql/build', {

@@ -7,6 +7,7 @@
     "android": "expo start --android",
     "build:web": "expo build:web",
     "eject": "expo eject",
+    "postinstall": "expo-yarn-workspaces postinstall",
     "ios": "expo start --ios",
     "start": "expo start",
     "test": "jest",
