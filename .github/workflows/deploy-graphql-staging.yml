@@ -1,23 +1,21 @@
 name: Animavita GraphQL Deploy on Staging
 
-on: [push]
-#  pull_request:
-#    types: [closed]
-#    branches:
-#      - master
-#    paths:
-#      - 'packages/graphql/**'
-#      - 'packages/babel/**'
-#      - 'packages/eslint-config/**'
-#      - 'packages/aws/**'
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - 'master'
+    paths:
+      - 'packages/graphql/**'
+      - 'packages/babel/**'
+      - 'packages/eslint-config/**'
+      - 'packages/aws/**'
 
 jobs:
   deploy-graphql-staging:
     name: Deploy GraphQL on Staging
     runs-on: ubuntu-latest
-    #    if: !contains(github.event.head_commit.message , '[skip ci]')
-    #      && github.event.pull_request.merged
-    if: "!contains(github.event.head_commit.message , '[skip ci]')"
+    if: "!contains(github.event.head_commit.message , '[skip ci]') && github.event.pull_request.merged"
 
     steps:
       - uses: actions/checkout@v2
