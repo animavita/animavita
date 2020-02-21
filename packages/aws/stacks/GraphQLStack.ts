@@ -4,16 +4,24 @@ import * as Lambda from '@aws-cdk/aws-lambda';
 import * as ApiGateway from '@aws-cdk/aws-apigateway';
 import * as SQS from '@aws-cdk/aws-sqs';
 import * as IAM from '@aws-cdk/aws-iam';
-import * as SSM from '@aws-cdk/aws-ssm';
+import * as Route53 from '@aws-cdk/aws-route53';
+import * as Route53Targets from '@aws-cdk/aws-route53-targets';
 import {SqsEventSource} from '@aws-cdk/aws-lambda-event-sources';
 
-export class GraphQLStack extends CDK.Stack {
-  public readonly mode: string = this.node.tryGetContext('mode') || 'development';
-  public readonly Mode: string =
-    this.node.tryGetContext('mode').replace(/^\w/, (c: string) => c.toUpperCase()) || 'Development';
+import {ModeStack} from '../helpers';
+
+export class GraphQLStack extends ModeStack {
+  public readonly domainName = 'animavita.site';
+  public readonly hostedZoneId: string = this.node.tryGetContext('hostedZoneId');
+  public readonly graphqlWhitecard = this.mode === 'production' ? 'graphql' : `graphql-${this.mode}`;
+  public readonly certificateArn: string = this.node.tryGetContext('certificateArn');
 
   constructor(app: CDK.App, id: string) {
     super(app, id);
+
+    /**
+     * Basic Resources
+     */
 
     const bucket = new S3.Bucket(this, 'AnimavitaGraphQLFileBucket', {
       bucketName: `animavita-${this.mode}-files`,
@@ -22,6 +30,10 @@ export class GraphQLStack extends CDK.Stack {
     const standardQueue = new SQS.Queue(this, 'AnimavitaStandardQueue', {
       queueName: `animavita-${this.mode}-standard-queue`,
     });
+
+    /**
+     * GraphQL
+     */
 
     const graphql = new Lambda.Function(this, 'AnimavitaGraphQLFunction', {
       code: Lambda.Code.fromAsset('../graphql/build', {
@@ -55,11 +67,36 @@ export class GraphQLStack extends CDK.Stack {
     root.addMethod('ANY', integration);
     path.addMethod('ANY', integration);
 
-    new SSM.StringParameter(this, 'AnimavitaApiGatewayId', {
-      description: 'API Gateway ID',
-      parameterName: `/Animavita${this.Mode}GraphQLStack/APIGateway/ApiId`,
-      stringValue: api.restApiId,
+    /**
+     * GraphQL Domain
+     */
+
+    const graphqlDomainName = new ApiGateway.DomainName(this, 'AnimavitaGraphQLDomainName', {
+      domainName: `${this.graphqlWhitecard}.${this.domainName}`,
+      endpointType: ApiGateway.EndpointType.REGIONAL,
+      certificate: {
+        certificateArn: this.certificateArn,
+        node: this.node,
+        stack: this,
+      },
     });
+
+    graphqlDomainName.addBasePathMapping(api);
+
+    const hostedZone = Route53.HostedZone.fromHostedZoneAttributes(this, 'AnimavitaHostedZone', {
+      zoneName: this.domainName,
+      hostedZoneId: this.hostedZoneId,
+    });
+
+    new Route53.ARecord(this, 'AnimavitaGraphQLAlias', {
+      recordName: this.graphqlWhitecard,
+      zone: hostedZone,
+      target: Route53.RecordTarget.fromAlias(new Route53Targets.ApiGatewayDomain(graphqlDomainName)),
+    });
+
+    /**
+     * Worker
+     */
 
     const worker = new Lambda.Function(this, 'AnimavitaWorkerFunction', {
       code: Lambda.Code.fromAsset('../graphql/build', {

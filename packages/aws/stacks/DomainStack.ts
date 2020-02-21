@@ -3,13 +3,9 @@ import * as Route53 from '@aws-cdk/aws-route53';
 import * as Route53Targets from '@aws-cdk/aws-route53-targets';
 import * as ApiGateway from '@aws-cdk/aws-apigateway';
 
-import {getParam} from '../helpers';
+import {getParam, ModeStack} from '../helpers';
 
-export class DomainStack extends CDK.Stack {
-  public readonly mode: string = this.node.tryGetContext('mode') || 'development';
-  public readonly Mode: string =
-    this.node.tryGetContext('mode').replace(/^\w/, (c: string) => c.toUpperCase()) || 'Development';
-
+export class DomainStack extends ModeStack {
   public readonly domainName = 'animavita.site';
   public readonly graphqlWhitecard = this.mode === 'production' ? 'graphql' : `graphql-${this.mode}`;
   public readonly hostedZoneId: string = this.node.tryGetContext('hostedZoneId');
