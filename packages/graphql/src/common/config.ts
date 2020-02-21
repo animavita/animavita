@@ -1,17 +1,4 @@
-import path from 'path';
-
-import dotEnvSafe from 'dotenv-safe';
 import envVar from 'env-var';
-
-const cwd = process.cwd();
-
-const root = path.join.bind(cwd);
-
-dotEnvSafe.config({
-  allowEmptyValues: true,
-  path: root('.env'),
-  // sample: root('.env.example'),
-});
 
 export const JWT_KEY = envVar
   .get('JWT_KEY')
