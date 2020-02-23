@@ -37,12 +37,10 @@ const mutation = gql`
 describe('SaveFacebookUserMutation', () => {
   it('should create a new account if never logged in with facebook before', async () => {
     // mock fetch of UserIncomplete
-    // @ts-ignore
-    fetch.once(JSON.stringify({id: 'fakeid', name: 'Fake Name', email: 'fakeemail@fake.com'}));
+    global.fetch.once(JSON.stringify({id: 'fakeid', name: 'Fake Name', email: 'fakeemail@fake.com'}));
 
     // mock fetch of user profile
-    // @ts-ignore
-    fetch.once(JSON.stringify({url: 'https://fakeprofileurl.com'}));
+    global.fetch.once(JSON.stringify({url: 'https://fakeprofileurl.com'}));
 
     const rootValue = {};
     const context = await getContext();
