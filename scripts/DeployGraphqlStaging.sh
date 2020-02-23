@@ -1,4 +1,6 @@
 yarn workspace @animavita/graphql prepare:build
+yarn workspace @animavita/relay prepare:build
+yarn workspace @animavita/expo prepare:build
 
 yarn workspace @animavita/aws deploy AnimavitaStagingGraphQLStack \
   -c mode=staging \
