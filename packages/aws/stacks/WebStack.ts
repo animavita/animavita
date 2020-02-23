@@ -39,22 +39,30 @@ export class WebStack extends ModeStack {
     );
 
     const cdn = new Cloudfront.CloudFrontWebDistribution(this, 'AnimavitaWebCDN', {
-      httpVersion: Cloudfront.HttpVersion.HTTP1_1,
+      httpVersion: Cloudfront.HttpVersion.HTTP2,
       priceClass: Cloudfront.PriceClass.PRICE_CLASS_100,
       viewerProtocolPolicy: Cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
       defaultRootObject: 'index.html',
       viewerCertificate,
       originConfigs: [
         {
-          customOriginSource: {
-            domainName: bucket.bucketWebsiteDomainName,
-            originProtocolPolicy: Cloudfront.OriginProtocolPolicy.MATCH_VIEWER,
+          s3OriginSource: {
+            s3BucketSource: bucket,
           },
           behaviors: [
             {
               allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
               compress: true,
               isDefaultBehavior: true,
+              forwardedValues: {
+                queryString: true,
+                cookies: {forward: 'all'},
+              },
+            },
+            {
+              allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
+              compress: true,
+              pathPattern: '/*.*',
               forwardedValues: {
                 queryString: true,
                 cookies: {forward: 'all'},
