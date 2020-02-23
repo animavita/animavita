@@ -9,6 +9,7 @@ module.exports = {
   globalSetup: '<rootDir>/tests/setup.js',
   globalTeardown: '<rootDir>/tests/teardown.js',
   testEnvironment: '<rootDir>/tests/environment/mongodb',
+  setupFilesAfterEnv: ['<rootDir>/tests/setupTestFramework.js'],
   resetModules: false,
   reporters: ['default'],
   transform: {

@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "moduleResolution": "node",
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "jsx": "react",
+    "lib": ["esnext"],
     "noEmit": true,
     "strict": true,
     "noImplicitAny": false,
@@ -18,5 +17,5 @@
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "exclude": ["build"]
+  "exclude": ["build", "dist"]
 }

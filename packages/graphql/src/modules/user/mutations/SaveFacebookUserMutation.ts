@@ -13,7 +13,7 @@ import {queueStandardJob} from '../../../common/queue';
 import {USER_JOBS} from '../jobs';
 import {generateToken} from '../../../token';
 
-interface SaveFacebookUserMutationArgs {
+export interface SaveFacebookUserMutationArgs {
   token: string;
   expires: number;
   permissions: string[];
@@ -137,7 +137,7 @@ async function uploadProfileImage(url: string, user: UserIncomplete) {
   const s3 = new AWS.S3();
 
   const params = {
-    Bucket: AWS_S3_BUCKET_NAME,
+    Bucket: AWS_S3_BUCKET_NAME!,
     Key: `profile-pictures/${user.id}${new Date().getTime()}.jpeg`,
     Body: buffer,
     ACL: 'public-read',

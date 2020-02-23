@@ -50,6 +50,7 @@
     "babel-loader": "^8.0.6",
     "jest": "^25.1.0",
     "jest-environment-node": "^25.1.0",
+    "jest-fetch-mock": "^3.0.1",
     "mongodb-memory-server": "^6.2.4",
     "reload-server-webpack-plugin": "^1.0.1",
     "terser-webpack-plugin": "^2.3.4",
