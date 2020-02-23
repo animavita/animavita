@@ -12,16 +12,16 @@ import Constants from 'expo-constants';
 
 const ENV = {
   dev: {
-    fbAppID: $FB_APP_ID,
-    fbAppName: $FB_APP_NAME,
+    fbAppID: '$FB_APP_ID',
+    fbAppName: '$FB_APP_NAME',
   },
   staging: {
-    fbAppID: $FB_APP_ID,
-    fbAppName: $FB_APP_NAME,
+    fbAppID: '$FB_APP_ID',
+    fbAppName: '$FB_APP_NAME',
   },
   prod: {
-    fbAppID: $FB_APP_ID,
-    fbAppName: $FB_APP_NAME,
+    fbAppID: '$FB_APP_ID',
+    fbAppName: '$FB_APP_NAME',
   },
 };
 

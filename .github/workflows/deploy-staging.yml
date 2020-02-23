@@ -1,20 +1,24 @@
 name: Animavita Deploy on Staging
 
-on: [push]
-#  pull_request:
-#    types: [closed]
-#    branches:
-#      - 'master'
-#    paths:
-#      - 'packages/graphql/**'
-#      - 'packages/babel/**'
-#      - 'packages/aws/**'
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - 'master'
+    paths:
+      - 'packages/graphql/**'
+      - 'packages/babel/**'
+      - 'packages/aws/**'
+      - 'packages/expo/**'
+      - 'packages/relay/**'
+      - 'packages/theme/**'
+      - 'packages/ui/**'
 
 jobs:
   deploy-graphql-staging:
     name: Deploy GraphQL and Web on Staging
     runs-on: ubuntu-latest
-    #    if: "!contains(github.event.head_commit.message , '[skip ci]') && github.event.pull_request.merged"
+    if: "!contains(github.event.head_commit.message , '[skip ci]') && github.event.pull_request.merged"
 
     steps:
       - uses: actions/checkout@v2
@@ -41,6 +45,12 @@ jobs:
       - name: Relay
         run: |
           yarn relay
+      - name: Permissions to execute shell scripts
+        run: |
+          chmod +x ./scripts/DeployStaging.sh && \
+          chmod +x ./packages/expo/scripts/prepareBuild.sh && \
+          chmod +x ./packages/relay/scripts/prepareBuild.sh && \
+          chmod +x ./packages/graphql/scripts/prepareBuild.sh
       - name: Deploy to AWS Lambda
         run: yarn deploy:staging
         env:

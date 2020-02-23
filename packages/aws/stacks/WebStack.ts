@@ -48,21 +48,13 @@ export class WebStack extends ModeStack {
         {
           customOriginSource: {
             domainName: bucket.bucketWebsiteDomainName,
+            originProtocolPolicy: Cloudfront.OriginProtocolPolicy.MATCH_VIEWER,
           },
           behaviors: [
             {
               allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
               compress: true,
               isDefaultBehavior: true,
-              forwardedValues: {
-                queryString: true,
-                cookies: {forward: 'all'},
-              },
-            },
-            {
-              allowedMethods: Cloudfront.CloudFrontAllowedMethods.GET_HEAD_OPTIONS,
-              compress: true,
-              pathPattern: '/*',
               forwardedValues: {
                 queryString: true,
                 cookies: {forward: 'all'},
