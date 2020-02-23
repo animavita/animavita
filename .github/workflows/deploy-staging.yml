@@ -22,6 +22,7 @@ jobs:
         with:
           node-version: '12.x'
       - uses: chrislennon/action-aws-cli@v1.1
+      - uses: expo/expo-github-action@v5
       - name: Get yarn cache dir
         id: get-yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -60,6 +61,7 @@ jobs:
         with:
           node-version: '12.x'
       - uses: chrislennon/action-aws-cli@v1.1
+      - uses: expo/expo-github-action@v5
       - name: Get yarn cache dir
         id: get-yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
