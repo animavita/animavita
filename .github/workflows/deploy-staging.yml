@@ -1,0 +1,91 @@
+name: Animavita Deploy on Staging
+
+on: [push]
+#  pull_request:
+#    types: [closed]
+#    branches:
+#      - 'master'
+#    paths:
+#      - 'packages/graphql/**'
+#      - 'packages/babel/**'
+#      - 'packages/aws/**'
+
+jobs:
+  deploy-graphql-staging:
+    name: Deploy GraphQL on Staging
+    runs-on: ubuntu-latest
+    #    if: "!contains(github.event.head_commit.message , '[skip ci]') && github.event.pull_request.merged"
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: chrislennon/action-aws-cli@v1.1
+      - name: Get yarn cache dir
+        id: get-yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache yarn.lock
+        id: yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.get-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install
+        run: |
+          yarn config set unsafe-disable-integrity-migration true -g
+          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+      - name: Deploy to AWS Lambda
+        run: yarn deploy:graphql:staging
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          JWT_KEY: ${{ secrets.JWT_KEY }}
+          MONGO_URI: ${{ secrets.MONGO_STAGING_URI }}
+          HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+          CERTIFICATE_ARN: ${{ secrets.CERTIFICATE_ARN }}
+
+  deploy-web-staging:
+    name: Deploy Web on Staging
+    runs-on: ubuntu-latest
+    needs: [deploy-graphql-staging]
+    #    if: "!contains(github.event.head_commit.message , '[skip ci]') && github.event.pull_request.merged"
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - uses: chrislennon/action-aws-cli@v1.1
+      - name: Get yarn cache dir
+        id: get-yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache yarn.lock
+        id: yarn-cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ steps.get-yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install
+        run: |
+          yarn config set unsafe-disable-integrity-migration true -g
+          yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+      - name: Relay
+        run: |
+          yarn relay
+      - name: Deploy to AWS Lambda
+        run: yarn deploy:web:staging
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+          CERTIFICATE_ARN: ${{ secrets.CERTIFICATE_ARN }}
+          FB_APP_ID: ${{ secrets.FB_APP_ID }}
+          FB_APP_NAME: ${{ secrets.FB_APP_NAME }}
+          GRAPHQL_API_URL: ${{ secrets.GRAPHQL_STAGING_API_URL }}

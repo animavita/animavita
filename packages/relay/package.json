@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "compile": "relay-compiler",
+    "prepare:build": "scripts/prepareBuild.sh",
     "watch": "relay-compiler --watch"
   },
   "dependencies": {
