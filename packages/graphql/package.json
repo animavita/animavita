@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
-    "prepare:staging": "scripts/prepareStaging.sh",
+    "prepare:build": "scripts/prepareBuild.sh",
     "sam": "yarn copy:env:to:build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\"",
     "start": "webpack --config webpack.dev.js --progress",
     "test": "jest",

@@ -17,7 +17,7 @@
     "delete:metro-cache": "find . -name \"metro-cache\" -exec rm -rf '{}' +",
     "delete:node_modules": "find . -name \"node_modules\" -exec rm -rf '{}' +",
     "delete:yarn.lock": "find . -name \"yarn.lock\" -exec rm -rf '{}' +",
-    "deploy:graphql:staging": "scripts/DeployGraphqlStaging.sh",
+    "deploy:staging": "scripts/DeployStaging.sh",
     "graphql": "yarn workspace @animavita/graphql start",
     "ios": "yarn workspace @animavita/expo ios",
     "lint": "eslint --fix --ext .js,jsx,.ts,.tsx .",

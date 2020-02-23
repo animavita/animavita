@@ -1,4 +1,4 @@
-name: Animavita GraphQL Deploy on Staging
+name: Animavita Deploy on Staging
 
 on:
   pull_request:
@@ -8,12 +8,15 @@ on:
     paths:
       - 'packages/graphql/**'
       - 'packages/babel/**'
-      - 'packages/eslint-config/**'
       - 'packages/aws/**'
+      - 'packages/expo/**'
+      - 'packages/relay/**'
+      - 'packages/theme/**'
+      - 'packages/ui/**'
 
 jobs:
   deploy-graphql-staging:
-    name: Deploy GraphQL on Staging
+    name: Deploy GraphQL and Web on Staging
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message , '[skip ci]') && github.event.pull_request.merged"
 
@@ -23,6 +26,7 @@ jobs:
         with:
           node-version: '12.x'
       - uses: chrislennon/action-aws-cli@v1.1
+      - uses: expo/expo-github-action@v5
       - name: Get yarn cache dir
         id: get-yarn-cache
         run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -38,11 +42,25 @@ jobs:
         run: |
           yarn config set unsafe-disable-integrity-migration true -g
           yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
+      - name: Relay
+        run: |
+          yarn relay
+      - name: Permissions to execute shell scripts
+        run: |
+          chmod +x ./scripts/DeployStaging.sh && \
+          chmod +x ./packages/expo/scripts/prepareBuild.sh && \
+          chmod +x ./packages/relay/scripts/prepareBuild.sh && \
+          chmod +x ./packages/graphql/scripts/prepareBuild.sh
       - name: Deploy to AWS Lambda
-        run: yarn deploy:graphql:staging
+        run: yarn deploy:staging
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           JWT_KEY: ${{ secrets.JWT_KEY }}
           MONGO_URI: ${{ secrets.MONGO_STAGING_URI }}
+          HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
+          CERTIFICATE_ARN: ${{ secrets.CERTIFICATE_ARN }}
+          FB_APP_ID: ${{ secrets.FB_APP_ID }}
+          FB_APP_NAME: ${{ secrets.FB_APP_NAME }}
+          GRAPHQL_API_URL: ${{ secrets.GRAPHQL_STAGING_API_URL }}

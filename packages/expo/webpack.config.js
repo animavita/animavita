@@ -20,6 +20,7 @@ module.exports = async function(env, argv) {
     'relay',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-export-default-from',
+    ['@babel/plugin-transform-runtime', {regenerator: true}],
   ];
 
   config.module.rules[1].oneOf[2].include = [
@@ -30,6 +31,9 @@ module.exports = async function(env, argv) {
     path.resolve(__dirname, '..', '..', 'node_modules', '@animavita'),
     path.resolve(__dirname, '..', '..', 'node_modules', '@react-navigation'),
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-screens'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-relay'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'relay-hooks'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'relay-runtime'),
   ];
 
   return config;

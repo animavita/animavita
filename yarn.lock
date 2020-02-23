@@ -90,7 +90,7 @@
     "@aws-cdk/core" "1.25.0"
     "@aws-cdk/cx-api" "1.25.0"
 
-"@aws-cdk/aws-cloudfront@1.25.0":
+"@aws-cdk/aws-cloudfront@1.25.0", "@aws-cdk/aws-cloudfront@^1.25.0":
   version "1.25.0"
   resolved "https://registry.yarnpkg.com/@aws-cdk/aws-cloudfront/-/aws-cloudfront-1.25.0.tgz#a3d6f99d144d9bae29248355486595952426da7b"
   integrity sha512-eRoCkTMLRgNj8cXRKWnxTWRtBW6B/7QXCJ79obRPkqkIdD96nnAVYazdJjoeLFdxO8AXylKI2u64JfPqQ+LW9g==
@@ -323,6 +323,19 @@
     "@aws-cdk/aws-s3" "1.25.0"
     "@aws-cdk/core" "1.25.0"
     "@aws-cdk/cx-api" "1.25.0"
+
+"@aws-cdk/aws-s3-deployment@^1.25.0":
+  version "1.25.0"
+  resolved "https://registry.yarnpkg.com/@aws-cdk/aws-s3-deployment/-/aws-s3-deployment-1.25.0.tgz#4ca00d53d917647b976afe8429b9d31a9d82d026"
+  integrity sha512-Q5SPu/2kbrkdd3P9I+ZgWqcCHovN/Flcgt/78/JPEQzQCNUEOPyul38Op6K5yEbmVJ809pAr/Y5uWHx3ke9opA==
+  dependencies:
+    "@aws-cdk/aws-cloudformation" "1.25.0"
+    "@aws-cdk/aws-cloudfront" "1.25.0"
+    "@aws-cdk/aws-iam" "1.25.0"
+    "@aws-cdk/aws-lambda" "1.25.0"
+    "@aws-cdk/aws-s3" "1.25.0"
+    "@aws-cdk/aws-s3-assets" "1.25.0"
+    "@aws-cdk/core" "1.25.0"
 
 "@aws-cdk/aws-s3-notifications@1.25.0":
   version "1.25.0"
@@ -1257,7 +1270,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.3"
 
-"@babel/plugin-transform-runtime@^7.0.0":
+"@babel/plugin-transform-runtime@^7.0.0", "@babel/plugin-transform-runtime@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.8.3.tgz#c0153bc0a5375ebc1f1591cb7eea223adea9f169"
   integrity sha512-/vqUt5Yh+cgPZXXjmaG9NT8aVfThKk7G4OqkVhrXqwsC5soMn/qTCxs36rZ2QFhpfTJcjw4SNDIZ4RUb8OL4jQ==
