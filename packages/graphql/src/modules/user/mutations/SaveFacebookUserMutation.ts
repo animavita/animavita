@@ -13,7 +13,7 @@ import {queueStandardJob} from '../../../common/queue';
 import {USER_JOBS} from '../jobs';
 import {generateToken} from '../../../token';
 
-interface SaveFacebookUserMutationArgs {
+export interface SaveFacebookUserMutationArgs {
   token: string;
   expires: number;
   permissions: string[];
@@ -41,9 +41,8 @@ export default mutationWithClientMutationId({
 
     if (!userIncomplete || !userIncomplete.email) return {error: 'Failed to fetch basic user data'};
 
-    const {url: profileUrl} = await fetch(
-      `https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720`,
-    );
+    const response = await fetch(`https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720`);
+    const {url: profileUrl} = response;
 
     const {id, name, email} = userIncomplete;
 
@@ -56,7 +55,10 @@ export default mutationWithClientMutationId({
     const checkIfUserAlreadyExistsPipeline = [
       {
         $match: {
-          $or: [{ids: {$in: newUserDocument.ids}}, {emails: {$in: newUserDocument.emails}}],
+          $or: [
+            {ids: {$in: newUserDocument.ids}},
+            {emails: {$in: [...newUserDocument.emails, {email, providedBy: 'google'}, {email, providedBy: 'apple'}]}},
+          ],
         },
       },
     ];
@@ -70,6 +72,16 @@ export default mutationWithClientMutationId({
       // verify if name was updated
       if (name.length > dbUser.name.length) {
         await UserModel.updateOne({_id: dbUser._id}, {$set: {name}});
+        dbUser = await UserModel.findById(dbUser._id).lean()!;
+      }
+
+      // save id
+      let shouldSaveId = false;
+      for (const id of dbUser.ids) {
+        if (id.id !== newUserDocument.ids[0].id && id.providedBy !== 'facebook') shouldSaveId = true;
+      }
+      if (shouldSaveId) {
+        await UserModel.updateOne({_id: dbUser._id}, {$set: {ids: [...dbUser.ids, newUserDocument.ids[0]]}});
         dbUser = await UserModel.findById(dbUser._id).lean()!;
       }
 
@@ -137,7 +149,7 @@ async function uploadProfileImage(url: string, user: UserIncomplete) {
   const s3 = new AWS.S3();
 
   const params = {
-    Bucket: AWS_S3_BUCKET_NAME,
+    Bucket: AWS_S3_BUCKET_NAME!,
     Key: `profile-pictures/${user.id}${new Date().getTime()}.jpeg`,
     Body: buffer,
     ACL: 'public-read',

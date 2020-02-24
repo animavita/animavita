@@ -16,5 +16,5 @@ export interface KoaContextExt {
 }
 
 export interface GraphQLContext extends KoaContextExt {
-  koaContext: Context;
+  koaContext: Partial<Context>;
 }

@@ -31,7 +31,7 @@ export async function queueStandardJob(job: Job) {
 
   await sqs
     .sendMessage({
-      QueueUrl: AWS_STANDARD_QUEUE_URL,
+      QueueUrl: AWS_STANDARD_QUEUE_URL!,
       MessageBody: job.jobName,
       MessageAttributes,
     })

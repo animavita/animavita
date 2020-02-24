@@ -4,7 +4,7 @@ import {Types} from 'mongoose';
 
 import {DataLoaderKey, GraphQLContext} from '../../types';
 
-import UserModel, {IEmail, IId, IUserDocument} from './UserModel';
+import UserModel, {IEmail, IId, IProfileImage, IUserDocument} from './UserModel';
 
 export default class User {
   public registeredType = 'User';
@@ -14,6 +14,7 @@ export default class User {
   name: string;
   emails: IEmail[];
   providerIds: IId[];
+  profileImages: IProfileImage[];
 
   constructor(data: IUserDocument) {
     this.id = data.id;
@@ -21,6 +22,7 @@ export default class User {
     this.name = data.name;
     this.emails = data.emails;
     this.providerIds = data.ids;
+    this.profileImages = data.profileImages || [];
   }
 }
 

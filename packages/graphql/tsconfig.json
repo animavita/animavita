@@ -6,5 +6,10 @@
     "typeRoots": ["@types"]
   },
   "extends": "../../tsconfig.json",
-  "include": ["./", "../../node_modules/@types"]
+  "include": [
+    "./",
+    "../../node_modules/@types",
+    "./@types/mongodb.d.ts",
+    "../../node_modules/jest-fetch-mock/types/index.d.ts"
+  ]
 }
