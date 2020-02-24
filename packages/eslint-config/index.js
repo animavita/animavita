@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['react', 'import', 'relay', 'react-hooks'],
+  plugins: ['react', 'import', 'relay', 'react-hooks', 'no-only-tests'],
   extends: [
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
@@ -38,6 +38,7 @@ module.exports = {
     'import/no-self-import': 'warn',
     'import/extensions': ['off', 'never', {ts: 'never'}],
     '@typescript-eslint/camelcase': ['off', {ignoreDestructuring: true}],
+    'no-only-tests/no-only-tests': 'error',
   },
   settings: {
     react: {

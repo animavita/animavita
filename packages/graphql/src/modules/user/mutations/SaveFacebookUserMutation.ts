@@ -41,9 +41,9 @@ export default mutationWithClientMutationId({
 
     if (!userIncomplete || !userIncomplete.email) return {error: 'Failed to fetch basic user data'};
 
-    const {url: profileUrl} = await fetch(
-      `https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720`,
-    );
+    const response = await fetch(`https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720`);
+
+    const {url: profileUrl} = response;
 
     const {id, name, email} = userIncomplete;
 
@@ -56,7 +56,10 @@ export default mutationWithClientMutationId({
     const checkIfUserAlreadyExistsPipeline = [
       {
         $match: {
-          $or: [{ids: {$in: newUserDocument.ids}}, {emails: {$in: newUserDocument.emails}}],
+          $or: [
+            {ids: {$in: newUserDocument.ids}},
+            {emails: {$in: [...newUserDocument.emails, {email, providedBy: 'google'}, {email, providedBy: 'apple'}]}},
+          ],
         },
       },
     ];

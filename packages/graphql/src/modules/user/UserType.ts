@@ -14,7 +14,7 @@ import {registerType, NodeInterface} from '../../interfaces/NodeInterface';
 import {GraphQLContext} from '../../types';
 
 import User from './UserLoader';
-import {IId, IEmail} from './UserModel';
+import {IId, IEmail, IProfileImage} from './UserModel';
 
 const providedByField: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   providedBy: {
@@ -46,6 +46,18 @@ const EmailType = new GraphQLObjectType<IEmail>({
   }),
 });
 
+const ProfileImageType = new GraphQLObjectType<IProfileImage>({
+  name: 'ProfileImage',
+  fields: () => ({
+    url: {
+      type: GraphQLNonNull(GraphQLString),
+      description: 'The url of the profile image',
+      resolve: obj => obj.location,
+    },
+    ...providedByField,
+  }),
+});
+
 type ConfigType = GraphQLObjectTypeConfig<User, GraphQLContext>;
 
 const UserTypeConfig: ConfigType = {
@@ -71,6 +83,10 @@ const UserTypeConfig: ConfigType = {
     providerIds: {
       type: GraphQLNonNull(GraphQLList(GraphQLNonNull(ProviderIdType))),
       resolve: user => user.providerIds,
+    },
+    profileImages: {
+      type: GraphQLNonNull(GraphQLList(GraphQLNonNull(ProfileImageType))),
+      resolve: user => user.profileImages,
     },
   }),
   interfaces: () => [NodeInterface],
