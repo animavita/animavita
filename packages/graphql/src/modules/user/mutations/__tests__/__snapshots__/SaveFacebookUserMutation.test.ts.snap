@@ -20,6 +20,10 @@ Object {
       "id": "googlefakeid",
       "providedBy": "google",
     },
+    Object {
+      "id": "facebookfakeid",
+      "providedBy": "facebook",
+    },
   ],
 }
 `;
@@ -33,7 +37,12 @@ Object {
     },
   ],
   "name": "Fake Name",
-  "profileImages": Array [],
+  "profileImages": Array [
+    Object {
+      "providedBy": "facebook",
+      "url": "https://fakebucket.com",
+    },
+  ],
   "providerIds": Array [
     Object {
       "id": "fakeid",

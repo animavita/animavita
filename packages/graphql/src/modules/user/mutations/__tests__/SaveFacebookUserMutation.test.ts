@@ -47,12 +47,11 @@ const mutation = gql`
 
 describe('SaveFacebookUserMutation', () => {
   it('should create a new account if never logged in with facebook before', async () => {
-    // mock fetch of UserIncomplete
-    global.fetch.once(JSON.stringify({id: 'fakeid', name: 'Fake Name', email: 'fakeemail@fake.com'}));
-
-    // TODO: investigate snapshot and lack of .json() of this fetch
-    // mock fetch of user profile
-    global.fetch.once(JSON.stringify({url: 'https://fakeprofileurl.com'}));
+    global.fetch
+      // mock fetch of UserIncomplete
+      .once(JSON.stringify({id: 'fakeid', name: 'Fake Name', email: 'fakeemail@fake.com'}))
+      // mock fetch of user profile
+      .once('fakeimage', {url: 'https://fakeprofileurl.com'});
 
     const rootValue = {};
     const context = await getContext();
@@ -90,13 +89,11 @@ describe('SaveFacebookUserMutation', () => {
       name: 'Fake Short Name',
     } as IUser).save();
 
-    // mock fetch of UserIncomplete
-    global.fetch.once(
-      JSON.stringify({id: 'facebookfakeid', name: 'Fake Loooooooonger Name', email: 'fakeemail@fake.com'}),
-    );
-
-    // mock fetch of user profile
-    global.fetch.once(JSON.stringify({url: 'https://fakeprofileurl.com'}));
+    global.fetch
+      // mock fetch of UserIncomplete
+      .once(JSON.stringify({id: 'facebookfakeid', name: 'Fake Loooooooonger Name', email: 'fakeemail@fake.com'}))
+      // mock fetch of user profile
+      .once('fakeimage', {url: 'https://fakeprofileurl.com'});
 
     const rootValue = {};
     const context = await getContext();
