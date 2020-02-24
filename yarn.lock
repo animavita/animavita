@@ -8150,10 +8150,10 @@ expo-yarn-workspaces@^1.2.1:
     find-yarn-workspace-root "^1.2.0"
     mkdirp "^0.5.1"
 
-expo@36.0.0:
-  version "36.0.0"
-  resolved "https://registry.yarnpkg.com/expo/-/expo-36.0.0.tgz#a73060027d230dd53a893bbd7b1ebf0fb2dc0f64"
-  integrity sha512-LR2VFERKWJ7KGpjJRDrwXNb0B+2bUiRUkOOx+buReSgIbvz1QKDdMKKtQbiifEVSLdBohBtGAfCObw72SSzPGg==
+expo@36.0.1:
+  version "36.0.1"
+  resolved "https://registry.yarnpkg.com/expo/-/expo-36.0.1.tgz#943fbb348d18af9fa6b772bd209bb42132958d50"
+  integrity sha512-kaPZKp+ocN2XdVyMRSyPJeekFEZMATUjRKFtOM5/rh54XSyn8zawOCQcG53mjm38KQR1khbRqNiHnALIaOeHhg==
   dependencies:
     "@babel/runtime" "^7.1.2"
     "@expo/vector-icons" "^10.0.2"
@@ -15116,9 +15116,10 @@ react-native-web@0.11.7:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
-"react-native@https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz":
+"react-native@https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz":
   version "0.61.4"
-  resolved "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz#fc6d760c9395a1046632b17699718e40b91ea747"
+  uid d98e5d0a80cc264b0d900a750a20d0ee27aa3f14
+  resolved "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz#d98e5d0a80cc264b0d900a750a20d0ee27aa3f14"
   dependencies:
     "@babel/runtime" "^7.0.0"
     "@react-native-community/cli" "^3.0.0-alpha.1"
