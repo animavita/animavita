@@ -50,6 +50,7 @@ describe('SaveFacebookUserMutation', () => {
     // mock fetch of UserIncomplete
     global.fetch.once(JSON.stringify({id: 'fakeid', name: 'Fake Name', email: 'fakeemail@fake.com'}));
 
+    // TODO: investigate snapshot and lack of .json() of this fetch
     // mock fetch of user profile
     global.fetch.once(JSON.stringify({url: 'https://fakeprofileurl.com'}));
 

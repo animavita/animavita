@@ -76,6 +76,10 @@ export default mutationWithClientMutationId({
         dbUser = await UserModel.findById(dbUser._id).lean()!;
       }
 
+      // TODO: save id
+
+      // TODO: merge email
+
       dbUser = await saveOrUpdateProfileImage(dbUser, profileUrl, userIncomplete);
 
       return {
