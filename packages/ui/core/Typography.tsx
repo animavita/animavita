@@ -1,8 +1,10 @@
 import React from 'react';
-import {TextProps} from 'react-native';
+import {TextProps, Text} from 'react-native';
 import styled, {css} from 'styled-components/native';
-import {Themed} from 'react-navigation';
+// import {Themed} from 'react-navigation';
 import {FlattenInterpolation} from 'styled-components';
+
+const Themed = {Text};
 
 const LARGE_TITLE = 'large-title';
 const TITLE_1 = 'title-1';

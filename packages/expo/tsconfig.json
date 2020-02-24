@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["es6"],
+    "lib": ["es6", "dom"],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
@@ -15,5 +15,12 @@
   },
   "extends": "../../tsconfig.json",
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"],
-  "include": ["./", "../theme", "../ui", "../../node_modules/@types"]
+  "include": [
+    "./",
+    "../theme",
+    "../ui",
+    "../../node_modules/@types",
+    "../../node_modules/@react-navigation/core/lib/typescript/src",
+    "../../node_modules/@react-navigation/native/lib/typescript/src"
+  ]
 }

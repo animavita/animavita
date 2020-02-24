@@ -1,30 +1,30 @@
 import React from 'react';
 import {ViewProps} from 'react-native';
-import {Themed} from 'react-navigation';
+// import {Themed} from 'react-navigation';
 import styled from 'styled-components/native';
 import {FlattenSimpleInterpolation} from 'styled-components';
 
-import {PossibleThemes, useTheme} from '@animavita/theme';
+// import {PossibleThemes, useTheme} from '@animavita/theme';
 
-const ThemedBackground = styled.SafeAreaView<BackgroundProps & {themeName: PossibleThemes}>`
-  background-color: ${({themeName, theme}) => (themeName === 'light' ? theme.white : theme.black)};
-  height: 100%;
-  ${({css}) => css}
-`;
+// const ThemedBackground = styled.SafeAreaView<BackgroundProps & {themeName: PossibleThemes}>`
+//   background-color: ${({themeName, theme}) => (themeName === 'light' ? theme.white : theme.black)};
+//   height: 100%;
+//   ${({css}) => css}
+// `;
 
 interface BackgroundProps {
   css?: FlattenSimpleInterpolation;
 }
 
 const Background: React.FC<ViewProps & BackgroundProps> = ({children, css, ...viewProps}) => {
-  const {themeName} = useTheme();
+  // const {themeName} = useTheme();
 
   return (
     <>
-      <Themed.StatusBar />
-      <ThemedBackground themeName={themeName} css={css} {...viewProps}>
-        {children}
-      </ThemedBackground>
+      {/*<Themed.StatusBar />*/}
+      {/*<ThemedBackground themeName={themeName} css={css} {...viewProps}>*/}
+      {children}
+      {/*</ThemedBackground>*/}
     </>
   );
 };

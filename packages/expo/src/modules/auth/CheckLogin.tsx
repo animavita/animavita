@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import styled from 'styled-components/native';
-import {NavigationScreenProp} from 'react-navigation';
+import {useNavigation} from '@react-navigation/native';
 
 import {useQuery, graphql} from '@animavita/relay';
 
@@ -13,7 +13,9 @@ const Wrapper = styled.View`
 `;
 const Loading = styled.ActivityIndicator``;
 
-const CheckLogin: React.FC<{navigation: NavigationScreenProp<any>}> = ({navigation}) => {
+const CheckLogin: React.FC = () => {
+  const navigation = useNavigation();
+
   const {props} = useQuery<CheckLoginQuery>(
     graphql`
       query CheckLoginQuery {
