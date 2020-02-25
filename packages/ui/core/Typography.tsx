@@ -1,8 +1,22 @@
 import React from 'react';
 import {TextProps} from 'react-native';
 import styled, {css} from 'styled-components/native';
-import {Themed} from 'react-navigation';
 import {FlattenInterpolation} from 'styled-components';
+
+import {PossibleThemes, useTheme} from '@animavita/theme';
+
+const TextThemed = styled.Text<{themeName: PossibleThemes}>`
+  color: ${({themeName, theme}) => (themeName === 'light' ? theme.black : theme.white)};
+`;
+const Text: React.FC = ({children, ...props}) => {
+  const {themeName} = useTheme();
+  return (
+    <TextThemed themeName={themeName} {...props}>
+      {children}
+    </TextThemed>
+  );
+};
+const Themed = {Text};
 
 const LARGE_TITLE = 'large-title';
 const TITLE_1 = 'title-1';

@@ -3,7 +3,8 @@
     "rootDir": ".",
     "composite": true,
     "noEmit": true,
-    "typeRoots": ["@types"]
+    "typeRoots": ["@types"],
+    "jsx": "react-native"
   },
   "extends": "../../tsconfig.json",
   "include": ["."]

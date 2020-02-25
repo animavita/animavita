@@ -12,7 +12,7 @@ import FillSpace from '../layout/FillSpace';
 
 const Touchable = styled.TouchableOpacity<{themeName: PossibleThemes}>`
   background-color: transparent;
-  padding: ${px2ddp(5)}px ${px2ddp(20)}px;
+  padding: ${px2ddp(5)}px ${px2ddp(15)}px;
   justify-content: center;
   align-items: center;
   border-radius: ${() => `${px2ddp(10)}px`};
@@ -28,7 +28,7 @@ const GoogleButton: React.FC<GoogleButtonProps> = props => {
     <Touchable {...props} themeName={themeName}>
       <Row justifyContent="space-around">
         <GoogleLogo />
-        {Platform.OS === 'web' ? <Space width={px2ddp(10)} /> : <FillSpace />}
+        <Space width={px2ddp(10)} />
         <Typography variant="body" type="bold">
           Continuar com Google
         </Typography>

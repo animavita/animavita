@@ -1,6 +1,5 @@
 import React from 'react';
-import {ViewProps} from 'react-native';
-import {Themed} from 'react-navigation';
+import {ViewProps, StatusBar} from 'react-native';
 import styled from 'styled-components/native';
 import {FlattenSimpleInterpolation} from 'styled-components';
 
@@ -21,7 +20,7 @@ const Background: React.FC<ViewProps & BackgroundProps> = ({children, css, ...vi
 
   return (
     <>
-      <Themed.StatusBar />
+      <StatusBar barStyle={themeName === 'light' ? 'dark-content' : 'light-content'} />
       <ThemedBackground themeName={themeName} css={css} {...viewProps}>
         {children}
       </ThemedBackground>

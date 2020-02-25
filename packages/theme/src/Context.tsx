@@ -1,15 +1,11 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, {useState} from 'react';
 import {ThemeProvider as StyledThemeProvider} from 'styled-components/native';
-import {Theme, ThemeColors} from 'react-navigation';
+import {AppearanceProvider} from 'react-native-appearance';
+import {DefaultTheme, DarkTheme} from '@react-navigation/native';
+import {Theme} from '@react-navigation/native/lib/typescript/src/types';
 
 import StyledTheme, {initialTheme} from './Theme';
-
-export const withThemeProvider: (child: React.ComponentType) => React.ComponentType = Child => props => (
-  <StyledThemeProvider theme={StyledTheme}>
-    <Child {...props} />
-  </StyledThemeProvider>
-);
 
 export type PossibleThemes = 'light' | 'dark';
 export interface ThemeContextType {
@@ -20,7 +16,7 @@ export interface ThemeContextType {
 }
 
 export const ThemeContext = React.createContext<ThemeContextType>({
-  theme: ThemeColors[initialTheme],
+  theme: initialTheme === 'light' ? DefaultTheme : DarkTheme,
   changeTheme(): void {},
   themeName: initialTheme,
   setThemeName: () => {},
@@ -37,9 +33,18 @@ export const ThemeContextProvider: React.FC = ({children}) => {
     }
   }
 
+  const value = {
+    theme: themeName === 'light' ? DefaultTheme : DarkTheme,
+    themeName,
+    setThemeName,
+    changeTheme,
+  };
+
   return (
-    <ThemeContext.Provider value={{theme: ThemeColors[themeName], themeName, setThemeName, changeTheme}}>
-      <StyledThemeProvider theme={StyledTheme}>{children}</StyledThemeProvider>
-    </ThemeContext.Provider>
+    <AppearanceProvider>
+      <ThemeContext.Provider value={value}>
+        <StyledThemeProvider theme={StyledTheme}>{children}</StyledThemeProvider>
+      </ThemeContext.Provider>
+    </AppearanceProvider>
   );
 };

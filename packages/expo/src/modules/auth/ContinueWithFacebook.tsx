@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Platform, AsyncStorage} from 'react-native';
 import * as Facebook from 'expo-facebook';
-import {NavigationScreenProp, withNavigation} from 'react-navigation';
+import {useNavigation} from '@react-navigation/native';
 import FacebookProvider, {Login} from 'react-facebook-sdk';
 
 import {FacebookButton} from '@animavita/ui/social';
@@ -49,7 +49,9 @@ const ContinueWithFacebookMutation = graphql`
   }
 `;
 
-const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = ({navigation}) => {
+const ContinueWithFacebook: React.FC = () => {
+  const navigation = useNavigation();
+
   const [isSavingPending, saveFacebookUser] = useMutation<ContinueWithFacebookMutationType>(
     ContinueWithFacebookMutation,
   );
@@ -152,4 +154,4 @@ const ContinueWithFacebook: React.FC<{navigation: NavigationScreenProp<any>}> = 
   }
 };
 
-export default withNavigation(ContinueWithFacebook);
+export default ContinueWithFacebook;

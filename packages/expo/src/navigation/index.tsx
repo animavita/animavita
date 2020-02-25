@@ -1,21 +1,26 @@
 import React from 'react';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import {ThemeContext} from '@animavita/theme';
 
 import AuthNavigator from './Auth';
 import HomeNavigator from './Home';
 
-const RootNavigator = createSwitchNavigator(
-  {
-    Auth: AuthNavigator,
-    Home: HomeNavigator,
-  },
-  {initialRouteName: 'Auth'},
-);
-
-const AppNavigator = createAppContainer(RootNavigator);
+const Stack = createStackNavigator();
+const {Navigator, Screen} = Stack;
 
 export default function Navigation() {
-  return <ThemeContext.Consumer>{theme => <AppNavigator theme={theme.themeName} />}</ThemeContext.Consumer>;
+  return (
+    <ThemeContext.Consumer>
+      {theme => (
+        <NavigationContainer theme={theme.theme}>
+          <Navigator headerMode="none" screenOptions={{gestureEnabled: false}}>
+            <Screen name="Auth" component={AuthNavigator} />
+            <Screen name="Home" component={HomeNavigator} />
+          </Navigator>
+        </NavigationContainer>
+      )}
+    </ThemeContext.Consumer>
+  );
 }
