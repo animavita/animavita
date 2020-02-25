@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, {useState} from 'react';
 import {ThemeProvider as StyledThemeProvider} from 'styled-components/native';
+import {AppearanceProvider} from 'react-native-appearance';
 import {DefaultTheme, DarkTheme} from '@react-navigation/native';
 import {Theme} from '@react-navigation/native/lib/typescript/src/types';
 
@@ -40,8 +41,10 @@ export const ThemeContextProvider: React.FC = ({children}) => {
   };
 
   return (
-    <ThemeContext.Provider value={value}>
-      <StyledThemeProvider theme={StyledTheme}>{children}</StyledThemeProvider>
-    </ThemeContext.Provider>
+    <AppearanceProvider>
+      <ThemeContext.Provider value={value}>
+        <StyledThemeProvider theme={StyledTheme}>{children}</StyledThemeProvider>
+      </ThemeContext.Provider>
+    </AppearanceProvider>
   );
 };
