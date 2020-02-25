@@ -28,11 +28,11 @@ module.exports = ({config, mode}) => {
     'react-native': 'react-native-web',
   };
 
-  config.module.rules[0].include.push(
-    path.resolve(__dirname, '..', '..', '..', 'node_modules', 'react-native-safe-area-view'),
-    path.resolve(__dirname, '..', '..', '..', 'node_modules', '@react-navigation'),
-    path.resolve(__dirname, '..', '..', '..', 'node_modules', 'react-native-gesture-handler'),
-  );
+  // config.module.rules[0].include.push(
+  //   path.resolve(__dirname, '..', '..', '..', 'node_modules', 'react-native-safe-area-view'),
+  //   path.resolve(__dirname, '..', '..', '..', 'node_modules', '@react-navigation'),
+  //   path.resolve(__dirname, '..', '..', '..', 'node_modules', 'react-native-gesture-handler'),
+  // );
 
   return config;
 };
