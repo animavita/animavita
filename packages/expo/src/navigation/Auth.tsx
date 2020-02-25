@@ -7,7 +7,7 @@ import CheckLogin from '../modules/auth/CheckLogin';
 const AuthStack = createStackNavigator();
 
 const AuthNavigator: React.FC = () => (
-  <AuthStack.Navigator headerMode="none" initialRouteName="CheckLogin">
+  <AuthStack.Navigator headerMode="none" initialRouteName="CheckLogin" screenOptions={{gestureEnabled: false}}>
     <AuthStack.Screen name="SignUp" component={SignUp} />
     <AuthStack.Screen name="CheckLogin" component={CheckLogin} />
   </AuthStack.Navigator>
