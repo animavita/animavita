@@ -1,9 +1,8 @@
 import {DefaultTheme} from 'styled-components/native';
-import {Appearance} from 'react-native-appearance';
 
 import {heightPercentageToDP} from './PixelRatio';
 
-export const initialTheme = Appearance.getColorScheme() === 'dark' ? 'dark' : 'light';
+export const initialTheme = 'light';
 
 /**
  * Styled components theme
