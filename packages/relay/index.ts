@@ -3,6 +3,6 @@ import useMutation from './src/useMutation';
 
 export {Environment, Source, Network, Store, useMutation};
 
-export * from 'relay-hooks/lib';
+export * from 'react-relay/hooks';
 
 export {commitLocalUpdate} from 'relay-runtime';

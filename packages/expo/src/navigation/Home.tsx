@@ -2,7 +2,7 @@ import React from 'react';
 import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
 
 import {Avatar, Typography} from '@animavita/ui/core';
-import {useQuery, graphql} from '@animavita/relay';
+import {useLazyLoadQuery, graphql} from '@animavita/relay';
 
 import Home from '../modules/home/Home';
 
@@ -11,7 +11,7 @@ import {HomeQuery} from './__generated__/HomeQuery.graphql';
 const HomeStack = createStackNavigator();
 
 const HomeNavigator: React.FC = () => {
-  const {props, error} = useQuery<HomeQuery>(
+  const {me} = useLazyLoadQuery<HomeQuery>(
     graphql`
       query HomeQuery {
         me {
@@ -28,10 +28,6 @@ const HomeNavigator: React.FC = () => {
       fetchPolicy: 'store-and-network',
     },
   );
-
-  if (!props || error) return null;
-
-  const {me} = props;
 
   const screenOptions: StackNavigationOptions = {
     headerTitle: '',

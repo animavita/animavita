@@ -1,22 +1,16 @@
 import React, {useEffect} from 'react';
-import styled from 'styled-components/native';
 import {useNavigation} from '@react-navigation/native';
 
-import {useQuery, graphql} from '@animavita/relay';
+import {useLazyLoadQuery, graphql} from '@animavita/relay';
+
+import LoadingScreen from '../common/LoadingScreen';
 
 import {CheckLoginQuery} from './__generated__/CheckLoginQuery.graphql';
-
-const Wrapper = styled.View`
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-`;
-const Loading = styled.ActivityIndicator``;
 
 const CheckLogin: React.FC = () => {
   const navigation = useNavigation();
 
-  const {props} = useQuery<CheckLoginQuery>(
+  const {me} = useLazyLoadQuery<CheckLoginQuery>(
     graphql`
       query CheckLoginQuery {
         me {
@@ -31,18 +25,14 @@ const CheckLogin: React.FC = () => {
   );
 
   useEffect(() => {
-    if (props && props.me && props.me.name) {
+    if (me && me.name) {
       navigation.navigate('Home');
-    } else if (props && !props.me) {
+    } else if (!me) {
       navigation.navigate('SignUp');
     }
-  }, [props]);
+  }, [me]);
 
-  return (
-    <Wrapper>
-      <Loading />
-    </Wrapper>
-  );
+  return <LoadingScreen />;
 };
 
 export default CheckLogin;
