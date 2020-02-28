@@ -3,6 +3,7 @@ import {createStackNavigator, StackNavigationOptions} from '@react-navigation/st
 
 import {Avatar, Typography} from '@animavita/ui/core';
 import {useLazyLoadQuery, graphql} from '@animavita/relay';
+import {useTheme, px2ddp, StyledTheme} from '@animavita/theme';
 
 import Home from '../modules/home/Home';
 
@@ -11,6 +12,8 @@ import {HomeQuery} from './__generated__/HomeQuery.graphql';
 const HomeStack = createStackNavigator();
 
 const HomeNavigator: React.FC = () => {
+  const theme = useTheme();
+
   const {me} = useLazyLoadQuery<HomeQuery>(
     graphql`
       query HomeQuery {
@@ -29,20 +32,24 @@ const HomeNavigator: React.FC = () => {
     },
   );
 
+  const name = me?.name?.split(' ')[0] || '';
+  const uri = me?.profileImages[0].url;
+
+  const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
+
   const screenOptions: StackNavigationOptions = {
     headerTitle: '',
-    headerLeft: () => <Typography variant="title-3">Olá {me?.name?.split(' ')[0]}</Typography>,
-    headerRight: () => (
-      <Avatar
-        source={{
-          uri: me?.profileImages
-            ? me.profileImages[0].url
-            : 'https://avatars2.githubusercontent.com/u/43140758?s=460&v=4',
-        }}
-        width={48}
-        height={48}
-      />
-    ),
+    headerLeft: () => <Typography variant="title-3">Olá {name}</Typography>,
+    ...(uri && {headerRight: () => <Avatar source={{uri}} />}),
+    headerLeftContainerStyle: {marginLeft: px2ddp(10)},
+    headerRightContainerStyle: {marginRight: px2ddp(10)},
+    cardStyle: {backgroundColor},
+    headerStyle: {
+      backgroundColor,
+      elevation: 0,
+      shadowOpacity: 0,
+      height: px2ddp(45),
+    },
   };
 
   return (

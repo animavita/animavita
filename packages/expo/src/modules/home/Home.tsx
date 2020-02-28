@@ -1,14 +1,16 @@
 import React from 'react';
-import styled from 'styled-components/native';
 import {Button, AsyncStorage} from 'react-native';
 
-const Wrapper = styled.SafeAreaView``;
+import {useTheme} from '@animavita/theme';
+import {Background} from '@animavita/ui/layout';
 
 const Home: React.FC = () => {
+  const theme = useTheme();
   return (
-    <Wrapper>
+    <Background>
       <Button title="Logout" onPress={() => AsyncStorage.clear()} />
-    </Wrapper>
+      <Button title="Change theme" onPress={() => theme.changeTheme()} />
+    </Background>
   );
 };
 
