@@ -15,7 +15,7 @@ export default function Navigation() {
     <ThemeContext.Consumer>
       {theme => (
         <NavigationContainer theme={theme.theme}>
-          <Navigator headerMode="none" screenOptions={{gestureEnabled: false}}>
+          <Navigator headerMode="none" screenOptions={{gestureEnabled: false}} initialRouteName="Auth">
             <Screen name="Auth" component={AuthNavigator} />
             <Screen name="Home" component={HomeNavigator} />
           </Navigator>

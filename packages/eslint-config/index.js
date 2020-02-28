@@ -39,6 +39,7 @@ module.exports = {
     'import/extensions': ['off', 'never', {ts: 'never'}],
     '@typescript-eslint/camelcase': ['off', {ignoreDestructuring: true}],
     'no-only-tests/no-only-tests': 'error',
+    'react/display-name': 'off',
   },
   settings: {
     react: {

@@ -4,13 +4,18 @@ import styled from 'styled-components/native';
 
 import {px2ddp} from '@animavita/theme';
 
-const StyledAvatar = styled.Image`
+const StyledAvatar = styled.Image<Pick<AvatarProps, 'width' | 'height'>>`
   border-radius: ${px2ddp(48) / 2}px;
-  width: ${px2ddp(48)}px;
-  height: ${px2ddp(48)}px;
+  width: ${({width}) => width || px2ddp(48)}px;
+  height: ${({height}) => height || px2ddp(48)}px;
 `;
 
-const Avatar: React.FC<ImageProps> = props => {
+interface AvatarProps {
+  width?: number;
+  height?: number;
+}
+
+const Avatar: React.FC<ImageProps & AvatarProps> = props => {
   return <StyledAvatar {...props} />;
 };
 
