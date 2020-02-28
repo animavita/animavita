@@ -31,6 +31,23 @@ const BaseLine = styled.View`
   opacity: 0.4;
 `;
 
+function useWidthOfSelectedItem(selectedIndex: number) {
+  const [widthOfSelected, setWidthOfSelected] = useState(0);
+
+  const widthOfEachItem = useRef<number[]>([]);
+
+  useEffect(() => {
+    setWidthOfSelected(widthOfEachItem.current[selectedIndex]);
+  }, [selectedIndex]);
+
+  const updateSelectedWidth = (event: LayoutChangeEvent, index: number) => {
+    const {width} = event.nativeEvent.layout;
+    widthOfEachItem.current.push(width);
+    if (index === selectedIndex) setWidthOfSelected(width);
+  };
+  return {widthOfSelected, updateSelectedWidth};
+}
+
 interface Item {
   key: string;
   displayName: string;
@@ -44,23 +61,11 @@ interface TabBarProps {
 
 const TabBar: React.FC<TabBarProps> = ({items, onPress, indexOfStartSelected}) => {
   const [selectedIndex, setSelectedIndex] = useState(indexOfStartSelected || 0);
-  const [widthOfSelected, setWidthOfSelected] = useState(0);
-
-  const widthOfEachItem = useRef<number[]>([]);
-
-  useEffect(() => {
-    setWidthOfSelected(widthOfEachItem.current[selectedIndex]);
-  }, [selectedIndex]);
+  const {widthOfSelected, updateSelectedWidth} = useWidthOfSelectedItem(selectedIndex);
 
   const handleItemPress = (key: string, index: number) => {
     onPress(key);
     setSelectedIndex(index);
-  };
-
-  const updateSelectedWidth = (event: LayoutChangeEvent, index: number) => {
-    const {width} = event.nativeEvent.layout;
-    widthOfEachItem.current.push(width);
-    if (index === selectedIndex) setWidthOfSelected(width);
   };
 
   return (

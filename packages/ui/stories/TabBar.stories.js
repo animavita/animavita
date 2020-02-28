@@ -27,6 +27,7 @@ export const items = () => (
         {displayName: 'favoritos', key: 'favoritos'},
         {displayName: 'solicitações', key: 'solicitacoes'},
       ]}
+      onPress={() => null}
     />
   </Wrapper>
 );
