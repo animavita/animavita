@@ -68,6 +68,33 @@ function useAnimatedLineWidth(widthOfSelected: number) {
   return {width: hasInteracted ? width : widthOfSelected, interact};
 }
 
+function useLeftWidthOffset(widthOfEachItem: number[], selectedIndex: number, items: Item[]) {
+  const [totalWidth, setTotalWidth] = useState<number>(0);
+
+  const sumWidthOfEachItem = widthOfEachItem.reduce<number>((sum, width) => (sum += width), 0);
+  const emptyWidth = totalWidth - sumWidthOfEachItem;
+
+  const [widthOffset, setWidthOffset] = useState<number>(0);
+
+  useEffect(() => {
+    (() => {
+      if (selectedIndex === 0) setWidthOffset(0);
+
+      let recursiveSum = 0;
+
+      for (let i = 0; i < selectedIndex; i++) {
+        recursiveSum += widthOfEachItem[i];
+      }
+
+      setWidthOffset(recursiveSum);
+    })();
+  }, [selectedIndex]);
+
+  const left = (emptyWidth / (items.length - 1)) * selectedIndex + widthOffset;
+
+  return {setTotalWidth, left};
+}
+
 interface Item {
   key: string;
   displayName: string;
@@ -86,23 +113,13 @@ const TabBar: React.FC<TabBarProps> = ({items, onPress, indexOfStartSelected}) =
   const {widthOfSelected, updateSelectedWidth, widthOfEachItem} = useWidthOfSelectedItem(selectedIndex, items.length);
 
   const {width, interact} = useAnimatedLineWidth(widthOfSelected);
-
-  const [totalWidth, setTotalWidth] = useState<number>(0);
+  const {setTotalWidth, left} = useLeftWidthOffset(widthOfEachItem, selectedIndex, items);
 
   const handleItemPress = (key: string, index: number) => {
     interact();
     onPress(key);
     setSelectedIndex(index);
   };
-
-  const cut = (widthOfEachItem[selectedIndex] * (items.length - 1 - selectedIndex)) / (selectedIndex + 1 * 2);
-
-  const offset =
-    widthOfEachItem[selectedIndex] * (items.length - selectedIndex) -
-    (items.length - 1 - selectedIndex) * widthOfEachItem[selectedIndex] -
-    cut;
-
-  const left = (totalWidth / (items.length - 1)) * selectedIndex - offset;
 
   return (
     <Wrapper>
