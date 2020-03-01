@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 
 import {px2ddp} from '@animavita/theme';
 
-const AVATAR_SIZE = 24;
+const AVATAR_SIZE = 18;
 
 const StyledAvatar = styled.Image<Pick<AvatarProps, 'width' | 'height'>>`
   border-radius: ${px2ddp(AVATAR_SIZE) / 2}px;
