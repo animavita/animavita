@@ -41,7 +41,7 @@ function useWidthOfSelectedItem(selectedIndex: number, itemsLength: number) {
     widthOfEachItem.current[index] = width;
     if (index === selectedIndex) setWidthOfSelected(width);
   };
-  return {widthOfSelected, updateSelectedWidth};
+  return {widthOfSelected, updateSelectedWidth, widthOfEachItem: widthOfEachItem.current};
 }
 
 function useAnimatedLineWidth(widthOfSelected: number) {
@@ -83,15 +83,26 @@ const TabBar: React.FC<TabBarProps> = ({items, onPress, indexOfStartSelected}) =
   const {themeName} = useTheme();
 
   const [selectedIndex, setSelectedIndex] = useState(indexOfStartSelected || 0);
-  const {widthOfSelected, updateSelectedWidth} = useWidthOfSelectedItem(selectedIndex, items.length);
+  const {widthOfSelected, updateSelectedWidth, widthOfEachItem} = useWidthOfSelectedItem(selectedIndex, items.length);
 
   const {width, interact} = useAnimatedLineWidth(widthOfSelected);
+
+  const [totalWidth, setTotalWidth] = useState<number>(0);
 
   const handleItemPress = (key: string, index: number) => {
     interact();
     onPress(key);
     setSelectedIndex(index);
   };
+
+  const cut = (widthOfEachItem[selectedIndex] * (items.length - 1 - selectedIndex)) / (selectedIndex + 1 * 2);
+
+  const offset =
+    widthOfEachItem[selectedIndex] * (items.length - selectedIndex) -
+    (items.length - 1 - selectedIndex) * widthOfEachItem[selectedIndex] -
+    cut;
+
+  const left = (totalWidth / (items.length - 1)) * selectedIndex - offset;
 
   return (
     <Wrapper>
@@ -102,9 +113,10 @@ const TabBar: React.FC<TabBarProps> = ({items, onPress, indexOfStartSelected}) =
             backgroundColor: themeName === 'light' ? StyledTheme.black : StyledTheme.white,
             height: StyleSheet.hairlineWidth,
             width,
+            left,
           }}
         />
-        <BaseLine themeName={themeName} />
+        <BaseLine themeName={themeName} onLayout={({nativeEvent}) => setTotalWidth(nativeEvent.layout.width)} />
       </LineWrapper>
       <Space height={px2ddp(2)} />
       <Row
