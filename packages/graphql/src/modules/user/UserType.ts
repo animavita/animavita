@@ -84,6 +84,7 @@ const UserTypeConfig: ConfigType = {
       type: GraphQLNonNull(GraphQLList(GraphQLNonNull(ProviderIdType))),
       resolve: user => user.providerIds,
     },
+    // TODO: add field to return the latest profile image
     profileImages: {
       type: GraphQLNonNull(GraphQLList(GraphQLNonNull(ProfileImageType))),
       resolve: user => user.profileImages,

@@ -1,3 +1,4 @@
+// TODO: add dotenv
 import 'isomorphic-fetch';
 
 import {koaPlayground} from 'graphql-playground-middleware';

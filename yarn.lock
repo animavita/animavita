@@ -2671,11 +2671,6 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
-"@restart/hooks@^0.3.1":
-  version "0.3.20"
-  resolved "https://registry.yarnpkg.com/@restart/hooks/-/hooks-0.3.20.tgz#e7179ab41e5f346b2feca091261fbdad77e8bc19"
-  integrity sha512-Q1eeEqcxHQ4oqty7C5Me8/hzWwdCRR643nR/6EHxv8BVxLVYHe4IoWAHg8MIGkE4VtSm3/JnNhkoLJhCkLx5aw==
-
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.0.tgz#ecdf48d532c58ea477acfcab80348424f8d0662f"
@@ -15204,15 +15199,15 @@ react-refresh@^0.4.0:
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.4.2.tgz#54a277a6caaac2803d88f1d6f13c1dcfbd81e334"
   integrity sha512-kv5QlFFSZWo7OlJFNYbxRtY66JImuP2LcrFgyJfQaf85gSP+byzG21UbDQEYjU7f//ny8rwiEkO6py2Y+fEgAQ==
 
-react-relay@^8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-8.0.0.tgz#b648da45c8280e6ad321b6260655092381f7479d"
-  integrity sha512-CiEODNIMyQXc3nwAUh5TbRnqPrv5fvEPCnAn1j5/qi0WP+Etjf/GQvSOkfI0CFxaHT63BMB5GbM9gBA+0i2XCg==
+react-relay@^0.0.0-experimental-8cc94ddc:
+  version "0.0.0-experimental-8cc94ddc"
+  resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-0.0.0-experimental-8cc94ddc.tgz#bafb71953fb41ebf9c122cb0443e96ab8df3e710"
+  integrity sha512-1yrSsajW8dOQlCWa8EHc7YcxgXnlyypPKtdooCZ7Oq6gQ3FawR4Ft5wvCiILoORDwI343BcpG5NZ4Ed7ae0O8Q==
   dependencies:
     "@babel/runtime" "^7.0.0"
     fbjs "^1.0.0"
     nullthrows "^1.1.1"
-    relay-runtime "8.0.0"
+    relay-runtime "9.0.0"
 
 react-sizeme@^2.6.7:
   version "2.6.12"
@@ -15571,18 +15566,18 @@ relay-config@^8.0.0:
   dependencies:
     cosmiconfig "^5.0.5"
 
-relay-hooks@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/relay-hooks/-/relay-hooks-3.0.0.tgz#4ed5aef9f7de42aa738d800c75ff6f27e7365042"
-  integrity sha512-3j9tGQJjcfBbQq7Mje9p1ceBGdzH3ZmmBuq3iazoBUq1C0GUEl/AZFHVWAVLmtSxe2fJfW1VGqE/HN4DcVZ3Pw==
-  dependencies:
-    "@restart/hooks" "^0.3.1"
-    fbjs "^1.0.0"
-
 relay-runtime@8.0.0, relay-runtime@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/relay-runtime/-/relay-runtime-8.0.0.tgz#52585a7bf04a710bd1bc664bfb0a60dbff3ce6e1"
   integrity sha512-lOaZ7K/weTuCIt3pWHkxUG8s7iohI4IyYj65YV4sB9iX6W0uMvt626BFJ4GvNXFmd+OrgNnXcvx1mqRFqJaV8A==
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+    fbjs "^1.0.0"
+
+relay-runtime@9.0.0:
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/relay-runtime/-/relay-runtime-9.0.0.tgz#03633be24dc3c8b56e472062de6f103954e3d296"
+  integrity sha512-bBNeNmwMOnqtCvuPnWdgflFSVwuUbGV7m7os8qHCUCSJ52DT5B/m6K4wisVh3eZ0QWYr7hheRDfmR/3UEdUe5A==
   dependencies:
     "@babel/runtime" "^7.0.0"
     fbjs "^1.0.0"

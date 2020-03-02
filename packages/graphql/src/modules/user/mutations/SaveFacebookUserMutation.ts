@@ -27,6 +27,7 @@ interface UserIncomplete {
 export default mutationWithClientMutationId({
   name: 'SaveFacebookUser',
   description: 'Save facebook user data',
+  // TODO: capture expo token to send push notifications
   inputFields: {
     token: {type: GraphQLNonNull(GraphQLString)},
     expires: {type: GraphQLNonNull(GraphQLInt)},
