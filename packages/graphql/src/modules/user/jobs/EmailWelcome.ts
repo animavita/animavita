@@ -26,5 +26,9 @@ export default async ({userId}: Data) => {
     subject: 'Prazer em te conhecer 😄',
     htmlBody: 'Estamos muito felizes por ter você aqui. Aproveite o app.',
     emailType: 'EMAIL_WELCOME',
+    source: {
+      name: 'Animavita',
+      email: 'oi@animavita.site',
+    },
   });
 };
