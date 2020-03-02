@@ -2,16 +2,22 @@ import {SES} from 'aws-sdk';
 
 import EmailSent, {EMAIL_TYPES, EMAILS} from './EmailSentModel';
 
+interface EmailSource {
+  name: string;
+  email: string;
+}
+
 interface SendEmailParams {
   userId: string;
   email: string;
   subject: string;
   htmlBody: string;
   emailType: EMAIL_TYPES;
+  source?: EmailSource;
 }
 
 export async function sendEmail(params: SendEmailParams) {
-  const {userId, email, subject, htmlBody, emailType} = params;
+  const {userId, email, subject, htmlBody, emailType, source} = params;
 
   if (!email) {
     // eslint-disable-next-line no-console
@@ -19,9 +25,9 @@ export async function sendEmail(params: SendEmailParams) {
     return;
   }
 
-  const emailSource = {
+  const emailSource = source || {
     name: 'Animavita',
-    email: 'animavitaapp@gmail.com',
+    email: 'no-reply@animavita.site',
   };
 
   const emailSent = await new EmailSent({
