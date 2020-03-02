@@ -95,6 +95,25 @@ function useLeftWidthOffset(widthOfEachItem: number[], selectedIndex: number, it
   return {setTotalWidth, left};
 }
 
+function useAnimatedLeft(widthOfEachItem: number[], selectedIndex: number, items: Item[]) {
+  const {setTotalWidth, left} = useLeftWidthOffset(widthOfEachItem, selectedIndex, items);
+
+  const leftRef = useRef<number>(0);
+  const leftAnimated = new Animated.Value<number>(leftRef.current);
+
+  useEffect(() => {
+    timing(leftAnimated, {
+      duration: 300,
+      toValue: left,
+      easing: Easing.inOut(Easing.ease),
+    }).start();
+
+    leftRef.current = left;
+  }, [left]);
+
+  return {setTotalWidth, left: leftAnimated};
+}
+
 interface Item {
   key: string;
   displayName: string;
@@ -113,7 +132,7 @@ const TabBar: React.FC<TabBarProps> = ({items, onPress, indexOfStartSelected}) =
   const {widthOfSelected, updateSelectedWidth, widthOfEachItem} = useWidthOfSelectedItem(selectedIndex, items.length);
 
   const {width, interact} = useAnimatedLineWidth(widthOfSelected);
-  const {setTotalWidth, left} = useLeftWidthOffset(widthOfEachItem, selectedIndex, items);
+  const {setTotalWidth, left} = useAnimatedLeft(widthOfEachItem, selectedIndex, items);
 
   const handleItemPress = (key: string, index: number) => {
     interact();
