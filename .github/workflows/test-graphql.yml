@@ -6,7 +6,7 @@ on:
       - '.github/workflows/test-graphql.yml'
       - 'packages/graphql/**'
       - 'packages/babel/**'
-      - 'packages/eslint-config/**'
+      - 'packages/eslint/**'
     branches-ignore:
       - 'master'
 

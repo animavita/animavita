@@ -6,7 +6,7 @@ on:
       - '.github/workflows/test-expo.yml'
       - 'packages/expo/**'
       - 'packages/ui/**'
-      - 'packages/eslint-config/**'
+      - 'packages/eslint/**'
       - 'packages/babel/**'
       - 'packages/theme/**'
     branches-ignore:
