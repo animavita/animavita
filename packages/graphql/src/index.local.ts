@@ -1,7 +1,6 @@
 import {createServer} from 'http';
 
 import app from './app';
-
 import connectDatabase from './common/database';
 
 const GRAPHQL_PORT = 5001;

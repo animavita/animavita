@@ -2,8 +2,8 @@ import {fromGlobalId, nodeDefinitions} from 'graphql-relay';
 import DataLoader from 'dataloader';
 import {GraphQLObjectType} from 'graphql';
 
-import * as loaders from '../loaders';
 import {GraphQLContext} from '../types';
+import * as loaders from '../loaders';
 
 type RegisteredTypes = {
   [key: string]: GraphQLObjectType;

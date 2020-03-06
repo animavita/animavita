@@ -1,9 +1,7 @@
 import {mutationWithClientMutationId} from 'graphql-relay';
 import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
-import imageToBase64 from 'image-to-base64';
 import AWS from 'aws-sdk';
-
-import '../../../common/aws';
+import imageToBase64 from 'image-to-base64';
 
 import {AWS_S3_BUCKET_NAME} from '../../../common/config';
 import {GraphQLContext} from '../../../types';
@@ -12,6 +10,7 @@ import UserType from '../UserType';
 import {queueStandardJob} from '../../../common/queue';
 import {USER_JOBS} from '../jobs';
 import {generateToken} from '../../../token';
+import '../../../common/aws';
 
 export interface SaveFacebookUserMutationArgs {
   token: string;

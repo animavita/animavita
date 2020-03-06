@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+
 import React, {useState} from 'react';
 import {ThemeProvider as StyledThemeProvider} from 'styled-components/native';
 import {DefaultTheme, DarkTheme} from '@react-navigation/native';

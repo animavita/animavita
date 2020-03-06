@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
-
 import {useLazyLoadQuery, graphql} from '@animavita/relay';
 
 import LoadingScreen from '../common/LoadingScreen';

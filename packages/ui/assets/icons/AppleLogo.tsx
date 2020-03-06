@@ -1,11 +1,10 @@
 import React from 'react';
 import Svg, {Path} from 'react-native-svg';
 import {Image, Platform, ViewProps} from 'react-native';
-
 import {useTheme} from '@animavita/theme';
 
-import AppleBlackLogoBinaries from './binaries/AppleBlackLogo.png';
 import AppleWhiteLogoBinaries from './binaries/AppleWhiteLogo.png';
+import AppleBlackLogoBinaries from './binaries/AppleBlackLogo.png';
 
 function AppleLogoSvg() {
   const {themeName} = useTheme();

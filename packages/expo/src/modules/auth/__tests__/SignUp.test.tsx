@@ -1,11 +1,9 @@
 import React from 'react';
 import {fireEvent} from '@testing-library/react-native';
-
 import {AppleButton, FacebookButton, GoogleButton} from '@animavita/ui/social';
 
-import SignUp from '../SignUp';
-
 import {Mount} from '../../../../tests/helpers';
+import SignUp from '../SignUp';
 
 // test('all elements are rendered', () => {
 //   const {queryByTestId} = Mount(<SignUp />);

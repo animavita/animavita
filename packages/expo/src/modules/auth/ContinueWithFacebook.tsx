@@ -3,14 +3,12 @@ import {Platform, AsyncStorage} from 'react-native';
 import * as Facebook from 'expo-facebook';
 import {useNavigation} from '@react-navigation/native';
 import FacebookProvider, {Login} from 'react-facebook-sdk';
-
 import {FacebookButton} from '@animavita/ui/social';
 import {graphql, useMutation} from '@animavita/relay';
 
+import getEnvVars from '../../../environment';
 import {changeShowBottomBar} from '../../utils/bottomBar';
 import {keys} from '../../utils/asyncStorage';
-
-import getEnvVars from '../../../environment';
 
 import {
   ContinueWithFacebookMutation as ContinueWithFacebookMutationType,

@@ -1,10 +1,11 @@
 import 'core-js';
+
 import fs from 'fs';
 import path from 'path';
 import {promisify} from 'util';
 
-import {graphql} from 'graphql';
 import {introspectionQuery, printSchema} from 'graphql/utilities';
+import {graphql} from 'graphql';
 
 import schema from '../src/schema';
 

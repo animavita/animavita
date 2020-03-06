@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {useLazyLoadQuery, graphql} from '@animavita/relay';
 import {LoadingBottomBar} from '@animavita/ui/core';
 

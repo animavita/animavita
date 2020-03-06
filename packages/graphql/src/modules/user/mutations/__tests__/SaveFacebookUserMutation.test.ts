@@ -8,7 +8,6 @@ import {
   clearDbAndRestartCounters,
 } from '../../../../../tests/helpers';
 import schema from '../../../../schema';
-
 import {SaveFacebookUserMutationArgs} from '../SaveFacebookUserMutation';
 import UserModel, {IUser} from '../../UserModel';
 

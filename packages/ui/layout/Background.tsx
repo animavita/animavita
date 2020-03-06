@@ -2,7 +2,6 @@ import React from 'react';
 import {ViewProps, StatusBar} from 'react-native';
 import styled from 'styled-components/native';
 import {FlattenSimpleInterpolation} from 'styled-components';
-
 import {PossibleThemes, useTheme} from '@animavita/theme';
 
 const ThemedBackground = styled.SafeAreaView<BackgroundProps & {themeName: PossibleThemes}>`

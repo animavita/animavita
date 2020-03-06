@@ -27,19 +27,31 @@ module.exports = {
     '@typescript-eslint/explicit-member-accessibility': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
-    'import/named': 'off',
-    'no-console': 'error',
+    '@typescript-eslint/camelcase': ['off', {ignoreDestructuring: true}],
     'react/prop-types': 'off',
+    'react/display-name': 'off',
+    'import/named': 'off',
     'import/first': 'warn',
     'import/namespace': ['error', {allowComputed: true}],
     'import/no-duplicates': 'error',
-    'import/order': ['error', {'newlines-between': 'always-and-inside-groups'}],
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        pathGroups: [
+          {
+            pattern: '^@animavita/',
+            group: 'internal',
+            position: 'before',
+          },
+        ],
+      },
+    ],
     'import/no-cycle': 'error',
     'import/no-self-import': 'warn',
     'import/extensions': ['off', 'never', {ts: 'never'}],
-    '@typescript-eslint/camelcase': ['off', {ignoreDestructuring: true}],
+    'no-console': 'error',
     'no-only-tests/no-only-tests': 'error',
-    'react/display-name': 'off',
   },
   settings: {
     react: {

@@ -1,7 +1,6 @@
 import AWS from 'aws-sdk';
 
 import connectDatabase from './common/database';
-
 import userJobs from './modules/user/jobs';
 import {AWS_STANDARD_QUEUE_URL} from './common/config';
 
