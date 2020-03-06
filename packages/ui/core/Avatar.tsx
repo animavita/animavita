@@ -1,7 +1,6 @@
 import React from 'react';
 import {ImageProps} from 'react-native';
 import styled from 'styled-components/native';
-
 import {px2ddp} from '@animavita/theme';
 
 const AVATAR_SIZE = 18;

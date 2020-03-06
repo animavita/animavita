@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-
 import {px2ddp} from '@animavita/theme';
 
 const Wrapper = styled.View`

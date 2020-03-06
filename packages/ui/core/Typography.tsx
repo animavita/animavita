@@ -2,7 +2,6 @@ import React from 'react';
 import {TextProps} from 'react-native';
 import styled, {css} from 'styled-components/native';
 import {FlattenInterpolation} from 'styled-components';
-
 import {PossibleThemes, useTheme} from '@animavita/theme';
 
 const TextThemed = styled.Text<{themeName: PossibleThemes}>`

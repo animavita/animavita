@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import styled, {css} from 'styled-components/native';
 import {LayoutChangeEvent, StyleSheet} from 'react-native';
 import Animated, {Easing} from 'react-native-reanimated';
-
 import {PossibleThemes, px2ddp, StyledTheme, useTheme} from '@animavita/theme';
 
 import Row from '../layout/Row';

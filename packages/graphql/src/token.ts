@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 
 import {JWT_KEY} from './common/config';
-
 import User, {IUserDocument} from './modules/user/UserModel';
 
 export function generateToken(user: IUserDocument) {

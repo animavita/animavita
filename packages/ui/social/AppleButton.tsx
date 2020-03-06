@@ -1,8 +1,7 @@
-import React from 'react';
-import {Platform, TouchableOpacityProps} from 'react-native';
-import styled from 'styled-components/native';
-
 import {px2ddp, useTheme, PossibleThemes} from '@animavita/theme';
+import styled from 'styled-components/native';
+import {Platform, TouchableOpacityProps} from 'react-native';
+import React from 'react';
 
 import Typography from '../core/Typography';
 import Row from '../layout/Row';

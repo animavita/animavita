@@ -9,12 +9,12 @@ import graphqlHttp, {OptionsData} from 'koa-graphql';
 import koaLogger from 'koa-logger';
 import Router from '@koa/router';
 
-import {JWT_KEY} from './common/config';
-import schema from './schema';
-import {KoaContextExt} from './types';
-import {getDataloaders} from './helper';
-import * as loaders from './loaders';
 import {getUser} from './token';
+import * as loaders from './loaders';
+import {getDataloaders} from './helper';
+import {KoaContextExt} from './types';
+import schema from './schema';
+import {JWT_KEY} from './common/config';
 
 const app = new Koa<any, KoaContextExt>();
 if (process.env.NODE_ENV === 'production') {

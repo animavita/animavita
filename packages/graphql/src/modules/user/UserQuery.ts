@@ -2,7 +2,6 @@ import {GraphQLFieldConfigMap, GraphQLNonNull, GraphQLID} from 'graphql';
 import {fromGlobalId} from 'graphql-relay';
 
 import {GraphQLContext} from '../../types';
-
 import {UserLoader} from '../../loaders';
 
 import UserType from './UserType';

@@ -6,7 +6,7 @@ on:
       - '.github/workflows/test-expo.yml'
       - 'packages/expo/**'
       - 'packages/ui/**'
-      - 'packages/eslint-config/**'
+      - 'packages/eslint/**'
       - 'packages/babel/**'
       - 'packages/theme/**'
     branches-ignore:
@@ -43,7 +43,7 @@ jobs:
           yarn relay
       - name: Test Expo
         run: |
-          yarn test:expo --ci --maxWorkers=4 --coverage --reporters=jest-junit --forceExit
+          yarn expo:test --ci --maxWorkers=4 --coverage --reporters=jest-junit --forceExit
         env:
           JEST_SUITE_NAME: 'Animavita Expo Tests'
           JEST_JUNIT_OUTPUT_DIR: './reports'

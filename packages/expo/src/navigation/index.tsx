@@ -1,11 +1,10 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
 import {ThemeContext} from '@animavita/theme';
 
-import AuthNavigator from './Auth';
 import HomeNavigator from './Home';
+import AuthNavigator from './Auth';
 
 const Stack = createStackNavigator();
 const {Navigator, Screen} = Stack;

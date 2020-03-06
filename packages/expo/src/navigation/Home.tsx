@@ -1,6 +1,5 @@
 import React from 'react';
 import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
-
 import {Avatar, Typography} from '@animavita/ui/core';
 import {useLazyLoadQuery, graphql} from '@animavita/relay';
 import {useTheme, px2ddp, StyledTheme} from '@animavita/theme';

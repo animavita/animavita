@@ -1,7 +1,6 @@
 import React from 'react';
 import {Platform, TouchableWithoutFeedback} from 'react-native';
 import styled, {css} from 'styled-components/native';
-
 import {heightPercentageToDP, widthPercentageToDP} from '@animavita/theme';
 import {Background, FillSpace, Space} from '@animavita/ui/layout';
 import {Typography} from '@animavita/ui/core';

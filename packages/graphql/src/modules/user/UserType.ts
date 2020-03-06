@@ -10,7 +10,6 @@ import {
 import {globalIdField} from 'graphql-relay';
 
 import {registerType, NodeInterface} from '../../interfaces/NodeInterface';
-
 import {GraphQLContext} from '../../types';
 
 import User from './UserLoader';

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Button, AsyncStorage} from 'react-native';
-
 import {px2ddp, useTheme} from '@animavita/theme';
 import {Background} from '@animavita/ui/layout';
 import {TabBar} from '@animavita/ui/core';
