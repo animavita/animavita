@@ -4,9 +4,8 @@ import * as S3Deployment from '@aws-cdk/aws-s3-deployment';
 import * as Cloudfront from '@aws-cdk/aws-cloudfront';
 import * as Route53 from '@aws-cdk/aws-route53';
 import * as Route53Targets from '@aws-cdk/aws-route53-targets';
-import * as SecretsManager from '@aws-cdk/aws-secretsmanager';
 
-import {ModeStack} from '../helpers';
+import {ModeStack, getEnvironmentVariables} from '../helpers';
 
 export class WebStack extends ModeStack {
   public readonly domainName = 'animavita.site';
@@ -19,15 +18,12 @@ export class WebStack extends ModeStack {
      * Environment
      */
 
-    const environmentSecret = SecretsManager.Secret.fromSecretArn(this, 'AnimavitaGraphQLSecrets', this.secretArn);
-
-    const environmentKeys = ['NODE_ENV', 'ANIMAVITA_ENV', 'HOSTED_ZONE_ID', 'CERTIFICATE_ARN'];
-
-    const environment: {[key: string]: string} = {};
-
-    for (const key of environmentKeys) {
-      environment[key] = environmentSecret.secretValueFromJson(key).toString();
-    }
+    const environment = getEnvironmentVariables(this, this.secretArn, [
+      'NODE_ENV',
+      'ANIMAVITA_ENV',
+      'HOSTED_ZONE_ID',
+      'CERTIFICATE_ARN',
+    ]);
 
     /**
      * Bucket

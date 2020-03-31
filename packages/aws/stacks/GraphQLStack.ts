@@ -6,10 +6,9 @@ import * as SQS from '@aws-cdk/aws-sqs';
 import * as IAM from '@aws-cdk/aws-iam';
 import * as Route53 from '@aws-cdk/aws-route53';
 import * as Route53Targets from '@aws-cdk/aws-route53-targets';
-import * as SecretsManager from '@aws-cdk/aws-secretsmanager';
 import {SqsEventSource} from '@aws-cdk/aws-lambda-event-sources';
 
-import {ModeStack} from '../helpers';
+import {ModeStack, getEnvironmentVariables} from '../helpers';
 
 export class GraphQLStack extends ModeStack {
   public readonly domainName = 'animavita.site';
@@ -35,15 +34,14 @@ export class GraphQLStack extends ModeStack {
      * Environment
      */
 
-    const environmentSecret = SecretsManager.Secret.fromSecretArn(this, 'AnimavitaGraphQLSecrets', this.secretArn);
-
-    const environmentKeys = ['NODE_ENV', 'ANIMAVITA_ENV', 'JWT_KEY', 'MONGO_URI', 'HOSTED_ZONE_ID', 'CERTIFICATE_ARN'];
-
-    const environment: {[key: string]: string} = {};
-
-    for (const key of environmentKeys) {
-      environment[key] = environmentSecret.secretValueFromJson(key).toString();
-    }
+    const environment = getEnvironmentVariables(this, this.secretArn, [
+      'NODE_ENV',
+      'ANIMAVITA_ENV',
+      'JWT_KEY',
+      'MONGO_URI',
+      'HOSTED_ZONE_ID',
+      'CERTIFICATE_ARN',
+    ]);
 
     /**
      * GraphQL
