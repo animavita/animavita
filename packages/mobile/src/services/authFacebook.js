@@ -9,10 +9,11 @@ const getAccessData = async () => {
   let result;
 
   const offlineUser = await AsyncStorage.getItem('@facebook:accessData');
+
   if (offlineUser) {
     accessData = JSON.parse(offlineUser);
   } else {
-    result = await LoginManager.logInWithReadPermissions(['public_profile', 'email']);
+    result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
     if (result.isCancelled) {
       return { error: 'Usuário cancelou o Login!' };
@@ -44,8 +45,8 @@ const getAccountInfo = accessData => new Promise((resolve, reject) => {
           }
 
           return resolve(result);
-        },
-      ),
+        }
+      )
     )
     .start();
 });
