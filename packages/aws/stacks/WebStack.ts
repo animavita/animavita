@@ -16,7 +16,7 @@ export class WebStack extends ModeStack {
     super(app, id);
 
     const bucket = new S3.Bucket(this, 'AnimavitaWebPublicBucket', {
-      bucketName: `animavita-${this.mode}-public`,
+      bucketName: this.mode === 'production' ? this.domainName : `${this.mode}.${this.domainName}`,
       publicReadAccess: true,
       websiteIndexDocument: 'index.html',
     });
