@@ -58,7 +58,7 @@ const Adopt = ({ navigation }) => {
     if (data && data.adopts && !isEmpty(data.adopts)) {
       setSwipedAll(false);
     }
-  }, [data, data.adopts]);
+  }, [data]);
 
   useEffect(() => {
     setLoading(true);
