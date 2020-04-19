@@ -153,7 +153,7 @@ const Details = ({ navigation }) => {
   );
 
   useEffect(() => {
-    if (data.adopt) {
+    if (data) {
       setAnimal(data.adopt);
     }
   }, [data]);
