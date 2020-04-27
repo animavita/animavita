@@ -6,6 +6,12 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest"
   },
+  "jest": {
+    "preset": "@testing-library/react-native",
+    "transformIgnorePatterns": [
+      "node_modules/(?!(react-native|@react-native-community))"
+    ]
+  },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
     "@react-native-community/async-storage": "^1.5.0",
