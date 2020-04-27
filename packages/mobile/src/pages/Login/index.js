@@ -16,7 +16,7 @@ import {
   Container, Header, Footer, Terms, styles
 } from './styles';
 
-const USER_LOGIN_MUTATION = gql`
+export const USER_LOGIN_MUTATION = gql`
   mutation SignInWithFacebookMutation($accessToken: String!) {
     SignInWithFacebookMutation(input: { accessToken: $accessToken }) {
       user {
@@ -49,8 +49,7 @@ const Login = ({ navigation }) => {
   function throwAuthenticationError() {
     showMessage({
       message: 'Erro na autenticação!',
-      description:
-        'Ops! Algum erro no momento da autenticação aconteceu, tente novamente mais tarde.',
+      description: 'Ops! Algum erro no momento da autenticação aconteceu, tente novamente mais tarde.',
       type: 'danger'
     });
     setLoading(false);
@@ -97,11 +96,7 @@ const Login = ({ navigation }) => {
           Animavita
         </Title>
       </Header>
-      <Image
-        resizeMode="contain"
-        style={styles.image}
-        source={require('~/images/loginImage.jpg')}
-      />
+      <Image resizeMode="contain" style={styles.image} source={require('~/images/loginImage.jpg')} />
       <Footer>
         <GradientButton onPress={() => handleLogin()} disabled={loading} loading={loading}>
           <Title size={12} color="white">

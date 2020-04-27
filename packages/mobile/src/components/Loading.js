@@ -11,7 +11,7 @@ const Container = styled.View`
 `;
 
 const Loading = ({ size, color, style }) => (
-  <Container>
+  <Container testID="loading">
     <BallIndicator style={style} size={size} color={color} />
   </Container>
 );
