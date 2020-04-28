@@ -7,6 +7,7 @@ import { showMessage } from 'react-native-flash-message';
 import Wrapper from '../../helpers/Wrapper';
 import { handleLoginFacebook } from '../../src/services/authFacebook';
 import Login, { USER_LOGIN_MUTATION } from '~/pages/Login/index';
+import { createApolloStore } from '../../fixtures/login';
 
 const navigation = {
   dispatch: jest.fn(),
@@ -19,34 +20,7 @@ jest.mock('react-native-flash-message');
 describe('Login', () => {
   const mockStore = configureStore();
   const store = mockStore({});
-  const apolloStore = [
-    {
-      request: {
-        query: USER_LOGIN_MUTATION,
-        variables: { accessToken: '' },
-      },
-      result: {
-        data: {
-          SignInWithFacebookMutation: {
-            user: {
-              _id: 1,
-              name: '',
-              lastname: '',
-              avatar: '',
-              email: '',
-              hero: '',
-              notifications: '',
-              address: {
-                state: '',
-                city: '',
-              },
-            },
-            token: '',
-          },
-        },
-      },
-    },
-  ];
+  const apolloStore = createApolloStore(USER_LOGIN_MUTATION);
 
   const component = (
     <Wrapper apolloStore={apolloStore} reduxStore={store}>
