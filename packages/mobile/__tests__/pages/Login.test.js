@@ -18,18 +18,22 @@ jest.mock('@react-native-community/async-storage');
 jest.mock('react-native-flash-message');
 
 describe('Login', () => {
-  const mockStore = configureStore();
-  const store = mockStore({});
-  const apolloStore = createApolloStore(USER_LOGIN_MUTATION);
+  const renderComponent = () => {
+    const mockStore = configureStore();
+    const store = mockStore({});
+    const apolloStore = createApolloStore(USER_LOGIN_MUTATION);
 
-  const component = (
-    <Wrapper apolloStore={apolloStore} reduxStore={store}>
-      <Login navigation={navigation} />
-    </Wrapper>
-  );
+    const component = (
+      <Wrapper apolloStore={apolloStore} reduxStore={store}>
+        <Login navigation={navigation} />
+      </Wrapper>
+    );
+
+    return render(component);
+  };
 
   it('shows loading when press login button', async () => {
-    const { getByText, getByTestId } = render(component);
+    const { getByText, getByTestId } = renderComponent();
 
     const btn = getByText('Entrar com facebook');
 
@@ -38,30 +42,36 @@ describe('Login', () => {
     await waitForElement(() => getByTestId('loading'));
   });
 
-  it('when login is successful', async () => {
-    handleLoginFacebook.mockImplementation(() => ({
-      error: false,
-      user: true,
-    }));
+  describe('when login is successful', () => {
+    beforeEach(() => {
+      handleLoginFacebook.mockImplementation(() => ({
+        error: false,
+        user: true,
+      }));
+    });
 
-    const { getByText } = render(component);
+    it('handle properly the login flow', async () => {
+      const { getByText } = renderComponent();
 
-    const btn = getByText('Entrar com facebook');
+      const btn = getByText('Entrar com facebook');
 
-    fireEvent.press(btn);
+      fireEvent.press(btn);
 
-    await wait();
+      await wait();
 
-    expect(handleLoginFacebook).toHaveBeenCalled();
-    expect(AsyncStorage.getItem).toHaveBeenCalled();
-    expect(AsyncStorage.setItem).toHaveBeenCalled();
+      expect(handleLoginFacebook).toHaveBeenCalled();
+      expect(AsyncStorage.getItem).toHaveBeenCalled();
+      expect(AsyncStorage.setItem).toHaveBeenCalled();
+    });
   });
 
-  it('when login is not successful', async () => {
-    handleLoginFacebook.mockImplementation(() => ({
-      error: true,
-      user: false,
-    }));
+  describe('when login fails', () => {
+    beforeEach(() => {
+      handleLoginFacebook.mockImplementation(() => ({
+        error: true,
+        user: false,
+      }));
+    });
 
     const flashMessage = {
       message: 'Erro na autenticação!',
@@ -69,15 +79,17 @@ describe('Login', () => {
       type: 'danger',
     };
 
-    const { getByText, debug } = render(component);
+    it('handle properly the login flow', async () => {
+      const { getByText } = renderComponent();
 
-    const btn = getByText('Entrar com facebook');
+      const btn = getByText('Entrar com facebook');
 
-    fireEvent.press(btn);
+      fireEvent.press(btn);
 
-    await wait();
+      await wait();
 
-    expect(handleLoginFacebook).toHaveBeenCalled();
-    expect(showMessage).toHaveBeenCalledWith(flashMessage);
+      expect(handleLoginFacebook).toHaveBeenCalled();
+      expect(showMessage).toHaveBeenCalledWith(flashMessage);
+    });
   });
 });
