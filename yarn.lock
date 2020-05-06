@@ -15119,7 +15119,6 @@ react-native-web@0.11.7:
 
 "react-native@https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz":
   version "0.61.4"
-  uid d98e5d0a80cc264b0d900a750a20d0ee27aa3f14
   resolved "https://github.com/expo/react-native/archive/sdk-36.0.1.tar.gz#d98e5d0a80cc264b0d900a750a20d0ee27aa3f14"
   dependencies:
     "@babel/runtime" "^7.0.0"
