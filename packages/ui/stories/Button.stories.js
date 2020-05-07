@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import Button from '../core/Button';
+import Button from '../core/Button/Button';
 import Space from '../layout/Space';
 
 export default {

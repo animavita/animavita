@@ -1,21 +1,21 @@
 import React from 'react';
-import { TextProps } from 'react-native';
-import styled, { css } from 'styled-components/native';
-import { FlattenInterpolation } from 'styled-components';
-import { PossibleThemes, useTheme } from '@animavita/theme';
+import {TextProps} from 'react-native';
+import styled, {css} from 'styled-components/native';
+import {FlattenInterpolation} from 'styled-components';
+import {PossibleThemes, useTheme} from '@animavita/theme';
 
-const TextThemed = styled.Text<{ themeName: PossibleThemes }>`
-  color: ${({ themeName, theme }) => (themeName === 'light' ? theme.black : theme.white)};
+const TextThemed = styled.Text<{themeName: PossibleThemes}>`
+  color: ${({themeName, theme}) => (themeName === 'light' ? theme.black : theme.white)};
 `;
-const Text: React.FC = ({ children, ...props }) => {
-  const { themeName } = useTheme();
+const Text: React.FC = ({children, ...props}) => {
+  const {themeName} = useTheme();
   return (
     <TextThemed themeName={themeName} {...props}>
       {children}
     </TextThemed>
   );
 };
-const Themed = { Text };
+const Themed = {Text};
 
 const LARGE_TITLE = 'large-title';
 const TITLE_1 = 'title-1';
@@ -35,66 +35,66 @@ interface CustomizeProps {
   color?: string;
   css?: FlattenInterpolation<any>;
 }
-const Customize = ({ type, color, css: customCss }: CustomizeProps) => css`
+const Customize = ({type, color, css: customCss}: CustomizeProps) => css`
   ${type &&
-  type === 'bold' &&
-  css`
+    type === 'bold' &&
+    css`
       font-weight: bold;
     `}
   ${type &&
-  type === 'italic' &&
-  css`
+    type === 'italic' &&
+    css`
       font-style: italic;
     `}
   ${color &&
-  css`
+    css`
       color: ${color};
     `}
   ${customCss}
 `;
 
 const LargeTitle = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeLargeTitle};
+  font-size: ${({theme}) => theme.sizeLargeTitle};
   ${Customize}
 `;
 const Title1 = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeTitle1};
+  font-size: ${({theme}) => theme.sizeTitle1};
   ${Customize}
 `;
 const Title2 = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeTitle2};
+  font-size: ${({theme}) => theme.sizeTitle2};
   ${Customize}
 `;
 const Title3 = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeTitle3};
+  font-size: ${({theme}) => theme.sizeTitle3};
   ${Customize}
 `;
 const Headline = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeHeadline};
+  font-size: ${({theme}) => theme.sizeHeadline};
   ${Customize}
 `;
 const Body = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeBody};
+  font-size: ${({theme}) => theme.sizeBody};
   ${Customize}
 `;
 const Callout = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeCallout};
+  font-size: ${({theme}) => theme.sizeCallout};
   ${Customize}
 `;
 const Subheadline = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeSubheadline};
+  font-size: ${({theme}) => theme.sizeSubheadline};
   ${Customize}
 `;
 const Footnote = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeFootnote};
+  font-size: ${({theme}) => theme.sizeFootnote};
   ${Customize}
 `;
 const Caption1 = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeCaption1};
+  font-size: ${({theme}) => theme.sizeCaption1};
   ${Customize}
 `;
 const Caption2 = styled(Themed.Text)`
-  font-size: ${({ theme }) => theme.sizeCaption2};
+  font-size: ${({theme}) => theme.sizeCaption2};
   ${Customize}
 `;
 
@@ -119,7 +119,7 @@ const defaultProps: TypographyProps = {
   variant: 'body',
 };
 
-const Typography: React.FC<TypographyProps> = ({ variant, children, ...props } = defaultProps) => {
+const Typography: React.FC<TypographyProps> = ({variant, children, ...props} = defaultProps) => {
   switch (variant) {
     case LARGE_TITLE:
       return <LargeTitle {...props}>{children}</LargeTitle>;

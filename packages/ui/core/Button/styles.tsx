@@ -1,30 +1,29 @@
-import styled, { css } from 'styled-components/native';
-import { px2ddp } from '@animavita/theme';
-import { LinearGradient } from 'expo-linear-gradient';
+import styled, {css} from 'styled-components/native';
+import {px2ddp} from '@animavita/theme';
+import {LinearGradient} from 'expo-linear-gradient';
 
-import { ButtonActive, ButtonType, ButtonSize, ButtonOutline, LARGE, SMALL, ButtonRounded } from './types';
 import Typography from '../Typography';
 
-export const DisabledStyle = css`
-  cursor: no-drop;
-`;
+import {ButtonActive, ButtonSize, ButtonOutline, LARGE, SMALL, ButtonRounded, ButtonDisabled} from './types';
 
-export const RoundedStyle = css<{ size: ButtonSize }>`  
-  border-radius: ${({ size }) => {
+export const DisabledStyle = css``;
+
+export const RoundedStyle = css<{size: ButtonSize}>`
+  border-radius: ${({size}) => {
     switch (size) {
       case LARGE:
         return px2ddp(15);
       case SMALL:
         return px2ddp(10);
     }
-  }}px
+  }}px;
 `;
 
-export const OutlineTypeStyle = css<{ disabled?: boolean }>`
+export const OutlineTypeStyle = css<{disabled?: boolean}>`
   background-color: transparent;
   border-width: ${px2ddp(0.8)}px;
-  border-color: ${({ theme, disabled }) => (disabled ? theme.grey : theme.greenLight)};
-  ${({ disabled }) => disabled && DisabledStyle}
+  border-color: ${({theme, disabled}) => (disabled ? theme.grey : theme.greenLight)};
+  ${({disabled}) => disabled && DisabledStyle}
 `;
 
 export const LargeSizeStyle = css`
@@ -36,25 +35,25 @@ export const SmallSizeStyle = css`
 `;
 
 export const TouchableStyle = css<{
-  active?: ButtonActive,
-  gradient?: ButtonActive,
-  outline?: ButtonOutline,
-  rounded?: ButtonRounded,
-  type: ButtonType,
-  size: ButtonSize
+  active?: ButtonActive;
+  gradient?: ButtonActive;
+  outline?: ButtonOutline;
+  rounded?: ButtonRounded;
+  disabled?: ButtonDisabled;
+  size: ButtonSize;
 }>`
-  ${({ outline }) => {
+  ${({outline}) => {
     if (!outline) return;
 
     return OutlineTypeStyle;
   }}
-  ${({ rounded }) => {
+  ${({rounded}) => {
     if (!rounded) return;
 
     return RoundedStyle;
   }}
-  ${({ size, active, gradient }) => {
-    if (active || gradient) return;
+  ${({size, active, gradient, disabled}) => {
+    if (!disabled && (active || gradient)) return;
 
     switch (size) {
       case LARGE:
@@ -67,18 +66,18 @@ export const TouchableStyle = css<{
 `;
 
 export const Touchable = styled.TouchableOpacity<{
-  active?: ButtonActive,
-  gradient?: ButtonActive,
-  outline?: ButtonOutline,
-  rounded?: ButtonRounded,
-  type: ButtonType,
-  size: ButtonSize
+  active?: ButtonActive;
+  gradient?: ButtonActive;
+  outline?: ButtonOutline;
+  rounded?: ButtonRounded;
+  disabled?: ButtonDisabled;
+  size: ButtonSize;
 }>`
   ${TouchableStyle}
 `;
 
-export const StyledLinearGradient = styled(LinearGradient) <{ size: ButtonSize }>`
-  ${({ size }) => {
+export const StyledLinearGradient = styled(LinearGradient)<{size: ButtonSize}>`
+  ${({size}) => {
     switch (size) {
       case LARGE:
         return LargeSizeStyle;
