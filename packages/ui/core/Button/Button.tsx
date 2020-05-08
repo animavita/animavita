@@ -25,15 +25,21 @@ function getColor(
   return theme.greenLight;
 }
 
-const Button: ButtonComponentType = ({text, theme, ...props}) => {
+const Button: ButtonComponentType = ({text, theme, children, ...props}) => {
   const {active, gradient, disabled, rounded, outline, size, textColor: color} = props;
 
   const textColor = getColor(theme, disabled, color, active || gradient);
   const textSize = size === TEXT_SMALL ? 'body' : 'title-3';
   const {locations, start, end} = gradientConfig;
 
-  if (disabled && (active || gradient)) console.warn("You can't use `gradient` prop when your button is disabled");
-  if (rounded && !outline) console.warn('To use `rounded` prop you need the `outline` prop as well');
+  if (__DEV__) {
+    if (disabled && (active || gradient)) console.warn("You can't use `gradient` prop when your button is disabled.");
+    if (rounded && !outline && !gradient && !active)
+      console.warn('To use `rounded` prop you need the `outline`, `gradient` or `active` prop as well.');
+    if (outline && (active || gradient))
+      console.warn("You can't use `outline` prop combined with `gradient` or `active` props.");
+    if (children && text) console.warn("You can't use `title` prop combined with `children`. Use only one of both.");
+  }
 
   return (
     <Touchable {...props}>
@@ -43,11 +49,20 @@ const Button: ButtonComponentType = ({text, theme, ...props}) => {
           locations={locations}
           start={start}
           end={end}
-          colors={[theme.greenDark, theme.greenLight]}>
-          <Text variant={textSize} color={textColor} type="bold">
-            {text}
-          </Text>
+          colors={[theme.greenDark, theme.greenLight]}
+          active={active}
+          rounded={rounded}
+          gradient={gradient}>
+          {children ? (
+            children
+          ) : (
+            <Text variant={textSize} color={textColor} type="bold">
+              {text}
+            </Text>
+          )}
         </StyledLinearGradient>
+      ) : children ? (
+        children
       ) : (
         <Text variant={textSize} color={textColor} type="bold">
           {text}

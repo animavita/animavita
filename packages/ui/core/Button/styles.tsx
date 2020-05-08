@@ -26,12 +26,20 @@ export const OutlineTypeStyle = css<{disabled?: boolean}>`
   ${({disabled}) => disabled && DisabledStyle}
 `;
 
-export const LargeSizeStyle = css`
-  padding: ${px2ddp(6)}px ${px2ddp(12)}px;
+export const LargeSizeStyle = css<{gradient?: ButtonActive; active?: ButtonActive}>`
+  padding: ${({gradient, active}) => {
+    if (gradient || active) return `${px2ddp(6 + 0.8)}px ${px2ddp(12 + 0.8)}px`;
+
+    return `${px2ddp(6)}px ${px2ddp(12)}px`;
+  }};
 `;
 
-export const SmallSizeStyle = css`
-  padding: ${px2ddp(4)}px ${px2ddp(10)}px;
+export const SmallSizeStyle = css<{gradient?: ButtonActive; active?: ButtonActive}>`
+  padding: ${({gradient, active}) => {
+    if (gradient || active) return `${px2ddp(4 + 0.8)}px ${px2ddp(10 + 0.8)}px`;
+
+    return `${px2ddp(4)}px ${px2ddp(10)}px`;
+  }};
 `;
 
 export const TouchableStyle = css<{
@@ -42,8 +50,8 @@ export const TouchableStyle = css<{
   disabled?: ButtonDisabled;
   size: ButtonSize;
 }>`
-  ${({outline}) => {
-    if (!outline) return;
+  ${({outline, active, gradient}) => {
+    if (!outline || active || gradient) return;
 
     return OutlineTypeStyle;
   }}
@@ -76,7 +84,12 @@ export const Touchable = styled.TouchableOpacity<{
   ${TouchableStyle}
 `;
 
-export const StyledLinearGradient = styled(LinearGradient)<{size: ButtonSize}>`
+export const StyledLinearGradient = styled(LinearGradient)<{
+  rounded?: ButtonRounded;
+  gradient?: ButtonActive;
+  active?: ButtonActive;
+  size: ButtonSize;
+}>`
   ${({size}) => {
     switch (size) {
       case LARGE:
@@ -85,7 +98,10 @@ export const StyledLinearGradient = styled(LinearGradient)<{size: ButtonSize}>`
         return SmallSizeStyle;
     }
   }}
-  border-radius: ${px2ddp(10)}px;
+  ${({rounded, gradient, active}) => {
+    if (!rounded && (gradient || active)) return;
+    return RoundedStyle;
+  }}
 `;
 
 export const Text = styled(Typography)`
