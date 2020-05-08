@@ -34,6 +34,8 @@ module.exports = async function(env, argv) {
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-relay'),
     path.resolve(__dirname, '..', '..', 'node_modules', 'relay-runtime'),
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-reanimated'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'expo-linear-gradient'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-web'),
   ];
 
   return config;

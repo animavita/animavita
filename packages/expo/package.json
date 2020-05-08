@@ -23,7 +23,6 @@
     "expo": "36.0.1",
     "expo-constants": "~8.0.0",
     "expo-facebook": "~8.0.0",
-    "expo-linear-gradient": "~8.0.0",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-facebook-sdk": "^1.1.1",
