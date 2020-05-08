@@ -7,7 +7,12 @@ import {Mount, ThemeContext} from '../../../tests/helpers';
 import Button from '../Button';
 
 describe('Button', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   const cb = jest.fn();
+
   it('calls onPress', () => {
     const {getByText} = Mount(<Button text="Title" size="small" onPress={cb} />);
 
@@ -58,13 +63,35 @@ describe('Button', () => {
     it('logs disabled and gradient warn', () => {
       Mount(<Button text="Title" disabled gradient size="small" onPress={cb} />);
 
-      expect(console.warn).toHaveBeenCalledWith("You can't use `gradient` prop when your button is disabled");
+      expect(console.warn).toHaveBeenCalledWith("You can't use `gradient` prop when your button is disabled.");
     });
 
     it('logs rounded warn', () => {
       Mount(<Button text="Title" rounded size="small" onPress={cb} />);
 
-      expect(console.warn).toHaveBeenCalledWith('To use `rounded` prop you need the `outline` prop as well');
+      expect(console.warn).toHaveBeenCalledWith(
+        'To use `rounded` prop you need the `outline`, `gradient` or `active` prop as well.',
+      );
+    });
+
+    it('logs outline warn', () => {
+      Mount(<Button text="Title" outline gradient size="small" onPress={cb} />);
+
+      expect(console.warn).toHaveBeenCalledWith(
+        "You can't use `outline` prop combined with `gradient` or `active` props.",
+      );
+    });
+
+    it('logs children and title warn', () => {
+      Mount(
+        <Button text="Title" size="small" onPress={cb}>
+          <></>
+        </Button>,
+      );
+
+      expect(console.warn).toHaveBeenCalledWith(
+        "You can't use `title` prop combined with `children`. Use only one of both.",
+      );
     });
   });
 

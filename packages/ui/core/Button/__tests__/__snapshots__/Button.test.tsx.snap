@@ -4,19 +4,7 @@ exports[`Button renders correctly 1`] = `
 <TouchableOpacity
   activeOpacity={0.2}
   gradient={true}
-  onPress={
-    [MockFunction] {
-      "calls": Array [
-        Array [],
-      ],
-      "results": Array [
-        Object {
-          "type": "return",
-          "value": undefined,
-        },
-      ],
-    }
-  }
+  onPress={[MockFunction]}
   rounded={true}
   size="small"
   style={
@@ -41,12 +29,14 @@ exports[`Button renders correctly 1`] = `
         "y": 1,
       }
     }
+    gradient={true}
     locations={
       Array [
         0.1,
         0.9,
       ]
     }
+    rounded={true}
     size="small"
     start={
       Object {
@@ -58,10 +48,10 @@ exports[`Button renders correctly 1`] = `
       Array [
         Object {
           "borderRadius": 20,
-          "paddingBottom": 8,
-          "paddingLeft": 20,
-          "paddingRight": 20,
-          "paddingTop": 8,
+          "paddingBottom": 10,
+          "paddingLeft": 22,
+          "paddingRight": 22,
+          "paddingTop": 10,
         },
       ]
     }
