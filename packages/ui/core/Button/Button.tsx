@@ -1,5 +1,5 @@
-import React from 'react';
-import styled, {DefaultTheme, withTheme, css} from 'styled-components/native';
+import React, {useContext} from 'react';
+import styled, {DefaultTheme, ThemeContext, css} from 'styled-components/native';
 import {px2ddp} from '@animavita/theme';
 import {LinearGradient} from 'expo-linear-gradient';
 import {TouchableOpacityProps} from 'react-native';
@@ -159,8 +159,9 @@ function getColor(
   return theme.greenLight;
 }
 
-const Button: ButtonComponentType = ({text, theme, children, ...props}) => {
+const Button: ButtonComponentType = ({text, children, ...props}) => {
   const {active, gradient, disabled, rounded, outline, size, textColor: color} = props;
+  const theme = useContext(ThemeContext);
 
   const textColor = getColor(theme, disabled, color, active || gradient);
   const textSize = size === SMALL ? 'body' : 'title-3';
@@ -207,4 +208,4 @@ const Button: ButtonComponentType = ({text, theme, children, ...props}) => {
   );
 };
 
-export default withTheme(Button) as React.FC<ButtonProps>;
+export default Button as React.FC<ButtonProps>;

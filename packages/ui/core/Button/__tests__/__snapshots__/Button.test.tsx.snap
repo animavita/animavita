@@ -4,7 +4,7 @@ exports[`Button renders correctly 1`] = `
 <TouchableOpacity
   activeOpacity={0.2}
   gradient={true}
-  onPress={[MockFunction]}
+  onPress={[MockFunction onPress]}
   rounded={true}
   size="small"
   style={
