@@ -31,6 +31,7 @@ const Button: ButtonComponentType = ({text, theme, children, ...props}) => {
   const textColor = getColor(theme, disabled, color, active || gradient);
   const textSize = size === TEXT_SMALL ? 'body' : 'title-3';
   const {locations, start, end} = gradientConfig;
+  const gradientStyle = !disabled && (active || gradient);
 
   if (__DEV__) {
     if (disabled && (active || gradient)) console.warn("You can't use `gradient` prop when your button is disabled.");
@@ -41,9 +42,19 @@ const Button: ButtonComponentType = ({text, theme, children, ...props}) => {
     if (children && text) console.warn("You can't use `title` prop combined with `children`. Use only one of both.");
   }
 
+  function renderChildren() {
+    return children ? (
+      children
+    ) : (
+      <Text variant={textSize} color={textColor} type="bold">
+        {text}
+      </Text>
+    );
+  }
+
   return (
     <Touchable {...props}>
-      {!disabled && (active || gradient) ? (
+      {gradientStyle ? (
         <StyledLinearGradient
           size={size}
           locations={locations}
@@ -53,20 +64,10 @@ const Button: ButtonComponentType = ({text, theme, children, ...props}) => {
           active={active}
           rounded={rounded}
           gradient={gradient}>
-          {children ? (
-            children
-          ) : (
-            <Text variant={textSize} color={textColor} type="bold">
-              {text}
-            </Text>
-          )}
+          {renderChildren()}
         </StyledLinearGradient>
-      ) : children ? (
-        children
       ) : (
-        <Text variant={textSize} color={textColor} type="bold">
-          {text}
-        </Text>
+        renderChildren()
       )}
     </Touchable>
   );
