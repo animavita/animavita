@@ -1,6 +1,6 @@
-import React, {useContext} from 'react';
-import styled, {DefaultTheme, ThemeContext, css} from 'styled-components/native';
-import {px2ddp} from '@animavita/theme';
+import React from 'react';
+import styled, {DefaultTheme, css} from 'styled-components/native';
+import {px2ddp, useTheme, ThemeContextType} from '@animavita/theme';
 import {LinearGradient} from 'expo-linear-gradient';
 import {TouchableOpacityProps} from 'react-native';
 
@@ -147,21 +147,21 @@ interface ButtonProps extends TouchableOpacityProps {
 type ButtonComponentType = React.FC<ButtonProps & {theme: DefaultTheme}>;
 
 function getColor(
-  theme: DefaultTheme,
+  theme: ThemeContextType,
   disabled?: ButtonDisabled,
   color?: ButtonTextColor,
   active?: ButtonActive,
 ): string {
-  if (disabled) return theme.grey;
+  if (disabled) return theme.styledTheme.grey;
   if (color) return color;
-  if (active) return theme.white;
+  if (active) return theme.styledTheme.white;
 
-  return theme.greenLight;
+  return theme.styledTheme.greenLight;
 }
 
 const Button: ButtonComponentType = ({text, children, ...props}) => {
   const {active, gradient, disabled, rounded, outline, size, textColor: color} = props;
-  const theme = useContext(ThemeContext);
+  const theme = useTheme();
 
   const textColor = getColor(theme, disabled, color, active || gradient);
   const textSize = size === SMALL ? 'body' : 'title-3';
@@ -195,7 +195,7 @@ const Button: ButtonComponentType = ({text, children, ...props}) => {
           locations={locations}
           start={start}
           end={end}
-          colors={[theme.greenDark, theme.greenLight]}
+          colors={[theme.styledTheme.greenDark, theme.styledTheme.greenLight]}
           active={active}
           rounded={rounded}
           gradient={gradient}>

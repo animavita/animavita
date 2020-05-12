@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 
 import React, {useState} from 'react';
-import {ThemeProvider as StyledThemeProvider} from 'styled-components/native';
+import {ThemeProvider as StyledThemeProvider, DefaultTheme as StyledDefaultTheme} from 'styled-components/native';
 import {DefaultTheme, DarkTheme} from '@react-navigation/native';
 import {Theme} from '@react-navigation/native/lib/typescript/src/types';
 
@@ -13,6 +13,7 @@ export interface ThemeContextType {
   changeTheme(): void;
   themeName: PossibleThemes;
   setThemeName: React.Dispatch<React.SetStateAction<PossibleThemes>>;
+  styledTheme: StyledDefaultTheme;
 }
 
 export const ThemeContext = React.createContext<ThemeContextType>({
@@ -20,6 +21,7 @@ export const ThemeContext = React.createContext<ThemeContextType>({
   changeTheme(): void {},
   themeName: initialTheme,
   setThemeName: () => {},
+  styledTheme: StyledTheme,
 });
 
 export const ThemeContextProvider: React.FC = ({children}) => {
@@ -38,6 +40,7 @@ export const ThemeContextProvider: React.FC = ({children}) => {
     themeName,
     setThemeName,
     changeTheme,
+    styledTheme: StyledTheme,
   };
 
   return (
