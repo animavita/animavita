@@ -54,7 +54,7 @@ Animavita's purpose is not to change how people use facebook to the activities d
 
 ## :dizzy: **Roadmap**
 
-Check the [Roadmap](/ROADMAP.md) to more details about itens below.
+Check the Roadmap to more details about itens below.
 
 -   [ ] Rescue system (WIP)
 -   [ ] Write CONTRIBUTING.md + Install instructions
@@ -78,30 +78,28 @@ Check the [Roadmap](/ROADMAP.md) to more details about itens below.
 - 1.2) `cd animavita` - cd into your newly created project directory.
 - 1.3) Install NPM packages with `yarn install`
         **Note:** NPM has issues with React Native so `yarn` is recommended over `npm`.
-- 1.4) **[iOS]** `cd ios` and run `pod install` - if you don't have CocoaPods you can follow [these instructions](https://guides.cocoapods.org/using/getting-started.html#getting-started) to install it.
-- 1.5) **[Android]** If you haven't already generated a `debug.keystore` file you will need to complete this step from within the `/android/app` folder. Run `keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000`
 
 #### 2) Start your app
 
-- 2.1) **[iOS]** Build and run the iOS app, run `react-native run-ios` (to run on simulator) or `react-native run-ios --device` (to run on real device) from the root of your project. The first build will take some time.
-- 2.2) **[Android]** If you haven't already got an android device attached/emulator running then you'll need to get one running (make sure the emulator is with Google Play / APIs). When ready run `react-native run-android` from the root of your project.
+- 2.1) **[iOS]** Build and run the iOS app, run `yarn ios`. The first build will take some time.
+- 2.2) **[Android]** If you haven't already got an android device attached/emulator running then you'll need to get one running (make sure the emulator is with Google Play / APIs). When ready run `yarn android` from the root of your project.
 
 ## :zap: **Tech Stack**
 
 <h1 align="center">
-  <img src="https://miro.medium.com/max/2600/1*pD7ShcZ7YHIMXe2mgiFzbg.png" alt="Stack" height="150" width="600">
+  <img src="https://i.imgur.com/AuRZAgZ.jpg" alt="Stack" height="150" width="600">
   <br>
 </h1>
 
 -   [Facebook Login](https://github.com/facebook/react-native-fbsdk)
--   [React Native](https://github.com/facebook/react-native)
+-   [Expo](https://github.com/expo/expo)
 -   [Styled Components](https://www.styled-components.com/)
 -   [Reactotron](https://infinite.red/reactotron)
 -   [Eslint](https://eslint.org/)
 -   [Redux](https://github.com/reduxjs/react-redux)
 -   [MongoDB](https://www.mongodb.com/)
 -   [Formik + Yup](https://jaredpalmer.com/formik/)
--   [Apollo](https://apollographql.com)
+-   [Relay](https://github.com/facebook/relay)
 -   [GraphQL](https://github.com/facebook/graphql)
 -   [Kraken](https://github.com/wendelfreitas/kraken)
 -   [OneSignal](https://onesignal.com)
@@ -121,4 +119,4 @@ All kinds of contributions are very welcome and appreciated!
 -   📥 Submit PRs to help solve issues or add features
 -   ✋ Influence the future of Animavita with feature requests
 
-And make sure to read the [Contributing Guide](/CONTRIBUTING.md) before making a pull request.
+And make sure to read the [Contributing Guide](/CONTRIBUTION.md) before making a pull request.
