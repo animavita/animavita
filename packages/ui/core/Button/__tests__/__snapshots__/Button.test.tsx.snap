@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button renders correctly 1`] = `
+<TouchableOpacity
+  activeOpacity={0.2}
+  gradient={true}
+  onPress={[MockFunction onPress]}
+  rounded={true}
+  size="small"
+  style={
+    Array [
+      Object {
+        "borderRadius": 20,
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <View
+    colors={
+      Array [
+        "#1BC0B5",
+        "#2ED68F",
+      ]
+    }
+    end={
+      Object {
+        "x": 1,
+        "y": 1,
+      }
+    }
+    gradient={true}
+    locations={
+      Array [
+        0.1,
+        0.9,
+      ]
+    }
+    rounded={true}
+    size="small"
+    start={
+      Object {
+        "x": 0,
+        "y": 0,
+      }
+    }
+    style={
+      Array [
+        Object {
+          "borderRadius": 20,
+          "paddingBottom": 10,
+          "paddingLeft": 22,
+          "paddingRight": 22,
+          "paddingTop": 10,
+        },
+      ]
+    }
+  >
+    <Text
+      color="#FFFFFF"
+      style={
+        Array [
+          Object {
+            "color": "#353434",
+          },
+          Object {
+            "color": "#FFFFFF",
+            "fontSize": 26.5,
+            "fontWeight": "bold",
+          },
+          Object {
+            "textAlign": "center",
+          },
+        ]
+      }
+      themeName="light"
+      type="bold"
+    >
+      Title
+    </Text>
+  </View>
+</TouchableOpacity>
+`;

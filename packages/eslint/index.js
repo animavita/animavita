@@ -50,7 +50,7 @@ module.exports = {
     'import/no-cycle': 'error',
     'import/no-self-import': 'warn',
     'import/extensions': ['off', 'never', {ts: 'never'}],
-    'no-console': 'error',
+    'no-console': ['error', {allow: ['warn', 'error']}],
     'no-only-tests/no-only-tests': 'error',
   },
   settings: {

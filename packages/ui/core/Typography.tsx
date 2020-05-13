@@ -111,7 +111,7 @@ type TypographyVariantType =
   | typeof CAPTION_1
   | typeof CAPTION_2;
 
-interface TypographyProps extends TextProps, CustomizeProps {
+export interface TypographyProps extends TextProps, CustomizeProps {
   variant: TypographyVariantType;
 }
 
