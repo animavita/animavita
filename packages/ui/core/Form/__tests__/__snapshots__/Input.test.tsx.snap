@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input renders correctly 1`] = `
+<TextInput
+  accessibilityLabel="username"
+  allowFontScaling={true}
+  onChangeText={[MockFunction]}
+  rejectResponderTermination={true}
+  style={
+    Array [
+      Object {
+        "flexBasis": 0,
+        "flexGrow": 1,
+        "flexShrink": 1,
+        "paddingBottom": 4,
+        "paddingLeft": 0,
+        "paddingRight": 0,
+        "paddingTop": 4,
+      },
+    ]
+  }
+  underlineColorAndroid="transparent"
+/>
+`;

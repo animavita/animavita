@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label renders correctly 1`] = `
+<Text
+  color="#BABABA"
+  style={
+    Array [
+      Object {
+        "color": "#353434",
+      },
+      Object {
+        "color": "#BABABA",
+        "fontSize": 26.5,
+      },
+    ]
+  }
+  themeName="light"
+>
+  Test
+</Text>
+`;
