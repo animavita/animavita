@@ -4,7 +4,7 @@ import {Platform, TouchableOpacityProps} from 'react-native';
 import React from 'react';
 
 import Typography from '../core/Typography';
-import Row from '../layout/Row';
+import Container from '../layout/Container';
 import AppleLogo from '../assets/icons/AppleLogo';
 import Space from '../layout/Space';
 import FillSpace from '../layout/FillSpace';
@@ -25,13 +25,13 @@ const AppleButton: React.FC<AppleButtonProps> = props => {
   const {themeName} = useTheme();
   return (
     <Touchable {...props} themeName={themeName}>
-      <Row justifyContent="space-around">
+      <Container justifyContent="space-around">
         <AppleLogo />
         <Space width={px2ddp(10)} />
         <Typography variant="body" type="bold">
           Continuar com Apple
         </Typography>
-      </Row>
+      </Container>
     </Touchable>
   );
 };
