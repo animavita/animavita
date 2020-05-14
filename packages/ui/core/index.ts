@@ -5,3 +5,4 @@ export {default as LoadingBottomBar} from './LoadingBottomBar';
 export {default as TabBar} from './TabBar';
 export {default as Label} from './Form/Label';
 export {default as Input} from './Form/Input';
+export {default as Switch} from './Form/Switch';
