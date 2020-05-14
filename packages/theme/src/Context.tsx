@@ -8,6 +8,10 @@ import {Theme} from '@react-navigation/native/lib/typescript/src/types';
 import StyledTheme, {initialTheme} from './Theme';
 
 export type PossibleThemes = 'light' | 'dark';
+
+interface ThemeContextProviderProps {
+  theme?: PossibleThemes;
+}
 export interface ThemeContextType {
   theme: Theme;
   changeTheme(): void;
@@ -24,8 +28,8 @@ export const ThemeContext = React.createContext<ThemeContextType>({
   styledTheme: StyledTheme,
 });
 
-export const ThemeContextProvider: React.FC = ({children}) => {
-  const [themeName, setThemeName] = useState<PossibleThemes>(initialTheme);
+export const ThemeContextProvider: React.FC<ThemeContextProviderProps> = ({theme, children}) => {
+  const [themeName, setThemeName] = useState<PossibleThemes>(theme || initialTheme);
 
   function changeTheme() {
     if (themeName === 'light') {
