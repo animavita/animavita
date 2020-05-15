@@ -1,13 +1,9 @@
 import React from 'react';
-import styled from 'styled-components/native';
 import {useTheme} from '@animavita/theme/index';
 
-import Typography, {TypographyProps} from '../Typography';
+import Typography from '../Typography';
 
-// styles
-export const Container = styled.View``;
-
-const Form: React.FC<TypographyProps> = ({...props}) => {
+const Form: React.FC = ({...props}) => {
   const theme = useTheme();
   return <Typography variant="body" color={theme.styledTheme.grey} {...props} />;
 };

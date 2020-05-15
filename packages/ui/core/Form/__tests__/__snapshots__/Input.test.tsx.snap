@@ -10,13 +10,11 @@ exports[`Input renders correctly 1`] = `
     Array [
       Object {
         "color": "#353434",
-        "flexBasis": 0,
-        "flexGrow": 1,
-        "flexShrink": 1,
         "paddingBottom": 4,
         "paddingLeft": 0,
         "paddingRight": 0,
         "paddingTop": 4,
+        "width": "100%",
       },
     ]
   }

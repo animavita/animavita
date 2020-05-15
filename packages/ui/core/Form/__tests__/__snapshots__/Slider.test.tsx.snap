@@ -4,7 +4,9 @@ exports[`Slider renders correctly 1`] = `
 <View
   style={
     Array [
-      Object {},
+      Object {
+        "width": "100%",
+      },
     ]
   }
 >

@@ -5,7 +5,9 @@ import {useTheme, px2ddp} from '@animavita/theme';
 
 import Typography from '../Typography';
 
-const Container = styled.View``;
+const Container = styled.View`
+  width: 100%;
+`;
 const StyledSlider = styled(DefaultSlider)``;
 
 interface StyledSliderProps extends SliderProps {
@@ -14,7 +16,7 @@ interface StyledSliderProps extends SliderProps {
   value: number;
   suffix: string;
   onValueChange(value: number): void;
-  testID: string;
+  testID?: string;
 }
 
 const Slider: React.FC<StyledSliderProps> = ({...props}) => {

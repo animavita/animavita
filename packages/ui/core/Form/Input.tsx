@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 // styles
 export const StyledTextInput = styled.TextInput<{themeName: PossibleThemes}>`
-  flex: 1;
+  width: 100%;
   padding: ${px2ddp(2)}px 0px;
   color: ${({themeName, theme}) => (themeName === 'light' ? theme.black : theme.white)};
 `;
