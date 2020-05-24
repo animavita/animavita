@@ -108,6 +108,9 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
+# Expo
+.expo
+
 __generated__
 packages/*/environment.*
 !packages/*/environment.example.*

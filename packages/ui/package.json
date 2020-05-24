@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@expo/webpack-config": "^0.12.9",
     "@react-navigation/native": "^5.0.7",
     "expo-linear-gradient": "~8.0.0",
     "react": "16.12.0",
