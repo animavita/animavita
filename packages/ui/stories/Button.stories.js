@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import styled from 'styled-components/native';
 
 import Button from '../core/Button/Button';
 import Space from '../layout/Space';
@@ -9,24 +9,44 @@ export default {
   component: Button,
 };
 
-export const type = () => (
-  <View>
-    <Button text="Primary" type="primary" size="large" />
+const Container = styled.View`
+  width: 200px;
+`;
+
+export const outline = () => (
+  <Container>
+    <Button text="Outline" outline size="large" />
     <Space height={20} />
-    <Button text="Outline" type="outline" size="large" />
-  </View>
+    <Button text="Outline rounded" rounded outline size="large" />
+  </Container>
+);
+
+export const gradient = () => (
+  <Container>
+    <Button text="Gradient" gradient size="large" />
+    <Space height={20} />
+    <Button text="Gradient rounded" gradient rounded size="large" />
+  </Container>
+);
+
+export const active = () => (
+  <Container>
+    <Button text="Not active" outline size="large" />
+    <Space height={20} />
+    <Button text="Active" gradient size="large" />
+  </Container>
 );
 
 export const size = () => (
-  <View>
-    <Button text="Large" type="primary" size="large" />
+  <Container>
+    <Button text="Gradient" gradient rounded size="small" />
     <Space height={20} />
-    <Button text="Small" type="primary" size="small" />
-  </View>
+    <Button text="Gradient rounded" outline rounded size="large" />
+  </Container>
 );
 
 export const disabled = () => (
-  <View>
+  <Container>
     <Button text="Large" type="primary" size="large" disabled />
     <Space height={10} />
     <Button text="Large" type="primary" size="small" disabled />
@@ -34,5 +54,5 @@ export const disabled = () => (
     <Button text="Outline" type="outline" size="large" disabled />
     <Space height={10} />
     <Button text="Outline" type="outline" size="small" disabled />
-  </View>
+  </Container>
 );
