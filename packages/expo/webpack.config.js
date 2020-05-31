@@ -36,6 +36,9 @@ module.exports = async function(env, argv) {
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-reanimated'),
     path.resolve(__dirname, '..', '..', 'node_modules', 'expo-linear-gradient'),
     path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-web'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-elements'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-vector-icons'),
+    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-ratings'),
   ];
 
   return config;
