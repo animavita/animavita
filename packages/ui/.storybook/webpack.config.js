@@ -1,4 +1,5 @@
 const path = require('path');
+const {withUnimodules} = require('@expo/webpack-config/addons');
 
 module.exports = ({config, mode}) => {
   config.module.rules.push({
@@ -27,5 +28,13 @@ module.exports = ({config, mode}) => {
     'react-native': 'react-native-web',
   };
 
-  return config;
+  return withUnimodules(config, {
+    projectRoot: path.resolve(__dirname, '../'),
+    babel: {
+      dangerouslyAddModulePathsToTranspile: [
+        // Ensure that all packages starting with @evanbacon are transpiled.
+        '@animavita/theme',
+      ],
+    },
+  });
 };
