@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build-storybook": "build-storybook",
-    "postinstall": "patch-package",
     "storybook": "start-storybook -p 6006",
     "test": "jest"
   },

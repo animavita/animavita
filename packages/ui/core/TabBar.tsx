@@ -4,7 +4,7 @@ import {LayoutChangeEvent, StyleSheet} from 'react-native';
 import Animated, {Easing} from 'react-native-reanimated';
 import {PossibleThemes, px2ddp, StyledTheme, useTheme} from '@animavita/theme';
 
-import Row from '../layout/Row';
+import Container from '../layout/Container';
 import Space from '../layout/Space';
 
 import Typography from './Typography';
@@ -154,7 +154,7 @@ const TabBar: React.FC<TabBarProps> = ({items, onPress, indexOfStartSelected}) =
         <BaseLine themeName={themeName} onLayout={({nativeEvent}) => setTotalWidth(nativeEvent.layout.width)} />
       </LineWrapper>
       <Space height={px2ddp(2)} />
-      <Row
+      <Container
         css={css`
           width: 100%;
           justify-content: space-between;
@@ -171,7 +171,7 @@ const TabBar: React.FC<TabBarProps> = ({items, onPress, indexOfStartSelected}) =
             </Typography>
           </ClickableArea>
         ))}
-      </Row>
+      </Container>
     </Wrapper>
   );
 };

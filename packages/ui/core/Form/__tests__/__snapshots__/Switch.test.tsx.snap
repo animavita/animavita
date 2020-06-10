@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch renders correctly 1`] = `
+<Switch
+  style={
+    Array [
+      Object {},
+    ]
+  }
+  thumbColor="#2ED68F"
+  trackColor={
+    Object {
+      "false": "#BABABA",
+      "true": "#2ED68F",
+    }
+  }
+/>
+`;

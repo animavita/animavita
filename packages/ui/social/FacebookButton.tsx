@@ -4,7 +4,7 @@ import {Platform, TouchableOpacityProps} from 'react-native';
 import React from 'react';
 
 import Typography from '../core/Typography';
-import Row from '../layout/Row';
+import Container from '../layout/Container';
 import FacebookLogo from '../assets/icons/FacebookLogo';
 import Space from '../layout/Space';
 import FillSpace from '../layout/FillSpace';
@@ -22,13 +22,13 @@ type FacebookButtonProps = TouchableOpacityProps;
 const FacebookButton: React.FC<FacebookButtonProps> = props => {
   return (
     <Touchable {...props}>
-      <Row justifyContent="space-around">
+      <Container justifyContent="space-around">
         <FacebookLogo />
         <Space width={px2ddp(10)} />
         <Typography variant="body" type="bold" color="#fff">
           Continuar com Facebook
         </Typography>
-      </Row>
+      </Container>
     </Touchable>
   );
 };

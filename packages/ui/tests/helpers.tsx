@@ -1,6 +1,9 @@
-import React, {ReactElement, Children} from 'react';
+import React, {ReactElement} from 'react';
 import {render} from '@testing-library/react-native';
-import {ThemeContextProvider} from '@animavita/theme';
+import {ThemeContextProvider, PossibleThemes} from '@animavita/theme';
 
-export const ThemeContext = (children: ReactElement) => <ThemeContextProvider>{children}</ThemeContextProvider>;
-export const Mount = (children: ReactElement) => render(<ThemeContextProvider>{children}</ThemeContextProvider>);
+export const ThemeContext = (children: ReactElement, theme?: PossibleThemes) => (
+  <ThemeContextProvider theme={theme}>{children}</ThemeContextProvider>
+);
+export const Mount = (children: ReactElement, theme?: PossibleThemes) =>
+  render(<ThemeContextProvider theme={theme}>{children}</ThemeContextProvider>);

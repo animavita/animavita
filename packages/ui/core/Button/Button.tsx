@@ -29,17 +29,17 @@ const OutlineTypeStyle = css<{disabled?: boolean}>`
 
 const LargeSizeStyle = css<{gradient?: ButtonActive; active?: ButtonActive}>`
   padding: ${({gradient, active}) => {
-    if (gradient || active) return `${px2ddp(6 + 0.8)}px ${px2ddp(12 + 0.8)}px`;
+    if (gradient || active) return `${px2ddp(5 + 0.8)}px ${px2ddp(9 + 0.8)}px`;
 
-    return `${px2ddp(6)}px ${px2ddp(12)}px`;
+    return `${px2ddp(5)}px ${px2ddp(9)}px`;
   }};
 `;
 
 const SmallSizeStyle = css<{gradient?: ButtonActive; active?: ButtonActive}>`
   padding: ${({gradient, active}) => {
-    if (gradient || active) return `${px2ddp(4 + 0.8)}px ${px2ddp(10 + 0.8)}px`;
+    if (gradient || active) return `${px2ddp(3 + 0.8)}px ${px2ddp(7 + 0.8)}px`;
 
-    return `${px2ddp(4)}px ${px2ddp(10)}px`;
+    return `${px2ddp(3)}px ${px2ddp(7)}px`;
   }};
 `;
 

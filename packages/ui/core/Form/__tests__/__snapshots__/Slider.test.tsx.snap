@@ -1,0 +1,164 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Slider renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    animationType="timing"
+    maximum={50}
+    minimum={1}
+    onLayout={[Function]}
+    onValueChange={[MockFunction onChangeValue]}
+    step={0}
+    style={
+      Object {
+        "height": 40,
+        "justifyContent": "center",
+      }
+    }
+    suffix="km"
+    testID="slider"
+    theme={
+      Object {
+        "colors": Object {
+          "disabled": "hsl(208, 8%, 90%)",
+          "divider": "#bcbbc1",
+          "error": "#ff190c",
+          "grey0": "#393e42",
+          "grey1": "#43484d",
+          "grey2": "#5e6977",
+          "grey3": "#86939e",
+          "grey4": "#bdc6cf",
+          "grey5": "#e1e8ee",
+          "greyOutline": "#bbb",
+          "platform": Object {
+            "android": Object {
+              "error": "#f44336",
+              "primary": "#2196f3",
+              "secondary": "#9C27B0",
+              "success": "#4caf50",
+              "warning": "#ffeb3b",
+            },
+            "ios": Object {
+              "error": "#ff3b30",
+              "primary": "#007aff",
+              "secondary": "#5856d6",
+              "success": "#4cd964",
+              "warning": "#ffcc00",
+            },
+          },
+          "primary": "#2089dc",
+          "searchBg": "#303337",
+          "secondary": "#8F0CE8",
+          "success": "#52c41a",
+          "warning": "#faad14",
+        },
+      }
+    }
+    thumbTouchSize={
+      Object {
+        "height": 40,
+        "width": 40,
+      }
+    }
+    value={5}
+  >
+    <View
+      onLayout={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#EBEBEB",
+          "borderRadius": 4,
+          "height": 5,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "backgroundColor": "#2ED68F",
+          "borderRadius": 4,
+          "height": 0,
+          "marginTop": -0,
+          "position": "absolute",
+          "width": 0,
+        }
+      }
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#2ED68F",
+          "borderColor": "#FFFFFF",
+          "borderRadius": 10,
+          "borderWidth": 2,
+          "height": 0,
+          "position": "absolute",
+          "top": 22.5,
+          "transform": Array [
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "translateY": -0,
+            },
+          ],
+          "width": 0,
+        }
+      }
+      testID="sliderThumb"
+    />
+    <View
+      onMoveShouldSetResponder={[Function]}
+      onMoveShouldSetResponderCapture={[Function]}
+      onResponderEnd={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderReject={[Function]}
+      onResponderRelease={[Function]}
+      onResponderStart={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onStartShouldSetResponderCapture={[Function]}
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+    />
+  </View>
+  <Text
+    color="#2ED68F"
+    style={
+      Array [
+        Object {
+          "color": "#353434",
+        },
+        Object {
+          "color": "#2ED68F",
+          "fontSize": 26.5,
+        },
+      ]
+    }
+    themeName="light"
+  >
+    5
+     
+    km
+  </Text>
+</View>
+`;
