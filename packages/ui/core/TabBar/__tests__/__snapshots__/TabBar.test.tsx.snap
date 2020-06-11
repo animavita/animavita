@@ -1,0 +1,191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabBar renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "position": "relative",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "backgroundColor": "#353434",
+          "height": 0.5,
+          "left": Object {
+            "setValue": [Function],
+          },
+          "position": "absolute",
+          "width": 0,
+        }
+      }
+    />
+    <View
+      onLayout={[Function]}
+      style={
+        Array [
+          Object {
+            "backgroundColor": "#353434",
+            "height": 0.5,
+            "opacity": 0.4,
+            "position": "absolute",
+            "width": "100%",
+          },
+        ]
+      }
+      themeName="light"
+    />
+  </View>
+  <View
+    height={4}
+    style={
+      Array [
+        Object {
+          "height": 4,
+        },
+      ]
+    }
+  />
+  <View
+    css={
+      Array [
+        "
+          width: 100%;
+          justify-content: space-between;
+        ",
+      ]
+    }
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        css={
+          Array [
+            "
+                opacity: ",
+            "1",
+            ";
+              ",
+          ]
+        }
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#353434",
+            },
+            Object {
+              "fontSize": 26.5,
+              "opacity": 1,
+            },
+          ]
+        }
+        themeName="light"
+      >
+        ADOÇÕES
+      </Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        css={
+          Array [
+            "
+                opacity: ",
+            "0.4",
+            ";
+              ",
+          ]
+        }
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#353434",
+            },
+            Object {
+              "fontSize": 26.5,
+              "opacity": 0.4,
+            },
+          ]
+        }
+        themeName="light"
+      >
+        FAVORITOS
+      </Text>
+    </TouchableOpacity>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Array [
+          Object {},
+        ]
+      }
+    >
+      <Text
+        css={
+          Array [
+            "
+                opacity: ",
+            "0.4",
+            ";
+              ",
+          ]
+        }
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#353434",
+            },
+            Object {
+              "fontSize": 26.5,
+              "opacity": 0.4,
+            },
+          ]
+        }
+        themeName="light"
+      >
+        SOLICITAÇÕES
+      </Text>
+    </TouchableOpacity>
+  </View>
+</View>
+`;

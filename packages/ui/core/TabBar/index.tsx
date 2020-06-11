@@ -4,10 +4,9 @@ import {LayoutChangeEvent, StyleSheet} from 'react-native';
 import Animated, {Easing} from 'react-native-reanimated';
 import {PossibleThemes, px2ddp, StyledTheme, useTheme} from '@animavita/theme';
 
-import Container from '../layout/Container';
-import Space from '../layout/Space';
-
-import Typography from './Typography';
+import Container from '../../layout/Container';
+import Space from '../../layout/Space';
+import Typography from '../Typography';
 
 const {timing} = Animated;
 

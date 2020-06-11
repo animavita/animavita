@@ -15666,6 +15666,12 @@ react-native-ratings@^7.2.0:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
+react-native-reanimated@software-mansion/react-native-reanimated#master:
+  version "2.0.0-alpha.1"
+  resolved "https://codeload.github.com/software-mansion/react-native-reanimated/tar.gz/a2f5ca96d37b61c8cd836b72246955cab0ee81c1"
+  dependencies:
+    fbjs "^1.0.0"
+
 react-native-reanimated@~1.4.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/react-native-reanimated/-/react-native-reanimated-1.4.0.tgz#7f1acbf9be08492d834f512700570978052be2f9"
