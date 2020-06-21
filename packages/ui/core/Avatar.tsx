@@ -11,12 +11,12 @@ const StyledAvatar = styled.Image<Pick<AvatarProps, 'width' | 'height'>>`
   height: ${({height}) => height || px2ddp(AVATAR_SIZE)}px;
 `;
 
-interface AvatarProps {
+export interface AvatarProps extends ImageProps {
   width?: number;
   height?: number;
 }
 
-const Avatar: React.FC<ImageProps & AvatarProps> = props => {
+const Avatar: React.FC<AvatarProps> = props => {
   return <StyledAvatar {...props} />;
 };
 
