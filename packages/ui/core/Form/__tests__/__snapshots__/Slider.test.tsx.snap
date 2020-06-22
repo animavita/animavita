@@ -85,7 +85,7 @@ exports[`Slider renders correctly 1`] = `
         Object {
           "backgroundColor": "#2ED68F",
           "borderRadius": 4,
-          "height": 0,
+          "height": 5,
           "marginTop": -0,
           "position": "absolute",
           "width": 0,
@@ -100,9 +100,9 @@ exports[`Slider renders correctly 1`] = `
           "borderColor": "#FFFFFF",
           "borderRadius": 10,
           "borderWidth": 2,
-          "height": 0,
+          "height": 14,
           "position": "absolute",
-          "top": 22.5,
+          "top": 22,
           "transform": Array [
             Object {
               "translateX": 0,
@@ -111,7 +111,7 @@ exports[`Slider renders correctly 1`] = `
               "translateY": -0,
             },
           ],
-          "width": 0,
+          "width": 14,
         }
       }
       testID="sliderThumb"

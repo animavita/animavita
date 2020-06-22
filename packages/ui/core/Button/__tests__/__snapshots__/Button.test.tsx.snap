@@ -48,10 +48,10 @@ exports[`Button renders correctly 1`] = `
       Array [
         Object {
           "borderRadius": 20,
-          "paddingBottom": 10,
-          "paddingLeft": 22,
-          "paddingRight": 22,
-          "paddingTop": 10,
+          "paddingBottom": 8,
+          "paddingLeft": 16,
+          "paddingRight": 16,
+          "paddingTop": 8,
         },
       ]
     }
