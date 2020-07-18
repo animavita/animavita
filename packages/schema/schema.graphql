@@ -1,11 +1,73 @@
+"""Animavita adoption"""
+type Adoption implements Node {
+  """The ID of an object"""
+  id: ID!
+
+  """MongoDB _id"""
+  _id: ID!
+
+  """The adoption user reference"""
+  user: String!
+
+  """The animal name"""
+  name: String!
+
+  """The animal gender"""
+  gender: Gender!
+
+  """The animal breed"""
+  breed: String!
+
+  """The animal type"""
+  type: Type!
+
+  """The animal age"""
+  age: Int!
+
+  """The animal size"""
+  size: Size!
+
+  """The animal photos"""
+  photos: [String!]!
+
+  """Any observation about the animal"""
+  observations: String!
+}
+
+input CreateAdoptionInput {
+  name: String!
+  gender: Gender!
+  breed: String!
+  type: Type!
+  age: Int!
+  size: Size!
+  photos: [String]!
+  observations: String!
+  clientMutationId: String
+}
+
+type CreateAdoptionPayload {
+  error: String
+  adoption: Adoption
+  clientMutationId: String
+}
+
 type Email {
   email: ID!
   providedBy: String!
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 type Mutation {
   """Save facebook user data"""
   SaveFacebookUser(input: SaveFacebookUserInput!): SaveFacebookUserPayload
+
+  """Create a new adoption"""
+  CreateAdoption(input: CreateAdoptionInput!): CreateAdoptionPayload
 }
 
 """An object with an ID"""
@@ -35,6 +97,7 @@ type Query {
   ): Node
   user(id: ID!): User
   me: User
+  adoptions: [Adoption]
 }
 
 input SaveFacebookUserInput {
@@ -49,6 +112,18 @@ type SaveFacebookUserPayload {
   user: User
   token: String
   clientMutationId: String
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  BIG
+}
+
+enum Type {
+  DOG
+  CAT
+  OTHER
 }
 
 """Animavita user"""
