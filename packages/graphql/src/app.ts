@@ -65,7 +65,7 @@ if (process.env.NODE_ENV !== 'production') {
   router.all(
     '/playground',
     koaPlayground({
-      endpoint: '/graphql',
+      endpoint: '/',
     }),
   );
 }
