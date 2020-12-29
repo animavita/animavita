@@ -4,8 +4,13 @@
     "composite": true,
     "noEmit": true,
     "typeRoots": ["@types", "../theme/@types"],
-    "jsx": "react-native"
+    "jsx": "react-native",
+    "types": ["jest"]
   },
   "extends": "../../tsconfig.json",
-  "include": [".", "../theme"]
+  "include": [
+    "./",
+    "../theme",
+    "../../node_modules/@types",
+  ]
 }
