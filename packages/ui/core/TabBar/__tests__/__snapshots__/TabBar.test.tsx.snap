@@ -24,8 +24,8 @@ exports[`TabBar renders correctly 1`] = `
         Object {
           "backgroundColor": "#353434",
           "height": 0.5,
-          "left": Object {
-            "setValue": [Function],
+          "left": AnimatedValue {
+            " __value": 0,
           },
           "position": "absolute",
           "width": 0,
@@ -78,13 +78,20 @@ exports[`TabBar renders correctly 1`] = `
       ]
     }
   >
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {},
-        ]
+        Object {
+          "opacity": 1,
+        }
       }
     >
       <Text
@@ -113,14 +120,21 @@ exports[`TabBar renders correctly 1`] = `
       >
         ADOÇÕES
       </Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {},
-        ]
+        Object {
+          "opacity": 1,
+        }
       }
     >
       <Text
@@ -149,14 +163,21 @@ exports[`TabBar renders correctly 1`] = `
       >
         FAVORITOS
       </Text>
-    </TouchableOpacity>
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
+    </View>
+    <View
+      accessible={true}
+      focusable={true}
+      onClick={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {},
-        ]
+        Object {
+          "opacity": 1,
+        }
       }
     >
       <Text
@@ -185,7 +206,7 @@ exports[`TabBar renders correctly 1`] = `
       >
         SOLICITAÇÕES
       </Text>
-    </TouchableOpacity>
+    </View>
   </View>
 </View>
 `;

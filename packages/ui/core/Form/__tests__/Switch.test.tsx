@@ -14,7 +14,7 @@ describe('Switch', () => {
     const cb = jest.fn();
     const {getByLabelText} = Mount(<Switch onValueChange={cb} accessibilityLabel="switch" />);
 
-    fireEvent.valueChange(getByLabelText('switch'), true);
+    fireEvent(getByLabelText('switch'), 'valueChange');
 
     expect(cb).toHaveBeenCalled();
   });

@@ -35,22 +35,27 @@ exports[`List Item renders correctly 1`] = `
     ]
   }
 >
-  <TouchableOpacity
-    activeOpacity={0.2}
-    gradient={true}
-    onPress={[MockFunction onPress]}
+  <View
+    accessible={true}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
     style={
-      Array [
-        Object {
-          "alignItems": "center",
-          "borderRadius": 6,
-          "flexDirection": "row",
-          "paddingBottom": 10,
-          "paddingLeft": 10,
-          "paddingRight": 10,
-          "paddingTop": 10,
-        },
-      ]
+      Object {
+        "alignItems": "center",
+        "borderRadius": 6,
+        "flexDirection": "row",
+        "opacity": 1,
+        "paddingBottom": 10,
+        "paddingLeft": 10,
+        "paddingRight": 10,
+        "paddingTop": 10,
+      }
     }
   />
 </View>

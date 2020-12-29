@@ -1,18 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Switch renders correctly 1`] = `
-<Switch
+<RCTSwitch
+  accessibilityRole="switch"
+  onChange={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  onTintColor="#2ED68F"
   style={
     Array [
-      Object {},
+      Object {
+        "height": 31,
+        "width": 51,
+      },
+      Array [
+        Object {},
+      ],
     ]
   }
-  thumbColor="#2ED68F"
-  trackColor={
-    Object {
-      "false": "#BABABA",
-      "true": "#2ED68F",
-    }
-  }
+  thumbTintColor="#2ED68F"
+  tintColor="#BABABA"
+  value={false}
 />
 `;
