@@ -32,7 +32,7 @@ module.exports = {
     'react/display-name': 'off',
     'import/named': 'off',
     'import/first': 'warn',
-    'import/namespace': ['error', {allowComputed: true}],
+    'import/namespace': 'off',
     'import/no-duplicates': 'error',
     'import/order': [
       'error',
@@ -47,7 +47,6 @@ module.exports = {
         ],
       },
     ],
-    'import/no-cycle': 'error',
     'import/no-self-import': 'warn',
     'import/extensions': ['off', 'never', {ts: 'never'}],
     'no-console': ['error', {allow: ['warn', 'error']}],

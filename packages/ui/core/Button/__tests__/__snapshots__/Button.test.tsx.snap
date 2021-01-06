@@ -1,19 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Button renders correctly 1`] = `
-<TouchableOpacity
-  activeOpacity={0.2}
-  gradient={true}
-  onPress={[MockFunction onPress]}
-  rounded={true}
-  size="small"
+<View
+  accessible={true}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
-    Array [
-      Object {
-        "borderRadius": 20,
-        "justifyContent": "center",
-      },
-    ]
+    Object {
+      "borderRadius": 20,
+      "justifyContent": "center",
+      "opacity": 1,
+    }
   }
 >
   <View
@@ -79,5 +82,5 @@ exports[`Button renders correctly 1`] = `
       Title
     </Text>
   </View>
-</TouchableOpacity>
+</View>
 `;
