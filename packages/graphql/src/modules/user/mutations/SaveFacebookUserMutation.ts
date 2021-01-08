@@ -1,7 +1,7 @@
 import {mutationWithClientMutationId} from 'graphql-relay';
 import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
 import AWS from 'aws-sdk';
-import imageToBase64 from 'image-to-base64';
+import {encode} from 'node-base64-image';
 
 import {AWS_S3_BUCKET_NAME} from '../../../common/config';
 import {GraphQLContext} from '../../../types';
@@ -142,9 +142,9 @@ export default mutationWithClientMutationId({
 });
 
 async function uploadProfileImage(url: string, user: UserIncomplete) {
-  const base64Image = await imageToBase64(url);
+  const base64Image = await encode(url);
 
-  const buffer = Buffer.from(base64Image, 'base64');
+  const buffer = base64Image;
 
   const s3 = new AWS.S3();
 
@@ -176,8 +176,8 @@ async function saveOrUpdateProfileImage(dbUser: IUserDocument, profileUrl: strin
       let alreadyExitsOnS3 = false;
 
       for await (const fbImage of fbImages) {
-        const originBase64Image = await imageToBase64(fbImage.originUri);
-        const fbBase64Image = await imageToBase64(fbImage.location);
+        const originBase64Image = await encode(fbImage.originUri);
+        const fbBase64Image = await encode(fbImage.location);
 
         // verify if the current profile image already exists on S3
         if (fbBase64Image == originBase64Image) {

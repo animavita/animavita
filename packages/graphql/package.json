@@ -22,7 +22,6 @@
     "graphql": "^14.6.0",
     "graphql-playground-middleware": "^1.1.2",
     "graphql-relay": "^0.6.0",
-    "image-to-base64": "^2.0.1",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.11.0",
@@ -31,7 +30,8 @@
     "koa-cors": "^0.0.16",
     "koa-graphql": "^0.8.0",
     "koa-logger": "^3.2.1",
-    "mongoose": "^5.8.11"
+    "mongoose": "^5.8.11",
+    "node-base64-image": "^2.0.1"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
