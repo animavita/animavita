@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import FacebookProvider, {Login} from 'react-facebook-sdk';
 import {FacebookButton} from '@animavita/ui/social';
 import {graphql, useMutation} from '@animavita/relay';
+import {differenceInSeconds} from 'date-fns';
 
 import getEnvVars from '../../../environment';
 import {changeShowBottomBar} from '../../utils/bottomBar';
@@ -64,7 +65,7 @@ const ContinueWithFacebook: React.FC = () => {
   useEffect(() => {
     async function initializeFacebookSDK() {
       try {
-        await Facebook.initializeAsync(fbAppID, fbAppName);
+        await Facebook.initializeAsync({appId: fbAppID, appName: fbAppName});
       } catch ({message}) {
         // eslint-disable-next-line no-console
         console.log(`Facebook Login Error: ${message}`);
@@ -98,14 +99,15 @@ const ContinueWithFacebook: React.FC = () => {
     });
 
     if (response.type === 'success') {
-      const {token, permissions, expires} = response;
+      const {token, permissions, expirationDate} = response;
+      const expires = differenceInSeconds(new Date(expirationDate), new Date());
 
       saveFacebookUser({
         variables: {
           input: {
             token,
             expires,
-            permissions,
+            permissions: permissions || [],
           },
         },
         onCompleted,
