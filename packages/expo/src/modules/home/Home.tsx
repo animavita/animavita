@@ -253,8 +253,8 @@ const Home: React.FC = () => {
           onPress={() => null}
         />
         <ButtonsWrapper>
-          <Button size="small" rounded gradient text="Change Theme" onPress={() => theme.changeTheme()} />
-          <Button size="small" rounded gradient text="Filter" onPress={() => AsyncStorage.clear()} />
+          <Button size="small" rounded gradient text="Filtrar" onPress={() => AsyncStorage.clear()} />
+          <Button size="small" rounded gradient text="Cadastrar para adoção" onPress={() => theme.changeTheme()} />
         </ButtonsWrapper>
 
         <Cards>
