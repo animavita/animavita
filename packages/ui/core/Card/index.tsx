@@ -2,19 +2,14 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Animated from 'react-native-reanimated';
 
+import {Profile} from '../../@types/profile';
+
 import {Overlay, Name, NopeLabel, LikeLabel, Image, Headers, Footer} from './styles';
 
 const {Value} = Animated;
 
-interface Profile {
-  id: string;
-  name: string;
-  age: number;
-  profile: object;
-}
-
 interface CardProps {
-  profile?: Profile;
+  profileProp?: Profile;
   likeOpacity?: Value | number;
   nopeOpacity?: Value | number;
 }
@@ -24,21 +19,21 @@ const defaultProps: CardProps = {
   nopeOpacity: 0,
 };
 
-const Card: React.FC<CardProps> = ({profile, likeOpacity, nopeOpacity}) => {
+const Card: React.FC<CardProps> = ({profileProp, likeOpacity, nopeOpacity}) => {
   return (
     <View style={StyleSheet.absoluteFill}>
-      <Image style={{...StyleSheet.absoluteFillObject}} source={profile.profile} />
+      <Image style={{...StyleSheet.absoluteFillObject}} source={profileProp?.image} />
       <Overlay>
         <Headers>
           <Animated.View style={[styles.like, {opacity: likeOpacity}]}>
-            <LikeLabel>LIKE</LikeLabel>
+            <LikeLabel>FAVORITAR</LikeLabel>
           </Animated.View>
           <Animated.View style={[styles.nope, {opacity: nopeOpacity}]}>
-            <NopeLabel>NOPE</NopeLabel>
+            <NopeLabel>NA PRÓXIMA</NopeLabel>
           </Animated.View>
         </Headers>
         <Footer>
-          <Name>{profile.name}</Name>
+          <Name>{profileProp?.name}</Name>
         </Footer>
       </Overlay>
     </View>
