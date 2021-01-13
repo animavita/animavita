@@ -46,7 +46,7 @@ export default Card;
 
 const styles = StyleSheet.create({
   like: {
-    borderWidth: 4,
+    borderWidth: 5,
     borderRadius: 5,
     padding: 8,
     borderColor: '#6ee3b4',
