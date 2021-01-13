@@ -19,11 +19,11 @@ export const Footer = styled.View`
 `;
 export const Name = styled.Text`
   color: white;
-  font-size: 32;
+  font-size: 32px;
 `;
 
 export const LikeLabel = styled.Text`
-  font-size: 32;
+  font-size: 25px;
   color: #6ee3b4;
   font-weight: bold;
 `;
