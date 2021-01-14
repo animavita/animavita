@@ -125,8 +125,11 @@ const Cards = styled.View`
 
 const Home: React.FC = () => {
   const theme = useTheme();
+<<<<<<< HEAD
   const {t} = useI18n(['home', 'tab_bar']);
 
+=======
+>>>>>>> feat: creation of a native swiper deck, feeded by some array using the profiles interface
   const [profile, setProfiles] = useState<Iterators>({
     lastPets: {
       id: 0,
@@ -253,8 +256,8 @@ const Home: React.FC = () => {
           onPress={() => null}
         />
         <ButtonsWrapper>
-          <Button size="small" rounded gradient text="Filtrar" onPress={() => AsyncStorage.clear()} />
-          <Button size="small" rounded gradient text="Cadastrar para adoção" onPress={() => theme.changeTheme()} />
+          <Button size="small" rounded gradient text="Change Theme" onPress={() => theme.changeTheme()} />
+          <Button size="small" rounded gradient text="Filter" onPress={() => AsyncStorage.clear()} />
         </ButtonsWrapper>
 
         <Cards>
