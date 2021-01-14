@@ -126,8 +126,11 @@ const Cards = styled.View`
 const Home: React.FC = () => {
   const theme = useTheme();
 <<<<<<< HEAD
+<<<<<<< HEAD
   const {t} = useI18n(['home', 'tab_bar']);
 
+=======
+>>>>>>> feat: creation of a native swiper deck, feeded by some array using the profiles interface
 =======
 >>>>>>> feat: creation of a native swiper deck, feeded by some array using the profiles interface
   const [profile, setProfiles] = useState<Iterators>({
