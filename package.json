@@ -21,7 +21,7 @@
     "expo:test": "yarn workspace @animavita/expo test",
     "graphql": "yarn workspace @animavita/graphql start",
     "graphql:test": "yarn workspace @animavita/graphql test",
-    "postinstall": "patch-package",
+    "postinstall": "cd ./packages/expo && expo-yarn-workspaces postinstall && patch-package",
     "ios": "yarn workspace @animavita/expo ios",
     "lint": "eslint --fix --ext .js,jsx,.ts,.tsx .",
     "lint:ci": "eslint --quiet --ext .js,jsx,.ts,.tsx .",
