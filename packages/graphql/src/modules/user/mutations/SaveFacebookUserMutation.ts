@@ -41,7 +41,9 @@ export default mutationWithClientMutationId({
 
     if (!userIncomplete || !userIncomplete.email) return {error: 'Failed to fetch basic user data'};
 
-    const response = await fetch(`https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720`);
+    const response = await fetch(
+      `https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720&access_token=${token}`,
+    );
     const {url: profileUrl} = response;
 
     const {id, name, email} = userIncomplete;
@@ -84,7 +86,6 @@ export default mutationWithClientMutationId({
         await UserModel.updateOne({_id: dbUser._id}, {$set: {ids: [...dbUser.ids, newUserDocument.ids[0]]}});
         dbUser = await UserModel.findById(dbUser._id).lean()!;
       }
-
       dbUser = await saveOrUpdateProfileImage(dbUser, profileUrl, userIncomplete);
 
       return {
