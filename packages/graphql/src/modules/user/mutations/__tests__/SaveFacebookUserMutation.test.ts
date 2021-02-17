@@ -112,4 +112,53 @@ describe('SaveFacebookUserMutation', () => {
     expect(result.data!.SaveFacebookUser.token).toBeDefined();
     expect(result.data!.SaveFacebookUser.user).toMatchSnapshot();
   });
+
+  it('calls fetch with facebook user ID and access token', async () => {
+    await new UserModel({
+      emails: [
+        {
+          email: 'fakeemail@fake.com',
+          providedBy: 'facebook',
+        },
+      ],
+      ids: [
+        {
+          id: 'facebookfakeid',
+          providedBy: 'facebook',
+        },
+      ],
+      name: 'Fake Short Name',
+      profileImages: [
+        {
+          key: '12hsa',
+          location: 'http://s3.com/fake.png',
+          originUri: 'http://fb.static.com/fake.png',
+          providedBy: 'facebook',
+        },
+      ],
+    } as IUser).save();
+
+    global.fetch
+      // mock fetch of UserIncomplete
+      .once(JSON.stringify({id: '98712541212', name: 'Fake Loooooooonger Name', email: 'fakeemail@fake.com'}))
+      // mock fetch of user profile
+      .once('fakeimage', {url: 'https://fakeprofileurl.com'});
+
+    const rootValue = {};
+    const context = await getContext();
+
+    const variables: MutationVariables = {
+      input: {
+        token: 'somefaketoken',
+        expires: 5797,
+        permissions: ['email', 'profile'],
+      },
+    };
+
+    await graphql(schema, mutation, rootValue, context, variables);
+
+    expect(global.fetch).toHaveBeenLastCalledWith(
+      `https://graph.facebook.com/98712541212/picture?height=720&width=720&access_token=somefaketoken`,
+    );
+  });
 });
