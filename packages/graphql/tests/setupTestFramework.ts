@@ -26,7 +26,7 @@ jest.mock('jsonwebtoken', () => {
   };
 });
 
-// mock image-to-base64
-jest.mock('image-to-base64', () => {
-  return jest.fn(() => 'base64image');
-});
+// mock node-base64-image
+jest.mock('node-base64-image', () => ({
+  encode: jest.fn(() => 'base64image'),
+}));

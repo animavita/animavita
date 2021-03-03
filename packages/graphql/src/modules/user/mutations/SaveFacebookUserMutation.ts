@@ -41,7 +41,9 @@ export default mutationWithClientMutationId({
 
     if (!userIncomplete || !userIncomplete.email) return {error: 'Failed to fetch basic user data'};
 
-    const response = await fetch(`https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720`);
+    const response = await fetch(
+      `https://graph.facebook.com/${userIncomplete.id}/picture?height=720&width=720&access_token=${token}`,
+    );
     const {url: profileUrl} = response;
 
     const {id, name, email} = userIncomplete;
@@ -84,7 +86,6 @@ export default mutationWithClientMutationId({
         await UserModel.updateOne({_id: dbUser._id}, {$set: {ids: [...dbUser.ids, newUserDocument.ids[0]]}});
         dbUser = await UserModel.findById(dbUser._id).lean()!;
       }
-
       dbUser = await saveOrUpdateProfileImage(dbUser, profileUrl, userIncomplete);
 
       return {
@@ -176,11 +177,11 @@ async function saveOrUpdateProfileImage(dbUser: IUserDocument, profileUrl: strin
       let alreadyExitsOnS3 = false;
 
       for await (const fbImage of fbImages) {
-        const originBase64Image = await encode(fbImage.originUri);
-        const fbBase64Image = await encode(fbImage.location);
+        const originBase64Image = await encode(fbImage.originUri, {string: true});
+        const fbBase64Image = await encode(fbImage.location, {string: true});
 
         // verify if the current profile image already exists on S3
-        if (fbBase64Image == originBase64Image) {
+        if (fbBase64Image === originBase64Image) {
           alreadyExitsOnS3 = true;
         }
       }
