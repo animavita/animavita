@@ -1,16 +1,32 @@
-import React from 'react';
+import React, {useRef} from 'react';
+import {Pressable} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
+import {useNavigation} from '@react-navigation/native';
+import styled from 'styled-components/native';
 import {Avatar, Typography} from '@animavita/ui/core';
 import {useLazyLoadQuery, graphql} from '@animavita/relay';
 import {useTheme, px2ddp, StyledTheme} from '@animavita/theme';
+import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 
 import Home from '../modules/home/Home';
 
 import {HomeQuery} from './__generated__/HomeQuery.graphql';
 
+interface MenuRef {
+  hide: () => void;
+  show: () => void;
+}
+
+const StyledMenu = styled(Menu)`
+  margin-top: ${px2ddp(20)}px;
+`;
+
 const HomeStack = createStackNavigator();
 
 const HomeNavigator: React.FC = () => {
+  const menu = useRef<MenuRef>(null);
+  const navigation = useNavigation();
   const theme = useTheme();
 
   const {me} = useLazyLoadQuery<HomeQuery>(
@@ -36,10 +52,45 @@ const HomeNavigator: React.FC = () => {
 
   const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
 
+  const hideMenu = () => {
+    if (menu.current) {
+      menu.current.hide();
+    }
+  };
+
+  const showMenu = () => {
+    if (menu.current) {
+      menu.current.show();
+    }
+  };
+
+  const handleLogout = async () => {
+    await AsyncStorage.clear();
+    navigation.navigate('SignUp');
+  };
+
+  const HeaderRight = () => {
+    return (
+      <StyledMenu
+        ref={menu}
+        button={
+          <Pressable onPress={showMenu}>
+            <Avatar source={{uri}} />
+          </Pressable>
+        }>
+        <MenuItem onPress={hideMenu} disabled>
+          Configurações
+        </MenuItem>
+        <MenuDivider />
+        <MenuItem onPress={handleLogout}>Sair</MenuItem>
+      </StyledMenu>
+    );
+  };
+
   const screenOptions: StackNavigationOptions = {
     headerTitle: '',
     headerLeft: () => <Typography variant="title-3">Olá {name}</Typography>,
-    ...(uri && {headerRight: () => <Avatar source={{uri}} />}),
+    ...(uri && {headerRight: () => <HeaderRight />}),
     headerLeftContainerStyle: {marginLeft: px2ddp(10)},
     headerRightContainerStyle: {marginRight: px2ddp(10)},
     cardStyle: {backgroundColor},
