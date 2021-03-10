@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, AsyncStorage} from 'react-native';
+import {Button} from 'react-native';
 import {px2ddp, useTheme} from '@animavita/theme';
 import {Background} from '@animavita/ui/layout';
 import {TabBar} from '@animavita/ui/core';
@@ -27,7 +27,6 @@ const Home: React.FC = () => {
           onPress={() => null}
         />
         <ButtonsWrapper>
-          <Button title="Logout" onPress={() => AsyncStorage.clear()} />
           <Button title="Change theme" onPress={() => theme.changeTheme()} />
         </ButtonsWrapper>
       </Wrapper>
