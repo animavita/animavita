@@ -65,6 +65,7 @@ const HomeNavigator: React.FC = () => {
   };
 
   const handleLogout = async () => {
+    hideMenu();
     await AsyncStorage.clear();
     navigation.navigate('SignUp');
   };
