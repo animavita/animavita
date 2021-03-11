@@ -1,5 +1,6 @@
 import React from 'react';
-import {ViewProps, StatusBar} from 'react-native';
+import {ViewProps} from 'react-native';
+import {StatusBar} from 'expo-status-bar';
 import styled from 'styled-components/native';
 import {FlattenSimpleInterpolation} from 'styled-components';
 import {PossibleThemes, useTheme} from '@animavita/theme';
@@ -19,7 +20,7 @@ const Background: React.FC<ViewProps & BackgroundProps> = ({children, css, ...vi
 
   return (
     <>
-      <StatusBar barStyle={themeName === 'light' ? 'dark-content' : 'light-content'} />
+      <StatusBar style={themeName === 'light' ? 'dark' : 'light'} />
       <ThemedBackground themeName={themeName} css={css} {...viewProps}>
         {children}
       </ThemedBackground>
