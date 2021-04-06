@@ -10,7 +10,10 @@
 
 <p align="center"><i>"How to save a life?" - The Fray</i> </p>
 
-<p align="center">
+<p align="center"> 
+  <a href="https://discord.gg/m9KyG7Ba">
+    <img src="https://img.shields.io/discord/829042103295410197?color=%237289DA&label=Animavita&logo=discord&logoColor=white" alt="Discord">
+  </a>
   <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/progress-40%25-brightgreen.svg" alt="PRs Welcome">
   </a>
@@ -54,19 +57,9 @@ Animavita's purpose is not to change how people use facebook to the activities d
 
 ## :dizzy: **Roadmap**
 
-Check the Roadmap to more details about itens below.
+Check our [board](https://github.com/animavita/animavita/projects/2) for more details about what we're building.
 
--   [ ] Rescue system (WIP)
--   [ ] Write CONTRIBUTING.md + Install instructions
--   [ ] Make it work on IOS
--   [ ] Write tests in backend
--   [ ] Write tests in frontend
--   [ ] Transform into responsive
--   [ ] Create Landing Page
--   [ ] i18n
--   [ ] Offline-first
--   [ ] Create/Apply Dataloaders
--   [ ] Update to latest React Native version
+-   [ ] Animavita next version (Expo, Relay and GraphQL)
 
 ## **Install instructions**
 
