@@ -11,7 +11,7 @@
 <p align="center"><i>"How to save a life?" - The Fray</i> </p>
 
 <p align="center"> 
-  <a href="https://discord.gg/m9KyG7Ba">
+  <a href="https://discord.gg/BHHz77rhb6">
     <img src="https://img.shields.io/discord/829042103295410197?color=%237289DA&label=Animavita&logo=discord&logoColor=white" alt="Discord">
   </a>
   <a href="http://makeapullrequest.com">
