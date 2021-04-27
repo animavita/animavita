@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Platform, AsyncStorage} from 'react-native';
+import {Platform} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Facebook from 'expo-facebook';
 import {useNavigation} from '@react-navigation/native';
 import FacebookProvider, {Login} from 'react-facebook-sdk';
