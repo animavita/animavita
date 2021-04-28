@@ -48,7 +48,8 @@ const HomeNavigator: React.FC = () => {
   );
 
   const name = me?.name?.split(' ')[0] || '';
-  const uri = me?.profileImages[0].url;
+  const imageIndex = me ? me.profileImages.length - 1 : 0;
+  const uri = me?.profileImages[imageIndex].url;
 
   const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
 
