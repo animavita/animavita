@@ -6,6 +6,7 @@ import {Background, FillSpace, Space} from '@animavita/ui/layout';
 import {Typography} from '@animavita/ui/core';
 import Images from '@animavita/ui/assets/images';
 import {AppleButton, GoogleButton} from '@animavita/ui/social';
+import {useI18n} from '@animavita/i18n';
 
 import BottomBar from '../common/BottomBar';
 
@@ -35,6 +36,8 @@ const termsStyle = css`
 `;
 
 const SignUp: React.FC = () => {
+  const {t} = useI18n(['sign_up']);
+
   return (
     <Background css={bgStyle}>
       <Wrapper testID="wrapper">
@@ -45,7 +48,7 @@ const SignUp: React.FC = () => {
           Animavita
         </Typography>
         <Typography variant="title-3" type="bold" testID="subtitle">
-          Salve uma vida
+          {t('subtitle')}
         </Typography>
         <Space height={heightPercentageToDP('4%')} />
         <ContinueWithFacebook />
@@ -60,7 +63,7 @@ const SignUp: React.FC = () => {
         <Space height={heightPercentageToDP('5%')} />
         <TouchableWithoutFeedback>
           <Typography variant="body" css={termsStyle}>
-            Termos de uso
+            {t('terms')}
           </Typography>
         </TouchableWithoutFeedback>
       </Wrapper>
