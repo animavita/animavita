@@ -12,7 +12,7 @@ interface I18nContextProps {
 const I18nContext = createContext<I18nContextProps | undefined>(undefined);
 
 const I18nProvider: React.FC = ({children}) => {
-  const [locale, setLocale] = useState<string>('en');
+  const [locale, setLocale] = useState<string>('pt-BR');
 
   i18n.fallbacks = true;
   i18n.defaultLocale = 'pt-BR';
