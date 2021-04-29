@@ -2,10 +2,16 @@
   "name": "@animavita/i18n",
   "version": "1.0.0",
   "main": "index.ts",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
   "dependencies": {
     "i18n-js": "^3.8.0"
   },
   "devDependencies": {
-    "@types/i18n-js": "^3.8.0"
+    "@testing-library/react-hooks": "^5.1.2",
+    "@types/i18n-js": "^3.8.0",
+    "@types/jest": "^26.0.23"
   }
 }

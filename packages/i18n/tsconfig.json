@@ -5,7 +5,7 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "typeRoots": ["@types"],
-    "types": ["node", "i18n-js"],
+    "types": ["node", "i18n-js", "jest"],
     "jsx": "react-native"
   },
   "extends": "../../tsconfig.json",
