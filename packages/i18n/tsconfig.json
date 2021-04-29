@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "composite": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["@types"],
+    "types": ["node", "i18n-js"],
+    "jsx": "react-native"
+  },
+  "extends": "../../tsconfig.json",
+  "include": [".", "./locales/**/*.json"]
+}

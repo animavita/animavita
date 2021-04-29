@@ -1,0 +1,11 @@
+{
+  "name": "@animavita/i18n",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "i18n-js": "^3.8.0"
+  },
+  "devDependencies": {
+    "@types/i18n-js": "^3.8.0"
+  }
+}
