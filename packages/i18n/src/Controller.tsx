@@ -4,7 +4,7 @@ import i18n from 'i18n-js';
 import locales from '../locales';
 
 interface I18nContextProps {
-  t: (key: string, options: object) => string;
+  t: (key: string, options: i18n.TranslateOptions) => string;
   setLocale: (locale: string) => void;
   locale: string;
 }
