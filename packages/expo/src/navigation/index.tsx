@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import * as Localizaiton from 'expo-localization';
+import * as Localization from 'expo-localization';
 import {ThemeContext} from '@animavita/theme';
 import {useI18nController} from '@animavita/i18n';
 
@@ -15,7 +15,7 @@ export default function Navigation() {
   const {setLocale} = useI18nController();
 
   useEffect(() => {
-    setLocale(Localizaiton.locale);
+    setLocale(Localization.locale);
   }, []);
 
   return (
