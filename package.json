@@ -31,7 +31,7 @@
     "relay:watch": "yarn workspace @animavita/relay watch",
     "start": "yarn workspace @animavita/expo start",
     "storybook": "yarn workspace @animavita/ui storybook",
-    "test": "yarn expo:test && yarn ui:test && yarn graphql:test && yarn i18n:test",
+    "test": "jest",
     "ui:test": "yarn workspace @animavita/ui test",
     "update:schema": "yarn workspace @animavita/graphql update:schema",
     "web": "yarn workspace @animavita/expo web"
