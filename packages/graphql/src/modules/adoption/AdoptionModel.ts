@@ -2,9 +2,22 @@ import mongoose, {Document} from 'mongoose';
 
 const {ObjectId} = mongoose.Types;
 
-type AnimalGenders = 'male' | 'female';
-type AnimalTypes = 'dog' | 'cat' | 'other';
-type AnimalSizes = 'small' | 'medium' | 'big';
+enum AnimalGenders {
+  male = 'male',
+  female = 'female',
+}
+
+enum AnimalTypes {
+  dog = 'dog',
+  cat = 'cat',
+  other = 'other',
+}
+
+enum AnimalSizes {
+  small = 'small',
+  medium = 'medium',
+  big = 'big',
+}
 
 export interface IAdoption {
   user: string;
