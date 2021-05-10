@@ -1,6 +1,62 @@
+"""Animavita adoption"""
+type Adoption implements Node {
+  """The ID of an object"""
+  id: ID!
+
+  """The adoption user reference"""
+  user: User!
+
+  """The animal name"""
+  name: String!
+
+  """The animal gender"""
+  gender: Gender!
+
+  """The animal breed"""
+  breed: String!
+
+  """The animal type"""
+  type: Type!
+
+  """The animal age"""
+  age: Int!
+
+  """The animal size"""
+  size: Size!
+
+  """The animal photos"""
+  photos: [String!]!
+
+  """Any observation about the animal"""
+  observations: String!
+}
+
+"""A connection to a list of items."""
+type AdoptionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AdoptionEdge]
+}
+
+"""An edge in a connection."""
+type AdoptionEdge {
+  """The item at the end of the edge"""
+  node: Adoption
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
 type Email {
   email: ID!
   providedBy: String!
+}
+
+enum Gender {
+  MALE
+  FEMALE
 }
 
 type Mutation {
@@ -12,6 +68,21 @@ type Mutation {
 interface Node {
   """The id of the object."""
   id: ID!
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
 }
 
 type ProfileImage {
@@ -35,6 +106,8 @@ type Query {
   ): Node
   user(id: ID!): User
   me: User
+  adoptions(after: String, first: Int): AdoptionConnection
+  myAdoptions: [Adoption]
 }
 
 input SaveFacebookUserInput {
@@ -49,6 +122,18 @@ type SaveFacebookUserPayload {
   user: User
   token: String
   clientMutationId: String
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  BIG
+}
+
+enum Type {
+  DOG
+  CAT
+  OTHER
 }
 
 """Animavita user"""
