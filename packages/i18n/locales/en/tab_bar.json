@@ -1,0 +1,12 @@
+{
+  "pages": {
+    "adoptions": "adoptions",
+    "favorites": "favorites",
+    "solicitations": "solicitations"
+  },
+  "options": {
+    "settings": "Settings",
+    "logout": "Leave"
+  },
+  "greetings": "Hello, %{name}!"
+}

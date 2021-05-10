@@ -2,6 +2,7 @@ import {px2ddp, useTheme, PossibleThemes} from '@animavita/theme';
 import styled from 'styled-components/native';
 import {Platform, TouchableOpacityProps} from 'react-native';
 import React from 'react';
+import {useI18n} from '@animavita/i18n';
 
 import Typography from '../core/Typography';
 import Container from '../layout/Container';
@@ -23,13 +24,15 @@ type GoogleButtonProps = TouchableOpacityProps;
 
 const GoogleButton: React.FC<GoogleButtonProps> = props => {
   const {themeName} = useTheme();
+  const {t} = useI18n(['sign_up']);
+
   return (
     <Touchable {...props} themeName={themeName}>
       <Container justifyContent="space-around">
         <GoogleLogo />
         <Space width={px2ddp(10)} />
         <Typography variant="body" type="bold">
-          Continuar com Google
+          {t('button', {option: 'Google '})}
         </Typography>
       </Container>
     </Touchable>

@@ -4,6 +4,7 @@ import {px2ddp, useTheme} from '@animavita/theme';
 import {Background} from '@animavita/ui/layout';
 import {TabBar} from '@animavita/ui/core';
 import styled from 'styled-components/native';
+import {useI18n} from '@animavita/i18n';
 
 const Wrapper = styled.View`
   margin: 0 ${px2ddp(10)}px;
@@ -15,19 +16,21 @@ const ButtonsWrapper = styled.View`
 
 const Home: React.FC = () => {
   const theme = useTheme();
+  const {t} = useI18n(['home', 'tab_bar']);
+
   return (
     <Background>
       <Wrapper>
         <TabBar
           items={[
-            {displayName: 'adoções', key: 'adocoes'},
-            {displayName: 'favoritos', key: 'favoritos'},
-            {displayName: 'solicitações', key: 'solicitacoes'},
+            {displayName: t('pages.adoptions'), key: 'adocoes'},
+            {displayName: t('pages.favorites'), key: 'favoritos'},
+            {displayName: t('pages.solicitations'), key: 'solicitacoes'},
           ]}
           onPress={() => null}
         />
         <ButtonsWrapper>
-          <Button title="Change theme" onPress={() => theme.changeTheme()} />
+          <Button title={t('change_theme')} onPress={() => theme.changeTheme()} />
         </ButtonsWrapper>
       </Wrapper>
     </Background>

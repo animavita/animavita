@@ -8,6 +8,7 @@ import {Avatar, Typography} from '@animavita/ui/core';
 import {useLazyLoadQuery, graphql} from '@animavita/relay';
 import {useTheme, px2ddp, StyledTheme} from '@animavita/theme';
 import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
+import {useI18n} from '@animavita/i18n';
 
 import Home from '../modules/home/Home';
 
@@ -28,6 +29,7 @@ const HomeNavigator: React.FC = () => {
   const menu = useRef<MenuRef>(null);
   const navigation = useNavigation();
   const theme = useTheme();
+  const {t} = useI18n(['tab_bar']);
 
   const {me} = useLazyLoadQuery<HomeQuery>(
     graphql`
@@ -48,7 +50,8 @@ const HomeNavigator: React.FC = () => {
   );
 
   const name = me?.name?.split(' ')[0] || '';
-  const uri = me?.profileImages[0].url;
+  const imageIndex = me ? me.profileImages.length - 1 : 0;
+  const uri = me?.profileImages[imageIndex].url;
 
   const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
 
@@ -80,17 +83,17 @@ const HomeNavigator: React.FC = () => {
           </Pressable>
         }>
         <MenuItem onPress={hideMenu} disabled>
-          Configurações
+          {t('options.settings')}
         </MenuItem>
         <MenuDivider />
-        <MenuItem onPress={handleLogout}>Sair</MenuItem>
+        <MenuItem onPress={handleLogout}>{t('options.logout')}</MenuItem>
       </StyledMenu>
     );
   };
 
   const screenOptions: StackNavigationOptions = {
     headerTitle: '',
-    headerLeft: () => <Typography variant="title-3">Olá {name}</Typography>,
+    headerLeft: () => <Typography variant="title-3">{t('greetings', {name})}</Typography>,
     ...(uri && {headerRight: () => <HeaderRight />}),
     headerLeftContainerStyle: {marginLeft: px2ddp(10)},
     headerRightContainerStyle: {marginRight: px2ddp(10)},

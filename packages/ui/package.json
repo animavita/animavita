@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@animavita/i18n": "1.0.0",
     "@expo/webpack-config": "~0.12.45",
     "@react-navigation/native": "^5.0.7",
     "expo-linear-gradient": "~8.0.0",

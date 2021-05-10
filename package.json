@@ -22,6 +22,7 @@
     "graphql": "yarn workspace @animavita/graphql start",
     "graphql:test": "yarn workspace @animavita/graphql test",
     "postinstall": "cd ./packages/expo && expo-yarn-workspaces postinstall && patch-package",
+    "i18n:test": "yarn workspace @animavita/i18n test",
     "ios": "yarn workspace @animavita/expo ios",
     "lint": "eslint --fix --ext .js,jsx,.ts,.tsx .",
     "lint:ci": "eslint --quiet --ext .js,jsx,.ts,.tsx .",
@@ -30,7 +31,7 @@
     "relay:watch": "yarn workspace @animavita/relay watch",
     "start": "yarn workspace @animavita/expo start",
     "storybook": "yarn workspace @animavita/ui storybook",
-    "test": "yarn expo:test && yarn ui:test && yarn graphql:test",
+    "test": "jest",
     "ui:test": "yarn workspace @animavita/ui test",
     "update:schema": "yarn workspace @animavita/graphql update:schema",
     "web": "yarn workspace @animavita/expo web"
