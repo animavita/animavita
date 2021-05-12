@@ -69,6 +69,67 @@ const Pets: Profile[] = [
 const {width, height} = Dimensions.get('window');
 const rotatedWidth = rotatedWidthCoefficient({width, height});
 
+import Button from '../../../../ui/core/Button/Button';
+import {Profile} from '../../../../ui/@types/profile';
+
+import {rotatedWidthCoefficient, runSpring} from './cardSwiper';
+
+const {
+  greaterThan,
+  lessThan,
+  and,
+  Clock,
+  clockRunning,
+  event,
+  Value,
+  concat,
+  interpolate,
+  Extrapolate,
+  set,
+  cond,
+  eq,
+  neq,
+  call,
+} = Animated;
+
+// TS types of data object to feed the Home screen
+interface Iterators {
+  lastPets: Profile;
+  rest: Profile[];
+}
+
+//Array data to feed the animation
+const Pets: Profile[] = [
+  {
+    id: 1,
+    name: 'Thor',
+    age: 2,
+    image: require('../../../../ui/assets/images/examples/dog1.jpg'),
+  },
+  {
+    id: 2,
+    name: 'Bob',
+    age: 2,
+    image: require('../../../../ui/assets/images/examples/dog2.jpg'),
+  },
+  {
+    id: 3,
+    name: 'Tim',
+    age: 2,
+    image: require('../../../../ui/assets/images/examples/dog3.jpg'),
+  },
+  {
+    id: 4,
+    name: 'Robb',
+    age: 2,
+    image: require('../../../../ui/assets/images/examples/dog4.jpg'),
+  },
+];
+
+//Mathematical equations to calculate the trigonometric coefficient of rotation
+const {width, height} = Dimensions.get('window');
+const rotatedWidth = rotatedWidthCoefficient({width, height});
+
 const Wrapper = styled.View`
   margin: 0 ${px2ddp(10)}px;
 `;
@@ -88,12 +149,15 @@ const Home: React.FC = () => {
   const theme = useTheme();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const {t} = useI18n(['home', 'tab_bar']);
 
 =======
 >>>>>>> feat: creation of a native swiper deck, feeded by some array using the profiles interface
 =======
 >>>>>>> feat: creation of a native swiper deck, feeded by some array using the profiles interface
+=======
+>>>>>>> 4f13281b4aa5c032db7895b107cc611bfa49b1e6
   const [profile, setProfiles] = useState<Iterators>({
     lastPets: {
       id: 0,
