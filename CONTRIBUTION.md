@@ -6,18 +6,23 @@
 
 Contributions, issues and feature requests are very welcome.
 
+## Docker
+
+If you have docker installed, you don't need to set the AWS env vars, install MongoDB or create an AWS account because we've prepared a docker-compose to run a local AWS instance with [localstack](https://github.com/localstack/localstack).
+
 ## Pre-requisites
 
--   _Node:_ `^9.0.0` or higher.
--   _Npm:_ `6.0.0` or higher.
--   _Yarn:_ `^1.7.0` or higher.
--   _MongoDB:_ `4.0.0` or higher.
+- _Node:_ `^9.0.0` or higher.
+- _Npm:_ `6.0.0` or higher.
+- _Yarn:_ `^1.7.0` or higher.
+- _MongoDB:_ `4.0.0` or higher.
 
 ## Pre-requisite Accounts
 
--   _AWS_: https://aws.amazon.com/
--   _Facebook Developer_: https://developers.facebook.com/
--   _Google Maps_: https://console.cloud.google.com/google/maps-apis/
+- _AWS_: https://aws.amazon.com/
+- _Facebook Developer_: https://developers.facebook.com/
+  You can use [Graph API Explorer](https://developers.facebook.com/tools/explorer/) to generate access tokens.
+- _Google Maps_: https://console.cloud.google.com/google/maps-apis/
 
 ## Getting started
 
@@ -33,7 +38,9 @@ Install dependencies:
 ```sh
 $ yarn
 ```
+
 ### GraphQL
+
 Create a **.env** file in _packages/graphql_ folder and copy the content of **.env.example**
 
 ```bash
@@ -63,6 +70,15 @@ If everything is ok, you will be able to open GraphCool at:
 
 ```bash
 http://localhost:5001/playground
+```
+
+### GraphQL with docker
+
+Run
+
+```sh
+$ yarn graphql:infra
+$ yarn graphql:start
 ```
 
 ### Relay
