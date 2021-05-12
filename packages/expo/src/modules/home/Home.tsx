@@ -10,15 +10,14 @@ import styled from 'styled-components/native';
 import Button from '../../../../ui/core/Button/Button';
 import {Profile} from '../../../../ui/@types/profile';
 
+import {rotatedWidthCoefficient, runSpring} from './cardSwiper';
+
 const {
   greaterThan,
   lessThan,
   and,
   Clock,
   clockRunning,
-  startClock,
-  stopClock,
-  spring,
   event,
   Value,
   concat,
@@ -67,45 +66,7 @@ const Pets: Profile[] = [
 
 //Mathematical equations to calculate the trigonometric coefficient of rotation
 const {width, height} = Dimensions.get('window');
-const rotatedWidth = width * Math.sin((75 * Math.PI) / 180) + height * Math.sin((15 * Math.PI) / 180);
-
-//Animation function to spring animation
-function runSpring(
-  clock: Animated.Clock,
-  value: Animated.Value<0>,
-  velocity: number | Animated.Value<0>,
-  dest: number | Animated.Node<number>,
-) {
-  const state = {
-    finished: new Value(0),
-    velocity: new Value(0),
-    position: new Value(0),
-    time: new Value(0),
-  };
-
-  const config = {
-    damping: 20,
-    mass: 1,
-    stiffness: 100,
-    overshootClamping: false,
-    restSpeedThreshold: 1,
-    restDisplacementThreshold: 0.5,
-    toValue: new Value(0),
-  };
-
-  return [
-    cond(clockRunning(clock), 0, [
-      set(state.finished, 0),
-      set(state.velocity, velocity),
-      set(state.position, value),
-      set(config.toValue, dest),
-      startClock(clock),
-    ]),
-    spring(clock, state, config),
-    cond(state.finished, stopClock(clock)),
-    state.position,
-  ];
-}
+const rotatedWidth = rotatedWidthCoefficient({width, height});
 
 const Wrapper = styled.View`
   margin: 0 ${px2ddp(10)}px;
