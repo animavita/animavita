@@ -38,7 +38,7 @@ export const AWS_SECRET_ACCESS_KEY = envVar
 export const AWS_STANDARD_QUEUE_URL = envVar
   .get('AWS_STANDARD_QUEUE_URL')
   .default('http://localhost:4566/000000000000/animavita')
-  .required()
+  .required(isProduction)
   .asString();
 
 export const MONGO_URI = envVar

@@ -78,7 +78,7 @@ Run
 
 ```sh
 $ yarn graphql:infra
-$ yarn graphql:start
+$ yarn graphql
 ```
 
 ### Relay
