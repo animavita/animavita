@@ -28,6 +28,7 @@
     "expo-constants": "~9.3.3",
     "expo-facebook": "~9.1.0",
     "expo-localization": "~9.1.0",
+    "expo-image-picker": "^10.1.4",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-facebook-login": "^4.1.1",

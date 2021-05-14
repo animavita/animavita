@@ -14,18 +14,21 @@
     "@react-navigation/native": "^5.0.7",
     "expo-linear-gradient": "~8.0.0",
     "expo-status-bar": "~1.0.3",
+    "formik": "^2.2.6",
     "patch-package": "^6.2.2",
     "postinstall-postinstall": "^2.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
+    "react-native-dropdown-picker": "^4.0.9",
     "react-native-elements": "2.0.1",
     "react-native-ratings": "^7.2.0",
     "react-native-reanimated": "~1.13.0",
     "react-native-svg": "^11.0.1",
     "react-native-vector-icons": "^6.6.0",
     "react-native-web": "0.13.12",
-    "styled-components": "5.0.0"
+    "styled-components": "5.0.0",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/core": "^7.8.3",
