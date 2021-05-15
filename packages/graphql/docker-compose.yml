@@ -3,13 +3,13 @@ version: '2.1'
 services:
   mongo:
     container_name: animavita-mongo
-    image: mongo
+    image: mongo:4.4.6
     restart: always
     ports:
       - 27017:27017
   localstack:
     container_name: animavita-localstack
-    image: localstack/localstack
+    image: localstack/localstack:0.12.11
     network_mode: bridge
     ports:
       - '4566:4566'
