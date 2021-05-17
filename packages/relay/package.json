@@ -8,6 +8,7 @@
     "watch": "relay-compiler --watch"
   },
   "dependencies": {
+    "@animavita/expo": "1.0.0",
     "expo-constants": "~9.3.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
     "react-relay": "0.0.0-experimental-8cc94ddc",

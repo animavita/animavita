@@ -16,6 +16,9 @@
   },
   "dependencies": {
     "@animavita/i18n": "1.0.0",
+    "@animavita/relay": "1.0.0",
+    "@animavita/theme": "1.0.0",
+    "@animavita/ui": "1.0.0",
     "@react-native-async-storage/async-storage": "^1.14.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/core": "^5.1.6",
