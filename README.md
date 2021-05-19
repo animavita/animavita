@@ -61,29 +61,6 @@ Check our [board](https://github.com/animavita/animavita/projects/2) for more de
 
 -   [ ] Animavita next version (Expo, Relay and GraphQL)
 
-## **Install instructions**
-
-### Getting Started
-
-#### 1) Clone & Install Dependencies on Linux/MacOS
-
-- 1.1) `git clone https://github.com/wendelfreitas/animavita`
-- 1.2) `cd animavita` - cd into your newly created project directory.
-- 1.3) Install NPM packages with `yarn install`
-        **Note:** NPM has issues with React Native so `yarn` is recommended over `npm`.
-        
-#### 2) Clone & Install Dependencies on Windows
-
-- 2.1) `git clone https://github.com/wendelfreitas/animavita`
-- 2.2) Open the Windows Powershell with Admin permission
-- 2.3) `cd animavita` - cd into your newly created project directory.
-- 2.4) Install NPM packages with `yarn install`
-        
-#### 3) Start your app
-
-- 3.1) **[iOS]** Build and run the iOS app, run `yarn ios`. The first build will take some time.
-- 3.2) **[Android]** If you haven't already got an android device attached/emulator running then you'll need to get one running (make sure the emulator is with Google Play / APIs). When ready run `yarn android` from the root of your project.
-
 ## :zap: **Tech Stack**
 
 <h1 align="center">
