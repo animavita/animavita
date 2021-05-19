@@ -38,7 +38,7 @@ jobs:
           yarn install --frozen-lockfile --production=false --non-interactive --cache-folder $(yarn cache dir)
       - name: Test GraphQL
         run: |
-          yarn graphql:test --ci --maxWorkers=4 --coverage --reporters=jest-junit --forceExit
+          yarn graphql:test --ci --maxWorkers=4 --coverage --reporters=jest-junit
         env:
           JEST_SUITE_NAME: 'Animavita GraphQL Tests'
           JEST_JUNIT_OUTPUT_DIR: './reports'

@@ -12,7 +12,8 @@ dotenv.config({
 
 export const JWT_KEY = envVar
   .get('JWT_KEY')
-  .required()
+  .default('jwt123')
+  .required(isProduction)
   .asString();
 
 export const AWS_S3_BUCKET_NAME = envVar
