@@ -1,32 +1,36 @@
 import React, {useState} from 'react';
-import {StyleSheet, ActivityIndicator, Alert} from 'react-native';
+import {Alert} from 'react-native';
 import {Feather, MaterialIcons} from '@expo/vector-icons';
-import {Background} from '@animavita/ui/layout';
+import {Background, Space} from '@animavita/ui/layout';
 import {useNavigation} from '@react-navigation/native';
-import {Typography} from '@animavita/ui/core';
 import Button from '@animavita/ui/core/Button/Button';
 import * as ImagePicker from 'expo-image-picker';
+import {useTheme} from '@animavita/theme';
+import {useI18n} from '@animavita/i18n';
 
 import Header from '../Header';
 import dogImage from '../../../../assets/dog.png';
 
-import {Wrapper, ImageContainer, Image, UploadedImagesContainer, CameraButton, UploadedImage} from './styles';
+import {
+  ImageContainer,
+  Image,
+  UploadedImagesContainer,
+  CameraButton,
+  UploadedImage,
+  LabelText,
+  GoBackLabel,
+} from './styles';
 
 type ImageInfo = {
   uri?: string | any;
-  width: number;
-  height: number;
-  type?: 'image' | 'video';
-  exif?: {
-    [key: string]: any;
-  };
-  base64?: string;
 };
 
 const LARGE = 'large';
 const HEADLINE = 'headline';
 
 const RegisterSecondStep: React.FC = () => {
+  const theme = useTheme();
+  const {t} = useI18n(['register']);
   const [images, setImages] = useState<any[]>(Array.from({length: 3}));
   const [imagesSelected, setSelectedImages] = useState<any[]>([]);
   const navigation = useNavigation();
@@ -68,11 +72,11 @@ const RegisterSecondStep: React.FC = () => {
 
   function backToHomePage() {
     if (imagesSelected.length === 0) {
-      Alert.alert('Please select at least one image');
+      Alert.alert(t('alert'));
     } else {
       setIsLoading(true);
       setTimeout(() => {
-        navigation.navigate('Home');
+        navigation.navigate('RegisterFirstStep');
         setIsLoading(false);
       }, 3000);
     }
@@ -80,73 +84,60 @@ const RegisterSecondStep: React.FC = () => {
 
   return (
     <Background>
-      <Wrapper>
-        <Header />
-        <Image source={dogImage} />
-        <Typography variant={HEADLINE} style={styles.labelText}>
-          Que tal umas fotos fofissimas no Zeus?
-        </Typography>
-        <UploadedImagesContainer>
-          {images.map((image, index) => {
-            if (image) {
-              return (
-                <ImageContainer key={index}>
-                  <MaterialIcons
-                    name="cancel"
-                    size={24}
-                    color="red"
-                    style={{left: 90, marginBottom: -10, zIndex: 1}}
-                    onPress={() => {
-                      removeSelectedImage(index);
-                    }}
-                  />
-                  <UploadedImage key={index} source={{uri: image}} />
-                </ImageContainer>
-              );
-            }
+      <Header />
+      <Image source={dogImage} />
+      <LabelText variant={HEADLINE}>{t('label-text')}</LabelText>
+      <Space height={10} />
+      <UploadedImagesContainer>
+        {images.map((image, index) => {
+          if (image) {
             return (
-              <CameraButton
-                key={index}
-                onPress={() => {
-                  handleSelectImages(index);
-                }}>
-                <Feather name="camera" size={24} color="#17D4B4" />
-              </CameraButton>
+              <ImageContainer key={index}>
+                <MaterialIcons
+                  name="cancel"
+                  size={24}
+                  color={theme.styledTheme.red}
+                  style={{left: 90, marginBottom: -10, zIndex: 1}}
+                  onPress={() => {
+                    removeSelectedImage(index);
+                  }}
+                />
+                <UploadedImage key={index} source={{uri: image}} />
+              </ImageContainer>
             );
-          })}
-        </UploadedImagesContainer>
-        <Button
-          onPress={() => {
-            backToHomePage();
-          }}
-          text={!isLoading && 'Cadastrar Adoção'}
-          size={LARGE}
-          gradient={true}
-          rounded={true}>
-          {isLoading && <ActivityIndicator size="large" color="#ffffff" />}
-        </Button>
-        <Typography
-          onPress={() => {
-            navigation.goBack();
-          }}
-          variant={HEADLINE}
-          style={styles.detailLabel}>
-          Voltar para detalhes
-        </Typography>
-      </Wrapper>
+          }
+          return (
+            <CameraButton
+              key={index}
+              onPress={() => {
+                handleSelectImages(index);
+              }}>
+              <Feather name="camera" size={24} color={theme.styledTheme.greenLight} />
+            </CameraButton>
+          );
+        })}
+      </UploadedImagesContainer>
+      <Space key="space" height={10} />
+      <Button
+        onPress={() => {
+          backToHomePage();
+        }}
+        text={t('register-adoption')}
+        size={LARGE}
+        gradient={true}
+        rounded={true}
+        loading={isLoading}
+      />
+      <Space height={10} />
+      <GoBackLabel
+        onPress={() => {
+          navigation.goBack();
+        }}
+        variant={HEADLINE}>
+        {t('back-label')}
+      </GoBackLabel>
     </Background>
   );
 };
-
-const styles = StyleSheet.create({
-  labelText: {
-    alignSelf: 'center',
-  },
-  detailLabel: {
-    marginTop: 10,
-    alignSelf: 'center',
-    color: '#d9dad7',
-  },
-});
 
 export default RegisterSecondStep;

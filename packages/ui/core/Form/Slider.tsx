@@ -13,9 +13,9 @@ const StyledSlider = styled(DefaultSlider)``;
 interface StyledSliderProps extends SliderProps {
   minimum: number;
   maximum: number;
-  value?: number;
+  value: number;
   suffix: string;
-  onValueChange?: (value: number) => void;
+  onValueChange: (value: number) => void;
   testID?: string;
 }
 

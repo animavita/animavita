@@ -1,12 +1,15 @@
 import React from 'react';
+import styled from 'styled-components/native';
 
-import {ErrorView, TextError} from './registerFirstStep/styles';
+const TextError = styled.Text`
+  color: #c53030;
+`;
 
 const Error: React.FC = ({children}) => {
   return (
-    <ErrorView>
+    <>
       <TextError>{children}</TextError>
-    </ErrorView>
+    </>
   );
 };
 

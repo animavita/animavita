@@ -34,6 +34,7 @@
     "react-facebook-login": "^4.1.1",
     "react-hooks-testing-library": "^0.6.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
+    "react-native-dropdown-picker": "^5.1.15",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-material-menu": "^1.2.0",
     "react-native-reanimated": "~1.13.0",
