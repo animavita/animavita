@@ -7,6 +7,7 @@
     "prepare:build": "scripts/prepareBuild.sh",
     "sam": "yarn copy:env:to:build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\"",
     "start": "webpack --config webpack.dev.js --progress",
+    "start:infra": "docker-compose up",
     "test": "jest",
     "test:watch": "jest --watch",
     "update:schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts,.tsx\" ./scripts/updateSchema.ts"
@@ -18,7 +19,7 @@
     "aws-serverless-express": "^3.3.6",
     "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
-    "env-var": "^5.2.0",
+    "env-var": "^7.0.0",
     "graphql": "^14.6.0",
     "graphql-playground-middleware": "^1.1.2",
     "graphql-relay": "^0.6.0",

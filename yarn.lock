@@ -8165,10 +8165,10 @@ entities@^2.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.2.0.tgz#098dc90ebb83d8dffa089d55256b351d34c4da55"
   integrity sha512-p92if5Nz619I0w+akJrLZH0MX0Pb5DX39XOwQTtXSdQQOaYH03S1uIQp4mhOZtAXrxq4ViO67YTiLBo2638o9A==
 
-env-var@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/env-var/-/env-var-5.2.0.tgz#3ce888131793723b57f4602d8970a1cdbc7e6f27"
-  integrity sha512-D4vkwxt0aPY9SiQi6l/K57BvLn2aqASzExVlEpz7dHXVczbQmd1V3DQMMkTaPf4/tKvYAivX8oSRl86XGiDpTQ==
+env-var@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/env-var/-/env-var-7.0.0.tgz#db3e4733ec419d8fa3bc49b67a4d2ff8cbb14294"
+  integrity sha512-XnoXQhg98QpSQqpBjySM3VjXGVrIvisgFbFURxAxOymarLzlcdvy6Y3qlnvZFaAp5j99qwSbRwqbrZtug/0x9w==
 
 envinfo@^7.7.2:
   version "7.7.4"

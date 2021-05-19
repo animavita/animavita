@@ -1,0 +1,27 @@
+version: '2.1'
+
+services:
+  mongo:
+    container_name: animavita-mongo
+    image: mongo:4.4.6
+    restart: always
+    ports:
+      - 27017:27017
+  localstack:
+    container_name: animavita-localstack
+    image: localstack/localstack:0.12.11
+    network_mode: bridge
+    ports:
+      - '4566:4566'
+      - '${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}'
+    environment:
+      - SERVICES=s3,sqs
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+      - PORT_WEB_UI=${PORT_WEB_UI- }
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - HOST_TMP_FOLDER=${TMPDIR}
+    volumes:
+      - '${TMPDIR:-/tmp/localstack}:/tmp/localstack'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - './scripts/aws:/docker-entrypoint-initaws.d'
