@@ -148,7 +148,7 @@ async function uploadProfileImage(url: string, user: UserIncomplete) {
   const buffer = base64Image;
 
   const s3 = new AWS.S3({
-    ...(process.env.NODE_ENV !== 'production' && {endpoint: 'http://localhost:4566'}),
+    ...(process.env.NODE_ENV !== 'production' && {endpoint: 'http://localhost:4566', s3ForcePathStyle: true}),
   });
 
   const params = {
