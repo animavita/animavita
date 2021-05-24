@@ -2,6 +2,27 @@ const path = require('path');
 
 const createExpoWebpackConfigAsync = require('@expo/webpack-config');
 
+const nodeDependencies = [
+  'react-native-gesture-handler',
+  '@animavita',
+  '@react-navigation',
+  'react-native-screens',
+  'react-relay',
+  'relay-runtime',
+  'react-native-reanimated',
+  'expo-linear-gradient',
+  'react-native-elements',
+  'react-native-web',
+  'react-native-vector-icons',
+  'react-native-ratings',
+  'expo-constants',
+  '@expo/vector-icons',
+  '@unimodules/react-native-adapter',
+  'expo-localization',
+  'expo',
+  'react-native-material-menu',
+];
+
 module.exports = async function(env, argv) {
   const config = await createExpoWebpackConfigAsync(env, argv);
 
@@ -20,6 +41,7 @@ module.exports = async function(env, argv) {
     'relay',
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-export-default-from',
+    '@babel/plugin-proposal-nullish-coalescing-operator',
     ['@babel/plugin-transform-runtime', {regenerator: true}],
   ];
 
@@ -27,18 +49,7 @@ module.exports = async function(env, argv) {
     path.resolve(__dirname),
     path.resolve(__dirname, '..', 'theme'),
     path.resolve(__dirname, '..', 'ui'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-gesture-handler'),
-    path.resolve(__dirname, '..', '..', 'node_modules', '@animavita'),
-    path.resolve(__dirname, '..', '..', 'node_modules', '@react-navigation'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-screens'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-relay'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'relay-runtime'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-reanimated'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'expo-linear-gradient'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-web'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-elements'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-vector-icons'),
-    path.resolve(__dirname, '..', '..', 'node_modules', 'react-native-ratings'),
+    ...nodeDependencies.map(dep => path.resolve(__dirname, '..', '..', 'node_modules', dep)),
   ];
 
   return config;

@@ -5,25 +5,6 @@ import {AppleButton, FacebookButton, GoogleButton} from '@animavita/ui/social';
 import {Mount} from '../../../../tests/helpers';
 import SignUp from '../SignUp';
 
-// test('all elements are rendered', () => {
-//   const {queryByTestId} = Mount(<SignUp />);
-//
-//   const wrapper = queryByTestId('wrapper');
-//   const title = queryByTestId('title');
-//   const subtitle = queryByTestId('subtitle');
-//   const image = queryByTestId('image');
-//   const fbBtn = queryByTestId('fb-btn');
-//   const googleBtn = queryByTestId('google-btn');
-//   const appleBtn = queryByTestId('apple-btn');
-//
-//   expect(wrapper).toContainElement(title);
-//   expect(wrapper).toContainElement(subtitle);
-//   expect(wrapper).toContainElement(image);
-//   expect(wrapper).toContainElement(fbBtn);
-//   expect(wrapper).toContainElement(googleBtn);
-//   expect(wrapper).toContainElement(appleBtn);
-// });
-
 test('if facebook button works', () => {
   const loginWithFbMutation = jest.fn();
 
@@ -65,3 +46,5 @@ test('if apple button works', () => {
   expect(loginWithAppleMutation).not.toBeCalledTimes(0);
   expect(loginWithAppleMutation).not.toBeCalledTimes(2);
 });
+
+// to do: integration test for SignUp
