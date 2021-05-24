@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@animavita/i18n": "1.0.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.2",
     "@react-native-async-storage/async-storage": "^1.14.1",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/core": "^5.1.6",
@@ -27,7 +28,8 @@
     "expo-localization": "~9.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-facebook-sdk": "^1.1.1",
+    "react-facebook-login": "^4.1.1",
+    "react-hooks-testing-library": "^0.6.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-40.0.0.tar.gz",
     "react-native-gesture-handler": "~1.8.0",
     "react-native-material-menu": "^1.2.0",

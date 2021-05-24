@@ -1,41 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {Platform} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect} from 'react';
 import * as Facebook from 'expo-facebook';
-import {useNavigation} from '@react-navigation/native';
-import FacebookProvider, {Login} from 'react-facebook-sdk';
 import {FacebookButton} from '@animavita/ui/social';
 import {graphql, useMutation} from '@animavita/relay';
 import {differenceInSeconds} from 'date-fns';
 
 import getEnvVars from '../../../environment';
-import {changeShowBottomBar} from '../../utils/bottomBar';
-import {keys} from '../../utils/asyncStorage';
 
-import {
-  ContinueWithFacebookMutation as ContinueWithFacebookMutationType,
-  ContinueWithFacebookMutationResponse,
-} from './__generated__/ContinueWithFacebookMutation.graphql';
+import {ContinueWithFacebookMutation as ContinueWithFacebookMutationType} from './__generated__/ContinueWithFacebookMutation.graphql';
+import useAuth from './useAuth';
 
 const {fbAppID, fbAppName} = getEnvVars();
-
-interface FacebookWebSuccessfulResponse {
-  profile: {
-    id: string;
-    first_name: string;
-    last_name: string;
-    name: string;
-    email: string;
-  };
-  tokenDetail: {
-    accessToken: string;
-    data_access_expiration_time: number;
-    expiresIn: number;
-    graphDomain: string;
-    signedRequest: string;
-    userID: string;
-  };
-}
 
 const ContinueWithFacebookMutation = graphql`
   mutation ContinueWithFacebookMutation($input: SaveFacebookUserInput!) {
@@ -50,17 +24,8 @@ const ContinueWithFacebookMutation = graphql`
 `;
 
 const ContinueWithFacebook: React.FC = () => {
-  const navigation = useNavigation();
-
-  const [isSavingPending, saveFacebookUser] = useMutation<ContinueWithFacebookMutationType>(
-    ContinueWithFacebookMutation,
-  );
-
-  const [fbLoginIsLoading, changeFbLoginLoadingTo] = useState(false);
-
-  useEffect(() => {
-    changeShowBottomBar(fbLoginIsLoading);
-  }, [fbLoginIsLoading]);
+  const {changeFbLoginLoadingTo, fbLoginIsLoading, onCompleted, onError} = useAuth();
+  const [, saveFacebookUser] = useMutation<ContinueWithFacebookMutationType>(ContinueWithFacebookMutation);
 
   // TODO: initialize this sooner
   useEffect(() => {
@@ -73,21 +38,8 @@ const ContinueWithFacebook: React.FC = () => {
       }
     }
 
-    Platform.OS !== 'web' && initializeFacebookSDK();
+    initializeFacebookSDK();
   }, []);
-
-  const onCompleted = async (data: ContinueWithFacebookMutationResponse) => {
-    changeFbLoginLoadingTo(false);
-    if (data.SaveFacebookUser && data.SaveFacebookUser.token) {
-      await AsyncStorage.setItem(keys.token, data.SaveFacebookUser.token);
-      navigation.navigate('Home');
-    }
-  };
-
-  // TODO: show feedback of error
-  const onError = error => {
-    changeFbLoginLoadingTo(false);
-  };
 
   const loginWithFacebookMobile = async () => {
     // prevent the user from firing too much requests
@@ -119,40 +71,7 @@ const ContinueWithFacebook: React.FC = () => {
     }
   };
 
-  const loginWithFacebookWeb = async (data: FacebookWebSuccessfulResponse) => {
-    // prevent the user from firing too much requests
-    if (fbLoginIsLoading) return;
-
-    changeFbLoginLoadingTo(true);
-
-    saveFacebookUser({
-      variables: {
-        input: {
-          token: data.tokenDetail.accessToken,
-          expires: data.tokenDetail.expiresIn,
-          permissions: ['public_profile', 'email'],
-        },
-      },
-      onCompleted,
-      onError,
-    });
-  };
-
-  const handleLoginWithFacebookWebError = error => {
-    changeFbLoginLoadingTo(false);
-  };
-
-  if (Platform.OS === 'web') {
-    return (
-      <FacebookProvider appId={fbAppID}>
-        <Login scope="public_profile,email" onResponse={loginWithFacebookWeb} onError={handleLoginWithFacebookWebError}>
-          <FacebookButton testID="fb-btn" />
-        </Login>
-      </FacebookProvider>
-    );
-  } else {
-    return <FacebookButton testID="fb-btn" onPress={loginWithFacebookMobile} />;
-  }
+  return <FacebookButton testID="fb-btn" onPress={loginWithFacebookMobile} />;
 };
 
 export default ContinueWithFacebook;
