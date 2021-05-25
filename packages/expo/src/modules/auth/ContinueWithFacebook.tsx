@@ -1,27 +1,16 @@
 import React, {useEffect} from 'react';
 import * as Facebook from 'expo-facebook';
 import {FacebookButton} from '@animavita/ui/social';
-import {graphql, useMutation} from '@animavita/relay';
+import {useMutation} from '@animavita/relay';
 import {differenceInSeconds} from 'date-fns';
 
 import getEnvVars from '../../../environment';
 
 import {ContinueWithFacebookMutation as ContinueWithFacebookMutationType} from './__generated__/ContinueWithFacebookMutation.graphql';
 import useAuth from './useAuth';
+import {ContinueWithFacebookMutation} from './ContinueWithFacebook.mutation';
 
 const {fbAppID, fbAppName} = getEnvVars();
-
-const ContinueWithFacebookMutation = graphql`
-  mutation ContinueWithFacebookMutation($input: SaveFacebookUserInput!) {
-    SaveFacebookUser(input: $input) {
-      error
-      user {
-        name
-      }
-      token
-    }
-  }
-`;
 
 const ContinueWithFacebook: React.FC = () => {
   const {changeFbLoginLoadingTo, fbLoginIsLoading, onCompleted, onError} = useAuth();

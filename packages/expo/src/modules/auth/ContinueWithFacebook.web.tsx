@@ -1,26 +1,15 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import {FacebookButton} from '@animavita/ui/social';
-import {graphql, useMutation} from '@animavita/relay';
+import {useMutation} from '@animavita/relay';
 
 import getEnvVars from '../../../environment';
 
 import {ContinueWithFacebookMutation as ContinueWithFacebookMutationType} from './__generated__/ContinueWithFacebookMutation.graphql';
 import useAuth from './useAuth';
+import {ContinueWithFacebookMutation} from './ContinueWithFacebook.mutation';
 
 const {fbAppID} = getEnvVars();
-
-const ContinueWithFacebookMutation = graphql`
-  mutation ContinueWithFacebookMutation($input: SaveFacebookUserInput!) {
-    SaveFacebookUser(input: $input) {
-      error
-      user {
-        name
-      }
-      token
-    }
-  }
-`;
 
 interface FacebookWebSuccessfulResponse {
   accessToken: string;
