@@ -44,7 +44,7 @@ jobs:
           cp ./packages/relay/environment.example.ts ./packages/relay/environment.ts
       - name: Test Expo
         run: |
-          yarn expo:test --ci --maxWorkers=4 --coverage --reporters=jest-junit --forceExit
+          yarn expo:test --ci --maxWorkers=2 --coverage --reporters=jest-junit --forceExit
         env:
           JEST_SUITE_NAME: 'Animavita Expo Tests'
           JEST_JUNIT_OUTPUT_DIR: './reports'
