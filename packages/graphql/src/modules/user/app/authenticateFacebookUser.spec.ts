@@ -1,11 +1,8 @@
-import StorageProvider from '../../../common/providers/StorageProvider/models/StorageProvider';
 import User from '../domain/User';
-import UsersRepository from '../domain/UsersRepository';
-import SocialMediaRepository from '../domain/SocialMediaRepository';
-import FakeStorageProvider from '../../../common/providers/StorageProvider/fakes/FakeStorageProvider';
-import FakeUsersRepository from '../infra/fakes/FakeUsersRepository';
-import FakeFacebookRepository from '../infra/fakes/FakeFacebookRepository';
-import FakeTokenProvider from '../providers/TokenProvider/fakes/FakeTokenProvider';
+import createFakeStorageProvider from '../../../common/providers/StorageProvider/fakes/fakeStorageProvider';
+import createFakeUsersRepository from '../infra/fakes/fakeUsersRepository';
+import createFakeSocialMediaRepository from '../infra/fakes/fakeSocialMediaRepository';
+import createFakeTokenProvider from '../providers/TokenProvider/fakes/fakeTokenProvider';
 
 import authenticateFacebookUser from './authenticateFacebookUser';
 
@@ -39,17 +36,17 @@ const fakeUser = new User({
 });
 
 let authenticateUser: ReturnType<typeof authenticateFacebookUser>;
-let storageProvider: StorageProvider;
-let userRepository: UsersRepository;
-let facebookRepository: SocialMediaRepository;
-let tokenProvider: FakeTokenProvider;
+let storageProvider: ReturnType<typeof createFakeStorageProvider>;
+let userRepository: ReturnType<typeof createFakeUsersRepository>;
+let facebookRepository: ReturnType<typeof createFakeSocialMediaRepository>;
+let tokenProvider: ReturnType<typeof createFakeTokenProvider>;
 
 describe('AuthenticateFacebookUser', () => {
   beforeEach(() => {
-    storageProvider = new FakeStorageProvider();
-    userRepository = new FakeUsersRepository();
-    facebookRepository = new FakeFacebookRepository();
-    tokenProvider = new FakeTokenProvider(userRepository);
+    storageProvider = createFakeStorageProvider();
+    userRepository = createFakeUsersRepository();
+    facebookRepository = createFakeSocialMediaRepository();
+    tokenProvider = createFakeTokenProvider(userRepository);
 
     authenticateUser = authenticateFacebookUser({
       facebookRepository,

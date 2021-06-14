@@ -4,26 +4,26 @@ import UsersRepository from '../../../domain/UsersRepository';
 import {JWT_KEY} from '../../../../../common/config';
 import TokenProvider from '../model/TokenProvider';
 
-export default class JwtTokenProvider implements TokenProvider {
-  constructor(private userRepository: UsersRepository) {}
+export default function jwtTokenProvider(userRepository: UsersRepository): TokenProvider {
+  return {
+    generateToken(userId: string) {
+      return `JWT ${jwt.sign({id: userId}, JWT_KEY)}`;
+    },
 
-  generateToken(userId: string) {
-    return `JWT ${jwt.sign({id: userId}, JWT_KEY)}`;
-  }
+    async getUser(token: string) {
+      if (!token) return null;
 
-  async getUser(token: string) {
-    if (!token) return null;
+      try {
+        const decodedToken = jwt.verify(token.substring(4), JWT_KEY);
 
-    try {
-      const decodedToken = jwt.verify(token.substring(4), JWT_KEY);
+        const user = await userRepository.findById((decodedToken as {id: string}).id);
 
-      const user = await this.userRepository.findById((decodedToken as {id: string}).id);
+        if (!user) return null;
 
-      if (!user) return null;
-
-      return user;
-    } catch (err) {
-      return null;
-    }
-  }
+        return user;
+      } catch (err) {
+        return null;
+      }
+    },
+  };
 }

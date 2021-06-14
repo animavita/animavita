@@ -1,7 +1,7 @@
-import {asClass, AwilixContainer} from 'awilix';
+import {asFunction, AwilixContainer} from 'awilix';
 
 import StorageProvider from './models/StorageProvider';
-import S3StorageProvider from './implementations/S3StorageProvider';
+import s3StorageProvider from './implementations/s3StorageProvider';
 
 export type Container = {
   storageProvider: StorageProvider;
@@ -9,5 +9,5 @@ export type Container = {
 
 export const register = (container: AwilixContainer) =>
   container.register({
-    storageProvider: asClass(S3StorageProvider).singleton(),
+    storageProvider: asFunction(s3StorageProvider).singleton(),
   });

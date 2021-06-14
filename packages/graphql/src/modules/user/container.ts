@@ -1,11 +1,11 @@
-import {asClass, asFunction, AwilixContainer} from 'awilix';
+import {asFunction, AwilixContainer} from 'awilix';
 
 import authenticateFacebookUser from './app/authenticateFacebookUser';
 import SocialMediaRepository from './domain/SocialMediaRepository';
 import UsersRepository from './domain/UsersRepository';
-import FacebookRepository from './infra/FacebookRepository';
-import MongoUsersRepository from './infra/mongoose/repositories/MongoUsersRepository';
-import JwtTokenProvider from './providers/TokenProvider/implementations/JwtTokenProvider';
+import facebookSocialMediaRepository from './infra/facebookSocialMediaRepository';
+import mongoUsersRepository from './infra/mongoose/repositories/mongoUsersRepository';
+import jwtTokenProvider from './providers/TokenProvider/implementations/jwtTokenProvider';
 import TokenProvider from './providers/TokenProvider/model/TokenProvider';
 
 export type Container = {
@@ -17,8 +17,8 @@ export type Container = {
 
 export const register = (container: AwilixContainer) =>
   container.register({
-    userRepository: asClass(MongoUsersRepository).singleton(),
-    facebookRepository: asClass(FacebookRepository).singleton(),
-    tokenProvider: asClass(JwtTokenProvider).singleton(),
+    userRepository: asFunction(mongoUsersRepository).singleton(),
+    facebookRepository: asFunction(facebookSocialMediaRepository).singleton(),
+    tokenProvider: asFunction(jwtTokenProvider).singleton(),
     authenticateFacebookUser: asFunction(authenticateFacebookUser),
   });
