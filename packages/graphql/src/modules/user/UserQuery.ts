@@ -23,8 +23,8 @@ export const userQuerys: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
     type: UserType,
     resolve: (obj, args, context) => {
       const {user} = context;
-      if (!user || !user._id) return null;
-      return UserLoader.load(context, user._id);
+      if (!user || !user.id) return null;
+      return UserLoader.load(context, user.id);
     },
   },
 };

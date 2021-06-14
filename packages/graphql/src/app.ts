@@ -9,12 +9,12 @@ import graphqlHttp, {OptionsData} from 'koa-graphql';
 import koaLogger from 'koa-logger';
 import Router from '@koa/router';
 
-import {getUser} from './token';
 import * as loaders from './loaders';
 import {getDataloaders} from './helper';
 import {KoaContextExt} from './types';
 import schema from './schema';
 import {JWT_KEY} from './common/config';
+import container from './common/container';
 
 const app = new Koa<any, KoaContextExt>();
 if (process.env.NODE_ENV === 'production') {
@@ -47,7 +47,9 @@ app.use(async (ctx, next) => {
 });
 
 app.use(async (ctx, next) => {
-  ctx.user = await getUser(ctx.request.headers.authorization);
+  if (ctx.request.headers.authorization) {
+    ctx.user = await container.cradle.tokenProvider.getUser(ctx.request.headers.authorization);
+  }
   await next();
 });
 

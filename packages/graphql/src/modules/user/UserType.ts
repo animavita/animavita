@@ -13,7 +13,7 @@ import {registerType, NodeInterface} from '../../interfaces/NodeInterface';
 import {GraphQLContext} from '../../types';
 
 import User from './UserLoader';
-import {IId, IEmail, IProfileImage} from './UserModel';
+import {Email, Id, ProfileImage} from './domain/User';
 
 const providedByField: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   providedBy: {
@@ -22,7 +22,7 @@ const providedByField: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   },
 };
 
-const ProviderIdType = new GraphQLObjectType<IId>({
+const ProviderIdType = new GraphQLObjectType<Id>({
   name: 'ProviderId',
   description: 'The id of the user in the provider DB',
   fields: () => ({
@@ -34,7 +34,7 @@ const ProviderIdType = new GraphQLObjectType<IId>({
   }),
 });
 
-const EmailType = new GraphQLObjectType<IEmail>({
+const EmailType = new GraphQLObjectType<Email>({
   name: 'Email',
   fields: () => ({
     email: {
@@ -45,13 +45,13 @@ const EmailType = new GraphQLObjectType<IEmail>({
   }),
 });
 
-const ProfileImageType = new GraphQLObjectType<IProfileImage>({
+const ProfileImageType = new GraphQLObjectType<ProfileImage>({
   name: 'ProfileImage',
   fields: () => ({
     url: {
       type: GraphQLNonNull(GraphQLString),
       description: 'The url of the profile image',
-      resolve: obj => obj.location,
+      resolve: obj => obj.url,
     },
     ...providedByField,
   }),
