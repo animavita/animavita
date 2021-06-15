@@ -11,6 +11,7 @@ import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import {useI18n} from '@animavita/i18n';
 
 import Home from '../modules/home/Home';
+import getEnvVars from '../../../relay/environment';
 
 import {HomeQuery} from './__generated__/HomeQuery.graphql';
 
@@ -52,6 +53,10 @@ const HomeNavigator: React.FC = () => {
   const name = me?.name?.split(' ')[0] || '';
   const imageIndex = me ? me.profileImages.length - 1 : 0;
   const uri = me?.profileImages[imageIndex].url;
+  const uriend = uri.slice(16);
+  const {graphqlApi} = getEnvVars();
+  const uristart = `${graphqlApi}`.slice(0, -5);
+  const finaluri = `${uristart}${uriend}`;
 
   const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
 
@@ -79,7 +84,7 @@ const HomeNavigator: React.FC = () => {
         ref={menu}
         button={
           <Pressable onPress={showMenu}>
-            <Avatar source={{uri}} />
+            <Avatar source={{uri: finaluri}} />
           </Pressable>
         }>
         <MenuItem onPress={hideMenu} disabled>
