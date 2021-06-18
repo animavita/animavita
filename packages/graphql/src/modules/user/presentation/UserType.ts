@@ -9,11 +9,11 @@ import {
 } from 'graphql';
 import {globalIdField} from 'graphql-relay';
 
-import {registerType, NodeInterface} from '../../interfaces/NodeInterface';
-import {GraphQLContext} from '../../types';
+import {registerType, NodeInterface} from '../../../interfaces/NodeInterface';
+import {GraphQLContext} from '../../../types';
+import {Email, Id, ProfileImage} from '../domain/User';
 
-import User from './UserLoader';
-import {Email, Id, ProfileImage} from './domain/User';
+import User from './routes/queries/UserLoader';
 
 const providedByField: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   providedBy: {

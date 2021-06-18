@@ -10,10 +10,10 @@ interface LoaderFactoryMap {
 
 export type ResolvedLoaders<T extends LoaderFactoryMap> = {[K in keyof T]: ReturnType<T[K]['getLoader']>};
 
-export function getDataloaders<T extends LoaderFactoryMap>(loaders: T): ResolvedLoaders<T> {
+export function getDataLoaders<T extends LoaderFactoryMap>(loaders: T): ResolvedLoaders<T> {
   const result: ResolvedLoaders<T> = {} as any;
   for (const key in loaders) {
-    if (loaders[key].getLoader) {
+    if (loaders[key].getLoader()) {
       result[key] = loaders[key].getLoader();
     }
   }

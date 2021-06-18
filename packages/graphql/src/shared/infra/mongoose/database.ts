@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import {MONGO_URI} from './config';
+import {MONGO_URI} from '../../config';
 
 export default function connectDatabase(): Promise<void> {
   return new Promise((resolve, reject) => {

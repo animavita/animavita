@@ -1,7 +1,7 @@
 import {createServer} from 'http';
 
 import app from './app';
-import connectDatabase from './common/database';
+import connectDatabase from './shared/infra/mongoose/database';
 
 const GRAPHQL_PORT = 5001;
 

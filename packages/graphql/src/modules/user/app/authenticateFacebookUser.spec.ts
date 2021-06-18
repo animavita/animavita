@@ -1,5 +1,5 @@
 import User from '../domain/User';
-import createFakeStorageProvider from '../../../common/providers/StorageProvider/fakes/fakeStorageProvider';
+import createFakeStorageProvider from '../../../shared/providers/StorageProvider/fakes/fakeStorageProvider';
 import createFakeUsersRepository from '../infra/fakes/fakeUsersRepository';
 import createFakeSocialMediaRepository from '../infra/fakes/fakeSocialMediaRepository';
 import createFakeTokenProvider from '../providers/TokenProvider/fakes/fakeTokenProvider';
@@ -35,28 +35,31 @@ const fakeUser = new User({
   ],
 });
 
-let authenticateUser: ReturnType<typeof authenticateFacebookUser>;
-let storageProvider: ReturnType<typeof createFakeStorageProvider>;
-let userRepository: ReturnType<typeof createFakeUsersRepository>;
-let facebookRepository: ReturnType<typeof createFakeSocialMediaRepository>;
-let tokenProvider: ReturnType<typeof createFakeTokenProvider>;
-
-describe('AuthenticateFacebookUser', () => {
-  beforeEach(() => {
-    storageProvider = createFakeStorageProvider();
-    userRepository = createFakeUsersRepository();
-    facebookRepository = createFakeSocialMediaRepository();
-    tokenProvider = createFakeTokenProvider(userRepository);
-
-    authenticateUser = authenticateFacebookUser({
-      facebookRepository,
-      storageProvider,
-      tokenProvider,
-      userRepository,
-    });
+const setUp = () => {
+  const userRepository = createFakeUsersRepository();
+  const storageProvider = createFakeStorageProvider();
+  const facebookRepository = createFakeSocialMediaRepository();
+  const tokenProvider = createFakeTokenProvider(userRepository);
+  const authenticateUser = authenticateFacebookUser({
+    facebookRepository,
+    storageProvider,
+    tokenProvider,
+    userRepository,
   });
 
+  return {
+    authenticateUser,
+    storageProvider,
+    userRepository,
+    facebookRepository,
+    tokenProvider,
+  };
+};
+
+describe('AuthenticateFacebookUser', () => {
   it('should be able to authenticate', async () => {
+    const {authenticateUser} = setUp();
+
     const {user, token} = await authenticateUser(authenticateUserParams);
 
     expect(user).toBeInstanceOf(User);
@@ -86,6 +89,8 @@ describe('AuthenticateFacebookUser', () => {
   });
 
   it('should be able to authenticate with no user photo', async () => {
+    const {facebookRepository, authenticateUser} = setUp();
+
     jest.spyOn(facebookRepository, 'getUserProfileImage').mockImplementationOnce(async () => {
       return null;
     });
@@ -114,6 +119,8 @@ describe('AuthenticateFacebookUser', () => {
   });
 
   it('should be able to login again if a user already exists', async () => {
+    const {authenticateUser, userRepository} = setUp();
+
     await userRepository.createUser(fakeUser);
 
     const {user} = await authenticateUser(authenticateUserParams);
@@ -123,6 +130,8 @@ describe('AuthenticateFacebookUser', () => {
   });
 
   it('should update name if the name has changed', async () => {
+    const {authenticateUser, userRepository} = setUp();
+
     await userRepository.createUser({
       ...fakeUser,
       name: 'old-fake-user',
@@ -134,6 +143,8 @@ describe('AuthenticateFacebookUser', () => {
   });
 
   it('should update provider id if the id has changed', async () => {
+    const {authenticateUser, userRepository} = setUp();
+
     await userRepository.createUser({
       ...fakeUser,
       providersIds: [
@@ -150,6 +161,8 @@ describe('AuthenticateFacebookUser', () => {
   });
 
   it('should update profilePhoto if none was provided before', async () => {
+    const {authenticateUser, userRepository} = setUp();
+
     await userRepository.createUser({
       ...fakeUser,
       profileImages: [],
@@ -161,6 +174,8 @@ describe('AuthenticateFacebookUser', () => {
   });
 
   it('should throw an error if it is not able to find the user when updated', async () => {
+    const {authenticateUser, userRepository} = setUp();
+
     jest.spyOn(userRepository, 'findById').mockImplementationOnce(async () => {
       return null;
     });
@@ -171,6 +186,8 @@ describe('AuthenticateFacebookUser', () => {
   });
 
   it('should throw an error if no data if return from social provider', async () => {
+    const {authenticateUser, facebookRepository} = setUp();
+
     jest.spyOn(facebookRepository, 'getUser').mockImplementationOnce(async () => {
       return null;
     });

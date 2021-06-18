@@ -1,6 +1,6 @@
 import {createServer, proxy} from 'aws-serverless-express';
 
-import connectDatabase from './common/database';
+import connectDatabase from './shared/infra/mongoose/database';
 import app from './app';
 
 export const handler = (event, ctx) => {

@@ -1,15 +1,9 @@
 import {GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
 import {mutationWithClientMutationId} from 'graphql-relay';
 
-import '../../../common/aws';
-import container from '../../../common/container';
-import UserType from '../UserType';
-
-export interface SaveFacebookUserMutationArgs {
-  token: string;
-  expires: number;
-  permissions: string[];
-}
+import '../../../../../shared/aws';
+import facebookSessionController from '../../controllers/facebookSessionController';
+import UserType from '../../UserType';
 
 export default mutationWithClientMutationId({
   name: 'SaveFacebookUser',
@@ -21,12 +15,7 @@ export default mutationWithClientMutationId({
     permissions: {type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLString)))},
   },
 
-  mutateAndGetPayload: async ({expires, permissions, token}: SaveFacebookUserMutationArgs) =>
-    container.cradle.authenticateFacebookUser({
-      expires,
-      permissions,
-      token,
-    }),
+  mutateAndGetPayload: facebookSessionController.create,
   outputFields: {
     error: {
       type: GraphQLString,

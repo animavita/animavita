@@ -1,12 +1,12 @@
 import {GraphQLFieldConfigMap, GraphQLNonNull, GraphQLID} from 'graphql';
 import {fromGlobalId} from 'graphql-relay';
 
-import {GraphQLContext} from '../../types';
-import {UserLoader} from '../../loaders';
+import {GraphQLContext} from '../../../../../types';
+import UserType from '../../UserType';
 
-import UserType from './UserType';
+import * as UserLoader from './UserLoader';
 
-export const userQuerys: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
+const userQueries: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   user: {
     type: UserType,
     args: {
@@ -28,3 +28,5 @@ export const userQuerys: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
     },
   },
 };
+
+export default userQueries;

@@ -2,10 +2,9 @@ import DataLoader from 'dataloader';
 import {mongooseLoader} from '@entria/graphql-mongoose-loader';
 import {Types} from 'mongoose';
 
-import {DataLoaderKey, GraphQLContext} from '../../types';
-
-import {Email, Id, ProfileImage} from './domain/User';
-import UserModel, {IUserDocument} from './infra/mongoose/models/UserModel';
+import {DataLoaderKey, GraphQLContext} from '../../../../../types';
+import {Email, Id, ProfileImage} from '../../../domain/User';
+import UserModel, {IUserDocument} from '../../../infra/mongoose/models/UserModel';
 
 export default class User {
   public registeredType = 'User';

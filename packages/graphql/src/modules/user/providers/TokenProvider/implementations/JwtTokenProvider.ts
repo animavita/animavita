@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 import UsersRepository from '../../../domain/UsersRepository';
-import {JWT_KEY} from '../../../../../common/config';
+import {JWT_KEY} from '../../../../../shared/config';
 import TokenProvider from '../model/TokenProvider';
 
 export default function jwtTokenProvider(userRepository: UsersRepository): TokenProvider {

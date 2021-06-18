@@ -9,12 +9,12 @@ import graphqlHttp, {OptionsData} from 'koa-graphql';
 import koaLogger from 'koa-logger';
 import Router from '@koa/router';
 
-import * as loaders from './loaders';
-import {getDataloaders} from './helper';
+import * as loaders from './shared/presentation/loaders';
+import {getDataLoaders} from './helper';
 import {KoaContextExt} from './types';
-import schema from './schema';
-import {JWT_KEY} from './common/config';
-import container from './common/container';
+import schema from './shared/presentation/schema';
+import {JWT_KEY} from './shared/config';
+import container from './shared/container';
 
 const app = new Koa<any, KoaContextExt>();
 if (process.env.NODE_ENV === 'production') {
@@ -42,7 +42,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(convert(cors({maxAge: 86400, origin: '*'})));
 
 app.use(async (ctx, next) => {
-  ctx.dataloaders = getDataloaders(loaders);
+  ctx.dataloaders = getDataLoaders(loaders);
   await next();
 });
 

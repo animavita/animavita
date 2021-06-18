@@ -1,7 +1,8 @@
 import {createContainer} from 'awilix';
 
-import * as User from '../../modules/user/container';
-import * as Providers from '../providers/container';
+import * as User from '../modules/user/container';
+
+import * as Providers from './providers/container';
 
 export type Container = User.Container & Providers.Container;
 
