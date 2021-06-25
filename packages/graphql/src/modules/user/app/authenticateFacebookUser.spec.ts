@@ -39,7 +39,7 @@ const setUp = () => {
   const userRepository = createFakeUsersRepository();
   const storageProvider = createFakeStorageProvider();
   const facebookRepository = createFakeSocialMediaRepository();
-  const tokenProvider = createFakeTokenProvider(userRepository);
+  const tokenProvider = createFakeTokenProvider({userRepository});
   const authenticateUser = authenticateFacebookUser({
     facebookRepository,
     storageProvider,

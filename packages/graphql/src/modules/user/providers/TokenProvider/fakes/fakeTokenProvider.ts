@@ -3,8 +3,11 @@ import jwt from 'jsonwebtoken';
 import UsersRepository from '../../../domain/UsersRepository';
 import {JWT_KEY} from '../../../../../shared/config';
 import TokenProvider from '../model/TokenProvider';
+interface Dependencies {
+  userRepository: UsersRepository;
+}
 
-export default function fakeTokenProvider(userRepository: UsersRepository): TokenProvider {
+export default function fakeTokenProvider({userRepository}: Dependencies): TokenProvider {
   return {
     generateToken(userId: string) {
       return `JWT ${jwt.sign({id: userId}, JWT_KEY)}`;

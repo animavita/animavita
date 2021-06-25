@@ -4,7 +4,11 @@ import UsersRepository from '../../../domain/UsersRepository';
 import {JWT_KEY} from '../../../../../shared/config';
 import TokenProvider from '../model/TokenProvider';
 
-export default function jwtTokenProvider(userRepository: UsersRepository): TokenProvider {
+interface Dependencies {
+  userRepository: UsersRepository;
+}
+
+export default function jwtTokenProvider({userRepository}: Dependencies): TokenProvider {
   return {
     generateToken(userId: string) {
       return `JWT ${jwt.sign({id: userId}, JWT_KEY)}`;
