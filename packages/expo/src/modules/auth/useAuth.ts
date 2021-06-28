@@ -17,8 +17,8 @@ const useAuth = () => {
 
   const onCompleted = async (data: ContinueWithFacebookMutationResponse) => {
     changeFbLoginLoadingTo(false);
-    if (data.SaveFacebookUser && data.SaveFacebookUser.token) {
-      await AsyncStorage.setItem(keys.token, data.SaveFacebookUser.token);
+    if (data.authenticateFacebookUser && data.authenticateFacebookUser.token) {
+      await AsyncStorage.setItem(keys.token, data.authenticateFacebookUser.token);
       navigation.navigate('Home');
     }
   };

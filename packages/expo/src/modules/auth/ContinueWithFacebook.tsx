@@ -14,7 +14,7 @@ const {fbAppID, fbAppName} = getEnvVars();
 
 const ContinueWithFacebook: React.FC = () => {
   const {changeFbLoginLoadingTo, fbLoginIsLoading, onCompleted, onError} = useAuth();
-  const [, saveFacebookUser] = useMutation<ContinueWithFacebookMutationType>(ContinueWithFacebookMutation);
+  const [, authenticateFacebookUser] = useMutation<ContinueWithFacebookMutationType>(ContinueWithFacebookMutation);
 
   // TODO: initialize this sooner
   useEffect(() => {
@@ -44,7 +44,7 @@ const ContinueWithFacebook: React.FC = () => {
       const {token, permissions, expirationDate} = response;
       const expires = differenceInSeconds(new Date(expirationDate), new Date());
 
-      saveFacebookUser({
+      authenticateFacebookUser({
         variables: {
           input: {
             token,
