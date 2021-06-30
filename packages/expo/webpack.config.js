@@ -21,6 +21,7 @@ const nodeDependencies = [
   'expo-localization',
   'expo',
   'react-native-material-menu',
+  'react-native',
 ];
 
 module.exports = async function(env, argv) {
