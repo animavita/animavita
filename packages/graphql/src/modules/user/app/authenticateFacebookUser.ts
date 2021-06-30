@@ -35,7 +35,7 @@ const authenticateFacebookUser = ({
     throw new Error('Failed to fetch basic user data');
   }
 
-  const profileUrl = await facebookRepository.getUserProfileImage({id: socialUserInfo.id, token});
+  const profileUrl = await facebookRepository.getUserProfileImage(token);
 
   const {id: fbID, email, name} = socialUserInfo;
 

@@ -24,7 +24,7 @@ const fakeUser = new User({
   profileImages: [
     {
       providedBy: 'facebook',
-      url: 'socialId-fake-token-fake-token/profilePicture.jpeg',
+      url: 'fake-token/profilePicture.jpeg',
     },
   ],
   providersIds: [
@@ -75,7 +75,7 @@ describe('AuthenticateFacebookUser', () => {
       profileImages: [
         {
           providedBy: 'facebook',
-          url: 'socialId-fake-token-fake-token/profilePicture.jpeg',
+          url: 'fake-token/profilePicture.jpeg',
         },
       ],
       providersIds: [

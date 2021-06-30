@@ -17,7 +17,7 @@ export default function s3StorageProvider(): StorageProvider {
 
       const buffer = base64Image;
 
-      const {Key} = await client
+      const {Location} = await client
         .upload({
           Bucket: AWS_S3_BUCKET_NAME!,
           Key: `profile-pictures/${userId}${new Date().getTime()}.jpeg`,
@@ -28,7 +28,7 @@ export default function s3StorageProvider(): StorageProvider {
         })
         .promise();
 
-      return Key;
+      return Location;
     },
   };
 }

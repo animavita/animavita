@@ -1,4 +1,4 @@
-import SocialMediaRepository, {SocialUser, GetSocialProfileImage} from '../../domain/SocialMediaRepository';
+import SocialMediaRepository, {SocialUser} from '../../domain/SocialMediaRepository';
 
 export default function fakeSocialMediaRepository(): SocialMediaRepository {
   return {
@@ -10,8 +10,8 @@ export default function fakeSocialMediaRepository(): SocialMediaRepository {
       };
     },
 
-    async getUserProfileImage({id, token}: GetSocialProfileImage): Promise<string | null> {
-      return `${id}-${token}/profilePicture.jpeg`;
+    async getUserProfileImage(token: string): Promise<string | null> {
+      return `${token}/profilePicture.jpeg`;
     },
   };
 }

@@ -1,14 +1,16 @@
 import axios from 'axios';
 
-import SocialMediaRepository, {SocialUser, GetSocialProfileImage} from '../domain/SocialMediaRepository';
+import SocialMediaRepository, {SocialUser} from '../domain/SocialMediaRepository';
 
 export default function facebookSocialMediaRepository(): SocialMediaRepository {
+  const client = axios.create({
+    baseURL: 'https://graph.facebook.com',
+  });
+
   return {
     async getUser(token: string): Promise<SocialUser | null> {
       try {
-        const response = await axios.get<SocialUser>(
-          `https://graph.facebook.com/me?access_token=${token}&fields=id,name,email`,
-        );
+        const response = await client.get<SocialUser>(`/me?fields=id,name,email&access_token=${token}`);
         const user = response.data;
         return user;
       } catch {
@@ -16,12 +18,13 @@ export default function facebookSocialMediaRepository(): SocialMediaRepository {
       }
     },
 
-    async getUserProfileImage({id, token}: GetSocialProfileImage): Promise<string | null> {
+    async getUserProfileImage(token: string): Promise<string | null> {
       try {
-        const response = await axios.get<{url: string}>(
-          `https://graph.facebook.com/${id}/picture?height=720&width=720&access_token=${token}`,
-        );
-        const {url} = response.data;
+        const response = await client.get(`/me/picture?height=720&width=720&redirect=false&access_token=${token}`);
+        const {
+          data: {url},
+        } = response.data;
+
         return url;
       } catch {
         return null;
