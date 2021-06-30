@@ -1,5 +1,5 @@
 import React, {useRef} from 'react';
-import {Pressable} from 'react-native';
+import {Pressable, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
@@ -9,6 +9,7 @@ import {useLazyLoadQuery, graphql} from '@animavita/relay';
 import {useTheme, px2ddp, StyledTheme} from '@animavita/theme';
 import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import {useI18n} from '@animavita/i18n';
+import {URL} from 'react-native-url-polyfill';
 
 import Home from '../modules/home/Home';
 
@@ -53,6 +54,18 @@ const HomeNavigator: React.FC = () => {
   const imageIndex = me ? me.profileImages.length - 1 : 0;
   const uri = me?.profileImages[imageIndex].url;
 
+  const getPictureUrl = (url: string) => {
+    if (Platform.OS === 'android') {
+      const urlObject = new URL(url);
+      const port = urlObject.port;
+      const pathname = urlObject.pathname;
+
+      return `http://10.0.2.2:${port}/${pathname}`;
+    }
+
+    return url;
+  };
+
   const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
 
   const hideMenu = () => {
@@ -79,7 +92,7 @@ const HomeNavigator: React.FC = () => {
         ref={menu}
         button={
           <Pressable onPress={showMenu}>
-            <Avatar source={{uri}} />
+            <Avatar source={{uri: getPictureUrl(uri)}} />
           </Pressable>
         }>
         <MenuItem onPress={hideMenu} disabled>
