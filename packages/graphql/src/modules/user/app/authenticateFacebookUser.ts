@@ -112,7 +112,6 @@ const authenticateFacebookUser = ({
     //   jobName: USER_JOBS.USER.EMAIL_WELCOME,
     //   data: {userId: user._id},
     // });
-
     return {
       user: newUser,
       token: tokenProvider.generateToken(newUser.id),
