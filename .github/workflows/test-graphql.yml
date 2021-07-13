@@ -1,7 +1,7 @@
 name: Animavita GraphQL Tests
 
 on:
-  push:
+  pull_request:
     paths:
       - '.github/workflows/test-graphql.yml'
       - 'packages/graphql/**'
@@ -9,6 +9,7 @@ on:
       - 'packages/eslint/**'
     branches-ignore:
       - 'master'
+    types: [labeled, synchronize, opened, reopened]
 
 jobs:
   test-graphql:

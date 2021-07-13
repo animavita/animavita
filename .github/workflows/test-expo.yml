@@ -1,7 +1,7 @@
 name: Animavita Expo Tests
 
 on:
-  push:
+  pull_request:
     paths:
       - '.github/workflows/test-expo.yml'
       - 'packages/expo/**'
@@ -11,6 +11,7 @@ on:
       - 'packages/theme/**'
     branches-ignore:
       - 'master'
+    types: [labeled, synchronize, opened, reopened]
 
 jobs:
   test-expo:
