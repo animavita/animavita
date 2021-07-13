@@ -2,6 +2,7 @@ name: Animavita GraphQL Tests
 
 on:
   push:
+  pull_request:
     paths:
       - '.github/workflows/test-graphql.yml'
       - 'packages/graphql/**'
