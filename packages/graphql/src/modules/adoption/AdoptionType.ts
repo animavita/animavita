@@ -11,7 +11,7 @@ import {globalIdField} from 'graphql-relay';
 
 import {registerType, NodeInterface} from '../../interfaces/NodeInterface';
 import {GraphQLContext} from '../../types';
-import UserType from '../user/UserType';
+import UserType from '../user/presentation/UserType';
 
 import {IAdoptionDocument} from './AdoptionModel';
 

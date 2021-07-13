@@ -4,19 +4,22 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.prod.js --display-error-details --display-modules",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/index.local.ts",
     "prepare:build": "scripts/prepareBuild.sh",
-    "sam": "yarn copy:env:to:build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\"",
     "start": "webpack --config webpack.dev.js --progress",
-    "start:infra": "docker-compose up",
+    "sam": "yarn copy:env:to:build && concurrently \"webpack --config webpack.prod.js --watch\" \"sam local start-api --port 5000 --template aws/prod.yml\"",
+    "start:infra": "docker-compose up -d",
     "test": "jest",
     "test:watch": "jest --watch",
-    "update:schema": "babel-node --extensions \".es6,.js,.es,.jsx,.mjs,.ts,.tsx\" ./scripts/updateSchema.ts"
+    "update:schema": "ts-node-dev ./scripts/updateSchema.ts"
   },
   "dependencies": {
     "@entria/graphql-mongoose-loader": "^4.3.0",
     "@koa/router": "^8.0.6",
+    "awilix": "^4.3.4",
     "aws-sdk": "^2.614.0",
     "aws-serverless-express": "^3.3.6",
+    "axios": "^0.21.1",
     "dataloader": "^2.0.0",
     "dotenv": "^8.2.0",
     "env-var": "^7.0.0",
@@ -32,7 +35,9 @@
     "koa-graphql": "^0.8.0",
     "koa-logger": "^3.2.1",
     "mongoose": "^5.8.11",
-    "node-base64-image": "^2.0.1"
+    "node-base64-image": "^2.0.1",
+    "supertest": "^6.1.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/aws-sdk": "^2.7.0",
@@ -48,14 +53,13 @@
     "@types/koa__router": "^8.0.2",
     "@types/mongoose": "^5.7.0",
     "@types/node": "^13.7.1",
-    "babel-jest": "^25.1.0",
+    "@types/supertest": "^2.0.11",
     "babel-loader": "^8.0.6",
-    "jest": "^26.6.3",
-    "jest-environment-node": "^25.1.0",
-    "jest-fetch-mock": "^3.0.1",
-    "mongodb-memory-server": "^6.2.4",
+    "jest": "^27.0.4",
     "reload-server-webpack-plugin": "^1.0.1",
-    "terser-webpack-plugin": "^2.3.4",
+    "ts-jest": "^27.0.3",
+    "ts-node-dev": "^1.1.6",
+    "typescript": "^4.3.2",
     "webpack": "^4.41.5",
     "webpack-cli": "^3.3.10",
     "webpack-merge": "^4.2.2"

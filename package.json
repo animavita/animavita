@@ -20,6 +20,7 @@
     "deploy:staging": "scripts/DeployStaging.sh",
     "expo:test": "yarn workspace @animavita/expo test",
     "graphql": "yarn workspace @animavita/graphql start",
+    "graphql:dev": "yarn workspace @animavita/graphql dev",
     "graphql:infra": "yarn workspace @animavita/graphql start:infra",
     "graphql:test": "yarn workspace @animavita/graphql test",
     "postinstall": "cd ./packages/expo && expo-yarn-workspaces postinstall && patch-package",
@@ -35,7 +36,7 @@
     "test": "jest",
     "ui:test": "yarn workspace @animavita/ui test",
     "update:schema": "yarn workspace @animavita/graphql update:schema",
-    "web": "yarn workspace @animavita/expo web"
+    "web": "yarn workspace @animavita/expo web --https"
   },
   "lint-staged": {
     "*.yml": [

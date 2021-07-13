@@ -7,7 +7,7 @@ import {promisify} from 'util';
 import {introspectionQuery, printSchema} from 'graphql/utilities';
 import {graphql} from 'graphql';
 
-import schema from '../src/schema';
+import schema from '../src/shared/presentation/schema';
 
 const writeFileAsync = promisify(fs.writeFile);
 

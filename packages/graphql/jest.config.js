@@ -1,20 +1,13 @@
-const pkg = require('./package');
+// For a detailed explanation regarding each configuration property, visit:
+// https://jestjs.io/docs/en/configuration.html
 
 module.exports = {
-  rootDir: './',
-  name: pkg.name,
-  displayName: pkg.name.toUpperCase(),
-  testPathIgnorePatterns: ['/node_modules/', './build'],
-  coverageReporters: ['lcov', 'html'],
-  globalSetup: '<rootDir>/tests/setup.ts',
-  globalTeardown: '<rootDir>/tests/teardown.ts',
-  testEnvironment: '<rootDir>/tests/environment/mongodb.ts',
-  setupFilesAfterEnv: ['<rootDir>/tests/setupTestFramework.ts'],
-  resetModules: false,
-  reporters: ['default'],
-  transform: {
-    '^.+\\.(js|jsx|ts|tsx)?$': '<rootDir>/tests/babel.transformer.ts',
-  },
-  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(js|jsx|ts|tsx)?$',
-  moduleFileExtensions: ['ts', 'js', 'tsx'],
+  clearMocks: true,
+  collectCoverage: true,
+  collectCoverageFrom: ['<rootDir>/src/modules/**/app/*.ts'],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text-summary', 'lcov'],
+  preset: 'ts-jest',
+  testEnvironment: 'node',
+  testMatch: ['**/*.spec.ts'],
 };

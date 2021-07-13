@@ -3,7 +3,7 @@ import DataLoader from 'dataloader';
 import {GraphQLObjectType} from 'graphql';
 
 import {GraphQLContext} from '../types';
-import * as loaders from '../loaders';
+import * as loaders from '../shared/presentation/loaders';
 
 type RegisteredTypes = {
   [key: string]: GraphQLObjectType;

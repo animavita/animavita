@@ -2,7 +2,7 @@ import {graphql} from '@animavita/relay';
 
 export const ContinueWithFacebookMutation = graphql`
   mutation ContinueWithFacebookMutation($input: SaveFacebookUserInput!) {
-    SaveFacebookUser(input: $input) {
+    authenticateFacebookUser(input: $input) {
       error
       user {
         name

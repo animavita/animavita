@@ -59,9 +59,10 @@ enum Gender {
   FEMALE
 }
 
+"""The root of all mutations"""
 type Mutation {
   """Save facebook user data"""
-  SaveFacebookUser(input: SaveFacebookUserInput!): SaveFacebookUserPayload
+  authenticateFacebookUser(input: SaveFacebookUserInput!): SaveFacebookUserPayload
 }
 
 """An object with an ID"""

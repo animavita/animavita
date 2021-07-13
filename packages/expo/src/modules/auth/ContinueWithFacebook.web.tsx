@@ -18,7 +18,7 @@ interface FacebookWebSuccessfulResponse {
 
 const ContinueWithFacebookLoginWeb: React.FC = () => {
   const {changeFbLoginLoadingTo, fbLoginIsLoading, onCompleted, onError} = useAuth();
-  const [, saveFacebookUser] = useMutation<ContinueWithFacebookMutationType>(ContinueWithFacebookMutation);
+  const [, authenticateFacebookUser] = useMutation<ContinueWithFacebookMutationType>(ContinueWithFacebookMutation);
 
   const loginWithFacebookWeb = async (data: FacebookWebSuccessfulResponse) => {
     // prevent the user from firing too much requests
@@ -26,7 +26,7 @@ const ContinueWithFacebookLoginWeb: React.FC = () => {
 
     changeFbLoginLoadingTo(true);
 
-    saveFacebookUser({
+    authenticateFacebookUser({
       variables: {
         input: {
           token: data.accessToken,

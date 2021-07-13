@@ -1,5 +1,5 @@
-import UserModel, {IUserDocument} from '../UserModel';
-import {sendEmail} from '../../../common/email';
+import UserModel, {IUserDocument} from '../infra/mongoose/models/UserModel';
+import {sendEmail} from '../../../shared/providers/email';
 
 type Data = {
   userId: string;

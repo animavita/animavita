@@ -1,8 +1,8 @@
 import AWS from 'aws-sdk';
 
-import connectDatabase from './common/database';
+import connectDatabase from './shared/infra/mongoose/database';
 import userJobs from './modules/user/jobs';
-import {AWS_STANDARD_QUEUE_URL} from './common/config';
+import {AWS_STANDARD_QUEUE_URL} from './shared/config';
 
 interface MessageAttribute {
   [key: string]: {

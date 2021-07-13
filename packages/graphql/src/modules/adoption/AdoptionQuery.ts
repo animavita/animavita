@@ -11,7 +11,7 @@ export const AdoptionConnection = connectionDefinitions({
   nodeType: AdoptionType,
 });
 
-export const AdoptionsQueries: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
+const adoptionsQueries: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   adoptions: {
     type: AdoptionConnection.connectionType,
     args: forwardConnectionArgs,
@@ -22,3 +22,5 @@ export const AdoptionsQueries: GraphQLFieldConfigMap<any, GraphQLContext, any> =
     resolve: AdoptionResolvers.myAdoptions,
   },
 };
+
+export default adoptionsQueries;

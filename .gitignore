@@ -111,6 +111,9 @@ dist
 # Expo
 .expo
 
+# VSCode
+.vscode
+
 __generated__
 packages/*/environment.*
 !packages/*/environment.example.*
