@@ -101,4 +101,16 @@ Run
 $ yarn android
 ```
 
-Thanks :hearts:
+### Backend Architecture
+
+We decided to follow some DDD principals to guide our backend architecture. Here is a quick glance of what we expect when of new contributions in the backend project. How we organize our project:
+
+- `module`: container for a specific set of classes/functions related to the same domain;
+  - `domain`: store all the classes that models every entity or aggregator for a specific domain.
+  - `app`: It's a business layer that store all useCases with the business rules that couldn't be defined in the domain model.
+  - `infra`: handles the infrastructure layer dealing with database connection and external api communication through repositories.
+  - `presentation`: takes care of the data presentation. Control the routes or graphQL schemas and its respective controllers.
+  - `providers`: a set of useful services not necessarily connected to a specific domain. Ex.: a provider that deals with JWT authentication.
+- `shared`: container for a set of classes/functions that share more that one domain or doesn't belong to a specific one. It may have the same folders as `modules`
+
+Thanks ❤️
