@@ -32,10 +32,19 @@ beforeEach(clearDbAndRestartCounters);
 afterAll(disconnectMongoose);
 
 describe('Facebook Session Controller', () => {
+  const mockedAxios = new MockAdapter(axios);
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => null);
+  });
+  beforeEach(() => {
+    mockedAxios.reset();
+  });
+  afterAll(() => {
+    jest.resetAllMocks();
+  });
+
   describe('when successfully get data from facebook', () => {
     it('authenticates the user', async () => {
-      const mockedAxios = new MockAdapter(axios);
-
       mockedAxios.onGet('https://graph.facebook.com/me?fields=id,name,email&access_token=fake-token').reply(200, {
         id: 'fake-id',
         name: 'John Doe',
@@ -61,6 +70,28 @@ describe('Facebook Session Controller', () => {
       expect(user.name).toBe('John Doe');
       expect(token).toMatch(/(JWT )\w+\.\w+\.\w+/g);
       expect(error).toBeNull();
+    });
+  });
+
+  describe('when fails to get data from facebook', () => {
+    it('throws an error', async () => {
+      mockedAxios.onGet('https://graph.facebook.com/me?fields=id,name,email&access_token=fake-token').reply(400, {
+        error: {
+          message: 'failed to get facebook data',
+          code: 400,
+        },
+      });
+
+      const response = await request(server)
+        .post('/')
+        .send({
+          operationName: 'ContinueWithFacebookMutation',
+          query,
+          variables,
+        });
+
+      const error = response.body.errors[0];
+      expect(error.message).toBe('Failed to fetch basic user data');
     });
   });
 });

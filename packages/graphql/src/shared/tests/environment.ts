@@ -18,9 +18,8 @@ class MongoDbEnvironment extends NodeEnvironment {
 
   async setup() {
     await super.setup();
-    console.error('\n# MongoDB Environment Setup #\n');
     await this.mongod.start();
-    this.global.__MONGO_URI__ = await this.mongod.getConnectionString();
+    this.global.__MONGO_URI__ = await this.mongod.getUri();
     this.global.__MONGO_DB_NAME__ = await this.mongod.getDbName();
     this.global.__COUNTERS__ = {
       user: 0,
@@ -29,7 +28,6 @@ class MongoDbEnvironment extends NodeEnvironment {
 
   async teardown() {
     await super.teardown();
-    console.error('\n# MongoDB Environment Teardown #\n');
     await this.mongod.stop();
     this.mongod = null;
     this.global = {};
