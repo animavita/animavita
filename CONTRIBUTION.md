@@ -12,7 +12,7 @@ If you have docker installed, you don't need to set the AWS env vars, install Mo
 
 ## Pre-requisites
 
-- _Node:_ `^9.0.0` or higher.
+- _Node:_ `^14.17.0` or higher.
 - _Npm:_ `6.0.0` or higher.
 - _Yarn:_ `^1.7.0` or higher.
 - _MongoDB:_ `4.0.0` or higher.
