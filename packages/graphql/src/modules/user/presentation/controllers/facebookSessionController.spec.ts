@@ -9,7 +9,7 @@ import {connectMongoose, clearDbAndRestartCounters, disconnectMongoose} from '..
 
 const server = http.createServer(app.callback());
 
-const query = `mutation ContinueWithFacebookMutation($input: SaveFacebookUserInput!) {
+const query = `mutation ContinueWithFacebookMutation($input: AuthenticateFacebookUserInput!) {
   authenticateFacebookUser(input: $input) {
    error
    user {
