@@ -1,5 +1,5 @@
 import User from '../../domain/User';
-import UsersRepository, {FindUserByEmailOrProviderId, UpdateUser} from '../../domain/UsersRepository';
+import UsersRepository, {FindUserByEmailOrProviderId} from '../../domain/UsersRepository';
 
 export default function fakeUsersRepository(): UsersRepository {
   const users: User[] = [];
@@ -9,18 +9,10 @@ export default function fakeUsersRepository(): UsersRepository {
       return 'fake-uuid';
     },
 
-    async createUser({id, name, emails, profileImages, providersIds}: User): Promise<User> {
-      const newUser = new User({
-        id,
-        name,
-        emails,
-        providersIds,
-        profileImages,
-      });
+    async create(user: User): Promise<User> {
+      users.push(user);
 
-      users.push(newUser);
-
-      return newUser;
+      return user;
     },
 
     async findById(id: string): Promise<User | null> {
@@ -40,10 +32,8 @@ export default function fakeUsersRepository(): UsersRepository {
       return usersFound;
     },
 
-    async updateUser({id, proprieties}: UpdateUser): Promise<User> {
-      const findIndex = users.findIndex(findUser => findUser.id === id);
-      const user = users[findIndex];
-      const updatedUser = new User(Object.assign({}, user, proprieties));
+    async update(updatedUser: User): Promise<User> {
+      const findIndex = users.findIndex(findUser => findUser.id === updatedUser.id);
 
       users[findIndex] = updatedUser;
 

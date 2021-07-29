@@ -49,7 +49,8 @@ const authenticateFacebookUser = ({
   if (existingUser) {
     // verify if name was updated
     if (name.length !== existingUser.name.length) {
-      await userRepository.updateUser({id: existingUser.id, proprieties: {name}});
+      existingUser.name = name;
+      await userRepository.update(existingUser);
     }
 
     const dbFbID = existingUser.providersIds.find(id => id.providedBy === PROVIDERS.FACEBOOK);
@@ -59,10 +60,9 @@ const authenticateFacebookUser = ({
         providerId.providedBy === 'facebook' ? ({id: fbID, providedBy: 'facebook'} as ProvidersId) : providerId,
       );
 
-      await userRepository.updateUser({
-        id: existingUser.id,
-        proprieties: {providersIds: updatedProvidersIds},
-      });
+      existingUser.providersIds = updatedProvidersIds;
+
+      await userRepository.update(existingUser);
     }
 
     const existingFbProfileImages = existingUser.profileImages.find(
@@ -74,21 +74,14 @@ const authenticateFacebookUser = ({
     if (profileUrl && shouldUpdateProfileImage) {
       const url = await storageProvider.saveFile({userId: existingUser.id, imageURL: profileUrl});
 
-      await userRepository.updateUser({
-        id: existingUser.id,
-        proprieties: {profileImages: [...existingUser.profileImages, {url, providedBy: 'facebook'}]},
-      });
-    }
+      existingUser.profileImages = [...existingUser.profileImages, {url, providedBy: 'facebook'}];
 
-    const updatedUser = await userRepository.findById(existingUser.id);
-
-    if (!updatedUser) {
-      throw new Error('User not found');
+      await userRepository.update(existingUser);
     }
 
     return {
-      user: updatedUser,
-      token: tokenProvider.generateToken(updatedUser.id),
+      user: existingUser,
+      token: tokenProvider.generateToken(existingUser.id),
     };
   } else {
     const newUser = new User({
@@ -105,7 +98,7 @@ const authenticateFacebookUser = ({
       newUser.profileImages = [{url, providedBy: 'facebook'}];
     }
 
-    await userRepository.createUser(newUser);
+    await userRepository.create(newUser);
 
     // TODO: Add queue to send welcome email
     // await queueStandardJob({

@@ -6,15 +6,13 @@ import facebookSessionController from '../../controllers/facebookSessionControll
 import UserType from '../../UserType';
 
 export default mutationWithClientMutationId({
-  name: 'SaveFacebookUser',
-  description: 'Save facebook user data',
-  // TODO: capture expo token to send push notifications
+  name: 'AuthenticateFacebookUser',
+  description: 'Login user into Animavita using Facebook credentials',
   inputFields: {
     token: {type: GraphQLNonNull(GraphQLString)},
     expires: {type: GraphQLNonNull(GraphQLInt)},
     permissions: {type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLString)))},
   },
-
   mutateAndGetPayload: facebookSessionController.create,
   outputFields: {
     error: {

@@ -1,7 +1,7 @@
 import {v4 as uuid} from 'uuid';
 
 import User from '../../../domain/User';
-import UsersRepository, {FindUserByEmailOrProviderId, UpdateUser} from '../../../domain/UsersRepository';
+import UsersRepository, {FindUserByEmailOrProviderId} from '../../../domain/UsersRepository';
 import UserModel, {IUserDocument} from '../models/UserModel';
 
 export default function mongoUsersRepository(): UsersRepository {
@@ -10,25 +10,25 @@ export default function mongoUsersRepository(): UsersRepository {
       return uuid();
     },
 
-    async createUser({id, name, emails, profileImages, providersIds}: User): Promise<User> {
-      const dbUser = await UserModel.create({id, name, emails, profileImages, providersIds});
+    async create(user: User): Promise<User> {
+      await UserModel.create(user);
 
-      return new User({
-        id: dbUser._id,
-        name: dbUser.name,
-        emails: dbUser.emails,
-        providersIds: dbUser.providersIds,
-        profileImages: dbUser.profileImages,
-      });
+      return user;
     },
 
-    async findById(id): Promise<User | null> {
-      const dbUser = await UserModel.findById(id).lean();
+    async update(updatedUser: User): Promise<User> {
+      await UserModel.updateOne({id: updatedUser.id}, {$set: updatedUser});
+
+      return updatedUser;
+    },
+
+    async findById(id: string): Promise<User | null> {
+      const dbUser = await UserModel.findOne({id});
 
       if (!dbUser) return null;
 
       return new User({
-        id: dbUser._id,
+        id: dbUser.id,
         name: dbUser.name,
         emails: dbUser.emails,
         providersIds: dbUser.providersIds,
@@ -50,26 +50,13 @@ export default function mongoUsersRepository(): UsersRepository {
       return dbUser.map(
         user =>
           new User({
-            id: user._id,
+            id: user.id,
             name: user.name,
             emails: user.emails,
             providersIds: user.providersIds,
             profileImages: user.profileImages,
           }),
       );
-    },
-
-    async updateUser({id, proprieties}: UpdateUser): Promise<User> {
-      await UserModel.updateOne({_id: id}, {$set: {...proprieties}});
-      const dbUser = await UserModel.findById(id).lean();
-
-      return new User({
-        id: dbUser?._id || '',
-        name: dbUser?.name || '',
-        emails: dbUser?.emails || [],
-        providersIds: dbUser?.providersIds || [],
-        profileImages: dbUser?.profileImages || [],
-      });
     },
   };
 }

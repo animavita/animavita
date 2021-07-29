@@ -61,6 +61,13 @@ export type IUserDocument = User & Document;
 
 const UserSchema = new mongoose.Schema(
   {
+    id: {
+      type: String,
+      description: 'user UUID',
+      trim: true,
+      index: true,
+      required: true,
+    },
     providersIds: {
       type: [providerIdSchema],
       description: 'Ids of the user in the providers',
