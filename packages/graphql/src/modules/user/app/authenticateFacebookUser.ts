@@ -47,41 +47,42 @@ const authenticateFacebookUser = ({
   const existingUser = users && users[0];
 
   if (existingUser) {
+    let updatedUser = existingUser;
     // verify if name was updated
     if (name.length !== existingUser.name.length) {
-      existingUser.name = name;
-      await userRepository.update(existingUser);
+      updatedUser = {...existingUser, name};
+      await userRepository.update(updatedUser);
     }
 
-    const dbFbID = existingUser.providersIds.find(id => id.providedBy === PROVIDERS.FACEBOOK);
+    const dbFbID = updatedUser.providersIds.find(id => id.providedBy === PROVIDERS.FACEBOOK);
 
     if (dbFbID?.id !== fbID) {
-      const updatedProvidersIds = existingUser.providersIds.map(providerId =>
+      const updatedProvidersIds = updatedUser.providersIds.map(providerId =>
         providerId.providedBy === 'facebook' ? ({id: fbID, providedBy: 'facebook'} as ProvidersId) : providerId,
       );
 
-      existingUser.providersIds = updatedProvidersIds;
+      updatedUser = {...updatedUser, providersIds: updatedProvidersIds};
 
-      await userRepository.update(existingUser);
+      await userRepository.update(updatedUser);
     }
 
-    const existingFbProfileImages = existingUser.profileImages.find(
+    const existingFbProfileImages = updatedUser.profileImages.find(
       profileImage => profileImage.providedBy === 'facebook',
     );
 
-    const shouldUpdateProfileImage = !existingFbProfileImages || existingUser.profileImages.length === 0;
+    const shouldUpdateProfileImage = !existingFbProfileImages || updatedUser.profileImages.length === 0;
 
     if (profileUrl && shouldUpdateProfileImage) {
-      const url = await storageProvider.saveFile({userId: existingUser.id, imageURL: profileUrl});
+      const url = await storageProvider.saveFile({userId: updatedUser.id, imageURL: profileUrl});
 
-      existingUser.profileImages = [...existingUser.profileImages, {url, providedBy: 'facebook'}];
+      updatedUser = {...updatedUser, profileImages: [...updatedUser.profileImages, {url, providedBy: 'facebook'}]};
 
-      await userRepository.update(existingUser);
+      await userRepository.update(updatedUser);
     }
 
     return {
-      user: existingUser,
-      token: tokenProvider.generateToken(existingUser.id),
+      user: updatedUser,
+      token: tokenProvider.generateToken(updatedUser.id),
     };
   } else {
     const newUser = new User({
