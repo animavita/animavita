@@ -142,6 +142,7 @@ describe('User Controller', () => {
         expect(user.emails[0]).toEqual({email: 'johndoe@animavita.com', providedBy: 'facebook'});
       });
     });
+
     describe('when the user does not exists', () => {
       it('returns an error', async () => {
         const {token, userId} = await setUp(mockedAxios);
