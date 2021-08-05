@@ -1,3 +1,4 @@
+import DataLoader from 'dataloader';
 import {v4 as uuid} from 'uuid';
 
 import User from '../../../domain/User';
@@ -5,6 +6,8 @@ import UsersRepository, {FindUserByEmailOrProviderId} from '../../../domain/User
 import UserModel, {IUserDocument} from '../models/UserModel';
 
 export default function mongoUsersRepository(): UsersRepository {
+  const userLoader = new DataLoader<string, User>(userIds => UserModel.find({id: {$in: userIds}}));
+
   return {
     getNextUUID(): string {
       return uuid();
@@ -23,17 +26,19 @@ export default function mongoUsersRepository(): UsersRepository {
     },
 
     async findById(id: string): Promise<User | null> {
-      const dbUser = await UserModel.findOne({id});
+      try {
+        const dbUser = await userLoader.load(id);
 
-      if (!dbUser) return null;
-
-      return new User({
-        id: dbUser.id,
-        name: dbUser.name,
-        emails: dbUser.emails,
-        providersIds: dbUser.providersIds,
-        profileImages: dbUser.profileImages,
-      });
+        return new User({
+          id: dbUser.id,
+          name: dbUser.name,
+          emails: dbUser.emails,
+          providersIds: dbUser.providersIds,
+          profileImages: dbUser.profileImages,
+        });
+      } catch {
+        return null;
+      }
     },
 
     async findUserByEmailOrProviderId({providersIds, emails}: FindUserByEmailOrProviderId): Promise<User[]> {

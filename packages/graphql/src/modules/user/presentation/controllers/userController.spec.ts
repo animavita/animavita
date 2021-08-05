@@ -145,7 +145,7 @@ describe('User Controller', () => {
 
     describe('when the user does not exists', () => {
       it('returns an error', async () => {
-        const {token, userId} = await setUp(mockedAxios);
+        const {token} = await setUp(mockedAxios);
 
         const response = await request(server)
           .post('/')
