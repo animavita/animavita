@@ -8,7 +8,7 @@ export interface AuthenticateFbUserMutationArgs {
 }
 
 export interface AuthenticateFacebookUserResponse {
-  user: User;
+  user: User.Type;
   token: string;
 }
 

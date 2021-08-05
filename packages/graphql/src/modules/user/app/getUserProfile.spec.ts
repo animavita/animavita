@@ -3,7 +3,7 @@ import createFakeUsersRepository from '../infra/fakes/fakeUsersRepository';
 
 import createGetUserProfile from './getUserProfile';
 
-const fakeUser = new User({
+const fakeUser = User.create({
   id: 'fake-uuid',
   name: 'fake-user',
   emails: [
@@ -47,7 +47,6 @@ describe('GetUserProfile', () => {
 
       const user = await getUserProfile(id);
 
-      expect(user).toBeInstanceOf(User);
       expect(user).toEqual(fakeUser);
     });
   });

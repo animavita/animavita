@@ -57,7 +57,7 @@ const ProfileImageSchema = new mongoose.Schema(
   },
 );
 
-export type IUserDocument = User & Document;
+export type IUserDocument = User.Type & Document;
 
 const UserSchema = new mongoose.Schema(
   {
