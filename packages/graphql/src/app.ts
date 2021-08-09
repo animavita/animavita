@@ -9,9 +9,7 @@ import graphqlHttp from 'koa-graphql';
 import koaLogger from 'koa-logger';
 import Router from '@koa/router';
 
-import * as loaders from './shared/presentation/loaders';
-import {getDataLoaders} from './helper';
-import {GraphqlHttp, KoaContextExt} from './types';
+import {KoaContextExt} from './types';
 import schema from './shared/presentation/schema';
 import {JWT_KEY} from './shared/config';
 import container from './shared/container';
@@ -44,7 +42,7 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(convert(cors({maxAge: 86400, origin: '*'})));
 
 app.use(async (ctx, next) => {
-  ctx.dataloaders = getDataLoaders(loaders);
+  ctx.container = container.cradle;
   await next();
 });
 
@@ -79,8 +77,8 @@ router.all(
   convert(
     graphqlHttp(
       // @ts-ignore
-      async (request, ctx, koaContext: Context & KoaContextExt): Promise<GraphqlHttp> => {
-        const {dataloaders, user} = koaContext;
+      async (request, ctx, koaContext: Context & KoaContextExt): Promise<OptionsData> => {
+        const {container, user} = koaContext;
 
         return {
           graphiql: process.env.NODE_ENV === 'development',
@@ -89,7 +87,7 @@ router.all(
             request: ctx.req,
           },
           context: {
-            dataloaders,
+            container,
             user,
           },
           formatError: error => {

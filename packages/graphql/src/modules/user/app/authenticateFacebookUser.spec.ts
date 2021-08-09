@@ -6,6 +6,7 @@ import createFakeTokenProvider from '../providers/TokenProvider/fakes/fakeTokenP
 
 import authenticateFacebookUser from './authenticateFacebookUser';
 
+const JwtRegex = /^(JWT )[A-Za-z0-9-_=]+\.[A-Za-z0-9-_=]+\.?[A-Za-z0-9-_.+/=]*$/g;
 const authenticateUserParams = {
   token: 'fake-token',
   permissions: ['public_profile', 'email'],
@@ -86,7 +87,7 @@ describe('AuthenticateFacebookUser', () => {
           },
         ],
       });
-      expect(token).toMatch(/(JWT )\w+\.\w+\.\w+/g);
+      expect(token).toMatch(JwtRegex);
     });
 
     it('authenticates even with no user photo is provided', async () => {
@@ -116,7 +117,7 @@ describe('AuthenticateFacebookUser', () => {
           },
         ],
       });
-      expect(token).toMatch(/(JWT )\w+\.\w+\.\w+/g);
+      expect(token).toMatch(JwtRegex);
     });
   });
 
@@ -124,7 +125,7 @@ describe('AuthenticateFacebookUser', () => {
     it('authenticates', async () => {
       const {authenticateUser, userRepository} = setUp();
 
-      await userRepository.createUser(fakeUser);
+      await userRepository.create(fakeUser);
 
       const {user} = await authenticateUser(authenticateUserParams);
 
@@ -135,7 +136,7 @@ describe('AuthenticateFacebookUser', () => {
     it('updates name if the name has changed', async () => {
       const {authenticateUser, userRepository} = setUp();
 
-      await userRepository.createUser({
+      await userRepository.create({
         ...fakeUser,
         name: 'old-fake-user',
       });
@@ -148,7 +149,7 @@ describe('AuthenticateFacebookUser', () => {
     it('updates provider id if the id has changed', async () => {
       const {authenticateUser, userRepository} = setUp();
 
-      await userRepository.createUser({
+      await userRepository.create({
         ...fakeUser,
         providersIds: [
           {
@@ -166,7 +167,7 @@ describe('AuthenticateFacebookUser', () => {
     it('updates profilePhoto if none was provided before', async () => {
       const {authenticateUser, userRepository} = setUp();
 
-      await userRepository.createUser({
+      await userRepository.create({
         ...fakeUser,
         profileImages: [],
       });
@@ -174,18 +175,6 @@ describe('AuthenticateFacebookUser', () => {
       const {user} = await authenticateUser(authenticateUserParams);
 
       expect(user.providersIds[0].id).toBe('socialId-fake-token');
-    });
-
-    it('throws an error if it is not able to find the user when updated', async () => {
-      const {authenticateUser, userRepository} = setUp();
-
-      jest.spyOn(userRepository, 'findById').mockImplementationOnce(async () => {
-        return null;
-      });
-
-      await userRepository.createUser(fakeUser);
-
-      await expect(authenticateUser(authenticateUserParams)).rejects.toBeInstanceOf(Error);
     });
   });
 

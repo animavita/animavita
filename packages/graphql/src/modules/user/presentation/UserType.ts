@@ -11,9 +11,7 @@ import {globalIdField} from 'graphql-relay';
 
 import {registerType, NodeInterface} from '../../../interfaces/NodeInterface';
 import {GraphQLContext} from '../../../types';
-import {Email, Id, ProfileImage} from '../domain/User';
-
-import User from './routes/queries/UserLoader';
+import User, {Email, Id, ProfileImage} from '../domain/User';
 
 const providedByField: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   providedBy: {
@@ -63,12 +61,7 @@ const UserTypeConfig: ConfigType = {
   name: 'User',
   description: 'Animavita user',
   fields: () => ({
-    id: globalIdField('User', user => user._id),
-    _id: {
-      type: GraphQLNonNull(GraphQLID),
-      description: 'MongoDB _id',
-      resolve: user => user._id.toString(),
-    },
+    id: globalIdField('User', user => user.id),
     name: {
       type: GraphQLNonNull(GraphQLString),
       description: 'The name of the user',
@@ -76,12 +69,12 @@ const UserTypeConfig: ConfigType = {
     },
     emails: {
       type: GraphQLNonNull(GraphQLList(GraphQLNonNull(EmailType))),
-      description: 'Emails of the user separed by provider',
+      description: 'Emails of the user separated by provider',
       resolve: user => user.emails,
     },
     providerIds: {
       type: GraphQLNonNull(GraphQLList(GraphQLNonNull(ProviderIdType))),
-      resolve: user => user.providerIds,
+      resolve: user => user.providersIds,
     },
     // TODO: add field to return the latest profile image
     profileImages: {

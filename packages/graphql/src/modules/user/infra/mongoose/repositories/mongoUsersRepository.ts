@@ -1,39 +1,44 @@
+import DataLoader from 'dataloader';
 import {v4 as uuid} from 'uuid';
 
 import User from '../../../domain/User';
-import UsersRepository, {FindUserByEmailOrProviderId, UpdateUser} from '../../../domain/UsersRepository';
+import UsersRepository, {FindUserByEmailOrProviderId} from '../../../domain/UsersRepository';
 import UserModel, {IUserDocument} from '../models/UserModel';
 
 export default function mongoUsersRepository(): UsersRepository {
+  const userLoader = new DataLoader<string, User>(userIds => UserModel.find({id: {$in: userIds}}));
+
   return {
     getNextUUID(): string {
       return uuid();
     },
 
-    async createUser({id, name, emails, profileImages, providersIds}: User): Promise<User> {
-      const dbUser = await UserModel.create({id, name, emails, profileImages, providersIds});
+    async create(user: User): Promise<User> {
+      await UserModel.create(user);
 
-      return new User({
-        id: dbUser._id,
-        name: dbUser.name,
-        emails: dbUser.emails,
-        providersIds: dbUser.providersIds,
-        profileImages: dbUser.profileImages,
-      });
+      return user;
     },
 
-    async findById(id): Promise<User | null> {
-      const dbUser = await UserModel.findById(id).lean();
+    async update(updatedUser: User): Promise<User> {
+      await UserModel.updateOne({id: updatedUser.id}, {$set: updatedUser});
 
-      if (!dbUser) return null;
+      return updatedUser;
+    },
 
-      return new User({
-        id: dbUser._id,
-        name: dbUser.name,
-        emails: dbUser.emails,
-        providersIds: dbUser.providersIds,
-        profileImages: dbUser.profileImages,
-      });
+    async findById(id: string): Promise<User | null> {
+      try {
+        const dbUser = await userLoader.load(id);
+
+        return new User({
+          id: dbUser.id,
+          name: dbUser.name,
+          emails: dbUser.emails,
+          providersIds: dbUser.providersIds,
+          profileImages: dbUser.profileImages,
+        });
+      } catch {
+        return null;
+      }
     },
 
     async findUserByEmailOrProviderId({providersIds, emails}: FindUserByEmailOrProviderId): Promise<User[]> {
@@ -50,26 +55,13 @@ export default function mongoUsersRepository(): UsersRepository {
       return dbUser.map(
         user =>
           new User({
-            id: user._id,
+            id: user.id,
             name: user.name,
             emails: user.emails,
             providersIds: user.providersIds,
             profileImages: user.profileImages,
           }),
       );
-    },
-
-    async updateUser({id, proprieties}: UpdateUser): Promise<User> {
-      await UserModel.updateOne({_id: id}, {$set: {...proprieties}});
-      const dbUser = await UserModel.findById(id).lean();
-
-      return new User({
-        id: dbUser?._id || '',
-        name: dbUser?.name || '',
-        emails: dbUser?.emails || [],
-        providersIds: dbUser?.providersIds || [],
-        profileImages: dbUser?.profileImages || [],
-      });
     },
   };
 }

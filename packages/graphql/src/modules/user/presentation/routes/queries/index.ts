@@ -1,10 +1,8 @@
 import {GraphQLFieldConfigMap, GraphQLNonNull, GraphQLID} from 'graphql';
-import {fromGlobalId} from 'graphql-relay';
 
 import {GraphQLContext} from '../../../../../types';
+import userController from '../../controllers/userController';
 import UserType from '../../UserType';
-
-import * as UserLoader from './UserLoader';
 
 const userQueries: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   user: {
@@ -14,18 +12,11 @@ const userQueries: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
         type: new GraphQLNonNull(GraphQLID),
       },
     },
-    resolve: (obj, args, context) => {
-      const {id} = fromGlobalId(args.id);
-      return UserLoader.load(context, id);
-    },
+    resolve: userController.index,
   },
   me: {
     type: UserType,
-    resolve: (obj, args, context) => {
-      const {user} = context;
-      if (!user || !user.id) return null;
-      return UserLoader.load(context, user.id);
-    },
+    resolve: userController.me,
   },
 };
 

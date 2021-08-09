@@ -49,6 +49,20 @@ type AdoptionEdge {
   cursor: String!
 }
 
+input AuthenticateFacebookUserInput {
+  token: String!
+  expires: Int!
+  permissions: [String!]!
+  clientMutationId: String
+}
+
+type AuthenticateFacebookUserPayload {
+  error: String
+  user: User
+  token: String
+  clientMutationId: String
+}
+
 type Email {
   email: ID!
   providedBy: String!
@@ -61,8 +75,8 @@ enum Gender {
 
 """The root of all mutations"""
 type Mutation {
-  """Save facebook user data"""
-  authenticateFacebookUser(input: SaveFacebookUserInput!): SaveFacebookUserPayload
+  """Login user into Animavita using Facebook credentials"""
+  authenticateFacebookUser(input: AuthenticateFacebookUserInput!): AuthenticateFacebookUserPayload
 }
 
 """An object with an ID"""
@@ -111,20 +125,6 @@ type Query {
   myAdoptions: [Adoption]
 }
 
-input SaveFacebookUserInput {
-  token: String!
-  expires: Int!
-  permissions: [String!]!
-  clientMutationId: String
-}
-
-type SaveFacebookUserPayload {
-  error: String
-  user: User
-  token: String
-  clientMutationId: String
-}
-
 enum Size {
   SMALL
   MEDIUM
@@ -142,13 +142,10 @@ type User implements Node {
   """The ID of an object"""
   id: ID!
 
-  """MongoDB _id"""
-  _id: ID!
-
   """The name of the user"""
   name: String!
 
-  """Emails of the user separed by provider"""
+  """Emails of the user separated by provider"""
   emails: [Email!]!
   providerIds: [ProviderId!]!
   profileImages: [ProfileImage!]!

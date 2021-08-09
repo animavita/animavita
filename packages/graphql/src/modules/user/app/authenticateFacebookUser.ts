@@ -47,43 +47,37 @@ const authenticateFacebookUser = ({
   const existingUser = users && users[0];
 
   if (existingUser) {
+    let updatedUser = existingUser;
     // verify if name was updated
     if (name.length !== existingUser.name.length) {
-      await userRepository.updateUser({id: existingUser.id, proprieties: {name}});
+      updatedUser = {...existingUser, name};
+      await userRepository.update(updatedUser);
     }
 
-    const dbFbID = existingUser.providersIds.find(id => id.providedBy === PROVIDERS.FACEBOOK);
+    const dbFbID = updatedUser.providersIds.find(id => id.providedBy === PROVIDERS.FACEBOOK);
 
     if (dbFbID?.id !== fbID) {
-      const updatedProvidersIds = existingUser.providersIds.map(providerId =>
+      const updatedProvidersIds = updatedUser.providersIds.map(providerId =>
         providerId.providedBy === 'facebook' ? ({id: fbID, providedBy: 'facebook'} as ProvidersId) : providerId,
       );
 
-      await userRepository.updateUser({
-        id: existingUser.id,
-        proprieties: {providersIds: updatedProvidersIds},
-      });
+      updatedUser = {...updatedUser, providersIds: updatedProvidersIds};
+
+      await userRepository.update(updatedUser);
     }
 
-    const existingFbProfileImages = existingUser.profileImages.find(
+    const existingFbProfileImages = updatedUser.profileImages.find(
       profileImage => profileImage.providedBy === 'facebook',
     );
 
-    const shouldUpdateProfileImage = !existingFbProfileImages || existingUser.profileImages.length === 0;
+    const shouldUpdateProfileImage = !existingFbProfileImages || updatedUser.profileImages.length === 0;
 
     if (profileUrl && shouldUpdateProfileImage) {
-      const url = await storageProvider.saveFile({userId: existingUser.id, imageURL: profileUrl});
+      const url = await storageProvider.saveFile({userId: updatedUser.id, imageURL: profileUrl});
 
-      await userRepository.updateUser({
-        id: existingUser.id,
-        proprieties: {profileImages: [...existingUser.profileImages, {url, providedBy: 'facebook'}]},
-      });
-    }
+      updatedUser = {...updatedUser, profileImages: [...updatedUser.profileImages, {url, providedBy: 'facebook'}]};
 
-    const updatedUser = await userRepository.findById(existingUser.id);
-
-    if (!updatedUser) {
-      throw new Error('User not found');
+      await userRepository.update(updatedUser);
     }
 
     return {
@@ -105,7 +99,7 @@ const authenticateFacebookUser = ({
       newUser.profileImages = [{url, providedBy: 'facebook'}];
     }
 
-    await userRepository.createUser(newUser);
+    await userRepository.create(newUser);
 
     // TODO: Add queue to send welcome email
     // await queueStandardJob({
