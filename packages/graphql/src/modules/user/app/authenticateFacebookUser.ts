@@ -49,13 +49,20 @@ const authenticateFacebookUser = ({
 
     updatedUser = User.updateFacebookId(updatedUser, fbID);
 
-    if (User.shouldUpdateFacebookProfileImage(updatedUser) && profileUrl) {
+    const existingFbProfileImages = updatedUser.profileImages.find(
+      profileImage => profileImage.providedBy === 'facebook',
+    );
+    const shouldUpdateProfileImage = !existingFbProfileImages || updatedUser.profileImages.length === 0;
+
+    if (shouldUpdateProfileImage && profileUrl) {
       const url = await storageProvider.saveFile({userId: updatedUser.id, imageURL: profileUrl});
 
       updatedUser = User.updateFacebookProfileImage(updatedUser, url);
     }
 
-    await userRepository.update(updatedUser);
+    if (JSON.stringify(user) !== JSON.stringify(updatedUser)) {
+      await userRepository.update(updatedUser);
+    }
 
     return {
       user: updatedUser,

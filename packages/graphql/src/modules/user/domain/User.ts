@@ -83,12 +83,6 @@ namespace User {
     return self;
   };
 
-  export const shouldUpdateFacebookProfileImage = (self: User): boolean => {
-    const existingFbProfileImages = self.profileImages.find(profileImage => profileImage.providedBy === 'facebook');
-
-    return !existingFbProfileImages || self.profileImages.length === 0;
-  };
-
   export type Type = User;
 }
 
