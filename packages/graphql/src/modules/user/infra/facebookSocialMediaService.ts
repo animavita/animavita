@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-import SocialMediaRepository, {SocialUser} from '../domain/SocialMediaRepository';
+import SocialMediaService, {SocialUser} from '../services/SocialMediaService';
 
-export default function facebookSocialMediaRepository(): SocialMediaRepository {
+export default function facebookSocialMediaRepository(): SocialMediaService {
   const client = axios.create({
     baseURL: 'https://graph.facebook.com',
   });
@@ -18,7 +18,7 @@ export default function facebookSocialMediaRepository(): SocialMediaRepository {
       }
     },
 
-    async getUserProfileImage(token: string): Promise<string | null> {
+    async getUserProfileImage(token: string): Promise<string | undefined> {
       try {
         const response = await client.get(`/me/picture?height=720&width=720&redirect=false&access_token=${token}`);
         const {
@@ -27,7 +27,7 @@ export default function facebookSocialMediaRepository(): SocialMediaRepository {
 
         return url;
       } catch {
-        return null;
+        return undefined;
       }
     },
   };

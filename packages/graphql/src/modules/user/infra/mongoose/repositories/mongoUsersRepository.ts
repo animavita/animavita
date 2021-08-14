@@ -1,9 +1,10 @@
 import DataLoader from 'dataloader';
 import {v4 as uuid} from 'uuid';
 
+import Provider from '../../../domain/Provider';
 import User from '../../../domain/User';
-import UsersRepository, {FindUserByEmailOrProviderId} from '../../../domain/UsersRepository';
-import UserModel, {IUserDocument} from '../models/UserModel';
+import UsersRepository from '../../../domain/UsersRepository';
+import UserModel from '../models/UserModel';
 
 export default function mongoUsersRepository(): UsersRepository {
   const userLoader = new DataLoader<string, User.Type>(userIds => UserModel.find({id: {$in: userIds}}));
@@ -31,26 +32,23 @@ export default function mongoUsersRepository(): UsersRepository {
 
         return User.create({
           id: dbUser.id,
-          name: dbUser.name,
-          emails: dbUser.emails,
-          providersIds: dbUser.providersIds,
-          profileImages: dbUser.profileImages,
+          providers: dbUser.providers,
         });
       } catch {
         return null;
       }
     },
 
-    async findUserByEmailOrProviderId({providersIds, emails}: FindUserByEmailOrProviderId): Promise<User.Type | null> {
+    async findUserByProvider(provider: Provider.Type): Promise<User.Type | null> {
       const checkIfUserAlreadyExistsPipeline = [
         {
           $match: {
-            $or: [{ids: {$in: providersIds}}, {emails: {$in: emails}}],
+            $or: [{'providers.id': provider.id}, {'provider.email': provider.email}],
           },
         },
       ];
 
-      const dbUser: IUserDocument[] = await UserModel.aggregate(checkIfUserAlreadyExistsPipeline);
+      const dbUser = await UserModel.aggregate(checkIfUserAlreadyExistsPipeline);
 
       if (dbUser.length === 0) {
         return null;
@@ -58,10 +56,7 @@ export default function mongoUsersRepository(): UsersRepository {
 
       return User.create({
         id: dbUser[0].id,
-        name: dbUser[0].name,
-        emails: dbUser[0].emails,
-        providersIds: dbUser[0].providersIds,
-        profileImages: dbUser[0].profileImages,
+        providers: dbUser[0].providers,
       });
     },
   };

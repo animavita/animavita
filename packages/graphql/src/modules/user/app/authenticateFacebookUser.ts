@@ -1,14 +1,12 @@
-import StorageProvider from '../../../shared/providers/StorageProvider/models/StorageProvider';
-import {PROVIDERS} from '../../../shared/constants';
-import SocialMediaRepository from '../domain/SocialMediaRepository';
+import SocialMediaService from '../services/SocialMediaService';
 import User from '../domain/User';
 import UsersRepository from '../domain/UsersRepository';
 import TokenProvider from '../providers/TokenProvider/model/TokenProvider';
+import Provider from '../domain/Provider';
 
 interface Dependencies {
-  facebookRepository: SocialMediaRepository;
+  facebookService: SocialMediaService;
   userRepository: UsersRepository;
-  storageProvider: StorageProvider;
   tokenProvider: TokenProvider;
 }
 
@@ -23,58 +21,43 @@ export interface SaveFBResponse {
   token: string;
 }
 
-const authenticateFacebookUser = ({
-  userRepository,
-  facebookRepository,
-  storageProvider,
-  tokenProvider,
-}: Dependencies) => async ({token}: SaveFbDTO): Promise<SaveFBResponse> => {
-  const socialUserInfo = await facebookRepository.getUser(token);
+const authenticateFacebookUser = ({userRepository, facebookService, tokenProvider}: Dependencies) => async ({
+  token,
+}: SaveFbDTO): Promise<SaveFBResponse> => {
+  const socialUserInfo = await facebookService.getUser(token);
 
   if (!socialUserInfo || !socialUserInfo.email) {
     throw new Error('Failed to fetch basic user data');
   }
 
-  const profileUrl = await facebookRepository.getUserProfileImage(token);
+  const profileUrl = await facebookService.getUserProfileImage(token);
 
   const {id: fbID, email, name} = socialUserInfo;
 
-  const user = await userRepository.findUserByEmailOrProviderId({
-    providersIds: [{id: fbID, providedBy: 'facebook'}],
-    emails: [{email, providedBy: 'facebook'}],
+  const provider = Provider.create({
+    id: fbID,
+    email,
+    name,
+    origin: 'facebook',
+    profileImage: profileUrl,
+    lastLogIn: Date.now(),
   });
 
+  const user = await userRepository.findUserByProvider(provider);
+
   if (user) {
-    let updatedUser = User.updateName(user, name);
+    const syncedUser = User.syncProvider(user, provider);
 
-    updatedUser = User.updateFacebookId(updatedUser, fbID);
-
-    const existingFbProfileImages = updatedUser.profileImages.find(
-      profileImage => profileImage.providedBy === 'facebook',
-    );
-    const shouldUpdateProfileImage = !existingFbProfileImages || updatedUser.profileImages.length === 0;
-
-    if (shouldUpdateProfileImage && profileUrl) {
-      const url = await storageProvider.saveFile({userId: updatedUser.id, imageURL: profileUrl});
-
-      updatedUser = User.updateFacebookProfileImage(updatedUser, url);
-    }
-
-    if (JSON.stringify(user) !== JSON.stringify(updatedUser)) {
-      await userRepository.update(updatedUser);
-    }
+    await userRepository.update(syncedUser);
 
     return {
-      user: updatedUser,
-      token: tokenProvider.generateToken(updatedUser.id),
+      user: syncedUser,
+      token: tokenProvider.generateToken(syncedUser.id),
     };
   } else {
     const newUser = User.create({
       id: userRepository.getNextUUID(),
-      providersIds: [{id: fbID, providedBy: 'facebook'}],
-      emails: [{email, providedBy: 'facebook'}],
-      name,
-      profileImages: profileUrl ? [{url: profileUrl, providedBy: 'facebook'}] : [],
+      providers: [provider],
     });
 
     await userRepository.create(newUser);
