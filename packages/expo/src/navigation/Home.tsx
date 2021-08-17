@@ -96,7 +96,7 @@ const HomeNavigator: React.FC = () => {
         offset={4}
         trigger={
           <Pressable>
-            <Avatar source={{uri: 'https://avatars2.githubusercontent.com/u/43140758?s=460&v=4'}} />
+            <Avatar source={{uri: getPictureUrl(uri)}} />
           </Pressable>
         }>
         <Popover.Backdrop />
