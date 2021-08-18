@@ -1,13 +1,13 @@
-import React, {useRef} from 'react';
+import React, {useState} from 'react';
 import {Pressable, Platform} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 import styled from 'styled-components/native';
 import {Avatar, Typography} from '@animavita/ui/core';
+import {Popover} from 'react-native-popper';
 import {useLazyLoadQuery, graphql} from '@animavita/relay';
 import {useTheme, px2ddp, StyledTheme} from '@animavita/theme';
-import Menu, {MenuItem, MenuDivider} from 'react-native-material-menu';
 import {useI18n} from '@animavita/i18n';
 import {URL} from 'react-native-url-polyfill';
 
@@ -15,19 +15,31 @@ import Home from '../modules/home/Home';
 
 import {HomeQuery} from './__generated__/HomeQuery.graphql';
 
-interface MenuRef {
-  hide: () => void;
-  show: () => void;
-}
+const MenuContainer = styled.View`
+  elevation: 4;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 
-const StyledMenu = styled(Menu)`
-  margin-top: ${px2ddp(20)}px;
+  border-radius: ${px2ddp(2)}px;
+  background-color: ${({theme}) => theme.white};
+`;
+
+const MenuItem = styled.TouchableOpacity`
+  padding: ${px2ddp(8)}px;
+`;
+
+const MenuDivider = styled.View`
+  border-bottom-color: ${({theme}) => theme.greyLight};
+  border-bottom-width: ${px2ddp(0.3)}px;
+`;
+
+const ItemText = styled(Typography).attrs({variant: 'body'})`
+  color: ${({theme}) => theme.black};
 `;
 
 const HomeStack = createStackNavigator();
 
 const HomeNavigator: React.FC = () => {
-  const menu = useRef<MenuRef>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigation = useNavigation();
   const theme = useTheme();
   const {t} = useI18n(['tab_bar']);
@@ -68,39 +80,38 @@ const HomeNavigator: React.FC = () => {
 
   const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
 
-  const hideMenu = () => {
-    if (menu.current) {
-      menu.current.hide();
-    }
-  };
-
-  const showMenu = () => {
-    if (menu.current) {
-      menu.current.show();
-    }
-  };
-
   const handleLogout = async () => {
-    hideMenu();
+    setMenuOpen(false);
     await AsyncStorage.clear();
     navigation.navigate('SignUp');
   };
 
   const HeaderRight = () => {
     return (
-      <StyledMenu
-        ref={menu}
-        button={
-          <Pressable onPress={showMenu}>
+      <Popover
+        on="press"
+        placement="bottom right"
+        isOpen={menuOpen}
+        onOpenChange={setMenuOpen}
+        offset={4}
+        trigger={
+          <Pressable>
             <Avatar source={{uri: getPictureUrl(uri)}} />
           </Pressable>
         }>
-        <MenuItem onPress={hideMenu} disabled>
-          {t('options.settings')}
-        </MenuItem>
-        <MenuDivider />
-        <MenuItem onPress={handleLogout}>{t('options.logout')}</MenuItem>
-      </StyledMenu>
+        <Popover.Backdrop />
+        <Popover.Content>
+          <MenuContainer>
+            <MenuItem>
+              <ItemText variant="body">{t('options.settings')}</ItemText>
+            </MenuItem>
+            <MenuDivider />
+            <MenuItem onPress={handleLogout}>
+              <ItemText>{t('options.logout')}</ItemText>
+            </MenuItem>
+          </MenuContainer>
+        </Popover.Content>
+      </Popover>
     );
   };
 
