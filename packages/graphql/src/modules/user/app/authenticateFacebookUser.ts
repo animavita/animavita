@@ -1,7 +1,7 @@
 import StorageProvider from '../../../shared/providers/StorageProvider/models/StorageProvider';
 import {PROVIDERS} from '../../../shared/constants';
 import SocialMediaRepository from '../domain/SocialMediaRepository';
-import User, {ProvidersId} from '../domain/User';
+import User from '../domain/User';
 import UsersRepository from '../domain/UsersRepository';
 import TokenProvider from '../providers/TokenProvider/model/TokenProvider';
 
@@ -19,7 +19,7 @@ interface SaveFbDTO {
 }
 
 export interface SaveFBResponse {
-  user: User;
+  user: User.Type;
   token: string;
 }
 
@@ -39,44 +39,28 @@ const authenticateFacebookUser = ({
 
   const {id: fbID, email, name} = socialUserInfo;
 
-  const users = await userRepository.findUserByEmailOrProviderId({
+  const user = await userRepository.findUserByEmailOrProviderId({
     providersIds: [{id: fbID, providedBy: 'facebook'}],
     emails: [{email, providedBy: 'facebook'}],
   });
 
-  const existingUser = users && users[0];
+  if (user) {
+    let updatedUser = User.updateName(user, name);
 
-  if (existingUser) {
-    let updatedUser = existingUser;
-    // verify if name was updated
-    if (name.length !== existingUser.name.length) {
-      updatedUser = {...existingUser, name};
-      await userRepository.update(updatedUser);
-    }
-
-    const dbFbID = updatedUser.providersIds.find(id => id.providedBy === PROVIDERS.FACEBOOK);
-
-    if (dbFbID?.id !== fbID) {
-      const updatedProvidersIds = updatedUser.providersIds.map(providerId =>
-        providerId.providedBy === 'facebook' ? ({id: fbID, providedBy: 'facebook'} as ProvidersId) : providerId,
-      );
-
-      updatedUser = {...updatedUser, providersIds: updatedProvidersIds};
-
-      await userRepository.update(updatedUser);
-    }
+    updatedUser = User.updateFacebookId(updatedUser, fbID);
 
     const existingFbProfileImages = updatedUser.profileImages.find(
       profileImage => profileImage.providedBy === 'facebook',
     );
-
     const shouldUpdateProfileImage = !existingFbProfileImages || updatedUser.profileImages.length === 0;
 
-    if (profileUrl && shouldUpdateProfileImage) {
+    if (shouldUpdateProfileImage && profileUrl) {
       const url = await storageProvider.saveFile({userId: updatedUser.id, imageURL: profileUrl});
 
-      updatedUser = {...updatedUser, profileImages: [...updatedUser.profileImages, {url, providedBy: 'facebook'}]};
+      updatedUser = User.updateFacebookProfileImage(updatedUser, url);
+    }
 
+    if (JSON.stringify(user) !== JSON.stringify(updatedUser)) {
       await userRepository.update(updatedUser);
     }
 
@@ -85,19 +69,13 @@ const authenticateFacebookUser = ({
       token: tokenProvider.generateToken(updatedUser.id),
     };
   } else {
-    const newUser = new User({
+    const newUser = User.create({
       id: userRepository.getNextUUID(),
       providersIds: [{id: fbID, providedBy: 'facebook'}],
       emails: [{email, providedBy: 'facebook'}],
       name,
-      profileImages: [],
+      profileImages: profileUrl ? [{url: profileUrl, providedBy: 'facebook'}] : [],
     });
-
-    if (profileUrl) {
-      const url = await storageProvider.saveFile({userId: newUser.id, imageURL: profileUrl});
-
-      newUser.profileImages = [{url, providedBy: 'facebook'}];
-    }
 
     await userRepository.create(newUser);
 

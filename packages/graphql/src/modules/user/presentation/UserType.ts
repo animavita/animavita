@@ -11,7 +11,7 @@ import {globalIdField} from 'graphql-relay';
 
 import {registerType, NodeInterface} from '../../../interfaces/NodeInterface';
 import {GraphQLContext} from '../../../types';
-import User, {Email, Id, ProfileImage} from '../domain/User';
+import User from '../domain/User';
 
 const providedByField: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   providedBy: {
@@ -20,7 +20,7 @@ const providedByField: GraphQLFieldConfigMap<any, GraphQLContext, any> = {
   },
 };
 
-const ProviderIdType = new GraphQLObjectType<Id>({
+const ProviderIdType = new GraphQLObjectType<User.ProviderId>({
   name: 'ProviderId',
   description: 'The id of the user in the provider DB',
   fields: () => ({
@@ -32,7 +32,7 @@ const ProviderIdType = new GraphQLObjectType<Id>({
   }),
 });
 
-const EmailType = new GraphQLObjectType<Email>({
+const EmailType = new GraphQLObjectType<User.Email>({
   name: 'Email',
   fields: () => ({
     email: {
@@ -43,7 +43,7 @@ const EmailType = new GraphQLObjectType<Email>({
   }),
 });
 
-const ProfileImageType = new GraphQLObjectType<ProfileImage>({
+const ProfileImageType = new GraphQLObjectType<User.ProfileImage>({
   name: 'ProfileImage',
   fields: () => ({
     url: {
@@ -55,7 +55,7 @@ const ProfileImageType = new GraphQLObjectType<ProfileImage>({
   }),
 });
 
-type ConfigType = GraphQLObjectTypeConfig<User, GraphQLContext>;
+type ConfigType = GraphQLObjectTypeConfig<User.Type, GraphQLContext>;
 
 const UserTypeConfig: ConfigType = {
   name: 'User',

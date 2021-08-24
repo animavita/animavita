@@ -13,7 +13,7 @@ const authenticateUserParams = {
   expires: 60 * 60 * 24 * 30,
 };
 
-const fakeUser = new User({
+const fakeUser = User.create({
   id: 'fake-uuid',
   name: 'fake-user',
   emails: [
@@ -64,7 +64,6 @@ describe('AuthenticateFacebookUser', () => {
 
       const {user, token} = await authenticateUser(authenticateUserParams);
 
-      expect(user).toBeInstanceOf(User);
       expect(user).toEqual({
         id: 'fake-uuid',
         name: 'fake-user',
@@ -99,7 +98,6 @@ describe('AuthenticateFacebookUser', () => {
 
       const {user, token} = await authenticateUser(authenticateUserParams);
 
-      expect(user).toBeInstanceOf(User);
       expect(user).toEqual({
         id: 'fake-uuid',
         name: 'fake-user',

@@ -10,7 +10,7 @@ export type DataLoaderKey = Types.ObjectId | string | undefined | null;
 
 export interface KoaContextExt {
   container: Container;
-  user: User | null;
+  user: User.Type | null;
 }
 
 export interface GraphQLContext extends KoaContextExt {

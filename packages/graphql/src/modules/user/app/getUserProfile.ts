@@ -5,7 +5,7 @@ interface Dependencies {
   userRepository: UsersRepository;
 }
 
-const getUserProfile = ({userRepository}: Dependencies) => async (id: string): Promise<User> => {
+const getUserProfile = ({userRepository}: Dependencies) => async (id: string): Promise<User.Type> => {
   const user = await userRepository.findById(id);
 
   if (!user) throw Error('User not found');
