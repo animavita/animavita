@@ -49,6 +49,4 @@ jobs:
         env:
           JEST_SUITE_NAME: 'Animavita Expo Tests'
           JEST_JUNIT_OUTPUT_DIR: './reports'
-      - uses: codecov/codecov-action@v1.0.2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: codecov/codecov-action@v2
