@@ -49,14 +49,23 @@ const setUp = () => {
 };
 
 describe('AuthenticateFacebookUser', () => {
+  const RealNow = Date.now;
+
+  beforeAll(() => {
+    global.Date.now = jest.fn(() => 0);
+  });
+
+  afterAll(() => {
+    global.Date.now = RealNow;
+  });
+
   describe('When logging in for the first time', () => {
     it('authenticates', async () => {
-      jest.spyOn(Date, 'now').mockImplementation(() => 0);
       const {authenticateUser} = setUp();
 
       const {user, token} = await authenticateUser(authenticateUserParams);
 
-      expect(user).toEqual(fakeUser);
+      expect(user).toStrictEqual(fakeUser);
       expect(token).toMatch(JwtRegex);
     });
 
@@ -99,7 +108,7 @@ describe('AuthenticateFacebookUser', () => {
 
       const {user} = await authenticateUser(authenticateUserParams);
 
-      expect(user).toEqual(fakeUser);
+      expect(user).toStrictEqual(fakeUser);
     });
   });
 
