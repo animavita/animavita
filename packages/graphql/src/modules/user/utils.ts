@@ -1,7 +1,7 @@
-import User from '../domain/User';
-import {UserGraphQLType} from '../presentation/UserType';
+import User from './domain/User';
+import {UserGraphQLType} from './presentation/UserType';
 
-export const transformDomainUserIntoPresentationUser = (user: User.Type): UserGraphQLType => {
+const transformDomainUserIntoPresentationUser = (user: User.Type): UserGraphQLType => {
   const lastLoggedInProvider = user.providers.sort(provider => provider.lastLogIn)[0];
 
   return {
@@ -11,3 +11,5 @@ export const transformDomainUserIntoPresentationUser = (user: User.Type): UserGr
     profileImage: lastLoggedInProvider.profileImage,
   };
 };
+
+export {transformDomainUserIntoPresentationUser};
