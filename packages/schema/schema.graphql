@@ -63,11 +63,6 @@ type AuthenticateFacebookUserPayload {
   clientMutationId: String
 }
 
-type Email {
-  email: ID!
-  providedBy: String!
-}
-
 enum Gender {
   MALE
   FEMALE
@@ -98,18 +93,6 @@ type PageInfo {
 
   """When paginating forwards, the cursor to continue."""
   endCursor: String
-}
-
-type ProfileImage {
-  """The url of the profile image"""
-  url: String!
-  providedBy: String!
-}
-
-"""The id of the user in the provider DB"""
-type ProviderId {
-  id: String!
-  providedBy: String!
 }
 
 """The root of all queries"""
@@ -145,8 +128,9 @@ type User implements Node {
   """The name of the user"""
   name: String!
 
-  """Emails of the user separated by provider"""
-  emails: [Email!]!
-  providerIds: [ProviderId!]!
-  profileImages: [ProfileImage!]!
+  """The user's email"""
+  email: String!
+
+  """The user's profile image """
+  profileImage: String
 }

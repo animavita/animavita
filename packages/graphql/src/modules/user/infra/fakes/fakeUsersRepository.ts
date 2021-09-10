@@ -1,5 +1,6 @@
 import User from '../../domain/User';
-import UsersRepository, {FindUserByEmailOrProviderId} from '../../domain/UsersRepository';
+import Provider from '../../domain/Provider';
+import UsersRepository from '../../domain/UsersRepository';
 
 export default function fakeUsersRepository(): UsersRepository {
   const users: User.Type[] = [];
@@ -23,14 +24,14 @@ export default function fakeUsersRepository(): UsersRepository {
       return user;
     },
 
-    async findUserByEmailOrProviderId({providersIds, emails}: FindUserByEmailOrProviderId): Promise<User.Type | null> {
-      const usersFound = users.filter(
+    async findUserByProvider(providerToFind: Provider.Type): Promise<User.Type | null> {
+      const usersFound = users.find(
         user =>
-          user.emails.some(email => emails.some(e => e.email === email.email)) ||
-          user.providersIds.some(providerId => providersIds.some(pi => pi.id === providerId.id)),
+          user.providers.some(provider => provider.id === providerToFind.id) ||
+          user.providers.some(provider => provider.email === providerToFind.email),
       );
 
-      return usersFound.length ? usersFound[0] : null;
+      return usersFound ?? null;
     },
 
     async update(updatedUser: User.Type): Promise<User.Type> {

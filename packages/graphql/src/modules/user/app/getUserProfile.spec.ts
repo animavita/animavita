@@ -1,29 +1,21 @@
+import Provider from '../domain/Provider';
 import User from '../domain/User';
 import createFakeUsersRepository from '../infra/fakes/fakeUsersRepository';
 
 import createGetUserProfile from './getUserProfile';
 
+const facebookProvider = Provider.create({
+  id: 'socialId-fake-token',
+  email: 'mysocialemail@fake.com',
+  name: 'fake-user',
+  origin: 'facebook',
+  profileImage: 'fake-token/profilePicture.jpeg',
+  lastLogIn: 0,
+});
+
 const fakeUser = User.create({
   id: 'fake-uuid',
-  name: 'fake-user',
-  emails: [
-    {
-      email: 'mysocialemail@fake.com',
-      providedBy: 'facebook',
-    },
-  ],
-  profileImages: [
-    {
-      providedBy: 'facebook',
-      url: 'fake-token/profilePicture.jpeg',
-    },
-  ],
-  providersIds: [
-    {
-      id: 'socialId-fake-token',
-      providedBy: 'facebook',
-    },
-  ],
+  providers: [facebookProvider],
 });
 
 const setUp = () => {

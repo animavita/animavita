@@ -1,6 +1,7 @@
 import {fromGlobalId} from 'graphql-relay';
 
 import {GraphQLContext} from '../../../../types';
+import {transformDomainUserIntoPresentationUser} from '../../utils';
 
 const userController = {
   async index(_: any, args: any, context: GraphQLContext) {
@@ -10,13 +11,17 @@ const userController = {
 
     const user = await getUserProfile(id);
 
-    return user;
+    const displayUser = user ? transformDomainUserIntoPresentationUser(user) : null;
+
+    return displayUser;
   },
 
   async me(_: any, __: any, context: GraphQLContext) {
     const {user} = context;
 
-    return user;
+    const displayUser = user ? transformDomainUserIntoPresentationUser(user) : null;
+
+    return displayUser;
   },
 };
 

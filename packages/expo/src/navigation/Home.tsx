@@ -1,15 +1,14 @@
-import React, {useState} from 'react';
-import {Pressable, Platform} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
-import {useNavigation} from '@react-navigation/native';
-import styled from 'styled-components/native';
-import {Avatar, Typography} from '@animavita/ui/core';
-import {Popover} from 'react-native-popper';
-import {useLazyLoadQuery, graphql} from '@animavita/relay';
-import {useTheme, px2ddp, StyledTheme} from '@animavita/theme';
 import {useI18n} from '@animavita/i18n';
-import {URL} from 'react-native-url-polyfill';
+import {graphql, useLazyLoadQuery} from '@animavita/relay';
+import {px2ddp, StyledTheme, useTheme} from '@animavita/theme';
+import {Avatar, Typography} from '@animavita/ui/core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
+import {createStackNavigator, StackNavigationOptions} from '@react-navigation/stack';
+import React, {useState} from 'react';
+import {Pressable} from 'react-native';
+import {Popover} from 'react-native-popper';
+import styled from 'styled-components/native';
 
 import Home from '../modules/home/Home';
 
@@ -49,10 +48,7 @@ const HomeNavigator: React.FC = () => {
       query HomeQuery {
         me {
           name
-          profileImages {
-            url
-            providedBy
-          }
+          profileImage
         }
       }
     `,
@@ -63,20 +59,7 @@ const HomeNavigator: React.FC = () => {
   );
 
   const name = me?.name?.split(' ')[0] || '';
-  const imageIndex = me ? me.profileImages.length - 1 : 0;
-  const uri = me?.profileImages[imageIndex].url;
-
-  const getPictureUrl = (url: string) => {
-    if (Platform.OS === 'android') {
-      const urlObject = new URL(url);
-      const port = urlObject.port;
-      const pathname = urlObject.pathname;
-
-      return `http://10.0.2.2:${port}/${pathname}`;
-    }
-
-    return url;
-  };
+  const uri = me?.profileImage;
 
   const backgroundColor = theme.themeName === 'light' ? StyledTheme.white : StyledTheme.black;
 
@@ -96,7 +79,7 @@ const HomeNavigator: React.FC = () => {
         offset={4}
         trigger={
           <Pressable>
-            <Avatar source={{uri: getPictureUrl(uri)}} />
+            <Avatar source={{uri}} />
           </Pressable>
         }>
         <Popover.Backdrop />

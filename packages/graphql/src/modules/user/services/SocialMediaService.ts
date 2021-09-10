@@ -6,5 +6,5 @@ export interface SocialUser {
 
 export default interface SocialMediaRepository {
   getUser(toke: string): Promise<SocialUser | null>;
-  getUserProfileImage(token: string): Promise<string | null>;
+  getUserProfileImage(token: string): Promise<string | undefined>;
 }

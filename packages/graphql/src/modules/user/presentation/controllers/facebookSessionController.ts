@@ -1,6 +1,6 @@
 import container from '../../../../shared/container';
-import User from '../../domain/User';
-
+import {UserGraphQLType} from '../UserType';
+import {transformDomainUserIntoPresentationUser} from '../../utils';
 export interface AuthenticateFbUserMutationArgs {
   token: string;
   expires: number;
@@ -8,7 +8,7 @@ export interface AuthenticateFbUserMutationArgs {
 }
 
 export interface AuthenticateFacebookUserResponse {
-  user: User.Type;
+  user: UserGraphQLType;
   token: string;
 }
 
@@ -26,8 +26,10 @@ const facebookSessionController = {
       token: jwtToken,
     });
 
+    const displayUser = transformDomainUserIntoPresentationUser(user);
+
     return {
-      user,
+      user: displayUser,
       token,
     };
   },

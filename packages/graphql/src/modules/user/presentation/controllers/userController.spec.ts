@@ -23,10 +23,7 @@ const authenticateUserMutation = `mutation ContinueWithFacebookMutation($input: 
 const meQuery = `query getMe {
   me {
     name
-    profileImages {
-      url
-      providedBy
-    }
+    profileImage
   }
 }`;
 
@@ -34,18 +31,8 @@ const userQuery = `query getUser($id: ID!) {
   user (id: $id) {
     id,
     name
-    emails {
-      email
-      providedBy
-    }
-    providerIds {
-      id
-      providedBy
-    }
-    profileImages {
-      url
-      providedBy
-    }
+    email
+    profileImage
   }
 }`;
 
@@ -138,8 +125,7 @@ describe('User Controller', () => {
         const {user} = response.body.data;
 
         expect(user.name).toBe('John Doe');
-        expect(user.providerIds[0]).toEqual({id: 'fake-id', providedBy: 'facebook'});
-        expect(user.emails[0]).toEqual({email: 'johndoe@animavita.com', providedBy: 'facebook'});
+        expect(user.email).toBe('johndoe@animavita.com');
       });
     });
 

@@ -1,6 +1,6 @@
-import SocialMediaRepository, {SocialUser} from '../../domain/SocialMediaRepository';
+import SocialMediaService, {SocialUser} from '../../services/SocialMediaService';
 
-export default function fakeSocialMediaRepository(): SocialMediaRepository {
+export default function fakeSocialMediaService(): SocialMediaService {
   return {
     async getUser(token: string): Promise<SocialUser | null> {
       return {
@@ -10,7 +10,7 @@ export default function fakeSocialMediaRepository(): SocialMediaRepository {
       };
     },
 
-    async getUserProfileImage(token: string): Promise<string | null> {
+    async getUserProfileImage(token: string): Promise<string | undefined> {
       return `${token}/profilePicture.jpeg`;
     },
   };

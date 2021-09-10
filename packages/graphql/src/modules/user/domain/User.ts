@@ -1,86 +1,32 @@
+import Provider from './Provider';
+
 namespace User {
-  type Providers = 'facebook' | 'google' | 'apple';
-
-  type ProvidedBy = Readonly<{
-    providedBy: Providers;
-  }>;
-
-  export type ProviderId = ProvidedBy &
-    Readonly<{
-      id: string;
-    }>;
-
-  export type Email = ProvidedBy &
-    Readonly<{
-      email: string;
-    }>;
-
-  export type ProfileImage = ProvidedBy &
-    Readonly<{
-      url: string;
-    }>;
-
-  type UserData = Readonly<{
-    id: string;
-    providersIds: ProviderId[];
-    name: string;
-    emails: Email[];
-    profileImages: ProfileImage[];
-  }>;
-
   type User = Readonly<{
     id: string;
-    name: string;
-    emails: Email[];
-    providersIds: ProviderId[];
-    profileImages: ProfileImage[];
+    providers: Provider.Type[];
   }>;
 
-  export const create = ({id, providersIds, emails, name, profileImages}: UserData): User => ({
+  export const create = ({id, providers}: User): User => ({
     id,
-    providersIds,
-    emails,
-    name,
-    profileImages,
+    providers,
   });
 
-  export const updateName = (self: User, name: string): User => {
-    if (name.length !== self.name.length) {
-      return {
-        ...self,
-        name,
-      };
-    }
+  export const syncProvider = (self: User, syncProvider: Provider.Type): User => {
+    const existingProvider = self.providers.find(provider => provider.origin === syncProvider.origin);
+    const providers = existingProvider
+      ? self.providers.map(provider => (provider.origin === syncProvider.origin ? syncProvider : provider))
+      : [...self.providers, syncProvider];
 
-    return self;
+    return {
+      ...self,
+      providers,
+    };
   };
 
-  export const updateFacebookId = (self: User, facebookId: string): User => {
-    const currentFacebookId = self.providersIds.find(id => id.providedBy === 'facebook');
+  export const getProvider = (self: User, origin: Provider.Origin): Provider.Type | null => {
+    const provider = self.providers.find(provider => provider.origin === origin);
 
-    if (currentFacebookId?.id !== facebookId) {
-      const updatedProvidersIds = self.providersIds.map(providerId =>
-        providerId.providedBy === 'facebook' ? ({id: facebookId, providedBy: 'facebook'} as ProviderId) : providerId,
-      );
-
-      return {
-        ...self,
-        providersIds: updatedProvidersIds,
-      };
-    }
-
-    return self;
-  };
-
-  export const updateFacebookProfileImage = (self: User, imageUrl: string | null): User => {
-    if (imageUrl) {
-      return {
-        ...self,
-        profileImages: [...self.profileImages, {url: imageUrl, providedBy: 'facebook'}],
-      };
-    }
-
-    return self;
+    return provider ? provider : null;
   };
 
   export type Type = User;
