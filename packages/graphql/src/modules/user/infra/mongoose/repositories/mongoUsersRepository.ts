@@ -1,39 +1,41 @@
 import DataLoader from 'dataloader';
-import {v4 as uuid} from 'uuid';
+import mongoose from 'mongoose';
 
 import Provider from '../../../domain/Provider';
 import User from '../../../domain/User';
 import UsersRepository from '../../../domain/UsersRepository';
-import UserModel from '../models/UserModel';
+import UserModel, {IUserSchema} from '../models/UserModel';
+import {UserMapper} from '../UserMapper';
 
 export default function mongoUsersRepository(): UsersRepository {
-  const userLoader = new DataLoader<string, User.Type>(userIds => UserModel.find({id: {$in: userIds}}));
+  const userLoader = new DataLoader<mongoose.Types.ObjectId, IUserSchema>(userIds =>
+    UserModel.find({_id: {$in: userIds}}),
+  );
 
   return {
     getNextUUID(): string {
-      return uuid();
+      return mongoose.Types.ObjectId().toString();
     },
 
     async create(user: User.Type): Promise<User.Type> {
-      await UserModel.create(user);
+      const userData = UserMapper.toData(user);
+      await UserModel.create(userData);
 
       return user;
     },
 
     async update(updatedUser: User.Type): Promise<User.Type> {
-      await UserModel.updateOne({id: updatedUser.id}, {$set: updatedUser});
+      const {_id, ...data} = UserMapper.toData(updatedUser);
+      await UserModel.updateOne({_id}, {$set: data});
 
       return updatedUser;
     },
 
     async findById(id: string): Promise<User.Type | null> {
       try {
-        const dbUser = await userLoader.load(id);
+        const dbUser = await userLoader.load(mongoose.Types.ObjectId(id));
 
-        return User.create({
-          id: dbUser.id,
-          providers: dbUser.providers,
-        });
+        return UserMapper.toEntity(dbUser);
       } catch {
         return null;
       }
@@ -54,10 +56,7 @@ export default function mongoUsersRepository(): UsersRepository {
         return null;
       }
 
-      return User.create({
-        id: dbUser[0].id,
-        providers: dbUser[0].providers,
-      });
+      return UserMapper.toEntity(dbUser[0]);
     },
   };
 }

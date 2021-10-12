@@ -1,6 +1,13 @@
 import mongoose, {Document} from 'mongoose';
 
-import User from '../../../domain/User';
+import Provider from '../../../domain/Provider';
+
+type IUserSchema = {
+  _id: mongoose.Types.ObjectId;
+  providers: Provider.Type[];
+};
+
+type IUserDocument = IUserSchema & Document;
 
 const ProviderSchema = new mongoose.Schema({
   id: {
@@ -39,17 +46,8 @@ const ProviderSchema = new mongoose.Schema({
   },
 });
 
-export type IUserDocument = User.Type & Document;
-
 const UserSchema = new mongoose.Schema(
   {
-    id: {
-      type: String,
-      description: 'user UUID',
-      trim: true,
-      index: true,
-      required: true,
-    },
     providers: {
       type: [ProviderSchema],
       description: "All the user's providers",
@@ -67,3 +65,4 @@ UserSchema.index({name: 'text'});
 const UserModel = mongoose.model<IUserDocument>('User', UserSchema);
 
 export default UserModel;
+export {IUserSchema, IUserDocument};
