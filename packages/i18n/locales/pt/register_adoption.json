@@ -3,6 +3,8 @@
   "register_adoption": "Cadastrar Adoção",
   "picture_upload": "Envio de foto",
   "add_picture": "Adicionar foto",
+  "callout": "Que tal umas fotos fofíssimas do %{name}?",
+  "required_field": "Este campo é obrigatório",
   "inputs": {
     "name": {
       "label": "Nome do animal",

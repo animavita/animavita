@@ -3,6 +3,8 @@
   "register_adoption": "Register Adoption",
   "picture_upload": "Picture Upload",
   "add_picture": "Add Picture",
+  "callout": "What about some pictures of %{name}?",
+  "required_field": "This field is required",
   "inputs": {
     "name": {
       "label": "Animal name",
