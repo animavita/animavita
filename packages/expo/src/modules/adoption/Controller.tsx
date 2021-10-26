@@ -1,10 +1,12 @@
-import React, {useState, useCallback, useContext, createContext, cloneElement, ReactElement} from 'react';
+import React, {useState, useEffect, useContext, useReducer, createContext, cloneElement, ReactElement} from 'react';
 import {Platform} from 'react-native';
-import {useForm, Controller, ControllerRenderProps, FieldValues, UseFormHandleSubmit} from 'react-hook-form';
+import {useForm, Controller, ControllerRenderProps, FieldValues} from 'react-hook-form';
 import * as ImagePicker from 'expo-image-picker';
 import {useI18n} from '@animavita/i18n';
+import {useNavigation} from '@react-navigation/native';
 
-import {InputData} from './form';
+import {imagesReducer, stepsReducer, ActionTypes, ImageType, ImageState} from './reducers';
+import {InputData, Fields} from './form';
 
 interface RegisteredInputProps {
   data: InputData;
@@ -15,23 +17,26 @@ interface AdoptionContextProps {
   nextStep: () => void;
   previousStep: () => void;
   RegisteredInput: React.FC<RegisteredInputProps>;
-  handleSubmit: UseFormHandleSubmit<FieldValues>;
+  submitData: () => void;
   errors: {
     [key: string]: string;
   };
   pickImage: () => void;
   requestPermission: () => void;
-  images: Array<Partial<ImagePicker.ImagePickerResult>>;
+  images: ImageState;
+  addImage: (image: ImageType) => void;
+  removeImage: (index: number) => void;
+  data: Partial<Fields>;
+  submitAdoption: () => void;
 }
-
-const NUM_OF_STEPS = 2;
 
 const AdoptionContext = createContext<AdoptionContextProps>({} as AdoptionContextProps);
 
 const AdoptionProvider: React.FC = ({children}) => {
-  const [step, setStep] = useState(0);
   const [status, setStatus] = useState(ImagePicker.PermissionStatus.UNDETERMINED);
-  const [images, setImages] = useState<Array<Partial<ImagePicker.ImagePickerResult>>>([{}, {}, {}]);
+  const [step, dispatchStep] = useReducer(stepsReducer, 0);
+  const [images, dispatchImages] = useReducer(imagesReducer, []);
+  const [data, setData] = useState<Partial<Fields>>({});
 
   const {
     control,
@@ -40,17 +45,27 @@ const AdoptionProvider: React.FC = ({children}) => {
   } = useForm();
   const {t} = useI18n(['register_adoption']);
 
-  const nextStep = useCallback(() => {
-    if (step < NUM_OF_STEPS) {
-      setStep(step + 1);
-    }
-  }, [step]);
+  const navigation = useNavigation();
 
-  const previousStep = useCallback(() => {
-    if (step > 0) {
-      setStep(step - 1);
-    }
-  }, [step]);
+  const nextStep = () => dispatchStep({type: ActionTypes.NextStep});
+
+  const previousStep = () => dispatchStep({type: ActionTypes.PreviousStep});
+
+  const addImage = (image: ImageType) =>
+    dispatchImages({
+      type: ActionTypes.AddImage,
+      payload: {
+        image,
+      },
+    });
+
+  const removeImage = (index: number) =>
+    dispatchImages({
+      type: ActionTypes.RemoveImage,
+      payload: {
+        index,
+      },
+    });
 
   const requestPermission = async () => {
     try {
@@ -74,11 +89,20 @@ const AdoptionProvider: React.FC = ({children}) => {
       });
 
       if (!result.cancelled) {
-        setImages([result]);
+        addImage(result);
       }
     } else {
       await requestPermission();
     }
+  };
+
+  const submitData = handleSubmit(formData => {
+    setData(formData);
+    nextStep();
+  });
+
+  const submitAdoption = () => {
+    navigation.navigate('Home');
   };
 
   const RegisteredInput: React.FC<RegisteredInputProps> = ({children, data}) => {
@@ -121,6 +145,10 @@ const AdoptionProvider: React.FC = ({children}) => {
     }
   };
 
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
   return (
     <AdoptionContext.Provider
       value={{
@@ -128,11 +156,15 @@ const AdoptionProvider: React.FC = ({children}) => {
         nextStep,
         previousStep,
         RegisteredInput,
-        handleSubmit,
+        submitData,
         errors,
         pickImage,
         requestPermission,
         images,
+        addImage,
+        removeImage,
+        data,
+        submitAdoption,
       }}>
       {children}
     </AdoptionContext.Provider>

@@ -14,7 +14,7 @@ const Wrapper = styled.ScrollView`
 `;
 
 const AdoptionForm: React.FC = () => {
-  const {nextStep, RegisteredInput, handleSubmit, errors} = useAdoptionRegister();
+  const {RegisteredInput, submitData, errors} = useAdoptionRegister();
   const {goBack} = useNavigation();
   const {t} = useI18n(['register_adoption']);
 
@@ -43,7 +43,7 @@ const AdoptionForm: React.FC = () => {
           `,
           ]}
           variant="caption-1">
-          Este campo é obrigatório
+          {t('required_field')}
         </Typography>
       );
     } else {
@@ -71,17 +71,7 @@ const AdoptionForm: React.FC = () => {
 
         {renderFields()}
 
-        <Button
-          text={t('next_step')}
-          onPress={nextStep}
-          // onPress={handleSubmit(data => {
-          //   console.log(data);
-          // })}
-          size="large"
-          style={{marginTop: 30}}
-          active
-          rounded
-        />
+        <Button text={t('next_step')} onPress={submitData} size="large" style={{marginTop: 30}} active rounded />
       </Wrapper>
     </Background>
   );

@@ -31,6 +31,16 @@ export type InputData = (TextData | SliderData | ButtonGroupData) & {
   };
 };
 
+export type Fields = {
+  name: string;
+  breed: string;
+  observations: string;
+  type: string;
+  age: number;
+  gender: string;
+  size: string;
+};
+
 const getForm = (t: (string) => string) =>
   [
     {
