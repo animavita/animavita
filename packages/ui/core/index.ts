@@ -1,5 +1,6 @@
 export {default as Avatar} from './Avatar';
 export {default as Button} from './Button/Button';
+export {default as ButtonGroup} from './Button/ButtonGroup';
 export {default as Typography} from './Typography';
 export {default as LoadingBottomBar} from './LoadingBottomBar';
 export {default as TabBar} from './TabBar';
@@ -8,3 +9,4 @@ export {default as Input} from './Form/Input';
 export {default as Switch} from './Form/Switch';
 export {default as Slider} from './Form/Slider';
 export {default as ListItem} from './ListItem';
+export {default as Header} from './Header';
