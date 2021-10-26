@@ -7,15 +7,14 @@ import Typography from '../Typography';
 
 const Container = styled.View`
   width: 100%;
+  margin-bottom: ${px2ddp(4)}px;
 `;
 const StyledSlider = styled(DefaultSlider)``;
 
 interface StyledSliderProps extends SliderProps {
   minimum: number;
   maximum: number;
-  value: number;
   suffix: string;
-  onValueChange(value: number): void;
   testID?: string;
 }
 
