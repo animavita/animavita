@@ -5,6 +5,7 @@ import {Background} from '@animavita/ui/layout';
 import {TabBar} from '@animavita/ui/core';
 import styled from 'styled-components/native';
 import {useI18n} from '@animavita/i18n';
+import {useNavigation} from '@react-navigation/native';
 
 const Wrapper = styled.View`
   margin: 0 ${px2ddp(10)}px;
@@ -16,6 +17,7 @@ const ButtonsWrapper = styled.View`
 
 const Home: React.FC = () => {
   const theme = useTheme();
+  const navigation = useNavigation();
   const {t} = useI18n(['home', 'tab_bar']);
 
   return (
@@ -31,6 +33,7 @@ const Home: React.FC = () => {
         />
         <ButtonsWrapper>
           <Button title={t('change_theme')} onPress={() => theme.changeTheme()} />
+          <Button title={t('register_adoption')} onPress={() => navigation.navigate('Register Adoption')} />
         </ButtonsWrapper>
       </Wrapper>
     </Background>

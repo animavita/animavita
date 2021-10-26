@@ -5,6 +5,8 @@ import * as Localization from 'expo-localization';
 import {ThemeContext} from '@animavita/theme';
 import {useI18nController} from '@animavita/i18n';
 
+import RegisterAdoption from '../modules/adoption/RegisterAdoption';
+
 import HomeNavigator from './Home';
 import AuthNavigator from './Auth';
 
@@ -25,6 +27,7 @@ export default function Navigation() {
           <Navigator headerMode="none" screenOptions={{gestureEnabled: false}} initialRouteName="Auth">
             <Screen name="Auth" component={AuthNavigator} />
             <Screen name="Home" component={HomeNavigator} />
+            <Screen name="Register Adoption" component={RegisterAdoption} />
           </Navigator>
         </NavigationContainer>
       )}
