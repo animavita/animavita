@@ -1,0 +1,50 @@
+{
+  "next_step": "Próxima Etapa",
+  "register_adoption": "Cadastrar Adoção",
+  "picture_upload": "Envio de foto",
+  "add_picture": "Adicionar foto",
+  "inputs": {
+    "name": {
+      "label": "Nome do animal",
+      "placeholder": "Digite o nome do animal"
+    },
+    "breed": {
+      "label": "Raça do animal",
+      "placeholder": "Digite a raça do animal"
+    },
+    "observations": {
+      "label": "Observações",
+      "placeholder": "Observações adicionais sobre o animal"
+    },
+    "type": {
+      "label": "Tipo de animal",
+      "options": {
+        "dog": "Cachorro",
+        "cat": "Gato",
+        "other": "Outro"
+      }
+    },
+    "age": {
+      "label": "Idade do animal",
+      "suffix": {
+        "singular": "ano",
+        "plural": "anos"
+      }
+    },
+    "gender": {
+      "label": "Sexo do animal",
+      "options": {
+        "male": "Macho",
+        "female": "Fêmea"
+      }
+    },
+    "size": {
+      "label": "Tamanho do animal",
+      "options": {
+        "small": "Pequeno",
+        "medium": "Médio",
+        "large": "Grande"
+      }
+    }
+  }
+}

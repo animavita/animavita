@@ -1,0 +1,50 @@
+{
+  "next_step": "Next Step",
+  "register_adoption": "Register Adoption",
+  "picture_upload": "Picture Upload",
+  "add_picture": "Add Picture",
+  "inputs": {
+    "name": {
+      "label": "Animal name",
+      "placeholder": "Type the animal name"
+    },
+    "breed": {
+      "label": "Animal breed",
+      "placeholder": "Type the animal breed"
+    },
+    "observations": {
+      "label": "Observations",
+      "placeholder": "Additional observations about the animal"
+    },
+    "type": {
+      "label": "Animal type",
+      "options": {
+        "dog": "Dog",
+        "cat": "Cat",
+        "other": "Other"
+      }
+    },
+    "age": {
+      "label": "Animal age",
+      "suffix": {
+        "singular": "year",
+        "plural": "years"
+      }
+    },
+    "gender": {
+      "label": "Animal gender",
+      "options": {
+        "male": "Male",
+        "female": "Female"
+      }
+    },
+    "size": {
+      "label": "Animal size",
+      "options": {
+        "small": "Small",
+        "medium": "Médio",
+        "large": "Large"
+      }
+    }
+  }
+}
