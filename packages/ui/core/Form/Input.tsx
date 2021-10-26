@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 // styles
 export const StyledTextInput = styled.TextInput<{themeName: PossibleThemes}>`
   width: 100%;
-  padding: ${px2ddp(2)}px 0px;
+  padding: ${px2ddp(1)}px 0px;
   color: ${({themeName, theme}) => (themeName === 'light' ? theme.black : theme.white)};
 `;
 
@@ -14,8 +14,8 @@ export const StyledTextInput = styled.TextInput<{themeName: PossibleThemes}>`
 type InputProps = TextInputProps;
 
 const Input: React.FC<InputProps> = ({...props}) => {
-  const {themeName} = useTheme();
-  return <StyledTextInput themeName={themeName} {...props} />;
+  const {themeName, styledTheme} = useTheme();
+  return <StyledTextInput themeName={themeName} placeholderTextColor={styledTheme.greyLight} {...props} />;
 };
 
 export default Input;
