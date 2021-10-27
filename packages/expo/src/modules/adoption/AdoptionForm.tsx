@@ -5,6 +5,7 @@ import {Button, Header, Label, Input, ButtonGroup, Slider, Typography} from '@an
 import {px2ddp, heightPercentageToDP} from '@animavita/theme';
 import {useNavigation} from '@react-navigation/native';
 import {useI18n} from '@animavita/i18n';
+import {View} from 'react-native';
 
 import {useAdoptionRegister} from './Controller';
 import {getForm, InputData} from './form';
@@ -36,13 +37,7 @@ const AdoptionForm: React.FC = () => {
 
     if (error) {
       return (
-        <Typography
-          css={[
-            `
-            margin-bottom: ${px2ddp(4)}px;
-          `,
-          ]}
-          variant="caption-1">
+        <Typography css={[`margin-bottom: ${px2ddp(4)}px;`]} variant="caption-1">
           {t('required_field')}
         </Typography>
       );
@@ -53,13 +48,13 @@ const AdoptionForm: React.FC = () => {
 
   const renderFields = useCallback(() => {
     return formFields.map(item => (
-      <>
+      <View key={item.name}>
         <Label>{item.label}</Label>
         <RegisteredInput data={item} key={item.name}>
           {getInputElement(item)}
         </RegisteredInput>
         {renderError(item.name)}
-      </>
+      </View>
     ));
   }, [formFields]);
 
@@ -71,7 +66,15 @@ const AdoptionForm: React.FC = () => {
 
         {renderFields()}
 
-        <Button text={t('next_step')} onPress={submitData} size="large" style={{marginTop: 30}} active rounded />
+        <Button
+          testID="nextButton"
+          text={t('next_step')}
+          onPress={submitData}
+          size="large"
+          style={{marginTop: 30}}
+          active
+          rounded
+        />
       </Wrapper>
     </Background>
   );

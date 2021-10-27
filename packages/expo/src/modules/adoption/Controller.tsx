@@ -12,7 +12,7 @@ interface RegisteredInputProps {
   data: InputData;
 }
 
-interface AdoptionContextProps {
+export type AdoptionContextProps = {
   step: number;
   nextStep: () => void;
   previousStep: () => void;
@@ -28,11 +28,13 @@ interface AdoptionContextProps {
   removeImage: (index: number) => void;
   data: Partial<Fields>;
   submitAdoption: () => void;
-}
+};
 
 const AdoptionContext = createContext<AdoptionContextProps>({} as AdoptionContextProps);
 
-const AdoptionProvider: React.FC = ({children}) => {
+const AdoptionProvider: React.FC<Partial<AdoptionContextProps>> = props => {
+  const {children} = props;
+
   const [status, setStatus] = useState(ImagePicker.PermissionStatus.UNDETERMINED);
   const [step, dispatchStep] = useReducer(stepsReducer, 0);
   const [images, dispatchImages] = useReducer(imagesReducer, []);
@@ -165,6 +167,7 @@ const AdoptionProvider: React.FC = ({children}) => {
         removeImage,
         data,
         submitAdoption,
+        ...props,
       }}>
       {children}
     </AdoptionContext.Provider>
