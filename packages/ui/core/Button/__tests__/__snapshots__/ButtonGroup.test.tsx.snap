@@ -14,6 +14,7 @@ exports[`Header component renders correcly match snapshot 1`] = `
       },
     ]
   }
+  testID="buttonGroup"
 >
   <View
     accessible={true}

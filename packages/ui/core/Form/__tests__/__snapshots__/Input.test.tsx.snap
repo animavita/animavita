@@ -19,6 +19,7 @@ exports[`Input renders correctly 1`] = `
       },
     ]
   }
+  testID="textInput"
   themeName="light"
   underlineColorAndroid="transparent"
 />

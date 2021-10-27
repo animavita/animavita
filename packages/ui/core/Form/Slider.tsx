@@ -24,7 +24,7 @@ const Slider: React.FC<StyledSliderProps> = ({...props}) => {
   const lightTheme = themeName === 'light';
 
   return (
-    <Container>
+    <Container testID="slider">
       <StyledSlider
         minimumTrackTintColor={styledTheme.greenLight}
         maximumTrackTintColor={lightTheme ? styledTheme.greyLighter : styledTheme.greyDark}

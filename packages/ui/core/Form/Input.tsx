@@ -15,7 +15,9 @@ type InputProps = TextInputProps;
 
 const Input: React.FC<InputProps> = ({...props}) => {
   const {themeName, styledTheme} = useTheme();
-  return <StyledTextInput themeName={themeName} placeholderTextColor={styledTheme.greyLight} {...props} />;
+  return (
+    <StyledTextInput testID="textInput" themeName={themeName} placeholderTextColor={styledTheme.greyLight} {...props} />
+  );
 };
 
 export default Input;

@@ -11,9 +11,9 @@ const defaultProps = {
 };
 
 const mountFactory = propOverrides => {
-  const buttonProps = {...defaultProps, ...propOverrides};
+  const headerProps = {...defaultProps, ...propOverrides};
 
-  const element = Mount(<Header {...buttonProps} />);
+  const element = Mount(<Header {...headerProps} />);
 
   return element;
 };

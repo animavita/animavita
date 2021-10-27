@@ -50,7 +50,7 @@ const ButtonGroup: React.FC<ButtonGroupProps> = ({data, onChange, value}) => {
     );
   }
 
-  return <Wrapper>{data.map((item, index) => renderButton(item, index))}</Wrapper>;
+  return <Wrapper testID="buttonGroup">{data.map((item, index) => renderButton(item, index))}</Wrapper>;
 };
 
 export default ButtonGroup;

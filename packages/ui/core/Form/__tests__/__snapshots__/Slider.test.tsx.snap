@@ -10,6 +10,7 @@ exports[`Slider renders correctly 1`] = `
       },
     ]
   }
+  testID="slider"
 >
   <View
     animationType="timing"
