@@ -44,7 +44,7 @@
       "label": "Animal size",
       "options": {
         "small": "Small",
-        "medium": "Médio",
+        "medium": "Medium",
         "large": "Large"
       }
     }
