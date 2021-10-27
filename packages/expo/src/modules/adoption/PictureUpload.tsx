@@ -60,7 +60,7 @@ const Picture: React.FC<PictureProps> = ({image, addPicture, removePicture}) => 
   const onPress = imageExists ? removePicture : addPicture;
 
   return (
-    <PictureBox onPress={onPress}>
+    <PictureBox testID="pictureBox" onPress={onPress}>
       {imageExists ? (
         <>
           <ImagePreview source={{uri: image.uri}} />
@@ -96,13 +96,14 @@ const PictureUpload: React.FC = () => {
       <Wrapper>
         <Images.PhotoContainerImage />
 
-        <Typography style={{textAlign: 'center'}} variant="callout" type="bold" testID="callout">
+        <Typography css={['text-align: center']} variant="callout" type="bold" testID="callout">
           {t('callout', {name: data.name})}
         </Typography>
 
         <PicturesWrapper>{renderPictures()}</PicturesWrapper>
 
         <Button
+          testID="submitButton"
           text={t('register_adoption')}
           onPress={submitAdoption}
           size="large"
