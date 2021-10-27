@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({title, onPrevious}) => {
   return (
     <Wrapper>
       {onPrevious && (
-        <BackButton onPress={onPrevious}>
+        <BackButton testID="backButton" onPress={onPrevious}>
           <FontAwesomeIcons name="chevron-left" size={18} color={theme.colors.text} />
         </BackButton>
       )}
