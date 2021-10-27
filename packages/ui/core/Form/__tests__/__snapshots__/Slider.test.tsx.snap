@@ -5,6 +5,7 @@ exports[`Slider renders correctly 1`] = `
   style={
     Array [
       Object {
+        "marginBottom": 8,
         "width": "100%",
       },
     ]

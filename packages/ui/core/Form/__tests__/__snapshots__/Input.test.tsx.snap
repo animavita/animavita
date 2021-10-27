@@ -5,15 +5,16 @@ exports[`Input renders correctly 1`] = `
   accessibilityLabel="username"
   allowFontScaling={true}
   onChangeText={[MockFunction]}
+  placeholderTextColor="#D8D8D8"
   rejectResponderTermination={true}
   style={
     Array [
       Object {
         "color": "#353434",
-        "paddingBottom": 4,
+        "paddingBottom": 2,
         "paddingLeft": 0,
         "paddingRight": 0,
-        "paddingTop": 4,
+        "paddingTop": 2,
         "width": "100%",
       },
     ]
