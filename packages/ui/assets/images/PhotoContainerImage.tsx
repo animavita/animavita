@@ -10,7 +10,6 @@ const Image = styled.Image`
 `;
 
 const PhotoContainerImage: React.FC = () => {
-  // @ts-ignore
   return <Image resizeMode="contain" source={PhotoContainerImageBinaries} />;
 };
 
