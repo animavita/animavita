@@ -14,6 +14,17 @@ const Wrapper = styled.ScrollView`
   margin: 0 ${px2ddp(10)}px;
 `;
 
+const getInputElement = (data: InputData) => {
+  switch (data.type) {
+    case 'text':
+      return <Input {...data} />;
+    case 'slider':
+      return <Slider {...data} />;
+    case 'buttonGroup':
+      return <ButtonGroup {...data} />;
+  }
+};
+
 const AdoptionForm: React.FC = () => {
   const {RegisteredInput, submitData, errors} = useAdoptionRegister();
   const {goBack} = useNavigation();
@@ -21,29 +32,16 @@ const AdoptionForm: React.FC = () => {
 
   const formFields = getForm(t);
 
-  const getInputElement = (data: InputData) => {
-    switch (data.type) {
-      case 'text':
-        return <Input {...data} />;
-      case 'slider':
-        return <Slider {...data} />;
-      case 'buttonGroup':
-        return <ButtonGroup {...data} />;
-    }
-  };
-
   const renderError = (name: string) => {
     const error = errors[name];
 
-    if (error) {
-      return (
-        <Typography css={[`margin-bottom: ${px2ddp(4)}px;`]} variant="caption-1">
-          {t('required_field')}
-        </Typography>
-      );
-    } else {
-      return null;
-    }
+    if (!error) return;
+
+    return (
+      <Typography css={[`margin-bottom: ${px2ddp(4)}px;`]} variant="caption-1">
+        {t('required_field')}
+      </Typography>
+    );
   };
 
   const renderFields = useCallback(() => {
