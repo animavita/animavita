@@ -1,9 +1,9 @@
 import React from 'react';
 import {fireEvent} from '@testing-library/react-native';
+import {Mount} from '@animavita/expo/tests/helpers';
 
 import {AdoptionProvider, AdoptionContextProps} from '../Controller';
 import PictureUpload from '../PictureUpload';
-import {Mount} from '../../../../tests/helpers';
 
 const mockedGoBack = jest.fn();
 

@@ -28,7 +28,7 @@ const mountFactory = propOverrides => {
   return element;
 };
 
-describe('Header component', () => {
+describe('ButtonGroup component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
