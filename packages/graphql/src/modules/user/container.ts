@@ -9,7 +9,7 @@ import mongoUsersRepository from './infra/mongoose/repositories/mongoUsersReposi
 import jwtTokenProvider from './providers/TokenProvider/implementations/jwtTokenProvider';
 import TokenProvider from './providers/TokenProvider/model/TokenProvider';
 
-export type Container = {
+type Container = {
   authenticateFacebookUser: ReturnType<typeof authenticateFacebookUser>;
   facebookService: SocialMediaService;
   getUserProfile: ReturnType<typeof getUserProfile>;
@@ -17,7 +17,7 @@ export type Container = {
   userRepository: UsersRepository;
 };
 
-export const register = (container: AwilixContainer) =>
+const register = (container: AwilixContainer) =>
   container.register({
     authenticateFacebookUser: asFunction(authenticateFacebookUser),
     facebookService: asFunction(facebookSocialMediaService).singleton(),
@@ -25,3 +25,5 @@ export const register = (container: AwilixContainer) =>
     tokenProvider: asFunction(jwtTokenProvider).singleton(),
     userRepository: asFunction(mongoUsersRepository).singleton(),
   });
+
+export {register, Container};

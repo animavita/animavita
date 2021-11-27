@@ -3,7 +3,7 @@ import {GraphQLObjectType} from 'graphql';
 import {GraphQLContext} from '../../../types';
 import {nodeField} from '../../../interfaces/NodeInterface';
 import userQueries from '../../../modules/user/presentation/routes/queries';
-import adoptionsQueries from '../../../modules/adoption/AdoptionQuery';
+// import adoptionsQueries from '../../../modules/pet/AdoptionQuery';
 
 export default new GraphQLObjectType<any, GraphQLContext, any>({
   name: 'Query',
@@ -11,6 +11,6 @@ export default new GraphQLObjectType<any, GraphQLContext, any>({
   fields: () => ({
     node: nodeField,
     ...userQueries,
-    ...adoptionsQueries,
+    // ...adoptionsQueries,
   }),
 });

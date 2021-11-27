@@ -1,54 +1,3 @@
-"""Animavita adoption"""
-type Adoption implements Node {
-  """The ID of an object"""
-  id: ID!
-
-  """The adoption user reference"""
-  user: User!
-
-  """The animal name"""
-  name: String!
-
-  """The animal gender"""
-  gender: Gender!
-
-  """The animal breed"""
-  breed: String!
-
-  """The animal type"""
-  type: Type!
-
-  """The animal age"""
-  age: Int!
-
-  """The animal size"""
-  size: Size!
-
-  """The animal photos"""
-  photos: [String!]!
-
-  """Any observation about the animal"""
-  observations: String!
-}
-
-"""A connection to a list of items."""
-type AdoptionConnection {
-  """Information to aid in pagination."""
-  pageInfo: PageInfo!
-
-  """A list of edges."""
-  edges: [AdoptionEdge]
-}
-
-"""An edge in a connection."""
-type AdoptionEdge {
-  """The item at the end of the edge"""
-  node: Adoption
-
-  """A cursor for use in pagination"""
-  cursor: String!
-}
-
 input AuthenticateFacebookUserInput {
   token: String!
   expires: Int!
@@ -68,10 +17,23 @@ enum Gender {
   FEMALE
 }
 
+type Location {
+  type: String!
+  coordinates: [Float]!
+}
+
+input LocationInput {
+  type: String!
+  coordinates: [Float]!
+}
+
 """The root of all mutations"""
 type Mutation {
   """Login user into Animavita using Facebook credentials"""
   authenticateFacebookUser(input: AuthenticateFacebookUserInput!): AuthenticateFacebookUserPayload
+
+  """Register a new pet into the platform"""
+  registerPetMutation(input: RegisterPetMutationInput!): RegisterPetMutationPayload
 }
 
 """An object with an ID"""
@@ -80,19 +42,34 @@ interface Node {
   id: ID!
 }
 
-"""Information about pagination in a connection."""
-type PageInfo {
-  """When paginating forwards, are there more items?"""
-  hasNextPage: Boolean!
+"""Animavita pet"""
+type Pet implements Node {
+  """The ID of an object"""
+  id: ID!
 
-  """When paginating backwards, are there more items?"""
-  hasPreviousPage: Boolean!
+  """The animal name"""
+  name: String!
 
-  """When paginating backwards, the cursor to continue."""
-  startCursor: String
+  """The animal location"""
+  location: Location!
 
-  """When paginating forwards, the cursor to continue."""
-  endCursor: String
+  """The animal gender"""
+  gender: Gender!
+
+  """The animal type"""
+  specie: Specie!
+
+  """The animal age"""
+  age: Int
+
+  """The animal size"""
+  size: Size
+
+  """The animal photos"""
+  photos: [String!]!
+
+  """A short description about the animal"""
+  description: String
 }
 
 """The root of all queries"""
@@ -104,8 +81,22 @@ type Query {
   ): Node
   user(id: ID!): User
   me: User
-  adoptions(after: String, first: Int): AdoptionConnection
-  myAdoptions: [Adoption]
+}
+
+input RegisterPetMutationInput {
+  name: String!
+  gender: Gender!
+  location: LocationInput!
+  photos: [String!]
+  specie: Specie!
+  age: Int!
+  description: String!
+  clientMutationId: String
+}
+
+type RegisterPetMutationPayload {
+  pet: Pet
+  clientMutationId: String
 }
 
 enum Size {
@@ -114,7 +105,7 @@ enum Size {
   BIG
 }
 
-enum Type {
+enum Specie {
   DOG
   CAT
   OTHER
