@@ -49,6 +49,18 @@ type AdoptionEdge {
   cursor: String!
 }
 
+"""Animal description"""
+input Animal {
+  name: String!
+  breed: String!
+  type: Type!
+  gender: Gender!
+  size: Size!
+  age: Int!
+  photos: [String!]!
+  observations: String!
+}
+
 input AuthenticateFacebookUserInput {
   token: String!
   expires: Int!
@@ -63,6 +75,17 @@ type AuthenticateFacebookUserPayload {
   clientMutationId: String
 }
 
+input CreateAdoptionInput {
+  animal: Animal!
+  clientMutationId: String
+}
+
+type CreateAdoptionPayload {
+  error: String
+  adoption: Adoption
+  clientMutationId: String
+}
+
 enum Gender {
   MALE
   FEMALE
@@ -72,6 +95,9 @@ enum Gender {
 type Mutation {
   """Login user into Animavita using Facebook credentials"""
   authenticateFacebookUser(input: AuthenticateFacebookUserInput!): AuthenticateFacebookUserPayload
+
+  """Register an animal adoption by the user"""
+  createAdoptionMutation(input: CreateAdoptionInput!): CreateAdoptionPayload
 }
 
 """An object with an ID"""
