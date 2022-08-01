@@ -1,11 +1,18 @@
 import {mutationWithClientMutationId} from 'graphql-relay';
-import {GraphQLInputObjectType, GraphQLInt, GraphQLList, GraphQLNonNull, GraphQLString} from 'graphql';
+import {
+  GraphQLInputObjectType,
+  GraphQLInt,
+  GraphQLList,
+  GraphQLNonNull,
+  GraphQLObjectType,
+  GraphQLString,
+} from 'graphql';
 
-import AdoptionType, {AnimalSize, AnimalTypeType, GenderType} from './AdoptionType';
+import {AnimalSize, AnimalTypeType, GenderType} from './AdoptionType';
 import AdoptionResolvers from './AdoptionResolvers';
 
 const createAdoptionInputType = new GraphQLInputObjectType({
-  name: 'Animal',
+  name: 'AnimalInput',
   description: 'Animal description',
   fields: () => ({
     name: {type: GraphQLNonNull(GraphQLString)},
@@ -16,6 +23,23 @@ const createAdoptionInputType = new GraphQLInputObjectType({
     age: {type: GraphQLNonNull(GraphQLInt)},
     photos: {type: GraphQLNonNull(GraphQLList(GraphQLNonNull(GraphQLString)))},
     observations: {type: GraphQLNonNull(GraphQLString)},
+  }),
+});
+
+const createAdoptionOutputType = new GraphQLObjectType({
+  name: 'AdoptionCreationOutput',
+  description: 'Adoption creation response',
+  fields: () => ({
+    id: {type: GraphQLString},
+    name: {type: GraphQLString},
+    breed: {type: GraphQLString},
+    type: {type: AnimalTypeType},
+    gender: {type: GenderType},
+    size: {type: AnimalSize},
+    age: {type: GraphQLInt},
+    photos: {type: GraphQLList(GraphQLString)},
+    observations: {type: GraphQLString},
+    user: {type: GraphQLString},
   }),
 });
 
@@ -33,8 +57,8 @@ const createAdoptionMutation = mutationWithClientMutationId({
       resolve: obj => obj.error,
     },
     adoption: {
-      type: AdoptionType,
-      resolve: obj => obj.adoption,
+      type: createAdoptionOutputType,
+      resolve: obj => obj,
     },
   },
   mutateAndGetPayload: AdoptionResolvers.createAdoption,

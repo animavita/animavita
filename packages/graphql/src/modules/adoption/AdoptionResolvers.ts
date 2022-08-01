@@ -26,10 +26,7 @@ const createAdoption = ({animal}, {user}) => {
     observations: animal.observations,
     photos: animal.photos,
   };
-  const createdAdoption = AdoptModel.create(adoptionModel);
-  return {
-    adoption: createdAdoption,
-  };
+  return AdoptModel.create(adoptionModel);
 };
 
 const AdoptionResolvers = {
