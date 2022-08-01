@@ -40,6 +40,20 @@ type AdoptionConnection {
   edges: [AdoptionEdge]
 }
 
+"""Adoption creation response"""
+type AdoptionCreationOutput {
+  id: String
+  name: String
+  breed: String
+  type: Type
+  gender: Gender
+  size: Size
+  age: Int
+  photos: [String]
+  observations: String
+  user: String
+}
+
 """An edge in a connection."""
 type AdoptionEdge {
   """The item at the end of the edge"""
@@ -50,7 +64,7 @@ type AdoptionEdge {
 }
 
 """Animal description"""
-input Animal {
+input AnimalInput {
   name: String!
   breed: String!
   type: Type!
@@ -76,13 +90,13 @@ type AuthenticateFacebookUserPayload {
 }
 
 input CreateAdoptionInput {
-  animal: Animal!
+  animal: AnimalInput!
   clientMutationId: String
 }
 
 type CreateAdoptionPayload {
   error: String
-  adoption: Adoption
+  adoption: AdoptionCreationOutput
   clientMutationId: String
 }
 
