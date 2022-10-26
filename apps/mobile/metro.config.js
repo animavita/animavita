@@ -1,3 +1,5 @@
+// https://github.com/pnpm/pnpm/issues/4286
+
 const { getDefaultConfig } = require("expo/metro-config");
 const path = require("path");
 
