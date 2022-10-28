@@ -28,7 +28,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Text>Adoptions</Text>
+      <Text>Adoptions demo</Text>
 
       <View style={styles.adoption}>
         {adoptions.map((adoption) => {
