@@ -1,0 +1,11 @@
+{
+  "exclude": ["apps/**/tests/**", "shared/**/dist/**"],
+  "references": [
+    {
+      "path": "./apps/backend"
+    },
+    {
+      "path": "./shared/validation-schemas"
+    }
+  ]
+}
