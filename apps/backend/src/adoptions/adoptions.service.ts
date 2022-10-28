@@ -1,5 +1,5 @@
 import { AdoptionType } from '@animavita/models';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IAdoption } from './adoptions.interface';
@@ -17,11 +17,13 @@ export class AdoptionsService {
   }
 
   async updateAdoption(adoption: AdoptionType): Promise<IAdoption> {
-    return this.adoptionModel.findByIdAndUpdate(
-      adoption._id,
-      {
-        $set: adoption,
-      },
+    const target = await this.getAdoptionById(adoption.id);
+
+    if (!target) throw new NotFoundException();
+
+    return await this.adoptionModel.findOneAndUpdate(
+      { _id: adoption.id },
+      { $set: adoption },
       { new: true },
     );
   }
@@ -31,7 +33,16 @@ export class AdoptionsService {
   }
 
   async deleteAdoption(adoptionId: string) {
-    return await this.adoptionModel.findByIdAndDelete(adoptionId);
+    const target = await this.getAdoptionById(adoptionId);
+
+    if (!target) throw new NotFoundException();
+
+    await this.adoptionModel.deleteOne({ _id: adoptionId }).exec();
+
+    return target;
+  }
+
+  private async getAdoptionById(_id: string) {
+    return this.adoptionModel.findOne({ _id }).exec();
   }
 }
-3;
