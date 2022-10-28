@@ -3,7 +3,7 @@ export type AnimalType = "dog" | "cat" | "other";
 export type AnimalSizesType = "small" | "medium" | "big";
 
 export type AdoptionType = {
-  _id?: string;
+  id?: string;
   name: string;
   gender: AnimalGendersType;
   breed: string;
