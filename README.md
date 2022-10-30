@@ -14,11 +14,27 @@ git clone --branch v2 git@github.com:animavita/animavita.git
 cd animavita
 ```
 
-From the root level, install dependencies:
+Install dependencies:
 
 ```sh
 $ pnpm install
 ```
+
+From the backend app level, copy the env file:
+
+```sh
+$ cp apps/backend/.env.example apps/backend/.env
+```
+
+### Docker
+
+We have a `docker-compose` file that sets up a mongodb database. Just run:
+
+```sh
+$ docker-compose up -d
+```
+
+Alternatively you can setup your own mongo database without docker.
 
 Then, run the apps:
 

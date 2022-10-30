@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  mongodb:
+    image: mongo:6.0.2
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+      - MONGO_INITDB_DATABASE=animavita
+    volumes:
+      - mongo:/data/db
+volumes:
+  mongo:
