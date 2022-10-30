@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { AdoptionType } from "@animavita/models";
 import { useEffect, useState } from "react";
 import { getAllAdoptions } from "./src/services/adoptions";
+import client from "./src/services/http-client";
 
 export default function App() {
   const [adoptions, setAdoptions] = useState<AdoptionType[] | null>(null);
@@ -21,6 +22,7 @@ export default function App() {
     return (
       <View style={styles.container}>
         <Text>Loading...</Text>
+        <Text>{client.defaults.baseURL}</Text>
         <StatusBar style="auto" />
       </View>
     );
@@ -28,6 +30,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
+      <Text>{client.defaults.baseURL}</Text>
       <Text>Adoptions demo</Text>
 
       <View style={styles.adoption}>
