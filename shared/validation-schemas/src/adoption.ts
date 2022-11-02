@@ -17,7 +17,7 @@ export const adoptionValidationSchema = Joi.object({
 
   observations: Joi.string().allow("").max(100),
 
-  photos: Joi.array().optional().items(Joi.string()),
+  photos: Joi.array().optional().items(Joi.string().uri()),
 });
 
 export const createValidationSchema = adoptionValidationSchema
