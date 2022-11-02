@@ -13,7 +13,7 @@ import {
   Post,
   UsePipes,
 } from '@nestjs/common';
-import { JoiValidationPipe } from 'src/pipes/joi-validation-pipe';
+import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
 import { AdoptionsService } from './adoptions.service';
 
 @Controller('api/v1/adoptions')
