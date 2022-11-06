@@ -1,9 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import useAdoptions from "../../hooks/use-adoptions";
 import Routes from "../../routes";
 import client from "../../services/http-client";
+import { Button } from "react-native-paper";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -16,11 +17,14 @@ export default function Home() {
       <Text>{client.defaults.baseURL}</Text>
       <Text>Adoptions demo</Text>
       <Button
-        title="Register Adoption"
+        mode="contained"
+        elevation={3}
         onPress={() => {
           navigation.navigate(Routes.RegisterAdoption);
         }}
-      />
+      >
+        Register Adoption
+      </Button>
       {isLoading && <Text>Loading...</Text>}
       {adoptions && (
         <View style={styles.adoption}>

@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { Button, Text } from "react-native";
+import { Text } from "react-native";
+import { Button } from "react-native-paper";
 
 export default function RegisterAdoption() {
   const navigation = useNavigation();
@@ -8,11 +9,13 @@ export default function RegisterAdoption() {
     <div>
       <Text>RegisterAdoption</Text>
       <Button
-        title="Register Adoption"
+        mode="contained"
         onPress={() => {
           navigation.goBack();
         }}
-      />
+      >
+        Back
+      </Button>
     </div>
   );
 }
