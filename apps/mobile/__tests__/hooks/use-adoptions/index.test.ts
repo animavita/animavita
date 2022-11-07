@@ -1,9 +1,19 @@
 import { AdoptionType } from "@animavita/models";
+import { types } from "@babel/core";
+import {
+  isError,
+  QueryKey,
+  useQuery,
+  UseQueryOptions,
+} from "@tanstack/react-query";
 import { renderHook } from "@testing-library/react-native";
 import useAdoptions from "../../../src/hooks/use-adoptions";
 import { getAllAdoptions } from "../../../src/services/adoptions";
 
-jest.mock("../../../src/services/adoptions");
+jest.mock("@tanstack/react-query");
+jest.mock("../../../src/services/adoptions", () => ({
+  getAllAdoptions: jest.fn,
+}));
 
 type Setup = {
   isLoading: boolean;
@@ -12,16 +22,14 @@ type Setup = {
 };
 
 const setup = ({ isLoading, hasError, adoptions }: Setup) => {
-  const mockGetAllAdoptions = getAllAdoptions as jest.MockedFunction<
-    typeof getAllAdoptions
-  >;
-  mockGetAllAdoptions.mockImplementation(
-    ({ onPending, onFulfilled, onError }) => {
-      if (isLoading) onPending();
-      if (hasError) onError();
-      onFulfilled(adoptions);
-    }
-  );
+  const useQueryMock = useQuery as jest.MockedFunction<typeof useQuery>;
+  useQueryMock.mockImplementation(() => {
+    return {
+      data: { data: adoptions },
+      isLoading,
+      isError: hasError,
+    } as any;
+  });
 
   return renderHook(() => useAdoptions());
 };
@@ -44,7 +52,7 @@ describe("useAdoptions", () => {
 
     expect(result.current.adoptions).toStrictEqual(adoptions);
     expect(result.current.isLoading).toBeFalsy();
-    expect(result.current.hasError).toBeFalsy();
+    expect(result.current.isError).toBeFalsy();
   });
 
   it("does not return adoptions", () => {
@@ -56,7 +64,7 @@ describe("useAdoptions", () => {
 
     expect(result.current.adoptions).toBeNull();
     expect(result.current.isLoading).toBeFalsy();
-    expect(result.current.hasError).toBeFalsy();
+    expect(result.current.isError).toBeFalsy();
   });
 
   it("is loading adoptions", () => {
@@ -76,6 +84,6 @@ describe("useAdoptions", () => {
       adoptions: null,
     });
 
-    expect(result.current.hasError).toBeTruthy();
+    expect(result.current.isError).toBeTruthy();
   });
 });

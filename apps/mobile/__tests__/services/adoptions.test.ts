@@ -3,42 +3,45 @@ import client from "../../src/services/http-client";
 
 jest.mock("../../src/services/http-client");
 
+const responseMock = [
+  {
+    name: "Dog",
+    gender: "male",
+    size: "medium",
+    breed: "God",
+    type: "dog",
+    age: 12,
+    observations: "cool",
+    photos: ["photo1.png"],
+  },
+];
+
 const httpRequestMock = (hasError = false) => {
   const mockClient = client.get as jest.MockedFunction<typeof client.get>;
 
   mockClient.mockImplementation(() => {
     if (hasError) return Promise.reject();
-    return Promise.resolve([]);
+    return Promise.resolve({ data: responseMock });
   });
 };
 
 describe("getAllAdoptions", () => {
   beforeEach(jest.clearAllMocks);
 
-  it("calls onFulfilled callback", async () => {
+  it("returns adoptions", async () => {
     httpRequestMock();
 
-    const onFulfilled = jest.fn();
+    const response = await getAllAdoptions();
 
-    await getAllAdoptions({
-      onError: jest.fn,
-      onFulfilled,
-      onPending: jest.fn,
-    });
-
-    expect(onFulfilled).toBeCalled();
+    expect(response.data).toStrictEqual(responseMock);
   });
 
-  it("calls onError callback", async () => {
+  it("throws error", async () => {
     httpRequestMock(true);
 
     const onError = jest.fn();
 
-    await getAllAdoptions({
-      onFulfilled: jest.fn,
-      onPending: jest.fn,
-      onError,
-    });
+    await getAllAdoptions().catch(onError);
 
     expect(onError).toBeCalled();
   });

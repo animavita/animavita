@@ -13,15 +13,6 @@ export type GetAllAdoptions = ({
   onError,
 }: StatusCallbacks) => void;
 
-export const getAllAdoptions: GetAllAdoptions = ({
-  onPending,
-  onFulfilled,
-  onError,
-}) => {
-  onPending();
-
-  return client
-    .get<AdoptionType[]>("/adoptions")
-    .then((response) => onFulfilled(response.data))
-    .catch(onError);
+export const getAllAdoptions = () => {
+  return client.get<AdoptionType[]>("/adoptions");
 };
