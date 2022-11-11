@@ -11,6 +11,9 @@
 <p align="center"><i>"How to save a life?" - The Fray</i> </p>
 
 <p align="center">
+  <a href="https://discord.gg/BHHz77rhb6">
+    <img src="https://img.shields.io/discord/829042103295410197?color=%237289DA&label=Animavita&logo=discord&logoColor=white" alt="Discord">
+  </a>
   <a href="http://makeapullrequest.com">
     <img src="https://img.shields.io/badge/contribuition-welcome-brightgreen.svg" alt="PRs Welcome">
   </a>
@@ -30,45 +33,6 @@ Animavita's purpose is not to change how people use facebook to the activities d
 
 Check our [board](https://github.com/animavita/animavita/projects/3) for more details about what we're building.
 
-### Pre-requisites
+## Contributing
 
-- _Node:_ `16.17.1` or higher.
-- _Npm:_ `7.5.2` or higher.
-
-### Getting started
-
-Clone the project from Github :
-
-```sh
-git clone --branch v2 git@github.com:animavita/animavita.git
-cd animavita
-```
-
-Install dependencies:
-
-```sh
-$ pnpm install
-```
-
-From the backend app level, copy the env file:
-
-```sh
-$ cp apps/backend/.env.example apps/backend/.env
-```
-
-### Docker
-
-We have a `docker-compose` file that sets up a mongodb database. Just run:
-
-```sh
-$ docker-compose up -d
-```
-
-Alternatively you can setup your own mongo database without docker.
-
-Then, run the apps:
-
-```sh
-$ pnpm --filter backend start
-$ pnpm --filter mobile start
-```
+Read the [contribution guidelines](https://github.com/animavita/animavita/blob/main/CONTRIBUTING.md) before contributing.
