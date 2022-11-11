@@ -35,4 +35,4 @@ Check our [board](https://github.com/animavita/animavita/projects/3) for more de
 
 ## Contributing
 
-Read the [contribution guidelines](https://github.com/animavita/animavita/blob/main/CONTRIBUTING.md) before contributing.
+Read the [contribution guidelines](https://github.com/animavita/animavita/blob/v2/CONTRIBUTING.md) before contributing.
