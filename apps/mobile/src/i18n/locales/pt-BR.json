@@ -1,4 +1,5 @@
 {
+  "YEAR": "ano(s)",
   "REGISTER_ADOPTION": {
     "TITLE": "Cadastrar Adoção",
     "FORM": {
@@ -8,12 +9,25 @@
       "BREED_PLACEHOLDER": "Digite a raça do animal",
       "OBSERVATIONS": "Observações",
       "OBSERVATIONS_PLACEHOLDER": "Observações adicionais sobre o animal",
-      "TYPE_LABEL": "Tipo do animal",
       "TYPE_OPTIONS": {
+        "LABEL": "Tipo do animal",
         "DOG": "Cão",
         "CAT": "Gato",
         "OTHER": "Outro"
-      }
+      },
+      "AGE": "Idade do animal (aproximadamente)",
+      "SEX": {
+        "LABEL": "Sexo do animal",
+        "MALE": "Macho",
+        "FEMALE": "Fêmea"
+      },
+      "SIZE": {
+        "LABEL": "Porte do animal",
+        "SMALL": "Pequeno",
+        "MEDIUM": "Médio",
+        "BIG": "Grande"
+      },
+      "CONFIRM_BUTTON": "Próxima etapa"
     }
   }
 }

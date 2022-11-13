@@ -12,6 +12,7 @@
   "dependencies": {
     "@animavita/models": "workspace:*",
     "@expo/webpack-config": "^0.17.0",
+    "@react-native-community/slider": "^4.3.3",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@react-navigation/stack": "^6.3.4",

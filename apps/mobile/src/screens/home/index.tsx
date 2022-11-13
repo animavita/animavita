@@ -5,6 +5,7 @@ import useAdoptions from "../../hooks/use-adoptions";
 import Routes from "../../routes";
 import client from "../../services/http-client";
 import { Button } from "react-native-paper";
+import theme from "../../theme";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -17,8 +18,7 @@ export default function Home() {
       <Text>{client.defaults.baseURL}</Text>
       <Text>Adoptions demo</Text>
       <Button
-        mode="contained"
-        elevation={3}
+        mode="outlined"
         onPress={() => {
           navigation.navigate(Routes.RegisterAdoption);
         }}
@@ -48,7 +48,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: theme.colors.background,
     alignItems: "center",
     justifyContent: "center",
   },

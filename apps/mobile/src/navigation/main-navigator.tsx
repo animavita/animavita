@@ -12,7 +12,7 @@ const MainNavigator = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Home"
+        initialRouteName={Routes.RegisterAdoption}
       >
         <Stack.Screen name={Routes.Home} component={Home} />
         <Stack.Screen
