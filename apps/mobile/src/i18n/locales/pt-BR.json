@@ -1,0 +1,19 @@
+{
+  "REGISTER_ADOPTION": {
+    "TITLE": "Cadastrar Adoção",
+    "FORM": {
+      "NAME": "Nome do animal",
+      "NAME_PLACEHOLDER": "Digite do nome do animal",
+      "BREED": "Raça do animal",
+      "BREED_PLACEHOLDER": "Digite a raça do animal",
+      "OBSERVATIONS": "Observações",
+      "OBSERVATIONS_PLACEHOLDER": "Observações adicionais sobre o animal",
+      "TYPE_LABEL": "Tipo do animal",
+      "TYPE_OPTIONS": {
+        "DOG": "Cão",
+        "CAT": "Gato",
+        "OTHER": "Outro"
+      }
+    }
+  }
+}
