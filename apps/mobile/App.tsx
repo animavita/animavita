@@ -16,7 +16,7 @@ export default function App() {
         setAdoptions(response.data);
       }
     })();
-  }, []);
+  }, [])
 
   if (!adoptions)
     return (
