@@ -58,15 +58,6 @@ $ pnpm --filter mobile start
 
 ### Sending a pull request
 
-#### **Expo preview**
-
-We have a GitHub action to automatically generate an expo app preview so we can easily validate the changes. Due to security reasons you must set your own expo token on your fork secrets. Otherwise, when you open the PR the action will not be able to generate the QR code and you will get a check error.
-
-1. Go to https://expo.dev/ and login into your account. Create one if you don't have yet.
-2. Then, click on "Account settings" on the left sidebar
-3. Then, click on "Access tokens" on the left sidebar
-4. Create a new access token and set it on the secrets of your forked GitHub repository
-
 #### **PR description**
 
 - Prefer small pull requests focused on one change.
