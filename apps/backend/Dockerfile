@@ -10,9 +10,9 @@ RUN pnpm fetch
 
 ADD . .
 
-## workaround
-# RUN rm .npmrc
-# RUN mv .npmrc-default-node-linker .npmrc
+# workaround
+RUN rm .npmrc
+RUN mv .npmrc-default-node-linker .npmrc
 
 RUN pnpm install -r --offline 
 RUN pnpm -r build
