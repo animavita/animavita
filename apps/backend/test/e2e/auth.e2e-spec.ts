@@ -79,17 +79,27 @@ describe('Authentication (e2e)', () => {
   });
 
   it('/GET auth/refresh', async () => {
-    const { refreshToken } = await service.signUp(userMock).then(() =>
-      service.signIn({
-        email: userMock.email,
-        password: userMock.password,
-      }),
-    );
+    const { accessToken, refreshToken } = await service
+      .signUp(userMock)
+      .then(() =>
+        service.signIn({
+          email: userMock.email,
+          password: userMock.password,
+        }),
+      );
 
-    await request(app.getHttpServer())
+    // I need to wait a second because if I don't the tokens will be the same
+    await new Promise((r) => setTimeout(r, 1000));
+
+    const { body } = await request(app.getHttpServer())
       .get('/api/v1/auth/refresh')
       .auth(refreshToken, { type: 'bearer' })
       .expect(200);
+
+    expect(body).not.toEqual({
+      accessToken,
+      refreshToken,
+    });
   });
 
   afterEach(async () => {
