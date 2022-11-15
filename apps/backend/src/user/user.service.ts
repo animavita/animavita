@@ -2,6 +2,7 @@ import { UserType } from '@animavita/models';
 import {
   Inject,
   Injectable,
+  NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
 
@@ -30,7 +31,11 @@ export class UserService {
     return this.userRepository.findByEmail(email);
   }
 
-  update(id: string, user: Partial<UserType>) {
+  async update(id: string, user: Partial<UserType>) {
+    const foundUser = await this.userRepository.findById(id);
+
+    if (!foundUser) throw new NotFoundException("User doesn't exist");
+
     return this.userRepository.update(id, user);
   }
 }
