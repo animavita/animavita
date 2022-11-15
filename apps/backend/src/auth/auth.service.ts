@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { UserType } from '@animavita/models';
 
 import { compare, hash } from 'bcrypt';
+import * as argon from 'argon2';
 
 import { UserService } from '../user/user.service';
 
@@ -53,9 +54,10 @@ export class AuthService {
   async refreshTokens(userId: string, refreshToken: string) {
     const user = await this.userService.findById(userId);
 
-    if (!user || !refreshToken) throw new ForbiddenException('Access Denied');
+    if (!user || !user.refreshToken || !refreshToken)
+      throw new ForbiddenException('Access Denied');
 
-    const matches = await compare(refreshToken, user.refreshToken);
+    const matches = await argon.verify(user.refreshToken, refreshToken);
 
     if (!matches) throw new ForbiddenException('Access Denied');
 
@@ -68,7 +70,7 @@ export class AuthService {
 
   private async updateRefreshToken(userId: string, refreshToken: string) {
     await this.userService.update(userId, {
-      refreshToken: await hash(refreshToken, this.SALT_ROUNDS),
+      refreshToken: await argon.hash(refreshToken),
     });
   }
 
