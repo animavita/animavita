@@ -1,5 +1,4 @@
 import { INestApplication } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
 
@@ -11,8 +10,8 @@ import {
 } from '../utils/in-memory-mongo';
 import { userMock } from '../mocks/user';
 import { AuthModule } from '../../src/auth/auth.module';
-import { UserSchema } from '../../src/user/entities/mongodb/user.schema';
 import { AuthService } from '../../src/auth/auth.service';
+import { UserModule } from '../../src/user/user.module';
 
 describe('Authentication (e2e)', () => {
   let app: INestApplication;
@@ -22,7 +21,7 @@ describe('Authentication (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         rootMongooseTestModule(),
-        MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+        UserModule,
         AuthModule,
         ConfigModule.forRoot({ isGlobal: true }),
       ],
