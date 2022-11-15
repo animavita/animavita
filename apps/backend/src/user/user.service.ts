@@ -1,40 +1,36 @@
 import { UserType } from '@animavita/models';
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import {
+  Inject,
+  Injectable,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 
-import { IUser } from './user.interface';
+import { UserRepository } from './entities/user-entities.interface';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
+  constructor(
+    @Inject('MONGODB') private readonly userRepository: UserRepository,
+  ) {}
 
-  create(user: UserType) {
-    return this.userModel.create(user);
-  }
+  async create(user: UserType) {
+    const foundUser = await this.userRepository.findByEmail(user.email);
 
-  findAll() {
-    return `This action returns all user`;
+    if (foundUser)
+      throw new UnprocessableEntityException('Email already taken');
+
+    return this.userRepository.create(user);
   }
 
   findById(userId: string) {
-    return this.userModel.findById(userId);
+    return this.userRepository.findById(userId);
   }
 
   findByEmail(email: string) {
-    return this.userModel.findOne({ email });
+    return this.userRepository.findByEmail(email);
   }
 
   update(id: string, user: Partial<UserType>) {
-    return this.userModel.updateOne(
-      {
-        id,
-      },
-      user,
-    );
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+    return this.userRepository.update(id, user);
   }
 }

@@ -2,7 +2,6 @@ import {
   BadRequestException,
   ForbiddenException,
   Injectable,
-  UnprocessableEntityException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
@@ -23,11 +22,6 @@ export class AuthService {
   ) {}
 
   async signUp(user: UserType) {
-    const foundUser = await this.userService.findByEmail(user.email);
-
-    if (foundUser)
-      throw new UnprocessableEntityException('Email already taken');
-
     return this.userService.create({
       ...user,
       password: await hash(user.password, this.SALT_ROUNDS),

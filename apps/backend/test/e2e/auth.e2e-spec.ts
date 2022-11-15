@@ -11,7 +11,7 @@ import {
 } from '../utils/in-memory-mongo';
 import { userMock } from '../mocks/user';
 import { AuthModule } from '../../src/auth/auth.module';
-import { UserSchema } from '../../src/user/user.schema';
+import { UserSchema } from '../../src/user/entities/mongodb/user.schema';
 import { AuthService } from '../../src/auth/auth.service';
 
 describe('Authentication (e2e)', () => {
