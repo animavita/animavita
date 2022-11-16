@@ -42,7 +42,10 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   async logout(@User() user: JwtPayload) {
-    this.authService.logout(user.sub);
+    await this.authService.logout(user.sub);
+    return {
+      message: 'User successfully logout',
+    };
   }
 
   @UseGuards(RefreshTokenGuard)
