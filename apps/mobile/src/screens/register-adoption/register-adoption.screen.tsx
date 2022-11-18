@@ -1,21 +1,18 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import { ScrollView, StyleSheet, View } from "react-native";
 import {
   Avatar,
   Button,
   Headline,
   RadioButton,
   Subheading,
-  Text,
   TextInput,
-  Title,
 } from "react-native-paper";
-import Container from "../../components/Container";
+import Container from "../../components/container/container.component";
 import RNSlider from "../../components/Slider";
 import useLocale from "../../hooks/use-locale";
 import theme from "../../theme";
-import { Dimensions } from "react-native";
+import { Form, Title, Types } from "./register-adoption.styles";
 
 export default function RegisterAdoption() {
   const { t } = useLocale();
@@ -26,7 +23,7 @@ export default function RegisterAdoption() {
 
   return (
     <Container>
-      <div style={styles.titleContainer}>
+      <Title>
         <Headline style={{ fontWeight: "bold" }}>
           {t("REGISTER_ADOPTION.TITLE")}
         </Headline>
@@ -36,9 +33,9 @@ export default function RegisterAdoption() {
             uri: "https://i.pinimg.com/originals/97/a8/09/97a8096f32ad5bd41de2c54f5949a06d.jpg",
           }}
         />
-      </div>
+      </Title>
 
-      <form style={styles.formContainer}>
+      <Form>
         <TextInput
           label={t("REGISTER_ADOPTION.FORM.NAME")}
           placeholder={t("REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER")}
@@ -65,7 +62,7 @@ export default function RegisterAdoption() {
         <Subheading>
           {t("REGISTER_ADOPTION.FORM.TYPE_OPTIONS.LABEL")}
         </Subheading>
-        <View style={styles.typesContainer}>
+        <Types>
           {["DOG", "CAT", "OTHER"].map((type) => (
             <Button
               key={type}
@@ -80,7 +77,7 @@ export default function RegisterAdoption() {
               {t(`REGISTER_ADOPTION.FORM.TYPE_OPTIONS.${type}`)}
             </Button>
           ))}
-        </View>
+        </Types>
         <Subheading>{t("REGISTER_ADOPTION.FORM.AGE")}</Subheading>
         <RNSlider />
         <Subheading style={{ color: theme.colors.primary }}>
@@ -101,7 +98,7 @@ export default function RegisterAdoption() {
           />
         </RadioButton.Group>
         <Subheading>{t("REGISTER_ADOPTION.FORM.SIZE.LABEL")}</Subheading>
-        <View style={styles.typesContainer}>
+        <Types>
           {["SMALL", "MEDIUM", "BIG"].map((type) => (
             <Button
               key={type}
@@ -116,7 +113,7 @@ export default function RegisterAdoption() {
               {t(`REGISTER_ADOPTION.FORM.SIZE.${type}`)}
             </Button>
           ))}
-        </View>
+        </Types>
         <Button
           mode="contained"
           color={theme.colors.accent}
@@ -126,28 +123,7 @@ export default function RegisterAdoption() {
         >
           {t("REGISTER_ADOPTION.FORM.CONFIRM_BUTTON")}
         </Button>
-      </form>
+      </Form>
     </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 28,
-  },
-  formContainer: {
-    display: "flex",
-    position: "relative",
-    flexDirection: "column",
-    gap: 24,
-  },
-  typesContainer: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-  },
-});

@@ -1,11 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text } from "react-native";
+import { Button } from "react-native-paper";
 import useAdoptions from "../../hooks/use-adoptions";
 import Routes from "../../routes";
 import client from "../../services/http-client";
-import { Button } from "react-native-paper";
-import theme from "../../theme";
+import { Adoption, Container } from "./home.styles";
 
 export default function Home() {
   const navigation = useNavigation();
@@ -13,7 +13,7 @@ export default function Home() {
   const { adoptions, isLoading } = useAdoptions();
 
   return (
-    <View style={styles.container}>
+    <Container>
       <StatusBar style="auto" />
       <Text>{client.defaults.baseURL}</Text>
       <Text>Adoptions demo</Text>
@@ -27,7 +27,7 @@ export default function Home() {
       </Button>
       {isLoading && <Text>Loading...</Text>}
       {adoptions && (
-        <View style={styles.adoption}>
+        <Adoption>
           {adoptions.map((adoption) => {
             const { name, gender, size } = adoption;
 
@@ -39,23 +39,8 @@ export default function Home() {
               </>
             );
           })}
-        </View>
+        </Adoption>
       )}
-    </View>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  adoption: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: "100%",
-  },
-});
