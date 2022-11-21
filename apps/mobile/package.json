@@ -47,9 +47,6 @@
     "react-test-renderer": "^18.2.0",
     "typescript": "~4.3.5"
   },
-  "resolutions": {
-    "styled-components": "^5"
-  },
   "private": true,
   "jest": {
     "preset": "jest-expo",
