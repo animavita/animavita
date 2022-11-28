@@ -1,5 +1,5 @@
 import styled from "styled-components/native";
-import theme from "../../theme";
+import theme from "../../../theme";
 import { moderateScale } from "react-native-size-matters";
 
 export const Wrapper = styled.View`

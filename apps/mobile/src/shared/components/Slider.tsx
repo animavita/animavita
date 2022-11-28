@@ -1,6 +1,6 @@
 import Slider, { SliderProps } from "@react-native-community/slider";
 import React from "react";
-import theme from "../theme";
+import theme from "../../theme";
 
 export default function RNSlider({ ...rest }: SliderProps) {
   return (

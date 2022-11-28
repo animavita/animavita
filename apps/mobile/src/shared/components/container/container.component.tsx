@@ -1,5 +1,5 @@
 import React from "react";
-import { Children } from "../../shared/types";
+import { Children } from "../../types";
 import Header from "../header/header.component";
 import { Wrapper } from "./container.styles";
 
