@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Button, RadioButton, Subheading, TextInput } from "react-native-paper";
-import { Types } from "../../components/register-adoption-form/register-adoption-form.styles";
 import RNSlider from "../../shared/components/Slider";
 import useLocale from "../../shared/hooks/use-locale";
 import theme from "../../theme";
-import { Form } from "./register-adoption-form.styles";
+import { Form, Types } from "./adoption-form.styles";
 
 export default function RegisterAdoptionForm() {
   const { t } = useLocale();
