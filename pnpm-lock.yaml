@@ -88,6 +88,7 @@ importers:
       '@react-navigation/native-stack': ^6.9.1
       '@tanstack/react-query': ^4.14.5
       '@testing-library/jest-native': ^5.1.2
+      '@testing-library/react-hooks': ^8.0.1
       '@testing-library/react-native': ^11.4.0
       '@types/jest': 28.1.8
       '@types/react': ~18.0.14
@@ -144,8 +145,9 @@ importers:
       styled-components: 5.3.6_twzut3cfsq3yt4edr3dzr6gksa
     devDependencies:
       '@babel/core': 7.19.6
-      '@testing-library/jest-native': 5.3.3_rlklzw3tvd4hjmyrfhpnojvbqa
-      '@testing-library/react-native': 11.5.0_ljra5yrjwe5k23i3gz4j7qrkae
+      '@testing-library/jest-native': 5.1.2_rlklzw3tvd4hjmyrfhpnojvbqa
+      '@testing-library/react-hooks': 8.0.1_dipbn2tpeyyvuqi2nipmj6nibq
+      '@testing-library/react-native': 11.4.0_ljra5yrjwe5k23i3gz4j7qrkae
       '@types/jest': 28.1.8
       '@types/react': 18.0.22
       '@types/react-native': 0.69.15
@@ -3754,8 +3756,32 @@ packages:
       redent: 3.0.0
     dev: true
 
-  /@testing-library/react-native/11.5.0_ljra5yrjwe5k23i3gz4j7qrkae:
-    resolution: {integrity: sha512-seV+qebsbX4E5CWk/wizU1+2wVLsPyqEzG7sTgrhJ81cgAawg7ay06fIZR9IS75pDeWn2KZVd4mGk1pjJ3i3Zw==}
+  /@testing-library/react-hooks/8.0.1_dipbn2tpeyyvuqi2nipmj6nibq:
+    resolution: {integrity: sha512-Aqhl2IVmLt8IovEVarNDFuJDVWVvhnr9/GCU6UUnrYXwgDFF9h2L2o2P9KBni1AST5sT6riAyoukFLyjQUgD/g==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      '@types/react': ^16.9.0 || ^17.0.0
+      react: ^16.9.0 || ^17.0.0
+      react-dom: ^16.9.0 || ^17.0.0
+      react-test-renderer: ^16.9.0 || ^17.0.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react-dom:
+        optional: true
+      react-test-renderer:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.19.4
+      '@types/react': 18.0.22
+      react: 18.0.0
+      react-dom: 18.0.0_react@18.0.0
+      react-error-boundary: 3.1.4_react@18.0.0
+      react-test-renderer: 18.2.0_react@18.0.0
+    dev: true
+
+  /@testing-library/react-native/11.4.0_ljra5yrjwe5k23i3gz4j7qrkae:
+    resolution: {integrity: sha512-Pw1T3QoRyoPlnbDPI7pJCRChX/HquEVk6b9XfUuO/LrLJpqAOtZQDYz67eVJfVlhIlTu7hesm57ikIabOWKSlg==}
     peerDependencies:
       jest: '>=28.0.0'
       react: '>=16.0.0'
@@ -12883,7 +12909,16 @@ packages:
       loose-envify: 1.4.0
       react: 18.0.0
       scheduler: 0.21.0
-    dev: false
+
+  /react-error-boundary/3.1.4_react@18.0.0:
+    resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
+    engines: {node: '>=10', npm: '>=6'}
+    peerDependencies:
+      react: '>=16.13.1'
+    dependencies:
+      '@babel/runtime': 7.19.4
+      react: 18.0.0
+    dev: true
 
   /react-error-overlay/6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
