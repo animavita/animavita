@@ -10,8 +10,8 @@ export const getStepsByOrder = (stepsLibrary: { [key in Steps]: Step }): {
     return { ...prev, [stepsLibrary[step].order]: step };
   }, {});
 
-export function useMultiStepNavigation() {
-  const [activeStep, setActiveStep] = useState(Steps.PersonalInformation);
+export function useMultiStepNavigation(initialStep = Steps.PetName) {
+  const [activeStep, setActiveStep] = useState(initialStep);
 
   const stepsByOrder = getStepsByOrder(stepsLibrary);
   const currentStepNumber = stepsLibrary[activeStep].order;

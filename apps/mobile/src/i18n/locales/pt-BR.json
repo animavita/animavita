@@ -16,7 +16,7 @@
         "OTHER": "Outro"
       },
       "AGE": "Idade do animal (aproximadamente)",
-      "SEX": {
+      "GENDER": {
         "LABEL": "Sexo do animal",
         "MALE": "Macho",
         "FEMALE": "Fêmea"
