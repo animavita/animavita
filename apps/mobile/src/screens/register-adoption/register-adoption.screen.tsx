@@ -1,8 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
-import { Avatar, Headline, Title } from "react-native-paper";
+import { Avatar, Headline } from "react-native-paper";
 import RegisterAdoptionForm from "../../components/register-adoption-form/adoption-form.component";
 import Container from "../../shared/components/container/container.component";
 import useLocale from "../../shared/hooks/use-locale";
+import { Title } from "./register-adoption.styles";
 
 export default function RegisterAdoption() {
   const { t } = useLocale();
