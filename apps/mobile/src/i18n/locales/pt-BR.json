@@ -27,7 +27,9 @@
         "MEDIUM": "Médio",
         "BIG": "Grande"
       },
-      "CONFIRM_BUTTON": "Próxima etapa"
+      "BACK_BUTTON": "Voltar",
+      "NEXT_BUTTON": "Próxima etapa",
+      "CONFIRM_BUTTON": "Confirmar"
     }
   }
 }
