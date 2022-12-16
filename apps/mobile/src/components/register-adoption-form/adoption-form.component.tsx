@@ -1,12 +1,7 @@
+import { Box, Button, Input, Radio, Slider, Text, ZStack } from "native-base";
 import React, { useState } from "react";
 import { View } from "react-native";
-import {
-  Button,
-  RadioButton,
-  Subheading,
-  Text,
-  TextInput,
-} from "react-native-paper";
+import { RadioButton, Subheading } from "react-native-paper";
 import StepIcon from "../../../assets/step-background.png";
 import RNSlider from "../../shared/components/Slider";
 import useLocale from "../../shared/hooks/use-locale";
@@ -14,17 +9,13 @@ import theme from "../../theme";
 import { stepsLibrary } from "./adoption-form.constants";
 import { useMultiStepNavigation } from "./adoption-form.hooks";
 import {
-  AdoptionStep,
-  AdoptionStepIcon,
-  AdoptionSteps,
-  AdoptionStepsController,
-  Form,
-  Types,
+  AdoptionSteps, Form,
+  Types
 } from "./adoption-form.styles";
 import {
   HorizontalStepperProps,
   StepperControllerProps,
-  Steps,
+  Steps
 } from "./adoption-form.types";
 
 function HorizontalStepper({ activeStep }: HorizontalStepperProps) {
@@ -32,10 +23,12 @@ function HorizontalStepper({ activeStep }: HorizontalStepperProps) {
     <AdoptionSteps>
       {Object.values(stepsLibrary).map((step) =>
         stepsLibrary[activeStep].order === step.order ? (
-          <AdoptionStepIcon key={step.label}>
+          <ZStack alignItems="center" justifyContent="center">
             <img src={StepIcon} width="28" alt="step-icon" />
-            <AdoptionStep>{step.order + 1}</AdoptionStep>
-          </AdoptionStepIcon>
+            <Text fontWeight="bold" color="white">
+              {step.order + 1}
+            </Text>
+          </ZStack>
         ) : (
           <Text>{step.order + 1}</Text>
         )
@@ -59,26 +52,22 @@ function StepperController({
   };
 
   return (
-    <AdoptionStepsController>
+    <Box width="full" display="flex" flexDirection="row" justifyContent="space-between">
       <Button
-        contentStyle={{ display: isFirstStep ? "none" : "flex" }}
+        display={isFirstStep ? "none" : "flex"}
         disabled={isFirstStep}
+        color={theme.colors.primary[600]}
+        variant="outline"
         onPress={handleBack}
       >
         {t("REGISTER_ADOPTION.FORM.BACK_BUTTON")}
       </Button>
-      <Button
-        mode="contained"
-        color={theme.colors.accent}
-        style={{ elevation: 0 }}
-        labelStyle={{ padding: 10, color: theme.colors.onPrimary }}
-        onPress={onNextPress}
-      >
+      <Button color={theme.colors.primary[600]} onPress={onNextPress}>
         {isLastStep
           ? t("REGISTER_ADOPTION.FORM.CONFIRM_BUTTON")
           : t("REGISTER_ADOPTION.FORM.NEXT_BUTTON")}
       </Button>
-    </AdoptionStepsController>
+    </Box>
   );
 }
 
@@ -96,31 +85,34 @@ export default function RegisterAdoptionForm() {
       <HorizontalStepper activeStep={activeStep} />
       <Form>
         {activeStep === Steps.PetName && (
-          <TextInput
-            label={t("REGISTER_ADOPTION.FORM.NAME")}
+          <Input
+            // label={t("REGISTER_ADOPTION.FORM.NAME")}
+            size="xl"
             placeholder={t("REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER")}
-            mode="outlined"
+            variant="outline"
             value={text}
             onChangeText={(text) => setText(text)}
           />
         )}
 
         {activeStep === Steps.PetBreed && (
-          <TextInput
-            label={t("REGISTER_ADOPTION.FORM.BREED")}
+          <Input
+            // label={t("REGISTER_ADOPTION.FORM.BREED")}
+            size="xl"
             placeholder={t("REGISTER_ADOPTION.FORM.BREED_PLACEHOLDER")}
-            mode="outlined"
+            variant="outline"
             value={text}
             onChangeText={(text) => setText(text)}
           />
         )}
         {activeStep === Steps.PetObservations && (
-          <TextInput
-            label={t("REGISTER_ADOPTION.FORM.OBSERVATIONS")}
+          <Input
+            // label={t("REGISTER_ADOPTION.FORM.OBSERVATIONS")}
+            size="xl"
             placeholder={t("REGISTER_ADOPTION.FORM.OBSERVATIONS_PLACEHOLDER")}
             multiline
             numberOfLines={2}
-            mode="outlined"
+            variant="outline"
             value={text}
             onChangeText={(text) => setText(text)}
           />
@@ -130,64 +122,54 @@ export default function RegisterAdoptionForm() {
             <Subheading>
               {t("REGISTER_ADOPTION.FORM.TYPE_OPTIONS.LABEL")}
             </Subheading>
-            <Types>
+            <Button.Group display='flex' alignContent="center" isAttached>
               {["DOG", "CAT", "OTHER"].map((type) => (
-                <Button
-                  key={type}
-                  mode="outlined"
-                  onPress={() => console.log("first")}
-                  style={{
-                    borderRadius: 100,
-                    borderColor: theme.colors.primary,
-                    borderWidth: 2,
-                  }}
-                >
+                <Button key={type} variant="outline" onPress={() => console.log("first")}>
                   {t(`REGISTER_ADOPTION.FORM.TYPE_OPTIONS.${type}`)}
                 </Button>
               ))}
-            </Types>
+            </Button.Group>
           </View>
         )}
         {activeStep === Steps.PetAge && (
           <View>
             <Subheading>{t("REGISTER_ADOPTION.FORM.AGE")}</Subheading>
-            <RNSlider />
-            <Subheading style={{ color: theme.colors.primary }}>
-              1 {t("YEAR")}
-            </Subheading>
+            <Slider
+              w="full"
+              defaultValue={70}
+              minValue={0}
+              maxValue={100}
+              accessibilityLabel={t("REGISTER_ADOPTION.FORM.AGE")} step={10}>
+              <Slider.Track>
+                <Slider.FilledTrack />
+              </Slider.Track>
+              <Slider.Thumb />
+            </Slider>
+            <Subheading>1 {t("YEAR")}</Subheading>
           </View>
         )}
         {activeStep === Steps.PetGender && (
-          <RadioButton.Group
-            onValueChange={(value) => setChecked(value)}
+          <Radio.Group
+            name="myRadioGroup"
+            accessibilityLabel="favorite number"
             value={checked}
+            onChange={nextValue => setChecked(nextValue)}
           >
             <Subheading>{t("REGISTER_ADOPTION.FORM.GENDER.LABEL")}</Subheading>
-            <RadioButton.Item
-              label={t("REGISTER_ADOPTION.FORM.GENDER.MALE")}
-              value="first"
-            />
-            <RadioButton.Item
-              label={t("REGISTER_ADOPTION.FORM.GENDER.FEMALE")}
-              value="second"
-            />
-          </RadioButton.Group>
+            <Radio value="first" my={1}>
+              {t("REGISTER_ADOPTION.FORM.GENDER.MALE")}
+            </Radio>
+            <Radio value="second" my={1}>
+              {t("REGISTER_ADOPTION.FORM.GENDER.FEMALE")}
+            </Radio>
+          </Radio.Group>
         )}
         {activeStep === Steps.PetSize && (
           <View>
             <Subheading>{t("REGISTER_ADOPTION.FORM.SIZE.LABEL")}</Subheading>
             <Types>
               {["SMALL", "MEDIUM", "BIG"].map((type) => (
-                <Button
-                  key={type}
-                  mode="outlined"
-                  onPress={() => console.log("first")}
-                  style={{
-                    borderRadius: 100,
-                    borderColor: theme.colors.primary,
-                    borderWidth: 2,
-                  }}
-                >
+                <Button variant="outline" key={type} onPress={() => console.log("first")}>
                   {t(`REGISTER_ADOPTION.FORM.SIZE.${type}`)}
                 </Button>
               ))}

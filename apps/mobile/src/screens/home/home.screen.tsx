@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
+import { Button } from 'native-base';
 import { Text } from 'react-native';
-import { Button } from 'react-native-paper';
 
 import { Adoption, Container } from './home.styles';
 import useAdoptions from '../../hooks/use-adoptions';
@@ -19,7 +19,7 @@ export default function Home() {
       <Text>{client.defaults.baseURL}</Text>
       <Text>Adoptions demo</Text>
       <Button
-        mode="outlined"
+        variant="outline"
         onPress={() => {
           navigation.navigate(Routes.RegisterAdoption);
         }}>

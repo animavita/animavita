@@ -5,7 +5,7 @@ import theme from '../../theme';
 
 export const Container = styled.View`
   flex: 1;
-  background-color: ${theme.colors.background};
+  background-color: ${theme.colors.white};
   align-items: center;
   justify-content: center;
 `;
