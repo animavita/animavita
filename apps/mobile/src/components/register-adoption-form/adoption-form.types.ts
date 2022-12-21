@@ -13,7 +13,7 @@ export type Step = {
   label: string;
 };
 
-export type HorizontalStepperProps = {
+export type StepperIndicatorProps = {
   activeStep: Steps;
 };
 

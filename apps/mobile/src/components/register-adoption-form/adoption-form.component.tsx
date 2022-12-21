@@ -1,39 +1,71 @@
-import { Box, Button, Input, Radio, Slider, Text, ZStack } from "native-base";
+import { useNavigation } from "@react-navigation/native";
+import { Box, Button, Heading, Input, Progress, Slider, Text } from "native-base";
 import React, { useState } from "react";
-import { View } from "react-native";
-import { RadioButton, Subheading } from "react-native-paper";
+import { moderateScale, moderateVerticalScale } from "react-native-size-matters";
 import StepIcon from "../../../assets/step-background.png";
-import RNSlider from "../../shared/components/Slider";
 import useLocale from "../../shared/hooks/use-locale";
 import theme from "../../theme";
-import { stepsLibrary } from "./adoption-form.constants";
 import { useMultiStepNavigation } from "./adoption-form.hooks";
-import {
-  AdoptionSteps, Form,
-  Types
-} from "./adoption-form.styles";
-import {
-  HorizontalStepperProps,
-  StepperControllerProps,
-  Steps
-} from "./adoption-form.types";
+import { StepperControllerProps, StepperIndicatorProps, Steps } from "./adoption-form.types";
 
-function HorizontalStepper({ activeStep }: HorizontalStepperProps) {
+function StepperIndicator({ activeStep }: StepperIndicatorProps) {
+  const { t } = useLocale();
+
+  const steps = {
+    [Steps.PetName.toString()]: {
+      step: 1, label: t("REGISTER_ADOPTION.FORM.NAME")
+    },
+    [Steps.PetBreed.toString()]: {
+      step: 2, label: t("REGISTER_ADOPTION.FORM.BREED")
+    },
+    [Steps.PetObservations.toString()]: {
+      step: 3, label: t("REGISTER_ADOPTION.FORM.OBSERVATIONS")
+    },
+    [Steps.PetType.toString()]: {
+      step: 4, label: t("REGISTER_ADOPTION.FORM.TYPE_OPTIONS.LABEL")
+    },
+    [Steps.PetAge.toString()]: {
+      step: 5, label: t("REGISTER_ADOPTION.FORM.AGE")
+    },
+    [Steps.PetGender.toString()]: {
+      step: 6, label: t("REGISTER_ADOPTION.FORM.GENDER.LABEL")
+    },
+    [Steps.PetSize.toString()]: {
+      step: 7, label: t("REGISTER_ADOPTION.FORM.SIZE.LABEL")
+    }
+  }
+  const totalSteps = Object.keys(steps).length
+  const currentStep = steps[activeStep].step
+
+  const processValue = (currentStep * 100) / totalSteps
+
   return (
-    <AdoptionSteps>
-      {Object.values(stepsLibrary).map((step) =>
-        stepsLibrary[activeStep].order === step.order ? (
-          <ZStack alignItems="center" justifyContent="center">
-            <img src={StepIcon} width="28" alt="step-icon" />
-            <Text fontWeight="bold" color="white">
-              {step.order + 1}
-            </Text>
-          </ZStack>
-        ) : (
-          <Text>{step.order + 1}</Text>
-        )
-      )}
-    </AdoptionSteps>
+    <Box>
+      <Progress
+        position='absolute'
+        w='full'
+        value={processValue}
+        _filledTrack={{ rounded: 'none', borderBottomRightRadius: 'md' }}
+        rounded='none'
+      />
+      <Box marginX="8" marginY='8' display='flex' flexDirection='row' justifyContent="space-between" alignContent='center'>
+        <Box>
+          <Text color={theme.colors.gray[600]}>{t("REGISTER_ADOPTION.TITLE")}</Text>
+          <Heading fontWeight='medium' color={theme.colors.primary[600]}>
+            {steps[activeStep].label}
+          </Heading>
+        </Box>
+        <Box position='relative' alignItems="center" justifyContent="center" right="2">
+          <img src={StepIcon} width="68" alt="step-icon" style={{ position: 'absolute', zIndex: -1 }} />
+          <Text fontWeight="medium" color="white" fontSize='sm'>
+            {t('REGISTER_ADOPTION.STEP')}
+          </Text>
+          <Text lineHeight='sm' fontWeight="medium" color="white" fontSize='3xl'>
+            {steps[activeStep].step}/{totalSteps}
+          </Text>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
@@ -44,6 +76,16 @@ function StepperController({
   isFirstStep,
 }: StepperControllerProps) {
   const { t } = useLocale();
+  const navigation = useNavigation();
+
+  const onBackPress = () => {
+    if (isFirstStep) {
+      navigation.goBack()
+      return;
+    }
+
+    handleBack();
+  };
 
   const onNextPress = () => {
     if (isLastStep) return;
@@ -52,13 +94,11 @@ function StepperController({
   };
 
   return (
-    <Box width="full" display="flex" flexDirection="row" justifyContent="space-between">
+    <Box marginX="8" marginBottom="8" display="flex" flexDirection="row" justifyContent="space-between">
       <Button
-        display={isFirstStep ? "none" : "flex"}
-        disabled={isFirstStep}
         color={theme.colors.primary[600]}
         variant="outline"
-        onPress={handleBack}
+        onPress={onBackPress}
       >
         {t("REGISTER_ADOPTION.FORM.BACK_BUTTON")}
       </Button>
@@ -75,19 +115,27 @@ export default function RegisterAdoptionForm() {
   const { t } = useLocale();
 
   const [text, setText] = useState("");
-  const [checked, setChecked] = useState("first");
 
   const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } =
     useMultiStepNavigation();
 
   return (
-    <View>
-      <HorizontalStepper activeStep={activeStep} />
-      <Form>
+    <Box height='full'>
+      <StepperIndicator activeStep={activeStep} />
+      <Box
+        marginX="8"
+        position="relative"
+        display="flex"
+        flex-direction="column"
+        height="100%"
+        justify-content="center"
+        marginY={moderateVerticalScale(24)}
+        flexShrink="unset"
+      >
         {activeStep === Steps.PetName && (
           <Input
-            // label={t("REGISTER_ADOPTION.FORM.NAME")}
             size="xl"
+            borderColor={theme.colors.primary[600]}
             placeholder={t("REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER")}
             variant="outline"
             value={text}
@@ -97,8 +145,8 @@ export default function RegisterAdoptionForm() {
 
         {activeStep === Steps.PetBreed && (
           <Input
-            // label={t("REGISTER_ADOPTION.FORM.BREED")}
             size="xl"
+            borderColor={theme.colors.primary[600]}
             placeholder={t("REGISTER_ADOPTION.FORM.BREED_PLACEHOLDER")}
             variant="outline"
             value={text}
@@ -107,8 +155,8 @@ export default function RegisterAdoptionForm() {
         )}
         {activeStep === Steps.PetObservations && (
           <Input
-            // label={t("REGISTER_ADOPTION.FORM.OBSERVATIONS")}
             size="xl"
+            borderColor={theme.colors.primary[600]}
             placeholder={t("REGISTER_ADOPTION.FORM.OBSERVATIONS_PLACEHOLDER")}
             multiline
             numberOfLines={2}
@@ -118,22 +166,21 @@ export default function RegisterAdoptionForm() {
           />
         )}
         {activeStep === Steps.PetType && (
-          <View>
-            <Subheading>
-              {t("REGISTER_ADOPTION.FORM.TYPE_OPTIONS.LABEL")}
-            </Subheading>
-            <Button.Group display='flex' alignContent="center" isAttached>
-              {["DOG", "CAT", "OTHER"].map((type) => (
-                <Button key={type} variant="outline" onPress={() => console.log("first")}>
-                  {t(`REGISTER_ADOPTION.FORM.TYPE_OPTIONS.${type}`)}
-                </Button>
-              ))}
-            </Button.Group>
-          </View>
+          <Box
+            display="flex"
+            flex-direction="row"
+            justify-content="space-around"
+            marginY={moderateScale(8)}
+          >
+            {["DOG", "CAT", "OTHER"].map((type) => (
+              <Button key={type} variant="outline" marginY="2" onPress={() => console.log("first")}>
+                {t(`REGISTER_ADOPTION.FORM.TYPE_OPTIONS.${type}`)}
+              </Button>
+            ))}
+          </Box>
         )}
         {activeStep === Steps.PetAge && (
-          <View>
-            <Subheading>{t("REGISTER_ADOPTION.FORM.AGE")}</Subheading>
+          <Box>
             <Slider
               w="full"
               defaultValue={70}
@@ -145,44 +192,45 @@ export default function RegisterAdoptionForm() {
               </Slider.Track>
               <Slider.Thumb />
             </Slider>
-            <Subheading>1 {t("YEAR")}</Subheading>
-          </View>
+            <Text textAlign='right'>1 {t("YEAR")}</Text>
+          </Box>
         )}
         {activeStep === Steps.PetGender && (
-          <Radio.Group
-            name="myRadioGroup"
-            accessibilityLabel="favorite number"
-            value={checked}
-            onChange={nextValue => setChecked(nextValue)}
+          <Box
+            display="flex"
+            flex-direction="row"
+            justify-content="space-around"
+            marginY={moderateScale(8)}
           >
-            <Subheading>{t("REGISTER_ADOPTION.FORM.GENDER.LABEL")}</Subheading>
-            <Radio value="first" my={1}>
+            <Button variant="outline" marginY="2" onPress={() => console.log("first")}>
               {t("REGISTER_ADOPTION.FORM.GENDER.MALE")}
-            </Radio>
-            <Radio value="second" my={1}>
+            </Button>
+            <Button variant="outline" marginY="2" onPress={() => console.log("first")}>
               {t("REGISTER_ADOPTION.FORM.GENDER.FEMALE")}
-            </Radio>
-          </Radio.Group>
+            </Button>
+          </Box>
         )}
         {activeStep === Steps.PetSize && (
-          <View>
-            <Subheading>{t("REGISTER_ADOPTION.FORM.SIZE.LABEL")}</Subheading>
-            <Types>
-              {["SMALL", "MEDIUM", "BIG"].map((type) => (
-                <Button variant="outline" key={type} onPress={() => console.log("first")}>
-                  {t(`REGISTER_ADOPTION.FORM.SIZE.${type}`)}
-                </Button>
-              ))}
-            </Types>
-          </View>
+          <Box
+            display="flex"
+            flex-direction="row"
+            justify-content="space-around"
+            marginY={moderateScale(8)}
+          >
+            {["SMALL", "MEDIUM", "BIG"].map((type) => (
+              <Button variant="outline" marginY="2" key={type} onPress={() => console.log("first")}>
+                {t(`REGISTER_ADOPTION.FORM.SIZE.${type}`)}
+              </Button>
+            ))}
+          </Box>
         )}
-      </Form>
+      </Box>
       <StepperController
         handleBack={handleBack}
         handleNext={handleNext}
         isLastStep={isLastStep}
         isFirstStep={isFirstStep}
       />
-    </View>
+    </Box>
   );
 }

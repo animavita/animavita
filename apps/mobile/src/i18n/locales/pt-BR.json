@@ -2,6 +2,7 @@
   "YEAR": "ano(s)",
   "REGISTER_ADOPTION": {
     "TITLE": "Cadastrar Adoção",
+    "STEP": "Passo",
     "FORM": {
       "NAME": "Nome do animal",
       "NAME_PLACEHOLDER": "Digite do nome do animal",
@@ -15,7 +16,7 @@
         "CAT": "Gato",
         "OTHER": "Outro"
       },
-      "AGE": "Idade do animal (aproximadamente)",
+      "AGE": "Idade do animal",
       "GENDER": {
         "LABEL": "Sexo do animal",
         "MALE": "Macho",
