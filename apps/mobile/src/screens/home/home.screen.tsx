@@ -12,7 +12,7 @@ export default function Home() {
   const { adoptions, isLoading } = useAdoptions();
 
   return (
-    <View margin={8} flex="1">
+    <View flex="1" alignItems='center' justifyContent="center">
       <StatusBar style="auto" />
       <Text>{client.defaults.baseURL}</Text>
       <Text>Adoptions demo</Text>

@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
-import { Box, Button, Heading, Input, Progress, Slider, Text } from "native-base";
+import { Box, Button, Heading, Image, Input, Progress, Slider, Text } from "native-base";
 import React, { useState } from "react";
 import { moderateScale, moderateVerticalScale } from "react-native-size-matters";
-import StepIcon from "../../../assets/step-background.png";
+import StepIcon from '../../../assets/step-background.svg';
 import useLocale from "../../shared/hooks/use-locale";
 import theme from "../../theme";
 import { useMultiStepNavigation } from "./adoption-form.hooks";
@@ -48,15 +48,26 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
         _filledTrack={{ rounded: 'none', borderBottomRightRadius: 'md' }}
         rounded='none'
       />
-      <Box marginX="8" marginY='8' display='flex' flexDirection='row' justifyContent="space-between" alignContent='center'>
+      <Box
+        position='relative'
+        margin={8}
+        display='flex'
+        flexDirection='row'
+        justifyContent="space-between"
+        alignContent='center'
+      >
         <Box>
           <Text color={theme.colors.gray[600]}>{t("REGISTER_ADOPTION.TITLE")}</Text>
           <Heading fontWeight='medium' color={theme.colors.primary[600]}>
             {steps[activeStep].label}
           </Heading>
         </Box>
-        <Box position='relative' alignItems="center" justifyContent="center" right="2">
-          <img src={StepIcon} width="68" alt="step-icon" style={{ position: 'absolute', zIndex: -1 }} />
+        <Image
+          source={StepIcon}
+          alt="Alternate Text"
+          size="md"
+        />
+        <Box alignItems="center" justifyContent="center">
           <Text fontWeight="medium" color="white" fontSize='sm'>
             {t('REGISTER_ADOPTION.STEP')}
           </Text>
