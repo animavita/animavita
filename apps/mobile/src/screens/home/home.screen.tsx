@@ -1,10 +1,10 @@
 import { useNavigation } from '@react-navigation/native';
-import { StatusBar } from 'expo-status-bar';
 import { Box, Button, Text, View } from 'native-base';
 
 import useAdoptions from '../../hooks/use-adoptions';
 import Routes from '../../routes';
 import client from '../../services/http-client';
+import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -12,8 +12,8 @@ export default function Home() {
   const { adoptions, isLoading } = useAdoptions();
 
   return (
-    <View flex="1" alignItems='center' justifyContent="center">
-      <StatusBar style="auto" />
+    <View flex="1" alignItems="center" justifyContent="center">
+      <AppStatusBar />
       <Text>{client.defaults.baseURL}</Text>
       <Text>Adoptions demo</Text>
       <Button

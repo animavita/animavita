@@ -1,8 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import { Box, Button, Heading, Image, Input, Progress, Slider, Text } from "native-base";
 import React, { useState } from "react";
-import { moderateScale, moderateVerticalScale } from "react-native-size-matters";
-import StepIcon from '../../../assets/step-background.svg';
+import { moderateScale } from "react-native-size-matters";
+import StepIcon from '../../../assets/step-background.png';
+import useDeviceDimensions from "../../shared/hooks/use-device-dimensions";
 import useLocale from "../../shared/hooks/use-locale";
 import theme from "../../theme";
 import { useMultiStepNavigation } from "./adoption-form.hooks";
@@ -63,6 +64,9 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
           </Heading>
         </Box>
         <Image
+          position='absolute'
+          right={-14}
+          bottom={-12}
           source={StepIcon}
           alt="Alternate Text"
           size="md"
@@ -124,7 +128,7 @@ function StepperController({
 
 export default function RegisterAdoptionForm() {
   const { t } = useLocale();
-
+  const { deviceHeight } = useDeviceDimensions()
   const [text, setText] = useState("");
 
   const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } =
@@ -134,14 +138,12 @@ export default function RegisterAdoptionForm() {
     <Box height='full'>
       <StepperIndicator activeStep={activeStep} />
       <Box
-        marginX="8"
         position="relative"
+        margin="8"
         display="flex"
         flex-direction="column"
-        height="100%"
+        height={deviceHeight / 1.5}
         justify-content="center"
-        marginY={moderateVerticalScale(24)}
-        flexShrink="unset"
       >
         {activeStep === Steps.PetName && (
           <Input
@@ -153,7 +155,6 @@ export default function RegisterAdoptionForm() {
             onChangeText={(text) => setText(text)}
           />
         )}
-
         {activeStep === Steps.PetBreed && (
           <Input
             size="xl"
