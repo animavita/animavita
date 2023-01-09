@@ -8,7 +8,7 @@ WORKDIR /app
 COPY pnpm-lock.yaml .
 RUN pnpm fetch
 
-ADD . .
+COPY . .
 
 # workaround
 RUN rm .npmrc
