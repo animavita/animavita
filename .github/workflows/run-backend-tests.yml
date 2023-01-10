@@ -11,6 +11,9 @@ concurrency:
 jobs:
   run-e2e:
     runs-on: ubuntu-latest
+    env:
+      JWT_ACCESS_SECRET: ntxrNROULC23kz95igkbulmxuRQhnLYe9tt46Fk2mTs=
+      JWT_REFRESH_SECRET: bmp1tdFjGbq3SGXiH2lzarbJbfEziveC8wuO1e_wnIc
     steps:
       - name: 🏗 Setup repository
         uses: actions/checkout@v3
