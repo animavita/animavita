@@ -8,6 +8,9 @@ module.exports = ({ config }) => {
           web: "http://localhost:3000",
         };
       }
+      case "staging": {
+        return "animavita-backend.fly.dev";
+      }
       case "prod": {
         return "http://api.animavita.com";
       }
