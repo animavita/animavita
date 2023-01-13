@@ -5,7 +5,7 @@ import AppStatusBar from '../../shared/components/status-bar/status-bar.componen
 
 export default function RegisterAdoption() {
   return (
-    <View>
+    <View _web={{ height: 'full' }}>
       <AppStatusBar />
       <RegisterAdoptionForm />
     </View>

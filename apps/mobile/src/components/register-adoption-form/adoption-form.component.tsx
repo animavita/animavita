@@ -3,7 +3,6 @@ import { Box, Button, Heading, Image, Input, Progress, Slider, Text } from "nati
 import React, { useState } from "react";
 import { moderateScale } from "react-native-size-matters";
 import StepIcon from '../../../assets/step-background.png';
-import useDeviceDimensions from "../../shared/hooks/use-device-dimensions";
 import useLocale from "../../shared/hooks/use-locale";
 import theme from "../../theme";
 import { useMultiStepNavigation } from "./adoption-form.hooks";
@@ -56,6 +55,9 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
         flexDirection='row'
         justifyContent="space-between"
         alignContent='center'
+        _ios={{
+          marginTop: "16"
+        }}
       >
         <Box>
           <Text color={theme.colors.gray[600]}>{t("REGISTER_ADOPTION.TITLE")}</Text>
@@ -109,7 +111,7 @@ function StepperController({
   };
 
   return (
-    <Box marginX="8" marginBottom="8" display="flex" flexDirection="row" justifyContent="space-between">
+    <Box margin="8" marginTop="auto" display="flex" flexDirection="row" justifyContent="space-between">
       <Button
         color={theme.colors.primary[600]}
         variant="outline"
@@ -128,21 +130,19 @@ function StepperController({
 
 export default function RegisterAdoptionForm() {
   const { t } = useLocale();
-  const { deviceHeight } = useDeviceDimensions()
   const [text, setText] = useState("");
 
   const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } =
     useMultiStepNavigation();
 
   return (
-    <Box height='full'>
+    <Box height="full">
       <StepperIndicator activeStep={activeStep} />
       <Box
         position="relative"
         margin="8"
         display="flex"
         flex-direction="column"
-        height={deviceHeight / 1.5}
         justify-content="center"
       >
         {activeStep === Steps.PetName && (
@@ -237,6 +237,7 @@ export default function RegisterAdoptionForm() {
           </Box>
         )}
       </Box>
+
       <StepperController
         handleBack={handleBack}
         handleNext={handleNext}
