@@ -47,6 +47,9 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
         value={processValue}
         _filledTrack={{ rounded: 'none', borderBottomRightRadius: 'md' }}
         rounded='none'
+        _ios={{
+          display: 'none'
+        }}
       />
       <Box
         position='relative'
@@ -67,8 +70,8 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
         </Box>
         <Image
           position='absolute'
-          right={-14}
-          bottom={-12}
+          right={-18}
+          bottom={-14}
           source={StepIcon}
           alt="Alternate Text"
           size="md"
@@ -77,7 +80,7 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
           <Text fontWeight="medium" color="white" fontSize='sm'>
             {t('REGISTER_ADOPTION.STEP')}
           </Text>
-          <Text lineHeight='sm' fontWeight="medium" color="white" fontSize='3xl'>
+          <Text lineHeight='sm' fontWeight="medium" color="white" fontSize='2xl'>
             {steps[activeStep].step}/{totalSteps}
           </Text>
         </Box>
