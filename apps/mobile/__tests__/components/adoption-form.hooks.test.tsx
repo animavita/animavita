@@ -1,12 +1,12 @@
 import { act, renderHook } from "@testing-library/react-hooks";
 import { useMultiStepNavigation } from "../../src/components/register-adoption-form/adoption-form.hooks";
-import { Steps } from "../../src/components/register-adoption-form/adoption-form.types";
+import { AdoptionSteps } from "../../src/components/register-adoption-form/adoption-form.types";
 
 describe("useMultiStepNavigation", () => {
   describe("when the current step is PetSize", () => {
     it("isLastStep is true", () => {
       const { result } = renderHook(() =>
-        useMultiStepNavigation(Steps.PetSize)
+        useMultiStepNavigation(AdoptionSteps.PetSize)
       );
 
       expect(result.current.isLastStep).toBeTruthy();
@@ -16,7 +16,7 @@ describe("useMultiStepNavigation", () => {
   describe("when handleBack is triggered", () => {
     it("the activeStep is PetBreed", () => {
       const { result } = renderHook(() =>
-        useMultiStepNavigation(Steps.PetGender)
+        useMultiStepNavigation(AdoptionSteps.PetGender)
       );
 
       act(() => {
@@ -24,14 +24,14 @@ describe("useMultiStepNavigation", () => {
       });
 
       expect(result.current.isLastStep).toBeFalsy();
-      expect(result.current.activeStep).toBe(Steps.PetAge);
+      expect(result.current.activeStep).toBe(AdoptionSteps.PetAge);
     });
   });
 
   describe("when the current step is PetObservations", () => {
     it("isFirstStep is true", () => {
       const { result } = renderHook(() =>
-        useMultiStepNavigation(Steps.PetName)
+        useMultiStepNavigation(AdoptionSteps.PetName)
       );
 
       expect(result.current.isFirstStep).toBeTruthy();
@@ -40,7 +40,7 @@ describe("useMultiStepNavigation", () => {
     describe("when handleNext is triggered", () => {
       it("the activeStep is PetSize", () => {
         const { result } = renderHook(() =>
-          useMultiStepNavigation(Steps.PetGender)
+          useMultiStepNavigation(AdoptionSteps.PetGender)
         );
 
         act(() => {
@@ -48,7 +48,7 @@ describe("useMultiStepNavigation", () => {
         });
 
         expect(result.current.isFirstStep).toBeFalsy();
-        expect(result.current.activeStep).toBe(Steps.PetSize);
+        expect(result.current.activeStep).toBe(AdoptionSteps.PetSize);
       });
     });
   });

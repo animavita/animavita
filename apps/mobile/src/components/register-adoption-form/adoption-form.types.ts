@@ -1,11 +1,11 @@
-export enum Steps {
+export enum AdoptionSteps {
   PetName = "PetName",
   PetBreed = "PetBreed",
-  PetObservations = "PetObservations",
   PetType = "PetType",
   PetAge = "PetAge",
   PetGender = "PetGender",
   PetSize = "PetSize",
+  PetObservations = "PetObservations",
 }
 
 export type Step = {
@@ -14,7 +14,7 @@ export type Step = {
 };
 
 export type StepperIndicatorProps = {
-  activeStep: Steps;
+  activeStep: AdoptionSteps;
 };
 
 export type StepperControllerProps = {
