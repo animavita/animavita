@@ -1,5 +1,5 @@
-import styled from "styled-components/native";
-import { moderateScale } from "react-native-size-matters";
+import { moderateScale } from 'react-native-size-matters';
+import styled from 'styled-components/native';
 
 export const Title = styled.View`
   display: flex;

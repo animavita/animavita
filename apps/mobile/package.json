@@ -8,7 +8,7 @@
     "ios": "ENV=dev expo start --ios",
     "web": "ENV=dev expo start --web",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@animavita/models": "workspace:*",
@@ -64,6 +64,6 @@
     ]
   },
   "eslintConfig": {
-    "extends": "universe"
+    "extends": "universe/native"
   }
 }

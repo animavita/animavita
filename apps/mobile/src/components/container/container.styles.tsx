@@ -1,6 +1,7 @@
-import styled from "styled-components/native";
-import theme from "../../theme";
-import { moderateScale } from "react-native-size-matters";
+import { moderateScale } from 'react-native-size-matters';
+import styled from 'styled-components/native';
+
+import theme from '../../theme';
 
 export const Wrapper = styled.View`
   padding-left: ${moderateScale(16)}px;
