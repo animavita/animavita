@@ -1,11 +1,12 @@
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import { Text } from "react-native";
-import { Button } from "react-native-paper";
-import useAdoptions from "../../hooks/use-adoptions";
-import Routes from "../../routes";
-import client from "../../services/http-client";
-import { Adoption, Container } from "./home.styles";
+import { useNavigation } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import { Text } from 'react-native';
+import { Button } from 'react-native-paper';
+
+import { Adoption, Container } from './home.styles';
+import useAdoptions from '../../hooks/use-adoptions';
+import Routes from '../../routes';
+import client from '../../services/http-client';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -21,8 +22,7 @@ export default function Home() {
         mode="outlined"
         onPress={() => {
           navigation.navigate(Routes.RegisterAdoption);
-        }}
-      >
+        }}>
         Register Adoption
       </Button>
       {isLoading && <Text>Loading...</Text>}
