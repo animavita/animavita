@@ -1,1 +1,1 @@
-export { default } from './stepper-controller'
+export { default } from './stepper-controller';

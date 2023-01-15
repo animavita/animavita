@@ -1,1 +1,1 @@
-export { default } from './stepper-indicator'
+export { default } from './stepper-indicator';

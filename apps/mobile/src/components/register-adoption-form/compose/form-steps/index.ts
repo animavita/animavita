@@ -1,1 +1,1 @@
-export { default } from './form-steps'
+export { default } from './form-steps';

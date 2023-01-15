@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { stepsLibrary } from "./adoption-form.constants";
-import { Step, AdoptionSteps } from "./adoption-form.types";
+import { useState } from 'react';
+
+import { stepsLibrary } from './adoption-form.constants';
+import { Step, AdoptionSteps } from './adoption-form.types';
 
 export const getStepsByOrder = (stepsLibrary: { [key in AdoptionSteps]: Step }): {
   [key: number]: AdoptionSteps;
