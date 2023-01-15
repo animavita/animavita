@@ -25,13 +25,13 @@ export function useMultiStepNavigation(initialStep = AdoptionSteps.PetName) {
   };
 
   const handleBack = () => {
-    const step = stepsByOrder[currentStepNumber - 1] as AdoptionSteps;
+    const step = stepsByOrder[currentStepNumber - 1];
 
     setActiveStep(step);
   };
 
   const handleNext = () => {
-    const step = stepsByOrder[currentStepNumber + 1] as AdoptionSteps;
+    const step = stepsByOrder[currentStepNumber + 1];
 
     setActiveStep(step);
   };

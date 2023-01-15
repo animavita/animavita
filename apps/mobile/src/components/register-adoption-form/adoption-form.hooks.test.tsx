@@ -1,7 +1,7 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { useMultiStepNavigation } from '../../src/components/register-adoption-form/adoption-form.hooks';
-import { AdoptionSteps } from '../../src/components/register-adoption-form/adoption-form.types';
+import { useMultiStepNavigation } from './adoption-form.hooks';
+import { AdoptionSteps } from './adoption-form.types';
 
 describe('useMultiStepNavigation', () => {
   describe('when the current step is PetSize', () => {
