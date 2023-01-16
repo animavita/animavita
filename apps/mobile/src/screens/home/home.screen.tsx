@@ -9,7 +9,7 @@ import AppStatusBar from '../../shared/components/status-bar/status-bar.componen
 export default function Home() {
   const navigation = useNavigation();
 
-  const { adoptions, isLoading } = useAdoptions();
+  const { adoptions, loading } = useAdoptions();
 
   return (
     <View flex="1" alignItems="center" justifyContent="center">
@@ -24,7 +24,7 @@ export default function Home() {
       >
         Register Adoption
       </Button>
-      {isLoading && <Text>Loading...</Text>}
+      {loading && <Text>Loading...</Text>}
       {adoptions && (
         <Box>
           {adoptions.map((adoption) => {
