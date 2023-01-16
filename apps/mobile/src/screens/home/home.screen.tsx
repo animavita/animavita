@@ -20,7 +20,8 @@ export default function Home() {
         variant="outline"
         onPress={() => {
           navigation.navigate(Routes.RegisterAdoption);
-        }}>
+        }}
+      >
         Register Adoption
       </Button>
       {isLoading && <Text>Loading...</Text>}

@@ -36,7 +36,8 @@ function StepperController({
       marginTop="auto"
       display="flex"
       flexDirection="row"
-      justifyContent="space-between">
+      justifyContent="space-between"
+    >
       <Button color={theme.colors.primary[600]} variant="outline" onPress={onBackPress}>
         {t('REGISTER_ADOPTION.FORM.BACK_BUTTON')}
       </Button>
