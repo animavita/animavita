@@ -1,3 +1,4 @@
+import "fast-text-encoding";
 import * as Joi from "joi";
 
 export const adoptionValidationSchema = Joi.object({

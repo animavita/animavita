@@ -12,7 +12,9 @@
   },
   "dependencies": {
     "@animavita/models": "workspace:*",
+    "@animavita/validation-schemas": "workspace:*",
     "@expo/webpack-config": "^0.17.2",
+    "@hookform/resolvers": "^2.9.10",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.1",
     "@tanstack/react-query": "^4.14.5",
