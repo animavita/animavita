@@ -7,7 +7,7 @@
     "android": "ENV=dev expo start --android",
     "ios": "ENV=dev expo start --ios",
     "web": "ENV=dev expo start --web",
-    "test": "jest",
+    "test": "jest --coverage",
     "lint": "eslint . --fix"
   },
   "dependencies": {
@@ -29,6 +29,7 @@
     "react-hook-form": "^7.42.1",
     "react-i18next": "^12.0.0",
     "react-native": "0.70.5",
+    "react-native-gesture-handler": "^2.9.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
     "react-native-size-matters": "^0.4.0",
@@ -39,7 +40,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@testing-library/jest-native": "^5.1.2",
+    "@testing-library/jest-native": "^5.4.1",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/react-native": "^11.4.0",
     "@types/jest": "28.1.8",
@@ -63,11 +64,17 @@
   "private": true,
   "jest": {
     "preset": "jest-expo",
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
     ],
+    "setupFiles": [
+      "../../node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
     "setupFilesAfterEnv": [
-      "@testing-library/jest-native/extend-expect"
+      "./jest-setup.js"
     ]
   },
   "eslintConfig": {
