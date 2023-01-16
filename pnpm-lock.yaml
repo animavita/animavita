@@ -110,6 +110,7 @@ importers:
       prettier: ^2.3.2
       react: 18.1.0
       react-dom: 18.1.0
+      react-hook-form: ^7.42.1
       react-i18next: ^12.0.0
       react-native: 0.70.5
       react-native-safe-area-context: 4.4.1
@@ -134,6 +135,7 @@ importers:
       native-base: 3.4.25_qcejmssukxrh6hyxoyh6x6dhf4
       react: 18.1.0
       react-dom: 18.1.0_react@18.1.0
+      react-hook-form: 7.42.1_react@18.1.0
       react-i18next: 12.1.1_nsabaauxihyv3jh4uc46q7qu7i
       react-native: 0.70.5_6rk6wbi5chodhfv4sxty5t2afq
       react-native-safe-area-context: 4.4.1_tj3nonr5gneraukzjkxpsiy7yu
@@ -13904,6 +13906,15 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       react: '>=17.0.0'
+    dependencies:
+      react: 18.1.0
+    dev: false
+
+  /react-hook-form/7.42.1_react@18.1.0:
+    resolution: {integrity: sha512-2UIGqwMZksd5HS55crTT1ATLTr0rAI4jS7yVuqTaoRVDhY2Qc4IyjskCmpnmdYqUNOYFy04vW253tb2JRVh+IQ==}
+    engines: {node: '>=12.22.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18
     dependencies:
       react: 18.1.0
     dev: false
