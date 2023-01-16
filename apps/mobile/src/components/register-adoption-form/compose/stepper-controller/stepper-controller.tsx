@@ -14,6 +14,8 @@ function StepperController({
   isLastStep,
   isFirstStep,
   activeStep,
+  onConfirm,
+  saving,
 }: StepperControllerProps) {
   const { t } = useLocale();
   const navigation = useNavigation();
@@ -29,7 +31,10 @@ function StepperController({
   };
 
   const onNextPress = async () => {
-    if (isLastStep) return;
+    if (isLastStep) {
+      onConfirm();
+      return;
+    }
 
     const fieldName = stepsLibrary[activeStep].fieldName;
     const isValid = await validateField(fieldName);
@@ -48,7 +53,7 @@ function StepperController({
       <Button color={theme.colors.primary[600]} variant="outline" onPress={onBackPress}>
         {t('REGISTER_ADOPTION.FORM.BACK_BUTTON')}
       </Button>
-      <Button color={theme.colors.primary[600]} onPress={onNextPress}>
+      <Button color={theme.colors.primary[600]} onPress={onNextPress} disabled={saving}>
         {isLastStep
           ? t('REGISTER_ADOPTION.FORM.CONFIRM_BUTTON')
           : t('REGISTER_ADOPTION.FORM.NEXT_BUTTON')}

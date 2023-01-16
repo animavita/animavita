@@ -21,6 +21,8 @@ export type StepperIndicatorProps = {
 export type StepperControllerProps = {
   handleBack: () => void;
   handleNext: () => void;
+  onConfirm: () => void;
+  saving: boolean;
   isLastStep: boolean;
   isFirstStep: boolean;
   activeStep: AdoptionSteps;
