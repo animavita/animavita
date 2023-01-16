@@ -1,5 +1,6 @@
 import { Box } from 'native-base';
 import React from 'react';
+import { useForm, FormProvider } from 'react-hook-form';
 
 import { useMultiStepNavigation } from './adoption-form.hooks';
 import FormSteps from './compose/form-steps';
@@ -8,6 +9,7 @@ import StepperIndicator from './compose/stepper-indicator';
 
 export default function RegisterAdoptionForm() {
   const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } = useMultiStepNavigation();
+  const adoptionForm = useForm();
 
   return (
     <Box height="full">
@@ -17,8 +19,11 @@ export default function RegisterAdoptionForm() {
         margin="8"
         display="flex"
         flex-direction="column"
-        justify-content="center">
-        <FormSteps activeStep={activeStep} />
+        justify-content="center"
+      >
+        <FormProvider {...adoptionForm}>
+          <FormSteps activeStep={activeStep} />
+        </FormProvider>
       </Box>
 
       <StepperController
