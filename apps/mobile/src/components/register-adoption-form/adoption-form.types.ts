@@ -23,4 +23,5 @@ export type StepperControllerProps = {
   handleNext: () => void;
   isLastStep: boolean;
   isFirstStep: boolean;
+  activeStep: AdoptionSteps;
 };
