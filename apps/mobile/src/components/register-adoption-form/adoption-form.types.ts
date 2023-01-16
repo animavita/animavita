@@ -11,6 +11,7 @@ export enum AdoptionSteps {
 export type Step = {
   order: number;
   label: string;
+  fieldName: string;
 };
 
 export type StepperIndicatorProps = {

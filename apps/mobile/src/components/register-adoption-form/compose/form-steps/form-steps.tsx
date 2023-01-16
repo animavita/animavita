@@ -5,6 +5,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import useLocale from '../../../../shared/hooks/use-locale';
 import theme from '../../../../theme';
 import { RHFInput, RHFListSelector } from '../../../react-hook-form/native-base';
+import { stepsLibrary } from '../../adoption-form.constants';
 import { AdoptionSteps } from '../../adoption-form.types';
 
 const commonInputProperties = {
@@ -25,7 +26,7 @@ function PetNameStep() {
         placeholder: t('REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER'),
       }}
       control={control}
-      name="petName"
+      name={stepsLibrary.PetName.fieldName}
     />
   );
 }
@@ -41,7 +42,7 @@ function PetBreedStep() {
         placeholder: t('REGISTER_ADOPTION.FORM.BREED_PLACEHOLDER'),
       }}
       control={control}
-      name="petBreed"
+      name={stepsLibrary.PetBreed.fieldName}
     />
   );
 }
@@ -59,7 +60,7 @@ function PetObservationsStep() {
         numberOfLines: 3,
       }}
       control={control}
-      name="petObservation"
+      name={stepsLibrary.PetObservations.fieldName}
     />
   );
 }
@@ -72,20 +73,21 @@ function PetTypeStep() {
     value: type,
   }));
 
-  return <RHFListSelector name="petType" options={options} />;
+  return <RHFListSelector name={stepsLibrary.PetType.fieldName} options={options} />;
 }
 
 function PetAgeStep() {
   const { t } = useLocale();
   const { setValue } = useFormContext();
-  const petAgeValue = useWatch({ name: 'petAge' });
+  const fieldName = stepsLibrary.PetAge.fieldName;
+  const petAgeValue = useWatch({ name: fieldName });
 
   return (
     <Box>
       <Slider
         w="full"
-        defaultValue={1}
-        onChangeEnd={(value) => setValue('petAge', value)}
+        defaultValue={petAgeValue}
+        onChangeEnd={(value) => setValue(fieldName, value)}
         minValue={0}
         maxValue={100}
         accessibilityLabel={t('REGISTER_ADOPTION.FORM.AGE')}
@@ -110,7 +112,7 @@ function PetSizeStep() {
     value: type,
   }));
 
-  return <RHFListSelector name="petSize" options={options} />;
+  return <RHFListSelector name={stepsLibrary.PetSize.fieldName} options={options} />;
 }
 
 function PetGenderStep() {
@@ -121,7 +123,7 @@ function PetGenderStep() {
     value: type,
   }));
 
-  return <RHFListSelector name="petGender" options={options} />;
+  return <RHFListSelector name={stepsLibrary.PetGender.fieldName} options={options} />;
 }
 
 function FormSteps({ activeStep }: { activeStep: AdoptionSteps }) {
