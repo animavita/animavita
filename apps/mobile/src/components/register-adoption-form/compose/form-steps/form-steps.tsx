@@ -7,6 +7,13 @@ import theme from '../../../../theme';
 import { RHFInput, RHFListSelector } from '../../../react-hook-form/native-base';
 import { AdoptionSteps } from '../../adoption-form.types';
 
+const commonInputProperties = {
+  size: 'xl',
+  borderColor: theme.colors.primary[600],
+  variant: 'outline',
+  autoFocus: true,
+};
+
 function PetNameStep() {
   const { t } = useLocale();
   const { control } = useFormContext();
@@ -14,10 +21,8 @@ function PetNameStep() {
   return (
     <RHFInput
       input={{
-        size: 'xl',
-        borderColor: theme.colors.primary[600],
+        ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER'),
-        variant: 'outline',
       }}
       control={control}
       name="petName"
@@ -32,10 +37,8 @@ function PetBreedStep() {
   return (
     <RHFInput
       input={{
-        size: 'xl',
-        borderColor: theme.colors.primary[600],
+        ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.BREED_PLACEHOLDER'),
-        variant: 'outline',
       }}
       control={control}
       name="petBreed"
@@ -50,10 +53,8 @@ function PetObservationsStep() {
   return (
     <RHFInput
       input={{
-        size: 'xl',
-        borderColor: theme.colors.primary[600],
+        ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.OBSERVATIONS_PLACEHOLDER'),
-        variant: 'outline',
         multiline: true,
         numberOfLines: 3,
       }}
