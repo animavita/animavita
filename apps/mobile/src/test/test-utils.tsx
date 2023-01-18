@@ -13,20 +13,24 @@ const inset = {
   insets: { top: 0, left: 0, right: 0, bottom: 0 },
 };
 
-const renderWithProviders = (children: React.ReactElement) => {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      cacheTime: 0,
     },
-    logger: {
-      log: console.log,
-      warn: console.warn,
-      error: () => {},
+    mutations: {
+      cacheTime: 0,
     },
-  });
+  },
+  logger: {
+    log: console.log,
+    warn: console.warn,
+    error: () => {},
+  },
+});
 
+const renderWithProviders = (children: React.ReactElement) => {
   return render(
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>

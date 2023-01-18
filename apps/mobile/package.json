@@ -23,6 +23,7 @@
     "expo-status-bar": "~1.4.2",
     "expo-updates": "^0.15.6",
     "i18next": "^22.0.5",
+    "msw": "^0.49.2",
     "native-base": "^3.4.25",
     "react": "18.1.0",
     "react-dom": "18.1.0",

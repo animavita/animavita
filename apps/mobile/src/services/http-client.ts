@@ -4,7 +4,15 @@ import { Platform } from 'react-native';
 
 const apiUrl = Constants?.expoConfig?.extra?.apiUrl;
 
-const baseURL = typeof apiUrl === 'object' ? apiUrl[Platform.OS] : apiUrl;
+const getBaseUrl = () => {
+  if (process.env.NODE_ENV === 'test') return 'http://localhost';
+
+  if (typeof apiUrl === 'object') return apiUrl[Platform.OS];
+
+  return apiUrl;
+};
+
+export const baseURL = getBaseUrl();
 
 const client = axios.create({
   baseURL: `${baseURL}/api/v1`,
