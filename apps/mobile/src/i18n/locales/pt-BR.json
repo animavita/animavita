@@ -5,7 +5,7 @@
     "STEP": "Passo",
     "FORM": {
       "NAME": "Nome do pet",
-      "NAME_PLACEHOLDER": "Digite do nome do pet",
+      "NAME_PLACEHOLDER": "Digite o nome do pet",
       "BREED": "Raça do pet",
       "BREED_PLACEHOLDER": "Digite a raça do pet",
       "OBSERVATIONS": "Observações",

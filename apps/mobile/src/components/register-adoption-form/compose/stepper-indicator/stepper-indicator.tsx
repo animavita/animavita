@@ -36,7 +36,8 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
         alignContent="center"
         _ios={{
           marginTop: '16',
-        }}>
+        }}
+      >
         <Box>
           <Text color={theme.colors.gray[600]}>{t('REGISTER_ADOPTION.TITLE')}</Text>
           <Heading fontWeight="medium" color={theme.colors.primary[600]}>

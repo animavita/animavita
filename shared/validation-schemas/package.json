@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "fast-text-encoding": "^1.0.6",
     "joi": "^17.6.4"
   },
   "devDependencies": {

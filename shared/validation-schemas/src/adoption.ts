@@ -1,3 +1,5 @@
+// https://github.com/hapijs/joi/issues/2141
+import "fast-text-encoding";
 import * as Joi from "joi";
 
 export const adoptionValidationSchema = Joi.object({

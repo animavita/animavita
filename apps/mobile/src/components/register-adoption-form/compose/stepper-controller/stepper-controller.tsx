@@ -4,6 +4,8 @@ import React from 'react';
 
 import useLocale from '../../../../shared/hooks/use-locale';
 import theme from '../../../../theme';
+import { stepsLibrary } from '../../adoption-form.constants';
+import { useFormValidation } from '../../adoption-form.hooks';
 import { StepperControllerProps } from '../../adoption-form.types';
 
 function StepperController({
@@ -11,9 +13,11 @@ function StepperController({
   handleNext,
   isLastStep,
   isFirstStep,
+  activeStep,
 }: StepperControllerProps) {
   const { t } = useLocale();
   const navigation = useNavigation();
+  const { validateField } = useFormValidation();
 
   const onBackPress = () => {
     if (isFirstStep) {
@@ -24,10 +28,13 @@ function StepperController({
     handleBack();
   };
 
-  const onNextPress = () => {
+  const onNextPress = async () => {
     if (isLastStep) return;
 
-    handleNext();
+    const fieldName = stepsLibrary[activeStep].fieldName;
+    const isValid = await validateField(fieldName);
+
+    if (isValid) handleNext();
   };
 
   return (
@@ -36,7 +43,8 @@ function StepperController({
       marginTop="auto"
       display="flex"
       flexDirection="row"
-      justifyContent="space-between">
+      justifyContent="space-between"
+    >
       <Button color={theme.colors.primary[600]} variant="outline" onPress={onBackPress}>
         {t('REGISTER_ADOPTION.FORM.BACK_BUTTON')}
       </Button>

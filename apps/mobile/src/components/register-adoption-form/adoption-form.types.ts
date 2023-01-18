@@ -11,6 +11,7 @@ export enum AdoptionSteps {
 export type Step = {
   order: number;
   label: string;
+  fieldName: string;
 };
 
 export type StepperIndicatorProps = {
@@ -22,4 +23,5 @@ export type StepperControllerProps = {
   handleNext: () => void;
   isLastStep: boolean;
   isFirstStep: boolean;
+  activeStep: AdoptionSteps;
 };
