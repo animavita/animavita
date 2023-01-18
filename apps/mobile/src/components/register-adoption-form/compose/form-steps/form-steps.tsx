@@ -24,6 +24,7 @@ function PetNameStep() {
       input={{
         ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER'),
+        testID: 'adoption-form-name-input',
       }}
       control={control}
       name={stepsLibrary.PetName.fieldName}
@@ -40,6 +41,7 @@ function PetBreedStep() {
       input={{
         ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.BREED_PLACEHOLDER'),
+        testID: 'adoption-form-breed-input',
       }}
       control={control}
       name={stepsLibrary.PetBreed.fieldName}
@@ -91,6 +93,7 @@ function PetAgeStep() {
         minValue={0}
         maxValue={100}
         accessibilityLabel={t('REGISTER_ADOPTION.FORM.AGE')}
+        testID="adoption-form-age-input"
       >
         <Slider.Track>
           <Slider.FilledTrack />

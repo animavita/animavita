@@ -11,11 +11,16 @@ import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
 import useAdoptions from '../../hooks/use-adoptions';
 
-export default function RegisterAdoptionForm() {
+type RegisterAdoptionFormProps = {
+  defaultValues?: Partial<AdoptionType>;
+};
+
+export default function RegisterAdoptionForm({ defaultValues }: RegisterAdoptionFormProps) {
   const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } = useMultiStepNavigation();
   const adoptionForm = useForm<Partial<AdoptionType>>({
     resolver: joiResolver(createValidationSchema),
     mode: 'onBlur',
+    defaultValues,
   });
   const { saveOrCreateAdoption, saving } = useAdoptions();
 
