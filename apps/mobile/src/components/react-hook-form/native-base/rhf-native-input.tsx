@@ -1,12 +1,11 @@
-import { Input } from 'native-base';
-import { IInputProps } from 'native-base/lib/typescript/components/primitives/Input/types';
+import { Input, IInputProps } from 'native-base';
 import React from 'react';
 import { useController } from 'react-hook-form';
 
 type RHFNativeBaseInputProps = {
   input: IInputProps;
   control: any;
-  name: any;
+  name: string;
 };
 
 function RHFNativeBaseInput({ control, name, input }: RHFNativeBaseInputProps) {
