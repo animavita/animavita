@@ -22,7 +22,7 @@ export default function useAdoptions() {
       client.invalidateQueries([QUERY_KEYS.getAllAdoptions]);
       navigation.navigate(Routes.Home);
     },
-    onError: () => toast.show({ description: 'Something went wrong!' }),
+    onError: () => toast.show({ description: 'Error while saving adoption!' }),
   });
 
   const saveOrCreateAdoption = async (adoption: Partial<AdoptionType>) => {

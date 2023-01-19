@@ -85,7 +85,7 @@ describe('useFormValidation', () => {
         <FormProvider
           trigger={trigger}
           // @ts-ignore
-          formState={{ errors: { breed: { message: errorMessage } } }}
+          getFieldState={() => ({ error: { message: errorMessage } })}
         >
           {children}
         </FormProvider>

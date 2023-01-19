@@ -94,7 +94,20 @@ describe('AdoptionForm', () => {
       });
     });
 
-    // and the form state is not valid
+    describe('and the form state is not valid', () => {
+      it('shows the error message', async () => {
+        renderWithProviders(<RegisterAdoptionForm initialStep={AdoptionSteps.PetObservations} />);
+
+        const confirmButton = screen.getByText(/confirmar/i);
+
+        await act(async () => {
+          fireEvent.press(confirmButton);
+          const toast = await screen.findByText(/invalid data!/i);
+
+          expect(toast).toBeOnTheScreen();
+        });
+      });
+    });
   });
 
   describe.each(stepErrors)('when the $step step is invalid', ({ step, errorMessage }) => {

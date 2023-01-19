@@ -1,7 +1,7 @@
 import { AdoptionType } from '@animavita/models';
 import { createValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Box } from 'native-base';
+import { Box, useToast } from 'native-base';
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
@@ -26,10 +26,17 @@ const RegisterAdoptionForm = ({ defaultValues, initialStep }: RegisterAdoptionFo
     defaultValues,
   });
   const { saveOrCreateAdoption, saving } = useAdoptions();
+  const toast = useToast();
 
   const onConfirm = async () => {
     const isValid = await adoptionForm.trigger();
-    if (!isValid) return;
+
+    if (!isValid) {
+      toast.show({
+        description: 'Invalid data!',
+      });
+      return;
+    }
 
     const adoption = adoptionForm.getValues();
 
