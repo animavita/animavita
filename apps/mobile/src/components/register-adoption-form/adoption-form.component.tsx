@@ -6,6 +6,7 @@ import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { useMultiStepNavigation } from './adoption-form.hooks';
+import { AdoptionSteps } from './adoption-form.types';
 import FormSteps from './compose/form-steps';
 import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
@@ -13,10 +14,12 @@ import useAdoptions from '../../hooks/use-adoptions';
 
 type RegisterAdoptionFormProps = {
   defaultValues?: Partial<AdoptionType>;
+  initialStep?: AdoptionSteps;
 };
 
-export default function RegisterAdoptionForm({ defaultValues }: RegisterAdoptionFormProps) {
-  const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } = useMultiStepNavigation();
+const RegisterAdoptionForm = ({ defaultValues, initialStep }: RegisterAdoptionFormProps) => {
+  const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } =
+    useMultiStepNavigation(initialStep);
   const adoptionForm = useForm<Partial<AdoptionType>>({
     resolver: joiResolver(createValidationSchema),
     mode: 'onBlur',
@@ -25,7 +28,8 @@ export default function RegisterAdoptionForm({ defaultValues }: RegisterAdoption
   const { saveOrCreateAdoption, saving } = useAdoptions();
 
   const onConfirm = async () => {
-    if (!adoptionForm.formState.isValid) return;
+    const isValid = await adoptionForm.trigger();
+    if (!isValid) return;
 
     const adoption = adoptionForm.getValues();
 
@@ -58,4 +62,6 @@ export default function RegisterAdoptionForm({ defaultValues }: RegisterAdoption
       </FormProvider>
     </Box>
   );
-}
+};
+
+export default RegisterAdoptionForm;

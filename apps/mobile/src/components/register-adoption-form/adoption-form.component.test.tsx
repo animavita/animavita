@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import RegisterAdoptionForm from './adoption-form.component';
+import { AdoptionSteps } from './adoption-form.types';
 import Routes from '../../routes';
 import Home from '../../screens/home/home.screen';
 import { renderWithProviders, screen, fireEvent, act } from '../../test/test-utils';
@@ -48,8 +49,35 @@ const MainNavigator = () => {
   );
 };
 
+const stepErrors: { step: AdoptionSteps; errorMessage: string | RegExp }[] = [
+  {
+    step: AdoptionSteps.PetName,
+    errorMessage: /"name" is required/i,
+  },
+  {
+    step: AdoptionSteps.PetBreed,
+    errorMessage: /"breed" is required/i,
+  },
+  {
+    step: AdoptionSteps.PetType,
+    errorMessage: /"type" is required/i,
+  },
+  {
+    step: AdoptionSteps.PetAge,
+    errorMessage: /"age" is required/i,
+  },
+  {
+    step: AdoptionSteps.PetGender,
+    errorMessage: /"gender" is required/i,
+  },
+  {
+    step: AdoptionSteps.PetSize,
+    errorMessage: /"size" is required/i,
+  },
+];
+
 describe('AdoptionForm', () => {
-  describe('when the users presses the confirm button', () => {
+  describe('when the user presses the confirm button', () => {
     describe('and the form state is valid', () => {
       it('takes the user to the home screen', async () => {
         renderWithProviders(<MainNavigator />);
@@ -69,5 +97,15 @@ describe('AdoptionForm', () => {
     // and the form state is not valid
   });
 
-  // test validation for EACH step
+  describe.each(stepErrors)('when the $step step is invalid', ({ step, errorMessage }) => {
+    it('shows the error message', async () => {
+      renderWithProviders(<RegisterAdoptionForm initialStep={step} />);
+
+      forwardStep();
+
+      const toast = await screen.findByText(errorMessage);
+
+      expect(toast).toBeOnTheScreen();
+    });
+  });
 });

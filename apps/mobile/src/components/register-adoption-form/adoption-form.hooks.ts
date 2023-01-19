@@ -48,17 +48,14 @@ export function useMultiStepNavigation(initialStep = AdoptionSteps.PetName) {
 }
 
 export function useFormValidation() {
-  const {
-    trigger,
-    formState: { errors },
-  } = useFormContext();
+  const { trigger, getFieldState } = useFormContext();
   const { show, isActive } = useToast();
 
   const showFeedback = (fieldName: string) => {
-    const fieldError = errors[fieldName];
+    const fieldState = getFieldState(fieldName);
 
     const id = 'adoption-form-toast';
-    const description = fieldError?.message as React.ReactNode;
+    const description = fieldState?.error?.message as React.ReactNode;
 
     if (!isActive(id)) {
       show({
