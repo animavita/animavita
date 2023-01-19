@@ -4,7 +4,16 @@ import RegisterAdoptionForm from './adoption-form.component';
 import { AdoptionSteps } from './adoption-form.types';
 import Routes from '../../routes';
 import Home from '../../screens/home/home.screen';
-import { renderWithProviders, screen, fireEvent, act } from '../../test/test-utils';
+import { renderWithProviders, screen, fireEvent, act, waitFor } from '../../test/test-utils';
+
+const mockShow = jest.fn();
+jest.mock('native-base', () => ({
+  ...jest.requireActual('native-base'),
+  useToast: () => ({
+    show: mockShow,
+    isActive: () => false,
+  }),
+}));
 
 const forwardStep = () => {
   fireEvent.press(screen.getByText(/pr[oó]xima etapa/gi));
@@ -49,30 +58,30 @@ const MainNavigator = () => {
   );
 };
 
-const stepErrors: { step: AdoptionSteps; errorMessage: string | RegExp }[] = [
+const stepErrors: { step: AdoptionSteps; errorMessage: string }[] = [
   {
     step: AdoptionSteps.PetName,
-    errorMessage: /"name" is required/i,
+    errorMessage: `"name" is required`,
   },
   {
     step: AdoptionSteps.PetBreed,
-    errorMessage: /"breed" is required/i,
+    errorMessage: `"breed" is required`,
   },
   {
     step: AdoptionSteps.PetType,
-    errorMessage: /"type" is required/i,
+    errorMessage: `"type" is required`,
   },
   {
     step: AdoptionSteps.PetAge,
-    errorMessage: /"age" is required/i,
+    errorMessage: `"age" is required`,
   },
   {
     step: AdoptionSteps.PetGender,
-    errorMessage: /"gender" is required/i,
+    errorMessage: `"gender" is required`,
   },
   {
     step: AdoptionSteps.PetSize,
-    errorMessage: /"size" is required/i,
+    errorMessage: `"size" is required`,
   },
 ];
 
@@ -99,26 +108,33 @@ describe('AdoptionForm', () => {
         renderWithProviders(<RegisterAdoptionForm initialStep={AdoptionSteps.PetObservations} />);
 
         const confirmButton = screen.getByText(/confirmar/i);
+        fireEvent.press(confirmButton);
 
-        await act(async () => {
-          fireEvent.press(confirmButton);
-          const toast = await screen.findByText(/invalid data!/i);
-
-          expect(toast).toBeOnTheScreen();
-        });
+        await waitFor(() =>
+          expect(mockShow).toHaveBeenNthCalledWith(1, {
+            description: `Invalid data!`,
+          })
+        );
       });
     });
   });
 
   describe.each(stepErrors)('when the $step step is invalid', ({ step, errorMessage }) => {
+    beforeEach(() => {
+      jest.clearAllMocks();
+    });
+
     it('shows the error message', async () => {
       renderWithProviders(<RegisterAdoptionForm initialStep={step} />);
 
       forwardStep();
 
-      const toast = await screen.findByText(errorMessage);
-
-      expect(toast).toBeOnTheScreen();
+      await waitFor(() =>
+        expect(mockShow).toHaveBeenNthCalledWith(1, {
+          description: errorMessage,
+          id: 'adoption-form-toast',
+        })
+      );
     });
   });
 });
