@@ -6,7 +6,7 @@ import {
   UnprocessableEntityException,
 } from '@nestjs/common';
 
-import { UserRepository } from './entities/user-entities.interface';
+import { UserRepository } from './repositories/user-repository.interface';
 
 @Injectable()
 export class UserService {

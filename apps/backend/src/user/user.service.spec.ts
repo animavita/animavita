@@ -5,7 +5,7 @@ import {
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { userMock } from '../../test/mocks/user';
-import { UserRepository } from './entities/user-entities.interface';
+import { UserRepository } from './repositories/user-repository.interface';
 import { UserService } from './user.service';
 
 const repositoryMock = {

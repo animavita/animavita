@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
 
-import { UserRepository } from '../user-entities.interface';
+import { UserRepository } from '../user-repository.interface';
 import { UserMap } from '../user.map';
 import { IUser } from './user.interface';
 
