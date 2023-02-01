@@ -15,43 +15,49 @@ const repositoryMock = {
   update: jest.fn(),
 };
 
+const setup = async () => {
+  const module: TestingModule = await Test.createTestingModule({
+    providers: [
+      UserService,
+      {
+        provide: 'MONGODB',
+        useValue: repositoryMock,
+      },
+    ],
+  }).compile();
+
+  const service = module.get<UserService>(UserService);
+  const repository = module.get<UserRepository>('MONGODB');
+
+  return {
+    service,
+    repository,
+  };
+};
+
 describe('UserService', () => {
-  let service: UserService;
-  let repository: UserRepository;
-
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        UserService,
-        {
-          provide: 'MONGODB',
-          useValue: repositoryMock,
-        },
-      ],
-    }).compile();
-
-    service = module.get<UserService>(UserService);
-    repository = module.get<UserRepository>('MONGODB');
-  });
-
-  it('should be defined', () => {
+  it('should be defined', async () => {
+    const { service } = await setup();
     expect(service).toBeDefined();
   });
 
   describe('UserRepository', () => {
-    it('should be defined', () => {
+    it('should be defined', async () => {
+      const { repository } = await setup();
       expect(repository).toBeDefined();
     });
   });
 
   describe('create', () => {
     it('should create a new user', async () => {
+      const { service, repository } = await setup();
       jest.spyOn(repository, 'findByEmail').mockResolvedValueOnce(null);
       jest.spyOn(repository, 'create').mockResolvedValueOnce(userMock);
       await expect(service.create(userMock)).resolves.toEqual(userMock);
     });
 
     it('should throw if email is already taken', async () => {
+      const { service, repository } = await setup();
       jest.spyOn(repository, 'findByEmail').mockResolvedValueOnce(userMock);
       await expect(service.create(userMock)).rejects.toThrowError(
         UnprocessableEntityException,
@@ -61,6 +67,8 @@ describe('UserService', () => {
 
   describe('findById', () => {
     it('should find a user by his id', async () => {
+      const { service, repository } = await setup();
+
       jest.spyOn(repository, 'findById').mockResolvedValueOnce(userMock);
       await expect(service.findById(userMock.id)).resolves.toEqual(userMock);
     });
@@ -68,6 +76,8 @@ describe('UserService', () => {
 
   describe('findByEmail', () => {
     it('should find a user by his email', async () => {
+      const { service, repository } = await setup();
+
       jest.spyOn(repository, 'findByEmail').mockResolvedValueOnce(userMock);
       await expect(service.findByEmail(userMock.email)).resolves.toEqual(
         userMock,
@@ -77,6 +87,8 @@ describe('UserService', () => {
 
   describe('update', () => {
     it('should update a user', async () => {
+      const { service, repository } = await setup();
+
       const updateUser = { ...userMock, name: 'Gilberto' };
       jest.spyOn(repository, 'findById').mockResolvedValueOnce(userMock);
       jest.spyOn(repository, 'update').mockResolvedValueOnce(updateUser);
@@ -88,6 +100,8 @@ describe('UserService', () => {
     });
 
     it('should throw if user does not exist', async () => {
+      const { service, repository } = await setup();
+
       const updateUser = { ...userMock, name: 'Gilberto' };
       jest.spyOn(repository, 'findById').mockResolvedValueOnce(null);
       jest.spyOn(repository, 'update').mockResolvedValueOnce(updateUser);
