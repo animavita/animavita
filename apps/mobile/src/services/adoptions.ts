@@ -1,6 +1,7 @@
-import { AdoptionType } from "@animavita/models";
-import client from "./http-client";
+import { AdoptionType } from '@animavita/models';
+
+import client from './http-client';
 
 export const getAllAdoptions = () => {
-  return client.get<AdoptionType[]>("/adoptions");
+  return client.get<AdoptionType[]>('/adoptions');
 };
