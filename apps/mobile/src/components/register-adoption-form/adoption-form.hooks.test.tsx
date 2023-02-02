@@ -4,6 +4,7 @@ import { FormProvider } from 'react-hook-form';
 
 import { stepsLibrary } from './adoption-form.constants';
 import { getStepsByOrder, useFormValidation, useMultiStepNavigation } from './adoption-form.hooks';
+
 import { AdoptionSteps } from './adoption-form.types';
 
 jest.mock('native-base', () => ({
@@ -12,7 +13,7 @@ jest.mock('native-base', () => ({
 }));
 
 describe('useMultiStepNavigation', () => {
-  describe('when the current step is PetSize', () => {
+  describe('when the current step is PetObservations', () => {
     it('isLastStep is true', () => {
       const { result } = renderHook(() => useMultiStepNavigation(AdoptionSteps.PetObservations));
 

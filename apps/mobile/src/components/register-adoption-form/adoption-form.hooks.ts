@@ -79,7 +79,5 @@ export const useFormValidation = () => {
     return isValid;
   };
 
-  return {
-    validateField,
-  };
-};
+  return { validateField };
+}
