@@ -4,30 +4,35 @@
     "TITLE": "Cadastrar Adoção",
     "STEP": "Passo",
     "FORM": {
-      "NAME": "Nome do pet",
-      "NAME_PLACEHOLDER": "Digite o nome do pet",
-      "BREED": "Raça do pet",
-      "BREED_PLACEHOLDER": "Digite a raça do pet",
+      "NAME": "Nome do Pet",
+      "NAME_STRING_EMPTY": "Nome do Pet não pode ser vazio",
+      "NAME_PLACEHOLDER": "Digite o nome do Pet",
+      "BREED": "Raça do Pet",
+      "BREED_STRING_EMPTY": "Raça do Pet não pode ser vazia",
+      "BREED_PLACEHOLDER": "Digite a raça do Pet",
       "OBSERVATIONS": "Observações",
-      "OBSERVATIONS_PLACEHOLDER": "Observações adicionais sobre o pet",
+      "OBSERVATIONS_PLACEHOLDER": "Observações adicionais sobre o Pet",
       "TYPE_OPTIONS": {
-        "LABEL": "Tipo do pet",
+        "LABEL": "Tipo do Pet",
         "DOG": "Cão",
         "CAT": "Gato",
         "OTHER": "Outro"
       },
-      "AGE": "Idade do pet",
+      "TYPE_STRING_EMPTY": "Informe o tipo do seu Pet",
+      "AGE": "Idade do Pet",
       "GENDER": {
-        "LABEL": "Sexo do pet",
+        "LABEL": "Sexo do Pet",
         "MALE": "Macho",
         "FEMALE": "Fêmea"
       },
+      "GENDER_STRING_EMPTY": "Informe o sexo do seu Pet",
       "SIZE": {
-        "LABEL": "Porte do pet",
+        "LABEL": "Porte do Pet",
         "SMALL": "Pequeno",
         "MEDIUM": "Médio",
         "BIG": "Grande"
       },
+      "SIZE_STRING_EMPTY": "Informe o porte do seu Pet",
       "BACK_BUTTON": "Voltar",
       "NEXT_BUTTON": "Próxima etapa",
       "CONFIRM_BUTTON": "Confirmar"
