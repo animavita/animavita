@@ -4,7 +4,7 @@ import RegisterAdoptionForm from './adoption-form.component';
 import { AdoptionSteps } from './adoption-form.types';
 import Routes from '../../routes';
 import Home from '../../screens/home/home.screen';
-import { renderWithProviders, screen, fireEvent, act, waitFor } from '../../test/test-utils';
+import { renderWithProviders, screen, fireEvent, waitFor } from '../../test/test-utils';
 
 const mockShow = jest.fn();
 jest.mock('native-base', () => ({

@@ -7,7 +7,7 @@ import Routes from '../../routes';
 import { saveOrCreate, getAllAdoptions } from '../../services/adoptions';
 import { QUERY_KEYS } from '../../services/query-keys';
 
-export default function useAdoptions() {
+const useAdoptions = () => {
   const navigation = useNavigation();
   const toast = useToast();
   const client = useQueryClient();
@@ -35,4 +35,6 @@ export default function useAdoptions() {
     saving: mutation.isLoading,
     saveOrCreateAdoption,
   };
-}
+};
+
+export default useAdoptions;

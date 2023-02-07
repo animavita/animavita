@@ -6,7 +6,7 @@ import Routes from '../../routes';
 import client from '../../services/http-client';
 import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
 
-export default function Home() {
+const Home = () => {
   const navigation = useNavigation();
 
   const { adoptions, loading } = useAdoptions();
@@ -42,4 +42,6 @@ export default function Home() {
       )}
     </View>
   );
-}
+};
+
+export default Home;

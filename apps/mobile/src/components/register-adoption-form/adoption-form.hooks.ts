@@ -13,7 +13,7 @@ export const getStepsByOrder = (stepsLibrary: { [key in AdoptionSteps]: Step }):
     return { ...prev, [stepsLibrary[step].order]: step };
   }, {});
 
-export function useMultiStepNavigation(initialStep = AdoptionSteps.PetName) {
+export const useMultiStepNavigation = (initialStep = AdoptionSteps.PetName) => {
   const [activeStep, setActiveStep] = useState(initialStep);
 
   const stepsByOrder = getStepsByOrder(stepsLibrary);
@@ -45,9 +45,9 @@ export function useMultiStepNavigation(initialStep = AdoptionSteps.PetName) {
     handleNext,
     activeStep,
   };
-}
+};
 
-export function useFormValidation() {
+export const useFormValidation = () => {
   const { trigger, getFieldState } = useFormContext();
   const { show, isActive } = useToast();
 
@@ -76,4 +76,4 @@ export function useFormValidation() {
   return {
     validateField,
   };
-}
+};

@@ -12,7 +12,7 @@ type RHFNativeBaseListSelectorProps = {
   options: Option[];
 };
 
-function RHFNativeBaseListSelector({ name, options }: RHFNativeBaseListSelectorProps) {
+const RHFNativeBaseListSelector = ({ name, options }: RHFNativeBaseListSelectorProps) => {
   const { setValue } = useFormContext();
   const petTypeValue = useWatch({ name });
 
@@ -32,6 +32,6 @@ function RHFNativeBaseListSelector({ name, options }: RHFNativeBaseListSelectorP
       ))}
     </>
   );
-}
+};
 
 export default RHFNativeBaseListSelector;

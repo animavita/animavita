@@ -7,7 +7,7 @@ import MainNavigator from './src/navigation/main-navigator';
 import queryClient from './src/services/query-client-instance';
 import theme from './src/theme';
 
-export default function App() {
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <NativeBaseProvider theme={theme}>
@@ -17,4 +17,6 @@ export default function App() {
       </NativeBaseProvider>
     </QueryClientProvider>
   );
-}
+};
+
+export default App;
