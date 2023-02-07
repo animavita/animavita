@@ -1,28 +1,47 @@
+import { AdoptionType } from '@animavita/models';
 import { createValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Box } from 'native-base';
+import { Box, useToast } from 'native-base';
 import React from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import { useMultiStepNavigation } from './adoption-form.hooks';
+import { AdoptionSteps } from './adoption-form.types';
 import FormSteps from './compose/form-steps';
 import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
+import useAdoptions from '../../hooks/use-adoptions';
 
-export default function RegisterAdoptionForm() {
-  const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } = useMultiStepNavigation();
-  const adoptionForm = useForm({
-    defaultValues: {
-      name: '',
-      gender: '',
-      breed: '',
-      type: '',
-      age: 1,
-      size: '',
-    },
+type RegisterAdoptionFormProps = {
+  defaultValues?: Partial<AdoptionType>;
+  initialStep?: AdoptionSteps;
+};
+
+const RegisterAdoptionForm = ({ defaultValues, initialStep }: RegisterAdoptionFormProps) => {
+  const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } =
+    useMultiStepNavigation(initialStep);
+  const adoptionForm = useForm<Partial<AdoptionType>>({
     resolver: joiResolver(createValidationSchema),
     mode: 'onBlur',
+    defaultValues,
   });
+  const { saveOrCreateAdoption, saving } = useAdoptions();
+  const toast = useToast();
+
+  const onConfirm = async () => {
+    const isValid = await adoptionForm.trigger();
+
+    if (!isValid) {
+      toast.show({
+        description: 'Invalid data!',
+      });
+      return;
+    }
+
+    const adoption = adoptionForm.getValues();
+
+    await saveOrCreateAdoption(adoption);
+  };
 
   return (
     <Box height="full">
@@ -39,13 +58,17 @@ export default function RegisterAdoptionForm() {
         </Box>
 
         <StepperController
-          handleBack={handleBack}
-          handleNext={handleNext}
           isLastStep={isLastStep}
           isFirstStep={isFirstStep}
           activeStep={activeStep}
+          saving={saving}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          onConfirm={onConfirm}
         />
       </FormProvider>
     </Box>
   );
-}
+};
+
+export default RegisterAdoptionForm;
