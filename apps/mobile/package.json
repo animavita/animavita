@@ -7,7 +7,7 @@
     "android": "ENV=dev expo start --android",
     "ios": "ENV=dev expo start --ios",
     "web": "ENV=dev expo start --web",
-    "test": "jest --coverage",
+    "test": "pnpm run lint && jest --coverage",
     "lint": "eslint . --fix"
   },
   "dependencies": {
