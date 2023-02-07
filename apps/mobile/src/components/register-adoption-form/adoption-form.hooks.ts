@@ -48,7 +48,7 @@ export const useMultiStepNavigation = (initialStep = AdoptionSteps.PetName) => {
   };
 };
 
-const mountErrorMessage = (fieldName: string, type: string) => {
+export const mountErrorMessage = (fieldName: string, type: string) => {
   return `${fieldName.toUpperCase()}_${type.toUpperCase().replace('.', '_')}`;
 };
 
@@ -66,7 +66,7 @@ export const useFormValidation = () => {
 
     const id = 'adoption-form-toast';
     const errorMessage = mountErrorMessage(fieldName, fieldError?.type as string);
-    const description = t(`REGISTER_ADOPTION.FORM.${errorMessage}`) as React.ReactNode;
+    const description = t(`REGISTER_ADOPTION.FORM_ERROR_MESSAGES.${errorMessage}`) as React.ReactNode;
 
     if (!isActive(id)) show({ id, description });
   };

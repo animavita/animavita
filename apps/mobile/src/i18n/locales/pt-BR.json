@@ -5,10 +5,8 @@
     "STEP": "Passo",
     "FORM": {
       "NAME": "Nome do Pet",
-      "NAME_STRING_EMPTY": "Nome do Pet não pode ser vazio",
       "NAME_PLACEHOLDER": "Digite o nome do Pet",
       "BREED": "Raça do Pet",
-      "BREED_STRING_EMPTY": "Raça do Pet não pode ser vazia",
       "BREED_PLACEHOLDER": "Digite a raça do Pet",
       "OBSERVATIONS": "Observações",
       "OBSERVATIONS_PLACEHOLDER": "Observações adicionais sobre o Pet",
@@ -18,24 +16,28 @@
         "CAT": "Gato",
         "OTHER": "Outro"
       },
-      "TYPE_STRING_EMPTY": "Informe o tipo do seu Pet",
       "AGE": "Idade do Pet",
       "GENDER": {
         "LABEL": "Sexo do Pet",
         "MALE": "Macho",
         "FEMALE": "Fêmea"
       },
-      "GENDER_STRING_EMPTY": "Informe o sexo do seu Pet",
       "SIZE": {
         "LABEL": "Porte do Pet",
         "SMALL": "Pequeno",
         "MEDIUM": "Médio",
         "BIG": "Grande"
       },
-      "SIZE_STRING_EMPTY": "Informe o porte do seu Pet",
       "BACK_BUTTON": "Voltar",
       "NEXT_BUTTON": "Próxima etapa",
       "CONFIRM_BUTTON": "Confirmar"
+    },
+    "FORM_ERROR_MESSAGES": {
+      "NAME_STRING_EMPTY": "Nome do Pet não pode ser vazio",
+      "BREED_STRING_EMPTY": "Raça do Pet não pode ser vazia",
+      "TYPE_STRING_EMPTY": "Informe o tipo do seu Pet",
+      "GENDER_STRING_EMPTY": "Informe o sexo do seu Pet",
+      "SIZE_STRING_EMPTY": "Informe o porte do seu Pet"
     }
   }
 }
