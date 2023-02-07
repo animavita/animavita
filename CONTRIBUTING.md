@@ -40,7 +40,7 @@ $ docker-compose up -d
 
 Alternatively you can setup your own mongo database without docker.
 
-Build the shared packages:
+###Build the shared packages:
 
 ```sh
 $ pnpm --filter "./shared/**" run build
@@ -49,7 +49,7 @@ $ pnpm --filter "./shared/**" run build
 // you must rebuild it. We are going to automate this soon.
 ```
 
-Then, run the apps:
+###Then, run the apps:
 
 ```sh
 $ pnpm --filter backend start
