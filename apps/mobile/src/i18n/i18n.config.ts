@@ -9,7 +9,7 @@ export const resources = {
   },
 };
 
-export function initI18n(language: string) {
+export const initI18n = (language: string) => {
   const i18nInstanceAlreadyStarted = !!i18n.language;
 
   if (!i18nInstanceAlreadyStarted) {
@@ -25,6 +25,6 @@ export function initI18n(language: string) {
   }
 
   return i18n;
-}
+};
 
 export default i18n;

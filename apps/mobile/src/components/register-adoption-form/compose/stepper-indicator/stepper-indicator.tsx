@@ -7,7 +7,7 @@ import theme from '../../../../theme';
 import { stepsLibrary } from '../../adoption-form.constants';
 import { StepperIndicatorProps } from '../../adoption-form.types';
 
-function StepperIndicator({ activeStep }: StepperIndicatorProps) {
+const StepperIndicator = ({ activeStep }: StepperIndicatorProps) => {
   const { t } = useLocale();
 
   const totalSteps = Object.keys(stepsLibrary).length;
@@ -63,6 +63,6 @@ function StepperIndicator({ activeStep }: StepperIndicatorProps) {
       </Box>
     </Box>
   );
-}
+};
 
 export default StepperIndicator;

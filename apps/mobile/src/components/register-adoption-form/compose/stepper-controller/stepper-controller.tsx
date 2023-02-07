@@ -7,7 +7,7 @@ import { stepsLibrary } from '../../adoption-form.constants';
 import { useFormValidation } from '../../adoption-form.hooks';
 import { StepperControllerProps } from '../../adoption-form.types';
 
-function StepperController({
+const StepperController = ({
   handleBack,
   handleNext,
   onConfirm,
@@ -15,7 +15,7 @@ function StepperController({
   isFirstStep,
   activeStep,
   saving,
-}: StepperControllerProps) {
+}: StepperControllerProps) => {
   const { t } = useLocale();
   const { validateField } = useFormValidation();
 
@@ -60,6 +60,6 @@ function StepperController({
       </Button>
     </Box>
   );
-}
+};
 
 export default StepperController;
