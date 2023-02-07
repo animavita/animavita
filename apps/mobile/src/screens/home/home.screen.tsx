@@ -6,10 +6,10 @@ import Routes from '../../routes';
 import client from '../../services/http-client';
 import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
 
-export default function Home() {
+const Home = () => {
   const navigation = useNavigation();
 
-  const { adoptions, isLoading } = useAdoptions();
+  const { adoptions, loading } = useAdoptions();
 
   return (
     <View flex="1" alignItems="center" justifyContent="center">
@@ -24,7 +24,7 @@ export default function Home() {
       >
         Register Adoption
       </Button>
-      {isLoading && <Text>Loading...</Text>}
+      {loading && <Text>Loading...</Text>}
       {adoptions && (
         <Box>
           {adoptions.map((adoption) => {
@@ -42,4 +42,6 @@ export default function Home() {
       )}
     </View>
   );
-}
+};
+
+export default Home;

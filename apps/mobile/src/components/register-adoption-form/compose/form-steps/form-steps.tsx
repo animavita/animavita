@@ -15,7 +15,7 @@ const commonInputProperties = {
   autoFocus: true,
 };
 
-function PetNameStep() {
+const PetNameStep = () => {
   const { t } = useLocale();
   const { control } = useFormContext();
 
@@ -24,14 +24,15 @@ function PetNameStep() {
       input={{
         ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER'),
+        testID: 'adoption-form-name-input',
       }}
       control={control}
       name={stepsLibrary.PetName.fieldName}
     />
   );
-}
+};
 
-function PetBreedStep() {
+const PetBreedStep = () => {
   const { t } = useLocale();
   const { control } = useFormContext();
 
@@ -40,14 +41,15 @@ function PetBreedStep() {
       input={{
         ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.BREED_PLACEHOLDER'),
+        testID: 'adoption-form-breed-input',
       }}
       control={control}
       name={stepsLibrary.PetBreed.fieldName}
     />
   );
-}
+};
 
-function PetObservationsStep() {
+const PetObservationsStep = () => {
   const { t } = useLocale();
   const { control } = useFormContext();
 
@@ -63,9 +65,9 @@ function PetObservationsStep() {
       name={stepsLibrary.PetObservations.fieldName}
     />
   );
-}
+};
 
-function PetTypeStep() {
+const PetTypeStep = () => {
   const { t } = useLocale();
 
   const options = ['DOG', 'CAT', 'OTHER'].map((type) => ({
@@ -74,9 +76,9 @@ function PetTypeStep() {
   }));
 
   return <RHFListSelector name={stepsLibrary.PetType.fieldName} options={options} />;
-}
+};
 
-function PetAgeStep() {
+const PetAgeStep = () => {
   const { t } = useLocale();
   const { setValue } = useFormContext();
   const fieldName = stepsLibrary.PetAge.fieldName;
@@ -91,6 +93,7 @@ function PetAgeStep() {
         minValue={0}
         maxValue={100}
         accessibilityLabel={t('REGISTER_ADOPTION.FORM.AGE')}
+        testID="adoption-form-age-input"
       >
         <Slider.Track>
           <Slider.FilledTrack />
@@ -102,9 +105,9 @@ function PetAgeStep() {
       </Text>
     </Box>
   );
-}
+};
 
-function PetSizeStep() {
+const PetSizeStep = () => {
   const { t } = useLocale();
 
   const options = ['SMALL', 'MEDIUM', 'BIG'].map((type) => ({
@@ -113,9 +116,9 @@ function PetSizeStep() {
   }));
 
   return <RHFListSelector name={stepsLibrary.PetSize.fieldName} options={options} />;
-}
+};
 
-function PetGenderStep() {
+const PetGenderStep = () => {
   const { t } = useLocale();
 
   const options = ['MALE', 'FEMALE'].map((type) => ({
@@ -124,9 +127,9 @@ function PetGenderStep() {
   }));
 
   return <RHFListSelector name={stepsLibrary.PetGender.fieldName} options={options} />;
-}
+};
 
-function FormSteps({ activeStep }: { activeStep: AdoptionSteps }) {
+const FormSteps = ({ activeStep }: { activeStep: AdoptionSteps }) => {
   switch (activeStep) {
     case AdoptionSteps.PetName:
       return <PetNameStep />;
@@ -145,6 +148,6 @@ function FormSteps({ activeStep }: { activeStep: AdoptionSteps }) {
     default:
       return null;
   }
-}
+};
 
 export default FormSteps;
