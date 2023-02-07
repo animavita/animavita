@@ -20,4 +20,4 @@ jobs:
 
       - name: Run mobile tests
         working-directory: apps/mobile
-        run: pnpm run test
+        run: pnpm run test --maxWorkers=2 --ci --colors --bail

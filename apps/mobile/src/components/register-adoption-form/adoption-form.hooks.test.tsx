@@ -55,7 +55,7 @@ describe('useMultiStepNavigation', () => {
   });
 });
 
-describe('#getStepsByOrder', () => {
+describe('getStepsByOrder', () => {
   it('returns step ids ordered', () => {
     expect(getStepsByOrder(stepsLibrary)).toStrictEqual({
       0: AdoptionSteps.PetName,

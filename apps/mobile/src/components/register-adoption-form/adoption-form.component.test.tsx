@@ -95,11 +95,9 @@ describe('AdoptionForm', () => {
 
         const confirmButton = screen.getByText(/confirmar/i);
 
-        await act(async () => {
-          fireEvent.press(confirmButton);
-          const home = await screen.findByText(/adoptions demo/i);
-          expect(home).toBeOnTheScreen();
-        });
+        fireEvent.press(confirmButton);
+        const home = await screen.findByText(/adoptions demo/i);
+        expect(home).toBeOnTheScreen();
       });
     });
 
