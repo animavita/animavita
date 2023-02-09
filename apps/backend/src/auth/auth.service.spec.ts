@@ -113,7 +113,7 @@ describe('AuthService', () => {
           refreshToken: expect.any(String),
         }),
       );
-      expect(userServiceUpdate).toBeCalled();
+      expect(userServiceUpdate).toBeCalledTimes(1);
     });
 
     it('should throw if user not found', async () => {
