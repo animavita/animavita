@@ -1,10 +1,10 @@
 import { useToast } from 'native-base';
 import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import useLocale from '../../shared/hooks/use-locale';
 
 import { stepsLibrary } from './adoption-form.constants';
 import { AdoptionSteps, Step } from './adoption-form.types';
+import useLocale from '../../shared/hooks/use-locale';
 
 export const getStepsByOrder = (stepsLibrary: { [key in AdoptionSteps]: Step }): {
   [key: number]: AdoptionSteps;
@@ -49,24 +49,26 @@ export const useMultiStepNavigation = (initialStep = AdoptionSteps.PetName) => {
 };
 
 export const mountErrorMessage = (fieldName: string, type: string) => {
-  return `${fieldName.toUpperCase()}_${type.toUpperCase().replace('.', '_')}`;
+  const [, kind] = type.toUpperCase().split('.');
+
+  return `${fieldName.toUpperCase()}_${kind}`;
 };
 
 export const useFormValidation = () => {
   const { t } = useLocale();
 
-  const {
-    trigger,
-    formState: { errors },
-  } = useFormContext();
+  const { trigger, getFieldState } = useFormContext();
   const { show, isActive } = useToast();
 
   const showFeedback = (fieldName: string) => {
-    const fieldError = errors[fieldName];
+    const fieldError = getFieldState(fieldName);
 
     const id = 'adoption-form-toast';
-    const errorMessage = mountErrorMessage(fieldName, fieldError?.type as string);
-    const description = t(`REGISTER_ADOPTION.FORM_ERROR_MESSAGES.${errorMessage}`) as React.ReactNode;
+
+    const errorMessage = mountErrorMessage(fieldName, fieldError?.error?.type as string);
+    const description = t(
+      `REGISTER_ADOPTION.FORM_ERROR_MESSAGES.${errorMessage}`
+    ) as React.ReactNode;
 
     if (!isActive(id)) show({ id, description });
   };
@@ -80,4 +82,4 @@ export const useFormValidation = () => {
   };
 
   return { validateField };
-}
+};

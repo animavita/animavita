@@ -1,9 +1,9 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { useToast } from 'native-base';
 import { useFormContext } from 'react-hook-form';
-import useLocale from '../../shared/hooks/use-locale';
 
 import { mountErrorMessage, useFormValidation } from './adoption-form.hooks';
+import useLocale from '../../shared/hooks/use-locale';
 
 jest.mock('../../shared/hooks/use-locale');
 jest.mock('native-base');
@@ -13,7 +13,7 @@ const useLocaleReturnedValue = { t: (key: string) => key };
 
 describe('mountErrorMessage', () => {
   it('returns error message', () => {
-    expect(mountErrorMessage('name', 'string.empty')).toBe('NAME_STRING_EMPTY');
+    expect(mountErrorMessage('name', 'any.required')).toBe('NAME_REQUIRED');
   });
 });
 
@@ -30,9 +30,9 @@ describe('useFormValidation', () => {
         jest.mocked(useFormContext).mockReturnValue({
           ...useFormContext(),
           trigger: () => Promise.resolve(true),
-          formState: {
-            errors: { name: { type: 'string.empty' } } as Record<string, any>,
-          } as any,
+          getFieldState: () => {
+            return { error: { type: 'any.required' } as Record<string, any> } as any;
+          },
         });
 
         const { result } = renderHook(() => useFormValidation());
@@ -54,7 +54,7 @@ describe('useFormValidation', () => {
           ...useFormContext(),
           trigger: () => Promise.resolve(false),
           formState: {
-            errors: { name: { type: 'string.empty' } } as Record<string, any>,
+            errors: { name: { type: 'any.required' } } as Record<string, any>,
           } as any,
         });
 
@@ -76,9 +76,9 @@ describe('useFormValidation', () => {
           jest.mocked(useFormContext).mockReturnValue({
             ...useFormContext(),
             trigger: () => Promise.resolve(false),
-            formState: {
-              errors: { name: { type: 'string.empty' } } as Record<string, any>,
-            } as any,
+            getFieldState: () => {
+              return { error: { type: 'any.required' } as Record<string, any> } as any;
+            },
           });
 
           const { result } = renderHook(() => useFormValidation());
@@ -88,7 +88,7 @@ describe('useFormValidation', () => {
           });
 
           expect(show).toBeCalledWith({
-            description: 'REGISTER_ADOPTION.FORM_ERROR_MESSAGES.NAME_STRING_EMPTY',
+            description: 'REGISTER_ADOPTION.FORM_ERROR_MESSAGES.NAME_REQUIRED',
             id: 'adoption-form-toast',
           });
         });
@@ -103,9 +103,9 @@ describe('useFormValidation', () => {
           jest.mocked(useFormContext).mockReturnValue({
             ...useFormContext(),
             trigger: () => Promise.resolve(false),
-            formState: {
-              errors: { name: { type: 'string.empty' } } as Record<string, any>,
-            } as any,
+            getFieldState: () => {
+              return { error: { type: 'any.required' } as Record<string, any> } as any;
+            },
           });
 
           const { result } = renderHook(() => useFormValidation());
