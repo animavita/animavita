@@ -3,95 +3,104 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { hash } from 'bcrypt';
 import * as argon from 'argon2';
 
 import { userMock } from '../../test/mocks/user';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 
-const userServiceMock = {
-  create: jest.fn(),
-  findById: jest.fn(),
-  findByEmail: jest.fn(),
-  update: jest.fn(),
-};
+jest.mock('argon2', () => ({
+  verify: jest.fn().mockResolvedValue(true),
+  hash: jest.fn().mockResolvedValue('hash'),
+}));
 
-const configServiceMock = {
-  get: jest.fn((key) => {
-    const values = {
-      JWT_ACCESS_SECRET: 'jwt_access_token_super_secret_key',
-      JWT_REFRESH_SECRET: 'jwt_refresh_token_super_secret_key',
-    };
-    return values[key] || null;
-  }),
-};
+const setup = async () => {
+  const persistedUser = {
+    id: 'someId',
+    refreshToken: 'oldToken',
+    ...userMock,
+  };
 
-const SALT_ROUNDS = 10;
+  const userServiceMock = {
+    create: jest.fn().mockResolvedValue(persistedUser),
+    findById: jest.fn().mockResolvedValue(persistedUser),
+    findByEmail: jest.fn().mockResolvedValue(persistedUser),
+    update: jest.fn().mockResolvedValue(persistedUser),
+  };
+
+  const jwtServiceMock = {
+    signAsync: jest.fn().mockImplementation(() => Promise.resolve('token')),
+  };
+
+  const module: TestingModule = await Test.createTestingModule({
+    imports: [JwtModule, ConfigModule],
+    providers: [
+      AuthService,
+      ConfigService,
+      {
+        provide: JwtService,
+        useValue: jwtServiceMock,
+      },
+      {
+        provide: UserService,
+        useValue: userServiceMock,
+      },
+    ],
+  }).compile();
+
+  const service = module.get<AuthService>(AuthService);
+  const jwtService = module.get<JwtService>(JwtService);
+  const configService = module.get<ConfigService>(ConfigService);
+  const userService = module.get<UserService>(UserService);
+
+  return {
+    persistedUser,
+    service,
+    jwtService,
+    configService,
+    userService,
+  };
+};
 
 describe('AuthService', () => {
-  let service: AuthService;
-  let jwtService: JwtService;
-  let configService: ConfigService;
-  let userService: UserService;
-
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      imports: [JwtModule, ConfigModule],
-      providers: [
-        AuthService,
-        JwtService,
-        {
-          provide: ConfigService,
-          useValue: configServiceMock,
-        },
-        {
-          provide: UserService,
-          useValue: userServiceMock,
-        },
-      ],
-    }).compile();
-
-    service = module.get<AuthService>(AuthService);
-    jwtService = module.get<JwtService>(JwtService);
-    configService = module.get<ConfigService>(ConfigService);
-    userService = module.get<UserService>(UserService);
-  });
-
-  it('should be defined', () => {
+  it('should be defined', async () => {
+    const { service } = await setup();
     expect(service).toBeDefined();
   });
 
   describe('Dependencies', () => {
     describe('JwtService', () => {
-      it('should be defined', () => expect(jwtService).toBeDefined());
+      it('should be defined', async () => {
+        const { jwtService } = await setup();
+        expect(jwtService).toBeDefined();
+      });
     });
     describe('ConfigService', () => {
-      it('should be defined', () => expect(configService).toBeDefined());
+      it('should be defined', async () => {
+        const { configService } = await setup();
+        expect(configService).toBeDefined();
+      });
     });
     describe('UserService', () => {
-      it('should be defined', () => expect(userService).toBeDefined());
+      it('should be defined', async () => {
+        const { userService } = await setup();
+        expect(userService).toBeDefined();
+      });
     });
   });
 
   describe('signUp', () => {
     it('should register a new user', async () => {
-      jest.spyOn(userService, 'create').mockResolvedValueOnce(userMock);
-      await expect(service.signUp(userMock)).resolves.toEqual(userMock);
+      const { service, persistedUser } = await setup();
+      await expect(service.signUp(userMock)).resolves.toEqual(persistedUser);
     });
   });
 
   describe('signIn', () => {
     it('should generate a pair of tokens if user successfully logged', async () => {
-      const user = {
-        id: 'someId',
-        ...userMock,
-        password: await hash(userMock.password, SALT_ROUNDS),
-      };
-      jest.spyOn(userService, 'findByEmail').mockResolvedValueOnce(user);
-      const spiedFunction = jest
-        .spyOn(userService, 'update')
-        .mockResolvedValueOnce(null);
+      const { service, userService } = await setup();
+
+      const userServiceUpdate = jest.spyOn(userService, 'update');
 
       const tokens = await service.signIn({
         email: userMock.email,
@@ -104,11 +113,14 @@ describe('AuthService', () => {
           refreshToken: expect.any(String),
         }),
       );
-      expect(spiedFunction).toBeCalled();
+      expect(userServiceUpdate).toBeCalled();
     });
 
     it('should throw if user not found', async () => {
+      const { service, userService } = await setup();
+
       jest.spyOn(userService, 'findByEmail').mockResolvedValueOnce(null);
+
       await expect(
         service.signIn({
           email: userMock.email,
@@ -118,12 +130,9 @@ describe('AuthService', () => {
     });
 
     it('should throw if password do not match', async () => {
-      const user = {
-        ...userMock,
-        password: await hash(userMock.password + 'diff_password', SALT_ROUNDS),
-      };
+      const { service } = await setup();
 
-      jest.spyOn(userService, 'findByEmail').mockResolvedValueOnce(user);
+      jest.spyOn(argon, 'verify').mockResolvedValueOnce(false);
 
       await expect(
         service.signIn({
@@ -136,48 +145,25 @@ describe('AuthService', () => {
 
   describe('logout', () => {
     it('should update users refresh token to null', async () => {
-      const spiedFunction = jest.spyOn(userService, 'update');
+      const { service, userService } = await setup();
+
+      const userServiceUpdate = jest.spyOn(userService, 'update');
 
       await service.logout('someId');
 
-      expect(spiedFunction).toBeCalledWith('someId', {
+      expect(userServiceUpdate).toBeCalledWith('someId', {
         refreshToken: null,
       });
     });
   });
 
   describe('refreshTokens', () => {
-    let user;
-    let tokens;
-
-    beforeEach(async () => {
-      user = {
-        id: 'someId',
-        ...userMock,
-        password: await hash(userMock.password, SALT_ROUNDS),
-      };
-
-      jest.spyOn(userService, 'findByEmail').mockResolvedValueOnce(user);
-      jest.spyOn(userService, 'update').mockResolvedValueOnce(null);
-
-      tokens = await service.signIn({
-        email: userMock.email,
-        password: userMock.password,
-      });
-    });
-
     it('should generate new pair of tokens', async () => {
-      jest.spyOn(userService, 'findById').mockResolvedValueOnce({
-        ...user,
-        refreshToken: await argon.hash(tokens.refreshToken),
-      });
-
-      // I need to wait a second because if I don't the tokens will be the same
-      await new Promise((r) => setTimeout(r, 1000));
+      const { service, persistedUser } = await setup();
 
       const newTokens = await service.refreshTokens(
-        user.id,
-        tokens.refreshToken,
+        persistedUser.id,
+        'oldToken',
       );
 
       expect(newTokens).toEqual(
@@ -186,58 +172,46 @@ describe('AuthService', () => {
           refreshToken: expect.any(String),
         }),
       );
-
-      expect(newTokens).not.toEqual(tokens);
     });
+
     it('should throw if user not found', async () => {
+      const { service, userService } = await setup();
+
       jest.spyOn(userService, 'findById').mockResolvedValueOnce(null);
 
       await expect(
-        service.refreshTokens(user.id, tokens.refreshToken),
+        service.refreshTokens('someId', 'oldToken'),
       ).rejects.toThrowError(ForbiddenException);
     });
 
     it('should throw if user has never logged in or has recently logout', async () => {
+      const { service, userService, persistedUser } = await setup();
+
       jest.spyOn(userService, 'findById').mockResolvedValueOnce({
-        ...user,
+        ...persistedUser,
         refreshToken: null,
       });
 
       await expect(
-        service.refreshTokens(user.id, 'some_token'),
+        service.refreshTokens(persistedUser.id, 'some_token'),
       ).rejects.toThrowError(ForbiddenException);
     });
 
     it('should throw if given token is null or undefined', async () => {
-      jest.spyOn(userService, 'findById').mockResolvedValueOnce({
-        ...user,
-        refreshToken: await argon.hash(tokens.refreshToken),
-      });
+      const { service, persistedUser } = await setup();
 
       await expect(
-        service.refreshTokens(user.id, 'different_token'),
+        service.refreshTokens(persistedUser.id, null),
       ).rejects.toThrowError(ForbiddenException);
     });
 
     it('should throw if given token its not the current', async () => {
-      jest.spyOn(userService, 'findByEmail').mockResolvedValueOnce(user);
-      jest.spyOn(userService, 'update').mockResolvedValueOnce(null);
+      const { service, persistedUser } = await setup();
 
-      // I need to wait a second because if I don't the tokens will be the same
-      await new Promise((r) => setTimeout(r, 1000));
-
-      const newTokens = await service.signIn({
-        email: userMock.email,
-        password: userMock.password,
-      });
-
-      jest.spyOn(userService, 'findById').mockResolvedValueOnce({
-        ...user,
-        refreshToken: await argon.hash(tokens.refreshToken),
-      });
+      jest.spyOn(argon, 'verify').mockResolvedValueOnce(false);
 
       await expect(
-        service.refreshTokens(user.id, newTokens.refreshToken),
+        service.refreshTokens(persistedUser.id, 'differentToken'),
       ).rejects.toThrowError(ForbiddenException);
     });
   });
