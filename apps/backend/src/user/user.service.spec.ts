@@ -66,7 +66,7 @@ describe('UserService', () => {
   });
 
   describe('findById', () => {
-    it('should find a user by his id', async () => {
+    it('should find a user by their id', async () => {
       const { service, repository } = await setup();
 
       jest.spyOn(repository, 'findById').mockResolvedValueOnce(userMock);
@@ -75,7 +75,7 @@ describe('UserService', () => {
   });
 
   describe('findByEmail', () => {
-    it('should find a user by his email', async () => {
+    it('should find a user by their email', async () => {
       const { service, repository } = await setup();
 
       jest.spyOn(repository, 'findByEmail').mockResolvedValueOnce(userMock);
