@@ -7,15 +7,12 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { UserType } from '@animavita/models';
 
-import { compare, hash } from 'bcrypt';
-import * as argon from 'argon2';
+import { hash, verify } from 'argon2';
 
 import { UserService } from '../user/user.service';
 
 @Injectable()
 export class AuthService {
-  private readonly SALT_ROUNDS = 10;
-
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
@@ -25,7 +22,7 @@ export class AuthService {
   async signUp(user: UserType) {
     return this.userService.create({
       ...user,
-      password: await hash(user.password, this.SALT_ROUNDS),
+      password: await hash(user.password),
     });
   }
 
@@ -34,7 +31,7 @@ export class AuthService {
 
     if (!foundUser) throw new BadRequestException('Wrong email or password');
 
-    const matches = await compare(user.password, foundUser.password);
+    const matches = await verify(foundUser.password, user.password);
 
     if (!matches) throw new BadRequestException('Wrong email or password');
 
@@ -57,7 +54,7 @@ export class AuthService {
     if (!user || !user.refreshToken || !refreshToken)
       throw new ForbiddenException('Access Denied');
 
-    const matches = await argon.verify(user.refreshToken, refreshToken);
+    const matches = await verify(user.refreshToken, refreshToken);
 
     if (!matches) throw new ForbiddenException('Access Denied');
 
@@ -70,7 +67,7 @@ export class AuthService {
 
   private async updateRefreshToken(userId: string, refreshToken: string) {
     await this.userService.update(userId, {
-      refreshToken: await argon.hash(refreshToken),
+      refreshToken: await hash(refreshToken),
     });
   }
 
