@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 
 import { UserRepository } from './repositories/user-repository.interface';
+import { UserMap } from './repositories/user.map';
 
 @Injectable()
 export class UserService {
@@ -20,7 +21,7 @@ export class UserService {
     if (foundUser)
       throw new UnprocessableEntityException('Email already taken');
 
-    return this.userRepository.create(user);
+    return this.userRepository.create(UserMap.toSchema(user));
   }
 
   findById(userId: string) {
@@ -36,6 +37,6 @@ export class UserService {
 
     if (!foundUser) throw new NotFoundException("User doesn't exist");
 
-    return this.userRepository.update(id, user);
+    return this.userRepository.update(id, UserMap.toSchema(user));
   }
 }

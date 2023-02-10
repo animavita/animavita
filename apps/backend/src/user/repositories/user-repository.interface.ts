@@ -1,8 +1,9 @@
 import { UserType } from '@animavita/models';
+import { IUser } from './mongodb/user.interface';
 
 export interface UserRepository {
-  create(user: UserType): Promise<UserType>;
+  create(user: IUser): Promise<UserType>;
   findById(userId: string): Promise<UserType>;
   findByEmail(email: string): Promise<UserType>;
-  update(id: string, user: Partial<UserType>): Promise<UserType>;
+  update(id: string, user: Partial<IUser>): Promise<UserType>;
 }

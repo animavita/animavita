@@ -13,5 +13,3 @@ export const userValidationSchema = Joi.object({
   location: coordinates,
   photoUri: Joi.string(),
 });
-
-

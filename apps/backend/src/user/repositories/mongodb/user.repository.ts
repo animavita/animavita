@@ -1,4 +1,3 @@
-import { UserType } from '@animavita/models';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -6,13 +5,15 @@ import { Model } from 'mongoose';
 
 import { UserRepository } from '../user-repository.interface';
 import { UserMap } from '../user.map';
-import { IUser } from './user.interface';
+import { IUser, UserDocument } from './user.interface';
 
 @Injectable()
 export class UserMongoDBRepository implements UserRepository {
-  constructor(@InjectModel('User') private readonly userModel: Model<IUser>) {}
+  constructor(
+    @InjectModel('User') private readonly userModel: Model<UserDocument>,
+  ) {}
 
-  async create(user: UserType) {
+  async create(user: IUser) {
     const createdUser = await this.userModel.create(user);
     return UserMap.toType(createdUser);
   }
@@ -27,7 +28,7 @@ export class UserMongoDBRepository implements UserRepository {
     return UserMap.toType(foundUser);
   }
 
-  async update(id: string, user: Partial<UserType>) {
+  async update(id: string, user: Partial<IUser>) {
     const updatedUser = await this.userModel.findOneAndUpdate(
       {
         id,
