@@ -39,90 +39,98 @@ const tomorrow = () => {
 };
 
 describe('Authentication (e2e)', () => {
-  it('/POST auth/signUp', async () => {
-    const { app } = await setup();
+  describe('/POST auth/signUp', () => {
+    it('returns a successful message', async () => {
+      const { app } = await setup();
 
-    const { body } = await request(app.getHttpServer())
-      .post('/api/v1/auth/signUp')
-      .send(userMock)
-      .expect(201);
+      const { body } = await request(app.getHttpServer())
+        .post('/api/v1/auth/signUp')
+        .send(userMock)
+        .expect(201);
 
-    expect(body).toStrictEqual({
-      message: 'User created successfully',
+      expect(body).toStrictEqual({
+        message: 'User created successfully',
+      });
+
+      await app.close();
     });
-
-    await app.close();
   });
 
-  it('/POST auth/signIn', async () => {
-    const { app, service } = await setup();
+  describe('/POST auth/signIn', () => {
+    it('returns a successful message', async () => {
+      const { app, service } = await setup();
 
-    await service.signUp(userMock);
+      await service.signUp(userMock);
 
-    const { body } = await request(app.getHttpServer())
-      .post('/api/v1/auth/signIn')
-      .send({
-        email: userMock.email,
-        password: userMock.password,
-      })
-      .expect(201);
+      const { body } = await request(app.getHttpServer())
+        .post('/api/v1/auth/signIn')
+        .send({
+          email: userMock.email,
+          password: userMock.password,
+        })
+        .expect(201);
 
-    expect(body).toEqual(
-      expect.objectContaining({
-        accessToken: expect.any(String),
-        refreshToken: expect.any(String),
-      }),
-    );
+      expect(body).toEqual(
+        expect.objectContaining({
+          accessToken: expect.any(String),
+          refreshToken: expect.any(String),
+        }),
+      );
 
-    await app.close();
+      await app.close();
+    });
   });
 
-  it('/GET auth/logout', async () => {
-    const { app, service } = await setup();
+  describe('/GET auth/logout', () => {
+    it('returns a successful message', async () => {
+      const { app, service } = await setup();
 
-    const { accessToken } = await service.signUp(userMock).then(() =>
-      service.signIn({
-        email: userMock.email,
-        password: userMock.password,
-      }),
-    );
-
-    await request(app.getHttpServer())
-      .get('/api/v1/auth/logout')
-      .auth(accessToken, { type: 'bearer' })
-      .expect(200);
-
-    await app.close();
-  });
-
-  it('/GET auth/refresh', async () => {
-    const { app, service } = await setup();
-
-    const { accessToken, refreshToken } = await service
-      .signUp(userMock)
-      .then(() =>
+      const { accessToken } = await service.signUp(userMock).then(() =>
         service.signIn({
           email: userMock.email,
           password: userMock.password,
         }),
       );
 
-    jest.useFakeTimers({
-      doNotFake: ['nextTick'],
-      now: tomorrow(),
+      await request(app.getHttpServer())
+        .get('/api/v1/auth/logout')
+        .auth(accessToken, { type: 'bearer' })
+        .expect(200);
+
+      await app.close();
     });
+  });
 
-    const { body } = await request(app.getHttpServer())
-      .get('/api/v1/auth/refresh')
-      .auth(refreshToken, { type: 'bearer' })
-      .expect(200);
+  describe('/GET auth/refresh', () => {
+    it('returns a successful message', async () => {
+      const { app, service } = await setup();
 
-    expect(body).not.toEqual({
-      accessToken,
-      refreshToken,
+      const { accessToken, refreshToken } = await service
+        .signUp(userMock)
+        .then(() =>
+          service.signIn({
+            email: userMock.email,
+            password: userMock.password,
+          }),
+        );
+
+      jest.useFakeTimers({
+        doNotFake: ['nextTick'],
+        now: tomorrow(),
+      });
+
+      const { body } = await request(app.getHttpServer())
+        .get('/api/v1/auth/refresh')
+        .auth(refreshToken, { type: 'bearer' })
+        .expect(200);
+
+      expect(body).not.toEqual({
+        accessToken,
+        refreshToken,
+      });
+
+      await app.close();
     });
-
-    await app.close();
   });
 
   afterEach(async () => {
