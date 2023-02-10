@@ -4,8 +4,8 @@ import React from 'react';
 import useLocale from '../../../../shared/hooks/use-locale';
 import theme from '../../../../theme';
 import { stepsLibrary } from '../../adoption-form.constants';
-import { useFormValidation } from '../../adoption-form.hooks';
 import { StepperControllerProps } from '../../adoption-form.types';
+import { useFormValidation } from '../../hooks/use-form-validation.hook';
 
 const StepperController = ({
   handleBack,

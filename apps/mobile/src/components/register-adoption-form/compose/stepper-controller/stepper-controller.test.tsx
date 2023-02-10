@@ -3,8 +3,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import StepperController from './stepper-controller';
 import { renderWithProviders, fireEvent, waitFor } from '../../../../test/test-utils';
-import * as useFormValidationModule from '../../adoption-form.hooks';
 import { AdoptionSteps, StepperControllerProps } from '../../adoption-form.types';
+import * as useFormValidationModule from '../../hooks/use-form-validation.hook';
 
 const handleBack = jest.fn();
 const handleNext = jest.fn();
