@@ -1,9 +1,7 @@
-import { useToast } from 'native-base';
-import React, { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useState } from 'react';
 
-import { stepsLibrary } from './adoption-form.constants';
-import { Step, AdoptionSteps } from './adoption-form.types';
+import { stepsLibrary } from '../adoption-form.constants';
+import { AdoptionSteps, Step } from '../adoption-form.types';
 
 export const getStepsByOrder = (stepsLibrary: { [key in AdoptionSteps]: Step }): {
   [key: number]: AdoptionSteps;
@@ -44,36 +42,5 @@ export const useMultiStepNavigation = (initialStep = AdoptionSteps.PetName) => {
     handleBack,
     handleNext,
     activeStep,
-  };
-};
-
-export const useFormValidation = () => {
-  const { trigger, getFieldState } = useFormContext();
-  const { show, isActive } = useToast();
-
-  const showFeedback = (fieldName: string) => {
-    const fieldState = getFieldState(fieldName);
-
-    const id = 'adoption-form-toast';
-    const description = fieldState?.error?.message as React.ReactNode;
-
-    if (!isActive(id)) {
-      show({
-        description,
-        id,
-      });
-    }
-  };
-
-  const validateField = async (fieldName: string) => {
-    const isValid = await trigger(fieldName, { shouldFocus: true });
-
-    if (!isValid) showFeedback(fieldName);
-
-    return isValid;
-  };
-
-  return {
-    validateField,
   };
 };
