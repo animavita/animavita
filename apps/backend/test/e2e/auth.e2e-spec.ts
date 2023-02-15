@@ -114,6 +114,8 @@ describe('Authentication (e2e)', () => {
           }),
         );
 
+      console.log({ refreshToken });
+
       jest.useFakeTimers({
         doNotFake: ['nextTick'],
         now: tomorrow(),

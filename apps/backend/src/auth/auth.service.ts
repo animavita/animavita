@@ -51,10 +51,19 @@ export class AuthService {
   async refreshTokens(userId: string, refreshToken: string) {
     const user = await this.userService.findById(userId);
 
+    console.log({
+      user,
+      refreshToken,
+    });
+
     if (!user || !user.refreshToken || !refreshToken)
       throw new ForbiddenException('Access Denied');
 
     const matches = await verify(user.refreshToken, refreshToken);
+
+    console.log({
+      matches,
+    });
 
     if (!matches) throw new ForbiddenException('Access Denied');
 
