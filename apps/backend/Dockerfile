@@ -22,7 +22,7 @@ RUN pnpm -r build
 FROM base as pruned
 RUN pnpm --filter backend deploy pruned
 
-FROM node:16-alpine
+FROM node:16
 WORKDIR /app
 
 ENV NODE_ENV=development
