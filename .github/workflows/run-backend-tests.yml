@@ -15,7 +15,7 @@ jobs:
       JWT_ACCESS_SECRET: ntxrNROULC23kz95igkbulmxuRQhnLYe9tt46Fk2mTs=
       JWT_ACCESS_TOKEN_EXPIRATION: 5m
       JWT_REFRESH_SECRET: bmp1tdFjGbq3SGXiH2lzarbJbfEziveC8wuO1e_wnIc
-      JWT_REFRESH_TOKEN_EXPIRATION: 5m
+      JWT_REFRESH_TOKEN_EXPIRATION: 7d
     steps:
       - name: 🏗 Setup repository
         uses: actions/checkout@v3
