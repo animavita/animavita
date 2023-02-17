@@ -7,8 +7,13 @@ README.md
 npm-debug.log
 .dockerignore
 Dockerfile
+docker-compose
+LICENSE.md
 
 # Directories
 node_modules
 test
 dist
+.github
+.vscode
+apps/mobile
