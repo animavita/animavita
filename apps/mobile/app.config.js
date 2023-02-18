@@ -9,10 +9,10 @@ module.exports = ({ config }) => {
         };
       }
       case 'staging': {
-        return 'animavita-backend-staging.fly.dev';
+        return 'https://animavita-backend-staging.fly.dev';
       }
       case 'prod': {
-        return 'http://api.animavita.com';
+        return 'https://api.animavita.com';
       }
     }
   };

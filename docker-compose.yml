@@ -5,12 +5,20 @@ services:
     build:
       context: .
       dockerfile: apps/backend/Dockerfile
+      target: development
+    volumes:
+      - ./apps/backend:/app/apps/backend
     depends_on:
       - mongodb
     ports:
       - 3000:3000
     environment:
       - MONGODB_URI=mongodb://mongo:mongo@animavita_mongo/?authMechanism=DEFAULT
+      - JWT_ACCESS_SECRET=123
+      - JWT_ACCESS_TOKEN_EXPIRATION=24h
+      - JWT_REFRESH_SECRET=321
+      - JWT_REFRESH_TOKEN_EXPIRATION=14d
+    command: pnpm run start:dev
   mongodb:
     container_name: animavita_mongo
     image: mongo:6.0.2
