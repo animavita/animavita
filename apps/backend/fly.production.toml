@@ -7,6 +7,9 @@ processes = []
 
 [env]
 
+[build]
+  build-target = "deploy"
+
 [experimental]
   allowed_public_ports = []
   auto_rollback = true

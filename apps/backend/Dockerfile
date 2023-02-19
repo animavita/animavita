@@ -13,7 +13,7 @@ RUN pnpm install
 FROM dependencies as build
 RUN pnpm -r build
 
-FROM dependencies as pruned
+FROM build as pruned
 WORKDIR /app
 RUN pnpm --filter backend deploy pruned
 
