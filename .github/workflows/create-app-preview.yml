@@ -22,7 +22,7 @@ jobs:
 
       - name: 🚀 Publish preview
         working-directory: apps/mobile
-        run: ENV=prod expo publish --release-channel=pr-${{ github.event.number }}
+        run: ENV=staging expo publish --release-channel=pr-${{ github.event.number }}
 
       - name: 💬 Comment preview
         uses: expo/expo-github-action/preview-comment@v7

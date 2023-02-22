@@ -1,36 +1,31 @@
-FROM node:14 as base
+FROM node:16-alpine AS base
+RUN npm i -g pnpm
 
-RUN curl -f https://get.pnpm.io/v6.16.js | node - add --global pnpm
-
+FROM base AS dependencies
 WORKDIR /app
-
-# pnpm fetch does require only lockfile
-COPY pnpm-lock.yaml .
-RUN pnpm fetch
-
 COPY . .
-
-# workaround
+# workaround 
+# https://github.com/animavita/animavita/pull/134
 RUN rm .npmrc
 RUN mv .npmrc-default-node-linker .npmrc
+RUN pnpm install
 
-RUN pnpm install -r --offline 
+FROM dependencies as build
 RUN pnpm -r build
 
-########################
-
-FROM base as pruned
+FROM build as pruned
+WORKDIR /app
 RUN pnpm --filter backend deploy pruned
 
-FROM node:16-alpine
+FROM base as development
 WORKDIR /app
+COPY --from=pruned /app/pruned .
 
-ENV NODE_ENV=development
-
+FROM base as deploy
+WORKDIR /app
+ENV NODE_ENV=production
 COPY --from=pruned /app/pruned/dist .
 COPY --from=pruned /app/pruned/node_modules node_modules
-
 EXPOSE 3001
-
 ENTRYPOINT ["node", "main.js"]
 

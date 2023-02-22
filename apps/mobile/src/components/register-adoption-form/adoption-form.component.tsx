@@ -3,13 +3,13 @@ import { createValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Box, useToast } from 'native-base';
 import React from 'react';
-import { useForm, FormProvider } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
-import { useMultiStepNavigation } from './adoption-form.hooks';
 import { AdoptionSteps } from './adoption-form.types';
 import FormSteps from './compose/form-steps';
 import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
+import { useMultiStepNavigation } from './hooks/use-multi-step-navigation.hook';
 import useAdoptions from '../../hooks/use-adoptions';
 
 type RegisterAdoptionFormProps = {
@@ -18,8 +18,9 @@ type RegisterAdoptionFormProps = {
 };
 
 const RegisterAdoptionForm = ({ defaultValues, initialStep }: RegisterAdoptionFormProps) => {
-  const { activeStep, handleBack, handleNext, isLastStep, isFirstStep } =
+  const { activeStep, isLastStep, isFirstStep, handleBack, handleNext } =
     useMultiStepNavigation(initialStep);
+
   const adoptionForm = useForm<Partial<AdoptionType>>({
     resolver: joiResolver(createValidationSchema),
     mode: 'onBlur',

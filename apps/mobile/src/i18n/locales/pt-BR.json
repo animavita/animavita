@@ -4,26 +4,26 @@
     "TITLE": "Cadastrar Adoção",
     "STEP": "Passo",
     "FORM": {
-      "NAME": "Nome do pet",
-      "NAME_PLACEHOLDER": "Digite o nome do pet",
-      "BREED": "Raça do pet",
-      "BREED_PLACEHOLDER": "Digite a raça do pet",
+      "NAME": "Nome do Pet",
+      "NAME_PLACEHOLDER": "Digite o nome do Pet",
+      "BREED": "Raça do Pet",
+      "BREED_PLACEHOLDER": "Digite a raça do Pet",
       "OBSERVATIONS": "Observações",
-      "OBSERVATIONS_PLACEHOLDER": "Observações adicionais sobre o pet",
+      "OBSERVATIONS_PLACEHOLDER": "Observações adicionais sobre o Pet",
       "TYPE_OPTIONS": {
-        "LABEL": "Tipo do pet",
+        "LABEL": "Tipo do Pet",
         "DOG": "Cão",
         "CAT": "Gato",
         "OTHER": "Outro"
       },
-      "AGE": "Idade do pet",
+      "AGE": "Idade do Pet",
       "GENDER": {
-        "LABEL": "Sexo do pet",
+        "LABEL": "Sexo do Pet",
         "MALE": "Macho",
         "FEMALE": "Fêmea"
       },
       "SIZE": {
-        "LABEL": "Porte do pet",
+        "LABEL": "Porte do Pet",
         "SMALL": "Pequeno",
         "MEDIUM": "Médio",
         "BIG": "Grande"
@@ -31,6 +31,14 @@
       "BACK_BUTTON": "Voltar",
       "NEXT_BUTTON": "Próxima etapa",
       "CONFIRM_BUTTON": "Confirmar"
+    },
+    "FORM_ERROR_MESSAGES": {
+      "NAME_REQUIRED": "Nome do Pet não pode ser vazio",
+      "BREED_REQUIRED": "Raça do Pet não pode ser vazia",
+      "TYPE_REQUIRED": "Informe o tipo do seu Pet",
+      "AGE_REQUIRED": "Informe a idade do seu Pet",
+      "GENDER_REQUIRED": "Informe o sexo do seu Pet",
+      "SIZE_REQUIRED": "Informe o porte do seu Pet"
     }
   }
 }

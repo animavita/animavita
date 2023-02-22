@@ -24,21 +24,29 @@ Install dependencies:
 $ pnpm install
 ```
 
-From the backend app level, copy the env file:
+### Running the infra & backend with docker
 
-```sh
-$ cp apps/backend/.env.example apps/backend/.env
-```
-
-### Docker
-
-We have a `docker-compose` file that sets up a mongodb database. Just run:
+We have a `docker-compose` file that sets up a mongodb database and the backend app for you. Just run:
 
 ```sh
 $ docker-compose up -d
 ```
 
-Alternatively you can setup your own mongo database without docker.
+### Running without docker
+
+Alternatively you can setup your own mongo database without docker. Then, from the backend app level, copy the env file:
+
+```sh
+$ cp apps/backend/.env.example apps/backend/.env
+```
+
+Then, run the app:
+
+```sh
+$ pnpm --filter backend start
+```
+
+### Running the mobile app
 
 Build the shared packages:
 
@@ -49,10 +57,9 @@ $ pnpm --filter "./shared/**" run build
 // you must rebuild it. We are going to automate this soon.
 ```
 
-Then, run the apps:
+Then, run the app:
 
 ```sh
-$ pnpm --filter backend start
 $ pnpm --filter mobile start
 ```
 

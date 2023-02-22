@@ -4,7 +4,7 @@ import RegisterAdoptionForm from './adoption-form.component';
 import { AdoptionSteps } from './adoption-form.types';
 import Routes from '../../routes';
 import Home from '../../screens/home/home.screen';
-import { renderWithProviders, screen, fireEvent, waitFor } from '../../test/test-utils';
+import { fireEvent, renderWithProviders, screen, waitFor } from '../../test/test-utils';
 
 const mockShow = jest.fn();
 jest.mock('native-base', () => ({
@@ -61,27 +61,27 @@ const MainNavigator = () => {
 const stepErrors: { step: AdoptionSteps; errorMessage: string }[] = [
   {
     step: AdoptionSteps.PetName,
-    errorMessage: `"name" is required`,
+    errorMessage: 'Nome do Pet não pode ser vazio',
   },
   {
     step: AdoptionSteps.PetBreed,
-    errorMessage: `"breed" is required`,
+    errorMessage: 'Raça do Pet não pode ser vazia',
   },
   {
     step: AdoptionSteps.PetType,
-    errorMessage: `"type" is required`,
+    errorMessage: 'Informe o tipo do seu Pet',
   },
   {
     step: AdoptionSteps.PetAge,
-    errorMessage: `"age" is required`,
+    errorMessage: 'Informe a idade do seu Pet',
   },
   {
     step: AdoptionSteps.PetGender,
-    errorMessage: `"gender" is required`,
+    errorMessage: 'Informe o sexo do seu Pet',
   },
   {
     step: AdoptionSteps.PetSize,
-    errorMessage: `"size" is required`,
+    errorMessage: 'Informe o porte do seu Pet',
   },
 ];
 
