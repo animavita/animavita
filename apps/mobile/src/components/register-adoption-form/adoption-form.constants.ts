@@ -14,4 +14,9 @@ export const stepsLibrary: {
     label: 'REGISTER_ADOPTION.FORM.OBSERVATIONS',
     fieldName: 'observations',
   },
+  PetPhotos: {
+    order: 7,
+    label: 'REGISTER_ADOPTION.FORM.PHOTOS',
+    fieldName: 'photos',
+  },
 };
