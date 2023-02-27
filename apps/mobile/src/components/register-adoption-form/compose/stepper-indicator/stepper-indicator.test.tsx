@@ -17,12 +17,12 @@ describe('StepperIndicator', () => {
   describe.each(stepKeys)('when the current step is %s', (step) => {
     const currentStepNumber = stepKeys.findIndex((s) => s === step) + 1;
 
-    it(`renders ${currentStepNumber}/7`, () => {
+    it(`renders ${currentStepNumber}/8`, () => {
       const { getByText } = renderWithProviders(
         <StepperIndicator activeStep={step as AdoptionSteps} />
       );
 
-      expect(getByText(`${currentStepNumber}/7`)).toBeOnTheScreen();
+      expect(getByText(`${currentStepNumber}/8`)).toBeOnTheScreen();
     });
   });
 });

@@ -1,3 +1,4 @@
+import i18next from 'i18next';
 import { Center, Container, Image, Pressable, View } from 'native-base';
 import React, { useEffect } from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
@@ -6,7 +7,6 @@ import { usePetPhotosPicker } from './pet-upload-photos-step.hooks';
 import { PhotoPickerProps } from './pet-upload-photos-step.types';
 import imagePickerUtil from '../../../../../shared/image-picker';
 import theme from '../../../../../theme';
-import i18next from 'i18next';
 
 const checkForCameraRollPermission = async () => {
   const status = await imagePickerUtil.getPermissionStatus();
