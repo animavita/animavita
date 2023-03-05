@@ -22,7 +22,7 @@ const setup = async () =>
     </AuthProvider>
   );
 
-describe('AuthProvider', () => {
+describe('AuthProvider native', () => {
   it('user token is null by default', async () => {
     setup();
 
