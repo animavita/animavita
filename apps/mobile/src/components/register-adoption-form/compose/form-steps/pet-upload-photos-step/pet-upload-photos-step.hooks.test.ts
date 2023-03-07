@@ -6,6 +6,8 @@ jest.mock('../../../../../shared/image-picker', () => ({
   openImageLibrary: jest.fn(),
 }));
 
+const SLOTS = [undefined, 'image1', undefined];
+
 describe('usePetPhotosPicker', () => {
   beforeEach(jest.restoreAllMocks);
 
@@ -16,17 +18,19 @@ describe('usePetPhotosPicker', () => {
     expect(typeof result.current.pickImage).toBe('function');
   });
 
-  it('pickImage updates the images state', async () => {
+  it.each(SLOTS)('pickImage updates the images state', async (slot) => {
+    const index = SLOTS.findIndex((item) => item === slot);
+
     const { result } = renderHook(() => usePetPhotosPicker());
 
     const imagePickerUtilMock = require('../../../../../shared/image-picker');
 
-    imagePickerUtilMock.openImageLibrary.mockResolvedValueOnce('image1');
+    imagePickerUtilMock.openImageLibrary.mockResolvedValueOnce(slot);
 
     await act(async () => {
-      await result.current.pickImage(1)();
+      result.current.pickImage(index)();
     });
 
-    await waitFor(() => expect(result.current.images).toEqual([undefined, 'image1', undefined]));
+    await waitFor(() => expect(result.current.images[index]).toEqual(slot));
   });
 });

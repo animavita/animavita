@@ -28,7 +28,12 @@
         "MEDIUM": "Médio",
         "BIG": "Grande"
       },
-      "PHOTOS": "Fotos",
+      "PHOTOS": {
+        "LABEL": "Fotos",
+        "HINT_PICTURE_ONE": "uploads the first pet picture",
+        "HINT_PICTURE_TWO": "uploads the second pet picture",
+        "HINT_PICTURE_THREE": "uploads the third pet picture"
+      },
       "BACK_BUTTON": "Voltar",
       "NEXT_BUTTON": "Próxima etapa",
       "CONFIRM_BUTTON": "Confirmar"

@@ -10,41 +10,40 @@ jest.mock('./pet-upload-photos-step.hooks', () => ({
   usePetPhotosPicker: jest.fn(),
 }));
 
-const usePetPhotosPickerMock = (pickImage = jest.fn()) => {
+const mockUsePetPhotos = (pickImage = jest.fn()) => {
   (usePetPhotosPicker as jest.Mock).mockReturnValue({
     images: [null, null, null],
     pickImage,
   });
 };
 
+const IMAGE_SLOTS_IDENTIFIERS = ['first', 'second', 'third'];
+
 describe('PetUploadPhotosStep', () => {
   const pickImage = jest.fn();
 
-  afterEach(() => {
-    jest.clearAllMocks();
+  afterEach(jest.clearAllMocks);
+
+  it.each(IMAGE_SLOTS_IDENTIFIERS)('renders %s slot correctly', (slot) => {
+    mockUsePetPhotos();
+
+    const { getByAccessibilityHint } = renderWithProviders(<PetUploadPhotosStep />);
+
+    expect(getByAccessibilityHint(`uploads the ${slot} pet picture`)).toBeTruthy();
   });
 
-  it('renders correctly', () => {
-    usePetPhotosPickerMock();
+  describe.each(IMAGE_SLOTS_IDENTIFIERS)('when %s slot is pressed', (slot) => {
+    const index = IMAGE_SLOTS_IDENTIFIERS.findIndex((item) => item === slot);
 
-    const { getByTestId } = renderWithProviders(<PetUploadPhotosStep />);
+    it(`calls pickImage with ${index} index`, () => {
+      mockUsePetPhotos(pickImage);
 
-    expect(getByTestId('Photo 1')).toBeTruthy();
-    expect(getByTestId('Photo 2')).toBeTruthy();
-    expect(getByTestId('Photo 3')).toBeTruthy();
-  });
+      const { getByAccessibilityHint } = renderWithProviders(<PetUploadPhotosStep />);
 
-  it('calls pickImage when an image is pressed', () => {
-    usePetPhotosPickerMock(pickImage);
+      fireEvent.press(getByAccessibilityHint(`uploads the ${slot} pet picture`));
 
-    const { getByTestId } = renderWithProviders(<PetUploadPhotosStep />);
-
-    fireEvent.press(getByTestId('Photo 1'));
-    expect(pickImage).toHaveBeenCalledWith(0);
-    fireEvent.press(getByTestId('Photo 2'));
-    expect(pickImage).toHaveBeenCalledWith(1);
-    fireEvent.press(getByTestId('Photo 3'));
-    expect(pickImage).toHaveBeenCalledWith(2);
+      expect(pickImage).toHaveBeenCalledWith(index);
+    });
   });
 
   it.skip('displays camera roll permission alert when permission is not granted', async () => {

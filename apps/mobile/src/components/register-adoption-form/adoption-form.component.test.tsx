@@ -43,7 +43,7 @@ const goToLastStep = async () => {
   forwardStep();
   await pickOptionFromList(/grande/i);
   forwardStep();
-  await screen.findByText(/observações/i);
+  await screen.findByText(/fotos/i);
   forwardStep();
   await screen.findByText(/confirmar/i);
 };
@@ -109,7 +109,7 @@ describe('AdoptionForm', () => {
 
     describe('and the form state is not valid', () => {
       it('shows the error message', async () => {
-        renderWithProviders(<RegisterAdoptionForm initialStep={AdoptionSteps.PetPhotos} />);
+        renderWithProviders(<RegisterAdoptionForm initialStep={AdoptionSteps.PetObservations} />);
 
         const confirmButton = screen.getByText(/confirmar/i);
         fireEvent.press(confirmButton);

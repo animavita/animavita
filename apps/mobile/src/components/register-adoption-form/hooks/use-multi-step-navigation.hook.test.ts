@@ -18,16 +18,16 @@ describe('getStepsByOrder', () => {
       3: AdoptionSteps.PetAge,
       4: AdoptionSteps.PetGender,
       5: AdoptionSteps.PetSize,
-      6: AdoptionSteps.PetObservations,
-      7: AdoptionSteps.PetPhotos,
+      6: AdoptionSteps.PetPhotos,
+      7: AdoptionSteps.PetObservations,
     });
   });
 });
 
 describe('useMultiStepNavigation', () => {
-  describe('when the current step is PetPhotos', () => {
+  describe('when the current step is PetObservations', () => {
     it('isLastStep is true', () => {
-      const { result } = renderHook(() => useMultiStepNavigation(AdoptionSteps.PetPhotos));
+      const { result } = renderHook(() => useMultiStepNavigation(AdoptionSteps.PetObservations));
 
       expect(result.current.isLastStep).toBeTruthy();
     });
