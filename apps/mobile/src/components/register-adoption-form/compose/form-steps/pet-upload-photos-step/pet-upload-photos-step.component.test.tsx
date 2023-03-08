@@ -2,6 +2,7 @@ import React from 'react';
 
 import * as componentModule from './pet-upload-photos-step.component';
 import { usePetPhotosPicker } from './pet-upload-photos-step.hooks';
+import imagePickerUtil from '../../../../../shared/image-picker';
 import { fireEvent, renderWithProviders, waitFor } from '../../../../../test/test-utils';
 
 const { default: PetUploadPhotosStep } = componentModule;
@@ -10,11 +11,19 @@ jest.mock('./pet-upload-photos-step.hooks', () => ({
   usePetPhotosPicker: jest.fn(),
 }));
 
+jest.mock('../../../../../shared/image-picker', () => ({
+  getPermissionStatus: jest.fn(),
+}));
+
 const mockUsePetPhotos = (pickImage = jest.fn()) => {
   (usePetPhotosPicker as jest.Mock).mockReturnValue({
     images: [null, null, null],
     pickImage,
   });
+};
+
+const mockGetPermissionStatus = (status: string) => {
+  (imagePickerUtil.getPermissionStatus as jest.Mock).mockResolvedValue(status);
 };
 
 const IMAGE_SLOTS_IDENTIFIERS = ['first', 'second', 'third'];
@@ -46,31 +55,27 @@ describe('PetUploadPhotosStep', () => {
     });
   });
 
-  it.skip('displays camera roll permission alert when permission is not granted', async () => {
+  it('displays camera roll permission alert when permission is not granted', async () => {
+    mockUsePetPhotos();
+    mockGetPermissionStatus('denied');
+
+    global.alert = jest.fn();
+
     renderWithProviders(<PetUploadPhotosStep />);
 
-    const alert = jest.spyOn(global, 'alert').mockImplementation(() => {});
-
-    jest.mock('../../../../../shared/image-picker', () => ({
-      getPermissionStatus: () => Promise.resolve('denied'),
-    }));
-
     await waitFor(() =>
-      expect(alert).toHaveBeenCalledWith(
-        "Please grant camera roll permissions inside your system's settings"
-      )
+      expect(global.alert).toHaveBeenLastCalledWith('Animavita precisa do acesso a câmera')
     );
   });
 
-  it.skip('displays media permission granted message when permission is granted', async () => {
+  it('displays media permission granted message when permission is granted', async () => {
+    mockUsePetPhotos();
+    mockGetPermissionStatus('granted');
+
+    console.info = jest.fn();
+
     renderWithProviders(<PetUploadPhotosStep />);
 
-    const consoleInfo = jest.spyOn(console, 'info').mockImplementation(() => {});
-
-    jest.mock('../../../../../shared/image-picker', () => ({
-      getPermissionStatus: () => Promise.resolve('granted'),
-    }));
-
-    await waitFor(() => expect(consoleInfo).toHaveBeenCalledWith('Media Permissions are granted'));
+    await waitFor(() => expect(console.info).toHaveBeenCalledWith('Media Permissions are granted'));
   });
 });
