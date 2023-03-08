@@ -1,25 +1,16 @@
-import i18next from 'i18next';
 import { Center, Container, Image, Pressable, View } from 'native-base';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 import { usePetPhotosPicker } from './pet-upload-photos-step.hooks';
 import { PhotoPickerProps } from './pet-upload-photos-step.types';
 import useLocale from '../../../../../shared/hooks/use-locale';
-import imagePickerUtil from '../../../../../shared/image-picker';
 import theme from '../../../../../theme';
 
-const SIZES = { SMALL: 100, LARGE: 220 };
-
-const checkForCameraRollPermission = async () => {
-  const status = await imagePickerUtil.getPermissionStatus();
-
-  if (status !== 'granted') alert(i18next.t('PERMISSIONS.CAMERA'));
-  else console.info('Media Permissions are granted');
-};
+const IMAGE_SIZES = { SMALL: 100, LARGE: 220 };
 
 const PhotoPicker = ({ imageUri, small, onPress, ...props }: PhotoPickerProps) => {
-  const size = small ? SIZES.SMALL : SIZES.LARGE;
+  const size = small ? IMAGE_SIZES.SMALL : IMAGE_SIZES.LARGE;
 
   return (
     <Pressable onPress={onPress}>
@@ -43,10 +34,6 @@ const PhotoPicker = ({ imageUri, small, onPress, ...props }: PhotoPickerProps) =
 const PetUploadPhotosStep = () => {
   const { t } = useLocale();
   const { images, pickImage } = usePetPhotosPicker();
-
-  useEffect(() => {
-    checkForCameraRollPermission();
-  }, []);
 
   const [firstImage, secondImage, thirdImage] = images;
 

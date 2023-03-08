@@ -2,8 +2,7 @@ import React from 'react';
 
 import * as componentModule from './pet-upload-photos-step.component';
 import { usePetPhotosPicker } from './pet-upload-photos-step.hooks';
-import imagePickerUtil from '../../../../../shared/image-picker';
-import { fireEvent, renderWithProviders, waitFor } from '../../../../../test/test-utils';
+import { fireEvent, renderWithProviders } from '../../../../../test/test-utils';
 
 const { default: PetUploadPhotosStep } = componentModule;
 
@@ -20,10 +19,6 @@ const mockUsePetPhotos = (pickImage = jest.fn()) => {
     images: [null, null, null],
     pickImage,
   });
-};
-
-const mockGetPermissionStatus = (status: string) => {
-  (imagePickerUtil.getPermissionStatus as jest.Mock).mockResolvedValue(status);
 };
 
 const IMAGE_SLOTS_IDENTIFIERS = ['first', 'second', 'third'];
@@ -53,29 +48,5 @@ describe('PetUploadPhotosStep', () => {
 
       expect(pickImage).toHaveBeenCalledWith(index);
     });
-  });
-
-  it('displays camera roll permission alert when permission is not granted', async () => {
-    mockUsePetPhotos();
-    mockGetPermissionStatus('denied');
-
-    global.alert = jest.fn();
-
-    renderWithProviders(<PetUploadPhotosStep />);
-
-    await waitFor(() =>
-      expect(global.alert).toHaveBeenLastCalledWith('Animavita precisa do acesso a câmera')
-    );
-  });
-
-  it('displays media permission granted message when permission is granted', async () => {
-    mockUsePetPhotos();
-    mockGetPermissionStatus('granted');
-
-    console.info = jest.fn();
-
-    renderWithProviders(<PetUploadPhotosStep />);
-
-    await waitFor(() => expect(console.info).toHaveBeenCalledWith('Media Permissions are granted'));
   });
 });

@@ -18,7 +18,7 @@ describe('usePetPhotosPicker', () => {
     expect(typeof result.current.pickImage).toBe('function');
   });
 
-  it.each(SLOTS)('pickImage updates the images state', async (slot) => {
+  it.each(SLOTS)('(%#) pickImage updates the images state', async (slot) => {
     const index = SLOTS.findIndex((item) => item === slot);
 
     const { result } = renderHook(() => usePetPhotosPicker());
