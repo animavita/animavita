@@ -1,6 +1,6 @@
 import { useMemo, useReducer } from 'react';
 
-import { AuthReducer } from './auth-provider';
+import AuthReducer from './auth-provider.reducer';
 import { AuthContextActions, UseAuthActions, UserToken } from './auth-provider.types';
 
 const useAuthActions = (): UseAuthActions => {

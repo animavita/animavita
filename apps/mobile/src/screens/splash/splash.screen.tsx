@@ -1,9 +1,9 @@
-import { Text, View } from 'native-base';
+import { View, Spinner } from 'native-base';
 
 const SplashScreen = () => {
   return (
-    <View flex="1" alignItems="center" justifyContent="center" bg="danger.800">
-      <Text>Carregando...</Text>
+    <View flex="1" alignItems="center" justifyContent="center">
+      <Spinner size="lg" />
     </View>
   );
 };
