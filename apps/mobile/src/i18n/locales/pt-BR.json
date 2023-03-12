@@ -40,5 +40,10 @@
       "GENDER_REQUIRED": "Informe o sexo do seu Pet",
       "SIZE_REQUIRED": "Informe o porte do seu Pet"
     }
+  },
+  "SIGN_IN": {
+    "FORM": {
+      "LOGIN_BUTTON": "Entrar"
+    }
   }
 }

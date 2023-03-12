@@ -5,10 +5,11 @@ import useAdoptions from '../../hooks/use-adoptions';
 import Routes from '../../routes';
 import client from '../../services/http-client';
 import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
+import { useAuth } from '../../shared/hooks/use-auth-provider';
 
 const Home = () => {
   const navigation = useNavigation();
-
+  const auth = useAuth();
   const { adoptions, loading } = useAdoptions();
 
   return (
@@ -23,6 +24,14 @@ const Home = () => {
         }}
       >
         Register Adoption
+      </Button>
+      <Button
+        variant="outline"
+        onPress={() => {
+          auth.signOut();
+        }}
+      >
+        Sair
       </Button>
       {loading && <Text>Loading...</Text>}
       {adoptions && (
