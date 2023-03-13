@@ -9,8 +9,13 @@ export const stepsLibrary: {
   PetAge: { order: 3, label: 'REGISTER_ADOPTION.FORM.AGE', fieldName: 'age' },
   PetGender: { order: 4, label: 'REGISTER_ADOPTION.FORM.GENDER.LABEL', fieldName: 'gender' },
   PetSize: { order: 5, label: 'REGISTER_ADOPTION.FORM.SIZE.LABEL', fieldName: 'size' },
-  PetObservations: {
+  PetPhotos: {
     order: 6,
+    label: 'REGISTER_ADOPTION.FORM.PHOTOS.LABEL',
+    fieldName: 'photos',
+  },
+  PetObservations: {
+    order: 7,
     label: 'REGISTER_ADOPTION.FORM.OBSERVATIONS',
     fieldName: 'observations',
   },

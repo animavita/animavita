@@ -28,6 +28,12 @@
         "MEDIUM": "Médio",
         "BIG": "Grande"
       },
+      "PHOTOS": {
+        "LABEL": "Fotos",
+        "HINT_PICTURE_ONE": "selecione a principal foto do pet",
+        "HINT_PICTURE_TWO": "selecione a segunda foto do pet",
+        "HINT_PICTURE_THREE": "selecione a terceira foto do pet"
+      },
       "BACK_BUTTON": "Voltar",
       "NEXT_BUTTON": "Próxima etapa",
       "CONFIRM_BUTTON": "Confirmar"

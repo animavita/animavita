@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { act } from '@testing-library/react-hooks';
 
 import RegisterAdoptionForm from './adoption-form.component';
 import { AdoptionSteps } from './adoption-form.types';
@@ -36,11 +37,13 @@ const goToLastStep = async () => {
   forwardStep();
   await pickOptionFromList(/c[aã]o/gi);
   forwardStep();
-  await screen.findByTestId(`adoption-form-age-input`);
+  await screen.findByTestId('adoption-form-age-input');
   forwardStep();
   await pickOptionFromList(/macho/i);
   forwardStep();
   await pickOptionFromList(/grande/i);
+  forwardStep();
+  await screen.findByText(/fotos/i);
   forwardStep();
   await screen.findByText(/confirmar/i);
 };
@@ -95,7 +98,10 @@ describe('AdoptionForm', () => {
 
         const confirmButton = screen.getByText(/confirmar/i);
 
-        fireEvent.press(confirmButton);
+        act(() => {
+          fireEvent.press(confirmButton);
+        });
+
         const home = await screen.findByText(/adoptions demo/i);
         expect(home).toBeOnTheScreen();
       });

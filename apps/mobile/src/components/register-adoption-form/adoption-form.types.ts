@@ -6,6 +6,7 @@ export enum AdoptionSteps {
   PetGender = 'PetGender',
   PetSize = 'PetSize',
   PetObservations = 'PetObservations',
+  PetPhotos = 'PetPhotos',
 }
 
 export type Step = {

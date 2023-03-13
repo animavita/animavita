@@ -18,7 +18,8 @@ describe('getStepsByOrder', () => {
       3: AdoptionSteps.PetAge,
       4: AdoptionSteps.PetGender,
       5: AdoptionSteps.PetSize,
-      6: AdoptionSteps.PetObservations,
+      6: AdoptionSteps.PetPhotos,
+      7: AdoptionSteps.PetObservations,
     });
   });
 });
