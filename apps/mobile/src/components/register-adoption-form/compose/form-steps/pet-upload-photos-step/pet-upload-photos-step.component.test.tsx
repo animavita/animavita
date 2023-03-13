@@ -21,7 +21,7 @@ const mockUsePetPhotos = (pickImage = jest.fn()) => {
   });
 };
 
-const IMAGE_SLOTS_IDENTIFIERS = ['first', 'second', 'third'];
+const IMAGE_SLOTS_IDENTIFIERS = ['principal', 'segunda', 'terceira'];
 
 describe('PetUploadPhotosStep', () => {
   const pickImage = jest.fn();
@@ -33,7 +33,7 @@ describe('PetUploadPhotosStep', () => {
 
     const { getByAccessibilityHint } = renderWithProviders(<PetUploadPhotosStep />);
 
-    expect(getByAccessibilityHint(`uploads the ${slot} pet picture`)).toBeTruthy();
+    expect(getByAccessibilityHint(`selecione a ${slot} foto do pet`)).toBeTruthy();
   });
 
   describe.each(IMAGE_SLOTS_IDENTIFIERS)('when %s slot is pressed', (slot) => {
@@ -44,7 +44,7 @@ describe('PetUploadPhotosStep', () => {
 
       const { getByAccessibilityHint } = renderWithProviders(<PetUploadPhotosStep />);
 
-      fireEvent.press(getByAccessibilityHint(`uploads the ${slot} pet picture`));
+      fireEvent.press(getByAccessibilityHint(`selecione a ${slot} foto do pet`));
 
       expect(pickImage).toHaveBeenCalledWith(index);
     });
