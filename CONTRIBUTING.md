@@ -6,12 +6,15 @@
 
 ### Pre-requisites
 
+- Linux based distro or MacOS (we don't recommend Windows due to compatibility issues)
 - _Node:_ `16.17.1` or higher.
 - _Npm:_ `7.5.2` or higher.
 
 ### Getting started
+> The `master` and `next` are stale branches, please do not use them.
+>
 
-Fork the project, then clone it:
+Fork the project, then clone it. Make sure you're cloning v2 branch:
 
 ```sh
 git clone --branch v2 git@github.com:[your-github-user]/animavita.git
