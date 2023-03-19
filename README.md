@@ -31,7 +31,7 @@ Animavita's purpose is not to change how people use facebook to the activities d
 
 ## :dizzy: **Roadmap**
 
-Check our [board](https://github.com/animavita/animavita/projects/3) for more details about what we're building.
+Check our issues page for more details about what we're building.
 
 ## Contributing
 
