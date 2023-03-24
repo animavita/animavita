@@ -16,12 +16,12 @@ import {
 } from '@nestjs/common';
 import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
 import { AdoptionsService } from './adoptions.service';
-import { AccessTokenGuard } from 'src/guards/accessToken.guard';
+import { AccessTokenGuard } from '../guards/accessToken.guard';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
   constructor(private readonly adoptionsService: AdoptionsService) {}
-  
+
   @Post()
   @UseGuards(AccessTokenGuard)
   @UsePipes(new JoiValidationPipe(createValidationSchema))
