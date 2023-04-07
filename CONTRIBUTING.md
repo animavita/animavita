@@ -27,6 +27,12 @@ Install dependencies:
 $ pnpm install
 ```
 
+In order to reflect the changes made in the shared packages to the apps, you must run:
+
+```sh
+$ pnpm shared:watch
+```
+
 ### Running the infra & backend with docker
 
 We have a `docker-compose` file that sets up a mongodb database and the backend app for you. Just run:
@@ -46,24 +52,16 @@ $ cp apps/backend/.env.example apps/backend/.env
 Then, run the app:
 
 ```sh
-$ pnpm --filter backend start
+$ pnpm backend start
 ```
 
 ### Running the mobile app
 
-Build the shared packages:
-
-```sh
-$ pnpm --filter "./shared/**" run build
-
-// Be aware that whenever you make a change on shared packages
-// you must rebuild it. We are going to automate this soon.
-```
 
 Then, run the app:
 
 ```sh
-$ pnpm --filter mobile start
+$ pnpm mobile start
 ```
 
 ### Sending a pull request
