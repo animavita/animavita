@@ -27,7 +27,7 @@ Install dependencies:
 $ pnpm install
 ```
 
-In order to reflect the changes made in the shared packages to the apps, you must run:
+In order to reflect the changes made in the shared packages to the mobile app, you must run:
 
 ```sh
 $ pnpm shared:watch
@@ -40,6 +40,8 @@ We have a `docker-compose` file that sets up a mongodb database and the backend 
 ```sh
 $ docker-compose up -d
 ```
+
+> Keep in mind if you change the shared packages you must rebuild the docker image.
 
 ### Running without docker
 
