@@ -11,19 +11,27 @@ import {
   Param,
   Patch,
   Post,
+  Query,
+  UseGuards,
   UsePipes,
 } from '@nestjs/common';
 import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
 import { AdoptionsService } from './adoptions.service';
+import { User } from '../decorators/user.decorator';
+import { AccessTokenGuard } from '../guards/accessToken.guard';
+import { JwtPayload } from '../auth/strategies/accessToken.strategy';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
   constructor(private readonly adoptionsService: AdoptionsService) {}
 
   @Post()
-  @UsePipes(new JoiValidationPipe(createValidationSchema))
-  async createAdoption(@Body() adoption: AdoptionType) {
-    return this.adoptionsService.createAdoption(adoption);
+  @UseGuards(AccessTokenGuard)
+  async createAdoption(
+    @Body(new JoiValidationPipe(createValidationSchema)) adoption: AdoptionType,
+    @User() { email }: JwtPayload,
+  ) {
+    return this.adoptionsService.createAdoption(adoption, email);
   }
 
   @Patch()
@@ -35,6 +43,18 @@ export class AdoptionsController {
   @Get()
   async findAll() {
     return this.adoptionsService.findAll();
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('nearMe')
+  async findNearMe(
+    @User() { email }: JwtPayload,
+    @Query() { radius }: { radius: number },
+  ) {
+    return this.adoptionsService.findNearMe({
+      radius,
+      currentUserEmail: email,
+    });
   }
 
   @Delete(':id')
