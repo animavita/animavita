@@ -19,6 +19,7 @@ import { AdoptionsService } from '../../src/adoptions/adoptions.service';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
 import { ConfigModule } from '@nestjs/config';
+import { getCoordinatesFromUser } from '../../src/user/user.helpers';
 
 describe('AdoptionsController (e2e)', () => {
   let app: INestApplication;
@@ -76,7 +77,7 @@ describe('AdoptionsController (e2e)', () => {
     } = await adoptionsService.createAdoption(pet1Mock, 'john@email.com');
     const _id = mongoId.toString();
 
-    const expectedCoordinates = Object.values(user1Mock.location);
+    const expectedCoordinates = getCoordinatesFromUser(user1Mock);
 
     return request(app.getHttpServer())
       .get('/api/v1/adoptions')
@@ -107,7 +108,7 @@ describe('AdoptionsController (e2e)', () => {
   });
 
   it('/POST adoptions', () => {
-    const expectedCoordinates = Object.values(user1Mock.location);
+    const expectedCoordinates = getCoordinatesFromUser(user1Mock);
 
     return request(app.getHttpServer())
       .post('/api/v1/adoptions')
@@ -192,7 +193,7 @@ describe('AdoptionsController (e2e)', () => {
             expect.objectContaining({
               ...pet2Mock,
               location: expect.objectContaining({
-                coordinates: Object.values(user2.location),
+                coordinates: getCoordinatesFromUser(user2),
               }),
               user: expect.objectContaining({
                 name: user2.name,
@@ -213,7 +214,7 @@ describe('AdoptionsController (e2e)', () => {
               expect.objectContaining({
                 ...pet1Mock,
                 location: expect.objectContaining({
-                  coordinates: Object.values(user1.location),
+                  coordinates: getCoordinatesFromUser(user1),
                 }),
                 user: expect.objectContaining({
                   name: user1.name,

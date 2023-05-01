@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose';
 import { IAdoption } from './repositories/mongodb/adoption.interface';
+import { LocationSchema } from '../user/repositories/mongodb/user.schema';
 
 export const AdoptionSchema = new mongoose.Schema<IAdoption>(
   {
@@ -15,17 +16,7 @@ export const AdoptionSchema = new mongoose.Schema<IAdoption>(
       type: mongoose.Types.ObjectId,
       ref: 'User',
     },
-    location: {
-      type: {
-        type: String,
-        enum: ['Point'],
-        default: 'Point',
-      },
-      coordinates: {
-        type: [Number],
-        required: true,
-      },
-    },
+    location: LocationSchema,
   },
   { timestamps: true, collection: 'adoptions' },
 );

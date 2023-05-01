@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { AdoptionDocument } from './repositories/mongodb/adoption.interface';
 import { UserService } from '../user/user.service';
 import { UserRepository } from '../user/repositories/user-repository.interface';
+import { getCoordinatesFromUser } from '../user/user.helpers';
 
 const RADIUS_OF_EARTH = 63781; // km
 
@@ -25,7 +26,7 @@ export class AdoptionsService {
     currentUserEmail: UserEmail,
   ): Promise<AdoptionDocument> {
     const currentUser = await this.userService.findByEmail(currentUserEmail);
-    const coordinates = Object.values(currentUser.location);
+    const coordinates = getCoordinatesFromUser(currentUser);
 
     const newAdoption = new this.adoptionModel({
       ...adoption,
@@ -63,7 +64,7 @@ export class AdoptionsService {
     radius: number;
   }): Promise<AdoptionType[]> {
     const currentUser = await this.userService.findByEmail(currentUserEmail);
-    const coordinates = Object.values(currentUser.location);
+    const coordinates = getCoordinatesFromUser(currentUser);
     const finalRadius = radius * 10; // 1.2 = 12km
 
     return await this.adoptionModel
