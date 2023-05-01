@@ -16,10 +16,11 @@ import {
   UsePipes,
 } from '@nestjs/common';
 import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
-import { AdoptionsService } from './adoptions.service';
+import { AdoptionsService } from './adoption.service';
 import { User } from '../decorators/user.decorator';
 import { AccessTokenGuard } from '../guards/accessToken.guard';
 import { JwtPayload } from '../auth/strategies/accessToken.strategy';
+import { AdoptionDto } from './adoption.interface';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
@@ -28,7 +29,7 @@ export class AdoptionsController {
   @Post()
   @UseGuards(AccessTokenGuard)
   async createAdoption(
-    @Body(new JoiValidationPipe(createValidationSchema)) adoption: AdoptionType,
+    @Body(new JoiValidationPipe(createValidationSchema)) adoption: AdoptionDto,
     @User() { email }: JwtPayload,
   ) {
     return this.adoptionsService.createAdoption(adoption, email);
@@ -36,7 +37,7 @@ export class AdoptionsController {
 
   @Patch()
   @UsePipes(new JoiValidationPipe(adoptionValidationSchema))
-  async updateAdoption(@Body() adoption: AdoptionType) {
+  async updateAdoption(@Body() adoption: AdoptionDto) {
     return this.adoptionsService.updateAdoption(adoption);
   }
 

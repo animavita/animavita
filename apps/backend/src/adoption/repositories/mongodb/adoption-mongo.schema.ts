@@ -1,8 +1,8 @@
 import * as mongoose from 'mongoose';
-import { IAdoption } from './repositories/mongodb/adoption.interface';
-import { LocationSchema } from '../user/repositories/mongodb/user.schema';
+import { AdoptionDocument } from './adoption-mongo.interface';
+import { LocationSchema } from '../../../user/repositories/mongodb/user.schema';
 
-export const AdoptionSchema = new mongoose.Schema<IAdoption>(
+export const AdoptionSchema = new mongoose.Schema<AdoptionDocument>(
   {
     name: String,
     gender: String,

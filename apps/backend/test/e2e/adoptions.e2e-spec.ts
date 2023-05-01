@@ -6,8 +6,8 @@ import {
   rootMongooseTestModule,
 } from '../utils/in-memory-mongo';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AdoptionsModule } from '../../src/adoptions/adoptions.module';
-import { AdoptionSchema } from '../../src/adoptions/adoption.schema';
+import { AdoptionsModule } from '../../src/adoption/adoption.module';
+import { AdoptionSchema } from '../../src/adoption/repositories/mongodb/adoption-mongo.schema';
 import {
   countrymen,
   pet1Mock,
@@ -15,7 +15,7 @@ import {
   pet3Mock,
   user1Mock,
 } from '../../test/mocks/adoptions';
-import { AdoptionsService } from '../../src/adoptions/adoptions.service';
+import { AdoptionsService } from '../../src/adoption/adoption.service';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
 import { ConfigModule } from '@nestjs/config';
@@ -64,18 +64,8 @@ describe('AdoptionsController (e2e)', () => {
       .expect(200)
       .expect([]);
 
-    const {
-      _id: mongoId,
-      name,
-      breed,
-      gender,
-      observations,
-      photos,
-      age,
-      type,
-      size,
-    } = await adoptionsService.createAdoption(pet1Mock, 'john@email.com');
-    const _id = mongoId.toString();
+    const { id, name, breed, gender, observations, photos, age, type, size } =
+      await adoptionsService.createAdoption(pet1Mock, 'john@email.com');
 
     const expectedCoordinates = getCoordinatesFromUser(user1Mock);
 
@@ -84,8 +74,8 @@ describe('AdoptionsController (e2e)', () => {
       .expect(200)
       .expect((res) => {
         return expect(res.body).toEqual([
-          expect.objectContaining({
-            _id,
+          {
+            id,
             name,
             breed,
             gender,
@@ -98,11 +88,8 @@ describe('AdoptionsController (e2e)', () => {
               coordinates: expectedCoordinates,
               type: 'Point',
             },
-            user: expect.objectContaining({
-              _id: userId,
-              name: 'John',
-            }),
-          }),
+            user: { id: userId, name: 'John' },
+          },
         ]);
       });
   });
@@ -116,25 +103,26 @@ describe('AdoptionsController (e2e)', () => {
       .send(pet2Mock)
       .expect(201)
       .expect((res) =>
-        expect(res.body).toEqual(
-          expect.objectContaining({
-            ...pet2Mock,
-            _id: res.body._id,
-            location: expect.objectContaining({
-              coordinates: expectedCoordinates,
-            }),
-            user: userId,
-          }),
-        ),
+        expect(res.body).toEqual({
+          ...pet2Mock,
+          id: res.body.id,
+          location: {
+            coordinates: expectedCoordinates,
+            type: 'Point',
+          },
+          user: {
+            id: userId,
+            name: user1Mock.name,
+          },
+        }),
       );
   });
 
   it('/PATCH adoptions', async () => {
-    const { _id: mongoId } = await adoptionsService.createAdoption(
+    const { id } = await adoptionsService.createAdoption(
       pet2Mock,
       'john@email.com',
     );
-    const id = mongoId.toString();
 
     return request(app.getHttpServer())
       .patch('/api/v1/adoptions')
@@ -144,7 +132,7 @@ describe('AdoptionsController (e2e)', () => {
         expect(res.body).toEqual(
           expect.objectContaining({
             ...pet2Mock,
-            _id: id,
+            id,
             name: 'Marley',
           }),
         ),
@@ -161,7 +149,7 @@ describe('AdoptionsController (e2e)', () => {
       pet3Mock,
       'john@email.com',
     );
-    const targetId = expectedPet._id.toString();
+    const targetId = expectedPet.id.toString();
 
     await request(app.getHttpServer())
       .delete(`/api/v1/adoptions/${targetId}`)
