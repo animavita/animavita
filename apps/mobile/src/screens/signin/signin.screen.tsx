@@ -17,6 +17,7 @@ const SignInScreen = () => {
           auth.signIn({
             accessToken: '1234',
             refreshToken: '4321',
+            name: 'Gabriel Belgamo',
           });
         }}
       >

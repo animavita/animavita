@@ -70,12 +70,11 @@ describe('Authentication (e2e)', () => {
         })
         .expect(201);
 
-      expect(body).toEqual(
-        expect.objectContaining({
-          accessToken: expect.any(String),
-          refreshToken: expect.any(String),
-        }),
-      );
+      expect(body).toEqual({
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String),
+        name: 'Grosbilda',
+      });
 
       await app.close();
     });
