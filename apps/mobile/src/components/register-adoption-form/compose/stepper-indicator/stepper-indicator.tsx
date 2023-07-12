@@ -2,7 +2,7 @@ import { Box, Heading, Progress, Text, Image } from 'native-base';
 import React from 'react';
 
 import StepIcon from '../../../../../assets/step-background.png';
-import useLocale from '../../../../shared/hooks/use-locale';
+import useLocale from '../../../../hooks/use-locale';
 import theme from '../../../../theme';
 import { stepsLibrary } from '../../adoption-form.constants';
 import { StepperIndicatorProps } from '../../adoption-form.types';

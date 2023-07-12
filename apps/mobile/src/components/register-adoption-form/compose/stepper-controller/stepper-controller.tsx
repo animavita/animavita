@@ -1,7 +1,7 @@
 import { Box, Button } from 'native-base';
 import React from 'react';
 
-import useLocale from '../../../../shared/hooks/use-locale';
+import useLocale from '../../../../hooks/use-locale';
 import theme from '../../../../theme';
 import { stepsLibrary } from '../../adoption-form.constants';
 import { StepperControllerProps } from '../../adoption-form.types';

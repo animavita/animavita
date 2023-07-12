@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 
 import { usePetPhotosPicker } from './pet-upload-photos-step.hooks';
 import { PhotoPickerProps } from './pet-upload-photos-step.types';
-import useLocale from '../../../../../shared/hooks/use-locale';
+import useLocale from '../../../../../hooks/use-locale';
 import theme from '../../../../../theme';
 
 const IMAGE_SIZES = { SMALL: 100, LARGE: 220 };

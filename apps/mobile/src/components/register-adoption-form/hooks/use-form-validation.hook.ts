@@ -2,7 +2,7 @@ import { useToast } from 'native-base';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import useLocale from '../../../shared/hooks/use-locale';
+import useLocale from '../../../hooks/use-locale';
 
 export const mountErrorMessage = (fieldName: string, type: string) => {
   const [, kind] = type.toUpperCase().split('.');

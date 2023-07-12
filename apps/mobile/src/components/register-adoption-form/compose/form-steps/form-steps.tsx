@@ -3,7 +3,7 @@ import React from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 import PetUploadPhotosStep from './pet-upload-photos-step/pet-upload-photos-step.component';
-import useLocale from '../../../../shared/hooks/use-locale';
+import useLocale from '../../../../hooks/use-locale';
 import theme from '../../../../theme';
 import { RHFInput, RHFListSelector } from '../../../react-hook-form/native-base';
 import { stepsLibrary } from '../../adoption-form.constants';
