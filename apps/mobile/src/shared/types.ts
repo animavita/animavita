@@ -10,3 +10,7 @@ export interface ImagePicker {
   getPermissionStatus: () => Promise<DevicePermissions>;
   openImageLibrary: () => Promise<ImageURI>;
 }
+
+export type Props = {
+  children: React.ReactNode;
+};
