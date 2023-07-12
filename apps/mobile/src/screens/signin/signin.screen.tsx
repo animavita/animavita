@@ -1,8 +1,8 @@
 import { Button, View } from 'native-base';
 
-import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
-import { useAuth } from '../../shared/hooks/use-auth-provider';
-import useLocale from '../../shared/hooks/use-locale';
+import AppStatusBar from '../../components/status-bar/status-bar.component';
+import { useAuth } from '../../hooks/use-auth-provider';
+import useLocale from '../../hooks/use-locale';
 
 const SignInScreen = () => {
   const auth = useAuth();

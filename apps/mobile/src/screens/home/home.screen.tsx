@@ -1,55 +1,55 @@
 import { useNavigation } from '@react-navigation/native';
-import { Box, Button, Text, View } from 'native-base';
+import { Box, Heading, Avatar, Pressable } from 'native-base';
 
-import AppStatusBar from '../../components/status-bar/status-bar.component';
-import useAdoptions from '../../hooks/use-adoptions';
-import { useAuth } from '../../hooks/use-auth-provider';
+import AdoptionsTab from './components/adoptions-tab';
+import FavoritesTab from './components/favorites-tab';
+import RequestsTab from './components/requests-tab';
+import Delimiter from '../../components/delimiter';
+import SafeArea from '../../components/safe-area/safe-area';
+import TabsComponent from '../../components/tabs';
+import useLocale from '../../hooks/use-locale';
+import useProfile from '../../hooks/use-profile/use-profile';
 import Routes from '../../routes';
-import client from '../../services/http-client';
 
 const Home = () => {
-  const navigation = useNavigation();
-  const auth = useAuth();
-  const { adoptions, loading } = useAdoptions();
+  const { firstName, initials } = useProfile();
+  const { navigate } = useNavigation();
+  const { t } = useLocale();
 
   return (
-    <View flex="1" alignItems="center" justifyContent="center">
-      <AppStatusBar />
-      <Text>{client.defaults.baseURL}</Text>
-      <Text>Adoptions demo</Text>
-      <Button
-        variant="outline"
-        onPress={() => {
-          navigation.navigate(Routes.RegisterAdoption);
-        }}
-      >
-        Register Adoption
-      </Button>
-      <Button
-        variant="outline"
-        onPress={() => {
-          auth.signOut();
-        }}
-      >
-        Sair
-      </Button>
-      {loading && <Text>Loading...</Text>}
-      {adoptions && (
-        <Box>
-          {adoptions.map((adoption) => {
-            const { name, gender, size } = adoption;
+    <SafeArea>
+      <Delimiter flex="1">
+        <Pressable onPress={() => navigate(Routes.Profile)}>
+          <Box
+            display="flex"
+            flexDirection="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Heading size="md">{t('HOME.HELLO', { name: firstName })}</Heading>
+            <Avatar size="sm">{initials}</Avatar>
+          </Box>
+        </Pressable>
 
-            return (
-              <>
-                <Text>{name}</Text>
-                <Text>{gender}</Text>
-                <Text>{size}</Text>
-              </>
-            );
-          })}
+        <Box marginTop="4" flex="1">
+          <TabsComponent
+            tabs={[
+              {
+                key: 'adoptions',
+                title: t('HOME.ADOPTIONS'),
+                component: AdoptionsTab,
+              },
+              {
+                key: 'requests',
+                title: t('HOME.REQUESTS'),
+                component: RequestsTab,
+              },
+              { key: 'favorites', title: t('HOME.FAVORITES'), component: FavoritesTab },
+            ]}
+          />
         </Box>
-      )}
-    </View>
+      </Delimiter>
+    </SafeArea>
   );
 };
 
