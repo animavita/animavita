@@ -36,18 +36,10 @@ const StepperController = ({
   };
 
   return (
-    <Box
-      margin="8"
-      marginTop="auto"
-      display="flex"
-      flexDirection="row"
-      justifyContent="space-between"
-    >
-      {!isFirstStep && (
-        <Button color={theme.colors.primary[600]} variant="outline" onPress={onBackPress}>
-          {t('REGISTER_ADOPTION.FORM.BACK_BUTTON')}
-        </Button>
-      )}
+    <Box marginTop="auto" display="flex" flexDirection="row" justifyContent="space-between">
+      <Button color={theme.colors.primary[600]} variant="outline" onPress={onBackPress}>
+        {t('REGISTER_ADOPTION.FORM.BACK_BUTTON')}
+      </Button>
       <Button
         color={theme.colors.primary[600]}
         onPress={onNextPress}

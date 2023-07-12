@@ -11,6 +11,7 @@ import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
 import { useMultiStepNavigation } from './hooks/use-multi-step-navigation.hook';
 import useAdoptions from '../../hooks/use-adoptions';
+import SafeArea from '../safe-area/safe-area';
 
 type RegisterAdoptionFormProps = {
   defaultValues?: Partial<AdoptionType>;
@@ -46,28 +47,31 @@ const RegisterAdoptionForm = ({ defaultValues, initialStep }: RegisterAdoptionFo
 
   return (
     <Box height="full">
-      <FormProvider {...adoptionForm}>
-        <StepperIndicator activeStep={activeStep} />
-        <Box
-          position="relative"
-          margin="8"
-          display="flex"
-          flex-direction="column"
-          justify-content="center"
-        >
-          <FormSteps activeStep={activeStep} />
-        </Box>
+      <SafeArea>
+        <FormProvider {...adoptionForm}>
+          <StepperIndicator activeStep={activeStep} />
+          <Box
+            position="relative"
+            marginTop="8"
+            marginX="4"
+            display="flex"
+            flex-direction="column"
+            justify-content="center"
+          >
+            <FormSteps activeStep={activeStep} />
+          </Box>
 
-        <StepperController
-          isLastStep={isLastStep}
-          isFirstStep={isFirstStep}
-          activeStep={activeStep}
-          saving={saving}
-          handleBack={handleBack}
-          handleNext={handleNext}
-          onConfirm={onConfirm}
-        />
-      </FormProvider>
+          <StepperController
+            isLastStep={isLastStep}
+            isFirstStep={isFirstStep}
+            activeStep={activeStep}
+            saving={saving}
+            handleBack={handleBack}
+            handleNext={handleNext}
+            onConfirm={onConfirm}
+          />
+        </FormProvider>
+      </SafeArea>
     </Box>
   );
 };

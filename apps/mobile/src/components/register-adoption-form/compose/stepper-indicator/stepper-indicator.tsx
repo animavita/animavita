@@ -29,14 +29,10 @@ const StepperIndicator = ({ activeStep }: StepperIndicatorProps) => {
       />
       <Box
         position="relative"
-        margin={8}
         display="flex"
         flexDirection="row"
         justifyContent="space-between"
         alignContent="center"
-        _ios={{
-          marginTop: '16',
-        }}
       >
         <Box>
           <Text color={theme.colors.gray[600]}>{t('REGISTER_ADOPTION.TITLE')}</Text>
