@@ -68,5 +68,14 @@
   },
   "PROFILE": {
     "LOGOUT": "Sair"
+  },
+  "SHARE_LOCATION": {
+    "GREETINGS": "Olá",
+    "ASK_LOCATION": "precisamos da sua localização",
+    "WHERE_USER_ARE_MSG": "Você está em",
+    "CONFIRM_BUTTON": "Confirmar minha localização",
+    "GET_LOCATION": "Compartilhar minha localização",
+    "GET_LOCATION_NEW_ATTEMPT": "Buscar novamente",
+    "LOCATION": "localização"
   }
 }
