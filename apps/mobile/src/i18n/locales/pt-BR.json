@@ -55,6 +55,9 @@
   },
   "SIGN_IN": {
     "FORM": {
+      "SCREEN_NAME": "Entrar",
+      "EMAIL_INPUT": "Email",
+      "PASSWORD_INPUT": "Senha",
       "LOGIN_BUTTON": "Entrar"
     }
   },
