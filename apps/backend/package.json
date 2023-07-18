@@ -32,7 +32,7 @@
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^9.0.0",
     "argon2": "^0.30.2",
-    "mongoose": "^6.7.0",
+    "mongoose": "^6.11.3",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",
