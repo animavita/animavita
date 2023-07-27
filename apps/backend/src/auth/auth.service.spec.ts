@@ -97,7 +97,7 @@ describe('AuthService', () => {
   });
 
   describe('signIn', () => {
-    it('should generate a pair of tokens if user successfully logged', async () => {
+    it('should return a pair of tokens and user info if user successfully logged', async () => {
       const { service, userService } = await setup();
 
       const userServiceUpdate = jest.spyOn(userService, 'update');
@@ -107,12 +107,11 @@ describe('AuthService', () => {
         password: userMock.password,
       });
 
-      expect(tokens).toEqual(
-        expect.objectContaining({
-          accessToken: expect.any(String),
-          refreshToken: expect.any(String),
-        }),
-      );
+      expect(tokens).toEqual({
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String),
+        name: 'Grosbilda',
+      });
       expect(userServiceUpdate).toBeCalledTimes(1);
     });
 

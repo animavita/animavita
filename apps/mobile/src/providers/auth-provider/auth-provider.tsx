@@ -6,7 +6,8 @@ import useAuthActions from './use-auth-actions';
 
 export const AuthContext = createContext<AuthContextType>({
   status: 'IDLE',
-  userToken: null,
+  tokens: null,
+  user: null,
   signIn: () => {},
   signOut: () => {},
 });

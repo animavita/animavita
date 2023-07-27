@@ -1,17 +1,24 @@
-export type UserToken = {
+import { UserType } from '@animavita/models';
+
+type UserToken = {
   accessToken: string;
   refreshToken: string;
 };
 
+type UserInfo = Pick<UserType, 'name'>;
+
+export type UserPayload = UserToken & UserInfo;
+
 export type AuthState = {
-  userToken?: UserToken | null;
+  tokens?: UserToken | null;
+  user?: UserInfo | null;
   status: 'IDLE' | 'NOT_LOGGED' | 'LOGGED';
 };
 
-export type AuthAction = { type: 'SIGN_IN'; token: UserToken } | { type: 'SIGN_OUT' };
+export type AuthAction = { type: 'SIGN_IN'; payload: UserPayload } | { type: 'SIGN_OUT' };
 
 export type AuthContextActions = {
-  signIn: (token: UserToken) => void;
+  signIn: (payload: UserPayload) => void;
   signOut: () => void;
 };
 

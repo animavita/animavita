@@ -1,10 +1,10 @@
 import * as SecureStore from 'expo-secure-store';
 
-import { UserToken } from '../providers/auth-provider';
+import { UserPayload } from '../providers/auth-provider/auth-provider.types';
 
 type KeyType = string;
 
-const userTokenKey = 'userToken';
+const userKey = 'userInfo';
 
 const getValueFor = async <T>(key: KeyType): Promise<T | null> => {
   const value = await SecureStore.getItemAsync(key);
@@ -20,6 +20,6 @@ const save = async <T>(key: KeyType, value: T) => {
   return await SecureStore.setItemAsync(key, stringfiedValue);
 };
 
-export const getUserToken = () => getValueFor<UserToken>(userTokenKey);
-export const removeUserToken = () => removeValueFor(userTokenKey);
-export const saveUserToken = (value: UserToken) => save(userTokenKey, value);
+export const getUser = () => getValueFor<UserPayload>(userKey);
+export const removeUser = () => removeValueFor(userKey);
+export const saveUser = (value: UserPayload) => save(userKey, value);
