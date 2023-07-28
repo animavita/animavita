@@ -1,11 +1,11 @@
 import { useNavigation } from '@react-navigation/native';
 import { Box, Button, Text, View } from 'native-base';
 
+import AppStatusBar from '../../components/status-bar/status-bar.component';
 import useAdoptions from '../../hooks/use-adoptions';
+import { useAuth } from '../../hooks/use-auth-provider';
 import Routes from '../../routes';
 import client from '../../services/http-client';
-import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
-import { useAuth } from '../../shared/hooks/use-auth-provider';
 
 const Home = () => {
   const navigation = useNavigation();
