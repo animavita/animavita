@@ -3,9 +3,9 @@ import { useToast } from 'native-base';
 import { useFormContext } from 'react-hook-form';
 
 import { mountErrorMessage, useFormValidation } from './use-form-validation.hook';
-import useLocale from '../../../shared/hooks/use-locale';
+import useLocale from '../../../hooks/use-locale';
 
-jest.mock('../../../shared/hooks/use-locale');
+jest.mock('../../../hooks/use-locale');
 jest.mock('native-base');
 jest.mock('react-hook-form');
 
