@@ -25,6 +25,7 @@ const CustomTabBar = (props: SceneRendererProps & { navigationState: NavigationS
         textTransform: 'capitalize',
         fontWeight: theme.fontWeights.extrabold.toString() as TextStyle['fontWeight'],
       }}
+      android_ripple={{ radius: 0 }}
     />
   );
 };
