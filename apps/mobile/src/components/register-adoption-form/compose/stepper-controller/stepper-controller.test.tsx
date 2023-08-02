@@ -37,14 +37,6 @@ describe('StepperController', () => {
     jest.clearAllMocks();
   });
 
-  describe('when first step', () => {
-    it('does not render the back button', () => {
-      const { queryByText } = setup({ isFirstStep: true });
-
-      expect(queryByText(/voltar/i)).not.toBeOnTheScreen();
-    });
-  });
-
   describe('when the back button is pressed', () => {
     it('calls `handleBack`', () => {
       const { getByText } = setup();

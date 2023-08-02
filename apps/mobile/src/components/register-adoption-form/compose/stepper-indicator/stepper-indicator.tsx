@@ -2,8 +2,9 @@ import { Box, Heading, Progress, Text, Image } from 'native-base';
 import React from 'react';
 
 import StepIcon from '../../../../../assets/step-background.png';
-import useLocale from '../../../../shared/hooks/use-locale';
+import useLocale from '../../../../hooks/use-locale';
 import theme from '../../../../theme';
+import Delimiter from '../../../delimiter';
 import { stepsLibrary } from '../../adoption-form.constants';
 import { StepperIndicatorProps } from '../../adoption-form.types';
 
@@ -18,7 +19,6 @@ const StepperIndicator = ({ activeStep }: StepperIndicatorProps) => {
   return (
     <Box>
       <Progress
-        position="absolute"
         w="full"
         value={processValue}
         _filledTrack={{ rounded: 'none', borderBottomRightRadius: 'md' }}
@@ -27,40 +27,40 @@ const StepperIndicator = ({ activeStep }: StepperIndicatorProps) => {
           display: 'none',
         }}
       />
-      <Box
-        position="relative"
-        margin={8}
-        display="flex"
-        flexDirection="row"
-        justifyContent="space-between"
-        alignContent="center"
-        _ios={{
-          marginTop: '16',
-        }}
-      >
-        <Box>
-          <Text color={theme.colors.gray[600]}>{t('REGISTER_ADOPTION.TITLE')}</Text>
-          <Heading fontWeight="medium" color={theme.colors.primary[600]}>
-            {t(label)}
-          </Heading>
+      <Delimiter marginY={0}>
+        <Box
+          position="relative"
+          display="flex"
+          flexDirection="row"
+          justifyContent="space-between"
+          alignContent="center"
+          _android={{ marginTop: 5 }}
+          _web={{ marginTop: 7 }}
+        >
+          <Box>
+            <Text color={theme.colors.gray[600]}>{t('REGISTER_ADOPTION.TITLE')}</Text>
+            <Heading fontWeight="medium" color={theme.colors.primary[600]}>
+              {t(label)}
+            </Heading>
+          </Box>
+          <Image
+            position="absolute"
+            right={-18}
+            bottom={-14}
+            source={StepIcon}
+            alt="stepper icon"
+            size="md"
+          />
+          <Box alignItems="center" justifyContent="center">
+            <Text fontWeight="medium" color="white" fontSize="sm">
+              {t('REGISTER_ADOPTION.STEP')}
+            </Text>
+            <Text lineHeight="sm" fontWeight="medium" color="white" fontSize="2xl">
+              {stepNumber}/{totalSteps}
+            </Text>
+          </Box>
         </Box>
-        <Image
-          position="absolute"
-          right={-18}
-          bottom={-14}
-          source={StepIcon}
-          alt="stepper icon"
-          size="md"
-        />
-        <Box alignItems="center" justifyContent="center">
-          <Text fontWeight="medium" color="white" fontSize="sm">
-            {t('REGISTER_ADOPTION.STEP')}
-          </Text>
-          <Text lineHeight="sm" fontWeight="medium" color="white" fontSize="2xl">
-            {stepNumber}/{totalSteps}
-          </Text>
-        </Box>
-      </Box>
+      </Delimiter>
     </Box>
   );
 };

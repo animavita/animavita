@@ -1,3 +1,4 @@
+import { NavigationContainer } from '@react-navigation/native';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { getStepsByOrder, useMultiStepNavigation } from './use-multi-step-navigation.hook';
@@ -24,18 +25,27 @@ describe('getStepsByOrder', () => {
   });
 });
 
+const wrapper = ({ children }: { children: React.ReactElement }) => (
+  <NavigationContainer>{children}</NavigationContainer>
+);
+
+const setup = (step: AdoptionSteps) =>
+  renderHook(() => useMultiStepNavigation(step), {
+    wrapper,
+  });
+
 describe('useMultiStepNavigation', () => {
   describe('when the current step is PetObservations', () => {
     it('isLastStep is true', () => {
-      const { result } = renderHook(() => useMultiStepNavigation(AdoptionSteps.PetObservations));
+      const { result } = setup(AdoptionSteps.PetObservations);
 
       expect(result.current.isLastStep).toBeTruthy();
     });
   });
 
   describe('when handleBack is triggered', () => {
-    it('the activeStep is PetBreed', () => {
-      const { result } = renderHook(() => useMultiStepNavigation(AdoptionSteps.PetGender));
+    it('the activeStep is PetAge', () => {
+      const { result } = setup(AdoptionSteps.PetGender);
 
       act(() => {
         result.current.handleBack();
@@ -48,14 +58,14 @@ describe('useMultiStepNavigation', () => {
 
   describe('when the current step is PetObservations', () => {
     it('isFirstStep is true', () => {
-      const { result } = renderHook(() => useMultiStepNavigation(AdoptionSteps.PetName));
+      const { result } = setup(AdoptionSteps.PetName);
 
       expect(result.current.isFirstStep).toBeTruthy();
     });
 
     describe('when handleNext is triggered', () => {
       it('the activeStep is PetSize', () => {
-        const { result } = renderHook(() => useMultiStepNavigation(AdoptionSteps.PetGender));
+        const { result } = setup(AdoptionSteps.PetGender);
 
         act(() => {
           result.current.handleNext();

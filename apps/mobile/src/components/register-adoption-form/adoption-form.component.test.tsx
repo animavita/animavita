@@ -102,7 +102,7 @@ describe('AdoptionForm', () => {
           fireEvent.press(confirmButton);
         });
 
-        const home = await screen.findByText(/adoptions demo/i);
+        const home = await screen.findByText(/filtrar/i);
         expect(home).toBeOnTheScreen();
       });
     });

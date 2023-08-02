@@ -51,5 +51,16 @@
     "FORM": {
       "LOGIN_BUTTON": "Entrar"
     }
+  },
+  "HOME": {
+    "HELLO": "Olá, {{name}}",
+    "ADOPTIONS": "Adoções",
+    "REQUESTS": "Solicitações",
+    "FAVORITES": "Favoritos",
+    "FILTER": "Filtrar",
+    "REGISTER_ADOPTION": "Cadastrar Adoção"
+  },
+  "PROFILE": {
+    "LOGOUT": "Sair"
   }
 }

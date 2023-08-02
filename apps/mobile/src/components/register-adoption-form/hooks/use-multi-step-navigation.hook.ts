@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
 import { stepsLibrary } from '../adoption-form.constants';
@@ -13,6 +14,7 @@ export const getStepsByOrder = (stepsLibrary: { [key in AdoptionSteps]: Step }):
 
 export const useMultiStepNavigation = (initialStep = AdoptionSteps.PetName) => {
   const [activeStep, setActiveStep] = useState(initialStep);
+  const { goBack } = useNavigation();
 
   const stepsByOrder = getStepsByOrder(stepsLibrary);
   const currentStepNumber = stepsLibrary[activeStep].order;
@@ -25,6 +27,12 @@ export const useMultiStepNavigation = (initialStep = AdoptionSteps.PetName) => {
   };
 
   const handleBack = () => {
+    if (isFirstStep) {
+      goBack();
+
+      return;
+    }
+
     const step = stepsByOrder[currentStepNumber - 1];
 
     setActiveStep(step);

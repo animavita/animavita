@@ -4,7 +4,7 @@ const useLocale = () => {
   const { t } = useTranslation();
 
   return {
-    t: (key: string) => t(key) || 'Error',
+    t,
   };
 };
 
