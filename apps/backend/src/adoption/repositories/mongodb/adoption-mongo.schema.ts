@@ -8,7 +8,7 @@ export const AdoptionSchema = new mongoose.Schema<AdoptionDocument>(
     gender: String,
     breed: String,
     type: String,
-    age: Number,
+    age: String,
     size: String,
     observations: String,
     photos: [String],

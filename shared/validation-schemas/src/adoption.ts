@@ -13,7 +13,7 @@ export const adoptionValidationSchema = Joi.object({
 
   type: Joi.string().max(5),
 
-  age: Joi.number(),
+  age: Joi.string().max(6),
 
   size: Joi.string().max(6),
 

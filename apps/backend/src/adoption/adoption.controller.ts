@@ -1,4 +1,3 @@
-import { AdoptionType } from '@animavita/models';
 import {
   adoptionValidationSchema,
   createValidationSchema,
