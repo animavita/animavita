@@ -12,7 +12,6 @@ const StepperController = ({
   handleNext,
   onConfirm,
   isLastStep,
-  isFirstStep,
   activeStep,
   saving,
 }: StepperControllerProps) => {
@@ -35,9 +34,18 @@ const StepperController = ({
     if (isValid) handleNext();
   };
 
+  const label = isLastStep
+    ? t('REGISTER_ADOPTION.FORM.CONFIRM_BUTTON')
+    : t('REGISTER_ADOPTION.FORM.NEXT_BUTTON');
+
   return (
     <Box marginTop="auto" display="flex" flexDirection="row" justifyContent="space-between">
-      <Button color={theme.colors.primary[600]} variant="outline" onPress={onBackPress}>
+      <Button
+        color={theme.colors.primary[600]}
+        variant="outline"
+        onPress={onBackPress}
+        disabled={saving}
+      >
         {t('REGISTER_ADOPTION.FORM.BACK_BUTTON')}
       </Button>
       <Button
@@ -45,10 +53,10 @@ const StepperController = ({
         onPress={onNextPress}
         marginLeft="auto"
         disabled={saving}
+        isLoading={saving}
+        isLoadingText={label}
       >
-        {isLastStep
-          ? t('REGISTER_ADOPTION.FORM.CONFIRM_BUTTON')
-          : t('REGISTER_ADOPTION.FORM.NEXT_BUTTON')}
+        {label}
       </Button>
     </Box>
   );
