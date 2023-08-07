@@ -2,7 +2,7 @@ import { AdoptionType, UserType } from '@animavita/models';
 
 export const pet1Mock: AdoptionType = {
   name: 'Bob',
-  age: 4,
+  age: 'puppy',
   type: 'dog',
   breed: 'Rottweiler',
   gender: 'male',
@@ -13,7 +13,7 @@ export const pet1Mock: AdoptionType = {
 
 export const pet2Mock: AdoptionType = {
   name: 'Max',
-  age: 2,
+  age: 'young',
   type: 'cat',
   breed: 'Birman',
   gender: 'male',
@@ -24,7 +24,7 @@ export const pet2Mock: AdoptionType = {
 
 export const pet3Mock: AdoptionType = {
   name: 'Lucy',
-  age: 1,
+  age: 'adult',
   type: 'dog',
   breed: 'Bulldog',
   gender: 'female',

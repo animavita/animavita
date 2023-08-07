@@ -8,11 +8,17 @@ type RHFNativeBaseInputProps = {
   name: string;
 };
 
-const RHFNativeBaseInput = ({ control, name, input }: RHFNativeBaseInputProps) => {
-  const { field } = useController({ control, name });
+const RHFNativeBaseInput = ({ control, name, input, ...props }: RHFNativeBaseInputProps) => {
+  const { field, fieldState } = useController({ control, name });
 
   return (
-    <Input {...input} value={field.value} onChangeText={field.onChange} onBlur={field.onBlur} />
+    <Input
+      {...input}
+      value={field.value}
+      onChangeText={field.onChange}
+      onBlur={field.onBlur}
+      isInvalid={fieldState.invalid}
+    />
   );
 };
 

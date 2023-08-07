@@ -37,7 +37,7 @@ const goToLastStep = async () => {
   forwardStep();
   await pickOptionFromList(/c[aã]o/gi);
   forwardStep();
-  await screen.findByTestId('adoption-form-age-input');
+  await pickOptionFromList(/filhote \(menos de 1 ano\)/i);
   forwardStep();
   await pickOptionFromList(/macho/i);
   forwardStep();

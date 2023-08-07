@@ -1,6 +1,5 @@
-import { Box, Slider, Text } from 'native-base';
 import React from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import PetUploadPhotosStep from './pet-upload-photos-step/pet-upload-photos-step.component';
 import useLocale from '../../../../hooks/use-locale';
@@ -26,6 +25,8 @@ const PetNameStep = () => {
         ...commonInputProperties,
         placeholder: t('REGISTER_ADOPTION.FORM.NAME_PLACEHOLDER'),
         testID: 'adoption-form-name-input',
+        returnKeyType: 'next',
+        isRequired: true,
       }}
       control={control}
       name={stepsLibrary.PetName.fieldName}
@@ -81,31 +82,13 @@ const PetTypeStep = () => {
 
 const PetAgeStep = () => {
   const { t } = useLocale();
-  const { setValue } = useFormContext();
-  const fieldName = stepsLibrary.PetAge.fieldName;
-  const petAgeValue = useWatch({ name: fieldName });
 
-  return (
-    <Box>
-      <Slider
-        w="full"
-        defaultValue={petAgeValue}
-        onChangeEnd={(value) => setValue(fieldName, value)}
-        minValue={0}
-        maxValue={100}
-        accessibilityLabel={t('REGISTER_ADOPTION.FORM.AGE')}
-        testID="adoption-form-age-input"
-      >
-        <Slider.Track>
-          <Slider.FilledTrack />
-        </Slider.Track>
-        <Slider.Thumb />
-      </Slider>
-      <Text textAlign="right">
-        {petAgeValue} {t('YEAR')}
-      </Text>
-    </Box>
-  );
+  const options = ['PUPPY', 'YOUNG', 'ADULT', 'SENIOR'].map((type) => ({
+    label: t(`REGISTER_ADOPTION.FORM.AGE_OPTIONS.${type}`),
+    value: type,
+  }));
+
+  return <RHFListSelector name={stepsLibrary.PetAge.fieldName} options={options} />;
 };
 
 const PetSizeStep = () => {

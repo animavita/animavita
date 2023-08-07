@@ -16,7 +16,13 @@
         "CAT": "Gato",
         "OTHER": "Outro"
       },
-      "AGE": "Idade do Pet",
+      "AGE_OPTIONS": {
+        "LABEL": "Idade do Pet",
+        "PUPPY": "Filhote (menos de 1 ano)",
+        "YOUNG": "Jovem (1-3 anos)",
+        "ADULT": "Adulto (3-8 anos)",
+        "SENIOR": "Idoso (mais de 8 anos)"
+      },
       "GENDER": {
         "LABEL": "Sexo do Pet",
         "MALE": "Macho",
