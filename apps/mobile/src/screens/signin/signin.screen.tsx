@@ -1,8 +1,7 @@
-import { useNavigation } from '@react-navigation/native';
-import { Button, Heading, Input, Text, View } from 'native-base';
+import { View } from 'native-base';
 import React from 'react';
-import { KeyboardAvoidingView } from 'react-native';
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 import AppStatusBar from '../../components/status-bar/status-bar.component';
 import { useAuth } from '../../hooks/use-auth-provider';
@@ -14,16 +13,16 @@ import { useAuth } from '../../shared/hooks/use-auth-provider';
 import useLocale from '../../shared/hooks/use-locale';
 import theme from '../../theme';
 >>>>>>> 688407f (update sign in screen styles)
+=======
+import { SignInForm } from './compose';
+import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
+>>>>>>> ce5498e (add compose folder with the components to build sign-in screen)
 
 const SignInScreen = () => {
-  const auth = useAuth();
-  const { t } = useLocale();
-
-  const { navigate } = useNavigation();
-
   return (
     <View flex="1" padding={8}>
       <AppStatusBar />
+<<<<<<< HEAD
 <<<<<<< HEAD
       <Button
         variant="outline"
@@ -74,16 +73,11 @@ const SignInScreen = () => {
         </Button>
       </KeyboardAvoidingView>
 >>>>>>> 688407f (update sign in screen styles)
+=======
+      <SignInForm />
+>>>>>>> ce5498e (add compose folder with the components to build sign-in screen)
     </View>
   );
-};
-
-type FormRowProps = {
-  children: React.ReactNode;
-};
-
-const FormRow = ({ children }: FormRowProps) => {
-  return <View marginY={2}>{children}</View>;
 };
 
 export default SignInScreen;
