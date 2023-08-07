@@ -1,15 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
 import { Button, Heading, Image, Text, View } from 'native-base';
 
 import localizationImg from '../../../assets/localization.png';
 import { useGeolocation } from '../../hooks/use-geolocation';
-import Routes from '../../routes';
 import AppStatusBar from '../../shared/components/status-bar/status-bar.component';
 import useLocale from '../../shared/hooks/use-locale';
 import theme from '../../theme';
 
 const GetLocation = () => {
-  const { navigate } = useNavigation();
   const { location, getUserLocation } = useGeolocation();
 
   const { t } = useLocale();
