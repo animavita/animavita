@@ -43,7 +43,7 @@ const SignInScreen = () => {
           <Heading fontSize="4xl" color={theme.colors.primary[600]}>
             Animavita
           </Heading>
-          <Text fontSize="2xl">Sign In</Text>
+          <Text fontSize="2xl">{t('SIGN_IN.FORM.LOGIN_BUTTON')}</Text>
         </View>
         <FormRow>
           <Text color={theme.colors.gray[500]} marginBottom={2}>

@@ -19,7 +19,7 @@ const GetLocation = () => {
       <AppStatusBar />
       <View width={260}>
         <Heading fontSize={35}>
-          {`${t('SHARE_LOCATION.GREETINGS')} User, precisamos da sua`}
+          {`${t('SHARE_LOCATION.GREETINGS')} User, ${t('SHARE_LOCATION.ASK_LOCATION')}`}
           <Heading fontSize={35} color={theme.colors.primary[600]}>
             {' '}
             {`${t('SHARE_LOCATION.LOCATION')}`}
@@ -31,7 +31,7 @@ const GetLocation = () => {
         source={localizationImg}
         resizeMode="contain"
         height={300}
-        alt="a boy with his dog waving"
+        alt={t('SHARE_LOCATION.IMAGE_ALT_TEXT')}
       />
       {location?.length ? (
         <>
