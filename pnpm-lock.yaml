@@ -126,6 +126,7 @@ importers:
       eslint-plugin-prettier: ^4.0.0
       expo: ~47.0.9
       expo-image-picker: ^14.0.3
+      expo-location: ~15.0.1
       expo-secure-store: ~12.0.0
       expo-status-bar: ~1.4.2
       expo-updates: ^0.15.6
@@ -163,6 +164,7 @@ importers:
       axios: 1.1.3
       expo: 47.0.13_@babel+core@7.19.6
       expo-image-picker: 14.0.3_expo@47.0.13
+      expo-location: 15.0.1_expo@47.0.13
       expo-secure-store: 12.0.0_expo@47.0.13
       expo-status-bar: 1.4.2
       expo-updates: 0.15.6_expo@47.0.13
@@ -9099,6 +9101,14 @@ packages:
 
   /expo-keep-awake/11.0.1_expo@47.0.13:
     resolution: {integrity: sha512-44ZjgLE4lnce2d40Pv8xsjMVc6R5GvgHOwZfkLYtGmgYG9TYrEJeEj5UfSeweXPL3pBFhXKfFU8xpGYMaHdP0A==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 47.0.13_@babel+core@7.19.6
+    dev: false
+
+  /expo-location/15.0.1_expo@47.0.13:
+    resolution: {integrity: sha512-GOAP24m8fMahFcBT75H07f2+IQAOCOdNTzb8Ci/19NZ+Y/CY2lIvb55V8zu7Gn0+76FKPb7XC3ebQaq4ctn1QA==}
     peerDependencies:
       expo: '*'
     dependencies:
