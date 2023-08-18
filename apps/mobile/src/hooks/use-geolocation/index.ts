@@ -1,40 +1,63 @@
 import * as Location from 'expo-location';
 import { useState } from 'react';
+import { Alert, Linking } from 'react-native';
+
+import useLocale from '../use-locale';
 
 export const useGeolocation = () => {
-  const [location, setLocation] = useState<Location.LocationGeocodedAddress[] | null>();
-  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [address, setAddress] = useState<Location.LocationGeocodedAddress[]>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const requestUserLocation = async () => {
-    const { status } = await Location.requestForegroundPermissionsAsync();
+  const { t } = useLocale();
 
-    return status;
-  };
+  const errorAlert = (msg: string) =>
+    Alert.alert('Error', msg, [
+      {
+        text: 'Go to settings',
+        onPress: () => Linking.openSettings(),
+        style: 'cancel',
+      },
+    ]);
 
-  const getUserLocation = async () => {
-    const status = await requestUserLocation();
+  const getLocation = async () => {
+    try {
+      setIsLoading(true);
 
-    if (status !== 'granted') {
-      setErrorMsg('Permission to access location was denied');
-      return;
-    }
+      const { granted, canAskAgain } = await Location.requestForegroundPermissionsAsync();
+      const hasServicesEnabled = await Location.hasServicesEnabledAsync();
 
-    const userPosition = await Location.getLastKnownPositionAsync({});
+      if (!hasServicesEnabled) {
+        errorAlert(t('SHARE_LOCATION.ERRORS_MSG.LOCATION_SERVICE_DISABLED'));
 
-    if (userPosition) {
-      const address = await Location.reverseGeocodeAsync({
-        latitude: userPosition.coords.latitude,
-        longitude: userPosition.coords.longitude,
+        return;
+      }
+
+      if (!granted && !canAskAgain) {
+        errorAlert(t('SHARE_LOCATION.ERRORS_MSG.LOCATION_SERVICE_DENIED'));
+
+        return;
+      }
+
+      const {
+        coords: { latitude, longitude },
+      } = await Location.getCurrentPositionAsync();
+
+      const userAddress = await Location.reverseGeocodeAsync({
+        latitude,
+        longitude,
       });
 
-      setLocation(address);
-      setErrorMsg('');
+      if (userAddress) setAddress(userAddress);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
-    location,
-    getUserLocation,
-    errorMsg,
+    isLoading,
+    address,
+    getLocation,
   };
 };
