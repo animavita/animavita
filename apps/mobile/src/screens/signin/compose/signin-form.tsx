@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native';
 import { Button, Heading, Input, KeyboardAvoidingView, Text, View } from 'native-base';
 
 import { FormRow } from './form-row';
+import { useAuth } from '../../../hooks/use-auth-provider';
+import useLocale from '../../../hooks/use-locale';
 import Routes from '../../../routes';
-import { useAuth } from '../../../shared/hooks/use-auth-provider';
-import useLocale from '../../../shared/hooks/use-locale';
 import theme from '../../../theme';
 
 export const SignInForm = () => {
@@ -40,6 +40,7 @@ export const SignInForm = () => {
           auth.signIn({
             accessToken: '1234',
             refreshToken: '4321',
+            name: 'John Doe',
           });
 
           navigate(Routes.GetLocation as never);
