@@ -73,8 +73,11 @@
     "LOGOUT": "Sair"
   },
   "SHARE_LOCATION": {
-    "GREETINGS": "Olá",
-    "ASK_LOCATION": "precisamos da sua",
+    "ERRORS_MSG": {
+      "LOCATION_SERVICE_DISABLED": "Por favor, verifique se o seu GPS está habilitado!",
+      "LOCATION_SERVICE_DENIED": "A sua localização é realmente necessária para uma melhor experiência no app."
+    },
+    "GREETINGS": "Olá, {{ name }} precisamos da sua",
     "WHERE_USER_ARE_MSG": "Você está em",
     "CONFIRM_BUTTON": "Confirmar minha localização",
     "GET_LOCATION": "Compartilhar minha localização",
