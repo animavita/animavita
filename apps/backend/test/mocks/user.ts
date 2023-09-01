@@ -23,4 +23,7 @@ export const createUserMock = {
     longitude: -40.343569,
   },
   photoUri: 'http://www.google.com/',
+  id: '123',
+  createdAt: '',
+  updatedAt: '',
 };

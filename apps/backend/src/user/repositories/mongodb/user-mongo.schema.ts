@@ -20,7 +20,7 @@ export class MongoUser {
   @Prop({ required: true })
   password: string;
 
-  @Prop()
+  @Prop({ required: true })
   location: MongoLocation;
 
   @Prop()
