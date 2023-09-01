@@ -5,11 +5,16 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { UserType } from '@animavita/models';
 
 import { hash, verify } from 'argon2';
 
 import { UserService } from '../user/user.service';
+import {
+  CreateUserRequest,
+  CredentialsDTO,
+  SignInRequest,
+  SignInResponse,
+} from '@animavita/types';
 
 @Injectable()
 export class AuthService {
@@ -19,14 +24,14 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async signUp(user: UserType) {
+  async signUp(user: CreateUserRequest) {
     return this.userService.create({
       ...user,
       password: await hash(user.password),
     });
   }
 
-  async signIn(user: Pick<UserType, 'email' | 'password'>) {
+  async signIn(user: SignInRequest): Promise<SignInResponse> {
     const foundUser = await this.userService.findByEmail(user.email);
 
     if (!foundUser) throw new BadRequestException('Wrong email or password');
@@ -49,7 +54,10 @@ export class AuthService {
     });
   }
 
-  async refreshTokens(userId: string, refreshToken: string) {
+  async refreshTokens(
+    userId: string,
+    refreshToken: string,
+  ): Promise<CredentialsDTO> {
     const user = await this.userService.findById(userId);
 
     if (!user || !user.refreshToken || !refreshToken)
@@ -72,7 +80,10 @@ export class AuthService {
     });
   }
 
-  private async generateTokens(userId: string, email: string) {
+  private async generateTokens(
+    userId: string,
+    email: string,
+  ): Promise<CredentialsDTO> {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {

@@ -5,10 +5,12 @@ import {
 } from '@animavita/validation-schemas';
 import {
   Body,
+  ClassSerializerInterceptor,
   Controller,
   Get,
   Post,
   UseGuards,
+  UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
 
@@ -19,6 +21,7 @@ import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
 import { AuthService } from './auth.service';
 import { JwtPayload } from './strategies/accessToken.strategy';
 import { RefreshPayload } from './strategies/refreshToken.strategy';
+import { CreateUserRequest, SignInRequest } from '@animavita/types';
 
 @Controller('api/v1/auth')
 export class AuthController {
@@ -26,16 +29,18 @@ export class AuthController {
 
   @Post('signUp')
   @UsePipes(new JoiValidationPipe(signUpValidationSchema))
-  async signUp(@Body() user: UserType) {
+  async signUp(@Body() user: CreateUserRequest) {
     await this.authService.signUp(user);
+
     return {
       message: 'User created successfully',
     };
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)
   @Post('signIn')
   @UsePipes(new JoiValidationPipe(signInValidationSchema))
-  async signIn(@Body() user: UserType) {
+  async signIn(@Body() user: SignInRequest) {
     return this.authService.signIn(user);
   }
 
@@ -43,6 +48,7 @@ export class AuthController {
   @Get('logout')
   async logout(@User() user: JwtPayload) {
     await this.authService.logout(user.sub);
+
     return {
       message: 'User successfully logout',
     };

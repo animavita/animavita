@@ -7,7 +7,7 @@ import {
   closeInMongodConnection,
   rootMongooseTestModule,
 } from '../utils/in-memory-mongo';
-import { userMock } from '../mocks/user';
+import { createUserMock } from '../mocks/user';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
 import { UserModule } from '../../src/user/user.module';
@@ -45,7 +45,7 @@ describe('Authentication (e2e)', () => {
 
       const { body } = await request(app.getHttpServer())
         .post('/api/v1/auth/signUp')
-        .send(userMock)
+        .send(createUserMock)
         .expect(201);
 
       expect(body).toStrictEqual({
@@ -60,13 +60,13 @@ describe('Authentication (e2e)', () => {
     it('returns a successful message', async () => {
       const { app, service } = await setup();
 
-      await service.signUp(userMock);
+      await service.signUp(createUserMock);
 
       const { body } = await request(app.getHttpServer())
         .post('/api/v1/auth/signIn')
         .send({
-          email: userMock.email,
-          password: userMock.password,
+          email: createUserMock.email,
+          password: createUserMock.password,
         })
         .expect(201);
 
@@ -84,10 +84,10 @@ describe('Authentication (e2e)', () => {
     it('returns a successful message', async () => {
       const { app, service } = await setup();
 
-      const { accessToken } = await service.signUp(userMock).then(() =>
+      const { accessToken } = await service.signUp(createUserMock).then(() =>
         service.signIn({
-          email: userMock.email,
-          password: userMock.password,
+          email: createUserMock.email,
+          password: createUserMock.password,
         }),
       );
 
@@ -105,11 +105,11 @@ describe('Authentication (e2e)', () => {
       const { app, service } = await setup();
 
       const { accessToken, refreshToken } = await service
-        .signUp(userMock)
+        .signUp(createUserMock)
         .then(() =>
           service.signIn({
-            email: userMock.email,
-            password: userMock.password,
+            email: createUserMock.email,
+            password: createUserMock.password,
           }),
         );
 

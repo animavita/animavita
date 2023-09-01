@@ -1,7 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument, SchemaTimestampsConfig } from 'mongoose';
 
-@Schema()
 export class MongoLocation {
   @Prop({ enum: ['Point'], default: 'Point' })
   type: string;
@@ -21,7 +20,7 @@ export class MongoUser {
   @Prop({ required: true })
   password: string;
 
-  @Prop({ required: true })
+  @Prop()
   location: MongoLocation;
 
   @Prop()

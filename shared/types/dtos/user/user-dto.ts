@@ -1,3 +1,5 @@
+import { CredentialsDTO } from "../auth";
+
 export type Coordinates = { latitude: number; longitude: number };
 
 export type UserDTO = {
@@ -6,13 +8,13 @@ export type UserDTO = {
   password: string;
   location: Coordinates;
   photoUri?: string;
+  refreshToken?: CredentialsDTO["refreshToken"];
 };
 
 export type UserResponse = UserDTO & {
   id: string;
   createdAt: string;
   updatedAt: string;
-  refreshToken?: string;
 };
 
 export default UserDTO;
