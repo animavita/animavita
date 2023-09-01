@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { AdoptionDocument } from './adoption-mongo.interface';
-import { LocationSchema } from '../../../user/repositories/mongodb/user.schema';
+import { LocationSchema } from '../../../user/repositories/mongodb/user-mongo.schema';
 
 export const AdoptionSchema = new mongoose.Schema<AdoptionDocument>(
   {

@@ -3,9 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 
 import { Model } from 'mongoose';
 
-import { UserRepository } from '../user-repository.interface';
-import { UserMap } from '../user.map';
-import { IUser, UserDocument } from './user.interface';
+import { UserEntity, UserRepository } from '../user-repository.interface';
+import { UserMap } from './user.map';
+import { UserDocument } from './user-mongo.schema';
 
 @Injectable()
 export class UserMongoDBRepository implements UserRepository {
@@ -13,8 +13,8 @@ export class UserMongoDBRepository implements UserRepository {
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
   ) {}
 
-  async create(user: IUser) {
-    const createdUser = await this.userModel.create(user);
+  async create(user: UserEntity) {
+    const createdUser = await this.userModel.create(UserMap.toSchema(user));
     return UserMap.toType(createdUser);
   }
 
@@ -28,16 +28,17 @@ export class UserMongoDBRepository implements UserRepository {
     return UserMap.toType(foundUser);
   }
 
-  async update(id: string, user: Partial<IUser>) {
+  async update(id: string, user: Partial<UserEntity>) {
     const updatedUser = await this.userModel.findOneAndUpdate(
       {
         id,
       },
-      user,
+      UserMap.toSchema(user),
       {
         new: true,
       },
     );
+
     return UserMap.toType(updatedUser);
   }
 }

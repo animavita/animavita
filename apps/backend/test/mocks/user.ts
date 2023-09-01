@@ -1,6 +1,6 @@
-import { UserType } from '@animavita/models';
+import { UserEntity } from 'src/user/repositories/user-repository.interface';
 
-export const userMock: UserType = {
+export const userMock: UserEntity = {
   name: 'Grosbilda',
   email: 'grosbilda@email.com',
   password: 'quesenharuimgrosbilda',
@@ -9,4 +9,7 @@ export const userMock: UserType = {
     longitude: -40.343569,
   },
   photoUri: 'http://www.google.com/',
+  id: '123',
+  createdAt: '',
+  updatedAt: '',
 };

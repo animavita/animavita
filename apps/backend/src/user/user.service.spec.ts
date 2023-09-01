@@ -93,7 +93,7 @@ describe('UserService', () => {
       jest.spyOn(repository, 'findById').mockResolvedValueOnce(userMock);
       jest.spyOn(repository, 'update').mockResolvedValueOnce(updateUser);
       await expect(
-        service.update('some_id', {
+        service.update('123', {
           name: 'Gilberto',
         }),
       ).resolves.toEqual(updateUser);
@@ -106,7 +106,7 @@ describe('UserService', () => {
       jest.spyOn(repository, 'findById').mockResolvedValueOnce(null);
       jest.spyOn(repository, 'update').mockResolvedValueOnce(updateUser);
       await expect(
-        service.update('some_id', {
+        service.update('abc', {
           name: 'Gilberto',
         }),
       ).rejects.toThrowError(NotFoundException);

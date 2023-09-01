@@ -1,4 +1,3 @@
-import { UserType } from '@animavita/models';
 import {
   Inject,
   Injectable,
@@ -7,7 +6,11 @@ import {
 } from '@nestjs/common';
 
 import { UserRepository } from './repositories/user-repository.interface';
-import { UserMap } from './repositories/user.map';
+import {
+  CreateUserRequest,
+  UserResponse,
+  UpdateUserRequest,
+} from '@animavita/types';
 
 @Injectable()
 export class UserService {
@@ -15,28 +18,28 @@ export class UserService {
     @Inject('MONGODB') private readonly userRepository: UserRepository,
   ) {}
 
-  async create(user: UserType) {
+  async create(user: CreateUserRequest): Promise<UserResponse> {
     const foundUser = await this.userRepository.findByEmail(user.email);
 
     if (foundUser)
       throw new UnprocessableEntityException('Email already taken');
 
-    return this.userRepository.create(UserMap.toSchema(user));
+    return this.userRepository.create(user);
   }
 
-  findById(userId: string) {
+  findById(userId: string): Promise<UserResponse> {
     return this.userRepository.findById(userId);
   }
 
-  findByEmail(email: string) {
+  findByEmail(email: string): Promise<UserResponse> {
     return this.userRepository.findByEmail(email);
   }
 
-  async update(id: string, user: Partial<UserType>) {
+  async update(id: string, user: UpdateUserRequest): Promise<UserResponse> {
     const foundUser = await this.userRepository.findById(id);
 
     if (!foundUser) throw new NotFoundException("User doesn't exist");
 
-    return this.userRepository.update(id, UserMap.toSchema(user));
+    return this.userRepository.update(id, user);
   }
 }
