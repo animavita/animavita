@@ -1,12 +1,14 @@
-import { UserType } from '@animavita/models';
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { UserRepository } from '../user/repositories/user-repository.interface';
-import { getCoordinatesFromUser } from '../user/user.helpers';
 import { AdoptionRepository } from './repositories/adoption-repository.interface';
-import { AdoptionDto } from './adoption.interface';
 
-type UserEmail = UserType['email'];
+import {
+  AdoptionResponse,
+  CreateAdoptionRequest,
+  UpdateAdoptionRequest,
+  UserDTO,
+} from '@animavita/types';
 
 @Injectable()
 export class AdoptionsService {
@@ -17,23 +19,24 @@ export class AdoptionsService {
     @Inject('MONGODB') private readonly adoptionRepository: AdoptionRepository,
   ) {}
 
-  async createAdoption(adoption: AdoptionDto, currentUserEmail: UserEmail) {
-    const currentUser = await this.userService.findByEmail(currentUserEmail);
-    const coordinates = getCoordinatesFromUser(currentUser);
+  async createAdoption(
+    adoption: CreateAdoptionRequest,
+    currentUserEmail: UserDTO['email'],
+  ): Promise<AdoptionResponse> {
+    const { id, location } = await this.userService.findByEmail(
+      currentUserEmail,
+    );
 
     const newAdoption = await this.adoptionRepository.create({
       ...adoption,
-      location: {
-        type: 'Point',
-        coordinates,
-      },
-      user: currentUser.id,
+      location,
+      user: id,
     });
 
     return newAdoption;
   }
 
-  async updateAdoption(adoption: AdoptionDto) {
+  async updateAdoption(adoption: UpdateAdoptionRequest) {
     const target = await this.adoptionRepository.getById(adoption.id);
 
     if (!target) throw new NotFoundException();
@@ -49,14 +52,14 @@ export class AdoptionsService {
     currentUserEmail,
     radius = 1,
   }: {
-    currentUserEmail: UserEmail;
+    currentUserEmail: UserDTO['email'];
     radius: number;
   }) {
-    const currentUser = await this.userService.findByEmail(currentUserEmail);
-    const coordinates = getCoordinatesFromUser(currentUser);
+    const { id: currentUserId, location: coordinates } =
+      await this.userService.findByEmail(currentUserEmail);
 
     return this.adoptionRepository.findNearest({
-      currentUser,
+      currentUserId,
       coordinates,
       radius,
     });

@@ -19,7 +19,7 @@ import { AdoptionsService } from './adoption.service';
 import { User } from '../decorators/user.decorator';
 import { AccessTokenGuard } from '../guards/accessToken.guard';
 import { JwtPayload } from '../auth/strategies/accessToken.strategy';
-import { AdoptionDto } from './adoption.interface';
+import { CreateAdoptionRequest, UpdateAdoptionRequest } from '@animavita/types';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
@@ -28,7 +28,8 @@ export class AdoptionsController {
   @Post()
   @UseGuards(AccessTokenGuard)
   async createAdoption(
-    @Body(new JoiValidationPipe(createValidationSchema)) adoption: AdoptionDto,
+    @Body(new JoiValidationPipe(createValidationSchema))
+    adoption: CreateAdoptionRequest,
     @User() { email }: JwtPayload,
   ) {
     return this.adoptionsService.createAdoption(adoption, email);
@@ -36,7 +37,7 @@ export class AdoptionsController {
 
   @Patch()
   @UsePipes(new JoiValidationPipe(adoptionValidationSchema))
-  async updateAdoption(@Body() adoption: AdoptionDto) {
+  async updateAdoption(@Body() adoption: UpdateAdoptionRequest) {
     return this.adoptionsService.updateAdoption(adoption);
   }
 

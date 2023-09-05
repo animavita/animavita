@@ -12,6 +12,7 @@ export class UserEntity {
     longitude: number;
     latitude: number;
   };
+
   photoUri?: string;
   refreshToken?: string;
   createdAt: string;
