@@ -10,7 +10,6 @@ importers:
 
   apps/backend:
     specifiers:
-      '@animavita/models': workspace:*
       '@animavita/types': workspace:*
       '@animavita/validation-schemas': workspace:*
       '@nestjs/cli': ^9.0.0
@@ -54,7 +53,6 @@ importers:
       tsconfig-paths: 4.1.0
       typescript: ^4.7.4
     dependencies:
-      '@animavita/models': link:../../shared/models
       '@animavita/types': link:../../shared/types
       '@animavita/validation-schemas': link:../../shared/validation-schemas
       '@nestjs/common': 9.1.6_zjqyf46x76hyng3zndsldtoema

@@ -1,4 +1,3 @@
-import { UserType } from '@animavita/models';
 import {
   signInValidationSchema,
   signUpValidationSchema,

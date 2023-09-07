@@ -21,7 +21,6 @@
     "test:e2e": "TZ=UTC jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
-    "@animavita/models": "workspace:*",
     "@animavita/types": "workspace:*",
     "@animavita/validation-schemas": "workspace:*",
     "@nestjs/common": "^9.0.0",

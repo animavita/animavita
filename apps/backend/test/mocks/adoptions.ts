@@ -1,6 +1,6 @@
-import { AdoptionType, UserType } from '@animavita/models';
+import { AdoptionDTO, UserDTO } from '@animavita/types';
 
-export const pet1Mock: AdoptionType = {
+export const pet1Mock: AdoptionDTO = {
   name: 'Bob',
   age: 'puppy',
   type: 'dog',
@@ -11,7 +11,7 @@ export const pet1Mock: AdoptionType = {
   size: 'big',
 };
 
-export const pet2Mock: AdoptionType = {
+export const pet2Mock: AdoptionDTO = {
   name: 'Max',
   age: 'young',
   type: 'cat',
@@ -22,7 +22,7 @@ export const pet2Mock: AdoptionType = {
   size: 'medium',
 };
 
-export const pet3Mock: AdoptionType = {
+export const pet3Mock: AdoptionDTO = {
   name: 'Lucy',
   age: 'adult',
   type: 'dog',
@@ -33,7 +33,7 @@ export const pet3Mock: AdoptionType = {
   size: 'small',
 };
 
-export const user1Mock: UserType = {
+export const user1Mock: UserDTO = {
   email: 'john@email.com',
   location: {
     longitude: -47.58849,
@@ -43,7 +43,7 @@ export const user1Mock: UserType = {
   password: 'NicePass123@',
 };
 
-export const user2Mock: UserType = {
+export const user2Mock: UserDTO = {
   email: 'paul@email.com',
   location: {
     longitude: -47.58839,
