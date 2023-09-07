@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
 import { UserEntity, UserRepository } from '../user-repository.interface';
-import { UserMap } from './user.map';
+import { UserMap } from './user-mongo.map';
 import { UserDocument } from './user-mongo.schema';
 
 @Injectable()

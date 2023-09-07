@@ -40,12 +40,14 @@ export class AdoptionMongoDBRepository implements AdoptionRepository {
   }
 
   async getById(_id: string) {
-    const document = await this.adoptionModel
-      .findOne({ _id })
-      .populate<PopulatedAdoptionDocument>('user', 'id name')
-      .exec();
+    const document = await this.adoptionModel.findOne({ _id });
 
-    return AdoptionMap.toType(document);
+    if (!document) return null;
+
+    const populatedDocument =
+      await document.populate<PopulatedAdoptionDocument>('user', 'id name');
+
+    return AdoptionMap.toType(populatedDocument);
   }
 
   async findAll() {
