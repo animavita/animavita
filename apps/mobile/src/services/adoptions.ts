@@ -1,13 +1,13 @@
-import { AdoptionType } from '@animavita/models';
+import { CreateAdoptionRequest, UpdateAdoptionRequest, AdoptionResponse } from '@animavita/types';
 
 import client from './http-client';
 
 export const getAllAdoptions = () => {
-  return client.get<AdoptionType[]>('/adoptions');
+  return client.get<AdoptionResponse[]>('/adoptions');
 };
 
-export const saveOrCreate = (adoption: Partial<AdoptionType>) => {
-  const method = adoption.id ? 'patch' : 'post';
+export const saveOrCreate = (adoption: CreateAdoptionRequest | UpdateAdoptionRequest) => {
+  const method = 'id' in adoption ? 'patch' : 'post';
 
-  return client[method]<AdoptionType>('/adoptions', adoption);
+  return client[method]<AdoptionResponse>('/adoptions', adoption);
 };

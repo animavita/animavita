@@ -1,4 +1,4 @@
-import { AdoptionType } from '@animavita/models';
+import { AdoptionType } from '@animavita/types';
 import { createValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Box, KeyboardAvoidingView, useToast } from 'native-base';

@@ -8,10 +8,11 @@
     "ios": "ENV=dev expo start --ios",
     "web": "ENV=dev expo start --web",
     "test": "pnpm run lint && jest --coverage",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "check-types": "tsc --project tsconfig.json"
   },
   "dependencies": {
-    "@animavita/models": "workspace:*",
+    "@animavita/types": "workspace:*",
     "@animavita/validation-schemas": "workspace:*",
     "@expo/webpack-config": "^0.17.2",
     "@hookform/resolvers": "^2.9.10",
