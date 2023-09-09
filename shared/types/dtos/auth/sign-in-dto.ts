@@ -1,10 +1,10 @@
-import { CredentialsDTO } from "./auth-dto";
+import { CredentialsType } from "./auth-dto";
 
 export type SignInRequest = {
   email: string;
   password: string;
 };
 
-export type SignInResponse = CredentialsDTO & {
+export type SignInResponse = CredentialsType & {
   name: string;
 };

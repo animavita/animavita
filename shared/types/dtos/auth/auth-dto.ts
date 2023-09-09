@@ -1,4 +1,4 @@
-export type CredentialsDTO = {
+export type CredentialsType = {
   accessToken: string;
   refreshToken: string;
 };

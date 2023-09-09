@@ -1,4 +1,4 @@
-import { UserDTO } from '@animavita/types';
+import { UserType } from '@animavita/types';
 
-export const getCoordinatesFromUser = (user: UserDTO) =>
+export const getCoordinatesFromUser = (user: UserType) =>
   Object.values(user.location);

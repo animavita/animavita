@@ -1,20 +1,20 @@
-import { CredentialsDTO } from "../auth";
+import { CredentialsType } from "../auth";
 
 export type Coordinates = { latitude: number; longitude: number };
 
-export type UserDTO = {
+export type UserType = {
   name: string;
   email: string;
   password: string;
   location: Coordinates;
   photoUri?: string;
-  refreshToken?: CredentialsDTO["refreshToken"];
+  refreshToken?: CredentialsType["refreshToken"];
 };
 
-export type UserResponse = UserDTO & {
+export type UserResponse = UserType & {
   id: string;
   createdAt: string;
   updatedAt: string;
 };
 
-export default UserDTO;
+export default UserType;

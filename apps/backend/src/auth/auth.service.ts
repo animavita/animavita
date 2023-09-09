@@ -11,7 +11,7 @@ import { hash, verify } from 'argon2';
 import { UserService } from '../user/user.service';
 import {
   CreateUserRequest,
-  CredentialsDTO,
+  CredentialsType,
   SignInRequest,
   SignInResponse,
 } from '@animavita/types';
@@ -57,7 +57,7 @@ export class AuthService {
   async refreshTokens(
     userId: string,
     refreshToken: string,
-  ): Promise<CredentialsDTO> {
+  ): Promise<CredentialsType> {
     const user = await this.userService.findById(userId);
 
     if (!user || !user.refreshToken || !refreshToken)
@@ -83,7 +83,7 @@ export class AuthService {
   private async generateTokens(
     userId: string,
     email: string,
-  ): Promise<CredentialsDTO> {
+  ): Promise<CredentialsType> {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {

@@ -1,3 +1,3 @@
-import AdoptionDTO from "./adoption-dto";
+import AdoptionType from "./adoption-dto";
 
-export type CreateAdoptionRequest = AdoptionDTO;
+export type CreateAdoptionRequest = AdoptionType;

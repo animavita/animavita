@@ -1,7 +1,7 @@
-import AdoptionDTO from "./adoption-dto";
+import AdoptionType from "./adoption-dto";
 
 export type UpdateAdoptionRequest = Partial<
-  AdoptionDTO & {
+  AdoptionType & {
     id: string;
   }
 >;

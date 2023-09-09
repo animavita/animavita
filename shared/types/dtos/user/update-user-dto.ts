@@ -1,7 +1,7 @@
-import UserDTO from "./user-dto";
+import UserType from "./user-dto";
 
 export type UpdateUserRequest = Partial<
-  UserDTO & {
+  UserType & {
     id: string;
   }
 >;

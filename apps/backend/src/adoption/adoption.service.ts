@@ -7,7 +7,7 @@ import {
   AdoptionResponse,
   CreateAdoptionRequest,
   UpdateAdoptionRequest,
-  UserDTO,
+  UserType,
 } from '@animavita/types';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class AdoptionsService {
 
   async createAdoption(
     adoption: CreateAdoptionRequest,
-    currentUserEmail: UserDTO['email'],
+    currentUserEmail: UserType['email'],
   ): Promise<AdoptionResponse> {
     const { id, location } = await this.userService.findByEmail(
       currentUserEmail,
@@ -52,7 +52,7 @@ export class AdoptionsService {
     currentUserEmail,
     radius = 1,
   }: {
-    currentUserEmail: UserDTO['email'];
+    currentUserEmail: UserType['email'];
     radius: number;
   }) {
     const { id: currentUserId, location: coordinates } =

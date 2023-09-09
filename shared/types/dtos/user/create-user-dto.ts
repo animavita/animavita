@@ -1,3 +1,3 @@
-import UserDTO from "./user-dto";
+import UserType from "./user-dto";
 
-export type CreateUserRequest = UserDTO;
+export type CreateUserRequest = UserType;
