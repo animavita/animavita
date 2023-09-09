@@ -3,15 +3,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { UserMongoDBRepository } from './mongodb/user-mongo.repository';
 import { UserSchema } from './mongodb/user-mongo.schema';
+import { UserRepository } from './user-repository.interface';
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
   providers: [
     {
-      provide: 'MONGODB',
+      provide: UserRepository,
       useClass: UserMongoDBRepository,
     },
   ],
-  exports: ['MONGODB'],
+  exports: [UserRepository],
 })
 export class UserEntitiesModule {}

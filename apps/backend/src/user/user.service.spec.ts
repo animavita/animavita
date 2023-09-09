@@ -20,14 +20,14 @@ const setup = async () => {
     providers: [
       UserService,
       {
-        provide: 'MONGODB',
+        provide: UserRepository,
         useValue: repositoryMock,
       },
     ],
   }).compile();
 
   const service = module.get<UserService>(UserService);
-  const repository = module.get<UserRepository>('MONGODB');
+  const repository = module.get<UserRepository>(UserRepository);
 
   return {
     service,

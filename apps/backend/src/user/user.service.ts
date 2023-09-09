@@ -1,5 +1,4 @@
 import {
-  Inject,
   Injectable,
   NotFoundException,
   UnprocessableEntityException,
@@ -14,9 +13,7 @@ import {
 
 @Injectable()
 export class UserService {
-  constructor(
-    @Inject('MONGODB') private readonly userRepository: UserRepository,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async create(user: CreateUserRequest): Promise<UserResponse> {
     const foundUser = await this.userRepository.findByEmail(user.email);
