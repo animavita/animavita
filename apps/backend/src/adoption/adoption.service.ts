@@ -15,9 +15,7 @@ export class AdoptionsService {
   @Inject(UserService)
   private readonly userService: UserRepository;
 
-  constructor(
-    @Inject('MONGODB') private readonly adoptionRepository: AdoptionRepository,
-  ) {}
+  constructor(private readonly adoptionRepository: AdoptionRepository) {}
 
   async createAdoption(
     adoption: CreateAdoptionRequest,
@@ -37,11 +35,11 @@ export class AdoptionsService {
   }
 
   async updateAdoption(adoption: UpdateAdoptionRequest) {
-    const target = await this.adoptionRepository.getById(adoption.id);
+    const target = await this.adoptionRepository.findById(adoption.id);
 
     if (!target) throw new NotFoundException();
 
-    return await this.adoptionRepository.update(adoption);
+    return await this.adoptionRepository.update(adoption.id, adoption);
   }
 
   async findAll() {
@@ -66,7 +64,7 @@ export class AdoptionsService {
   }
 
   async deleteAdoption(adoptionId: string) {
-    const target = await this.adoptionRepository.getById(adoptionId);
+    const target = await this.adoptionRepository.findById(adoptionId);
 
     if (!target) throw new NotFoundException();
 

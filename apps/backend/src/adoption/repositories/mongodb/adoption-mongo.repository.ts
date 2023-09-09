@@ -1,60 +1,28 @@
 import { InjectModel } from '@nestjs/mongoose';
 import {
-  AdoptionEntity,
-  AdoptionRepository,
   FindNearestType,
+  PopulatedAdoptionEntity,
 } from '../adoption-repository.interface';
 import { Model } from 'mongoose';
 import { AdoptionMap } from './adoption-mongo.map';
 import {
   AdoptionDocument,
+  MongoAdoption,
   PopulatedAdoptionDocument,
 } from './adoption-mongo.schema';
+import { MongoGenericRepository } from '../../../frameworks/data-services/mongo-generic-repository';
 
 export const RADIUS_OF_EARTH = 63781; // km
 
-export class AdoptionMongoDBRepository implements AdoptionRepository {
+export class AdoptionMongoDBRepository extends MongoGenericRepository<
+  MongoAdoption,
+  PopulatedAdoptionEntity
+> {
   constructor(
     @InjectModel('Adoption')
     private readonly adoptionModel: Model<AdoptionDocument>,
-  ) {}
-
-  async create(adoption: AdoptionEntity) {
-    const newAdoption = new this.adoptionModel(AdoptionMap.toSchema(adoption));
-
-    const document = await newAdoption.save();
-
-    const populatedDocument =
-      await document.populate<PopulatedAdoptionDocument>('user', 'id name');
-
-    return AdoptionMap.toType(populatedDocument);
-  }
-
-  async update(adoption: Partial<AdoptionEntity>) {
-    const document = await this.adoptionModel
-      .findOneAndUpdate({ _id: adoption.id }, { $set: adoption }, { new: true })
-      .populate<PopulatedAdoptionDocument>('user', 'id name');
-
-    return AdoptionMap.toType(document);
-  }
-
-  async getById(_id: string) {
-    const document = await this.adoptionModel.findOne({ _id });
-
-    if (!document) return null;
-
-    const populatedDocument =
-      await document.populate<PopulatedAdoptionDocument>('user', 'id name');
-
-    return AdoptionMap.toType(populatedDocument);
-  }
-
-  async findAll() {
-    const documents = await this.adoptionModel
-      .find()
-      .populate<PopulatedAdoptionDocument>('user', 'id name');
-
-    return documents.map(AdoptionMap.toType);
+  ) {
+    super(adoptionModel, ['user'], AdoptionMap);
   }
 
   async findNearest({ coordinates, currentUserId, radius }: FindNearestType) {
@@ -73,14 +41,5 @@ export class AdoptionMongoDBRepository implements AdoptionRepository {
       .populate<PopulatedAdoptionDocument>('user', 'id name');
 
     return documents.map(AdoptionMap.toType);
-  }
-
-  async delete(_id: string) {
-    const document = await this.adoptionModel
-      .findOneAndDelete({ _id })
-      .populate<PopulatedAdoptionDocument>('user', 'id name')
-      .exec();
-
-    return AdoptionMap.toType(document);
   }
 }

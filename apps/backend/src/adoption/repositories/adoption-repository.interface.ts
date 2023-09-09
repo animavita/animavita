@@ -5,6 +5,7 @@ import {
   AnimalType,
 } from '@animavita/types';
 import { UserEntity } from '../../user/repositories/user-repository.interface';
+import { GenericRepository } from '../../core/abstracts/generic-repository.abstract';
 
 export class AdoptionEntity {
   id: string;
@@ -36,15 +37,9 @@ export type FindNearestType = {
   coordinates: AdoptionEntity['location'];
 };
 
-export interface AdoptionRepository {
-  create: (
-    adoption: Omit<AdoptionEntity, 'id' | 'createdAt' | 'updatedAt'>,
-  ) => Promise<PopulatedAdoptionEntity>;
-  update: (
-    adoption: Partial<Omit<AdoptionEntity, 'createdAt' | 'updateAt'>>,
-  ) => Promise<PopulatedAdoptionEntity>;
-  findAll: () => Promise<PopulatedAdoptionEntity[]>;
+export abstract class AdoptionRepository extends GenericRepository<
+  AdoptionEntity,
+  PopulatedAdoptionEntity
+> {
   findNearest: (args: FindNearestType) => Promise<PopulatedAdoptionEntity[]>;
-  getById: (id: string) => Promise<PopulatedAdoptionEntity>;
-  delete: (id: string) => Promise<PopulatedAdoptionEntity>;
 }

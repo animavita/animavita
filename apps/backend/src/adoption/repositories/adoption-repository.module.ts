@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AdoptionSchema } from './mongodb/adoption-mongo.schema';
 import { AdoptionMongoDBRepository } from './mongodb/adoption-mongo.repository';
+import { AdoptionRepository } from './adoption-repository.interface';
 
 @Module({
   imports: [
@@ -9,10 +10,10 @@ import { AdoptionMongoDBRepository } from './mongodb/adoption-mongo.repository';
   ],
   providers: [
     {
-      provide: 'MONGODB',
+      provide: AdoptionRepository,
       useClass: AdoptionMongoDBRepository,
     },
   ],
-  exports: ['MONGODB'],
+  exports: [AdoptionRepository],
 })
 export class AdoptionEntitiesModule {}
