@@ -1,6 +1,6 @@
 import { MongoLocation, MongoUser, UserDocument } from './user-mongo.schema';
 import { UserEntity } from '../user-repository.interface';
-import { MongoMapper } from '../../../frameworks/data-services/mongo-generic-mapper';
+import { MongoMapper } from '../../../frameworks/data-services/mongo-generic.map';
 
 export const UserMap: MongoMapper<UserEntity, MongoUser> = {
   toType(document: UserDocument): UserEntity {

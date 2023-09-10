@@ -43,7 +43,7 @@ export class MongoAdoption {
   @Prop()
   photos: string[];
 
-  @Prop({ required: true, type: Types.ObjectId, ref: 'User' })
+  @Prop({ required: true, type: Types.ObjectId, ref: MongoUser.name })
   user: string;
 
   @Prop()

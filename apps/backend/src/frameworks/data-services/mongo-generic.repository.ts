@@ -1,25 +1,25 @@
 import { Model } from 'mongoose';
 import { GenericRepository } from '../../core/abstracts/generic-repository.abstract';
-import { MongoMapper } from './mongo-generic-mapper';
+import { MongoMapper } from './mongo-generic.map';
 
-export class MongoGenericRepository<T, TPopulated>
-  implements GenericRepository<T, TPopulated>
+export class MongoGenericRepository<MongoModel, Entity, EntityPopulated>
+  implements GenericRepository<Entity, EntityPopulated>
 {
-  private _repository: Model<T>;
+  private _repository: Model<MongoModel>;
   private _populateOnFind: string[];
-  private _Mapper: MongoMapper<TPopulated, T>;
+  private _Mapper: MongoMapper<EntityPopulated, MongoModel>;
 
   constructor(
-    repository: Model<T>,
+    repository: Model<MongoModel>,
     populateOnFind: string[] = [],
-    mapper: MongoMapper<TPopulated, T>,
+    mapper: MongoMapper<EntityPopulated, MongoModel>,
   ) {
     this._repository = repository;
     this._populateOnFind = populateOnFind;
     this._Mapper = mapper;
   }
 
-  async findAll(): Promise<TPopulated[]> {
+  async findAll(): Promise<EntityPopulated[]> {
     const documents = await this._repository
       .find()
       .populate(this._populateOnFind);
@@ -27,7 +27,7 @@ export class MongoGenericRepository<T, TPopulated>
     return documents.map(this._Mapper.toType);
   }
 
-  async findById(_id: string): Promise<TPopulated> {
+  async findById(_id: string): Promise<EntityPopulated> {
     const document = await this._repository
       .findOne({ _id })
       .populate(this._populateOnFind);
@@ -37,7 +37,7 @@ export class MongoGenericRepository<T, TPopulated>
     return this._Mapper.toType(document);
   }
 
-  async create(item: T): Promise<TPopulated> {
+  async create(item: Entity): Promise<EntityPopulated> {
     const newDocument = new this._repository(this._Mapper.toSchema(item));
 
     const document = await newDocument
@@ -47,7 +47,7 @@ export class MongoGenericRepository<T, TPopulated>
     return this._Mapper.toType(document);
   }
 
-  async update(_id: string, item: T): Promise<TPopulated> {
+  async update(_id: string, item: Entity): Promise<EntityPopulated> {
     const document = await this._repository
       .findOneAndUpdate({ _id }, { $set: item }, { new: true })
       .populate(this._populateOnFind);
@@ -55,7 +55,7 @@ export class MongoGenericRepository<T, TPopulated>
     return this._Mapper.toType(document);
   }
 
-  async delete(_id: string): Promise<TPopulated> {
+  async delete(_id: string): Promise<EntityPopulated> {
     const document = await this._repository
       .findOneAndDelete({ _id })
       .populate(this._populateOnFind)

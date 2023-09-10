@@ -7,7 +7,7 @@ import {
   MongoAdoption,
   PopulatedAdoptionDocument,
 } from './adoption-mongo.schema';
-import { MongoMapper } from 'src/frameworks/data-services/mongo-generic-mapper';
+import { MongoMapper } from 'src/frameworks/data-services/mongo-generic.map';
 
 export const AdoptionMap: MongoMapper<PopulatedAdoptionEntity, MongoAdoption> =
   {

@@ -6,15 +6,17 @@ import { Model } from 'mongoose';
 import { UserEntity } from '../user-repository.interface';
 import { UserMap } from './user-mongo.map';
 import { MongoUser, UserDocument } from './user-mongo.schema';
-import { MongoGenericRepository } from '../../../frameworks/data-services/mongo-generic-repository';
+import { MongoGenericRepository } from '../../../frameworks/data-services/mongo-generic.repository';
 
 @Injectable()
 export class UserMongoDBRepository extends MongoGenericRepository<
   MongoUser,
+  UserEntity,
   UserEntity
 > {
   constructor(
-    @InjectModel('User') private readonly userModel: Model<UserDocument>,
+    @InjectModel(MongoUser.name)
+    private readonly userModel: Model<UserDocument>,
   ) {
     super(userModel, [], UserMap);
   }

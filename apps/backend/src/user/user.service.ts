@@ -3,40 +3,39 @@ import {
   NotFoundException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-
-import { UserRepository } from './repositories/user-repository.interface';
 import {
   CreateUserRequest,
   UserResponse,
   UpdateUserRequest,
 } from '@animavita/types';
+import { DataServices } from '../core/abstracts/data-services.abstract';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly dataServices: DataServices) {}
 
   async create(user: CreateUserRequest): Promise<UserResponse> {
-    const foundUser = await this.userRepository.findByEmail(user.email);
+    const foundUser = await this.dataServices.users.findByEmail(user.email);
 
     if (foundUser)
       throw new UnprocessableEntityException('Email already taken');
 
-    return this.userRepository.create(user);
+    return this.dataServices.users.create(user);
   }
 
   findById(userId: string): Promise<UserResponse> {
-    return this.userRepository.findById(userId);
+    return this.dataServices.users.findById(userId);
   }
 
   findByEmail(email: string): Promise<UserResponse> {
-    return this.userRepository.findByEmail(email);
+    return this.dataServices.users.findByEmail(email);
   }
 
   async update(id: string, user: UpdateUserRequest): Promise<UserResponse> {
-    const foundUser = await this.userRepository.findById(id);
+    const foundUser = await this.dataServices.users.findById(id);
 
     if (!foundUser) throw new NotFoundException("User doesn't exist");
 
-    return this.userRepository.update(id, user);
+    return this.dataServices.users.update(id, user);
   }
 }
