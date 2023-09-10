@@ -20,6 +20,9 @@ import { User } from '../decorators/user.decorator';
 import { AccessTokenGuard } from '../guards/accessToken.guard';
 import { JwtPayload } from '../auth/strategies/accessToken.strategy';
 import { CreateAdoptionRequest, UpdateAdoptionRequest } from '@animavita/types';
+import { AbilityGuard } from 'src/guards/ability.guard';
+import { CheckAbilities } from 'src/frameworks/casl/ability.decorator';
+import { Action } from '../frameworks/casl/ability.factory';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
@@ -36,6 +39,11 @@ export class AdoptionsController {
   }
 
   @Patch()
+  @UseGuards(AccessTokenGuard, AbilityGuard)
+  @CheckAbilities({
+    action: Action.Update,
+    subject: 'Adoption',
+  })
   @UsePipes(new JoiValidationPipe(adoptionValidationSchema))
   async updateAdoption(@Body() adoption: UpdateAdoptionRequest) {
     return this.adoptionsService.updateAdoption(adoption);
