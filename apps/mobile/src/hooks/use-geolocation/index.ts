@@ -2,19 +2,15 @@ import * as Location from 'expo-location';
 import { useState } from 'react';
 import { Alert, Linking } from 'react-native';
 
-import useLocale from '../use-locale';
-
 export const useGeolocation = () => {
   const [address, setAddress] = useState<Location.LocationGeocodedAddress[]>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { t } = useLocale();
-
-  const errorAlert = (msg: string) =>
+  const errorAlert = (msg: string, onPress: () => void, text?: string) =>
     Alert.alert('Error', msg, [
       {
-        text: 'Go to settings',
-        onPress: () => Linking.openSettings(),
+        text,
+        onPress,
         style: 'cancel',
       },
     ]);
@@ -27,13 +23,21 @@ export const useGeolocation = () => {
       const hasServicesEnabled = await Location.hasServicesEnabledAsync();
 
       if (!hasServicesEnabled) {
-        errorAlert(t('SHARE_LOCATION.ERRORS_MSG.LOCATION_SERVICE_DISABLED'));
+        errorAlert('Por favor, verifique se o seu GPS está habilitado!', () => {
+          Location.enableNetworkProviderAsync();
+        });
 
         return;
       }
 
       if (!granted && !canAskAgain) {
-        errorAlert(t('SHARE_LOCATION.ERRORS_MSG.LOCATION_SERVICE_DENIED'));
+        errorAlert(
+          'A sua localização é realmente necessária para uma melhor experiência no app.',
+          () => {
+            Linking.openSettings();
+          },
+          'Go to settings'
+        );
 
         return;
       }
@@ -49,7 +53,7 @@ export const useGeolocation = () => {
 
       if (userAddress) setAddress(userAddress);
     } catch (error) {
-      console.log(error);
+      console.log((error as Error).message);
     } finally {
       setIsLoading(false);
     }
