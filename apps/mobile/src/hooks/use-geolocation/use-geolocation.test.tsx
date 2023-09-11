@@ -1,7 +1,10 @@
-import { act, renderHook } from '@testing-library/react-native';
-import * as Location from 'expo-location';
+import { act, fireEvent, renderHook } from '@testing-library/react-native';
+import { Alert } from 'react-native';
 
 import { useGeolocation } from '.';
+import { getLocationModuleMock } from './fixtures/mocks/location';
+import GetLocation from '../../screens/get-location/get-location.screen';
+import { renderWithProviders } from '../../test/test-utils';
 
 jest.mock('expo-location');
 
@@ -10,72 +13,88 @@ describe('useGeolocation', () => {
     jest.clearAllMocks();
   });
 
-  it('returns an error message when user do not grant permissions', async () => {
-    (Location.requestForegroundPermissionsAsync as jest.Mock).mockResolvedValue({
-      status: 'denied',
+  describe("when something goes wrong when trying to get the user's location", () => {
+    it('shows error alert when user do not grant location permission', async () => {
+      const { denyPermissions, enableGPS } = getLocationModuleMock();
+
+      denyPermissions();
+      enableGPS();
+
+      const errorMessageText =
+        'A sua localização é realmente necessária para uma melhor experiência no app.';
+      const alertTitle = 'Error';
+
+      jest.spyOn(Alert, 'alert');
+
+      const { getByText } = renderWithProviders(<GetLocation />);
+
+      const button = getByText(/compartilhar minha localização/i);
+
+      await act(() => {
+        fireEvent.press(button);
+      });
+
+      expect(Alert.alert).toHaveBeenCalledWith(alertTitle, errorMessageText, [
+        { onPress: expect.any(Function), style: 'cancel', text: 'Go to settings' },
+      ]);
     });
 
-    const { result } = renderHook(() => useGeolocation());
+    it('shows error alert when user do not have the GPS turned on', async () => {
+      const { grantPermissions, disableGPS } = getLocationModuleMock();
 
-    await act(() => {
-      result.current.getUserLocation();
+      disableGPS();
+      grantPermissions();
+
+      const errorMessageText = 'Por favor, verifique se o seu GPS está habilitado!';
+      const alertTitle = 'Error';
+
+      jest.spyOn(Alert, 'alert');
+
+      const { getByText } = renderWithProviders(<GetLocation />);
+
+      const button = getByText(/compartilhar minha localização/i);
+
+      await act(() => {
+        fireEvent.press(button);
+      });
+
+      expect(Alert.alert).toHaveBeenCalledWith(alertTitle, errorMessageText, [
+        { onPress: expect.any(Function), style: 'cancel' },
+      ]);
     });
-
-    expect(result.current.errorMsg).toEqual('Permission to access location was denied');
   });
 
-  it('returns the current location when user grant permissions', async () => {
-    const mockedLocation = {
-      city: '',
-      district: '',
-      streetNumber: '',
-      street: '',
-      region: '',
-      subregion: '',
-      country: '',
-      postalCode: '',
-      name: '',
-      isoCountryCode: '',
-      timezone: '',
-    };
+  describe('when permistions are granted and GPS is turned on ', () => {
+    it('returns the current location of the user', async () => {
+      const { result } = renderHook(() => useGeolocation());
+      const { mockedAddress, responseWithAddress, grantPermissions, enableGPS } =
+        getLocationModuleMock();
 
-    (Location.requestForegroundPermissionsAsync as jest.Mock).mockResolvedValue({
-      status: 'granted',
+      enableGPS();
+      grantPermissions();
+      responseWithAddress();
+
+      await act(() => {
+        result.current.getLocation();
+      });
+
+      expect(result.current.address).toEqual(mockedAddress);
+      expect(result.current.address).not.toBeFalsy();
     });
 
-    (Location.getLastKnownPositionAsync as jest.Mock).mockResolvedValue({
-      coords: {
-        longitude: 141234,
-        latitude: 1213214,
-      },
+    it('returns a undefined value if there is no address', async () => {
+      const { result } = renderHook(() => useGeolocation());
+      const { responseWithoutAddress, grantPermissions, enableGPS } = getLocationModuleMock();
+
+      enableGPS();
+      grantPermissions();
+      responseWithoutAddress();
+
+      await act(() => {
+        result.current.getLocation();
+      });
+
+      expect(result.current.address).toBeFalsy();
     });
-
-    (Location.reverseGeocodeAsync as jest.Mock).mockResolvedValue(mockedLocation);
-
-    const { result } = renderHook(() => useGeolocation());
-
-    await act(() => {
-      result.current.getUserLocation();
-    });
-
-    expect(result.current.location).toEqual(mockedLocation);
-  });
-
-  it('returns a undefined value if there is no address', async () => {
-    (Location.requestForegroundPermissionsAsync as jest.Mock).mockResolvedValue({
-      status: 'granted',
-    });
-
-    (Location.getLastKnownPositionAsync as jest.Mock).mockResolvedValue(undefined);
-
-    (Location.reverseGeocodeAsync as jest.Mock).mockResolvedValue({});
-
-    const { result } = renderHook(() => useGeolocation());
-
-    await act(() => {
-      result.current.getUserLocation();
-    });
-
-    expect(result.current.location).toEqual(undefined);
   });
 });
