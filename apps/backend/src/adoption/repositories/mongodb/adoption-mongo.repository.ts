@@ -22,13 +22,12 @@ export class AdoptionMongoDBRepository implements AdoptionRepository {
   async create(adoption: AdoptionEntity) {
     const newAdoption = new this.adoptionModel(AdoptionMap.toSchema(adoption));
 
-    const document = await newAdoption
-      .save()
-      .then((adoption) =>
-        adoption.populate<PopulatedAdoptionDocument>('user', 'id name'),
-      );
+    const document = await newAdoption.save();
 
-    return AdoptionMap.toType(document);
+    const populatedDocument =
+      await document.populate<PopulatedAdoptionDocument>('user', 'id name');
+
+    return AdoptionMap.toType(populatedDocument);
   }
 
   async update(adoption: Partial<AdoptionEntity>) {
