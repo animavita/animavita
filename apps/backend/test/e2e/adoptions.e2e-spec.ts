@@ -21,8 +21,6 @@ import { AuthService } from '../../src/auth/auth.service';
 import { ConfigModule } from '@nestjs/config';
 import { getCoordinatesFromUser } from '../../src/user/user.helpers';
 
-Date.now = () => 1000;
-
 describe('AdoptionsController (e2e)', () => {
   let app: INestApplication;
   let adoptionsService: AdoptionsService;
