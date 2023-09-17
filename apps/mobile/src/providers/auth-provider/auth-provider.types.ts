@@ -1,16 +1,11 @@
-import { UserType } from '@animavita/models';
-
-type UserToken = {
-  accessToken: string;
-  refreshToken: string;
-};
+import { UserType, CredentialsType } from '@animavita/types';
 
 type UserInfo = Pick<UserType, 'name'>;
 
-export type UserPayload = UserToken & UserInfo;
+export type UserPayload = CredentialsType & UserInfo;
 
 export type AuthState = {
-  tokens?: UserToken | null;
+  tokens?: CredentialsType | null;
   user?: UserInfo | null;
   status: 'IDLE' | 'NOT_LOGGED' | 'LOGGED';
 };

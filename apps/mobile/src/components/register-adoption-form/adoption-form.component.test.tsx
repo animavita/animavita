@@ -55,7 +55,7 @@ const MainNavigator = () => {
     <Stack.Navigator initialRouteName={Routes.RegisterAdoption}>
       <Stack.Screen name={Routes.Home} component={Home} />
       <Stack.Screen name={Routes.RegisterAdoption}>
-        {() => <RegisterAdoptionForm defaultValues={{ age: 2 }} />}
+        {() => <RegisterAdoptionForm defaultValues={{ age: 'adult' }} />}
       </Stack.Screen>
     </Stack.Navigator>
   );

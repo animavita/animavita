@@ -1,4 +1,4 @@
-import { AdoptionType, UserType } from '@animavita/models';
+import { AdoptionType, UserType } from '@animavita/types';
 
 export const pet1Mock: AdoptionType = {
   name: 'Bob',

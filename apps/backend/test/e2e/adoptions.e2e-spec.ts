@@ -67,8 +67,6 @@ describe('AdoptionsController (e2e)', () => {
     const { id, name, breed, gender, observations, photos, age, type, size } =
       await adoptionsService.createAdoption(pet1Mock, 'john@email.com');
 
-    const expectedCoordinates = getCoordinatesFromUser(user1Mock);
-
     return request(app.getHttpServer())
       .get('/api/v1/adoptions')
       .expect(200)
@@ -84,19 +82,16 @@ describe('AdoptionsController (e2e)', () => {
             age,
             type,
             size,
-            location: {
-              coordinates: expectedCoordinates,
-              type: 'Point',
-            },
+            location: user1Mock.location,
             user: { id: userId, name: 'John' },
+            createdAt: expect.any(String),
+            updatedAt: expect.any(String),
           },
         ]);
       });
   });
 
   it('/POST adoptions', () => {
-    const expectedCoordinates = getCoordinatesFromUser(user1Mock);
-
     return request(app.getHttpServer())
       .post('/api/v1/adoptions')
       .auth(authToken, { type: 'bearer' })
@@ -106,14 +101,13 @@ describe('AdoptionsController (e2e)', () => {
         expect(res.body).toEqual({
           ...pet2Mock,
           id: res.body.id,
-          location: {
-            coordinates: expectedCoordinates,
-            type: 'Point',
-          },
+          location: user1Mock.location,
           user: {
             id: userId,
             name: user1Mock.name,
           },
+          createdAt: expect.any(String),
+          updatedAt: expect.any(String),
         }),
       );
   });
@@ -180,12 +174,11 @@ describe('AdoptionsController (e2e)', () => {
           return expect(res.body).toEqual([
             expect.objectContaining({
               ...pet2Mock,
-              location: expect.objectContaining({
-                coordinates: getCoordinatesFromUser(user2),
-              }),
-              user: expect.objectContaining({
+              location: user2.location,
+              user: {
+                id: expect.any(String),
                 name: user2.name,
-              }),
+              },
             }),
           ]);
         });

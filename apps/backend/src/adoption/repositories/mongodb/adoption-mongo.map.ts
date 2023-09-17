@@ -1,23 +1,59 @@
-import { AdoptionResponse } from '../../adoption.interface';
-import { AdoptionDocument } from './adoption-mongo.interface';
+import { MongoLocation } from 'src/user/repositories/mongodb/user-mongo.schema';
+import {
+  AdoptionEntity,
+  PopulatedAdoptionEntity,
+} from '../adoption-repository.interface';
+import {
+  MongoAdoption,
+  PopulatedAdoptionDocument,
+} from './adoption-mongo.schema';
 
 export class AdoptionMap {
-  static toType(adoption: AdoptionDocument): AdoptionResponse {
+  static toType(document: PopulatedAdoptionDocument): PopulatedAdoptionEntity {
     return {
-      id: adoption._id.toString(),
+      id: document._id.toString(),
+      name: document.name,
+      age: document.age,
+      breed: document.breed,
+      gender: document.gender,
+      location: {
+        longitude: document.location.coordinates[0],
+        latitude: document.location.coordinates[1],
+      },
+      observations: document.observations,
+      photos: document.photos,
+      size: document.size,
+      type: document.type,
+      user: {
+        id: document.user._id.toString(),
+        name: document.user.name,
+      },
+      createdAt: document.createdAt as string,
+      updatedAt: document.updatedAt as string,
+    };
+  }
+
+  static toSchema(adoption: AdoptionEntity): MongoAdoption {
+    let location: MongoLocation;
+
+    if (adoption.location?.longitude && adoption.location?.latitude) {
+      location = {
+        type: 'Point',
+        coordinates: [adoption.location.longitude, adoption.location.latitude],
+      };
+    }
+
+    return {
       name: adoption.name,
       age: adoption.age,
       breed: adoption.breed,
       gender: adoption.gender,
-      location: adoption.location,
-      observations: adoption.observations,
-      photos: adoption.photos,
       size: adoption.size,
       type: adoption.type,
-      user: {
-        id: adoption.user._id,
-        name: adoption.user.name,
-      },
+      observations: adoption.observations,
+      photos: adoption.photos,
+      location,
+      user: adoption.user,
     };
   }
 }

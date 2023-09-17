@@ -1,4 +1,4 @@
-import { AdoptionType } from '@animavita/models';
+import { AdoptionType } from '@animavita/types';
 import { useNavigation } from '@react-navigation/native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useToast } from 'native-base';

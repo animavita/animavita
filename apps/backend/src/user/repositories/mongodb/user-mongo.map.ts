@@ -1,11 +1,12 @@
-import { UserType } from '@animavita/models';
-import { IUser, UserDocument, Location } from './mongodb/user.interface';
+import { MongoLocation, MongoUser, UserDocument } from './user-mongo.schema';
+import { UserEntity } from '../user-repository.interface';
 
 export class UserMap {
-  static toType(document: UserDocument): UserType {
+  static toType(document: UserDocument): UserEntity {
     if (!document) return;
-    return {
-      id: document._id,
+
+    return new UserEntity({
+      id: document._id.toString(),
       email: document.email,
       location: {
         longitude: document.location.coordinates[0],
@@ -15,15 +16,18 @@ export class UserMap {
       password: document.password,
       photoUri: document.photoUri,
       refreshToken: document.refreshToken,
-    };
+      createdAt: document.createdAt.toString(),
+      updatedAt: document.createdAt.toString(),
+    });
   }
 
-  static toSchema(user: Partial<UserType>): IUser {
+  static toSchema(user: Partial<UserEntity>): MongoUser {
     if (!user) return;
 
-    let location: Location;
+    let location: MongoLocation;
     if (user.location?.longitude && user.location?.latitude) {
       location = {
+        type: 'Point',
         coordinates: [user.location.longitude, user.location.latitude],
       };
     }
