@@ -4,8 +4,8 @@ import { ConfigModule } from '@nestjs/config';
 import * as request from 'supertest';
 
 import {
+  TestMongoDataServicesModule,
   closeInMongodConnection,
-  rootMongooseTestModule,
 } from '../utils/in-memory-mongo';
 import { createUserMock } from '../mocks/user';
 import { AuthModule } from '../../src/auth/auth.module';
@@ -15,7 +15,7 @@ import { UserModule } from '../../src/user/user.module';
 const setup = async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [
-      rootMongooseTestModule(),
+      TestMongoDataServicesModule,
       UserModule,
       AuthModule,
       ConfigModule.forRoot({ isGlobal: true }),

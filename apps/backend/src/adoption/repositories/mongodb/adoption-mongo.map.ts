@@ -7,53 +7,58 @@ import {
   MongoAdoption,
   PopulatedAdoptionDocument,
 } from './adoption-mongo.schema';
+import { MongoMapper } from 'src/frameworks/data-services/mongo-generic.map';
 
-export class AdoptionMap {
-  static toType(document: PopulatedAdoptionDocument): PopulatedAdoptionEntity {
-    return {
-      id: document._id.toString(),
-      name: document.name,
-      age: document.age,
-      breed: document.breed,
-      gender: document.gender,
-      location: {
-        longitude: document.location.coordinates[0],
-        latitude: document.location.coordinates[1],
-      },
-      observations: document.observations,
-      photos: document.photos,
-      size: document.size,
-      type: document.type,
-      user: {
-        id: document.user._id.toString(),
-        name: document.user.name,
-      },
-      createdAt: document.createdAt as string,
-      updatedAt: document.updatedAt as string,
-    };
-  }
-
-  static toSchema(adoption: AdoptionEntity): MongoAdoption {
-    let location: MongoLocation;
-
-    if (adoption.location?.longitude && adoption.location?.latitude) {
-      location = {
-        type: 'Point',
-        coordinates: [adoption.location.longitude, adoption.location.latitude],
+export const AdoptionMap: MongoMapper<PopulatedAdoptionEntity, MongoAdoption> =
+  {
+    toType(document: PopulatedAdoptionDocument): PopulatedAdoptionEntity {
+      return {
+        id: document._id.toString(),
+        name: document.name,
+        age: document.age,
+        breed: document.breed,
+        gender: document.gender,
+        location: {
+          longitude: document.location.coordinates[0],
+          latitude: document.location.coordinates[1],
+        },
+        observations: document.observations,
+        photos: document.photos,
+        size: document.size,
+        type: document.type,
+        user: {
+          id: document.user._id.toString(),
+          name: document.user.name,
+        },
+        createdAt: document.createdAt as string,
+        updatedAt: document.updatedAt as string,
       };
-    }
+    },
 
-    return {
-      name: adoption.name,
-      age: adoption.age,
-      breed: adoption.breed,
-      gender: adoption.gender,
-      size: adoption.size,
-      type: adoption.type,
-      observations: adoption.observations,
-      photos: adoption.photos,
-      location,
-      user: adoption.user,
-    };
-  }
-}
+    toSchema(adoption: AdoptionEntity): MongoAdoption {
+      let location: MongoLocation;
+
+      if (adoption.location?.longitude && adoption.location?.latitude) {
+        location = {
+          type: 'Point',
+          coordinates: [
+            adoption.location.longitude,
+            adoption.location.latitude,
+          ],
+        };
+      }
+
+      return {
+        name: adoption.name,
+        age: adoption.age,
+        breed: adoption.breed,
+        gender: adoption.gender,
+        size: adoption.size,
+        type: adoption.type,
+        observations: adoption.observations,
+        photos: adoption.photos,
+        location,
+        user: adoption.user,
+      };
+    },
+  };

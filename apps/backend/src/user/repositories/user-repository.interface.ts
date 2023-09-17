@@ -1,4 +1,5 @@
 import { Exclude } from 'class-transformer';
+import { GenericRepository } from '../../core/abstracts/generic-repository.abstract';
 
 export class UserEntity {
   id: string;
@@ -23,14 +24,9 @@ export class UserEntity {
   }
 }
 
-export interface UserRepository {
-  create(
-    user: Omit<UserEntity, 'id' | 'createdAt' | 'updatedAt'>,
-  ): Promise<UserEntity>;
-  findById(userId: string): Promise<UserEntity>;
-  findByEmail(email: string): Promise<UserEntity>;
-  update(
-    id: string,
-    user: Partial<Omit<UserEntity, 'createdAt' | 'updateAt'>>,
-  ): Promise<UserEntity>;
+export abstract class UserRepository extends GenericRepository<
+  UserEntity,
+  UserEntity
+> {
+  abstract findByEmail(email: string): Promise<UserEntity>;
 }

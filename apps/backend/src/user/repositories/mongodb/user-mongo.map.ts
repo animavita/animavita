@@ -1,8 +1,9 @@
 import { MongoLocation, MongoUser, UserDocument } from './user-mongo.schema';
 import { UserEntity } from '../user-repository.interface';
+import { MongoMapper } from '../../../frameworks/data-services/mongo-generic.map';
 
-export class UserMap {
-  static toType(document: UserDocument): UserEntity {
+export const UserMap: MongoMapper<UserEntity, MongoUser> = {
+  toType(document: UserDocument): UserEntity {
     if (!document) return;
 
     return new UserEntity({
@@ -19,9 +20,9 @@ export class UserMap {
       createdAt: document.createdAt.toString(),
       updatedAt: document.createdAt.toString(),
     });
-  }
+  },
 
-  static toSchema(user: Partial<UserEntity>): MongoUser {
+  toSchema(user: Partial<UserEntity>): MongoUser {
     if (!user) return;
 
     let location: MongoLocation;
@@ -40,5 +41,5 @@ export class UserMap {
       refreshToken: user.refreshToken,
       location,
     };
-  }
-}
+  },
+};

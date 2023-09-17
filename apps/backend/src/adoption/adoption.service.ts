@@ -1,7 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { UserService } from '../user/user.service';
 import { UserRepository } from '../user/repositories/user-repository.interface';
-import { AdoptionRepository } from './repositories/adoption-repository.interface';
 
 import {
   AdoptionResponse,
@@ -9,15 +8,14 @@ import {
   UpdateAdoptionRequest,
   UserType,
 } from '@animavita/types';
+import { DataServices } from '../core/abstracts/data-services.abstract';
 
 @Injectable()
 export class AdoptionsService {
   @Inject(UserService)
   private readonly userService: UserRepository;
 
-  constructor(
-    @Inject('MONGODB') private readonly adoptionRepository: AdoptionRepository,
-  ) {}
+  constructor(private readonly dataServices: DataServices) {}
 
   async createAdoption(
     adoption: CreateAdoptionRequest,
@@ -27,7 +25,7 @@ export class AdoptionsService {
       currentUserEmail,
     );
 
-    const newAdoption = await this.adoptionRepository.create({
+    const newAdoption = await this.dataServices.adoptions.create({
       ...adoption,
       location,
       user: id,
@@ -37,15 +35,15 @@ export class AdoptionsService {
   }
 
   async updateAdoption(adoption: UpdateAdoptionRequest) {
-    const target = await this.adoptionRepository.getById(adoption.id);
+    const target = await this.dataServices.adoptions.findById(adoption.id);
 
     if (!target) throw new NotFoundException();
 
-    return await this.adoptionRepository.update(adoption);
+    return await this.dataServices.adoptions.update(adoption.id, adoption);
   }
 
   async findAll() {
-    return await this.adoptionRepository.findAll();
+    return await this.dataServices.adoptions.findAll();
   }
 
   async findNearMe({
@@ -58,7 +56,7 @@ export class AdoptionsService {
     const { id: currentUserId, location: coordinates } =
       await this.userService.findByEmail(currentUserEmail);
 
-    return this.adoptionRepository.findNearest({
+    return this.dataServices.adoptions.findNearest({
       currentUserId,
       coordinates,
       radius,
@@ -66,10 +64,10 @@ export class AdoptionsService {
   }
 
   async deleteAdoption(adoptionId: string) {
-    const target = await this.adoptionRepository.getById(adoptionId);
+    const target = await this.dataServices.adoptions.findById(adoptionId);
 
     if (!target) throw new NotFoundException();
 
-    return await this.adoptionRepository.delete(adoptionId);
+    return await this.dataServices.adoptions.delete(adoptionId);
   }
 }

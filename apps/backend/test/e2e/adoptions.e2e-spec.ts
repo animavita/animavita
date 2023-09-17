@@ -1,13 +1,12 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import * as request from 'supertest';
 import {
+  TestMongoDataServicesModule,
   closeInMongodConnection,
-  rootMongooseTestModule,
 } from '../utils/in-memory-mongo';
-import { MongooseModule } from '@nestjs/mongoose';
 import { AdoptionsModule } from '../../src/adoption/adoption.module';
-import { AdoptionSchema } from '../../src/adoption/repositories/mongodb/adoption-mongo.schema';
 import {
   countrymen,
   pet1Mock,
@@ -18,7 +17,6 @@ import {
 import { AdoptionsService } from '../../src/adoption/adoption.service';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
-import { ConfigModule } from '@nestjs/config';
 import { getCoordinatesFromUser } from '../../src/user/user.helpers';
 
 describe('AdoptionsController (e2e)', () => {
@@ -32,10 +30,7 @@ describe('AdoptionsController (e2e)', () => {
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
-        rootMongooseTestModule(),
-        MongooseModule.forFeature([
-          { name: 'Adoption', schema: AdoptionSchema },
-        ]),
+        TestMongoDataServicesModule,
         AdoptionsModule,
         AuthModule,
         ConfigModule.forRoot({ isGlobal: true }),
