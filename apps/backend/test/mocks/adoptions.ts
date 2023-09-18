@@ -1,4 +1,5 @@
-import { AdoptionType, UserType } from '@animavita/types';
+import { userFactory } from '../factories/user';
+import { adoptionFactory } from '../factories/adoption';
 
 export const pet1Mock = adoptionFactory.build();
 export const pet2Mock = adoptionFactory.build();

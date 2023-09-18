@@ -1,19 +1,14 @@
 import { UserEntity } from 'src/user/repositories/user-repository.interface';
+import { userEntityFactory, userFactory } from '../factories/user';
 
-export const userMock: UserEntity = {
+export const createUserMock = userFactory.build({
   name: 'Grosbilda',
   email: 'grosbilda@email.com',
-  password: 'quesenharuimgrosbilda',
-  location: {
-    latitude: 10.002322,
-    longitude: -40.343569,
-  },
-  photoUri: 'http://www.google.com/',
+});
+
+export const userMock: UserEntity = userEntityFactory.build({
+  ...createUserMock,
   id: '123',
   createdAt: '',
   updatedAt: '',
-};
-
-export const createUserMock = {
-  name: 'Grosbilda',
 });

@@ -1,6 +1,6 @@
 import { Factory } from 'fishery';
 import { faker } from '@faker-js/faker';
-import { AdoptionType } from '@animavita/models';
+import { AdoptionType } from '@animavita/types';
 
 export const adoptionFactory = Factory.define<AdoptionType>(({ params }) => {
   const type =

@@ -1,7 +1,8 @@
 import { Factory } from 'fishery';
 import { faker } from '@faker-js/faker';
 
-import { UserType } from '@animavita/models';
+import { UserType } from '@animavita/types';
+import { UserEntity } from 'src/user/repositories/user-repository.interface';
 
 export const userFactory = Factory.define<UserType>(({ params }) => {
   const name = params.name || faker.person.firstName();
@@ -14,5 +15,15 @@ export const userFactory = Factory.define<UserType>(({ params }) => {
       longitude: faker.location.longitude(),
     },
     photoUri: params.photoUri || faker.internet.avatar(),
+  };
+});
+
+export const userEntityFactory = Factory.define<UserEntity>(({ params }) => {
+  const user = userFactory.build(params);
+  return {
+    ...user,
+    id: params.id || '123',
+    createdAt: params.createdAt || '',
+    updatedAt: params.updatedAt || '',
   };
 });
