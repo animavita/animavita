@@ -4,7 +4,6 @@ import React from 'react';
 
 import { useAuth } from '../hooks/use-auth-provider';
 import Routes from '../routes';
-import GetLocation from '../screens/get-location/get-location.screen';
 import Home from '../screens/home/home.screen';
 import Profile from '../screens/profile/profile.screen';
 import RegisterAdoption from '../screens/register-adoption/register-adoption.screen';
@@ -32,7 +31,6 @@ const MainNavigator = () => {
             <Stack.Screen name={Routes.SignIn} component={SignInScreen} />
           </>
         )}
-        <Stack.Screen name={Routes.GetLocation} component={GetLocation} />
       </Stack.Navigator>
     </NavigationContainer>
   );

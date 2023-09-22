@@ -1,16 +1,13 @@
-import { useNavigation } from '@react-navigation/native';
 import { Button, Heading, Input, KeyboardAvoidingView, Text, View } from 'native-base';
 
 import { FormRow } from './form-row';
 import { useAuth } from '../../../hooks/use-auth-provider';
 import useLocale from '../../../hooks/use-locale';
-import Routes from '../../../routes';
 import theme from '../../../theme';
 
 export const SignInForm = () => {
   const { t } = useLocale();
   const auth = useAuth();
-  const { navigate } = useNavigation();
 
   return (
     <KeyboardAvoidingView>
@@ -42,8 +39,6 @@ export const SignInForm = () => {
             refreshToken: '4321',
             name: 'John Doe',
           });
-
-          navigate(Routes.GetLocation as never);
         }}
       >
         {t('SIGN_IN.FORM.LOGIN_BUTTON')}
