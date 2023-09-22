@@ -34,18 +34,18 @@ const GetLocation = () => {
 
   useEffect(() => {
     if (warning === Warnings.GPS_DISABLED) {
-      errorAlert('Por favor, verifique se o seu GPS está habilitado!', () => {
+      errorAlert(t('SHARE_LOCATION.GPS_DISABLED_WARNING'), () => {
         Location.enableNetworkProviderAsync();
       });
     }
 
     if (warning === Warnings.LOCATION_REQUIRED) {
       errorAlert(
-        'A sua localização é realmente necessária para uma melhor experiência no app.',
+        'SHARE_LOCATION.LOCATION_REQUIRED_WARNING',
         () => {
           Linking.openSettings();
         },
-        'Go to settings'
+        t('SHARE_LOCATION.GO_TO_SETTINGS')
       );
     }
   }, [warning]);
@@ -75,7 +75,7 @@ const GetLocation = () => {
           onConfirm={onConfirmLocation}
           hasLocation={!!address}
         >
-          <Text color={theme.colors.gray[400]}>{t('SHARE_LOCATION.WHERE_USER_ARE_MSG')}</Text>
+          <Text color={theme.colors.gray[400]}>{t('SHARE_LOCATION.WHERE')}</Text>
           <Text my={2} fontSize={20} fontWeight="extrabold">
             {!!address && `${address.city} - ${address.state}`}
           </Text>

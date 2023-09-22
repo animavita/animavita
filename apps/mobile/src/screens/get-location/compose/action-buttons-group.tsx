@@ -2,7 +2,7 @@ import { Button, Spinner, View } from 'native-base';
 
 import useLocale from '../../../hooks/use-locale';
 
-type ButtonGruopProps = {
+type ButtonGroupProps = {
   isLoading: boolean;
   hasLocation: boolean;
   onPress: () => void;
@@ -16,7 +16,7 @@ export const ActionButtonsGroup = ({
   onPress,
   onConfirm,
   children,
-}: ButtonGruopProps) => {
+}: ButtonGroupProps) => {
   const { t } = useLocale();
 
   if (!isLoading && !hasLocation)

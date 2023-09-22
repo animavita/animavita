@@ -74,11 +74,14 @@
   },
   "SHARE_LOCATION": {
     "GREETINGS": "Olá, {{ name }} precisamos da sua",
-    "WHERE_USER_ARE_MSG": "Você está em",
+    "WHERE": "Você está em",
     "CONFIRM_BUTTON": "Confirmar minha localização",
     "GET_LOCATION": "Compartilhar minha localização",
     "GET_LOCATION_NEW_ATTEMPT": "Buscar novamente",
     "LOCATION": "localização",
-    "IMAGE_ALT_TEXT": "A boy waving with his dog besides him"
+    "IMAGE_ALT_TEXT": "Um menino acenando com seu cão do lado",
+    "LOCATION_REQUIRED_WARNING": "A sua localização é realmente necessária para uma melhor experiência no app.",
+    "GPS_DISABLED_WARNING": "Por favor, verifique se o seu GPS está habilitado!",
+    "GO_TO_SETTINGS": "Go to settings"
   }
 }
