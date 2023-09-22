@@ -1,57 +1,25 @@
-import { AdoptionType, UserType } from '@animavita/types';
+import { userEntityFactory } from '../factories/user';
+import { adoptionFactory } from '../factories/adoption';
 
-export const pet1Mock: AdoptionType = {
-  name: 'Bob',
-  age: 'puppy',
-  type: 'dog',
-  breed: 'Rottweiler',
-  gender: 'male',
-  observations: '',
-  photos: [],
-  size: 'big',
-};
+export const pet1Mock = adoptionFactory.build();
+export const pet2Mock = adoptionFactory.build();
+export const pet3Mock = adoptionFactory.build();
 
-export const pet2Mock: AdoptionType = {
-  name: 'Max',
-  age: 'young',
-  type: 'cat',
-  breed: 'Birman',
-  gender: 'male',
-  observations: '',
-  photos: [],
-  size: 'medium',
-};
-
-export const pet3Mock: AdoptionType = {
-  name: 'Lucy',
-  age: 'adult',
-  type: 'dog',
-  breed: 'Bulldog',
-  gender: 'female',
-  observations: '',
-  photos: [],
-  size: 'small',
-};
-
-export const user1Mock: UserType = {
+export const user1Mock = userEntityFactory.build({
+  name: 'John',
   email: 'john@email.com',
   location: {
     longitude: -47.58849,
     latitude: -20.90038,
   },
-  name: 'John',
-  password: 'NicePass123@',
-};
-
-export const user2Mock: UserType = {
-  email: 'paul@email.com',
+});
+export const user2Mock = userEntityFactory.build({
+  name: 'Paul',
   location: {
     longitude: -47.58839,
     latitude: -20.9064,
   },
-  name: 'Paul',
-  password: 'NicePass123@',
-};
+});
 
 export const countrymen = [user1Mock, user2Mock];
 
