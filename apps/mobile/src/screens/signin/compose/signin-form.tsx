@@ -1,14 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import { Button, Heading, Input, KeyboardAvoidingView, Text, View } from 'native-base';
 
 import { FormRow } from './form-row';
 
 import { useAuth } from '@/hooks/use-auth-provider';
 import useLocale from '@/hooks/use-locale';
+import Routes from '@/routes';
 import theme from '@/theme';
 
 export const SignInForm = () => {
   const { t } = useLocale();
   const auth = useAuth();
+
+  const { navigate } = useNavigation();
 
   return (
     <KeyboardAvoidingView>
@@ -31,6 +35,14 @@ export const SignInForm = () => {
 
         <Input placeholder={t('SIGN_IN.FORM.PASSWORD_INPUT')} type="password" />
       </FormRow>
+      <Button
+        variant="link"
+        onPress={() => {
+          navigate(Routes.SignUp as never);
+        }}
+      >
+        Ou Registre-se
+      </Button>
       <Button
         marginTop={10}
         width="full"
