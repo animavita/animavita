@@ -8,6 +8,7 @@ import Home from '@/screens/home/home.screen';
 import Profile from '@/screens/profile/profile.screen';
 import RegisterAdoption from '@/screens/register-adoption/register-adoption.screen';
 import SignInScreen from '@/screens/signin/signin.screen';
+import SignUpScreen from '@/screens/signup/signup.screen';
 import SplashScreen from '@/screens/splash/splash.screen';
 
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ const MainNavigator = () => {
         ) : (
           <>
             <Stack.Screen name={Routes.SignIn} component={SignInScreen} />
+            <Stack.Screen name={Routes.SignUp} component={SignUpScreen} />
           </>
         )}
       </Stack.Navigator>

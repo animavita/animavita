@@ -3,6 +3,7 @@ const Routes = {
   RegisterAdoption: 'RegisterAdoption',
   GetLocation: 'GetLocation',
   SignIn: 'SignIn',
+  SignUp: 'SignUp',
   Favorites: 'Favorites',
   Profile: 'Profile',
 };
