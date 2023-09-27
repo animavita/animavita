@@ -1,19 +1,48 @@
+import { joiResolver } from '@hookform/resolvers/joi';
 import { useNavigation } from '@react-navigation/native';
-import { Button, FormControl, Input } from 'native-base';
-import { useState } from 'react';
+import Joi from 'joi';
+import { Button, FormControl, useToast } from 'native-base';
+import { FormProvider, useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 
-import { FormRow } from './form-row';
+import { FormField } from './form-field';
+import { UserType } from '../../../../../../shared/types';
 import Routes from '../../../routes';
 
-export const SignUpForm = () => {
-  const [fullName, setFullName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+type RegisterUserFormProps = {
+  defaultValues?: Partial<UserType>;
+};
+
+const createUserSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string()
+    .email({ tlds: { allow: false } })
+    .required(),
+  password: Joi.string().min(6).required(),
+});
+
+export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
+  const saveUserForm = useForm<Partial<UserType>>({
+    resolver: joiResolver(createUserSchema),
+    mode: 'onChange',
+    defaultValues,
+  });
 
   const { navigate } = useNavigation();
 
-  const onConfirm = () => {
+  const toast = useToast();
+
+  const onConfirm = async (data: any) => {
+    const isValid = await saveUserForm.trigger();
+
+    if (!isValid) {
+      toast.show({
+        description: `Invalid data`,
+      });
+
+      return;
+    }
+
     navigate(Routes.GetLocation as never);
   };
 
@@ -23,26 +52,16 @@ export const SignUpForm = () => {
       style={{ flex: 1, marginTop: 50 }}
       keyboardVerticalOffset={0}
     >
-      <FormControl isRequired>
-        <FormRow>
-          <FormControl.Label>Nome completo</FormControl.Label>
-          <Input type="text" placeholder="Nome" value={fullName} onChangeText={setFullName} />
-        </FormRow>
-        <FormRow>
-          <FormControl.Label>Email</FormControl.Label>
-          <Input type="text" placeholder="Email" value={email} onChangeText={setEmail} />
-        </FormRow>
-        <FormRow>
-          <FormControl.Label>Senha</FormControl.Label>
-          <Input type="password" placeholder="Senha" value={password} onChangeText={setPassword} />
-          <FormControl.ErrorMessage>Must be atleast 6 characters.</FormControl.ErrorMessage>
-        </FormRow>
-        <FormRow>
-          <Button marginTop={8} width="full" onPress={onConfirm}>
+      <FormProvider {...saveUserForm}>
+        <FormControl isInvalid={!!saveUserForm.formState.errors}>
+          <FormField label="Nome completo" name="name" placeholder="Nome completo" />
+          <FormField label="Email" name="email" placeholder="Email" />
+          <FormField type="password" label="Senha" name="password" placeholder="Senha" />
+          <Button marginTop={6} width="full" onPress={onConfirm}>
             Registrar-se
           </Button>
-        </FormRow>
-      </FormControl>
+        </FormControl>
+      </FormProvider>
     </KeyboardAvoidingView>
   );
 };
