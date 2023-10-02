@@ -14,12 +14,15 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
+import { AccessGuard, Actions, UseAbility } from 'nest-casl';
+
 import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
 import { AdoptionsService } from './adoption.service';
 import { User } from '../decorators/user.decorator';
 import { AccessTokenGuard } from '../guards/accessToken.guard';
 import { JwtPayload } from '../auth/strategies/accessToken.strategy';
 import { CreateAdoptionRequest, UpdateAdoptionRequest } from '@animavita/types';
+import { AdoptionHook } from '../frameworks/casl/hooks/adoption.hook';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
@@ -36,7 +39,9 @@ export class AdoptionsController {
   }
 
   @Patch()
+  @UseGuards(AccessTokenGuard, AccessGuard)
   @UsePipes(new JoiValidationPipe(adoptionValidationSchema))
+  @UseAbility(Actions.update, 'Adoption' as any, AdoptionHook)
   async updateAdoption(@Body() adoption: UpdateAdoptionRequest) {
     return this.adoptionsService.updateAdoption(adoption);
   }
