@@ -1,6 +1,8 @@
 import * as Location from 'expo-location';
 import { useState } from 'react';
 
+import { Coordinates } from '../../../../../shared/types';
+
 type Address = {
   city: string | null;
   state: string | null;
@@ -13,6 +15,7 @@ export enum Warnings {
 
 const useUserLocation = () => {
   const [address, setAddress] = useState<Address>();
+  const [coords, setCoors] = useState<Coordinates>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [warning, setWarning] = useState<Warnings>();
@@ -40,6 +43,8 @@ const useUserLocation = () => {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
 
+      setCoors({ latitude, longitude });
+
       const userAddress = await Location.reverseGeocodeAsync({
         latitude,
         longitude,
@@ -61,6 +66,7 @@ const useUserLocation = () => {
   };
 
   return {
+    coords,
     isLoading,
     address,
     getLocation,

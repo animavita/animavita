@@ -7,6 +7,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { FormField } from './form-field';
 import { UserType } from '../../../../../../shared/types';
+import { useSignUp } from '../../../hooks/use-onboarding-provider';
 import Routes from '../../../routes';
 
 type RegisterUserFormProps = {
@@ -28,11 +29,12 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
     defaultValues,
   });
 
-  const { navigate } = useNavigation();
-
   const toast = useToast();
 
-  const onConfirm = async (data: any) => {
+  const { navigate } = useNavigation();
+  const { updateUserInfo } = useSignUp();
+
+  const onConfirm = async (data: UserType) => {
     const isValid = await saveUserForm.trigger();
 
     if (!isValid) {
@@ -42,6 +44,8 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
 
       return;
     }
+
+    updateUserInfo(data);
 
     navigate(Routes.GetLocation as never);
   };
@@ -57,7 +61,13 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
           <FormField label="Nome completo" name="name" placeholder="Nome completo" />
           <FormField label="Email" name="email" placeholder="Email" />
           <FormField type="password" label="Senha" name="password" placeholder="Senha" />
-          <Button marginTop={6} width="full" onPress={onConfirm}>
+          <Button
+            marginTop={6}
+            width="full"
+            onPress={() => {
+              onConfirm(saveUserForm.getValues() as UserType);
+            }}
+          >
             Registrar-se
           </Button>
         </FormControl>
