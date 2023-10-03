@@ -7,11 +7,11 @@ import { DataServices } from '../../../core/abstracts/data-services.abstract';
 export class UserHook implements UserBeforeFilterHook<any> {
   constructor(readonly dataServices: DataServices) {}
 
-  async run(user: any) {
+  async run(user) {
     const dbUser = await this.dataServices.users.findByEmail(user.email);
 
-    // TO DO:
-    // since nest-casl is RABC, we need to generate an array of roles.
+    // TO DO: https://github.com/animavita/animavita/issues/204
+    // since nest-casl is RBAC, we need to generate an array of roles.
     // for Animavita, we have three different roles:
     //
     // Admin -> Super user
