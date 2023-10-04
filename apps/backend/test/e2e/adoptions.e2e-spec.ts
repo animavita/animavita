@@ -18,6 +18,9 @@ import { AdoptionsService } from '../../src/adoption/adoption.service';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
 import { getCoordinatesFromUser } from '../../src/user/user.helpers';
+import { CaslModule } from 'nest-casl';
+import { Roles } from '../../src/frameworks/casl/app.roles';
+import { UserHook } from '../../src/frameworks/casl/hooks/user.hook';
 
 describe('AdoptionsController (e2e)', () => {
   let app: INestApplication;
@@ -31,6 +34,10 @@ describe('AdoptionsController (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         TestMongoDataServicesModule,
+        CaslModule.forRoot({
+          superuserRole: Roles.Admin,
+          getUserHook: UserHook,
+        }),
         AdoptionsModule,
         AuthModule,
         ConfigModule.forRoot({ isGlobal: true }),
@@ -60,7 +67,7 @@ describe('AdoptionsController (e2e)', () => {
       .expect([]);
 
     const { id, name, breed, gender, observations, photos, age, type, size } =
-      await adoptionsService.createAdoption(pet1Mock, 'john@email.com');
+      await adoptionsService.createAdoption(pet1Mock, user1Mock.email);
 
     return request(app.getHttpServer())
       .get('/api/v1/adoptions')
@@ -110,11 +117,12 @@ describe('AdoptionsController (e2e)', () => {
   it('/PATCH adoptions', async () => {
     const { id } = await adoptionsService.createAdoption(
       pet2Mock,
-      'john@email.com',
+      user1Mock.email,
     );
 
     return request(app.getHttpServer())
       .patch('/api/v1/adoptions')
+      .set('Authorization', 'bearer ' + authToken)
       .send({ id, name: 'Marley' })
       .expect(200)
       .expect((res) =>
@@ -136,7 +144,7 @@ describe('AdoptionsController (e2e)', () => {
 
     const expectedPet = await adoptionsService.createAdoption(
       pet3Mock,
-      'john@email.com',
+      user1Mock.email,
     );
     const targetId = expectedPet.id.toString();
 
