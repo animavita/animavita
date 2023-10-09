@@ -1,6 +1,6 @@
+import { signUpValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useNavigation } from '@react-navigation/native';
-import Joi from 'joi';
 import { Button, FormControl, useToast } from 'native-base';
 import { FormProvider, useForm } from 'react-hook-form';
 import { KeyboardAvoidingView, Platform } from 'react-native';
@@ -15,18 +15,10 @@ type RegisterUserFormProps = {
   defaultValues?: Partial<UserType>;
 };
 
-const createUserSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .required(),
-  password: Joi.string().min(6).required(),
-});
-
 export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
   const { t } = useLocale();
   const saveUserForm = useForm<Partial<UserType>>({
-    resolver: joiResolver(createUserSchema),
+    resolver: joiResolver(signUpValidationSchema),
     mode: 'onChange',
     defaultValues,
   });
