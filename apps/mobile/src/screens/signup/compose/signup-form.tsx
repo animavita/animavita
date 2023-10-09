@@ -52,13 +52,21 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
     >
       <FormProvider {...saveUserForm}>
         <FormControl isInvalid={!!saveUserForm.formState.errors}>
-          <FormField label={t('SIGN_UP.FORM.NAME_INPUT')} name="name" placeholder="Nome completo" />
-          <FormField label={t('SIGN_UP.FORM.EMAIL_INPUT')} name="email" placeholder="Email" />
+          <FormField
+            label={t('SIGN_UP.FORM.NAME_INPUT')}
+            name="name"
+            placeholder={t('SIGN_UP.FORM.NAME_INPUT')}
+          />
+          <FormField
+            label={t('SIGN_UP.FORM.EMAIL_INPUT')}
+            name="email"
+            placeholder={t('SIGN_UP.FORM.EMAIL_INPUT')}
+          />
           <FormField
             type="password"
             label={t('SIGN_UP.FORM.PASSWORD_INPUT')}
             name="password"
-            placeholder="Senha"
+            placeholder={t('SIGN_UP.FORM.PASSWORD_INPUT')}
           />
           <Button
             marginTop={6}
