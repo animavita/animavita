@@ -6,7 +6,6 @@ import { initI18n } from './src/i18n/i18n.config';
 
 import MainNavigator from '@/navigation/main-navigator';
 import { AuthProvider } from '@/providers/auth-provider';
-import { OnBoardingProvider } from '@/providers/onboarding-provider';
 import queryClient from '@/services/query-client-instance';
 import theme from '@/theme';
 
@@ -16,9 +15,7 @@ const App = () => {
       <NativeBaseProvider theme={theme}>
         <I18nextProvider i18n={initI18n('pt-BR')}>
           <AuthProvider>
-            <OnBoardingProvider>
-              <MainNavigator />
-            </OnBoardingProvider>
+            <MainNavigator />
           </AuthProvider>
         </I18nextProvider>
       </NativeBaseProvider>
