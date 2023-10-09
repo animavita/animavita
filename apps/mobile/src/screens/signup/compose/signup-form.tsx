@@ -7,6 +7,7 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 
 import { FormField } from './form-field';
 import { UserType } from '../../../../../../shared/types';
+import useLocale from '../../../hooks/use-locale';
 import { useSignUp } from '../../../hooks/use-onboarding-provider';
 import Routes from '../../../routes';
 
@@ -23,6 +24,7 @@ const createUserSchema = Joi.object({
 });
 
 export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
+  const { t } = useLocale();
   const saveUserForm = useForm<Partial<UserType>>({
     resolver: joiResolver(createUserSchema),
     mode: 'onChange',
@@ -58,9 +60,14 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
     >
       <FormProvider {...saveUserForm}>
         <FormControl isInvalid={!!saveUserForm.formState.errors}>
-          <FormField label="Nome completo" name="name" placeholder="Nome completo" />
-          <FormField label="Email" name="email" placeholder="Email" />
-          <FormField type="password" label="Senha" name="password" placeholder="Senha" />
+          <FormField label={t('SIGN_UP.FORM.NAME_INPUT')} name="name" placeholder="Nome completo" />
+          <FormField label={t('SIGN_UP.FORM.EMAIL_INPUT')} name="email" placeholder="Email" />
+          <FormField
+            type="password"
+            label={t('SIGN_UP.FORM.PASSWORD_INPUT')}
+            name="password"
+            placeholder="Senha"
+          />
           <Button
             marginTop={6}
             width="full"
@@ -68,7 +75,7 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
               onConfirm(saveUserForm.getValues() as UserType);
             }}
           >
-            Registrar-se
+            {t('SIGN_UP.FORM.SIGN_UP_BUTTON')}
           </Button>
         </FormControl>
       </FormProvider>

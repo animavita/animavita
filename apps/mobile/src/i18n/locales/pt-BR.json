@@ -58,10 +58,17 @@
       "SCREEN_NAME": "Entrar",
       "EMAIL_INPUT": "Email",
       "PASSWORD_INPUT": "Senha",
-      "LOGIN_BUTTON": "Entrar"
+      "LOGIN_BUTTON": "Entrar",
+      "SIGN_UP_LINK": "Ou registre-se"
     }
   },
   "SIGN_UP": {
+    "FORM": {
+      "NAME_INPUT": "Nome completo",
+      "EMAIL_INPUT": "Email",
+      "PASSWORD_INPUT": "Senha",
+      "SIGN_UP_BUTTON": "Registre-se"
+    },
     "FORM_ERROR_MESSAGES": {
       "NAME_REQUIRED": "O seu nome é obrigatório",
       "NAME_EMPTY": "O seu nome é obrigatório pode ser vazio",

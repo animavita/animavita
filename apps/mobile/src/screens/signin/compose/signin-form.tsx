@@ -41,7 +41,7 @@ export const SignInForm = () => {
           navigate(Routes.SignUp as never);
         }}
       >
-        Ou Registre-se
+        {t('SIGN_IN.FORM.SIGN_UP_LINK')}
       </Button>
       <Button
         marginTop={10}
