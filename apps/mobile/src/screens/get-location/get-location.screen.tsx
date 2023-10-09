@@ -1,3 +1,4 @@
+import { useRoute } from '@react-navigation/native';
 import * as Location from 'expo-location';
 import { Heading, Image, Text, View } from 'native-base';
 import { useEffect } from 'react';
@@ -9,7 +10,6 @@ import localizationImg from '@/assets/localization.png';
 import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
-import { useSignUp } from '@/hooks/use-onboarding-provider';
 import useGeolocation, { Warnings } from '@/hooks/use-user-location/use-user-location';
 import theme from '@/theme';
 
@@ -23,14 +23,16 @@ const errorAlert = (msg: string, onPress: () => void, text?: string) =>
   ]);
 
 const GetLocation = () => {
-  const { updateUserLocation, signUp, userInfo } = useSignUp();
   const { getLocation, address, isLoading, warning, coords } = useGeolocation();
   const { t } = useLocale();
+  const { params } = useRoute();
 
   const onConfirmLocation = () => {
-    if (coords) updateUserLocation({ location: coords });
+    const {
+      userInfo: { name, email, password },
+    } = params;
 
-    signUp();
+    console.log({ name, email, password, coords });
   };
 
   useEffect(() => {
@@ -57,7 +59,7 @@ const GetLocation = () => {
       <SafeArea>
         <View width={260}>
           <Heading fontSize={35}>
-            {t('SHARE_LOCATION.GREETINGS', { name: userInfo.name })}
+            {t('SHARE_LOCATION.GREETINGS', { name: params?.userInfo?.name })}
             <Heading fontSize={35} color={theme.colors.primary[600]}>
               {' '}
               {`${t('SHARE_LOCATION.LOCATION')}`}

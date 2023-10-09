@@ -8,7 +8,6 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { FormField } from './form-field';
 import { UserType } from '../../../../../../shared/types';
 import useLocale from '../../../hooks/use-locale';
-import { useSignUp } from '../../../hooks/use-onboarding-provider';
 import Routes from '../../../routes';
 
 type RegisterUserFormProps = {
@@ -26,7 +25,6 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
   const toast = useToast();
 
   const { navigate } = useNavigation();
-  const { updateUserInfo } = useSignUp();
 
   const onConfirm = async (data: UserType) => {
     const isValid = await saveUserForm.trigger();
@@ -39,9 +37,9 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
       return;
     }
 
-    updateUserInfo(data);
-
-    navigate(Routes.GetLocation as never);
+    navigate(Routes.GetLocation as never, {
+      userInfo: data,
+    });
   };
 
   return (
