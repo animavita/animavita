@@ -69,7 +69,7 @@
       "EMAIL_REQUIRED": "Email não pode ser vazio",
       "EMAIL_EMAIL": "Digite um email válido",
       "PASSWORD_EMPTY": "A senha não pode ser vazia",
-      "PASSWORD_REQUIRED": "A senha não pode ser vazia",
+      "PASSWORD_REQUIRED": "A senha é obrigatória",
       "PASSWORD_MIN": "A senha precisa ter no mínimo 6 caracteres"
     }
   },
