@@ -11,6 +11,7 @@ import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
 import useGeolocation, { Warnings } from '@/hooks/use-user-location/use-user-location';
+import { signUp } from '@/services/sign-up';
 import theme from '@/theme';
 
 const errorAlert = (msg: string, onPress: () => void, text?: string) =>
@@ -32,7 +33,7 @@ const GetLocation = () => {
       userInfo: { name, email, password },
     } = params;
 
-    console.log({ name, email, password, coords });
+    signUp({ name, email, password, coords });
   };
 
   useEffect(() => {
