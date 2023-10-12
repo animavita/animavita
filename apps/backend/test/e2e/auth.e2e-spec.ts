@@ -48,8 +48,10 @@ describe('Authentication (e2e)', () => {
         .send(createUserMock)
         .expect(201);
 
-      expect(body).toStrictEqual({
-        message: 'User created successfully',
+      expect(body).toEqual({
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String),
+        name: 'Grosbilda',
       });
 
       await app.close();
