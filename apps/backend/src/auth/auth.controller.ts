@@ -30,10 +30,10 @@ export class AuthController {
   @UsePipes(new JoiValidationPipe(signUpValidationSchema))
   async signUp(@Body() user: CreateUserRequest) {
     await this.authService.signUp(user);
-
-    return {
-      message: 'User created successfully',
-    };
+    return await this.authService.signIn({
+      email: user.email,
+      password: user.password,
+    });
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
