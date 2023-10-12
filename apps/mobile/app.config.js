@@ -22,5 +22,8 @@ module.exports = ({ config }) => {
     extra: {
       apiUrl: getApiUrl(),
     },
+    updates: {
+      useClassicUpdates: true,
+    },
   };
 };
