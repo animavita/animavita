@@ -1,7 +1,7 @@
 import * as Location from 'expo-location';
 import { useState } from 'react';
 
-import { Coordinates } from '../../../../../shared/types';
+import { Coordinates } from '@animavita/shared/types';
 
 type Address = {
   city: string | null;
