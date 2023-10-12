@@ -15,7 +15,7 @@ export enum Warnings {
 
 const useUserLocation = () => {
   const [address, setAddress] = useState<Address>();
-  const [coords, setCoors] = useState<Coordinates>();
+  const [coords, setCoords] = useState<Coordinates>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [warning, setWarning] = useState<Warnings>();
