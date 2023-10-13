@@ -36,11 +36,10 @@ runs:
         node-version: ${{ inputs.node-version }}
         cache: pnpm
 
-    - name: 🏗 Setup Expo
-      uses: expo/expo-github-action@v7
+    - name: 🏗 Setup EAS
+      uses: expo/expo-github-action@v8
       with:
-        eas-version: ${{ inputs.eas-version }}
-        expo-version: ${{ inputs.expo-version }}
+        eas-version: latest
         token: ${{ inputs.expo-token }}
 
     - name: 📦 Install dependencies

@@ -21,6 +21,15 @@ module.exports = ({ config }) => {
     ...config,
     extra: {
       apiUrl: getApiUrl(),
+      eas: {
+        projectId: 'e24785ad-4327-4470-b374-7b208a31de15',
+      },
+    },
+    updates: {
+      url: 'https://u.expo.dev/e24785ad-4327-4470-b374-7b208a31de15',
+    },
+    runtimeVersion: {
+      policy: 'appVersion',
     },
   };
 };

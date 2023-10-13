@@ -11,6 +11,9 @@ concurrency:
 jobs:
   mobile:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     if: github.event.pull_request.head.repo.full_name == 'animavita/animavita'
     steps:
       - name: 🏗 Setup repository
@@ -22,11 +25,7 @@ jobs:
           expo-token: ${{ secrets.EXPO_TOKEN }}
 
       - name: 🚀 Publish preview
-        working-directory: apps/mobile
-        run: ENV=staging expo publish --release-channel=pr-${{ github.event.number }}
-
-      - name: 💬 Comment preview
-        uses: expo/expo-github-action/preview-comment@v7
+        uses: expo/expo-github-action/preview@v8
         with:
-          project: apps/mobile
-          channel: pr-${{ github.event.number }}
+          working-directory: apps/mobile
+          command: eas update --auto
