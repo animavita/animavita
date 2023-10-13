@@ -1,5 +1,5 @@
 import { UserType } from '@animavita/types';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
 import * as Location from 'expo-location';
 import { Heading, Image, Text, View, useToast } from 'native-base';
@@ -13,6 +13,7 @@ import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
 import useGeolocation, { Warnings } from '@/hooks/use-user-location/use-user-location';
+import Routes from '@/routes';
 import { signUp } from '@/services/sign-up';
 import theme from '@/theme';
 
@@ -36,11 +37,14 @@ const GetLocation = () => {
   const { t } = useLocale();
   const { params: data } = useRoute<RouteProp<GetLocationScreenParamList, 'GetLocation'>>();
 
+  const { navigate } = useNavigation();
   const toast = useToast();
 
   const mutation = useMutation({
     mutationFn: signUp,
-    onSuccess: () => {},
+    onSuccess: () => {
+      navigate(Routes.Profile as never);
+    },
     onError: () => toast.show({ title: 'Something went wrong, try again!', variant: 'solid' }),
   });
 
