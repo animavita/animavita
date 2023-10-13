@@ -26,6 +26,8 @@ jobs:
 
       - name: 🚀 Publish preview
         uses: expo/expo-github-action/preview@v8
+        env: 
+          EXPO_PROJECT_ID: e24785ad-4327-4470-b374-7b208a31de15
         with:
           working-directory: apps/mobile
           command: eas update --auto
