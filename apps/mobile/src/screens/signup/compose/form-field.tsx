@@ -10,6 +10,7 @@ type FormFieldProps = {
   placeholder: string;
   label: string;
   type?: 'text' | 'password';
+  autoFocus?: boolean;
 };
 
 const commonInputProperties = {
@@ -27,7 +28,7 @@ const mountErrorMsg = (fieldName: string, errorType: string) => {
   return `${baseToken}.${errorkey}_${kind}`;
 };
 
-const FormField = ({ label, name, placeholder, type }: FormFieldProps) => {
+const FormField = ({ label, name, placeholder, type, autoFocus }: FormFieldProps) => {
   const { control } = useFormContext();
 
   const { error } = control.getFieldState(name);
@@ -46,6 +47,7 @@ const FormField = ({ label, name, placeholder, type }: FormFieldProps) => {
           returnKeyType: 'next',
           type: type || 'text',
           isRequired: true,
+          autoFocus,
         }}
         control={control}
         name={name}
