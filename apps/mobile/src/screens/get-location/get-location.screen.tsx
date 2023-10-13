@@ -1,6 +1,8 @@
-import { useRoute } from '@react-navigation/native';
+import { UserType } from '@animavita/types';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { useMutation } from '@tanstack/react-query';
 import * as Location from 'expo-location';
-import { Heading, Image, Text, View } from 'native-base';
+import { Heading, Image, Text, View, useToast } from 'native-base';
 import { useEffect } from 'react';
 import { Alert, Linking } from 'react-native';
 
@@ -23,17 +25,29 @@ const errorAlert = (msg: string, onPress: () => void, text?: string) =>
     },
   ]);
 
+type GetLocationScreenParamList = {
+  GetLocation: {
+    user: Partial<UserType>;
+  };
+};
+
 const GetLocation = () => {
   const { getLocation, address, isLoading, warning, coords } = useGeolocation();
   const { t } = useLocale();
-  const { params } = useRoute();
+  const { params: data } = useRoute<RouteProp<GetLocationScreenParamList, 'GetLocation'>>();
+
+  const toast = useToast();
+
+  const mutation = useMutation({
+    mutationFn: signUp,
+    onSuccess: () => {},
+    onError: () => toast.show({ title: 'Something went wrong, try again!', variant: 'solid' }),
+  });
 
   const onConfirmLocation = () => {
-    const {
-      userInfo: { name, email, password },
-    } = params;
+    const newUser = { ...data.user, location: coords };
 
-    signUp({ name, email, password, coords });
+    mutation.mutateAsync(newUser);
   };
 
   useEffect(() => {
@@ -60,7 +74,7 @@ const GetLocation = () => {
       <SafeArea>
         <View width={260}>
           <Heading fontSize={35}>
-            {t('SHARE_LOCATION.GREETINGS', { name: params?.userInfo?.name })}
+            {t('SHARE_LOCATION.GREETINGS', { name: data.user.name })}
             <Heading fontSize={35} color={theme.colors.primary[600]}>
               {' '}
               {`${t('SHARE_LOCATION.LOCATION')}`}
