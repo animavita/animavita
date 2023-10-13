@@ -22,7 +22,7 @@ module.exports = ({ config }) => {
     extra: {
       apiUrl: getApiUrl(),
       eas: {
-        projectId: 'e24785ad-4327-4470-b374-7b208a31de15',
+        projectId: process.env.EXPO_PROJECT_ID,
       },
     },
     updates: {
