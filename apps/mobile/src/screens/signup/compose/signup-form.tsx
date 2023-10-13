@@ -16,6 +16,7 @@ type RegisterUserFormProps = {
 
 export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
   const { t } = useLocale();
+
   const saveUserForm = useForm<Partial<UserType>>({
     resolver: joiResolver(signUpValidationSchema),
     mode: 'onChange',
@@ -26,7 +27,7 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
 
   const { navigate } = useNavigation();
 
-  const onConfirm = async (data: UserType) => {
+  const onConfirm = async (user: UserType) => {
     const isValid = await saveUserForm.trigger();
 
     if (!isValid) {
@@ -37,9 +38,7 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
       return;
     }
 
-    navigate(Routes.GetLocation as never, {
-      userInfo: data,
-    });
+    navigate(Routes.GetLocation as never, { user });
   };
 
   return (
