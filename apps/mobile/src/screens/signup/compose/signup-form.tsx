@@ -79,6 +79,14 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
           </Button>
         </FormControl>
       </FormProvider>
+      <Button
+        marginTop={6}
+        variant="link"
+        width="full"
+        onPress={() => navigate(Routes.SignIn as never)}
+      >
+        {t('SIGN_UP.FORM.SIGN_IN_LINK_BUTTON')}
+      </Button>
     </KeyboardAvoidingView>
   );
 };
