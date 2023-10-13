@@ -41,6 +41,8 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
     navigate(Routes.GetLocation as never, { user });
   };
 
+  const isInvalid = !!Object.keys(saveUserForm.formState.errors).length;
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -48,8 +50,9 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
       keyboardVerticalOffset={0}
     >
       <FormProvider {...saveUserForm}>
-        <FormControl isInvalid={!!saveUserForm.formState.errors}>
+        <FormControl isInvalid={isInvalid}>
           <FormField
+            autoFocus
             label={t('SIGN_UP.FORM.NAME_INPUT')}
             name="name"
             placeholder={t('SIGN_UP.FORM.NAME_INPUT')}
