@@ -1,7 +1,7 @@
-import { UserType } from '@animavita/types';
+import { SignUpRequest } from '@animavita/types';
 
 import client from './http-client';
 
-export const signUp = (user: UserType) => {
-  return client['post']('/auth/signUp', user);
+export const signUp = (user: SignUpRequest) => {
+  return client.post('/auth/signUp', user);
 };
