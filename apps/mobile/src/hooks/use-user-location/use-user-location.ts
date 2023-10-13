@@ -1,7 +1,6 @@
+import { Coordinates } from '@animavita/shared/types';
 import * as Location from 'expo-location';
 import { useState } from 'react';
-
-import { Coordinates } from '@animavita/shared/types';
 
 type Address = {
   city: string | null;
@@ -43,7 +42,7 @@ const useUserLocation = () => {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
 
-      setCoors({ latitude, longitude });
+      setCoords({ latitude, longitude });
 
       const userAddress = await Location.reverseGeocodeAsync({
         latitude,
