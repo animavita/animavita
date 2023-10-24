@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   mobile:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: 🏗 Setup repository
         uses: actions/checkout@v3
