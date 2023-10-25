@@ -14,21 +14,25 @@ import {
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
+import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AccessGuard, Actions, UseAbility } from 'nest-casl';
 
-import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
-import { AdoptionsService } from './adoption.service';
-import { User } from '../decorators/user.decorator';
-import { AccessTokenGuard } from '../guards/accessToken.guard';
-import { JwtPayload } from '../auth/strategies/accessToken.strategy';
 import { CreateAdoptionRequest, UpdateAdoptionRequest } from '@animavita/types';
+import { JwtPayload } from '../auth/strategies/accessToken.strategy';
+import { User } from '../decorators/user.decorator';
 import { AdoptionHook } from '../frameworks/casl/hooks/adoption.hook';
 import { AdoptionSubject } from '../frameworks/casl/permissions/adoption.permissions';
+import { AccessTokenGuard } from '../guards/accessToken.guard';
+import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
+import { AdoptionsService } from './adoption.service';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
   constructor(private readonly adoptionsService: AdoptionsService) {}
 
+  @ApiOperation({ summary : 'Create adoption' })
+  @ApiResponse({ status: 201, description: 'Adoption successfully created' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
   @Post()
   @UseGuards(AccessTokenGuard)
   async createAdoption(
@@ -39,6 +43,9 @@ export class AdoptionsController {
     return this.adoptionsService.createAdoption(adoption, email);
   }
 
+  @ApiOperation({ summary : 'Update adoption' })
+  @ApiResponse({ status: 201, description: 'Adoption successfully updated' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
   @Patch()
   @UseGuards(AccessTokenGuard, AccessGuard)
   @UsePipes(new JoiValidationPipe(adoptionValidationSchema))
@@ -52,6 +59,9 @@ export class AdoptionsController {
     return this.adoptionsService.findAll();
   }
 
+  @ApiOperation({ summary : 'Search near me' })
+  @ApiResponse({ status: 201, description: 'Search successfully' })
+  @ApiResponse({ status: 404, description: 'Not found' })
   @UseGuards(AccessTokenGuard)
   @Get('nearMe')
   async findNearMe(
@@ -64,6 +74,9 @@ export class AdoptionsController {
     });
   }
 
+  @ApiOperation({ summary : 'Delete adoption' })
+  @ApiResponse({ status: 201, description: 'Adoption successfully deleted' })
+  @ApiResponse({ status: 400, description: 'Bad request' })
   @Delete(':id')
   async deleteAdoption(@Param('id') adoptionId: string) {
     return this.adoptionsService.deleteAdoption(adoptionId);
