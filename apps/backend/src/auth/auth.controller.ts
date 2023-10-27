@@ -13,8 +13,15 @@ import {
   UsePipes,
 } from '@nestjs/common';
 
-import { CreateUserRequest, SignInRequest } from '@animavita/types';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiExtraModels,
+  ApiForbiddenResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+  ApiUnprocessableEntityResponse,
+} from '@nestjs/swagger';
+import { CreateUserDTO, UserSignInDTO } from 'src/user/repositories/user.dto';
 import { User } from '../decorators/user.decorator';
 import { AccessTokenGuard } from '../guards/accessToken.guard';
 import { RefreshTokenGuard } from '../guards/refreshToken.guard';
@@ -27,12 +34,15 @@ import { RefreshPayload } from './strategies/refreshToken.strategy';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @ApiOperation({ summary: 'Sign up' })
-  @ApiResponse({ status: 201, description: 'User successfully created' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiTags('Auth')
+  @ApiExtraModels(CreateUserDTO)
+  @ApiOperation({ summary: 'Sign up user' })
+  @ApiOkResponse({ description: 'Created Successfully' })
+  @ApiUnprocessableEntityResponse({ description: 'Unprocessable Entity' })
+  @ApiForbiddenResponse({ description: 'Unauthorized Request' })
   @Post('signUp')
   @UsePipes(new JoiValidationPipe(signUpValidationSchema))
-  async signUp(@Body() user: CreateUserRequest) {
+  async signUp(@Body() user: CreateUserDTO) {
     await this.authService.signUp(user);
     return await this.authService.signIn({
       email: user.email,
@@ -40,19 +50,20 @@ export class AuthController {
     });
   }
 
+  @ApiTags('Auth')
   @ApiOperation({ summary: 'Sign in user' })
-  @ApiResponse({ status: 201, description: 'Successful sign in' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiOkResponse({ description: 'User successfully logged in' })
+  @ApiUnprocessableEntityResponse({ description: 'Unprocessable Entity' })
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('signIn')
   @UsePipes(new JoiValidationPipe(signInValidationSchema))
-  async signIn(@Body() user: SignInRequest) {
+  async signIn(@Body() user: UserSignInDTO) {
     return this.authService.signIn(user);
   }
 
+  @ApiTags('Auth')
   @ApiOperation({ summary: 'Logout user' })
-  @ApiResponse({ status: 200, description: 'User successfully logout' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @ApiOkResponse({ description: 'User successfully logout' })
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   async logout(@User() user: JwtPayload) {
@@ -63,9 +74,11 @@ export class AuthController {
     };
   }
 
+  @ApiTags('Auth')
   @ApiOperation({ summary: 'Refresh user' })
-  @ApiResponse({ status: 200, description: 'User successfully logout' })
-  @ApiResponse({ status: 401, description: 'Unauthorized' })
+  @ApiOkResponse({ description: 'User successfully refresh' })
+  @ApiUnprocessableEntityResponse({ description: 'Unprocessable Entity' })
+  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
   async refresh(@User() user: RefreshPayload) {
