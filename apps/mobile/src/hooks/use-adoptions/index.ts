@@ -3,9 +3,9 @@ import { useNavigation } from '@react-navigation/native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useToast } from 'native-base';
 
-import Routes from '../../routes';
-import { saveOrCreate, getAllAdoptions } from '../../services/adoptions';
-import { QUERY_KEYS } from '../../services/query-keys';
+import Routes from '@/routes';
+import { saveOrCreate, getAllAdoptions } from '@/services/adoptions';
+import { QUERY_KEYS } from '@/services/query-keys';
 
 const useAdoptions = () => {
   const navigation = useNavigation();

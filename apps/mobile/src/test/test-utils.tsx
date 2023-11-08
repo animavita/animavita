@@ -5,8 +5,8 @@ import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
 
-import { initI18n } from '../i18n/i18n.config';
-import theme from '../theme';
+import { initI18n } from '@/i18n/i18n.config';
+import theme from '@/theme';
 
 const inset = {
   frame: { x: 0, y: 0, width: 0, height: 0 },

@@ -2,9 +2,10 @@ import { render, screen, waitForElementToBeRemoved } from '@testing-library/reac
 import { Text } from 'react-native';
 
 import { AuthContext, AuthProvider } from '.';
-import { getUser } from '../../helpers/secure-store';
 
-jest.mock('../../helpers/secure-store', () => ({
+import { getUser } from '@/helpers/secure-store';
+
+jest.mock('@/helpers/secure-store', () => ({
   getUser: jest.fn(() => null),
 }));
 

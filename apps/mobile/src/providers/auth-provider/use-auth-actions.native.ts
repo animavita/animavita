@@ -2,7 +2,8 @@ import { useEffect, useMemo, useReducer } from 'react';
 
 import AuthReducer from './auth-provider.reducer';
 import { AuthContextActions, UseAuthActions, UserPayload } from './auth-provider.types';
-import { getUser, removeUser, saveUser } from '../../helpers/secure-store';
+
+import { getUser, removeUser, saveUser } from '@/helpers/secure-store';
 
 const useAuthActions = (): UseAuthActions => {
   const [state, dispatch] = useReducer(AuthReducer, {
