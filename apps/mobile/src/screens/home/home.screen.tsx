@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { Box, Heading, Avatar, Pressable } from 'native-base';
 
-import AdoptionsTab from './components/adoptions-tab';
-import FavoritesTab from './components/favorites-tab';
-import RequestsTab from './components/requests-tab';
-import Delimiter from '../../components/delimiter';
-import SafeArea from '../../components/safe-area/safe-area';
-import TabsComponent from '../../components/tabs';
-import useLocale from '../../hooks/use-locale';
-import useProfile from '../../hooks/use-profile/use-profile';
-import Routes from '../../routes';
+import Delimiter from '@/components/delimiter';
+import SafeArea from '@/components/safe-area/safe-area';
+import TabsComponent from '@/components/tabs';
+import useLocale from '@/hooks/use-locale';
+import useProfile from '@/hooks/use-profile/use-profile';
+import Routes from '@/routes';
+import AdoptionsTab from '@/screens/home/components/adoptions-tab';
+import FavoritesTab from '@/screens/home/components/favorites-tab';
+import RequestsTab from '@/screens/home/components/requests-tab';
 
 const Home = () => {
   const { firstName, initials } = useProfile();

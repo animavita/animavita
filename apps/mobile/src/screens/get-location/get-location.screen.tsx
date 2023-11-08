@@ -5,15 +5,15 @@ import { useEffect } from 'react';
 import { Alert, Linking } from 'react-native';
 
 import { ActionButtonsGroup } from './compose';
-import localizationImg from '../../../assets/localization.png';
-import SafeArea from '../../components/safe-area/safe-area';
-import AppStatusBar from '../../components/status-bar/status-bar.component';
-import { useAuth } from '../../hooks/use-auth-provider';
-import useLocale from '../../hooks/use-locale';
-import useGeolocation from '../../hooks/use-user-location';
-import { Warnings } from '../../hooks/use-user-location/use-user-location';
-import Routes from '../../routes';
-import theme from '../../theme';
+
+import localizationImg from '@/assets/localization.png';
+import SafeArea from '@/components/safe-area/safe-area';
+import AppStatusBar from '@/components/status-bar/status-bar.component';
+import { useAuth } from '@/hooks/use-auth-provider';
+import useLocale from '@/hooks/use-locale';
+import useGeolocation, { Warnings } from '@/hooks/use-user-location/use-user-location';
+import Routes from '@/routes';
+import theme from '@/theme';
 
 const errorAlert = (msg: string, onPress: () => void, text?: string) =>
   Alert.alert('Error', msg, [
