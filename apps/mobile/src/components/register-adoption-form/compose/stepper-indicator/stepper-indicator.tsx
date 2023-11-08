@@ -1,12 +1,12 @@
+import StepIcon from '@assets/step-background.png';
 import { Box, Heading, Progress, Text, Image } from 'native-base';
 import React from 'react';
 
-import StepIcon from '../../../../../assets/step-background.png';
-import useLocale from '../../../../hooks/use-locale';
-import theme from '../../../../theme';
-import Delimiter from '../../../delimiter';
-import { stepsLibrary } from '../../adoption-form.constants';
-import { StepperIndicatorProps } from '../../adoption-form.types';
+import Delimiter from '@/components/delimiter/delimiter';
+import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
+import { StepperIndicatorProps } from '@/components/register-adoption-form/adoption-form.types';
+import useLocale from '@/hooks/use-locale';
+import theme from '@/theme';
 
 const StepperIndicator = ({ activeStep }: StepperIndicatorProps) => {
   const { t } = useLocale();

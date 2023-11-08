@@ -1,11 +1,11 @@
 import { Box, Button } from 'native-base';
 import React from 'react';
 
-import useLocale from '../../../../hooks/use-locale';
-import theme from '../../../../theme';
-import { stepsLibrary } from '../../adoption-form.constants';
-import { StepperControllerProps } from '../../adoption-form.types';
-import { useFormValidation } from '../../hooks/use-form-validation.hook';
+import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
+import { StepperControllerProps } from '@/components/register-adoption-form/adoption-form.types';
+import { useFormValidation } from '@/components/register-adoption-form/hooks/use-form-validation.hook';
+import useLocale from '@/hooks/use-locale';
+import theme from '@/theme';
 
 const StepperController = ({
   handleBack,

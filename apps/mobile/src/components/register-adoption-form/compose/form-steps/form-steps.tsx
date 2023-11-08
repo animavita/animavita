@@ -2,11 +2,12 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import PetUploadPhotosStep from './pet-upload-photos-step/pet-upload-photos-step.component';
-import useLocale from '../../../../hooks/use-locale';
-import theme from '../../../../theme';
-import { RHFInput, RHFListSelector } from '../../../react-hook-form/native-base';
-import { stepsLibrary } from '../../adoption-form.constants';
-import { AdoptionSteps } from '../../adoption-form.types';
+
+import { RHFInput, RHFListSelector } from '@/components/react-hook-form/native-base';
+import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
+import { AdoptionSteps } from '@/components/register-adoption-form/adoption-form.types';
+import useLocale from '@/hooks/use-locale';
+import theme from '@/theme';
 
 const commonInputProperties = {
   size: 'xl',

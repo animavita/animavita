@@ -1,7 +1,8 @@
 import { useState } from 'react';
 
 import { UsePetPhotosPickerHook } from './pet-upload-photos-step.types';
-import imagePickerUtil from '../../../../../shared/image-picker';
+
+import imagePickerUtil from '@/shared/image-picker';
 
 const PHOTOS_LIMIT = 3;
 

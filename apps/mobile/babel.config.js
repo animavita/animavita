@@ -8,6 +8,7 @@ module.exports = (api) => {
         {
           alias: {
             '@': './src',
+            '@assets': './assets',
           },
         },
       ],
