@@ -1,10 +1,10 @@
 import { Button } from 'native-base';
 
-import Delimiter from '../../components/delimiter/delimiter';
-import SafeArea from '../../components/safe-area/safe-area';
-import Topbar from '../../components/topbar/topbar';
-import { useAuth } from '../../hooks/use-auth-provider';
-import useLocale from '../../hooks/use-locale';
+import Delimiter from '@/components/delimiter/delimiter';
+import SafeArea from '@/components/safe-area/safe-area';
+import Topbar from '@/components/topbar/topbar';
+import { useAuth } from '@/hooks/use-auth-provider';
+import useLocale from '@/hooks/use-locale';
 
 const ProfileScreen = () => {
   const { signOut } = useAuth();

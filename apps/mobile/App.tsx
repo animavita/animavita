@@ -3,10 +3,11 @@ import { NativeBaseProvider } from 'native-base';
 import { I18nextProvider } from 'react-i18next';
 
 import { initI18n } from './src/i18n/i18n.config';
-import MainNavigator from './src/navigation/main-navigator';
-import { AuthProvider } from './src/providers/auth-provider';
-import queryClient from './src/services/query-client-instance';
-import theme from './src/theme';
+
+import MainNavigator from '@/navigation/main-navigator';
+import { AuthProvider } from '@/providers/auth-provider';
+import queryClient from '@/services/query-client-instance';
+import theme from '@/theme';
 
 const App = () => {
   return (

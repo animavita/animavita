@@ -1,6 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 
-import { UserPayload } from '../providers/auth-provider/auth-provider.types';
+import { UserPayload } from '@/providers/auth-provider/auth-provider.types';
 
 type KeyType = string;
 

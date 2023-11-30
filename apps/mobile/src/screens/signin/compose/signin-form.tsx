@@ -1,9 +1,10 @@
 import { Button, Heading, Input, KeyboardAvoidingView, Text, View } from 'native-base';
 
 import { FormRow } from './form-row';
-import { useAuth } from '../../../hooks/use-auth-provider';
-import useLocale from '../../../hooks/use-locale';
-import theme from '../../../theme';
+
+import { useAuth } from '@/hooks/use-auth-provider';
+import useLocale from '@/hooks/use-locale';
+import theme from '@/theme';
 
 export const SignInForm = () => {
   const { t } = useLocale();

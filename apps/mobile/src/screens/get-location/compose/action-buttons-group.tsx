@@ -1,6 +1,5 @@
+import useLocale from '@./hooks/use-locale';
 import { Button, Spinner, View } from 'native-base';
-
-import useLocale from '../../../hooks/use-locale';
 
 type ButtonGroupProps = {
   isLoading: boolean;

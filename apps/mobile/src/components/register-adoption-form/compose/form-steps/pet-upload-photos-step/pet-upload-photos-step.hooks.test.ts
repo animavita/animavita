@@ -2,7 +2,7 @@ import { act, renderHook, waitFor } from '@testing-library/react-native';
 
 import { usePetPhotosPicker } from './pet-upload-photos-step.hooks';
 
-jest.mock('../../../../../shared/image-picker', () => ({
+jest.mock('@/shared/image-picker', () => ({
   openImageLibrary: jest.fn(),
 }));
 
@@ -23,7 +23,7 @@ describe('usePetPhotosPicker', () => {
 
     const { result } = renderHook(() => usePetPhotosPicker());
 
-    const imagePickerUtilMock = require('../../../../../shared/image-picker');
+    const imagePickerUtilMock = require('@/shared/image-picker');
 
     imagePickerUtilMock.openImageLibrary.mockResolvedValueOnce(slot);
 

@@ -11,8 +11,9 @@ import FormSteps from './compose/form-steps';
 import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
 import { useMultiStepNavigation } from './hooks/use-multi-step-navigation.hook';
-import useAdoptions from '../../hooks/use-adoptions';
-import Delimiter from '../delimiter';
+
+import Delimiter from '@/components/delimiter';
+import useAdoptions from '@/hooks/use-adoptions';
 
 type RegisterAdoptionFormProps = {
   defaultValues?: Partial<AdoptionType>;

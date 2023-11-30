@@ -2,7 +2,8 @@ import { View } from 'native-base';
 import React from 'react';
 
 import { SignInForm } from './compose';
-import AppStatusBar from '../../components/status-bar/status-bar.component';
+
+import AppStatusBar from '@/components/status-bar/status-bar.component';
 
 const SignInScreen = () => {
   return (

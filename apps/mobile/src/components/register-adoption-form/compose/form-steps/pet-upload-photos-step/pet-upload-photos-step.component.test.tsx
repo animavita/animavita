@@ -2,7 +2,8 @@ import React from 'react';
 
 import * as componentModule from './pet-upload-photos-step.component';
 import { usePetPhotosPicker } from './pet-upload-photos-step.hooks';
-import { fireEvent, renderWithProviders } from '../../../../../test/test-utils';
+
+import { fireEvent, renderWithProviders } from '@/test/test-utils';
 
 const { default: PetUploadPhotosStep } = componentModule;
 
@@ -10,7 +11,7 @@ jest.mock('./pet-upload-photos-step.hooks', () => ({
   usePetPhotosPicker: jest.fn(),
 }));
 
-jest.mock('../../../../../shared/image-picker', () => ({
+jest.mock('@/shared/image-picker', () => ({
   getPermissionStatus: jest.fn(),
 }));
 

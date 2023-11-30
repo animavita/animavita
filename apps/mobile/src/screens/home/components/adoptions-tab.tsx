@@ -2,9 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Badge, Box, Button, Icon, Text, VStack } from 'native-base';
 
-import useAdoptions from '../../../hooks/use-adoptions';
-import useLocale from '../../../hooks/use-locale';
-import Routes from '../../../routes';
+import useAdoptions from '@/hooks/use-adoptions';
+import useLocale from '@/hooks/use-locale';
+import Routes from '@/routes';
 
 const AdoptionsTab = () => {
   const { adoptions } = useAdoptions();

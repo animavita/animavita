@@ -2,9 +2,13 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import StepperController from './stepper-controller';
-import { renderWithProviders, fireEvent, waitFor } from '../../../../test/test-utils';
-import { AdoptionSteps, StepperControllerProps } from '../../adoption-form.types';
-import * as useFormValidationModule from '../../hooks/use-form-validation.hook';
+
+import {
+  AdoptionSteps,
+  StepperControllerProps,
+} from '@/components/register-adoption-form/adoption-form.types';
+import * as useFormValidationModule from '@/components/register-adoption-form/hooks/use-form-validation.hook';
+import { renderWithProviders, fireEvent, waitFor } from '@/test/test-utils';
 
 const handleBack = jest.fn();
 const handleNext = jest.fn();

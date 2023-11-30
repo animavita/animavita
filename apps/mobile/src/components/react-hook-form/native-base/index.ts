@@ -1,2 +1,2 @@
-export { default as RHFInput } from './rhf-native-input';
-export { default as RHFListSelector } from './rhf-list-selector';
+export { default as RHFInput } from '@/components/react-hook-form/native-base/rhf-native-input';
+export { default as RHFListSelector } from '@/components/react-hook-form/native-base/rhf-list-selector';
