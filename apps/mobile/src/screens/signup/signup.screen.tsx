@@ -1,22 +1,15 @@
-import { Heading, Stack, Text } from 'native-base';
+import { View } from 'native-base';
 
 import { SignUpForm } from './compose';
-import SafeArea from '../../components/safe-area';
-import theme from '../../theme';
+
+import AppStatusBar from '@/components/status-bar/status-bar.component';
 
 const SignUp = () => {
   return (
-    <SafeArea>
-      <Stack flex="1" padding={6}>
-        <Heading fontSize="4xl" color={theme.colors.primary[600]}>
-          Animavita
-        </Heading>
-        <Text fontSize="2xl">Registrar-se</Text>
-        <SafeArea>
-          <SignUpForm />
-        </SafeArea>
-      </Stack>
-    </SafeArea>
+    <View flex="1" padding={8}>
+      <AppStatusBar />
+      <SignUpForm />
+    </View>
   );
 };
 

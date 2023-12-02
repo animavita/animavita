@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import { Button, Heading, Input, KeyboardAvoidingView, Text, View } from 'native-base';
+import { Button, Input, KeyboardAvoidingView, Text } from 'native-base';
 
 import { FormRow } from './form-row';
 
+import AuthHeader from '@/components/auth-header';
 import { useAuth } from '@/hooks/use-auth-provider';
 import useLocale from '@/hooks/use-locale';
 import Routes from '@/routes';
@@ -15,36 +16,24 @@ export const SignInForm = () => {
   const { navigate } = useNavigation();
 
   return (
-    <KeyboardAvoidingView>
-      <View marginY={20}>
-        <Heading fontSize="4xl" color={theme.colors.primary[600]}>
-          Animavita
-        </Heading>
-        <Text fontSize="2xl">{t('SIGN_IN.FORM.LOGIN_BUTTON')}</Text>
-      </View>
+    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
+      <AuthHeader action={t('SIGN_IN.FORM.LOGIN_BUTTON')} />
       <FormRow>
         <Text color={theme.colors.gray[500]} marginBottom={2}>
           {t('SIGN_IN.FORM.EMAIL_INPUT')}
         </Text>
-        <Input placeholder={t('SIGN_IN.FORM.EMAIL_INPUT')} type="text" />
+        <Input size="xl" placeholder={t('SIGN_IN.FORM.EMAIL_INPUT')} type="text" />
       </FormRow>
       <FormRow>
         <Text color={theme.colors.gray[500]} marginBottom={2}>
           {t('SIGN_IN.FORM.PASSWORD_INPUT')}
         </Text>
 
-        <Input placeholder={t('SIGN_IN.FORM.PASSWORD_INPUT')} type="password" />
+        <Input size="xl" placeholder={t('SIGN_IN.FORM.PASSWORD_INPUT')} type="password" />
       </FormRow>
+
       <Button
-        variant="link"
-        onPress={() => {
-          navigate(Routes.SignUp as never);
-        }}
-      >
-        {t('SIGN_IN.FORM.SIGN_UP_LINK')}
-      </Button>
-      <Button
-        marginTop={10}
+        marginTop={5}
         width="full"
         onPress={() => {
           auth.signIn({
@@ -55,6 +44,15 @@ export const SignInForm = () => {
         }}
       >
         {t('SIGN_IN.FORM.LOGIN_BUTTON')}
+      </Button>
+      <Button
+        variant="link"
+        onPress={() => {
+          navigate(Routes.SignUp as never);
+        }}
+        alignSelf="center"
+      >
+        {t('SIGN_IN.FORM.SIGN_UP_LINK')}
       </Button>
     </KeyboardAvoidingView>
   );

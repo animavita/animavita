@@ -1,5 +1,4 @@
 import { View } from 'native-base';
-import React from 'react';
 
 import { SignInForm } from './compose';
 

@@ -3,12 +3,14 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import { useNavigation } from '@react-navigation/native';
 import { Button, FormControl, useToast } from 'native-base';
 import { FormProvider, useForm } from 'react-hook-form';
-import { KeyboardAvoidingView, Platform } from 'react-native';
+import { KeyboardAvoidingView } from 'react-native';
 
 import { FormField } from './form-field';
 import { UserType } from '../../../../../../shared/types';
 import useLocale from '../../../hooks/use-locale';
 import Routes from '../../../routes';
+
+import AuthHeader from '@/components/auth-header';
 
 type RegisterUserFormProps = {
   defaultValues?: Partial<UserType>;
@@ -44,12 +46,9 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
   const isInvalid = !!Object.keys(saveUserForm.formState.errors).length;
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1, marginTop: 50 }}
-      keyboardVerticalOffset={0}
-    >
+    <KeyboardAvoidingView behavior="position">
       <FormProvider {...saveUserForm}>
+        <AuthHeader action={t('SIGN_UP.FORM.SIGN_UP_BUTTON')} _android={{ marginY: 10 }} />
         <FormControl isInvalid={isInvalid}>
           <FormField
             autoFocus
@@ -79,12 +78,7 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
           </Button>
         </FormControl>
       </FormProvider>
-      <Button
-        marginTop={6}
-        variant="link"
-        width="full"
-        onPress={() => navigate(Routes.SignIn as never)}
-      >
+      <Button variant="link" onPress={() => navigate(Routes.SignIn as never)} alignSelf="center">
         {t('SIGN_UP.FORM.SIGN_IN_LINK_BUTTON')}
       </Button>
     </KeyboardAvoidingView>

@@ -13,13 +13,6 @@ type FormFieldProps = {
   autoFocus?: boolean;
 };
 
-const commonInputProperties = {
-  size: 'xl',
-  borderColor: theme.colors.primary[600],
-  variant: 'outline',
-  autoFocus: true,
-};
-
 const mountErrorMsg = (fieldName: string, errorType: string) => {
   const baseToken = `SIGN_UP.FORM_ERROR_MESSAGES`;
   const errorkey = fieldName.toUpperCase();
@@ -36,12 +29,12 @@ const FormField = ({ label, name, placeholder, type, autoFocus }: FormFieldProps
   const { t } = useLocale();
 
   return (
-    <Stack my={4} width="full">
+    <Stack my={2} width="full">
       <FormControl.Label>{label}</FormControl.Label>
 
       <RHFInput
         input={{
-          ...commonInputProperties,
+          size: 'xl',
           placeholder,
           testID: `signup-form-${name}-input`,
           returnKeyType: 'next',
