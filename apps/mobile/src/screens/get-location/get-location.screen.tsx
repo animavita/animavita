@@ -1,4 +1,5 @@
 import { UserType } from '@animavita/types';
+import localizationImg from '@assets/localization.png';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
 import * as Location from 'expo-location';
@@ -8,7 +9,6 @@ import { Alert, Linking } from 'react-native';
 
 import { ActionButtonsGroup } from './compose';
 
-import localizationImg from '@/assets/localization.png';
 import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
