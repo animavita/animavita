@@ -1,3 +1,4 @@
+import { Coordinates } from '@animavita/shared/types';
 import * as Location from 'expo-location';
 import { useState } from 'react';
 
@@ -13,6 +14,7 @@ export enum Warnings {
 
 const useUserLocation = () => {
   const [address, setAddress] = useState<Address>();
+  const [coords, setCoords] = useState<Coordinates>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>();
   const [warning, setWarning] = useState<Warnings>();
@@ -40,6 +42,8 @@ const useUserLocation = () => {
         coords: { latitude, longitude },
       } = await Location.getCurrentPositionAsync();
 
+      setCoords({ latitude, longitude });
+
       const userAddress = await Location.reverseGeocodeAsync({
         latitude,
         longitude,
@@ -61,6 +65,7 @@ const useUserLocation = () => {
   };
 
   return {
+    coords,
     isLoading,
     address,
     getLocation,

@@ -58,7 +58,27 @@
       "SCREEN_NAME": "Entrar",
       "EMAIL_INPUT": "Email",
       "PASSWORD_INPUT": "Senha",
-      "LOGIN_BUTTON": "Entrar"
+      "LOGIN_BUTTON": "Entrar",
+      "SIGN_UP_LINK": "Ou registre-se"
+    }
+  },
+  "SIGN_UP": {
+    "FORM": {
+      "NAME_INPUT": "Nome completo",
+      "EMAIL_INPUT": "Email",
+      "PASSWORD_INPUT": "Senha",
+      "SIGN_UP_BUTTON": "Registre-se",
+      "SIGN_IN_LINK_BUTTON": "Já tenho uma conta"
+    },
+    "FORM_ERROR_MESSAGES": {
+      "NAME_REQUIRED": "O seu nome é obrigatório",
+      "NAME_EMPTY": "O seu nome é obrigatório pode ser vazio",
+      "EMAIL_EMPTY": "Email não pode ser vazio",
+      "EMAIL_REQUIRED": "Email não pode ser vazio",
+      "EMAIL_EMAIL": "Digite um email válido",
+      "PASSWORD_EMPTY": "A senha não pode ser vazia",
+      "PASSWORD_REQUIRED": "A senha é obrigatória",
+      "PASSWORD_MIN": "A senha precisa ter no mínimo 6 caracteres"
     }
   },
   "HOME": {

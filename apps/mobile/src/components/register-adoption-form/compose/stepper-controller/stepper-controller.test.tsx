@@ -7,7 +7,7 @@ import {
   AdoptionSteps,
   StepperControllerProps,
 } from '@/components/register-adoption-form/adoption-form.types';
-import * as useFormValidationModule from '@/components/register-adoption-form/hooks/use-form-validation.hook';
+import * as useFormValidationModule from '@/hooks/react-hook-form/use-form-validation/use-form-validation.hook';
 import { renderWithProviders, fireEvent, waitFor } from '@/test/test-utils';
 
 const handleBack = jest.fn();
@@ -53,7 +53,7 @@ describe('StepperController', () => {
 
   describe('when the next button is pressed', () => {
     it('calls `onNextPress`', async () => {
-      jest.spyOn(useFormValidationModule, 'useFormValidation').mockReturnValueOnce({
+      jest.spyOn(useFormValidationModule, 'default').mockReturnValueOnce({
         validateField: () => Promise.resolve(true),
       });
 

@@ -1,16 +1,16 @@
 import { View } from 'native-base';
 
-import { SignInForm } from './compose';
+import { SignUpForm } from './compose';
 
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 
-const SignInScreen = () => {
+const SignUp = () => {
   return (
     <View flex="1" padding={8}>
       <AppStatusBar />
-      <SignInForm />
+      <SignUpForm />
     </View>
   );
 };
 
-export default SignInScreen;
+export default SignUp;

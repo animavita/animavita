@@ -3,7 +3,7 @@ import React from 'react';
 
 import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
 import { StepperControllerProps } from '@/components/register-adoption-form/adoption-form.types';
-import { useFormValidation } from '@/components/register-adoption-form/hooks/use-form-validation.hook';
+import useFormValidation from '@/hooks/react-hook-form/use-form-validation';
 import useLocale from '@/hooks/use-locale';
 import theme from '@/theme';
 
@@ -16,7 +16,7 @@ const StepperController = ({
   saving,
 }: StepperControllerProps) => {
   const { t } = useLocale();
-  const { validateField } = useFormValidation();
+  const { validateField } = useFormValidation('adoption', 'REGISTER_ADOPTION.FORM_ERROR_MESSAGES');
 
   const onBackPress = () => {
     handleBack();

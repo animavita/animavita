@@ -1,18 +1,20 @@
-import { useNavigation } from '@react-navigation/native';
+import { UserType } from '@animavita/types';
+import localizationImg from '@assets/localization.png';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useMutation } from '@tanstack/react-query';
 import * as Location from 'expo-location';
-import { Heading, Image, Text, View } from 'native-base';
+import { Heading, Image, Text, View, useToast } from 'native-base';
 import { useEffect } from 'react';
 import { Alert, Linking } from 'react-native';
 
 import { ActionButtonsGroup } from './compose';
 
-import localizationImg from '@/assets/localization.png';
 import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
-import { useAuth } from '@/hooks/use-auth-provider';
 import useLocale from '@/hooks/use-locale';
 import useGeolocation, { Warnings } from '@/hooks/use-user-location/use-user-location';
 import Routes from '@/routes';
+import { signUp } from '@/services/sign-up';
 import theme from '@/theme';
 
 const errorAlert = (msg: string, onPress: () => void, text?: string) =>
@@ -24,13 +26,33 @@ const errorAlert = (msg: string, onPress: () => void, text?: string) =>
     },
   ]);
 
-const GetLocation = () => {
-  const auth = useAuth();
-  const { getLocation, address, isLoading, warning } = useGeolocation();
-  const { t } = useLocale();
-  const { navigate } = useNavigation();
+type GetLocationScreenParamList = {
+  GetLocation: {
+    user: Partial<UserType>;
+  };
+};
 
-  const onConfirmLocation = () => navigate(Routes.Home as never);
+const GetLocation = () => {
+  const { getLocation, address, isLoading, warning, coords } = useGeolocation();
+  const { t } = useLocale();
+  const { params: data } = useRoute<RouteProp<GetLocationScreenParamList, 'GetLocation'>>();
+
+  const { navigate } = useNavigation();
+  const toast = useToast();
+
+  const mutation = useMutation({
+    mutationFn: signUp,
+    onSuccess: () => {
+      navigate(Routes.Profile as never);
+    },
+    onError: () => toast.show({ title: 'Something went wrong, try again!', variant: 'solid' }),
+  });
+
+  const onConfirmLocation = () => {
+    const newUser = { ...data.user, location: coords };
+
+    mutation.mutateAsync(newUser);
+  };
 
   useEffect(() => {
     if (warning === Warnings.GPS_DISABLED) {
@@ -56,7 +78,7 @@ const GetLocation = () => {
       <SafeArea>
         <View width={260}>
           <Heading fontSize={35}>
-            {t('SHARE_LOCATION.GREETINGS', { name: auth.user?.name })}
+            {t('SHARE_LOCATION.GREETINGS', { name: data.user.name })}
             <Heading fontSize={35} color={theme.colors.primary[600]}>
               {' '}
               {`${t('SHARE_LOCATION.LOCATION')}`}
