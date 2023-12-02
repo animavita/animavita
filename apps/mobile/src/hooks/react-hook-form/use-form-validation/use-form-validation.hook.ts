@@ -10,7 +10,7 @@ export const mountErrorMessage = (fieldName: string, type: string) => {
   return `${fieldName.toUpperCase()}_${kind}`;
 };
 
-export const useFormValidation = () => {
+const useFormValidation = (formName: string, translationPath: string) => {
   const { t } = useLocale();
 
   const { trigger, getFieldState } = useFormContext();
@@ -19,12 +19,10 @@ export const useFormValidation = () => {
   const showFeedback = (fieldName: string) => {
     const fieldError = getFieldState(fieldName);
 
-    const id = 'adoption-form-toast';
+    const id = `${formName}-form-toast`;
 
     const errorMessage = mountErrorMessage(fieldName, fieldError?.error?.type as string);
-    const description = t(
-      `REGISTER_ADOPTION.FORM_ERROR_MESSAGES.${errorMessage}`
-    ) as React.ReactNode;
+    const description = t(`${translationPath}.${errorMessage}`) as React.ReactNode;
 
     if (!isActive(id)) show({ id, description });
   };
@@ -39,3 +37,5 @@ export const useFormValidation = () => {
 
   return { validateField };
 };
+
+export default useFormValidation;

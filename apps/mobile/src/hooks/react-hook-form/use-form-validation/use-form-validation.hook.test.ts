@@ -3,13 +3,16 @@ import { TFunction } from 'i18next';
 import { useToast } from 'native-base';
 import { useFormContext } from 'react-hook-form';
 
-import { mountErrorMessage, useFormValidation } from './use-form-validation.hook';
+import useFormValidation, { mountErrorMessage } from './use-form-validation.hook';
 
 import useLocale from '@/hooks/use-locale';
 
 jest.mock('@/hooks/use-locale');
 jest.mock('native-base');
 jest.mock('react-hook-form');
+
+// eslint-disable-next-line react-hooks/rules-of-hooks
+const setup = () => useFormValidation('adoption', 'REGISTER_ADOPTION.FORM_ERROR_MESSAGES');
 
 const useLocaleReturnedValue: { t: TFunction<'translation', undefined> } = {
   // @ts-ignore
@@ -40,7 +43,7 @@ describe('useFormValidation', () => {
           },
         });
 
-        const { result } = renderHook(() => useFormValidation());
+        const { result } = renderHook(setup);
 
         await act(async () => {
           const isValid = await result.current.validateField('name');
@@ -63,7 +66,7 @@ describe('useFormValidation', () => {
           } as any,
         });
 
-        const { result } = renderHook(() => useFormValidation());
+        const { result } = renderHook(setup);
 
         await act(async () => {
           const isValid = await result.current.validateField('name');
@@ -86,7 +89,7 @@ describe('useFormValidation', () => {
             },
           });
 
-          const { result } = renderHook(() => useFormValidation());
+          const { result } = renderHook(setup);
 
           await act(async () => {
             await result.current.validateField('name');
@@ -113,7 +116,7 @@ describe('useFormValidation', () => {
             },
           });
 
-          const { result } = renderHook(() => useFormValidation());
+          const { result } = renderHook(setup);
 
           await act(async () => {
             await result.current.validateField('name');
