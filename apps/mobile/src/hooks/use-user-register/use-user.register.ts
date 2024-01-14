@@ -28,6 +28,7 @@ const useUserRegister = () => {
 
   return {
     registerUser,
+    isRegistering: mutation.isLoading,
   };
 };
 

@@ -31,7 +31,7 @@ export const ActionButtonsGroup = ({
   return (
     <View alignItems="center">
       {children}
-      <Button variant="solid" onPress={onConfirm}>
+      <Button disabled={isLoading} variant="solid" onPress={onConfirm}>
         {t('SHARE_LOCATION.CONFIRM_BUTTON')}
       </Button>
       <Button variant="ghost" onPress={onPress}>

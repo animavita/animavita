@@ -26,7 +26,7 @@ const errorAlert = (msg: string, onPress: () => void, text?: string) =>
 
 const GetLocation = () => {
   const { getLocation, address, isLoading, warning, coords } = useGeolocation();
-  const { registerUser } = useUserRegister();
+  const { registerUser, isRegistering } = useUserRegister();
   const { t } = useLocale();
   const { params: data } = useRoute<RouteProp<GetLocationScreenParamList, 'GetLocation'>>();
 
@@ -73,7 +73,7 @@ const GetLocation = () => {
           alt={t('SHARE_LOCATION.IMAGE_ALT_TEXT')}
         />
         <ActionButtonsGroup
-          isLoading={isLoading}
+          isLoading={isLoading || isRegistering}
           onPress={getLocation}
           onConfirm={onConfirmLocation}
           hasLocation={!!address}
