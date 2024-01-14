@@ -1,6 +1,7 @@
 import { Coordinates } from '@animavita/types';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { useMutation } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useToast } from 'native-base';
 
 import { useAuth } from '../use-auth-provider';
@@ -15,7 +16,10 @@ const useUserRegister = () => {
 
   const mutation = useMutation({
     mutationFn: signUp,
-    onError: () => toast.show({ title: 'Something went wrong, try again!', variant: 'solid' }),
+    onError: (error: AxiosError<{ message: string }>) => {
+      const title = error?.response?.data.message || 'Something went wrong, try again!';
+      toast.show({ title, variant: 'solid' });
+    },
   });
 
   const registerUser = async (coords: Coordinates) => {
