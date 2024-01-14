@@ -1,7 +1,7 @@
 import localizationImg from '@assets/localization.png';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import * as Location from 'expo-location';
-import { Heading, Image, Text, View } from 'native-base';
+import { Heading, Image, Text, View, useToast } from 'native-base';
 import { useEffect } from 'react';
 import { Alert, Linking } from 'react-native';
 
@@ -26,14 +26,19 @@ const errorAlert = (msg: string, onPress: () => void, text?: string) =>
 
 const GetLocation = () => {
   const { getLocation, address, isLoading, warning, coords } = useGeolocation();
-  const { registerUser, isRegistering } = useUserRegister();
+  const { registerUser, isRegistering, error } = useUserRegister();
+  const toast = useToast();
   const { t } = useLocale();
   const { params: data } = useRoute<RouteProp<GetLocationScreenParamList, 'GetLocation'>>();
 
   const onConfirmLocation = async () => {
     if (!coords) throw new Error('Coordinates not defined!');
-    await registerUser(coords);
+    await registerUser(data.user, coords);
   };
+
+  useEffect(() => {
+    if (error) toast.show({ title: error, variant: 'solid' });
+  }, [error]);
 
   useEffect(() => {
     if (warning === Warnings.GPS_DISABLED) {
