@@ -1,4 +1,4 @@
-import { Coordinates } from '@animavita/shared/types';
+import { Coordinates } from '@animavita/types';
 import * as Location from 'expo-location';
 import { useState } from 'react';
 

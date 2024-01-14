@@ -1,9 +1,7 @@
-import { UserType } from '@animavita/types';
 import localizationImg from '@assets/localization.png';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { useMutation } from '@tanstack/react-query';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import * as Location from 'expo-location';
-import { Heading, Image, Text, View, useToast } from 'native-base';
+import { Heading, Image, Text, View } from 'native-base';
 import { useEffect } from 'react';
 import { Alert, Linking } from 'react-native';
 
@@ -13,8 +11,8 @@ import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
 import useGeolocation, { Warnings } from '@/hooks/use-user-location/use-user-location';
-import Routes from '@/routes';
-import { signUp } from '@/services/sign-up';
+import useUserRegister from '@/hooks/use-user-register/use-user.register';
+import { GetLocationScreenParamList } from '@/navigation/types';
 import theme from '@/theme';
 
 const errorAlert = (msg: string, onPress: () => void, text?: string) =>
@@ -26,32 +24,15 @@ const errorAlert = (msg: string, onPress: () => void, text?: string) =>
     },
   ]);
 
-type GetLocationScreenParamList = {
-  GetLocation: {
-    user: Partial<UserType>;
-  };
-};
-
 const GetLocation = () => {
   const { getLocation, address, isLoading, warning, coords } = useGeolocation();
+  const { registerUser } = useUserRegister();
   const { t } = useLocale();
   const { params: data } = useRoute<RouteProp<GetLocationScreenParamList, 'GetLocation'>>();
 
-  const { navigate } = useNavigation();
-  const toast = useToast();
-
-  const mutation = useMutation({
-    mutationFn: signUp,
-    onSuccess: () => {
-      navigate(Routes.Profile as never);
-    },
-    onError: () => toast.show({ title: 'Something went wrong, try again!', variant: 'solid' }),
-  });
-
-  const onConfirmLocation = () => {
-    const newUser = { ...data.user, location: coords };
-
-    mutation.mutateAsync(newUser);
+  const onConfirmLocation = async () => {
+    if (!coords) throw new Error('Coordinates not defined!');
+    await registerUser(coords);
   };
 
   useEffect(() => {

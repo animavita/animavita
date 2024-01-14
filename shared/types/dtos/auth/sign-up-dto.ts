@@ -8,6 +8,6 @@ export type SignUpRequest = {
   location: Coordinates;
 };
 
-export type SignInResponse = CredentialsType & {
+export type SignUpResponse = CredentialsType & {
   name: string;
 };
