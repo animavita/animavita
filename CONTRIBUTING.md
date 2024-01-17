@@ -33,6 +33,8 @@ In order to reflect the changes made in the shared packages to the mobile app, y
 $ pnpm shared:watch
 ```
 
+[Click here if you want to work only on the mobile app](#if-you-want-to-work-only-on-the-mobile-app)
+
 ### Running the infra & backend with docker
 
 We have a `docker-compose` file that sets up a mongodb database and the backend app for you. Just run:
@@ -64,6 +66,14 @@ Then, run the app:
 
 ```sh
 $ pnpm mobile start
+```
+
+### Developing with staging backend
+
+In this case, you don't need to worry about the backend part.  We have a hosted staging environment you can use while developing locally. Keep in mind it might be unstable, so in case you face any problems follow the above steps to get the backend running locally as well. To point the app to staging, run the following command:
+
+```sh
+ENV=staging pnpm mobile start
 ```
 
 ### Sending a pull request
