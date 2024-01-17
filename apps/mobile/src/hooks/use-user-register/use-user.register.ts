@@ -27,10 +27,12 @@ const useUserRegister = () => {
   const networkErrorMessage = (mutation.error as AxiosError<{ message: string }>)?.response?.data
     .message;
 
+  const error = mutation.isError ? networkErrorMessage || 'Something went wrong, try again!' : null;
+
   return {
     registerUser,
     isRegistering: mutation.isLoading,
-    error: networkErrorMessage || 'Something went wrong, try again!',
+    error,
   };
 };
 
