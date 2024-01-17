@@ -22,7 +22,13 @@ export const SignInForm = () => {
         <Text color={theme.colors.gray[500]} marginBottom={2}>
           {t('SIGN_IN.FORM.EMAIL_INPUT')}
         </Text>
-        <Input size="xl" placeholder={t('SIGN_IN.FORM.EMAIL_INPUT')} type="text" />
+        <Input
+          size="xl"
+          placeholder={t('SIGN_IN.FORM.EMAIL_INPUT')}
+          type="text"
+          inputMode="email"
+          autoCapitalize="none"
+        />
       </FormRow>
       <FormRow>
         <Text color={theme.colors.gray[500]} marginBottom={2}>

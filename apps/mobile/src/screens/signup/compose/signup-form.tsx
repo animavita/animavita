@@ -60,6 +60,9 @@ const Form = () => {
           testID: 'signup-form-email-input',
           returnKeyType: 'next',
           isRequired: true,
+          keyboardType: 'email-address',
+          inputMode: 'email',
+          autoCapitalize: 'none',
         }}
         control={signupForm.control}
         name="email"
@@ -72,6 +75,7 @@ const Form = () => {
           testID: 'signup-form-password-input',
           returnKeyType: 'go',
           isRequired: true,
+          type: 'password',
         }}
         control={signupForm.control}
         name="password"
