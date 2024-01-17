@@ -33,7 +33,7 @@ In order to reflect the changes made in the shared packages to the mobile app, y
 $ pnpm shared:watch
 ```
 
-[Click here if you want to work only on the mobile app](#if-you-want-to-work-only-on-the-mobile-app)
+[Click here if you want to work only on the mobile app](#developing-with-staging-backend)
 
 ### Running the infra & backend with docker
 
