@@ -41,6 +41,22 @@ export const Form = () => {
     if (error) toast.show({ title: error, variant: 'solid' });
   }, [error]);
 
+  const onSignIn = async () => {
+    const isValid = await signinForm.trigger();
+
+    if (!isValid) {
+      toast.show({
+        description: 'Invalid data!',
+      });
+
+      return;
+    }
+
+    const values = signinForm.getValues();
+
+    signIn(values.email, values.password);
+  };
+
   return (
     <>
       <Stack space={2.5}>
@@ -53,6 +69,7 @@ export const Form = () => {
             keyboardType: 'email-address',
             inputMode: 'email',
             autoCapitalize: 'none',
+            autoFocus: true,
           }}
           control={signinForm.control}
           name="email"
@@ -73,16 +90,7 @@ export const Form = () => {
         />
 
         <FormControl>
-          <Button
-            marginTop={5}
-            width="full"
-            onPress={() => {
-              const values = signinForm.getValues();
-
-              signIn(values.email, values.password);
-            }}
-            disabled={isSigningIn}
-          >
+          <Button marginTop={5} width="full" onPress={() => onSignIn()} disabled={isSigningIn}>
             {t('SIGN_IN.FORM.LOGIN_BUTTON')}
           </Button>
         </FormControl>
