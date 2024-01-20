@@ -1,19 +1,27 @@
 import { useNavigation } from '@react-navigation/native';
-import { Button, Input, KeyboardAvoidingView, Text } from 'native-base';
+import { Button, Input, KeyboardAvoidingView, Spinner, Text, useToast } from 'native-base';
+import { useEffect, useState } from 'react';
 
 import { FormRow } from './form-row';
 
 import AuthHeader from '@/components/auth-header';
-import { useAuth } from '@/hooks/use-auth-provider';
 import useLocale from '@/hooks/use-locale';
+import useUserSignIn from '@/hooks/use-user-signin';
 import Routes from '@/routes';
 import theme from '@/theme';
 
 export const SignInForm = () => {
   const { t } = useLocale();
-  const auth = useAuth();
+  const { signIn, isSigningIn, error } = useUserSignIn();
+  const toast = useToast();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const { navigate } = useNavigation();
+
+  useEffect(() => {
+    if (error) toast.show({ title: error, variant: 'solid' });
+  }, [error]);
 
   return (
     <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
@@ -28,6 +36,7 @@ export const SignInForm = () => {
           type="text"
           inputMode="email"
           autoCapitalize="none"
+          onChangeText={(value) => setEmail(value)}
         />
       </FormRow>
       <FormRow>
@@ -35,19 +44,19 @@ export const SignInForm = () => {
           {t('SIGN_IN.FORM.PASSWORD_INPUT')}
         </Text>
 
-        <Input size="xl" placeholder={t('SIGN_IN.FORM.PASSWORD_INPUT')} type="password" />
+        <Input
+          size="xl"
+          placeholder={t('SIGN_IN.FORM.PASSWORD_INPUT')}
+          type="password"
+          onChangeText={(value) => setPassword(value)}
+        />
       </FormRow>
 
       <Button
         marginTop={5}
         width="full"
-        onPress={() => {
-          auth.signIn({
-            accessToken: '1234',
-            refreshToken: '4321',
-            name: 'John Doe',
-          });
-        }}
+        onPress={() => signIn(email, password)}
+        disabled={isSigningIn}
       >
         {t('SIGN_IN.FORM.LOGIN_BUTTON')}
       </Button>
@@ -60,6 +69,8 @@ export const SignInForm = () => {
       >
         {t('SIGN_IN.FORM.SIGN_UP_LINK')}
       </Button>
+
+      {isSigningIn && <Spinner />}
     </KeyboardAvoidingView>
   );
 };
