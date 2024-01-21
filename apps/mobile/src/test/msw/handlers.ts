@@ -19,4 +19,15 @@ export const handlers = [
       })
     );
   }),
+
+  rest.post('*/api/v1/auth/signIn', (req, res, ctx) => {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        accessToken: '123',
+        refreshToken: 'abc',
+        name: 'John Due',
+      })
+    );
+  }),
 ];

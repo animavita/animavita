@@ -1,56 +1,87 @@
+import { SignInRequest, UserType } from '@animavita/types';
+import { signInValidationSchema } from '@animavita/validation-schemas';
+import { joiResolver } from '@hookform/resolvers/joi';
 import { useNavigation } from '@react-navigation/native';
-import { Button, Input, KeyboardAvoidingView, Text } from 'native-base';
-
-import { FormRow } from './form-row';
+import { Button, FormControl, KeyboardAvoidingView, Spinner, Stack, useToast } from 'native-base';
+import { useEffect } from 'react';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import AuthHeader from '@/components/auth-header';
-import { useAuth } from '@/hooks/use-auth-provider';
+import { RHFInput } from '@/components/react-hook-form/native-base';
 import useLocale from '@/hooks/use-locale';
+import useUserSignIn from '@/hooks/use-user-signin';
 import Routes from '@/routes';
-import theme from '@/theme';
 
-export const SignInForm = () => {
+type SignInUserFormProps = {
+  defaultValues?: Partial<UserType>;
+};
+
+export const Form = () => {
   const { t } = useLocale();
-  const auth = useAuth();
+  const { signIn, isSigningIn, error } = useUserSignIn();
+  const toast = useToast();
+
+  const signinForm = useFormContext();
 
   const { navigate } = useNavigation();
 
+  useEffect(() => {
+    if (error) toast.show({ title: error, variant: 'solid' });
+  }, [error]);
+
+  const onSignIn = async () => {
+    const isValid = await signinForm.trigger();
+
+    if (!isValid) {
+      toast.show({
+        description: 'Invalid data!',
+      });
+
+      return;
+    }
+
+    const values = signinForm.getValues();
+
+    await signIn(values.email, values.password);
+  };
+
   return (
-    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
-      <AuthHeader action={t('SIGN_IN.FORM.LOGIN_BUTTON')} />
-      <FormRow>
-        <Text color={theme.colors.gray[500]} marginBottom={2}>
-          {t('SIGN_IN.FORM.EMAIL_INPUT')}
-        </Text>
-        <Input
-          size="xl"
-          placeholder={t('SIGN_IN.FORM.EMAIL_INPUT')}
-          type="text"
-          inputMode="email"
-          autoCapitalize="none"
+    <>
+      <Stack space={2.5}>
+        <RHFInput
+          input={{
+            placeholder: t('SIGN_IN.FORM.EMAIL_INPUT'),
+            returnKeyType: 'next',
+            isRequired: true,
+            keyboardType: 'email-address',
+            inputMode: 'email',
+            autoCapitalize: 'none',
+            autoFocus: true,
+          }}
+          control={signinForm.control}
+          name="email"
+          label={t('SIGN_IN.FORM.EMAIL_INPUT')}
         />
-      </FormRow>
-      <FormRow>
-        <Text color={theme.colors.gray[500]} marginBottom={2}>
-          {t('SIGN_IN.FORM.PASSWORD_INPUT')}
-        </Text>
 
-        <Input size="xl" placeholder={t('SIGN_IN.FORM.PASSWORD_INPUT')} type="password" />
-      </FormRow>
+        <RHFInput
+          input={{
+            placeholder: t('SIGN_IN.FORM.PASSWORD_INPUT'),
+            returnKeyType: 'go',
+            isRequired: true,
+            type: 'password',
+          }}
+          control={signinForm.control}
+          name="password"
+          label={t('SIGN_IN.FORM.PASSWORD_INPUT')}
+        />
 
-      <Button
-        marginTop={5}
-        width="full"
-        onPress={() => {
-          auth.signIn({
-            accessToken: '1234',
-            refreshToken: '4321',
-            name: 'John Doe',
-          });
-        }}
-      >
-        {t('SIGN_IN.FORM.LOGIN_BUTTON')}
-      </Button>
+        <FormControl>
+          <Button marginTop={5} width="full" onPress={() => onSignIn()} disabled={isSigningIn}>
+            {t('SIGN_IN.FORM.LOGIN_BUTTON')}
+          </Button>
+        </FormControl>
+      </Stack>
+
       <Button
         variant="link"
         onPress={() => {
@@ -60,6 +91,28 @@ export const SignInForm = () => {
       >
         {t('SIGN_IN.FORM.SIGN_UP_LINK')}
       </Button>
+
+      {isSigningIn && <Spinner testID="sign-spinner" />}
+    </>
+  );
+};
+
+export const SignInForm = ({ defaultValues }: SignInUserFormProps) => {
+  const { t } = useLocale();
+
+  const signupForm = useForm<SignInRequest>({
+    resolver: joiResolver(signInValidationSchema),
+    mode: 'onChange',
+    defaultValues,
+  });
+
+  return (
+    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={50}>
+      <FormProvider {...signupForm}>
+        <AuthHeader action={t('SIGN_IN.FORM.LOGIN_BUTTON')} _android={{ marginY: 10 }} />
+
+        <Form />
+      </FormProvider>
     </KeyboardAvoidingView>
   );
 };
