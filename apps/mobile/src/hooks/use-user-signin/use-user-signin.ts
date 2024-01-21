@@ -12,11 +12,13 @@ const useUserSignIn = () => {
   });
 
   const signIn = async (email: string, password: string) => {
-    const response = await mutation.mutateAsync({ email, password });
+    try {
+      const response = await mutation.mutateAsync({ email, password });
 
-    const credentials = response.data;
+      const credentials = response.data;
 
-    auth.signIn(credentials);
+      auth.signIn(credentials);
+    } catch (error) {}
   };
 
   const networkErrorMessage = (mutation.error as AxiosError<{ message: string }>)?.response?.data

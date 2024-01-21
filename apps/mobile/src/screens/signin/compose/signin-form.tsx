@@ -2,27 +2,15 @@ import { SignInRequest, UserType } from '@animavita/types';
 import { signInValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { useNavigation } from '@react-navigation/native';
-import {
-  Button,
-  FormControl,
-  Input,
-  KeyboardAvoidingView,
-  Spinner,
-  Stack,
-  Text,
-  useToast,
-} from 'native-base';
-import { useEffect, useState } from 'react';
+import { Button, FormControl, KeyboardAvoidingView, Spinner, Stack, useToast } from 'native-base';
+import { useEffect } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-
-import { FormRow } from './form-row';
 
 import AuthHeader from '@/components/auth-header';
 import { RHFInput } from '@/components/react-hook-form/native-base';
 import useLocale from '@/hooks/use-locale';
 import useUserSignIn from '@/hooks/use-user-signin';
 import Routes from '@/routes';
-import theme from '@/theme';
 
 type SignInUserFormProps = {
   defaultValues?: Partial<UserType>;
@@ -54,7 +42,7 @@ export const Form = () => {
 
     const values = signinForm.getValues();
 
-    signIn(values.email, values.password);
+    await signIn(values.email, values.password);
   };
 
   return (
@@ -63,7 +51,6 @@ export const Form = () => {
         <RHFInput
           input={{
             placeholder: t('SIGN_IN.FORM.EMAIL_INPUT'),
-            testID: 'signin-form-email-input',
             returnKeyType: 'next',
             isRequired: true,
             keyboardType: 'email-address',
@@ -79,7 +66,6 @@ export const Form = () => {
         <RHFInput
           input={{
             placeholder: t('SIGN_IN.FORM.PASSWORD_INPUT'),
-            testID: 'signin-form-password-input',
             returnKeyType: 'go',
             isRequired: true,
             type: 'password',
@@ -106,7 +92,7 @@ export const Form = () => {
         {t('SIGN_IN.FORM.SIGN_UP_LINK')}
       </Button>
 
-      {isSigningIn && <Spinner />}
+      {isSigningIn && <Spinner testID="sign-spinner" />}
     </>
   );
 };
