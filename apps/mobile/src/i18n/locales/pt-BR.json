@@ -103,5 +103,18 @@
     "LOCATION_REQUIRED_WARNING": "A sua localização é realmente necessária para uma melhor experiência no app.",
     "GPS_DISABLED_WARNING": "Por favor, verifique se o seu GPS está habilitado!",
     "GO_TO_SETTINGS": "Go to settings"
+  },
+  "MY_ADOPTIONS": {
+    "TITLE":"Mihas Adoções",
+    "SUB_TITLE":"Confira as adoções que você registrou até agora!",
+    "PET_TYPE": {
+      "DOG": "Cão",
+      "CAT": "Gato",
+      "OTHER": "Outro"
+    },
+    "CARD_ACTIONS": {
+      "EDIT": "Editar",
+      "DELETE": "Deletar"
+    }
   }
 }
