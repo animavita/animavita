@@ -1,5 +1,6 @@
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { t } from 'i18next';
 import { Box, Button, Icon, Pressable, Text } from 'native-base';
 
 import Routes from '@/routes';
@@ -19,7 +20,7 @@ const Topbar = () => {
           variant="ghost"
           leftIcon={<Icon as={MaterialIcons} name="pets" size="lg" color="primary.300" />}
         >
-          <Text color="primary.300">My Adoptions</Text>
+          <Text color="primary.300">{t('MY_ADOPTIONS.TITLE')}</Text>
         </Button>
       </Box>
     </Box>
