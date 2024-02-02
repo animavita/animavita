@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "ENV=dev expo start",
-    "android": "ENV=dev expo start --android",
-    "ios": "ENV=dev expo start --ios",
-    "web": "ENV=dev expo start --web",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
     "test": "pnpm run lint && jest --coverage",
     "lint": "eslint . --fix",
     "check-types": "tsc --project tsconfig.json"
