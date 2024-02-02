@@ -5,7 +5,7 @@ import { Header } from './components/header';
 
 import SafeArea from '@/components/safe-area';
 
-const AdoptionsScreen = () => {
+const MyAdoptionsScreen = () => {
   return (
     <SafeArea>
       <Box py={8} px={4}>
@@ -52,4 +52,4 @@ const DATA = [
   },
 ];
 
-export default AdoptionsScreen;
+export default MyAdoptionsScreen;
