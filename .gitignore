@@ -54,3 +54,6 @@ apps/mobile/coverage
 
 # scan temporary files
 **/fastlane/test_output
+
+**/android
+**/ios

@@ -31,5 +31,11 @@ module.exports = ({ config }) => {
     runtimeVersion: {
       policy: 'appVersion',
     },
+    android: {
+      package: 'com.belgamo.animavita',
+    },
+    ios: {
+      bundleIdentifier: 'com.ggbelgamo.animavita',
+    },
   };
 };
