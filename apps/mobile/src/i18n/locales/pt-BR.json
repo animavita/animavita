@@ -115,6 +115,7 @@
     "CARD_ACTIONS": {
       "EDIT": "Editar",
       "DELETE": "Deletar"
-    }
+    },
+    "EMPTY_LIST": "Você ainda não registou nenhum pet para adoção"
   }
 }

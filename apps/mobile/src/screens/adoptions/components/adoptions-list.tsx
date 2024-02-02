@@ -1,4 +1,5 @@
 import { AdoptionType } from '@animavita/types';
+import { t } from 'i18next';
 import { Box, Heading, View } from 'native-base';
 import { FlatList } from 'react-native';
 
@@ -28,7 +29,7 @@ export const AdoptionsList = ({ adoptions }: AdoptionsListProps) => {
 const EmptyList = () => (
   <Box height="xl" flexDir="row" justifyContent="center" alignItems="center" color="primary.300">
     <Heading color="primary.200" size="sm">
-      No adoptions registered yet!
+      {t('MY_PETS_SCREEN.EMPTY_LIST')}
     </Heading>
   </Box>
 );
