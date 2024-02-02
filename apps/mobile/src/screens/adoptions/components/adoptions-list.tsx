@@ -25,10 +25,6 @@ export const AdoptionsList = ({ adoptions }: AdoptionsListProps) => {
   );
 };
 
-/**
- * This component it is tied to AdoptionsList, when there is no
- * adoption registered yet, so I decided to keep it here
- */
 const EmptyList = () => (
   <Box height="xl" flexDir="row" justifyContent="center" alignItems="center" color="primary.300">
     <Heading color="primary.200" size="sm">
