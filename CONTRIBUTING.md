@@ -70,10 +70,18 @@ $ pnpm mobile start
 
 ### Developing with staging backend
 
-In this case, you don't need to worry about the backend part.  We have a hosted staging environment you can use while developing locally. Keep in mind it might be unstable, so in case you face any problems follow the above steps to get the backend running locally as well. To point the app to staging, run the following command:
+In this case, you don't need to worry about the backend part.  We have a hosted staging environment you can use while developing locally. Keep in mind it might be unstable, so in case you face any problems follow the above steps to get the backend running locally as well.
+
+To point the app to staging, create a .env file and set the `ENV` variable to `staging`.
 
 ```sh
-ENV=staging pnpm mobile start
+cp .env.example .env
+```
+
+Then, run the app:
+
+```sh
+pnpm mobile start
 ```
 
 ### Sending a pull request
