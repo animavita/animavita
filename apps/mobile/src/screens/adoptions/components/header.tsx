@@ -16,10 +16,10 @@ export const Header = () => {
       </Pressable>
       <Box mt={4}>
         <Heading size="xl" color="primary.500">
-          {t('MY_ADOPTIONS.TITLE')}
+          {t('MY_PETS_SCREEN.TITLE')}
         </Heading>
         <Text mt={1} color="coolGray.500">
-          {t('MY_ADOPTIONS.SUB_TITLE')}
+          {t('MY_PETS_SCREEN.SUB_TITLE')}
         </Text>
       </Box>
     </Box>

@@ -6,7 +6,7 @@ import useLocale from '@/hooks/use-locale';
 
 export const AdoptionCard = ({ name, type }: AdoptionType) => {
   const { t } = useLocale();
-  const petTypeTranslateKey = `MY_ADOPTIONS.PET_TYPE.${type.toUpperCase()}`;
+  const petTypeTranslateKey = `MY_PETS_SCREEN.PET_TYPE.${type.toUpperCase()}`;
 
   return (
     <Box
@@ -33,8 +33,8 @@ export const AdoptionCard = ({ name, type }: AdoptionType) => {
               name="create-outline"
               size="md"
               accessible
-              accessibilityHint={t('MY_ADOPTIONS.CARD_ACTIONS.EDIT')}
-              accessibilityLabel={t('MY_ADOPTIONS.CARD_ACTIONS.EDIT')}
+              accessibilityHint={t('MY_PETS_SCREEN.CARD_ACTIONS.EDIT')}
+              accessibilityLabel={t('MY_PETS_SCREEN.CARD_ACTIONS.EDIT')}
             />
           }
         />
@@ -46,8 +46,8 @@ export const AdoptionCard = ({ name, type }: AdoptionType) => {
               name="trash-outline"
               size="md"
               accessible
-              accessibilityHint={t('MY_ADOPTIONS.CARD_ACTIONS.DELETE')}
-              accessibilityLabel={t('MY_ADOPTIONS.CARD_ACTIONS.DELETE')}
+              accessibilityHint={t('MY_PETS_SCREEN.CARD_ACTIONS.DELETE')}
+              accessibilityLabel={t('MY_PETS_SCREEN.CARD_ACTIONS.DELETE')}
             />
           }
         />
