@@ -1,6 +1,6 @@
 import { Box } from 'native-base';
 
-import { AdoptionsList } from './components/adoptions-list';
+import { MyPetsList } from './components/adoptions-list';
 import { Header } from './components/header';
 
 import SafeArea from '@/components/safe-area';
@@ -10,7 +10,7 @@ const MyAdoptionsScreen = () => {
     <SafeArea>
       <Box py={8} px={4}>
         <Header />
-        <AdoptionsList adoptions={DATA} />
+        <MyPetsList adoptions={DATA} />
       </Box>
     </SafeArea>
   );

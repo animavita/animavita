@@ -9,11 +9,11 @@ type Adoption = AdoptionType & {
   id: string;
 };
 
-type AdoptionsListProps = {
+type MyPetsListProps = {
   adoptions: Adoption[];
 };
 
-export const AdoptionsList = ({ adoptions }: AdoptionsListProps) => {
+export const MyPetsList = ({ adoptions }: MyPetsListProps) => {
   if (adoptions.length <= 0) return <EmptyList />;
 
   return (
