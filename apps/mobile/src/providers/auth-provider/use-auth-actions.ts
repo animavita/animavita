@@ -3,6 +3,8 @@ import { useMemo, useReducer } from 'react';
 import AuthReducer from './auth-provider.reducer';
 import { AuthContextActions, UseAuthActions, UserPayload } from './auth-provider.types';
 
+import { persistUserToken } from '@/services/sign-in';
+
 const useAuthActions = (): UseAuthActions => {
   const [state, dispatch] = useReducer(AuthReducer, {
     tokens: null,
@@ -13,6 +15,7 @@ const useAuthActions = (): UseAuthActions => {
   const authActions: AuthContextActions = useMemo(
     () => ({
       signIn: async (payload: UserPayload) => {
+        persistUserToken(payload.accessToken);
         dispatch({ type: 'SIGN_IN', payload });
       },
       signOut: async () => {
