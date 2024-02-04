@@ -4,7 +4,7 @@ import AuthReducer from './auth-provider.reducer';
 import { AuthContextActions, UseAuthActions, UserPayload } from './auth-provider.types';
 
 import { getUser, removeUser, saveUser } from '@/helpers/secure-store';
-import client from '@/services/http-client';
+import { persistUserToken } from '@/services/sign-in';
 
 const useAuthActions = (): UseAuthActions => {
   const [state, dispatch] = useReducer(AuthReducer, {
@@ -19,7 +19,7 @@ const useAuthActions = (): UseAuthActions => {
         const user = await getUser();
 
         if (user !== null) {
-          client.defaults.headers.common['Authorization'] = `Bearer ${user.accessToken}`;
+          persistUserToken(user.accessToken);
           dispatch({ type: 'SIGN_IN', payload: user });
         } else {
           dispatch({ type: 'SIGN_OUT' });
@@ -37,7 +37,7 @@ const useAuthActions = (): UseAuthActions => {
   const authActions: AuthContextActions = useMemo(
     () => ({
       signIn: async (payload: UserPayload) => {
-        client.defaults.headers.common['Authorization'] = `Bearer ${payload.accessToken}`;
+        persistUserToken(payload.accessToken);
         dispatch({ type: 'SIGN_IN', payload });
         await saveUser(payload);
       },
