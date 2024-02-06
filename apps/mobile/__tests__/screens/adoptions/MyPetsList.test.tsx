@@ -2,24 +2,25 @@ import { MyPetsList } from '@/screens/adoptions/compose/adoptions-list';
 import { renderWithProviders } from '@/test/test-utils';
 
 describe('<MyPetsList />', () => {
-  it('shows a message that user has not registered yet pets to adoption', () => {
-    const { getByText } = renderWithProviders(<MyPetsList adoptions={[]} />);
+  describe('when user has not put pets for adoptions yet', () => {
+    it('renders an empty message', () => {
+      renderWithProviders(<MyPetsList adoptions={[]} />);
 
-    const emptyListMsg = getByText('Você ainda não registou nenhum pet para adoção');
+      const emptyListMsg = screen.getByText('Você ainda não registou nenhum pet para adoção');
 
-    expect(emptyListMsg).toBeOnTheScreen();
+      expect(emptyListMsg).toBeOnTheScreen();
+    });
   });
 
-  it('renders a list if user has not registered yet pets to adoption', () => {
-    const { getByText } = renderWithProviders(<MyPetsList adoptions={DATA} />);
+  describe('when user has pets for adoptions', () => {
+    it('renders registered pets in a list', () => {
+      renderWithProviders(<MyPetsList adoptions={DATA} />);
 
-    const pet1 = 'pet 1'.toUpperCase();
-    const pet2 = 'pet 2'.toUpperCase();
-    const pet3 = 'pet 3'.toUpperCase();
-
-    expect(getByText(pet1)).toBeOnTheScreen();
-    expect(getByText(pet2)).toBeOnTheScreen();
-    expect(getByText(pet3)).toBeOnTheScreen();
+      for (const pet of DATA) {
+        const petName = pet.name.toUpperCase();
+        expect(screen.getByText(petName)).toBeOnTheScreen();
+      }
+    });
   });
 });
 
