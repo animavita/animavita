@@ -1,4 +1,4 @@
-import { MyPetsList } from '@/screens/adoptions/compose/adoptions-list';
+import { MyPetsList } from '@/screens/adoptions/compose/my-pets-list';
 import { renderWithProviders } from '@/test/test-utils';
 
 describe('<MyPetsList />', () => {
