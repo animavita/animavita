@@ -1,7 +1,7 @@
 import { Box } from 'native-base';
 
-import { MyPetsList } from './compose/adoptions-list';
 import { Header } from './compose/header';
+import { MyPetsList } from './compose/my-pets-list';
 
 import SafeArea from '@/components/safe-area';
 
