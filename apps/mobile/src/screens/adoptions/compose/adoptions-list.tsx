@@ -1,9 +1,10 @@
 import { AdoptionType } from '@animavita/types';
-import { t } from 'i18next';
 import { Box, Heading, View } from 'native-base';
 import { FlatList } from 'react-native';
 
 import { AdoptionCard } from './adoption-card';
+
+import useLocale from '@/hooks/use-locale';
 
 type Adoption = AdoptionType & {
   id: string;
@@ -26,10 +27,13 @@ export const MyPetsList = ({ adoptions }: MyPetsListProps) => {
   );
 };
 
-const EmptyList = () => (
-  <Box height="xl" flexDir="row" justifyContent="center" alignItems="center" color="primary.300">
-    <Heading color="primary.200" size="sm">
-      {t('MY_PETS_SCREEN.EMPTY_LIST')}
-    </Heading>
-  </Box>
-);
+const EmptyList = () => {
+  const { t } = useLocale();
+  return (
+    <Box height="xl" flexDir="row" justifyContent="center" alignItems="center" color="primary.300">
+      <Heading color="primary.200" size="sm">
+        {t('MY_PETS_SCREEN.EMPTY_LIST')}
+      </Heading>
+    </Box>
+  );
+};
