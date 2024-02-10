@@ -1,5 +1,5 @@
-import { MyPetsList } from '@/screens/adoptions/compose/my-pets-list';
-import { renderWithProviders } from '@/test/test-utils';
+import { Adoption, MyPetsList } from '@/screens/adoptions/compose/my-pets-list';
+import { renderWithProviders, screen } from '@/test/test-utils';
 
 describe('<MyPetsList />', () => {
   describe('when user has not put pets for adoptions yet', () => {
@@ -14,7 +14,7 @@ describe('<MyPetsList />', () => {
 
   describe('when user has pets for adoptions', () => {
     it('renders registered pets in a list', () => {
-      renderWithProviders(<MyPetsList adoptions={DATA} />);
+      renderWithProviders(<MyPetsList adoptions={DATA as Adoption[]} />);
 
       for (const pet of DATA) {
         const petName = pet.name.toUpperCase();
