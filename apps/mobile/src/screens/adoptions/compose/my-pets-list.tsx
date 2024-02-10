@@ -6,7 +6,7 @@ import { AdoptionCard } from './adoption-card';
 
 import useLocale from '@/hooks/use-locale';
 
-type Adoption = AdoptionType & {
+export type Adoption = AdoptionType & {
   id: string;
 };
 

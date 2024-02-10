@@ -1,16 +1,18 @@
 import { Box } from 'native-base';
 
-import { Header } from './compose/header';
-import { MyPetsList } from './compose/my-pets-list';
+import { Adoption, MyPetsList } from './compose/my-pets-list';
 
 import SafeArea from '@/components/safe-area';
+import Topbar from '@/components/topbar';
 
 const MyAdoptionsScreen = () => {
   return (
     <SafeArea>
       <Box py={8} px={4}>
-        <Header />
-        <MyPetsList adoptions={DATA} />
+        <Topbar />
+        <Box mt="6">
+          <MyPetsList adoptions={DATA as Adoption[]} />
+        </Box>
       </Box>
     </SafeArea>
   );
