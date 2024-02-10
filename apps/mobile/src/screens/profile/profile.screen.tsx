@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Box, Button, FlatList, Icon, Text } from 'native-base';
+import { Button, FlatList, Icon, Text } from 'native-base';
 
 import Delimiter from '@/components/delimiter/delimiter';
 import SafeArea from '@/components/safe-area/safe-area';
