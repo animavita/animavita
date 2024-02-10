@@ -1,6 +1,7 @@
 import { InjectModel } from '@nestjs/mongoose';
 import {
   AdoptionEntity,
+  AdoptionRepository,
   FindNearestType,
   PopulatedAdoptionEntity,
 } from '../adoption-repository.interface';
@@ -15,11 +16,14 @@ import { MongoGenericRepository } from '../../../frameworks/data-services/mongo-
 
 export const RADIUS_OF_EARTH = 63781; // km
 
-export class AdoptionMongoDBRepository extends MongoGenericRepository<
-  MongoAdoption,
-  AdoptionEntity,
-  PopulatedAdoptionEntity
-> {
+export class AdoptionMongoDBRepository
+  extends MongoGenericRepository<
+    MongoAdoption,
+    AdoptionEntity,
+    PopulatedAdoptionEntity
+  >
+  implements AdoptionRepository
+{
   constructor(
     @InjectModel(MongoAdoption.name)
     private readonly adoptionModel: Model<AdoptionDocument>,
@@ -41,6 +45,16 @@ export class AdoptionMongoDBRepository extends MongoGenericRepository<
       .where('user')
       .ne(currentUserId)
       .populate<PopulatedAdoptionDocument>('user', 'id name');
+
+    return documents.map(AdoptionMap.toType);
+  }
+
+  async findByUser(currentUserId: string) {
+    const documents = await this.adoptionModel.find({
+      user: {
+        $eq: currentUserId,
+      },
+    });
 
     return documents.map(AdoptionMap.toType);
   }

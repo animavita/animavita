@@ -70,4 +70,10 @@ export class AdoptionsService {
 
     return await this.dataServices.adoptions.delete(adoptionId);
   }
+
+  async myPets(currentUserEmail: UserType['email']) {
+    const user = await this.userService.findByEmail(currentUserEmail);
+
+    return this.dataServices.adoptions.findByUser(user.id);
+  }
 }

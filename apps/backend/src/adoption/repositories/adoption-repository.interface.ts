@@ -42,4 +42,7 @@ export abstract class AdoptionRepository extends GenericRepository<
   PopulatedAdoptionEntity
 > {
   findNearest: (args: FindNearestType) => Promise<PopulatedAdoptionEntity[]>;
+  findByUser: (
+    currentUserId: UserEntity['id'],
+  ) => Promise<PopulatedAdoptionEntity[]>;
 }

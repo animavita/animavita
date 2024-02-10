@@ -26,10 +26,12 @@ export const AdoptionMap: MongoMapper<PopulatedAdoptionEntity, MongoAdoption> =
         photos: document.photos,
         size: document.size,
         type: document.type,
-        user: {
-          id: document.user._id.toString(),
-          name: document.user.name,
-        },
+        user: document.user._id
+          ? {
+              id: document.user._id.toString(),
+              name: document.user.name,
+            }
+          : undefined,
         createdAt: document.createdAt as string,
         updatedAt: document.updatedAt as string,
       };
