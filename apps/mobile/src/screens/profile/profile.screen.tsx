@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { Button, FlatList, Icon, Text } from 'native-base';
+import { Button, FlatList, Icon, Pressable, Text } from 'native-base';
 
 import Delimiter from '@/components/delimiter/delimiter';
 import SafeArea from '@/components/safe-area/safe-area';
@@ -23,13 +23,19 @@ const ProfileScreen = () => {
           data={ROUTES}
           keyExtractor={({ name }) => `app-route-${name}`}
           renderItem={({ item }) => (
-            <Button
+            <Pressable
               onPress={() => navigate(item.path as never)}
-              variant="ghost"
-              leftIcon={<Icon as={Ionicons} name="paw" size="lg" color="primary.300" />}
+              flexDirection="row"
+              alignItems="center"
+              mt={3}
+              py={4}
+              px={2}
             >
-              <Text color="primary.300">{t(item.translateKey)}</Text>
-            </Button>
+              <Icon as={Ionicons} name="paw" size="lg" color="primary.300" />
+              <Text color="primary.300" ml={3}>
+                {t(item.translateKey)}
+              </Text>
+            </Pressable>
           )}
         />
         <Button
