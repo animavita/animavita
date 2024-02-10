@@ -1,4 +1,5 @@
 import { Box } from 'native-base';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Adoption, MyPetsList } from './compose/my-pets-list';
 
@@ -10,7 +11,7 @@ const MyAdoptionsScreen = () => {
     <SafeArea>
       <Box py={8} px={4}>
         <Topbar />
-        <Box mt="6">
+        <Box mt="6" py={8}>
           <MyPetsList adoptions={DATA as Adoption[]} />
         </Box>
       </Box>
