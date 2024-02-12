@@ -20,6 +20,7 @@ const ProfileScreen = () => {
       <Delimiter flex="1">
         <Topbar />
         <FlatList
+          mt={4}
           data={PROFILE_ROUTES}
           keyExtractor={({ name }) => `app-route-${name}`}
           renderItem={({ item }) => (
@@ -27,9 +28,7 @@ const ProfileScreen = () => {
               onPress={() => navigate(item.path as never)}
               flexDirection="row"
               alignItems="center"
-              mt={3}
-              py={4}
-              px={2}
+              mb={2}
             >
               <Icon as={Ionicons} name="paw" size="lg" color="primary.300" />
               <Text color="primary.300" ml={3}>
