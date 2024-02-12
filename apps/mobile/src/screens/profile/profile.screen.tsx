@@ -20,7 +20,7 @@ const ProfileScreen = () => {
       <Delimiter flex="1">
         <Topbar />
         <FlatList
-          data={ROUTES}
+          data={PROFILE_ROUTES}
           keyExtractor={({ name }) => `app-route-${name}`}
           renderItem={({ item }) => (
             <Pressable
@@ -52,7 +52,7 @@ const ProfileScreen = () => {
   );
 };
 
-const ROUTES = [
+const PROFILE_ROUTES = [
   {
     name: 'my-adoptions',
     translateKey: 'MY_PETS_SCREEN.TITLE',
