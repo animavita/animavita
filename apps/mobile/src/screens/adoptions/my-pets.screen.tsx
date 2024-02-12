@@ -1,15 +1,26 @@
-import { Box } from 'native-base';
+import { Box, Heading, Text } from 'native-base';
 
 import { Adoption, MyPetsList } from './compose/my-pets-list';
 
 import SafeArea from '@/components/safe-area';
 import Topbar from '@/components/topbar';
+import useLocale from '@/hooks/use-locale';
 
 const MyPetsScreen = () => {
+  const { t } = useLocale();
+
   return (
     <SafeArea>
       <Box py={8} px={4}>
         <Topbar />
+        <Box mt={4}>
+          <Heading size="xl" color="primary.500">
+            {t('MY_PETS_SCREEN.TITLE')}
+          </Heading>
+          <Text mt={1} color="coolGray.500">
+            {t('MY_PETS_SCREEN.SUB_TITLE')}
+          </Text>
+        </Box>
         <Box mt="6" py={8}>
           <MyPetsList adoptions={DATA as Adoption[]} />
         </Box>
