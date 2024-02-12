@@ -1,12 +1,11 @@
 import { Box } from 'native-base';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { Adoption, MyPetsList } from './compose/my-pets-list';
 
 import SafeArea from '@/components/safe-area';
 import Topbar from '@/components/topbar';
 
-const MyAdoptionsScreen = () => {
+const MyPetsScreen = () => {
   return (
     <SafeArea>
       <Box py={8} px={4}>
@@ -55,4 +54,4 @@ const DATA = [
   },
 ];
 
-export default MyAdoptionsScreen;
+export default MyPetsScreen;

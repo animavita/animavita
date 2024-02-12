@@ -54,9 +54,9 @@ const ProfileScreen = () => {
 
 const PROFILE_ROUTES = [
   {
-    name: 'my-adoptions',
+    name: 'my-pets',
     translateKey: 'MY_PETS_SCREEN.TITLE',
-    path: Routes.MyAdoptions,
+    path: Routes.MyPets,
   },
 ];
 

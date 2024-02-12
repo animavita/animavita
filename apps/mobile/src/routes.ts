@@ -1,6 +1,6 @@
 const Routes = {
   Home: 'Home',
-  MyAdoptions: 'MyAdoptions',
+  MyPets: 'MyPets',
   RegisterAdoption: 'RegisterAdoption',
   GetLocation: 'GetLocation',
   SignIn: 'SignIn',

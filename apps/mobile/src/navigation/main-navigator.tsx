@@ -4,7 +4,7 @@ import React from 'react';
 
 import { useAuth } from '@/hooks/use-auth-provider';
 import Routes from '@/routes';
-import MyAdoptions from '@/screens/adoptions/adoptions.screen';
+import MyPetsScreen from '@/screens/adoptions/my-pets.screen';
 import GetLocation from '@/screens/get-location/get-location.screen';
 import Home from '@/screens/home/home.screen';
 import Profile from '@/screens/profile/profile.screen';
@@ -28,7 +28,7 @@ const MainNavigator = () => {
             <Stack.Screen name={Routes.Home} component={Home} />
             <Stack.Screen name={Routes.RegisterAdoption} component={RegisterAdoption} />
             <Stack.Screen name={Routes.Profile} component={Profile} />
-            <Stack.Screen name={Routes.MyAdoptions} component={MyAdoptions} />
+            <Stack.Screen name={Routes.MyPets} component={MyPetsScreen} />
           </>
         ) : (
           <>
