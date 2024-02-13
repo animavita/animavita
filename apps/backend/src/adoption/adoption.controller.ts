@@ -68,4 +68,10 @@ export class AdoptionsController {
   async deleteAdoption(@Param('id') adoptionId: string) {
     return this.adoptionsService.deleteAdoption(adoptionId);
   }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('myPets')
+  async myPets(@User() { email }: JwtPayload) {
+    return this.adoptionsService.myPets(email);
+  }
 }
