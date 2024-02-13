@@ -1,9 +1,10 @@
 import { AdoptionType } from '@animavita/types';
-import { Box, Heading, View } from 'native-base';
+import { Box, Heading, Text, Spacer } from 'native-base';
 import { FlatList } from 'react-native';
 
 import { AdoptionCard } from './adoption-card';
 
+import Topbar from '@/components/topbar';
 import useLocale from '@/hooks/use-locale';
 
 export type Adoption = AdoptionType & {
@@ -15,6 +16,8 @@ type MyPetsListProps = {
 };
 
 export const MyPetsList = ({ adoptions }: MyPetsListProps) => {
+  const { t } = useLocale();
+
   if (adoptions.length <= 0) return <EmptyList />;
 
   return (
@@ -22,7 +25,20 @@ export const MyPetsList = ({ adoptions }: MyPetsListProps) => {
       renderItem={({ item }) => <AdoptionCard {...item} />}
       data={adoptions}
       keyExtractor={({ id }) => id}
-      ItemSeparatorComponent={() => <View h={4} />}
+      ItemSeparatorComponent={() => <Spacer size={4} />}
+      ListHeaderComponent={
+        <>
+          <Topbar />
+          <Box mt={4} mb={6}>
+            <Heading size="xl" color="primary.500">
+              {t('MY_PETS_SCREEN.TITLE')}
+            </Heading>
+            <Text mt={1} color="coolGray.500">
+              {t('MY_PETS_SCREEN.SUB_TITLE')}
+            </Text>
+          </Box>
+        </>
+      }
     />
   );
 };
