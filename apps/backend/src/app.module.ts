@@ -5,6 +5,7 @@ import { CaslModule } from 'nest-casl';
 import { AdoptionsModule } from './adoption/adoption.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { OpencageModule } from './opencage/opencage.module';
 import { DataServicesModule } from './infra/data-services.module';
 import { Roles } from './frameworks/casl/app.roles';
 import { UserHook } from './frameworks/casl/hooks/user.hook';
@@ -20,6 +21,7 @@ import { UserHook } from './frameworks/casl/hooks/user.hook';
     AdoptionsModule,
     UserModule,
     AuthModule,
+    OpencageModule,
   ],
   controllers: [],
   providers: [],
