@@ -1,6 +1,8 @@
 import { Coordinates } from '@animavita/types';
 import * as Location from 'expo-location';
 import { useState } from 'react';
+import { Platform } from 'react-native';
+import { reverseGeocoding } from '@/services/reverse-geocoding';
 
 type Address = {
   city: string | null;
@@ -44,19 +46,32 @@ const useUserLocation = () => {
 
       setCoords({ latitude, longitude });
 
-      const userAddress = await Location.reverseGeocodeAsync({
-        latitude,
-        longitude,
-      });
+      let userAddress:Address[] | any;
 
-      if (userAddress) {
-        const addresses = userAddress.map((address) => ({
-          city: address.region,
-          state: address.subregion,
-        }));
+      if (Platform.OS === 'web') {
+        try {
+          const response = await reverseGeocoding({
+            latitude,
+            longitude,
+          });
+          userAddress = response.data;
+        } catch (error) {
+          setErrorMessage((error as Error).message);
+        }
+      } else {
+        userAddress = await Location.reverseGeocodeAsync({
+          latitude,
+          longitude,
+        });
 
-        setAddress(addresses[0]);
       }
+
+      const addresses: Address[] = userAddress.map((address: any) => ({
+        city: address.region,
+        state: address.subregion,
+      }));
+
+      setAddress(addresses[0]);
     } catch (error) {
       setErrorMessage((error as Error).message);
     } finally {
