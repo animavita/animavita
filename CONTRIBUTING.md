@@ -43,7 +43,11 @@ We have a `docker-compose` file that sets up a mongodb database and the backend 
 $ docker-compose up -d
 ```
 
-> Keep in mind if you change the shared packages you must rebuild the docker image.
+We're caching the `node_modules` folder to leverage cross-platform compatibility. So the first time the container is up, an anonymous volume gets created for the dependencies. With that said, whenever you change the shared packages or install a new dependency, you must rebuild the docker image telling docker to **NOT** use the existing volume from the previous container:
+
+```sh
+$ docker-compose up --build --force-recreate -V
+```
 
 ### Running without docker
 
