@@ -7,8 +7,9 @@
 ### Pre-requisites
 
 - Linux based distro or MacOS (we don't recommend Windows due to compatibility issues)
-- _Node:_ `16.17.1` or higher.
-- _Npm:_ `7.5.2` or higher.
+- _Node:_ `20.13.1` or higher.
+- _Npm:_ `10.5.2` or higher.
+- _Pnpm:_ `9.1.1` or higher
 
 ### Getting started
 > The `master` and `next` are stale branches, please do not use them.

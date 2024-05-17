@@ -22,7 +22,7 @@ services:
     command: pnpm run start:dev
   mongodb:
     container_name: animavita_mongo
-    image: mongo:6.0.2
+    image: mongo:7.0.0
     ports:
       - 27017:27017
     environment:

@@ -1,4 +1,4 @@
-FROM node:16 AS base
+FROM node:20.13.1 AS base
 RUN npm i -g pnpm
 
 FROM base AS dependencies
