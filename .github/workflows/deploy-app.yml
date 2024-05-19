@@ -1,0 +1,56 @@
+name: App Build & Deploy
+ 
+on:
+  # workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize]
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 🏗 Setup monorepo
+      uses: ./.github/actions/setup-monorepo
+
+    - name: Set up ruby env
+      uses: ruby/setup-ruby@v1
+      with:
+        working-directory: apps/mobile
+        ruby-version: 2.6.10
+        bundler-cache: true
+
+    - name: Run Expo Prebuild
+      run: pnpm mobile prebuild
+
+    - name: Decode Service Account Key JSON File
+      uses: timheuer/base64-to-file@v1
+      id: service_account_json_file
+      with:
+        fileName: "play-store-credentials.json"
+        encodedString: ${{ secrets.GPLAY_SERVICE_ACCOUNT_KEY_JSON }}
+
+    - name: Decode Keystore File
+      uses: timheuer/base64-to-file@v1
+      id: android_keystore
+      with:
+        fileName: "animavita-upload-key.keystore"
+        encodedString: ${{ secrets.KEYSTORE_FILE }}
+
+    - name: Build & deploy Android release
+      run: bundle exec fastlane android beta
+      working-directory: apps/mobile
+      env:
+        ANDROID_KEYSTORE_FILE: ${{ steps.android_keystore.outputs.filePath }}
+        ANDROID_SIGNING_KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        ANDROID_SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS}}
+        ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
+        RUBYOPT: '-rostruct' # TODO: Remove when https://github.com/fastlane/fastlane/pull/21950 gets released
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: assets
+        path: |
+          ${{ github.workspace }}/app/build/outputs/bundle/release

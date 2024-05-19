@@ -1,12 +1,12 @@
 default_platform(:android)
 
 platform :android do
-  desc "Deploy a new version to the Google Play Beta track"
+  desc "Deploy a new version to the Google Play Internal Testing"
   lane :beta do
       # Grab the latest build number from the Play Store
       previous_build_number = google_play_track_version_codes(
         track: "internal",
-        json_key: "/Users/belgamo/Desktop/play-store-credentials.json"
+        json_key: ENV["ANDROID_JSON_KEY_FILE"]
       )[0]
 
       # Increment the build number
@@ -19,7 +19,7 @@ platform :android do
   
       # Build a release version of the app
       gradle(task: 'bundle', project_dir: "android", build_type: 'Release', properties: {
-        "android.injected.signing.store.file" => "/Users/belgamo/Desktop/animavita-upload-key/animavita-upload-key.keystore",
+        "android.injected.signing.store.file" => ENV["ANDROID_KEYSTORE_FILE"],
         "android.injected.signing.store.password" => ENV["ANDROID_SIGNING_KEY_PASSWORD"],
         "android.injected.signing.key.alias" => ENV["ANDROID_SIGNING_KEY_ALIAS"],
         "android.injected.signing.key.password" => ENV["ANDROID_SIGNING_KEY_PASSWORD"]
@@ -29,7 +29,7 @@ platform :android do
       upload_to_play_store(
         track: "internal",
         release_status: 'draft',
-        json_key: "/Users/belgamo/Desktop/play-store-credentials.json"
+        json_key: ENV["ANDROID_JSON_KEY_FILE"]
       )
   end
 end
