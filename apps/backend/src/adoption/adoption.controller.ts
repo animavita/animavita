@@ -1,7 +1,4 @@
-import {
-  adoptionValidationSchema,
-  createValidationSchema,
-} from '@animavita/validation-schemas';
+import { adoptionValidationSchema } from '@animavita/validation-schemas';
 import {
   Body,
   Controller,
@@ -9,7 +6,6 @@ import {
   Get,
   Param,
   Patch,
-  Post,
   Query,
   UseGuards,
   UsePipes,
@@ -21,23 +17,13 @@ import { AdoptionsService } from './adoption.service';
 import { User } from '../decorators/user.decorator';
 import { AccessTokenGuard } from '../guards/accessToken.guard';
 import { JwtPayload } from '../auth/strategies/accessToken.strategy';
-import { CreateAdoptionRequest, UpdateAdoptionRequest } from '@animavita/types';
+import { UpdateAdoptionRequest } from '@animavita/types';
 import { AdoptionHook } from '../frameworks/casl/hooks/adoption.hook';
 import { AdoptionSubject } from '../frameworks/casl/permissions/adoption.permissions';
 
 @Controller('api/v1/adoptions')
 export class AdoptionsController {
   constructor(private readonly adoptionsService: AdoptionsService) {}
-
-  @Post()
-  @UseGuards(AccessTokenGuard)
-  async createAdoption(
-    @Body(new JoiValidationPipe(createValidationSchema))
-    adoption: CreateAdoptionRequest,
-    @User() { email }: JwtPayload,
-  ) {
-    return this.adoptionsService.createAdoption(adoption, email);
-  }
 
   @Patch()
   @UseGuards(AccessTokenGuard, AccessGuard)
