@@ -17,7 +17,7 @@ import {
   AnimalType,
 } from '@animavita/types';
 
-@Schema({ timestamps: true, collection: 'adoptions' })
+@Schema({ timestamps: true, collection: 'pets' })
 export class MongoAdoption {
   @Prop({ required: true })
   name: string;

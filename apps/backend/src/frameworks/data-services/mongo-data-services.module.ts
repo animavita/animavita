@@ -11,12 +11,16 @@ import {
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongoDataServices } from './mongo-data.services';
 import { DataServices } from '../../core/abstracts/data-services.abstract';
+import { MongoPet, PetSchema } from '../../infra/mongo/schemas/pet.schema';
+import { MongoPetRepository } from '../../infra/repositories/mongo-pet.repository';
+import { PET_REPOSITORY } from '../../domain/pet/pet.repository';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: MongoAdoption.name, schema: AdoptionSchema },
       { name: MongoUser.name, schema: UserSchema },
+      { name: MongoPet.name, schema: PetSchema },
     ]),
 
     MongooseModule.forRootAsync({
@@ -32,7 +36,11 @@ import { DataServices } from '../../core/abstracts/data-services.abstract';
       provide: DataServices,
       useClass: MongoDataServices,
     },
+    {
+      provide: PET_REPOSITORY,
+      useClass: MongoPetRepository,
+    },
   ],
-  exports: [DataServices],
+  exports: [DataServices, PET_REPOSITORY],
 })
 export class MongoDataServicesModule {}
