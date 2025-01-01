@@ -9,6 +9,7 @@ import { GeolocationModule } from './geolocation/geolocation.module';
 import { DataServicesModule } from './infra/data-services.module';
 import { Roles } from './frameworks/casl/app.roles';
 import { UserHook } from './frameworks/casl/hooks/user.hook';
+import { PetModule } from './modules/pet.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UserHook } from './frameworks/casl/hooks/user.hook';
       getUserHook: UserHook,
     }),
     DataServicesModule,
+    PetModule,
     AdoptionsModule,
     UserModule,
     AuthModule,
