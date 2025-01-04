@@ -21,7 +21,7 @@ export class MongoPetRepository implements PetRepository {
       size: pet.size.getValue(),
       observations: pet.observations,
       photos: pet.photos,
-      type: pet.type,
+      type: pet.type.getValue(),
       user: pet.ownerId,
       location: {
         type: 'Point',

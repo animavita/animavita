@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 import Size from './size';
 import PetGender from './gender/gender';
+import PetType from './type/type';
 
 interface Attributes {
   id?: string;
@@ -24,7 +25,7 @@ export class Pet {
   readonly name: string;
   readonly breed: string;
   readonly age: 'puppy' | 'young' | 'adult' | 'senior';
-  readonly type: 'dog' | 'cat' | 'other';
+  readonly type: PetType;
   readonly gender: PetGender;
   readonly size: Size;
   readonly observations: string;
@@ -40,7 +41,7 @@ export class Pet {
     this.name = attributes.name;
     this.breed = attributes.breed;
     this.age = attributes.age as any;
-    this.type = attributes.type as any;
+    this.type = new PetType(attributes.type);
     this.gender = new PetGender(attributes.gender);
     this.size = new Size(attributes.size);
     this.observations = attributes.observations || '';
