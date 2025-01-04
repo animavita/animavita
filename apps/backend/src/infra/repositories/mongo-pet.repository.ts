@@ -15,13 +15,13 @@ export class MongoPetRepository implements PetRepository {
   async store(pet: Pet) {
     const doc: MongoPet = {
       name: pet.name,
-      age: pet.age,
       breed: pet.breed,
+      age: pet.age.getValue(),
       gender: pet.gender.getValue(),
       size: pet.size.getValue(),
-      observations: pet.observations,
       photos: pet.photos,
       type: pet.type.getValue(),
+      observations: pet.observations,
       user: pet.ownerId,
       location: {
         type: 'Point',
