@@ -13,6 +13,8 @@ export class MongoPetRepository implements PetRepository {
   ) {}
 
   async store(pet: Pet) {
+    const { longitude, latitude } = pet.location.getValue();
+
     const doc: MongoPet = {
       name: pet.name,
       breed: pet.breed,
@@ -25,7 +27,7 @@ export class MongoPetRepository implements PetRepository {
       user: pet.ownerId,
       location: {
         type: 'Point',
-        coordinates: [pet.location.longitude, pet.location.latitude],
+        coordinates: [longitude, latitude],
       },
     };
 
