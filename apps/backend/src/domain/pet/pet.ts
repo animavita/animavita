@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import Size from './size';
+import PetSize from './size/size';
 import PetGender from './gender/gender';
 import PetType from './type/type';
 
@@ -27,7 +27,7 @@ export class Pet {
   readonly age: 'puppy' | 'young' | 'adult' | 'senior';
   readonly type: PetType;
   readonly gender: PetGender;
-  readonly size: Size;
+  readonly size: PetSize;
   readonly observations: string;
   readonly photos: string[];
   readonly ownerId: string;
@@ -43,7 +43,7 @@ export class Pet {
     this.age = attributes.age as any;
     this.type = new PetType(attributes.type);
     this.gender = new PetGender(attributes.gender);
-    this.size = new Size(attributes.size);
+    this.size = new PetSize(attributes.size);
     this.observations = attributes.observations || '';
     this.photos = attributes.photos || [];
     this.ownerId = attributes.ownerId;
