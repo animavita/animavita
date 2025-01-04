@@ -17,7 +17,7 @@ export class MongoPetRepository implements PetRepository {
       name: pet.name,
       age: pet.age,
       breed: pet.breed,
-      gender: pet.gender,
+      gender: pet.gender.getValue(),
       size: pet.size.getValue(),
       observations: pet.observations,
       photos: pet.photos,
