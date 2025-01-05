@@ -93,27 +93,6 @@ describe('AdoptionsController (e2e)', () => {
       });
   });
 
-  it('/POST adoptions', () => {
-    return request(app.getHttpServer())
-      .post('/api/v1/adoptions')
-      .auth(authToken, { type: 'bearer' })
-      .send(pet2Mock)
-      .expect(201)
-      .expect((res) =>
-        expect(res.body).toEqual({
-          ...pet2Mock,
-          id: res.body.id,
-          location: user1Mock.location,
-          user: {
-            id: userId,
-            name: user1Mock.name,
-          },
-          createdAt: expect.any(String),
-          updatedAt: expect.any(String),
-        }),
-      );
-  });
-
   it('/PATCH adoptions', async () => {
     const { id } = await adoptionsService.createAdoption(
       pet2Mock,

@@ -1,5 +1,9 @@
 import { Global, Module } from '@nestjs/common';
-import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
+import {
+  getModelToken,
+  MongooseModule,
+  MongooseModuleOptions,
+} from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import {
@@ -12,6 +16,9 @@ import {
   MongoUser,
   UserSchema,
 } from '../../src/user/repositories/mongodb/user-mongo.schema';
+import { MongoPet, PetSchema } from '../../src/infra/mongo/schemas/pet.schema';
+import { PET_REPOSITORY } from '../../src/domain/pet/pet.repository';
+import { MongoPetRepository } from '../../src/infra/repositories/mongo-pet.repository';
 
 let mongod: MongoMemoryServer;
 
@@ -33,6 +40,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
     MongooseModule.forFeature([
       { name: MongoAdoption.name, schema: AdoptionSchema },
       { name: MongoUser.name, schema: UserSchema },
+      { name: MongoPet.name, schema: PetSchema },
     ]),
     rootMongooseTestModule(),
   ],
@@ -41,8 +49,16 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
       provide: DataServices,
       useClass: MongoDataServices,
     },
+    {
+      provide: PET_REPOSITORY,
+      useClass: MongoPetRepository,
+    },
   ],
-  exports: [DataServices],
+  exports: [
+    DataServices,
+    PET_REPOSITORY,
+    MongooseModule.forFeature([{ name: MongoPet.name, schema: PetSchema }]),
+  ],
 })
 export class TestMongoDataServicesModule {}
 

@@ -34,5 +34,9 @@ export class MongoPetRepository implements PetRepository {
     const newDocument = new this.petModel(doc);
 
     await newDocument.save();
+
+    return {
+      id: newDocument.id,
+    };
   }
 }

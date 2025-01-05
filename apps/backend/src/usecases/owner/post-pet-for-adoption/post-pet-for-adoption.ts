@@ -1,8 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Pet } from '../../domain/pet/pet';
-import PetRepository, { PET_REPOSITORY } from '../../domain/pet/pet.repository';
-import { UserService } from '../../user/user.service';
-import { UserRepository } from '../../user/repositories/user-repository.interface';
+import { Pet } from '../../../domain/pet/pet';
+import PetRepository, {
+  PET_REPOSITORY,
+} from '../../../domain/pet/pet.repository';
+import { UserService } from '../../../user/user.service';
+import { UserRepository } from '../../../user/repositories/user-repository.interface';
 
 type Input = {
   name: string;
@@ -33,6 +35,8 @@ export default class PostPetForAdoption {
 
     const pet = Pet.create(petAttributes);
 
-    await this.petRepository.store(pet);
+    const { id } = await this.petRepository.store(pet);
+
+    return { id };
   }
 }
