@@ -1,4 +1,4 @@
-import { Pet } from './pet';
+import { Pet } from '../../domain/pet/pet';
 
 export const PET_REPOSITORY = 'PET_REPOSITORY';
 

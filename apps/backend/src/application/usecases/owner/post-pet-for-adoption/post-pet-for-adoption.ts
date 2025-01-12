@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Pet } from '../../../domain/pet/pet';
+import { Pet } from '../../../../domain/pet/pet';
 import PetRepository, {
   PET_REPOSITORY,
-} from '../../../domain/pet/pet.repository';
-import { UserService } from '../../../user/user.service';
-import { UserRepository } from '../../../user/repositories/user-repository.interface';
+} from '../../../repositories/pet.repository';
+import { UserService } from '../../../../user/user.service';
+import { UserRepository } from '../../../../user/repositories/user-repository.interface';
 
 type Input = {
   name: string;

@@ -1,9 +1,5 @@
 import { Global, Module } from '@nestjs/common';
-import {
-  getModelToken,
-  MongooseModule,
-  MongooseModuleOptions,
-} from '@nestjs/mongoose';
+import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import {
@@ -17,8 +13,8 @@ import {
   UserSchema,
 } from '../../src/user/repositories/mongodb/user-mongo.schema';
 import { MongoPet, PetSchema } from '../../src/infra/mongo/schemas/pet.schema';
-import { PET_REPOSITORY } from '../../src/domain/pet/pet.repository';
 import { MongoPetRepository } from '../../src/infra/repositories/mongo-pet.repository';
+import { PET_REPOSITORY } from '../../src/application/repositories/pet.repository';
 
 let mongod: MongoMemoryServer;
 

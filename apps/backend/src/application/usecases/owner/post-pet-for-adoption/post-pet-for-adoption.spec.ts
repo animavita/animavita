@@ -3,9 +3,9 @@ import { Test, TestingModule } from '@nestjs/testing';
 import {
   closeInMongodConnection,
   TestMongoDataServicesModule,
-} from '../../../../test/utils/in-memory-mongo';
-import { user1Mock } from '../../../../test/mocks/adoptions';
-import { UserService } from '../../../user/user.service';
+} from '../../../../../test/utils/in-memory-mongo';
+import { user1Mock } from '../../../../../test/mocks/adoptions';
+import { UserService } from '../../../../user/user.service';
 import PostPetForAdoption from './post-pet-for-adoption';
 import GetPet from '../get-pet/get-pet';
 

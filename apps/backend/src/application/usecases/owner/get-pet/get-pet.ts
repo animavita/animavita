@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { MongoPet, PetDocument } from '../../../infra/mongo/schemas/pet.schema';
+import {
+  MongoPet,
+  PetDocument,
+} from '../../../../infra/mongo/schemas/pet.schema';
 
 type Output = {
   name: string;

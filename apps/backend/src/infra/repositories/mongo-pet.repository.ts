@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Pet } from '../../domain/pet/pet';
-import PetRepository from '../../domain/pet/pet.repository';
+import PetRepository from '../../application/repositories/pet.repository';
 import { MongoPet, PetDocument } from '../mongo/schemas/pet.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';

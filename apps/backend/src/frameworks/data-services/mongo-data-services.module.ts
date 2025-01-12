@@ -13,7 +13,7 @@ import { MongoDataServices } from './mongo-data.services';
 import { DataServices } from '../../core/abstracts/data-services.abstract';
 import { MongoPet, PetSchema } from '../../infra/mongo/schemas/pet.schema';
 import { MongoPetRepository } from '../../infra/repositories/mongo-pet.repository';
-import { PET_REPOSITORY } from '../../domain/pet/pet.repository';
+import { PET_REPOSITORY } from '../../application/repositories/pet.repository';
 
 @Module({
   imports: [
