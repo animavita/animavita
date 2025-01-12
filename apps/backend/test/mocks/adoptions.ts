@@ -21,6 +21,4 @@ export const user2Mock = userEntityFactory.build({
   },
 });
 
-export const countrymen = [user1Mock, user2Mock];
-
 export const petsMock = [pet1Mock, pet2Mock, pet3Mock];

@@ -46,23 +46,6 @@ export class AdoptionsService {
     return await this.dataServices.adoptions.findAll();
   }
 
-  async findNearMe({
-    currentUserEmail,
-    radius = 1,
-  }: {
-    currentUserEmail: UserType['email'];
-    radius: number;
-  }) {
-    const { id: currentUserId, location: coordinates } =
-      await this.userService.findByEmail(currentUserEmail);
-
-    return this.dataServices.adoptions.findNearest({
-      currentUserId,
-      coordinates,
-      radius,
-    });
-  }
-
   async deleteAdoption(adoptionId: string) {
     const target = await this.dataServices.adoptions.findById(adoptionId);
 

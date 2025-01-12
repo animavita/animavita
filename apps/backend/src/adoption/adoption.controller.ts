@@ -6,7 +6,6 @@ import {
   Get,
   Param,
   Patch,
-  Query,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
@@ -14,9 +13,7 @@ import { AccessGuard, Actions, UseAbility } from 'nest-casl';
 
 import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
 import { AdoptionsService } from './adoption.service';
-import { User } from '../decorators/user.decorator';
 import { AccessTokenGuard } from '../guards/accessToken.guard';
-import { JwtPayload } from '../auth/strategies/accessToken.strategy';
 import { UpdateAdoptionRequest } from '@animavita/types';
 import { AdoptionHook } from '../frameworks/casl/hooks/adoption.hook';
 import { AdoptionSubject } from '../frameworks/casl/permissions/adoption.permissions';
@@ -36,18 +33,6 @@ export class AdoptionsController {
   @Get()
   async findAll() {
     return this.adoptionsService.findAll();
-  }
-
-  @UseGuards(AccessTokenGuard)
-  @Get('nearMe')
-  async findNearMe(
-    @User() { email }: JwtPayload,
-    @Query() { radius }: { radius: number },
-  ) {
-    return this.adoptionsService.findNearMe({
-      radius,
-      currentUserEmail: email,
-    });
   }
 
   @Delete(':id')

@@ -31,15 +31,7 @@ export type PopulatedAdoptionEntity = Omit<AdoptionEntity, 'user'> & {
   user: Pick<UserEntity, 'id' | 'name'>;
 };
 
-export type FindNearestType = {
-  radius: number;
-  currentUserId: UserEntity['id'];
-  coordinates: AdoptionEntity['location'];
-};
-
 export abstract class AdoptionRepository extends GenericRepository<
   AdoptionEntity,
   PopulatedAdoptionEntity
-> {
-  findNearest: (args: FindNearestType) => Promise<PopulatedAdoptionEntity[]>;
-}
+> {}
