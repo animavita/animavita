@@ -4,13 +4,13 @@ import { JwtPayload } from '../../auth/strategies/accessToken.strategy';
 import { User } from '../../decorators/user.decorator';
 import { AccessTokenGuard } from '../../guards/accessToken.guard';
 import PostPetForAdoption from '../../application/usecases/owner/post-pet-for-adoption/post-pet-for-adoption';
-import FindNearestPet from '../../application/usecases/adopter/find-nearest-pets/find-nearest-pets';
+import FindNearestPets from '../../application/usecases/adopter/find-nearest-pets/find-nearest-pets';
 
 @Controller('api/v1/pets')
 export class PetsController {
   constructor(
     private readonly postPetForAdoption: PostPetForAdoption,
-    private readonly findNearestPet: FindNearestPet,
+    private readonly findNearestPets: FindNearestPets,
   ) {}
 
   @Post()
@@ -28,6 +28,6 @@ export class PetsController {
     @User() { email }: JwtPayload,
     @Query() { radius }: { radius: number },
   ) {
-    return await this.findNearestPet.execute({ radius, adopterEmail: email });
+    return await this.findNearestPets.execute({ radius, adopterEmail: email });
   }
 }

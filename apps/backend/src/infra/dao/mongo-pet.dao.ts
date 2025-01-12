@@ -50,8 +50,8 @@ export class MongoPetDAO implements PetDao {
         id: document.user._id.toString(),
         name: document.user.name,
       },
-      createdAt: document.createdAt,
-      updatedAt: document.updatedAt,
+      createdAt: document.createdAt.toString(),
+      updatedAt: document.updatedAt.toString(),
     }));
   }
 }

@@ -9,7 +9,7 @@ type Input = {
 };
 
 @Injectable()
-export default class FindNearestPet {
+export default class FindNearestPets {
   constructor(
     @Inject(PET_DAO) private readonly petDAO: PetDao,
     @Inject(UserService) private readonly userService: UserRepository,
