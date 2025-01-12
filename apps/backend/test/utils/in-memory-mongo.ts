@@ -14,7 +14,9 @@ import {
 } from '../../src/user/repositories/mongodb/user-mongo.schema';
 import { MongoPet, PetSchema } from '../../src/infra/mongo/schemas/pet.schema';
 import { MongoPetRepository } from '../../src/infra/repositories/mongo-pet.repository';
+import { MongoPetDAO } from '../../src/infra/dao/mongo-pet.dao';
 import { PET_REPOSITORY } from '../../src/application/repositories/pet.repository';
+import { PET_DAO } from '../../src/application/dao/pet.dao';
 
 let mongod: MongoMemoryServer;
 
@@ -49,10 +51,15 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
       provide: PET_REPOSITORY,
       useClass: MongoPetRepository,
     },
+    {
+      provide: PET_DAO,
+      useClass: MongoPetDAO,
+    },
   ],
   exports: [
     DataServices,
     PET_REPOSITORY,
+    PET_DAO,
     MongooseModule.forFeature([{ name: MongoPet.name, schema: PetSchema }]),
   ],
 })

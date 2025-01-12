@@ -24,7 +24,7 @@ yarn-error.log*
 lerna-debug.log*
 
 # Tests
-/coverage
+**/coverage
 apps/mobile/coverage
 /.nyc_output
 
