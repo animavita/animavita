@@ -14,6 +14,8 @@ import { DataServices } from '../../core/abstracts/data-services.abstract';
 import { MongoPet, PetSchema } from '../../infra/mongo/schemas/pet.schema';
 import { MongoPetRepository } from '../../infra/repositories/mongo-pet.repository';
 import { PET_REPOSITORY } from '../../application/repositories/pet.repository';
+import { PET_DAO } from '../../application/dao/pet.dao';
+import { MongoPetDAO } from '../../infra/dao/mongo-pet.dao';
 
 @Module({
   imports: [
@@ -40,7 +42,11 @@ import { PET_REPOSITORY } from '../../application/repositories/pet.repository';
       provide: PET_REPOSITORY,
       useClass: MongoPetRepository,
     },
+    {
+      provide: PET_DAO,
+      useClass: MongoPetDAO,
+    },
   ],
-  exports: [DataServices, PET_REPOSITORY],
+  exports: [DataServices, PET_REPOSITORY, PET_DAO],
 })
 export class MongoDataServicesModule {}

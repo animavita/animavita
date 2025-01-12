@@ -5,7 +5,7 @@ import { PetsController } from '../infra/controllers/pets.controller';
 import { UserModule } from '../user/user.module';
 import { adoptionPermissions } from '../frameworks/casl/permissions/adoption.permissions';
 import PostPetForAdoption from '../application/usecases/owner/post-pet-for-adoption/post-pet-for-adoption';
-import GetPet from '../application/usecases/owner/get-pet/get-pet';
+import FindNearestPet from '../application/usecases/adopter/find-nearest-pets/find-nearest-pets';
 
 @Module({
   imports: [
@@ -13,6 +13,6 @@ import GetPet from '../application/usecases/owner/get-pet/get-pet';
     CaslModule.forFeature({ permissions: adoptionPermissions }),
   ],
   controllers: [PetsController],
-  providers: [PostPetForAdoption, GetPet],
+  providers: [PostPetForAdoption, FindNearestPet],
 })
 export class PetModule {}
