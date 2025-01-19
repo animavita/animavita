@@ -8,7 +8,7 @@ export const getAllAdoptions = () => {
 
 export const saveOrCreate = (adoption: CreateAdoptionRequest | UpdateAdoptionRequest) => {
   if ('id' in adoption) {
-    return client.patch<AdoptionResponse>('/adoptions', adoption);
+    return client.patch<AdoptionResponse>('/pets', adoption);
   }
 
   return client.post<AdoptionResponse>('/pets', adoption);

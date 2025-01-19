@@ -5,7 +5,7 @@ import { Props } from '@/shared/types';
 
 const Delimiter: React.FC<Props & InterfaceViewProps> = ({ children, ...remainingProps }) => {
   return (
-    <View marginX="6" marginY={2} _android={{ marginBottom: 4 }} {...remainingProps}>
+    <View marginX="6" marginY="4" {...remainingProps}>
       {children}
     </View>
   );

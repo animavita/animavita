@@ -73,8 +73,8 @@ const PetObservationsStep = () => {
 const PetTypeStep = () => {
   const { t } = useLocale();
 
-  const options = ['DOG', 'CAT', 'OTHER'].map((type) => ({
-    label: t(`REGISTER_ADOPTION.FORM.TYPE_OPTIONS.${type}`),
+  const options = ['dog', 'cat', 'other'].map((type) => ({
+    label: t(`REGISTER_ADOPTION.FORM.TYPE_OPTIONS.${type.toUpperCase()}`),
     value: type,
   }));
 
@@ -84,9 +84,9 @@ const PetTypeStep = () => {
 const PetAgeStep = () => {
   const { t } = useLocale();
 
-  const options = ['PUPPY', 'YOUNG', 'ADULT', 'SENIOR'].map((type) => ({
-    label: t(`REGISTER_ADOPTION.FORM.AGE_OPTIONS.${type}`),
-    value: type,
+  const options = ['puppy', 'young', 'adult', 'senior'].map((age) => ({
+    label: t(`REGISTER_ADOPTION.FORM.AGE_OPTIONS.${age.toUpperCase()}`),
+    value: age,
   }));
 
   return <RHFListSelector name={stepsLibrary.PetAge.fieldName} options={options} />;
@@ -95,9 +95,9 @@ const PetAgeStep = () => {
 const PetSizeStep = () => {
   const { t } = useLocale();
 
-  const options = ['SMALL', 'MEDIUM', 'BIG'].map((type) => ({
-    label: t(`REGISTER_ADOPTION.FORM.SIZE.${type}`),
-    value: type,
+  const options = ['small', 'medium', 'big'].map((size) => ({
+    label: t(`REGISTER_ADOPTION.FORM.SIZE.${size.toUpperCase()}`),
+    value: size,
   }));
 
   return <RHFListSelector name={stepsLibrary.PetSize.fieldName} options={options} />;
@@ -106,9 +106,9 @@ const PetSizeStep = () => {
 const PetGenderStep = () => {
   const { t } = useLocale();
 
-  const options = ['MALE', 'FEMALE'].map((type) => ({
-    label: t(`REGISTER_ADOPTION.FORM.GENDER.${type}`),
-    value: type,
+  const options = ['male', 'female'].map((gender) => ({
+    label: t(`REGISTER_ADOPTION.FORM.GENDER.${gender.toUpperCase()}`),
+    value: gender,
   }));
 
   return <RHFListSelector name={stepsLibrary.PetGender.fieldName} options={options} />;
