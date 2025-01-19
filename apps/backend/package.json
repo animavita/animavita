@@ -34,7 +34,6 @@
     "argon2": "^0.30.2",
     "class-transformer": "^0.5.1",
     "mongoose": "^6.11.3",
-    "nest-casl": "^1.9.0",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "^0.1.13",

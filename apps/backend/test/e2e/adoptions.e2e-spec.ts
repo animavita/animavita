@@ -7,35 +7,21 @@ import {
   closeInMongodConnection,
 } from '../utils/in-memory-mongo';
 import { AdoptionsModule } from '../../src/adoption/adoption.module';
-import {
-  pet1Mock,
-  pet2Mock,
-  pet3Mock,
-  user1Mock,
-} from '../../test/mocks/adoptions';
+import { pet1Mock, pet3Mock, user1Mock } from '../../test/mocks/adoptions';
 import { AdoptionsService } from '../../src/adoption/adoption.service';
 import { AuthModule } from '../../src/auth/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
-import { CaslModule } from 'nest-casl';
-import { Roles } from '../../src/frameworks/casl/app.roles';
-import { UserHook } from '../../src/frameworks/casl/hooks/user.hook';
 
 describe('AdoptionsController (e2e)', () => {
   let app: INestApplication;
   let adoptionsService: AdoptionsService;
   let authService: AuthService;
-
-  let authToken: string;
   let userId: string;
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         TestMongoDataServicesModule,
-        CaslModule.forRoot({
-          superuserRole: Roles.Admin,
-          getUserHook: UserHook,
-        }),
         AdoptionsModule,
         AuthModule,
         ConfigModule.forRoot({ isGlobal: true }),
@@ -49,12 +35,11 @@ describe('AdoptionsController (e2e)', () => {
     await app.init();
 
     const { id } = await authService.signUp(user1Mock);
-    const { accessToken } = await authService.signIn({
+    await authService.signIn({
       email: user1Mock.email,
       password: user1Mock.password,
     });
 
-    authToken = accessToken;
     userId = id.toString();
   });
 
@@ -89,28 +74,6 @@ describe('AdoptionsController (e2e)', () => {
           },
         ]);
       });
-  });
-
-  it('/PATCH adoptions', async () => {
-    const { id } = await adoptionsService.createAdoption(
-      pet2Mock,
-      user1Mock.email,
-    );
-
-    return request(app.getHttpServer())
-      .patch('/api/v1/adoptions')
-      .set('Authorization', 'bearer ' + authToken)
-      .send({ id, name: 'Marley' })
-      .expect(200)
-      .expect((res) =>
-        expect(res.body).toEqual(
-          expect.objectContaining({
-            ...pet2Mock,
-            id,
-            name: 'Marley',
-          }),
-        ),
-      );
   });
 
   it('/DELETE adoptions', async () => {

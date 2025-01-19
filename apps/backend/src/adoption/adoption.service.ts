@@ -5,7 +5,6 @@ import { UserRepository } from '../user/repositories/user-repository.interface';
 import {
   AdoptionResponse,
   CreateAdoptionRequest,
-  UpdateAdoptionRequest,
   UserType,
 } from '@animavita/types';
 import { DataServices } from '../core/abstracts/data-services.abstract';
@@ -32,14 +31,6 @@ export class AdoptionsService {
     });
 
     return newAdoption;
-  }
-
-  async updateAdoption(adoption: UpdateAdoptionRequest) {
-    const target = await this.dataServices.adoptions.findById(adoption.id);
-
-    if (!target) throw new NotFoundException();
-
-    return await this.dataServices.adoptions.update(adoption.id, adoption);
   }
 
   async findAll() {
