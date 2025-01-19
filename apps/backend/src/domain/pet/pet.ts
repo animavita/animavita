@@ -22,7 +22,9 @@ interface Attributes {
   };
 }
 
-type UpdatableAttributes = Omit<Attributes, 'id' | 'ownerId' | 'location'>;
+type UpdatableAttributes = Partial<
+  Omit<Attributes, 'id' | 'ownerId' | 'location'>
+>;
 
 export class Pet {
   readonly id: string;
@@ -38,7 +40,7 @@ export class Pet {
   readonly location: Location;
 
   private constructor(attributes: Attributes) {
-    this.id = attributes.id || randomUUID();
+    this.id = attributes.id;
     this.name = attributes.name;
     this.breed = attributes.breed;
     this.observations = attributes.observations || '';
@@ -118,15 +120,24 @@ export class Pet {
     return this._size.getValue();
   }
 
-  update(newAttributes: UpdatableAttributes) {
-    this.name = newAttributes.name;
-    this.breed = newAttributes.breed;
-    this.age = newAttributes.age;
-    this.gender = newAttributes.gender;
-    this.size = newAttributes.size;
-    this.type = newAttributes.type;
-    this.observations = newAttributes.observations;
-    this.photos = newAttributes.photos;
+  update({
+    name,
+    breed,
+    age,
+    gender,
+    size,
+    type,
+    observations,
+    photos,
+  }: UpdatableAttributes) {
+    if (name) this.name = name;
+    if (breed) this.breed = breed;
+    if (age) this.age = age;
+    if (gender) this.gender = gender;
+    if (size) this.size = size;
+    if (type) this.type = type;
+    if (observations) this.observations = observations;
+    if (photos) this.photos = photos;
   }
 
   static create(attributes: Attributes) {
