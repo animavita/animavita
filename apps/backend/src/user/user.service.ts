@@ -8,34 +8,34 @@ import {
   UserResponse,
   UpdateUserRequest,
 } from '@animavita/types';
-import { DataServices } from '../core/abstracts/data-services.abstract';
+import { UserRepository } from './repositories/user-repository.interface';
 
 @Injectable()
 export class UserService {
-  constructor(private readonly dataServices: DataServices) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async create(user: CreateUserRequest): Promise<UserResponse> {
-    const foundUser = await this.dataServices.users.findByEmail(user.email);
+    const foundUser = await this.userRepository.findByEmail(user.email);
 
     if (foundUser)
       throw new UnprocessableEntityException('Email already taken');
 
-    return this.dataServices.users.create(user);
+    return this.userRepository.create(user);
   }
 
   findById(userId: string): Promise<UserResponse> {
-    return this.dataServices.users.findById(userId);
+    return this.userRepository.findById(userId);
   }
 
   findByEmail(email: string): Promise<UserResponse> {
-    return this.dataServices.users.findByEmail(email);
+    return this.userRepository.findByEmail(email);
   }
 
   async update(id: string, user: UpdateUserRequest): Promise<UserResponse> {
-    const foundUser = await this.dataServices.users.findById(id);
+    const foundUser = await this.userRepository.findById(id);
 
     if (!foundUser) throw new NotFoundException("User doesn't exist");
 
-    return this.dataServices.users.update(id, user);
+    return this.userRepository.update(id, user);
   }
 }
