@@ -8,7 +8,7 @@ import * as argon from 'argon2';
 import { userMock } from '../../test/mocks/user';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
-import { DataServicesModule } from '../infra/data-services.module';
+import { DataServicesModule } from '../modules/data-services.module';
 
 jest.mock('argon2', () => ({
   verify: jest.fn().mockResolvedValue(true),
