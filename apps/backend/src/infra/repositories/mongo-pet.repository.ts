@@ -37,6 +37,10 @@ export class MongoPetRepository implements PetRepository {
     });
   }
 
+  async remove(id: string) {
+    await this.petModel.findByIdAndRemove(id);
+  }
+
   async store(pet: Pet) {
     const { longitude, latitude } = pet.location.getValue();
 
