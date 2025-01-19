@@ -4,9 +4,13 @@ import {
   ExecutionContext,
   CallHandler,
   UnprocessableEntityException,
+  UnauthorizedException,
+  NotFoundException,
 } from '@nestjs/common';
 import { Observable, catchError } from 'rxjs';
-import { EntityError } from 'src/domain/errors/entity.error';
+import { EntityError } from '../../domain/errors/entity.error';
+import { NotFoundError } from '../../domain/errors/not-found.error';
+import { UnauthorizedError } from '../../domain/errors/unauthorized.error';
 
 @Injectable()
 export class ErrorMapperInterceptor implements NestInterceptor {
@@ -15,9 +19,17 @@ export class ErrorMapperInterceptor implements NestInterceptor {
       catchError((error) => {
         if (error instanceof EntityError) {
           throw new UnprocessableEntityException(error.message);
-        } else {
-          throw error;
         }
+
+        if (error instanceof UnauthorizedError) {
+          throw new UnauthorizedException(error.message);
+        }
+
+        if (error instanceof NotFoundError) {
+          throw new NotFoundException(error.message);
+        }
+
+        throw error;
       }),
     );
   }

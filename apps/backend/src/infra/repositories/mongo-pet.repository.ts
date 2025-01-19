@@ -3,7 +3,7 @@ import { Pet } from '../../domain/pet/pet';
 import PetRepository from '../../application/repositories/pet.repository';
 import { MongoPet, PetDocument } from '../mongo/schemas/pet.schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { isValidObjectId, Model } from 'mongoose';
 
 @Injectable()
 export class MongoPetRepository implements PetRepository {
@@ -13,6 +13,8 @@ export class MongoPetRepository implements PetRepository {
   ) {}
 
   async getById(_id: string): Promise<Pet> {
+    if (!isValidObjectId(_id)) return null;
+
     const document = await this.petModel.findOne({ _id });
 
     if (!document) return null;
@@ -54,12 +56,23 @@ export class MongoPetRepository implements PetRepository {
       },
     };
 
-    const newDocument = new this.petModel(doc);
+    const existingDoc = await this.petModel.findById(pet.id);
 
-    await newDocument.save();
+    let id: string;
+
+    if (!existingDoc) {
+      const newDocument = new this.petModel(doc);
+      await newDocument.save();
+      id = newDocument.id;
+    } else {
+      await this.petModel.findByIdAndUpdate(existingDoc.id, doc, {
+        upsert: true,
+      });
+      id = existingDoc.id;
+    }
 
     return {
-      id: newDocument.id,
+      id,
     };
   }
 }

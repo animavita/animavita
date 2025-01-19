@@ -6,7 +6,7 @@ import PetRepository, {
 import { UserService } from '../../../../user/user.service';
 import { UserRepository } from '../../../../user/repositories/user-repository.interface';
 
-type Input = {
+export type Input = {
   name: string;
   breed: string;
   age: string;
