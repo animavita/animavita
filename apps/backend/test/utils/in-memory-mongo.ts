@@ -9,8 +9,8 @@ import {
 import { MongoPet, PetSchema } from '../../src/infra/mongo/schemas/pet.schema';
 import { MongoPetRepository } from '../../src/infra/repositories/mongo-pet.repository';
 import { MongoPetDAO } from '../../src/infra/dao/mongo-pet.dao';
-import { PET_REPOSITORY } from '../../src/application/repositories/pet.repository';
-import { PET_DAO } from '../../src/application/dao/pet.dao';
+import { PET_REPOSITORY } from '../../src/core/application/repositories/pet.repository';
+import { PET_DAO } from '../../src/core/application/dao/pet.dao';
 import { UserRepository } from '../../src/user/repositories/user-repository.interface';
 import { UserMongoDBRepository } from '../../src/user/repositories/mongodb/user-mongo.repository';
 

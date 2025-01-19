@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 
 import { OpenCageService } from '../frameworks/opencage.service';
-import { GeolocationService } from '../application/dao/geolocation.service.abstract';
+import { GeolocationService } from '../core/application/dao/geolocation.service.abstract';
 import { HttpModule } from '@nestjs/axios';
 import { GeolocationController } from '../infra/controllers/geolocation.controller';
 

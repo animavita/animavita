@@ -3,12 +3,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 import {
   closeInMongodConnection,
   TestMongoDataServicesModule,
-} from '../../../../../test/utils/in-memory-mongo';
-import { UserService } from '../../../../user/user.service';
+} from '../../../../../../test/utils/in-memory-mongo';
+import { UserService } from '../../../../../user/user.service';
 import PostPetForAdoption from '../../owner/post-pet-for-adoption/post-pet-for-adoption';
 import FindNearestPets from '../../adopter/find-nearest-pets/find-nearest-pets';
-import { adoptionFactory as petFactory } from '../../../../../test/factories/adoption';
-import { userEntityFactory } from '../../../../../test/factories/user';
+import { adoptionFactory as petFactory } from '../../../../../../test/factories/adoption';
+import { userEntityFactory } from '../../../../../../test/factories/user';
 
 const owner1 = userEntityFactory.build({
   location: {

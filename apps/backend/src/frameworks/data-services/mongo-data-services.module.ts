@@ -7,8 +7,8 @@ import {
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongoPet, PetSchema } from '../../infra/mongo/schemas/pet.schema';
 import { MongoPetRepository } from '../../infra/repositories/mongo-pet.repository';
-import { PET_REPOSITORY } from '../../application/repositories/pet.repository';
-import { PET_DAO } from '../../application/dao/pet.dao';
+import { PET_REPOSITORY } from '../../core/application/repositories/pet.repository';
+import { PET_DAO } from '../../core/application/dao/pet.dao';
 import { MongoPetDAO } from '../../infra/dao/mongo-pet.dao';
 import { UserRepository } from '../../user/repositories/user-repository.interface';
 import { UserMongoDBRepository } from '../../user/repositories/mongodb/user-mongo.repository';

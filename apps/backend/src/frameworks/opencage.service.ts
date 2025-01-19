@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { GeolocationService } from '../application/dao/geolocation.service.abstract';
+import { GeolocationService } from '../core/application/dao/geolocation.service.abstract';
 
 @Injectable()
 export class OpenCageService extends GeolocationService {
@@ -19,7 +19,7 @@ export class OpenCageService extends GeolocationService {
       const response = await this.httpService.get(url).toPromise();
       const parsedData = response.data;
       if (parsedData && parsedData.results) {
-        return parsedData.results.map(address => ({
+        return parsedData.results.map((address) => ({
           region: address.components.city || address.components.municipality,
           subregion: address.components.state || address.components.county,
         }));
@@ -27,7 +27,9 @@ export class OpenCageService extends GeolocationService {
         throw new Error('Failed to parse response data.');
       }
     } catch (error) {
-      throw new Error(`Error fetching data from OpenCage API: ${error.message}`);
+      throw new Error(
+        `Error fetching data from OpenCage API: ${error.message}`,
+      );
     }
   }
 }

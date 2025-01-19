@@ -13,10 +13,10 @@ import {
 import { JwtPayload } from '../../auth/strategies/accessToken.strategy';
 import { User } from '../../decorators/user.decorator';
 import { AccessTokenGuard } from '../../guards/accessToken.guard';
-import PostPetForAdoption from '../../application/usecases/owner/post-pet-for-adoption/post-pet-for-adoption';
-import FindNearestPets from '../../application/usecases/adopter/find-nearest-pets/find-nearest-pets';
-import UpdatePostedPet from '../../application/usecases/owner/update-posted-pet/update-posted-pet';
-import RemovePostedPet from '../../application/usecases/owner/remove-posted-pet/remove-posted-pet';
+import PostPetForAdoption from '../../core/application/usecases/owner/post-pet-for-adoption/post-pet-for-adoption';
+import FindNearestPets from '../../core/application/usecases/adopter/find-nearest-pets/find-nearest-pets';
+import UpdatePostedPet from '../../core/application/usecases/owner/update-posted-pet/update-posted-pet';
+import RemovePostedPet from '../../core/application/usecases/owner/remove-posted-pet/remove-posted-pet';
 
 @Controller('api/v1/pets')
 export class PetsController {

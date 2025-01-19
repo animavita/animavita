@@ -3,8 +3,8 @@ import { Pet } from '../../../../domain/pet/pet';
 import PetRepository, {
   PET_REPOSITORY,
 } from '../../../repositories/pet.repository';
-import { UserService } from '../../../../user/user.service';
-import { UserRepository } from '../../../../user/repositories/user-repository.interface';
+import { UserService } from '../../../../../user/user.service';
+import { UserRepository } from '../../../../../user/repositories/user-repository.interface';
 
 export type Input = {
   name: string;

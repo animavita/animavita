@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Pet } from '../../domain/pet/pet';
-import PetRepository from '../../application/repositories/pet.repository';
+import { Pet } from '../../core/domain/pet/pet';
+import PetRepository from '../../core/application/repositories/pet.repository';
 import { MongoPet, PetDocument } from '../mongo/schemas/pet.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';

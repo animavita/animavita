@@ -8,9 +8,9 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Observable, catchError } from 'rxjs';
-import { EntityError } from '../../domain/errors/entity.error';
-import { NotFoundError } from '../../domain/errors/not-found.error';
-import { UnauthorizedError } from '../../domain/errors/unauthorized.error';
+import { EntityError } from '../../core/domain/errors/entity.error';
+import { NotFoundError } from '../../core/domain/errors/not-found.error';
+import { UnauthorizedError } from '../../core/domain/errors/unauthorized.error';
 
 @Injectable()
 export class ErrorMapperInterceptor implements NestInterceptor {

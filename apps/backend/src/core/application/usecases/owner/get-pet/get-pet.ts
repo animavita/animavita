@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import {
   MongoPet,
   PetDocument,
-} from '../../../../infra/mongo/schemas/pet.schema';
+} from '../../../../../infra/mongo/schemas/pet.schema';
 
 type Output = {
   name: string;

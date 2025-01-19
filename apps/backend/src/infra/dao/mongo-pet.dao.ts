@@ -1,4 +1,4 @@
-import { PetDao } from '../../application/dao/pet.dao';
+import { PetDao } from '../../core/application/dao/pet.dao';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';

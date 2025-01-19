@@ -3,13 +3,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import {
   closeInMongodConnection,
   TestMongoDataServicesModule,
-} from '../../../../../test/utils/in-memory-mongo';
-import { user1Mock, user2Mock } from '../../../../../test/mocks/adoptions';
-import { UserService } from '../../../../user/user.service';
+} from '../../../../../../test/utils/in-memory-mongo';
+import { user1Mock, user2Mock } from '../../../../../../test/mocks/adoptions';
+import { UserService } from '../../../../../user/user.service';
 import PostPetForAdoption from '../post-pet-for-adoption/post-pet-for-adoption';
 import GetPet from '../get-pet/get-pet';
 import UpdatePostedPet from './update-posted-pet';
-import { adoptionFactory as petFactory } from '../../../../../test/factories/adoption';
+import { adoptionFactory as petFactory } from '../../../../../../test/factories/adoption';
 
 // integration tests
 describe('UpdatePostedPet', () => {

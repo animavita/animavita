@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { UserService } from '../../../../user/user.service';
-import { UserRepository } from '../../../../user/repositories/user-repository.interface';
+import { UserService } from '../../../../../user/user.service';
+import { UserRepository } from '../../../../../user/repositories/user-repository.interface';
 import { PET_DAO, PetDao } from '../../../dao/pet.dao';
 
 type Input = {
