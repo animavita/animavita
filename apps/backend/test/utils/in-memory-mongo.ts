@@ -2,10 +2,6 @@ import { Global, Module } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
-import {
-  AdoptionSchema,
-  MongoAdoption,
-} from '../../src/adoption/repositories/mongodb/adoption-mongo.schema';
 import { DataServices } from '../../src/core/abstracts/data-services.abstract';
 import { MongoDataServices } from '../../src/frameworks/data-services/mongo-data.services';
 import {
@@ -36,7 +32,6 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: MongoAdoption.name, schema: AdoptionSchema },
       { name: MongoUser.name, schema: UserSchema },
       { name: MongoPet.name, schema: PetSchema },
     ]),

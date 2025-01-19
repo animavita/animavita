@@ -1,26 +1,26 @@
 import { PetDao } from '../../application/dao/pet.dao';
-import {
-  AdoptionDocument,
-  MongoAdoption,
-  PopulatedAdoptionDocument,
-} from '../../adoption/repositories/mongodb/adoption-mongo.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Injectable } from '@nestjs/common';
+import {
+  MongoPet,
+  PetDocument,
+  PetDocumentWithUser,
+} from '../mongo/schemas/pet.schema';
 
 export const RADIUS_OF_EARTH = 63781; // km
 
 @Injectable()
 export class MongoPetDAO implements PetDao {
   constructor(
-    @InjectModel(MongoAdoption.name)
-    private readonly adoptionModel: Model<AdoptionDocument>,
+    @InjectModel(MongoPet.name)
+    private readonly petModel: Model<PetDocument>,
   ) {}
 
   async findNearest({ coordinates, adopterId, radius }) {
     const finalRadius = radius * 10; // 1.2 = 12km
 
-    const documents = await this.adoptionModel
+    const documents = await this.petModel
       .find({
         location: {
           $geoWithin: {
@@ -30,7 +30,7 @@ export class MongoPetDAO implements PetDao {
       })
       .where('user')
       .ne(adopterId)
-      .populate<PopulatedAdoptionDocument>('user', 'id name');
+      .populate<PetDocumentWithUser>('user', 'id name');
 
     return documents.map((document) => ({
       id: document._id.toString(),

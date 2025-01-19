@@ -1,5 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument, SchemaTimestampsConfig, Types } from 'mongoose';
+import {
+  HydratedDocument,
+  ObjectId,
+  SchemaTimestampsConfig,
+  Types,
+  Document,
+} from 'mongoose';
 import {
   MongoLocation,
   MongoUser,
@@ -39,5 +45,9 @@ export class MongoPet {
 }
 
 export type PetDocument = HydratedDocument<MongoPet> & SchemaTimestampsConfig;
+
+export type PetDocumentWithUser = Omit<PetDocument, 'user'> & {
+  user: Pick<MongoUser, 'name'> & Document<ObjectId>;
+};
 
 export const PetSchema = SchemaFactory.createForClass(MongoPet);
