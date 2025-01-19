@@ -1,6 +1,6 @@
 import { EntityError } from '../../errors/entity.error';
 
-type PetGenderType = 'male' | 'female';
+export type PetGenderType = 'male' | 'female';
 
 export default class PetGender {
   private value: PetGenderType;

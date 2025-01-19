@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
-import PetSize from './size/size';
-import PetGender from './gender/gender';
-import PetType from './type/type';
-import PetAge from './age/age';
+import PetSize, { PetSizeType } from './size/size';
+import PetGender, { PetGenderType } from './gender/gender';
+import PetType, { PetTypeType } from './type/type';
+import PetAge, { PetAgeType } from './age/age';
 import Location from '../location/location';
 
 interface Attributes {
@@ -22,17 +22,19 @@ interface Attributes {
   };
 }
 
+type UpdatableAttributes = Omit<Attributes, 'id' | 'ownerId' | 'location'>;
+
 export class Pet {
   readonly id: string;
-  readonly name: string;
-  readonly breed: string;
-  readonly observations: string;
-  readonly photos: string[];
+  private _name: string;
+  private _breed: string;
+  private _observations: string;
+  private _photos: string[];
   readonly ownerId: string;
-  readonly age: PetAge;
-  readonly type: PetType;
-  readonly gender: PetGender;
-  readonly size: PetSize;
+  private _age: PetAge;
+  private _type: PetType;
+  private _gender: PetGender;
+  private _size: PetSize;
   readonly location: Location;
 
   private constructor(attributes: Attributes) {
@@ -42,14 +44,89 @@ export class Pet {
     this.observations = attributes.observations || '';
     this.photos = attributes.photos || [];
     this.ownerId = attributes.ownerId;
-    this.age = new PetAge(attributes.age);
-    this.type = new PetType(attributes.type);
-    this.gender = new PetGender(attributes.gender);
-    this.size = new PetSize(attributes.size);
+    this.age = attributes.age;
+    this.type = attributes.type;
+    this.gender = attributes.gender;
+    this.size = attributes.size;
     this.location = new Location(
       attributes.location.longitude,
       attributes.location.latitude,
     );
+  }
+
+  private set name(aName: string) {
+    this._name = aName;
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  private set breed(aBreed: string) {
+    this._breed = aBreed;
+  }
+
+  get breed() {
+    return this._breed;
+  }
+
+  private set observations(observations: string) {
+    this._observations = observations;
+  }
+
+  get observations() {
+    return this._observations;
+  }
+
+  private set photos(photos: string[]) {
+    this._photos = photos;
+  }
+
+  get photos() {
+    return this._photos;
+  }
+
+  private set age(anAge: string) {
+    this._age = new PetAge(anAge);
+  }
+
+  get age(): PetAgeType {
+    return this._age.getValue();
+  }
+
+  private set type(aType: string) {
+    this._type = new PetType(aType);
+  }
+
+  get type(): PetTypeType {
+    return this._type.getValue();
+  }
+
+  private set gender(aGender: string) {
+    this._gender = new PetGender(aGender);
+  }
+
+  get gender(): PetGenderType {
+    return this._gender.getValue();
+  }
+
+  private set size(aSize: string) {
+    this._size = new PetSize(aSize);
+  }
+
+  get size(): PetSizeType {
+    return this._size.getValue();
+  }
+
+  update(newAttributes: UpdatableAttributes) {
+    this.name = newAttributes.name;
+    this.breed = newAttributes.breed;
+    this.age = newAttributes.age;
+    this.gender = newAttributes.gender;
+    this.size = newAttributes.size;
+    this.type = newAttributes.type;
+    this.observations = newAttributes.observations;
+    this.photos = newAttributes.photos;
   }
 
   static create(attributes: Attributes) {

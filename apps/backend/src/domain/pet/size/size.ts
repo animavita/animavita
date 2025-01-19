@@ -1,6 +1,6 @@
 import { EntityError } from '../../errors/entity.error';
 
-type PetSizeType = 'small' | 'medium' | 'big';
+export type PetSizeType = 'small' | 'medium' | 'big';
 
 export default class PetSize {
   private value: PetSizeType;

@@ -12,17 +12,40 @@ export class MongoPetRepository implements PetRepository {
     private readonly petModel: Model<PetDocument>,
   ) {}
 
+  async getById(_id: string): Promise<Pet> {
+    const document = await this.petModel.findOne({ _id });
+
+    if (!document) return null;
+
+    return Pet.create({
+      id: document.id,
+      name: document.name,
+      breed: document.breed,
+      age: document.age,
+      gender: document.gender,
+      size: document.size,
+      photos: document.photos,
+      type: document.type,
+      observations: document.observations,
+      ownerId: document.user,
+      location: {
+        longitude: document.location.coordinates[0],
+        latitude: document.location.coordinates[1],
+      },
+    });
+  }
+
   async store(pet: Pet) {
     const { longitude, latitude } = pet.location.getValue();
 
     const doc: MongoPet = {
       name: pet.name,
       breed: pet.breed,
-      age: pet.age.getValue(),
-      gender: pet.gender.getValue(),
-      size: pet.size.getValue(),
+      age: pet.age,
+      gender: pet.gender,
+      size: pet.size,
       photos: pet.photos,
-      type: pet.type.getValue(),
+      type: pet.type,
       observations: pet.observations,
       user: pet.ownerId,
       location: {
