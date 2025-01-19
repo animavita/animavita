@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { GeolocationService } from '../core/abstracts/geolocation.service.abstract';
+import { GeolocationService } from '../application/dao/geolocation.service.abstract';
 
 @Injectable()
 export class OpenCageService extends GeolocationService {

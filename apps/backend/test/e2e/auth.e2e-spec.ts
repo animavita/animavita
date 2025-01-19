@@ -8,9 +8,9 @@ import {
   closeInMongodConnection,
 } from '../utils/in-memory-mongo';
 import { createUserMock } from '../mocks/user';
-import { AuthModule } from '../../src/auth/auth.module';
+import { AuthModule } from '../../src/modules/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
-import { UserModule } from '../../src/user/user.module';
+import { UserModule } from '../../src/modules/user.module';
 
 const setup = async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({

@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './modules/app.module';
 import { ErrorMapperInterceptor } from './infra/interceptors/error-mapper.interceptor';
 
 async function bootstrap() {

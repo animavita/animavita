@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { GeolocationModule } from './geolocation/geolocation.module';
-import { DataServicesModule } from './infra/data-services.module';
-import { PetModule } from './modules/pet.module';
+import { DataServicesModule } from '../infra/data-services.module';
+import { AuthModule } from './auth.module';
+import { UserModule } from './user.module';
+import { PetModule } from './pet.module';
+import { GeolocationModule } from './geolocation.module';
 
 @Module({
   imports: [

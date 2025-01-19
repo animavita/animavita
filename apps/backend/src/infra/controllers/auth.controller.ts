@@ -12,15 +12,14 @@ import {
   UseInterceptors,
   UsePipes,
 } from '@nestjs/common';
-
-import { User } from '../decorators/user.decorator';
-import { AccessTokenGuard } from '../guards/accessToken.guard';
-import { RefreshTokenGuard } from '../guards/refreshToken.guard';
-import { JoiValidationPipe } from '../pipes/joi-validation-pipe';
-import { AuthService } from './auth.service';
-import { JwtPayload } from './strategies/accessToken.strategy';
-import { RefreshPayload } from './strategies/refreshToken.strategy';
 import { CreateUserRequest, SignInRequest } from '@animavita/types';
+import { AuthService } from '../../auth/auth.service';
+import { JwtPayload } from '../../auth/strategies/accessToken.strategy';
+import { RefreshPayload } from '../../auth/strategies/refreshToken.strategy';
+import { User } from '../../decorators/user.decorator';
+import { AccessTokenGuard } from '../../guards/accessToken.guard';
+import { RefreshTokenGuard } from '../../guards/refreshToken.guard';
+import { JoiValidationPipe } from '../../pipes/joi-validation-pipe';
 
 @Controller('api/v1/auth')
 export class AuthController {
