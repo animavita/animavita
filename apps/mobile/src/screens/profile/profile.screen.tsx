@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { Button, FlatList, Icon, Pressable, Text } from 'native-base';
 
 import Delimiter from '@/components/delimiter/delimiter';
@@ -7,7 +6,8 @@ import SafeArea from '@/components/safe-area/safe-area';
 import Topbar from '@/components/topbar/topbar';
 import { useAuth } from '@/hooks/use-auth-provider';
 import useLocale from '@/hooks/use-locale';
-import Routes from '@/routes';
+import { StackParamsList } from '@/navigation/main-navigator';
+import { useNavigation } from '@/navigation/use-navigation';
 
 const ProfileScreen = () => {
   const { signOut } = useAuth();
@@ -32,7 +32,7 @@ const ProfileScreen = () => {
             >
               <Icon as={Ionicons} name="paw" size="lg" color="primary.300" />
               <Text color="primary.300" ml={3}>
-                {t(item.translateKey)}
+                {t(item.translationKey)}
               </Text>
             </Pressable>
           )}
@@ -51,11 +51,11 @@ const ProfileScreen = () => {
   );
 };
 
-const PROFILE_ROUTES = [
+const PROFILE_ROUTES: { name: string; translationKey: string; path: keyof StackParamsList }[] = [
   {
     name: 'my-pets',
-    translateKey: 'MY_PETS_SCREEN.TITLE',
-    path: Routes.MyPets,
+    translationKey: 'MY_PETS_SCREEN.TITLE',
+    path: 'MyPets',
   },
 ];
 

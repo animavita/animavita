@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import { Box, Heading, Avatar, Pressable } from 'native-base';
 
 import Delimiter from '@/components/delimiter';
@@ -6,7 +5,7 @@ import SafeArea from '@/components/safe-area/safe-area';
 import TabsComponent from '@/components/tabs';
 import useLocale from '@/hooks/use-locale';
 import useProfile from '@/hooks/use-profile/use-profile';
-import Routes from '@/routes';
+import { useNavigation } from '@/navigation/use-navigation';
 import AdoptionsTab from '@/screens/home/components/adoptions-tab';
 import FavoritesTab from '@/screens/home/components/favorites-tab';
 import RequestsTab from '@/screens/home/components/requests-tab';
@@ -19,7 +18,7 @@ const Home = () => {
   return (
     <SafeArea>
       <Delimiter flex="1">
-        <Pressable onPress={() => navigate(Routes.Profile)}>
+        <Pressable onPress={() => navigate('Profile')}>
           <Box
             display="flex"
             flexDirection="row"

@@ -4,7 +4,7 @@ import { act } from '@testing-library/react-hooks';
 import RegisterAdoptionForm from './adoption-form.component';
 import { AdoptionSteps } from './adoption-form.types';
 
-import Routes from '@/routes';
+import { StackParamsList } from '@/navigation/main-navigator';
 import Home from '@/screens/home/home.screen';
 import { fireEvent, renderWithProviders, screen, waitFor } from '@/test/test-utils';
 
@@ -49,13 +49,13 @@ const goToLastStep = async () => {
   await screen.findByText(/confirmar/i);
 };
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<StackParamsList>();
 
 const MainNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName={Routes.RegisterAdoption}>
-      <Stack.Screen name={Routes.Home} component={Home} />
-      <Stack.Screen name={Routes.RegisterAdoption}>
+    <Stack.Navigator initialRouteName="RegisterAdoption">
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="RegisterAdoption">
         {() => <RegisterAdoptionForm defaultValues={{ age: 'adult' }} />}
       </Stack.Screen>
     </Stack.Navigator>

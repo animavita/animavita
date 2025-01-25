@@ -1,9 +1,8 @@
 import { AdoptionType } from '@animavita/types';
-import { useNavigation } from '@react-navigation/native';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useToast } from 'native-base';
 
-import Routes from '@/routes';
+import { useNavigation } from '@/navigation/use-navigation';
 import { saveOrCreate, getAllAdoptions } from '@/services/adoptions';
 import { QUERY_KEYS } from '@/services/query-keys';
 
@@ -20,7 +19,7 @@ const useAdoptions = () => {
   const mutation = useMutation(saveOrCreate, {
     onSuccess: () => {
       client.invalidateQueries([QUERY_KEYS.getAllAdoptions]);
-      navigation.navigate(Routes.Home);
+      navigation.navigate('Home');
     },
     onError: () => toast.show({ description: 'Error while saving adoption!' }),
   });

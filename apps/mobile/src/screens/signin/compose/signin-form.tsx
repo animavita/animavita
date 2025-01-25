@@ -1,16 +1,15 @@
 import { SignInRequest, UserType } from '@animavita/types';
 import { signInValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { useNavigation } from '@react-navigation/native';
 import { Button, FormControl, KeyboardAvoidingView, Spinner, Stack, useToast } from 'native-base';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import AuthHeader from '@/components/auth-header';
 import { RHFInput } from '@/components/react-hook-form/native-base';
 import useLocale from '@/hooks/use-locale';
 import useUserSignIn from '@/hooks/use-user-signin';
-import Routes from '@/routes';
+import { useNavigation } from '@/navigation/use-navigation';
 
 type SignInUserFormProps = {
   defaultValues?: Partial<UserType>;
@@ -85,7 +84,7 @@ export const Form = () => {
       <Button
         variant="link"
         onPress={() => {
-          navigate(Routes.SignUp as never);
+          navigate('SignUp');
         }}
         alignSelf="center"
       >

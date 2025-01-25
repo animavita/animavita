@@ -1,7 +1,6 @@
 import { UserType } from '@animavita/types';
 import { signUpValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { useNavigation } from '@react-navigation/native';
 import { Button, FormControl, Stack, useToast } from 'native-base';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { KeyboardAvoidingView } from 'react-native';
@@ -9,7 +8,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import AuthHeader from '@/components/auth-header';
 import { RHFInput } from '@/components/react-hook-form/native-base';
 import useLocale from '@/hooks/use-locale';
-import Routes from '@/routes';
+import { useNavigation } from '@/navigation/use-navigation';
 
 // making location optional since it's gonna be provided in another screen
 const signupSchema = signUpValidationSchema.fork(['location'], (schema) => schema.optional());
@@ -36,7 +35,7 @@ const Form = () => {
       return;
     }
 
-    navigate(Routes.GetLocation as never, { user });
+    navigate('GeoLocation', { user });
   };
 
   return (
@@ -115,7 +114,7 @@ export const SignUpForm = ({ defaultValues }: RegisterUserFormProps) => {
 
         <Form />
       </FormProvider>
-      <Button variant="link" onPress={() => navigate(Routes.SignIn as never)} alignSelf="center">
+      <Button variant="link" onPress={() => navigate('SignIn')} alignSelf="center">
         {t('SIGN_UP.FORM.SIGN_IN_LINK_BUTTON')}
       </Button>
     </KeyboardAvoidingView>

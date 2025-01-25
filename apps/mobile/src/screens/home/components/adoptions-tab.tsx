@@ -1,10 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { Badge, Box, Button, Icon, Text, VStack } from 'native-base';
+import React from 'react';
 
 import useAdoptions from '@/hooks/use-adoptions';
 import useLocale from '@/hooks/use-locale';
-import Routes from '@/routes';
+import { useNavigation } from '@/navigation/use-navigation';
 
 const AdoptionsTab = () => {
   const { adoptions } = useAdoptions();
@@ -37,7 +37,7 @@ const AdoptionsTab = () => {
           variant="solid"
           size="sm"
           onPress={() => {
-            navigation.navigate(Routes.RegisterAdoption);
+            navigation.navigate('RegisterAdoption');
           }}
           marginTop="auto"
         >
