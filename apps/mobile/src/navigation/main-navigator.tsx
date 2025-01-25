@@ -1,4 +1,4 @@
-import { UserType } from '@animavita/types';
+import { AdoptionType, UserType } from '@animavita/types';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
@@ -7,6 +7,7 @@ import { useAuth } from '@/hooks/use-auth-provider';
 import MyPetsScreen from '@/screens/adoptions/my-pets.screen';
 import GetLocationScreen from '@/screens/get-location/get-location.screen';
 import HomeScreen from '@/screens/home/home.screen';
+import UpdatePetScreen from '@/screens/owner/update-pet/update-pet.screen';
 import Profile from '@/screens/profile/profile.screen';
 import RegisterAdoption from '@/screens/register-adoption/register-adoption.screen';
 import SignInScreen from '@/screens/signin/signin.screen';
@@ -18,6 +19,7 @@ export type StackParamsList = {
   RegisterAdoption: undefined;
   Profile: undefined;
   MyPets: undefined;
+  UpdatePet: { pet: AdoptionType };
   SignIn: undefined;
   SignUp: undefined;
   GeoLocation: { user: UserType };
@@ -39,6 +41,7 @@ const MainNavigator = () => {
             <Stack.Screen name="RegisterAdoption" component={RegisterAdoption} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="MyPets" component={MyPetsScreen} />
+            <Stack.Screen name="UpdatePet" component={UpdatePetScreen} />
           </>
         ) : (
           <>

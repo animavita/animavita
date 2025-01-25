@@ -3,10 +3,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { Box, Button, Icon, Text } from 'native-base';
 
 import useLocale from '@/hooks/use-locale';
+import { useNavigation } from '@/navigation/use-navigation';
 
-export const AdoptionCard = ({ name, type }: AdoptionType) => {
+export const AdoptionCard = (pet: AdoptionType) => {
   const { t } = useLocale();
-  const petTypeTranslateKey = `MY_PETS_SCREEN.PET_TYPE.${type.toUpperCase()}`;
+  const { navigate } = useNavigation();
+  const petTypeTranslateKey = `MY_PETS_SCREEN.PET_TYPE.${pet.type.toUpperCase()}`;
 
   return (
     <Box
@@ -21,12 +23,17 @@ export const AdoptionCard = ({ name, type }: AdoptionType) => {
     >
       <Box>
         <Text color="primary.500" fontWeight="bold">
-          {name.toUpperCase()}
+          {pet.name.toUpperCase()}
         </Text>
         <Text color="coolGray.500">{t(petTypeTranslateKey)}</Text>
       </Box>
       <Box flexDir="row">
         <Button
+          onPress={() =>
+            navigate('UpdatePet', {
+              pet,
+            })
+          }
           leftIcon={
             <Icon
               as={Ionicons}

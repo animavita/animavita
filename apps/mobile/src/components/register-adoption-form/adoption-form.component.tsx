@@ -1,5 +1,5 @@
 import { AdoptionType } from '@animavita/types';
-import { createValidationSchema } from '@animavita/validation-schemas';
+import { adoptionValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
 import { Box, KeyboardAvoidingView, useToast } from 'native-base';
 import React from 'react';
@@ -25,7 +25,7 @@ const RegisterAdoptionForm = ({ defaultValues, initialStep }: RegisterAdoptionFo
     useMultiStepNavigation(initialStep);
 
   const adoptionForm = useForm<Partial<AdoptionType>>({
-    resolver: joiResolver(createValidationSchema),
+    resolver: joiResolver(adoptionValidationSchema),
     mode: 'onChange',
     defaultValues,
   });

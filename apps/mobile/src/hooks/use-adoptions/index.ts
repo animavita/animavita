@@ -1,20 +1,15 @@
 import { AdoptionType } from '@animavita/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useToast } from 'native-base';
 
 import { useNavigation } from '@/navigation/use-navigation';
-import { saveOrCreate, getAllAdoptions } from '@/services/adoptions';
+import { saveOrCreate } from '@/services/adoptions';
 import { QUERY_KEYS } from '@/services/query-keys';
 
 const useAdoptions = () => {
   const navigation = useNavigation();
   const toast = useToast();
   const client = useQueryClient();
-
-  const query = useQuery({
-    queryKey: [QUERY_KEYS.getAllAdoptions],
-    queryFn: getAllAdoptions,
-  });
 
   const mutation = useMutation(saveOrCreate, {
     onSuccess: () => {
@@ -29,8 +24,6 @@ const useAdoptions = () => {
   };
 
   return {
-    loading: query.isFetching,
-    adoptions: query.data?.data,
     saving: mutation.isLoading,
     saveOrCreateAdoption,
   };

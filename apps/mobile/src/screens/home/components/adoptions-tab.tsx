@@ -1,13 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Badge, Box, Button, Icon, Text, VStack } from 'native-base';
+import { Badge, Box, Button, Icon, VStack } from 'native-base';
 import React from 'react';
 
-import useAdoptions from '@/hooks/use-adoptions';
 import useLocale from '@/hooks/use-locale';
 import { useNavigation } from '@/navigation/use-navigation';
 
 const AdoptionsTab = () => {
-  const { adoptions } = useAdoptions();
   const navigation = useNavigation();
   const { t } = useLocale();
 
@@ -44,19 +42,6 @@ const AdoptionsTab = () => {
           {t('HOME.REGISTER_ADOPTION')}
         </Button>
       </Box>
-
-      {adoptions &&
-        adoptions.map((adoption) => {
-          const { name, gender, size } = adoption;
-
-          return (
-            <>
-              <Text>{name}</Text>
-              <Text>{gender}</Text>
-              <Text>{size}</Text>
-            </>
-          );
-        })}
     </Box>
   );
 };

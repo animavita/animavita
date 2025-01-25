@@ -1,5 +1,6 @@
 import { AdoptionType } from '@animavita/types';
 import { Box, Heading, Text, Spacer } from 'native-base';
+import React from 'react';
 import { FlatList } from 'react-native';
 
 import { AdoptionCard } from './adoption-card';
@@ -12,18 +13,18 @@ export type Adoption = AdoptionType & {
 };
 
 type MyPetsListProps = {
-  adoptions: Adoption[];
+  pets: Adoption[];
 };
 
-export const MyPetsList = ({ adoptions }: MyPetsListProps) => {
+export const MyPetsList = ({ pets }: MyPetsListProps) => {
   const { t } = useLocale();
 
-  if (adoptions.length <= 0) return <EmptyList />;
+  if (pets.length <= 0) return <EmptyList />;
 
   return (
     <FlatList
       renderItem={({ item }) => <AdoptionCard {...item} />}
-      data={adoptions}
+      data={pets}
       keyExtractor={({ id }) => id}
       ItemSeparatorComponent={() => <Spacer size={4} />}
       ListHeaderComponent={

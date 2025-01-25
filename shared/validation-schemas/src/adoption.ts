@@ -3,7 +3,7 @@ import "fast-text-encoding";
 import * as Joi from "joi";
 
 export const adoptionValidationSchema = Joi.object({
-  id: Joi.string().required(),
+  id: Joi.string().optional(),
 
   name: Joi.string().max(30),
 
@@ -21,9 +21,3 @@ export const adoptionValidationSchema = Joi.object({
 
   photos: Joi.array().optional().items(Joi.string().uri()),
 });
-
-export const createValidationSchema = adoptionValidationSchema
-  .fork(["id"], (schema) => schema.forbidden())
-  .fork(["name", "gender", "breed", "type", "age", "size"], (schema) =>
-    schema.required()
-  );
