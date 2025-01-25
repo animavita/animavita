@@ -1,21 +1,24 @@
-export interface NearPet {
+export interface Pet {
   id: string;
   name: string;
   age: string;
   breed: string;
   gender: string;
+  size: string;
+  type: string;
+  observations: string;
+  photos: string[];
+}
+
+export type NearPet = Pet & {
   location: {
     longitude: number;
     latitude: number;
   };
-  observations: string;
-  photos: string[];
-  size: string;
-  type: string;
   user: {
     id: string;
     name: string;
   };
   createdAt: string;
   updatedAt: string;
-}
+};

@@ -17,6 +17,7 @@ import PostPetForAdoption from '../../core/application/usecases/owner/post-pet-f
 import FindNearestPets from '../../core/application/usecases/adopter/find-nearest-pets/find-nearest-pets';
 import UpdatePostedPet from '../../core/application/usecases/owner/update-posted-pet/update-posted-pet';
 import RemovePostedPet from '../../core/application/usecases/owner/remove-posted-pet/remove-posted-pet';
+import GetMyPets from '../../core/application/usecases/owner/get-my-pets/get-my-pets';
 
 @Controller('api/v1/pets')
 export class PetsController {
@@ -25,6 +26,7 @@ export class PetsController {
     private readonly updatePostedPet: UpdatePostedPet,
     private readonly removePostedPet: RemovePostedPet,
     private readonly findNearestPets: FindNearestPets,
+    private readonly getMyPets: GetMyPets,
   ) {}
 
   @Post()
@@ -38,7 +40,7 @@ export class PetsController {
 
   @Patch()
   @UseGuards(AccessTokenGuard)
-  async updateAdoption(
+  async update(
     @Body() petData: UpdateAdoptionRequest,
     @User() { email }: JwtPayload,
   ) {
@@ -47,8 +49,14 @@ export class PetsController {
 
   @UseGuards(AccessTokenGuard)
   @Delete(':id')
-  async deletePet(@Param('id') petId: string, @User() { email }: JwtPayload) {
+  async delete(@Param('id') petId: string, @User() { email }: JwtPayload) {
     return this.removePostedPet.execute({ id: petId }, email);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('/my')
+  async myPets(@User() { sub }: JwtPayload) {
+    return this.getMyPets.execute(sub);
   }
 
   @UseGuards(AccessTokenGuard)

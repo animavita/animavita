@@ -7,6 +7,7 @@ import {
   PetDocument,
   PetDocumentWithUser,
 } from '../mongo/schemas/pet.schema';
+import { Pet } from '../../core/application/dto/pet.dto';
 
 export const RADIUS_OF_EARTH = 63781; // km
 
@@ -52,6 +53,26 @@ export class MongoPetDAO implements PetDao {
       },
       createdAt: document.createdAt.toString(),
       updatedAt: document.updatedAt.toString(),
+    }));
+  }
+
+  async getByOwner(ownerId): Promise<Pet[]> {
+    const documents = await this.petModel.find({
+      user: {
+        $eq: ownerId,
+      },
+    });
+
+    return documents.map((document) => ({
+      id: document._id.toString(),
+      name: document.name,
+      age: document.age,
+      breed: document.breed,
+      gender: document.gender,
+      observations: document.observations,
+      photos: document.photos,
+      size: document.size,
+      type: document.type,
     }));
   }
 }
