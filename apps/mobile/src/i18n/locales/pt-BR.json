@@ -1,7 +1,7 @@
 {
   "YEAR": "ano(s)",
   "REGISTER_ADOPTION": {
-    "TITLE": "Cadastrar Adoção",
+    "TITLE": "Cadastrar Pet",
     "STEP": "Passo",
     "FORM": {
       "NAME": "Nome do Pet",
@@ -52,6 +52,9 @@
       "GENDER_REQUIRED": "Informe o sexo do seu Pet",
       "SIZE_REQUIRED": "Informe o porte do seu Pet"
     }
+  },
+  "PET_UPDATE": {
+    "TITLE": "Atualizar Pet"
   },
   "SIGN_IN": {
     "FORM": {

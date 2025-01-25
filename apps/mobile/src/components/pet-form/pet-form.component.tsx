@@ -16,7 +16,7 @@ import Delimiter from '@/components/delimiter';
 import usePets from '@/hooks/use-pets/use-pets';
 
 type PetFormProps = {
-  defaultValues?: Partial<AdoptionType>;
+  defaultValues?: Partial<AdoptionType & { id?: string }>;
   initialStep?: AdoptionSteps;
 };
 
@@ -51,7 +51,7 @@ const PetForm = ({ defaultValues, initialStep }: PetFormProps) => {
   return (
     <KeyboardAvoidingView flex="1" behavior="padding" enabled={Platform.OS === 'ios'}>
       <FormProvider {...petForm}>
-        <StepperIndicator activeStep={activeStep} />
+        <StepperIndicator activeStep={activeStep} isEditing={!!defaultValues?.id} />
         <Delimiter marginTop={0} flex="1">
           <Box
             position="relative"
