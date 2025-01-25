@@ -2,8 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { act, renderHook } from '@testing-library/react-hooks';
 
 import { getStepsByOrder, useMultiStepNavigation } from './use-multi-step-navigation.hook';
-import { stepsLibrary } from '../adoption-form.constants';
-import { AdoptionSteps } from '../adoption-form.types';
+import { stepsLibrary } from '../pet-form.constants';
+import { AdoptionSteps } from '../pet-form.types';
 
 jest.mock('native-base', () => ({
   ...jest.requireActual('native-base'),

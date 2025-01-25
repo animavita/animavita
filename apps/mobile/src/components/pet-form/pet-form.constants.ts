@@ -1,4 +1,4 @@
-import { Step, AdoptionSteps } from './adoption-form.types';
+import { Step, AdoptionSteps } from './pet-form.types';
 
 export const stepsLibrary: {
   [key in AdoptionSteps]: Step;

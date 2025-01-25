@@ -3,8 +3,8 @@ import { Box, Heading, Progress, Text, Image } from 'native-base';
 import React from 'react';
 
 import Delimiter from '@/components/delimiter/delimiter';
-import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
-import { StepperIndicatorProps } from '@/components/register-adoption-form/adoption-form.types';
+import { stepsLibrary } from '@/components/pet-form/pet-form.constants';
+import { StepperIndicatorProps } from '@/components/pet-form/pet-form.types';
 import useLocale from '@/hooks/use-locale';
 import theme from '@/theme';
 

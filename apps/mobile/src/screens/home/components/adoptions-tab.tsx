@@ -35,7 +35,7 @@ const AdoptionsTab = () => {
           variant="solid"
           size="sm"
           onPress={() => {
-            navigation.navigate('RegisterAdoption');
+            navigation.navigate('RegisterPet');
           }}
           marginTop="auto"
         >

@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View } from 'native-base';
 
-import RegisterAdoptionForm from '@/components/register-adoption-form/adoption-form.component';
+import PetForm from '@/components/pet-form/pet-form.component';
 import SafeArea from '@/components/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import type { StackParamsList } from '@/navigation/main-navigator';
@@ -13,7 +13,7 @@ const UpdatePetScreen = ({ route }: UpdatePetScreenProps) => {
     <View height="full">
       <SafeArea>
         <AppStatusBar />
-        <RegisterAdoptionForm defaultValues={route.params.pet} />
+        <PetForm defaultValues={route.params.pet} />
       </SafeArea>
     </View>
   );

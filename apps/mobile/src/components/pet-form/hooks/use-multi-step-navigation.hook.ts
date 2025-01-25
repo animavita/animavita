@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 
-import { stepsLibrary } from '../adoption-form.constants';
-import { AdoptionSteps, Step } from '../adoption-form.types';
+import { stepsLibrary } from '../pet-form.constants';
+import { AdoptionSteps, Step } from '../pet-form.types';
 
 export const getStepsByOrder = (stepsLibrary: { [key in AdoptionSteps]: Step }): {
   [key: number]: AdoptionSteps;

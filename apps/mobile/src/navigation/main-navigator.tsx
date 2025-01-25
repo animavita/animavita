@@ -7,16 +7,16 @@ import { useAuth } from '@/hooks/use-auth-provider';
 import MyPetsScreen from '@/screens/adoptions/my-pets.screen';
 import GetLocationScreen from '@/screens/get-location/get-location.screen';
 import HomeScreen from '@/screens/home/home.screen';
+import RegisterPet from '@/screens/owner/register-pet/register-pet.screen';
 import UpdatePetScreen from '@/screens/owner/update-pet/update-pet.screen';
 import Profile from '@/screens/profile/profile.screen';
-import RegisterAdoption from '@/screens/register-adoption/register-adoption.screen';
 import SignInScreen from '@/screens/signin/signin.screen';
 import SignUpScreen from '@/screens/signup/signup.screen';
 import SplashScreen from '@/screens/splash/splash.screen';
 
 export type StackParamsList = {
   Home: undefined;
-  RegisterAdoption: undefined;
+  RegisterPet: undefined;
   Profile: undefined;
   MyPets: undefined;
   UpdatePet: { pet: AdoptionType };
@@ -38,7 +38,7 @@ const MainNavigator = () => {
         {auth.status === 'LOGGED' ? (
           <>
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="RegisterAdoption" component={RegisterAdoption} />
+            <Stack.Screen name="RegisterPet" component={RegisterPet} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="MyPets" component={MyPetsScreen} />
             <Stack.Screen name="UpdatePet" component={UpdatePetScreen} />

@@ -1,8 +1,8 @@
 import { Box, Button } from 'native-base';
 import React from 'react';
 
-import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
-import { StepperControllerProps } from '@/components/register-adoption-form/adoption-form.types';
+import { stepsLibrary } from '@/components/pet-form/pet-form.constants';
+import { StepperControllerProps } from '@/components/pet-form/pet-form.types';
 import useFormValidation from '@/hooks/react-hook-form/use-form-validation';
 import useLocale from '@/hooks/use-locale';
 import theme from '@/theme';

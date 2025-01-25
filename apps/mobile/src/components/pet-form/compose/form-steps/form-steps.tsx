@@ -4,8 +4,8 @@ import { useFormContext } from 'react-hook-form';
 import PetUploadPhotosStep from './pet-upload-photos-step/pet-upload-photos-step.component';
 
 import { RHFInput, RHFListSelector } from '@/components/react-hook-form/native-base';
-import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
-import { AdoptionSteps } from '@/components/register-adoption-form/adoption-form.types';
+import { stepsLibrary } from '@/components/pet-form/pet-form.constants';
+import { AdoptionSteps } from '@/components/pet-form/pet-form.types';
 import useLocale from '@/hooks/use-locale';
 import theme from '@/theme';
 

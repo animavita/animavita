@@ -6,7 +6,7 @@ import StepperController from './stepper-controller';
 import {
   AdoptionSteps,
   StepperControllerProps,
-} from '@/components/register-adoption-form/adoption-form.types';
+} from '@/components/pet-form/pet-form.types';
 import * as useFormValidationModule from '@/hooks/react-hook-form/use-form-validation/use-form-validation.hook';
 import { renderWithProviders, fireEvent, waitFor } from '@/test/test-utils';
 

@@ -1,18 +1,18 @@
 import { View } from 'native-base';
 
-import RegisterAdoptionForm from '@/components/register-adoption-form/adoption-form.component';
+import PetForm from '@/components/pet-form/pet-form.component';
 import SafeArea from '@/components/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 
-const RegisterAdoption = () => {
+const RegisterPet = () => {
   return (
     <View height="full">
       <SafeArea>
         <AppStatusBar />
-        <RegisterAdoptionForm />
+        <PetForm />
       </SafeArea>
     </View>
   );
 };
 
-export default RegisterAdoption;
+export default RegisterPet;

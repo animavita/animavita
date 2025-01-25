@@ -1,7 +1,7 @@
 import StepperIndicator from './stepper-indicator';
 
-import { stepsLibrary } from '@/components/register-adoption-form/adoption-form.constants';
-import { AdoptionSteps } from '@/components/register-adoption-form/adoption-form.types';
+import { stepsLibrary } from '@/components/pet-form/pet-form.constants';
+import { AdoptionSteps } from '@/components/pet-form/pet-form.types';
 import { renderWithProviders } from '@/test/test-utils';
 
 const stepKeys = Object.keys(stepsLibrary);

@@ -1,8 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { act } from '@testing-library/react-hooks';
 
-import RegisterAdoptionForm from './adoption-form.component';
-import { AdoptionSteps } from './adoption-form.types';
+import PetForm from './pet-form.component';
+import { AdoptionSteps } from './pet-form.types';
 
 import { StackParamsList } from '@/navigation/main-navigator';
 import Home from '@/screens/home/home.screen';
@@ -53,10 +53,10 @@ const Stack = createNativeStackNavigator<StackParamsList>();
 
 const MainNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="RegisterAdoption">
+    <Stack.Navigator initialRouteName="RegisterPet">
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="RegisterAdoption">
-        {() => <RegisterAdoptionForm defaultValues={{ age: 'adult' }} />}
+      <Stack.Screen name="RegisterPet">
+        {() => <PetForm defaultValues={{ age: 'adult' }} />}
       </Stack.Screen>
     </Stack.Navigator>
   );
@@ -110,7 +110,7 @@ describe('AdoptionForm', () => {
 
     describe('and the form state is not valid', () => {
       it('shows the error message', async () => {
-        renderWithProviders(<RegisterAdoptionForm initialStep={AdoptionSteps.PetObservations} />);
+        renderWithProviders(<PetForm initialStep={AdoptionSteps.PetObservations} />);
 
         const confirmButton = screen.getByText(/confirmar/i);
         fireEvent.press(confirmButton);
@@ -130,7 +130,7 @@ describe('AdoptionForm', () => {
     });
 
     it('shows the error message', async () => {
-      renderWithProviders(<RegisterAdoptionForm initialStep={step} />);
+      renderWithProviders(<PetForm initialStep={step} />);
 
       forwardStep();
 
