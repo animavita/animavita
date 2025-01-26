@@ -1,4 +1,4 @@
-import { ReverseGeocodingRequest, ReverseGeocodingResponse} from '@animavita/types';
+import { ReverseGeocodingRequest, ReverseGeocodingResponse } from '@animavita/types';
 
 import client from './http-client';
 

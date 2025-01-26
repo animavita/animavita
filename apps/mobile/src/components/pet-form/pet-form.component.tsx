@@ -23,9 +23,10 @@ export const validationSchema = adoptionValidationSchema.fork(
 type PetFormProps = {
   defaultValues?: Partial<AdoptionType & { id?: string }>;
   initialStep?: AdoptionSteps;
+  title: string;
 };
 
-const PetForm = ({ defaultValues, initialStep }: PetFormProps) => {
+const PetForm = ({ defaultValues, initialStep, title }: PetFormProps) => {
   const { activeStep, isLastStep, isFirstStep, handleBack, handleNext } =
     useMultiStepNavigation(initialStep);
 
@@ -56,7 +57,7 @@ const PetForm = ({ defaultValues, initialStep }: PetFormProps) => {
   return (
     <KeyboardAvoidingView flex="1" behavior="padding" enabled={Platform.OS === 'ios'}>
       <FormProvider {...petForm}>
-        <StepperIndicator activeStep={activeStep} isEditing={!!defaultValues?.id} />
+        <StepperIndicator activeStep={activeStep} title={title} />
         <Delimiter marginTop={0} flex="1">
           <Box
             position="relative"

@@ -17,7 +17,7 @@ export type Step = {
 
 export type StepperIndicatorProps = {
   activeStep: AdoptionSteps;
-  isEditing: boolean;
+  title: string;
 };
 
 export type StepperControllerProps = {

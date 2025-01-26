@@ -2,6 +2,7 @@ import { Coordinates } from '@animavita/types';
 import * as Location from 'expo-location';
 import { useState } from 'react';
 import { Platform } from 'react-native';
+
 import { reverseGeocoding } from '@/services/reverse-geocoding';
 
 type Address = {
@@ -46,7 +47,7 @@ const useUserLocation = () => {
 
       setCoords({ latitude, longitude });
 
-      let userAddress:Address[] | any;
+      let userAddress: Address[] | any;
 
       if (Platform.OS === 'web') {
         try {
@@ -63,7 +64,6 @@ const useUserLocation = () => {
           latitude,
           longitude,
         });
-
       }
 
       const addresses: Address[] = userAddress.map((address: any) => ({

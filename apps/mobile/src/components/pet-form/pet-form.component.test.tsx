@@ -52,7 +52,7 @@ const goToLastStep = async () => {
 const Stack = createNativeStackNavigator<StackParamsList>();
 
 const MainNavigator = ({ petForm }: { petForm?: () => React.ReactNode }) => {
-  const defaultForm = () => <PetForm defaultValues={{ age: 'adult' }} />;
+  const defaultForm = () => <PetForm defaultValues={{ age: 'adult' }} title="Register Pet" />;
 
   return (
     <Stack.Navigator initialRouteName="RegisterPet">
@@ -116,7 +116,11 @@ describe('PetForm', () => {
     describe('and the form state is not valid', () => {
       it('shows the error message', async () => {
         renderWithProviders(
-          <MainNavigator petForm={() => <PetForm initialStep={AdoptionSteps.PetObservations} />} />
+          <MainNavigator
+            petForm={() => (
+              <PetForm initialStep={AdoptionSteps.PetObservations} title="Register Pet" />
+            )}
+          />
         );
 
         const confirmButton = screen.getByText(/confirmar/i);
@@ -137,7 +141,9 @@ describe('PetForm', () => {
     });
 
     it('shows the error message', async () => {
-      renderWithProviders(<MainNavigator petForm={() => <PetForm initialStep={step} />} />);
+      renderWithProviders(
+        <MainNavigator petForm={() => <PetForm initialStep={step} title="Register Pet" />} />
+      );
 
       forwardStep();
 

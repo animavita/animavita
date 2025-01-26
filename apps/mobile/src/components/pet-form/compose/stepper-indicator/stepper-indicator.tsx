@@ -8,15 +8,13 @@ import { StepperIndicatorProps } from '@/components/pet-form/pet-form.types';
 import useLocale from '@/hooks/use-locale';
 import theme from '@/theme';
 
-const StepperIndicator = ({ activeStep, isEditing }: StepperIndicatorProps) => {
+const StepperIndicator = ({ activeStep, title }: StepperIndicatorProps) => {
   const { t } = useLocale();
 
   const totalSteps = Object.keys(stepsLibrary).length;
   const stepNumber = stepsLibrary[activeStep].order + 1;
   const processValue = (stepNumber * 100) / totalSteps;
   const label = stepsLibrary[activeStep].label;
-
-  const title = !isEditing ? t('REGISTER_ADOPTION.TITLE') : t('PET_UPDATE.TITLE');
 
   return (
     <Box>

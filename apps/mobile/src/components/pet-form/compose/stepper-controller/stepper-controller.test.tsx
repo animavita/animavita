@@ -3,10 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 import StepperController from './stepper-controller';
 
-import {
-  AdoptionSteps,
-  StepperControllerProps,
-} from '@/components/pet-form/pet-form.types';
+import { AdoptionSteps, StepperControllerProps } from '@/components/pet-form/pet-form.types';
 import * as useFormValidationModule from '@/hooks/react-hook-form/use-form-validation/use-form-validation.hook';
 import { renderWithProviders, fireEvent, waitFor } from '@/test/test-utils';
 
