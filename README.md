@@ -37,8 +37,8 @@ In v2, we aim to rebuild a simpler version of Animavita with a cleaner UI and a 
 
 ### Pet Owner
 -   [ ] Owner can post a pet for adoption https://github.com/animavita/animavita/issues/237
--   [ ] Owner can see a list of their posted pets https://github.com/animavita/animavita/issues/238
--   [ ] Owner can edit a posted pet https://github.com/animavita/animavita/issues/240
+-   [x] Owner can see a list of their posted pets https://github.com/animavita/animavita/issues/238
+-   [x] Owner can edit a posted pet https://github.com/animavita/animavita/issues/240
 -   [ ] Owner can delete a posted pet
 -   [ ] Owner can receive adoption requests
 -   [ ] Owner can meet adopters by calling them
