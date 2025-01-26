@@ -18,7 +18,9 @@ const useUserSignIn = () => {
       const credentials = response.data;
 
       auth.signIn(credentials);
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const networkErrorMessage = (mutation.error as AxiosError<{ message: string }>)?.response?.data

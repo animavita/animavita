@@ -56,12 +56,11 @@ const MainNavigator = ({ petForm }: { petForm?: () => React.ReactNode }) => {
 
   return (
     <Stack.Navigator initialRouteName="RegisterPet">
-      <Stack.Screen
-        name="Home"
-        component={() => {
+      <Stack.Screen name="Home">
+        {() => {
           return <Text>Welcome to Animavita!</Text>;
         }}
-      />
+      </Stack.Screen>
       <Stack.Screen name="RegisterPet">{petForm || defaultForm}</Stack.Screen>
     </Stack.Navigator>
   );
