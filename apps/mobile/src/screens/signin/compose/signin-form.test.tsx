@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import { SignInForm } from './signin-form';
 
@@ -49,12 +49,12 @@ describe('SignIn Form', () => {
   describe('when the sign in fails', () => {
     it('displays an error', async () => {
       server.use(
-        rest.post('*/api/v1/auth/signIn', (req, res, ctx) => {
-          return res(
-            ctx.json({
+        http.post('*/api/v1/auth/signIn', () => {
+          return HttpResponse.json(
+            {
               message: 'Wrong email or password',
-            }),
-            ctx.status(400)
+            },
+            { status: 400 }
           );
         })
       );

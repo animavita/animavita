@@ -18,9 +18,8 @@ const useUserSignIn = () => {
       const credentials = response.data;
 
       auth.signIn(credentials);
-    } catch (error) {
-      console.error(error);
-    }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (error) {}
   };
 
   const networkErrorMessage = (mutation.error as AxiosError<{ message: string }>)?.response?.data
