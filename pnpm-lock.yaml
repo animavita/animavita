@@ -186,6 +186,9 @@ importers:
       expo:
         specifier: ^51.0.39
         version: 51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))
+      expo-build-properties:
+        specifier: ~0.12.5
+        version: 0.12.5(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
       expo-image-picker:
         specifier: ~15.0.7
         version: 15.0.7(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
@@ -2919,17 +2922,11 @@ packages:
   '@types/react-native@0.72.3':
     resolution: {integrity: sha512-9+g+DBJIY3bG7+ZlYzKPr9kxTQxUuZQgLWZhYK4RlIcrsm3qaJhL2PU2e/K4CjnzznWCo2Islgec94x2z1pG4Q==}
 
-  '@types/react@18.2.28':
-    resolution: {integrity: sha512-ad4aa/RaaJS3hyGz0BGegdnSRXQBkd1CCYDCdNjBPg90UUpLgo+WlJqb9fMYUxtehmzF3PJaTWqRZjko6BRzBg==}
-
   '@types/react@18.2.79':
     resolution: {integrity: sha512-RwGAGXPl9kSXwdNTafkOEuFrTBD5SA2B3iEB96xi8+xu5ddUa/cpvyVCSNn+asgLCTHkb5ZxN8gbuibYJi4s1w==}
 
   '@types/retry@0.12.0':
     resolution: {integrity: sha512-wWKOClTTiizcZhXnPY4wikVAwmdYHp8q6DmC+EJUzAMsycb7HB32Kh9RN4+0gExjmPmZSAQjgURXIGATPegAvA==}
-
-  '@types/scheduler@0.16.2':
-    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
   '@types/semver@7.5.3':
     resolution: {integrity: sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==}
@@ -4705,6 +4702,11 @@ packages:
 
   expo-asset@10.0.10:
     resolution: {integrity: sha512-0qoTIihB79k+wGus9wy0JMKq7DdenziVx3iUkGvMAy2azscSgWH6bd2gJ9CGnhC6JRd3qTMFBL0ou/fx7WZl7A==}
+    peerDependencies:
+      expo: '*'
+
+  expo-build-properties@0.12.5:
+    resolution: {integrity: sha512-donC1le0PYfLKCPKRMGQoixuWuwDWCngzXSoQXUPsgHTDHQUKr8aw+lcWkTwZcItgNovcnk784I0dyfYDcxybA==}
     peerDependencies:
       expo: '*'
 
@@ -9651,7 +9653,7 @@ snapshots:
   '@babel/helper-define-polyfill-provider@0.4.3(@babel/core@7.26.7)':
     dependencies:
       '@babel/core': 7.26.7
-      '@babel/helper-compilation-targets': 7.22.15
+      '@babel/helper-compilation-targets': 7.26.5
       '@babel/helper-plugin-utils': 7.26.5
       debug: 4.3.4(supports-color@5.5.0)
       lodash.debounce: 4.0.8
@@ -10524,9 +10526,9 @@ snapshots:
 
   '@babel/preset-env@7.23.2(@babel/core@7.26.7)':
     dependencies:
-      '@babel/compat-data': 7.23.2
+      '@babel/compat-data': 7.26.5
       '@babel/core': 7.26.7
-      '@babel/helper-compilation-targets': 7.22.15
+      '@babel/helper-compilation-targets': 7.26.5
       '@babel/helper-plugin-utils': 7.26.5
       '@babel/helper-validator-option': 7.25.9
       '@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression': 7.22.15(@babel/core@7.26.7)
@@ -13146,15 +13148,9 @@ snapshots:
   '@types/react-native@0.72.3(react-native@0.74.5(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))(@types/react@18.2.79)(react@18.2.0))':
     dependencies:
       '@react-native/virtualized-lists': 0.72.8(react-native@0.74.5(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))(@types/react@18.2.79)(react@18.2.0))
-      '@types/react': 18.2.28
+      '@types/react': 18.2.79
     transitivePeerDependencies:
       - react-native
-
-  '@types/react@18.2.28':
-    dependencies:
-      '@types/prop-types': 15.7.5
-      '@types/scheduler': 0.16.2
-      csstype: 3.1.1
 
   '@types/react@18.2.79':
     dependencies:
@@ -13162,8 +13158,6 @@ snapshots:
       csstype: 3.1.1
 
   '@types/retry@0.12.0': {}
-
-  '@types/scheduler@0.16.2': {}
 
   '@types/semver@7.5.3': {}
 
@@ -13895,7 +13889,7 @@ snapshots:
 
   babel-plugin-polyfill-corejs2@0.4.6(@babel/core@7.26.7):
     dependencies:
-      '@babel/compat-data': 7.23.2
+      '@babel/compat-data': 7.26.5
       '@babel/core': 7.26.7
       '@babel/helper-define-polyfill-provider': 0.4.3(@babel/core@7.26.7)
       semver: 6.3.1
@@ -15242,6 +15236,12 @@ snapshots:
       md5-file: 3.2.3
     transitivePeerDependencies:
       - supports-color
+
+  expo-build-properties@0.12.5(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))):
+    dependencies:
+      ajv: 8.11.0
+      expo: 51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))
+      semver: 7.6.3
 
   expo-constants@16.0.2(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))):
     dependencies:
