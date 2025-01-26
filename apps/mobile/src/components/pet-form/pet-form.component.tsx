@@ -15,6 +15,11 @@ import { AdoptionSteps } from './pet-form.types';
 import Delimiter from '@/components/delimiter';
 import usePets from '@/hooks/use-pets/use-pets';
 
+export const validationSchema = adoptionValidationSchema.fork(
+  ['name', 'gender', 'breed', 'type', 'age', 'size'],
+  (schema) => schema.required()
+);
+
 type PetFormProps = {
   defaultValues?: Partial<AdoptionType & { id?: string }>;
   initialStep?: AdoptionSteps;
@@ -25,7 +30,7 @@ const PetForm = ({ defaultValues, initialStep }: PetFormProps) => {
     useMultiStepNavigation(initialStep);
 
   const petForm = useForm<Partial<AdoptionType>>({
-    resolver: joiResolver(adoptionValidationSchema),
+    resolver: joiResolver(validationSchema),
     mode: 'onChange',
     defaultValues,
   });

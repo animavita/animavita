@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { act } from '@testing-library/react-hooks';
+import { Text } from 'react-native';
 
 import PetForm from './pet-form.component';
 import { AdoptionSteps } from './pet-form.types';
 
 import { StackParamsList } from '@/navigation/main-navigator';
-import Home from '@/screens/home/home.screen';
 import { fireEvent, renderWithProviders, screen, waitFor } from '@/test/test-utils';
 
 const mockShow = jest.fn();
@@ -51,13 +51,18 @@ const goToLastStep = async () => {
 
 const Stack = createNativeStackNavigator<StackParamsList>();
 
-const MainNavigator = () => {
+const MainNavigator = ({ petForm }: { petForm?: () => React.ReactNode }) => {
+  const defaultForm = () => <PetForm defaultValues={{ age: 'adult' }} />;
+
   return (
     <Stack.Navigator initialRouteName="RegisterPet">
-      <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="RegisterPet">
-        {() => <PetForm defaultValues={{ age: 'adult' }} />}
-      </Stack.Screen>
+      <Stack.Screen
+        name="Home"
+        component={() => {
+          return <Text>Welcome to Animavita!</Text>;
+        }}
+      />
+      <Stack.Screen name="RegisterPet">{petForm || defaultForm}</Stack.Screen>
     </Stack.Navigator>
   );
 };
@@ -89,7 +94,7 @@ const stepErrors: { step: AdoptionSteps; errorMessage: string }[] = [
   },
 ];
 
-describe('AdoptionForm', () => {
+describe('PetForm', () => {
   describe('when the user presses the confirm button', () => {
     describe('and the form state is valid', () => {
       it('takes the user to the home screen', async () => {
@@ -103,21 +108,23 @@ describe('AdoptionForm', () => {
           fireEvent.press(confirmButton);
         });
 
-        const home = await screen.findByText(/filtrar/i);
+        const home = await screen.findByText(/welcome to animavita/i);
         expect(home).toBeOnTheScreen();
       });
     });
 
     describe('and the form state is not valid', () => {
       it('shows the error message', async () => {
-        renderWithProviders(<PetForm initialStep={AdoptionSteps.PetObservations} />);
+        renderWithProviders(
+          <MainNavigator petForm={() => <PetForm initialStep={AdoptionSteps.PetObservations} />} />
+        );
 
         const confirmButton = screen.getByText(/confirmar/i);
         fireEvent.press(confirmButton);
 
         await waitFor(() =>
           expect(mockShow).toHaveBeenNthCalledWith(1, {
-            description: `Invalid data!`,
+            description: `Dados inválidos!`,
           })
         );
       });
@@ -130,7 +137,7 @@ describe('AdoptionForm', () => {
     });
 
     it('shows the error message', async () => {
-      renderWithProviders(<PetForm initialStep={step} />);
+      renderWithProviders(<MainNavigator petForm={() => <PetForm initialStep={step} />} />);
 
       forwardStep();
 

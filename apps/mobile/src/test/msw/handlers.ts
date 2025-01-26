@@ -1,11 +1,11 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  rest.get('*/api/v1/adoptions', (req, res, ctx) => {
+  rest.get('*/api/v1/pets/my', (req, res, ctx) => {
     return res(ctx.status(200), ctx.json([]));
   }),
 
-  rest.post('*/api/v1/adoptions', (req, res, ctx) => {
+  rest.post('*/api/v1/pets', (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({

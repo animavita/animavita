@@ -4,7 +4,7 @@ import { renderWithProviders, screen } from '@/test/test-utils';
 describe('<MyPetsList />', () => {
   describe('when user has not put pets for adoptions yet', () => {
     it('renders an empty message', () => {
-      renderWithProviders(<MyPetsList adoptions={[]} />);
+      renderWithProviders(<MyPetsList pets={[]} />);
 
       const emptyListMsg = screen.getByText('Você ainda não registou nenhum pet para adoção');
 
@@ -14,7 +14,7 @@ describe('<MyPetsList />', () => {
 
   describe('when user has pets for adoptions', () => {
     it('renders registered pets in a list', () => {
-      renderWithProviders(<MyPetsList adoptions={DATA as Adoption[]} />);
+      renderWithProviders(<MyPetsList pets={DATA as Adoption[]} />);
 
       for (const pet of DATA) {
         const petName = pet.name.toUpperCase();
