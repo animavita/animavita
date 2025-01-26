@@ -259,15 +259,9 @@ importers:
       '@babel/core':
         specifier: ^7.20.0
         version: 7.23.2
-      '@testing-library/jest-native':
-        specifier: ^5.4.1
-        version: 5.4.1(react-native@0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)
-      '@testing-library/react-hooks':
-        specifier: ^8.0.1
-        version: 8.0.1(@types/react@18.2.28)(react-dom@18.2.0(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)
       '@testing-library/react-native':
-        specifier: ^11.4.0
-        version: 11.5.2(jest@29.7.0(@types/node@18.11.5)(ts-node@10.9.1(@types/node@18.11.5)(typescript@5.2.2)))(react-native@0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)
+        specifier: ^13.0.1
+        version: 13.0.1(jest@29.7.0(@types/node@18.11.5)(ts-node@10.9.1(@types/node@18.11.5)(typescript@5.2.2)))(react-native@0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)
       '@types/jest':
         specifier: 28.1.8
         version: 28.1.8
@@ -1429,10 +1423,6 @@ packages:
   '@babel/regjsgen@0.8.0':
     resolution: {integrity: sha512-x/rqGMdzj+fWZvCOYForTghzbtqPDZ5gPwaoNGHdgDfF2QA/XZbCBp4Moo5scrkAMPhB7z26XM/AaHuIJdgauA==}
 
-  '@babel/runtime@7.19.4':
-    resolution: {integrity: sha512-EXpLCrk55f+cYqmHsSR+yD/0gAIMxxA9QK9lnQWzhMCvt+YmoBN7Zx94s++Kv0+unHk39vxNO8t+CMA2WSS3wA==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/runtime@7.20.13':
     resolution: {integrity: sha512-gt3PKXs0DBoL9xCvOIIZ2NEqAGZqHjAnmVbfQtB620V0uReIQutpel14KcneZuer7UioY8ALKZ7iocavvzTNFA==}
     engines: {node: '>=6.9.0'}
@@ -1773,10 +1763,6 @@ packages:
   '@jest/schemas@28.1.3':
     resolution: {integrity: sha512-/l/VWsdt/aBXgjshLWOFyFt3IVdYypu5y2Wn2rOO1un6nkqIn8SLXzgIMYXFyYsRWDyF5EthmKJMIdJvk08grg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
-
-  '@jest/schemas@29.4.2':
-    resolution: {integrity: sha512-ZrGzGfh31NtdVH8tn0mgJw4khQuNHiKqdzJAFbCaERbyCP9tHlxWuL/mnMu8P7e/+k4puWjI1NOzi/sFsjce/g==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
   '@jest/schemas@29.6.3':
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
@@ -2572,9 +2558,6 @@ packages:
   '@sinclair/typebox@0.24.50':
     resolution: {integrity: sha512-k8ETQOOQDg5FtK7y9KJWpsGLik+QlPmIi8zzl/dGUgshV2QitprkFlCR/AemjWOTyKn9UwSSGRTzLVotvgCjYQ==}
 
-  '@sinclair/typebox@0.25.21':
-    resolution: {integrity: sha512-gFukHN4t8K4+wVC+ECqeqwzBDeFeTzBXroBTqE6vcWrQGbEUpHO7LYdG0f4xnvYq4VOEwITSlHlp0JBAIFMS/g==}
-
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
 
@@ -2608,36 +2591,14 @@ packages:
       react-native:
         optional: true
 
-  '@testing-library/jest-native@5.4.1':
-    resolution: {integrity: sha512-VOyJp8LdBpwoG33xjeCcF59Fh9FDUJUjEFdFPbc/3TtVRze+5bSjFMeADEDZ9R2/AM/Qii0q1cPv7Tjk8JkSSw==}
+  '@testing-library/react-native@13.0.1':
+    resolution: {integrity: sha512-sKMRNNniSOZ68qe1OBQAWvK87WCEmbfLp/MXfn2JE3x3WrNU8OFCVL0z/YKqw0/JO/d44J8Wq6FmRSaod/+VAg==}
+    engines: {node: '>=18'}
     peerDependencies:
-      react: '>=16.0.0'
-      react-native: '>=0.59'
-      react-test-renderer: '>=16.0.0'
-
-  '@testing-library/react-hooks@8.0.1':
-    resolution: {integrity: sha512-Aqhl2IVmLt8IovEVarNDFuJDVWVvhnr9/GCU6UUnrYXwgDFF9h2L2o2P9KBni1AST5sT6riAyoukFLyjQUgD/g==}
-    engines: {node: '>=12'}
-    peerDependencies:
-      '@types/react': ^16.9.0 || ^17.0.0
-      react: ^16.9.0 || ^17.0.0
-      react-dom: ^16.9.0 || ^17.0.0
-      react-test-renderer: ^16.9.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-      react-dom:
-        optional: true
-      react-test-renderer:
-        optional: true
-
-  '@testing-library/react-native@11.5.2':
-    resolution: {integrity: sha512-haa/82Sy4ngAbXF6VTw5U306ZQHWfv7OKxALA4AkMKnX+6frhSd9aAe9rp50CyI2XJsNna0Rh6G+CSw+SPztYg==}
-    peerDependencies:
-      jest: '>=28.0.0'
-      react: '>=16.8.0'
-      react-native: '>=0.59'
-      react-test-renderer: '>=16.8.0'
+      jest: '>=29.0.0'
+      react: '>=18.2.0'
+      react-native: '>=0.71'
+      react-test-renderer: '>=18.2.0'
     peerDependenciesMeta:
       jest:
         optional: true
@@ -4175,10 +4136,6 @@ packages:
     resolution: {integrity: sha512-FU0iFaH/E23a+a718l8Qa/19bF9p06kgE0KipMOMadwa3SjnaElKzPaUC0vnibs6/B/9ni97s61mcejk8W1fQw==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
 
-  diff-sequences@29.4.2:
-    resolution: {integrity: sha512-R6P0Y6PrsH3n4hUXxL3nns0rbRk6Q33js3ygJBeEpbzLzgcNuJ61+u0RXasFpTKISw99TxUzFnumSnRLsjhLaw==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-
   diff-sequences@29.6.3:
     resolution: {integrity: sha512-EjePK1srD3P08o2j4f0ExnylqRs5B9tJjcp9t1krH2qRi8CCdsYfwe9JgSLurFBWwq4uOlipzfk5fHNvwFKr8Q==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -5542,10 +5499,6 @@ packages:
     resolution: {integrity: sha512-8RqP1B/OXzjjTWkqMX67iqgwBVJRgCyKD3L9nq+6ZqJMdvjE8RgHktqZ6jNrkdMT+dJuYNI3rhQpxaz7drJHfw==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
 
-  jest-diff@29.4.2:
-    resolution: {integrity: sha512-EK8DSajVtnjx9sa1BkjZq3mqChm2Cd8rIzdXkQMA8e0wuXq53ypz6s5o5V8HRZkoEt2ywJ3eeNWFKWeYr8HK4g==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-
   jest-diff@29.7.0:
     resolution: {integrity: sha512-LMIgiIrhigmPrs03JHpxUh2yISK3vLFPkAodPeo0+BuF7wA2FoQbkEg1u8gBYBThncu7e1oEDUfIXVuTqLRUjw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -5591,10 +5544,6 @@ packages:
     resolution: {integrity: sha512-ioj2w9/DxSYHfOm5lJKCdcAmPJzQXmbM/Url3rhlghrPvT3tt+7a/+oXc9azkKmLvoiXjtV83bEWqi+vs5nlPA==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
 
-  jest-get-type@29.4.2:
-    resolution: {integrity: sha512-vERN30V5i2N6lqlFu4ljdTqQAgrkTFMC9xaIIfOPYBw04pufjXRty5RuXBiB1d72tGbURa/UgoiHB90ruOSivg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-
   jest-get-type@29.6.3:
     resolution: {integrity: sha512-zrteXnqYxfQh7l5FHyL38jL39di8H8rHoecLH3JNxH3BwOrBsNeabdap5e0I23lD4HHI8W5VFBZqG4Eaq5LNcw==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -5618,10 +5567,6 @@ packages:
   jest-matcher-utils@28.1.3:
     resolution: {integrity: sha512-kQeJ7qHemKfbzKoGjHHrRKH6atgxMk8Enkk2iPQ3XwO6oE/KYD8lMYOziCkeSB9G4adPM4nR1DE8Tf5JeWH6Bw==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
-
-  jest-matcher-utils@29.4.2:
-    resolution: {integrity: sha512-EZaAQy2je6Uqkrm6frnxBIdaWtSYFoR8SVb2sNLAtldswlR/29JAgx+hy67llT3+hXBaLB0zAm5UfeqerioZyg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
 
   jest-matcher-utils@29.7.0:
     resolution: {integrity: sha512-sBkD+Xi9DtcChsI3L3u0+N0opgPYnCRPtGcQYrgXmR+hmt/fYfWAL0xRXYU8eWOdfuLgBe0YCW3AFtnRLagq/g==}
@@ -7067,10 +7012,6 @@ packages:
     resolution: {integrity: sha512-8gFb/To0OmxHR9+ZTb14Df2vNxdGCX8g1xWGUTqUw5TiZvcQf5sHKObd5UcPyLLyowNwDAMTF3XWOG1B6mxl1Q==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
 
-  pretty-format@29.4.2:
-    resolution: {integrity: sha512-qKlHR8yFVCbcEWba0H0TOC8dnLlO4vPlyEjRPw31FZ2Rupy9nLa8ZLbYny8gWEl8CkEhJqAE6IzdNELTBVcBEg==}
-    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
-
   pretty-format@29.7.0:
     resolution: {integrity: sha512-Pdlw/oPxN+aXdmM9R00JVC9WVFoCLTKJvDVLgmJ+qAffBMxsV85l/Lu7sNx4zSzPyoL2euImuEwHhOXdEgNFZQ==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -7174,12 +7115,6 @@ packages:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
       react: ^18.2.0
-
-  react-error-boundary@3.1.4:
-    resolution: {integrity: sha512-uM9uPzZJTF6wRQORmSrvOIgt4lJ9MC1sNgEOj2XGsDTRE4kmpWxg7ENK9EWNKJRMAOY9z0MuF4yIfl6gp4sotA==}
-    engines: {node: '>=10', npm: '>=6'}
-    peerDependencies:
-      react: '>=16.13.1'
 
   react-freeze@1.0.3:
     resolution: {integrity: sha512-ZnXwLQnGzrDpHBHiC56TXFXvmolPeMjTn1UOm610M4EXGzbEDR7oOIyS2ZiItgbs6eZc4oU/a0hpk8PrcKvv5g==}
@@ -7327,9 +7262,6 @@ packages:
 
   regenerate@1.4.2:
     resolution: {integrity: sha512-zrceR/XhGYU/d/opr2EKO7aRHUeiBI8qjtfHqADTwZd6Szfy16la6kqD0MIUs5z5hx6AaKa+PixpPrR289+I0A==}
-
-  regenerator-runtime@0.13.10:
-    resolution: {integrity: sha512-KepLsg4dU12hryUO7bp/axHAKvwGOCV0sGloQtpagJ12ai+ojVDqkeGSiRX1zlq+kjIMZ1t7gpze+26QqtdGqw==}
 
   regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
@@ -10293,10 +10225,6 @@ snapshots:
 
   '@babel/regjsgen@0.8.0': {}
 
-  '@babel/runtime@7.19.4':
-    dependencies:
-      regenerator-runtime: 0.13.10
-
   '@babel/runtime@7.20.13':
     dependencies:
       regenerator-runtime: 0.13.11
@@ -11076,10 +11004,6 @@ snapshots:
   '@jest/schemas@28.1.3':
     dependencies:
       '@sinclair/typebox': 0.24.50
-
-  '@jest/schemas@29.4.2':
-    dependencies:
-      '@sinclair/typebox': 0.25.21
 
   '@jest/schemas@29.6.3':
     dependencies:
@@ -12379,8 +12303,6 @@ snapshots:
 
   '@sinclair/typebox@0.24.50': {}
 
-  '@sinclair/typebox@0.25.21': {}
-
   '@sinclair/typebox@0.27.8': {}
 
   '@sinonjs/commons@1.8.3':
@@ -12414,33 +12336,15 @@ snapshots:
       react-dom: 18.2.0(react@18.2.0)
       react-native: 0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0)
 
-  '@testing-library/jest-native@5.4.1(react-native@0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)':
+  '@testing-library/react-native@13.0.1(jest@29.7.0(@types/node@18.11.5)(ts-node@10.9.1(@types/node@18.11.5)(typescript@5.2.2)))(react-native@0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)':
     dependencies:
       chalk: 4.1.2
-      jest-diff: 29.4.2
-      jest-matcher-utils: 29.4.2
-      pretty-format: 29.4.2
+      jest-matcher-utils: 29.7.0
+      pretty-format: 29.7.0
       react: 18.2.0
       react-native: 0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0)
       react-test-renderer: 18.2.0(react@18.2.0)
       redent: 3.0.0
-
-  '@testing-library/react-hooks@8.0.1(@types/react@18.2.28)(react-dom@18.2.0(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      '@babel/runtime': 7.19.4
-      react: 18.2.0
-      react-error-boundary: 3.1.4(react@18.2.0)
-    optionalDependencies:
-      '@types/react': 18.2.28
-      react-dom: 18.2.0(react@18.2.0)
-      react-test-renderer: 18.2.0(react@18.2.0)
-
-  '@testing-library/react-native@11.5.2(jest@29.7.0(@types/node@18.11.5)(ts-node@10.9.1(@types/node@18.11.5)(typescript@5.2.2)))(react-native@0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0))(react-test-renderer@18.2.0(react@18.2.0))(react@18.2.0)':
-    dependencies:
-      pretty-format: 29.4.2
-      react: 18.2.0
-      react-native: 0.72.10(@babel/core@7.23.2)(@babel/preset-env@7.23.2(@babel/core@7.23.2))(react@18.2.0)
-      react-test-renderer: 18.2.0(react@18.2.0)
     optionalDependencies:
       jest: 29.7.0(@types/node@18.11.5)(ts-node@10.9.1(@types/node@18.11.5)(typescript@5.2.2))
 
@@ -14270,8 +14174,6 @@ snapshots:
 
   diff-sequences@28.1.1: {}
 
-  diff-sequences@29.4.2: {}
-
   diff-sequences@29.6.3: {}
 
   diff@4.0.2: {}
@@ -16005,13 +15907,6 @@ snapshots:
       jest-get-type: 28.0.2
       pretty-format: 28.1.3
 
-  jest-diff@29.4.2:
-    dependencies:
-      chalk: 4.1.2
-      diff-sequences: 29.4.2
-      jest-get-type: 29.4.2
-      pretty-format: 29.4.2
-
   jest-diff@29.7.0:
     dependencies:
       chalk: 4.1.2
@@ -16099,8 +15994,6 @@ snapshots:
 
   jest-get-type@28.0.2: {}
 
-  jest-get-type@29.4.2: {}
-
   jest-get-type@29.6.3: {}
 
   jest-haste-map@28.1.3:
@@ -16151,13 +16044,6 @@ snapshots:
       jest-diff: 28.1.3
       jest-get-type: 28.0.2
       pretty-format: 28.1.3
-
-  jest-matcher-utils@29.4.2:
-    dependencies:
-      chalk: 4.1.2
-      jest-diff: 29.4.2
-      jest-get-type: 29.4.2
-      pretty-format: 29.4.2
 
   jest-matcher-utils@29.7.0:
     dependencies:
@@ -18066,12 +17952,6 @@ snapshots:
       ansi-styles: 5.2.0
       react-is: 18.2.0
 
-  pretty-format@29.4.2:
-    dependencies:
-      '@jest/schemas': 29.4.2
-      ansi-styles: 5.2.0
-      react-is: 18.2.0
-
   pretty-format@29.7.0:
     dependencies:
       '@jest/schemas': 29.6.3
@@ -18181,11 +18061,6 @@ snapshots:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
-
-  react-error-boundary@3.1.4(react@18.2.0):
-    dependencies:
-      '@babel/runtime': 7.22.6
-      react: 18.2.0
 
   react-freeze@1.0.3(react@18.2.0):
     dependencies:
@@ -18388,8 +18263,6 @@ snapshots:
       regenerate: 1.4.2
 
   regenerate@1.4.2: {}
-
-  regenerator-runtime@0.13.10: {}
 
   regenerator-runtime@0.13.11: {}
 

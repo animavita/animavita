@@ -48,9 +48,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@testing-library/jest-native": "^5.4.1",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@testing-library/react-native": "^11.4.0",
+    "@testing-library/react-native": "^13.0.1",
     "@types/jest": "28.1.8",
     "@types/react": "~18.2.14",
     "@types/react-native-vector-icons": "^6.4.13",

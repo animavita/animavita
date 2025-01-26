@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook } from '@testing-library/react-native';
 
 import useUserRegister from './use-user.register';
 import { useAuth } from '../use-auth-provider';

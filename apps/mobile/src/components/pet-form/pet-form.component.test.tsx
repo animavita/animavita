@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { act } from '@testing-library/react-hooks';
+import { act } from '@testing-library/react-native';
 import { Text } from 'react-native';
 
 import PetForm from './pet-form.component';

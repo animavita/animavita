@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-native';
 import { TFunction } from 'i18next';
 import { useToast } from 'native-base';
 import { useFormContext } from 'react-hook-form';

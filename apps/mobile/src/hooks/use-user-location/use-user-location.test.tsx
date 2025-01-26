@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook, waitFor } from '@testing-library/react-native';
 import * as Location from 'expo-location';
 
 import useUserLocation, { Warnings } from './use-user-location';
@@ -29,7 +29,7 @@ describe('useUserLocation', () => {
 
   describe('when calling `getLocation`', () => {
     it('properly toggles the loading state', async () => {
-      const { result, waitFor } = renderHook(useUserLocation);
+      const { result } = renderHook(useUserLocation);
 
       expect(result.current.isLoading).toBeFalsy();
 

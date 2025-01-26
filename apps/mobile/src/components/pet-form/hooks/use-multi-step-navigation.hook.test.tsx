@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { act, renderHook } from '@testing-library/react-native';
 
 import { getStepsByOrder, useMultiStepNavigation } from './use-multi-step-navigation.hook';
 import { stepsLibrary } from '../pet-form.constants';
