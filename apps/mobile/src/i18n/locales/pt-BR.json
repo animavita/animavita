@@ -50,7 +50,9 @@
       "TYPE_REQUIRED": "Informe o tipo do seu Pet",
       "AGE_REQUIRED": "Informe a idade do seu Pet",
       "GENDER_REQUIRED": "Informe o sexo do seu Pet",
-      "SIZE_REQUIRED": "Informe o porte do seu Pet"
+      "SIZE_REQUIRED": "Informe o porte do seu Pet",
+      "INVALID_DATA": "Dados inválidos!",
+      "GENERIC_ERROR": "Erro ao salvar dados do pet!"
     }
   },
   "PET_UPDATE": {

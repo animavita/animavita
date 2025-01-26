@@ -13,6 +13,7 @@ import { useMultiStepNavigation } from './hooks/use-multi-step-navigation.hook';
 import { AdoptionSteps } from './pet-form.types';
 
 import Delimiter from '@/components/delimiter';
+import useLocale from '@/hooks/use-locale';
 import usePets from '@/hooks/use-pets/use-pets';
 
 export const validationSchema = adoptionValidationSchema.fork(
@@ -27,6 +28,7 @@ type PetFormProps = {
 };
 
 const PetForm = ({ defaultValues, initialStep, title }: PetFormProps) => {
+  const { t } = useLocale();
   const { activeStep, isLastStep, isFirstStep, handleBack, handleNext } =
     useMultiStepNavigation(initialStep);
 
@@ -43,7 +45,7 @@ const PetForm = ({ defaultValues, initialStep, title }: PetFormProps) => {
 
     if (!isValid) {
       toast.show({
-        description: 'Dados inválidos!',
+        description: t('REGISTER_ADOPTION.FORM_ERROR_MESSAGES.INVALID_DATA'),
       });
 
       return;
