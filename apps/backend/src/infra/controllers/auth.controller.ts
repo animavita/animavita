@@ -1,7 +1,4 @@
-import {
-  signInValidationSchema,
-  signUpValidationSchema,
-} from '@animavita/validation-schemas';
+import { signUpValidationSchema } from '@animavita/validation-schemas';
 import {
   Body,
   ClassSerializerInterceptor,
@@ -20,16 +17,20 @@ import { User } from '../../decorators/user.decorator';
 import { AccessTokenGuard } from '../../guards/accessToken.guard';
 import { RefreshTokenGuard } from '../../guards/refreshToken.guard';
 import { JoiValidationPipe } from '../../pipes/joi-validation-pipe';
+import SignIn from '../../core/application/usecases/sign-in';
 
 @Controller('api/v1/auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly signIn: SignIn,
+  ) {}
 
   @Post('signUp')
   @UsePipes(new JoiValidationPipe(signUpValidationSchema))
   async signUp(@Body() user: CreateUserRequest) {
     await this.authService.signUp(user);
-    return await this.authService.signIn({
+    return await this.signIn.execute({
       email: user.email,
       password: user.password,
     });
@@ -37,9 +38,11 @@ export class AuthController {
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('signIn')
-  @UsePipes(new JoiValidationPipe(signInValidationSchema))
-  async signIn(@Body() user: SignInRequest) {
-    return this.authService.signIn(user);
+  async logIn(@Body() user: SignInRequest) {
+    return await this.signIn.execute({
+      email: user.email,
+      password: user.password,
+    });
   }
 
   @UseGuards(AccessTokenGuard)

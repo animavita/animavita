@@ -1,4 +1,4 @@
-import { BadRequestException, ForbiddenException } from '@nestjs/common';
+import { ForbiddenException } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -8,7 +8,7 @@ import * as argon from 'argon2';
 import { userMock } from '../../test/mocks/user';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
-import { DataServicesModule } from '../modules/data-services.module';
+import { TOKEN_SERVICE } from '../core/application/services/token.service';
 
 jest.mock('argon2', () => ({
   verify: jest.fn().mockResolvedValue(true),
@@ -30,7 +30,12 @@ const setup = async () => {
   };
 
   const jwtServiceMock = {
-    signAsync: jest.fn().mockImplementation(() => Promise.resolve('token')),
+    generateAccessToken: jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('token')),
+    generateRefreshToken: jest
+      .fn()
+      .mockImplementation(() => Promise.resolve('token')),
   };
 
   const module: TestingModule = await Test.createTestingModule({
@@ -39,7 +44,7 @@ const setup = async () => {
       AuthService,
       ConfigService,
       {
-        provide: JwtService,
+        provide: TOKEN_SERVICE,
         useValue: jwtServiceMock,
       },
       {
@@ -94,52 +99,6 @@ describe('AuthService', () => {
     it('should register a new user', async () => {
       const { service, persistedUser } = await setup();
       await expect(service.signUp(userMock)).resolves.toEqual(persistedUser);
-    });
-  });
-
-  describe('signIn', () => {
-    it('should return a pair of tokens and user info if user successfully logged', async () => {
-      const { service, userService } = await setup();
-
-      const userServiceUpdate = jest.spyOn(userService, 'update');
-
-      const tokens = await service.signIn({
-        email: userMock.email,
-        password: userMock.password,
-      });
-
-      expect(tokens).toEqual({
-        accessToken: expect.any(String),
-        refreshToken: expect.any(String),
-        name: 'Grosbilda',
-      });
-      expect(userServiceUpdate).toBeCalledTimes(1);
-    });
-
-    it('should throw if user not found', async () => {
-      const { service, userService } = await setup();
-
-      jest.spyOn(userService, 'findByEmail').mockResolvedValueOnce(null);
-
-      await expect(
-        service.signIn({
-          email: userMock.email,
-          password: userMock.password,
-        }),
-      ).rejects.toThrowError(BadRequestException);
-    });
-
-    it('should throw if password do not match', async () => {
-      const { service } = await setup();
-
-      jest.spyOn(argon, 'verify').mockResolvedValueOnce(false);
-
-      await expect(
-        service.signIn({
-          email: userMock.email,
-          password: userMock.password,
-        }),
-      ).rejects.toThrowError(BadRequestException);
     });
   });
 

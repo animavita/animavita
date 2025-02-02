@@ -11,6 +11,7 @@ import { createUserMock } from '../mocks/user';
 import { AuthModule } from '../../src/modules/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
 import { UserModule } from '../../src/modules/user.module';
+import SignIn from '../../src/core/application/usecases/sign-in';
 
 const setup = async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -24,12 +25,14 @@ const setup = async () => {
 
   const app = moduleFixture.createNestApplication();
   const service = moduleFixture.get<AuthService>(AuthService);
+  const signInUsecase = moduleFixture.get<SignIn>(SignIn);
 
   await app.init();
 
   return {
     app,
     service,
+    signInUsecase,
   };
 };
 
@@ -84,10 +87,10 @@ describe('Authentication (e2e)', () => {
 
   describe('/GET auth/logout', () => {
     it('returns a successful message', async () => {
-      const { app, service } = await setup();
+      const { app, service, signInUsecase } = await setup();
 
       const { accessToken } = await service.signUp(createUserMock).then(() =>
-        service.signIn({
+        signInUsecase.execute({
           email: createUserMock.email,
           password: createUserMock.password,
         }),
@@ -104,12 +107,12 @@ describe('Authentication (e2e)', () => {
 
   describe('/GET auth/refresh', () => {
     it('returns a successful message', async () => {
-      const { app, service } = await setup();
+      const { app, service, signInUsecase } = await setup();
 
       const { accessToken, refreshToken } = await service
         .signUp(createUserMock)
         .then(() =>
-          service.signIn({
+          signInUsecase.execute({
             email: createUserMock.email,
             password: createUserMock.password,
           }),

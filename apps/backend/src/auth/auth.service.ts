@@ -1,27 +1,19 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  Injectable,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
+import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 
 import { hash, verify } from 'argon2';
 
 import { UserService } from '../user/user.service';
+import { CreateUserRequest, CredentialsType } from '@animavita/types';
 import {
-  CreateUserRequest,
-  CredentialsType,
-  SignInRequest,
-  SignInResponse,
-} from '@animavita/types';
+  TOKEN_SERVICE,
+  TokenService,
+} from '../core/application/services/token.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
+    @Inject(TOKEN_SERVICE) private readonly tokenService: TokenService,
   ) {}
 
   async signUp(user: CreateUserRequest) {
@@ -29,23 +21,6 @@ export class AuthService {
       ...user,
       password: await hash(user.password),
     });
-  }
-
-  async signIn(user: SignInRequest): Promise<SignInResponse> {
-    const foundUser = await this.userService.findByEmail(user.email);
-
-    if (!foundUser) throw new BadRequestException('Wrong email or password');
-
-    const matches = await verify(foundUser.password, user.password);
-
-    if (!matches) throw new BadRequestException('Wrong email or password');
-
-    const tokens = await this.generateTokens(foundUser.id, user.email);
-
-    await this.updateRefreshToken(foundUser.id, tokens.refreshToken);
-
-    const { name } = foundUser;
-    return { name, ...tokens };
   }
 
   async logout(userId: string) {
@@ -67,50 +42,22 @@ export class AuthService {
 
     if (!matches) throw new ForbiddenException('Access Denied');
 
-    const tokens = await this.generateTokens(user.id, user.email);
+    const newAccessToken = await this.tokenService.generateAccessToken({
+      user: { id: user.id, email: user.email },
+    });
 
-    await this.updateRefreshToken(user.id, tokens.refreshToken);
+    const newRefreshToken = await this.tokenService.generateAccessToken({
+      user: { id: user.id, email: user.email },
+    });
 
-    return tokens;
+    await this.updateRefreshToken(user.id, newRefreshToken);
+
+    return { accessToken: newAccessToken, refreshToken: newRefreshToken };
   }
 
   private async updateRefreshToken(userId: string, refreshToken: string) {
     await this.userService.update(userId, {
       refreshToken: await hash(refreshToken),
     });
-  }
-
-  private async generateTokens(
-    userId: string,
-    email: string,
-  ): Promise<CredentialsType> {
-    const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync(
-        {
-          sub: userId,
-          email,
-        },
-        {
-          secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
-          expiresIn: this.configService.get<string>(
-            'JWT_ACCESS_TOKEN_EXPIRATION',
-          ),
-        },
-      ),
-      this.jwtService.signAsync(
-        {
-          sub: userId,
-          email,
-        },
-        {
-          secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-          expiresIn: this.configService.get<string>(
-            'JWT_REFRESH_TOKEN_EXPIRATION',
-          ),
-        },
-      ),
-    ]);
-
-    return { accessToken, refreshToken };
   }
 }
