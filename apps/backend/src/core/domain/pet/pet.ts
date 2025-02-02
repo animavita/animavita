@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import PetSize, { PetSizeType } from './size/size';
 import PetGender, { PetGenderType } from './gender/gender';
 import PetType, { PetTypeType } from './type/type';
