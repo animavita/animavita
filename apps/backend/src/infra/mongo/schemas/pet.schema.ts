@@ -6,10 +6,8 @@ import {
   Types,
   Document,
 } from 'mongoose';
-import {
-  MongoLocation,
-  MongoUser,
-} from '../../../user/repositories/mongodb/user-mongo.schema';
+import { MongoUser } from './user.schema';
+import { MongoLocation } from './location.schema';
 
 @Schema({ timestamps: true, collection: 'pets' })
 export class MongoPet {
