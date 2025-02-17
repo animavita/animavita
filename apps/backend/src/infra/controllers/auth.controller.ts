@@ -17,7 +17,7 @@ import { User } from '../../decorators/user.decorator';
 import { AccessTokenGuard } from '../../guards/accessToken.guard';
 import { RefreshTokenGuard } from '../../guards/refreshToken.guard';
 import { JoiValidationPipe } from '../../pipes/joi-validation-pipe';
-import SignIn from '../../core/application/usecases/sign-in';
+import SignIn from '../../core/application/usecases/common/sign-in/sign-in';
 
 @Controller('api/v1/auth')
 export class AuthController {

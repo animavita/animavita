@@ -5,7 +5,7 @@ import { AccessTokenStrategy } from '../auth/strategies/accessToken.strategy';
 import { RefreshTokenStrategy } from '../auth/strategies/refreshToken.strategy';
 import { UserModule } from './user.module';
 import { AuthController } from '../infra/controllers/auth.controller';
-import SignIn from '../core/application/usecases/sign-in';
+import SignIn from '../core/application/usecases/common/sign-in/sign-in';
 import { PASSWORD_HASHER } from '../core/domain/services/hasher.service';
 import { Argon2Hasher } from '../auth/argon2-password-hasher';
 import { TOKEN_SERVICE } from '../core/application/services/token.service';

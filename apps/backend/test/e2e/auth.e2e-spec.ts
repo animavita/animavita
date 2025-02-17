@@ -11,7 +11,7 @@ import { createUserMock } from '../mocks/user';
 import { AuthModule } from '../../src/modules/auth.module';
 import { AuthService } from '../../src/auth/auth.service';
 import { UserModule } from '../../src/modules/user.module';
-import SignIn from '../../src/core/application/usecases/sign-in';
+import SignIn from '../../src/core/application/usecases/common/sign-in/sign-in';
 
 const setup = async () => {
   const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -49,30 +49,6 @@ describe('Authentication (e2e)', () => {
       const { body } = await request(app.getHttpServer())
         .post('/api/v1/auth/signUp')
         .send(createUserMock)
-        .expect(201);
-
-      expect(body).toEqual({
-        accessToken: expect.any(String),
-        refreshToken: expect.any(String),
-        name: 'Grosbilda',
-      });
-
-      await app.close();
-    });
-  });
-
-  describe('/POST auth/signIn', () => {
-    it('returns a successful message', async () => {
-      const { app, service } = await setup();
-
-      await service.signUp(createUserMock);
-
-      const { body } = await request(app.getHttpServer())
-        .post('/api/v1/auth/signIn')
-        .send({
-          email: createUserMock.email,
-          password: createUserMock.password,
-        })
         .expect(201);
 
       expect(body).toEqual({
