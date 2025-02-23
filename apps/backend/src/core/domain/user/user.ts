@@ -1,3 +1,4 @@
+import { Email } from '../email/email';
 import Location from '../location/location';
 import { HasherService } from '../services/hasher.service';
 
@@ -16,7 +17,7 @@ interface Attributes {
 export class User {
   readonly id: string;
   private _name: string;
-  private _email: string;
+  private _email: Email;
   private _hashedPassword: string;
   private _photoUri?: string;
   private _location: Location;
@@ -24,8 +25,9 @@ export class User {
   private constructor(attributes: Attributes) {
     this.id = attributes.id;
     this._name = attributes.name;
-    this._email = attributes.email;
+    this._email = Email.create(attributes.email);
     this._hashedPassword = attributes.password;
+    this._photoUri = attributes.photoUri;
     this._location = new Location(
       attributes.location.longitude,
       attributes.location.latitude,
@@ -37,7 +39,7 @@ export class User {
   }
 
   get email() {
-    return this._email;
+    return this._email.getValue();
   }
 
   get photoUri() {
@@ -45,7 +47,7 @@ export class User {
   }
 
   get location() {
-    return this._location;
+    return this._location.getValue();
   }
 
   verifyPassword(plainPassword: string, hasher: HasherService) {
