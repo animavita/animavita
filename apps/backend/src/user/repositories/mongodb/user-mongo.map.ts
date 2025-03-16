@@ -9,10 +9,12 @@ export const UserMap: MongoMapper<UserEntity, MongoUser> = {
     return new UserEntity({
       id: document._id.toString(),
       email: document.email,
-      location: {
-        longitude: document.location.coordinates[0],
-        latitude: document.location.coordinates[1],
-      },
+      location: document.location
+        ? {
+            longitude: document.location.coordinates[0],
+            latitude: document.location.coordinates[1],
+          }
+        : null,
       name: document.name,
       password: document.password,
       photoUri: document.photoUri,

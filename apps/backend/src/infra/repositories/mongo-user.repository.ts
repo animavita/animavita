@@ -21,10 +21,12 @@ export class MongoUserRepository implements UserRepository {
       password: document.password,
       name: document.name,
       photoUri: document.photoUri,
-      location: {
-        longitude: document.location.coordinates[0],
-        latitude: document.location.coordinates[1],
-      },
+      location: document.location
+        ? {
+            longitude: document.location.coordinates[0],
+            latitude: document.location.coordinates[1],
+          }
+        : undefined,
     });
   }
 }

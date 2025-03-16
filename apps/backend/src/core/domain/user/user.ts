@@ -8,7 +8,7 @@ interface Attributes {
   email: string;
   password: string;
   photoUri?: string;
-  location: {
+  location?: {
     latitude: number;
     longitude: number;
   };
@@ -20,7 +20,7 @@ export class User {
   private _email: Email;
   private _hashedPassword: string;
   private _photoUri?: string;
-  private _location: Location;
+  private _location?: Location;
 
   private constructor(attributes: Attributes) {
     this.id = attributes.id;
@@ -28,10 +28,13 @@ export class User {
     this._email = Email.create(attributes.email);
     this._hashedPassword = attributes.password;
     this._photoUri = attributes.photoUri;
-    this._location = new Location(
-      attributes.location.longitude,
-      attributes.location.latitude,
-    );
+
+    if (attributes.location) {
+      this._location = new Location(
+        attributes.location.longitude,
+        attributes.location.latitude,
+      );
+    }
   }
 
   get name() {
@@ -47,7 +50,7 @@ export class User {
   }
 
   get location() {
-    return this._location.getValue();
+    return this._location?.getValue();
   }
 
   verifyPassword(plainPassword: string, hasher: HasherService) {

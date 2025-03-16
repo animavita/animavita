@@ -5,7 +5,7 @@ export type SignUpRequest = {
   name: string;
   email: string;
   password: string;
-  location: Coordinates;
+  location?: Coordinates;
 };
 
 export type SignUpResponse = CredentialsType & {

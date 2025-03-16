@@ -1,4 +1,3 @@
-import { signUpValidationSchema } from '@animavita/validation-schemas';
 import {
   Body,
   ClassSerializerInterceptor,
@@ -7,7 +6,6 @@ import {
   Post,
   UseGuards,
   UseInterceptors,
-  UsePipes,
 } from '@nestjs/common';
 import { CreateUserRequest, SignInRequest } from '@animavita/types';
 import { AuthService } from '../../auth/auth.service';
@@ -16,7 +14,6 @@ import { RefreshPayload } from '../../auth/strategies/refreshToken.strategy';
 import { User } from '../../decorators/user.decorator';
 import { AccessTokenGuard } from '../../guards/accessToken.guard';
 import { RefreshTokenGuard } from '../../guards/refreshToken.guard';
-import { JoiValidationPipe } from '../../pipes/joi-validation-pipe';
 import SignIn from '../../core/application/usecases/common/sign-in/sign-in';
 
 @Controller('api/v1/auth')
@@ -27,7 +24,6 @@ export class AuthController {
   ) {}
 
   @Post('signUp')
-  @UsePipes(new JoiValidationPipe(signUpValidationSchema))
   async signUp(@Body() user: CreateUserRequest) {
     await this.authService.signUp(user);
     return await this.signIn.execute({

@@ -6,7 +6,7 @@ export type UserType = {
   name: string;
   email: string;
   password: string;
-  location: Coordinates;
+  location?: Coordinates;
   photoUri?: string;
   refreshToken?: CredentialsType["refreshToken"];
 };
