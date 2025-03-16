@@ -1,3 +1,4 @@
+import { Coordinates } from '@animavita/types';
 import { useMemo, useReducer } from 'react';
 
 import AuthReducer from './auth-provider.reducer';
@@ -20,6 +21,9 @@ const useAuthActions = (): UseAuthActions => {
       },
       signOut: async () => {
         dispatch({ type: 'SIGN_OUT' });
+      },
+      completeSignUp: (location: Coordinates) => {
+        dispatch({ type: 'SIGN_UP_COMPLETED', payload: { location } });
       },
     }),
     []

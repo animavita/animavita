@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 import { AuthContext, AuthProvider } from '.';
 
-import { getUser } from '@/helpers/secure-store';
+import { getUserCredentials } from '@/helpers/secure-store';
 
 jest.mock('@/helpers/secure-store', () => ({
   getUser: jest.fn(() => null),
@@ -63,7 +63,7 @@ describe('AuthProvider native', () => {
 
   describe('when the token is found', () => {
     it('logs the user in by storing their token', async () => {
-      (getUser as jest.Mock).mockReturnValue({
+      (getUserCredentials as jest.Mock).mockReturnValue({
         accessToken: '123-abc',
         refreshToken: 'abc-123',
         name: 'John',

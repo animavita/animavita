@@ -1,10 +1,9 @@
+import { CredentialsType } from '@animavita/types';
 import * as SecureStore from 'expo-secure-store';
-
-import { UserPayload } from '@/providers/auth-provider/auth-provider.types';
 
 type KeyType = string;
 
-const userKey = 'userInfo';
+const userCredentialsKey = 'userCredentials';
 
 const getValueFor = async <T>(key: KeyType): Promise<T | null> => {
   const value = await SecureStore.getItemAsync(key);
@@ -20,6 +19,6 @@ const save = async <T>(key: KeyType, value: T) => {
   return await SecureStore.setItemAsync(key, stringfiedValue);
 };
 
-export const getUser = () => getValueFor<UserPayload>(userKey);
-export const removeUser = () => removeValueFor(userKey);
-export const saveUser = (value: UserPayload) => save(userKey, value);
+export const getUserCredentials = () => getValueFor<CredentialsType>(userCredentialsKey);
+export const removeUserCredentials = () => removeValueFor(userCredentialsKey);
+export const saveUserCredentials = (value: CredentialsType) => save(userCredentialsKey, value);
