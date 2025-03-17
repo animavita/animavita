@@ -10,6 +10,7 @@ import { PASSWORD_HASHER } from '../core/domain/services/hasher.service';
 import { Argon2Hasher } from '../auth/argon2-password-hasher';
 import { TOKEN_SERVICE } from '../core/application/services/token.service';
 import { NestJwtTokenService } from '../auth/nest-jwt-token-service';
+import GetCurrentUserInfo from '../core/application/usecases/common/get-current-user-info/get-current-user-info';
 
 @Module({
   imports: [JwtModule.register({}), UserModule],
@@ -27,6 +28,7 @@ import { NestJwtTokenService } from '../auth/nest-jwt-token-service';
       useClass: NestJwtTokenService,
     },
     SignIn,
+    GetCurrentUserInfo,
   ],
 })
 export class AuthModule {}

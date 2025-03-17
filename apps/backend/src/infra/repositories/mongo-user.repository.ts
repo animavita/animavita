@@ -10,6 +10,26 @@ export class MongoUserRepository implements UserRepository {
     private readonly userModel: Model<UserDocument>,
   ) {}
 
+  async getById(id: string): Promise<User> {
+    const document = await this.userModel.findById(id);
+
+    if (!document) return null;
+
+    return User.create({
+      id: document.id,
+      email: document.email,
+      password: document.password,
+      name: document.name,
+      photoUri: document.photoUri,
+      location: document.location
+        ? {
+            longitude: document.location.coordinates[0],
+            latitude: document.location.coordinates[1],
+          }
+        : undefined,
+    });
+  }
+
   async getByEmail(email: string): Promise<User> {
     const document = await this.userModel.findOne({ email });
 

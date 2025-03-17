@@ -15,12 +15,14 @@ import { User } from '../../decorators/user.decorator';
 import { AccessTokenGuard } from '../../guards/accessToken.guard';
 import { RefreshTokenGuard } from '../../guards/refreshToken.guard';
 import SignIn from '../../core/application/usecases/common/sign-in/sign-in';
+import GetCurrentUserInfo from '../../core/application/usecases/common/get-current-user-info/get-current-user-info';
 
 @Controller('api/v1/auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly signIn: SignIn,
+    private readonly getCurrentUserInfo: GetCurrentUserInfo,
   ) {}
 
   @Post('signUp')
@@ -30,6 +32,12 @@ export class AuthController {
       email: user.email,
       password: user.password,
     });
+  }
+
+  @Get('me')
+  @UseGuards(AccessTokenGuard)
+  async me(@User() { sub }: JwtPayload) {
+    return await this.getCurrentUserInfo.execute(sub);
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
