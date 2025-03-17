@@ -8,6 +8,7 @@ import { KeyboardAvoidingView } from 'react-native';
 import AuthHeader from '@/components/auth-header';
 import { RHFInput } from '@/components/react-hook-form/native-base';
 import useLocale from '@/hooks/use-locale';
+import useUserRegister from '@/hooks/use-user-register';
 import { useNavigation } from '@/navigation/use-navigation';
 
 // making location optional since it's gonna be provided in another screen
@@ -19,7 +20,7 @@ type RegisterUserFormProps = {
 
 const Form = () => {
   const { t } = useLocale();
-  const { navigate } = useNavigation();
+  const { registerUser, isRegistering } = useUserRegister();
 
   const signupForm = useFormContext();
   const toast = useToast();
@@ -35,7 +36,7 @@ const Form = () => {
       return;
     }
 
-    navigate('GeoLocation', { user });
+    await registerUser(user);
   };
 
   return (
@@ -88,6 +89,7 @@ const Form = () => {
           onPress={() => {
             onConfirm(signupForm.getValues() as UserType);
           }}
+          isLoading={isRegistering}
         >
           {t('SIGN_UP.FORM.SIGN_UP_BUTTON')}
         </Button>

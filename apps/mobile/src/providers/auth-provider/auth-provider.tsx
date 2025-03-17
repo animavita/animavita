@@ -10,6 +10,7 @@ export const AuthContext = createContext<AuthContextType>({
   user: null,
   signIn: () => {},
   signOut: () => {},
+  completeSignUp: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {

@@ -32,11 +32,14 @@ const MainNavigator = () => {
 
   if (auth.status === 'IDLE') return <SplashScreen />;
 
+  const initialRouteName = !auth.user?.location ? 'GeoLocation' : 'Home';
+
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName="Home">
+      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         {auth.status === 'LOGGED' ? (
           <>
+            <Stack.Screen name="GeoLocation" component={GetLocationScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="RegisterPet" component={RegisterPet} />
             <Stack.Screen name="Profile" component={Profile} />
@@ -47,7 +50,6 @@ const MainNavigator = () => {
           <>
             <Stack.Screen name="SignIn" component={SignInScreen} />
             <Stack.Screen name="SignUp" component={SignUpScreen} />
-            <Stack.Screen name="GeoLocation" component={GetLocationScreen} />
           </>
         )}
       </Stack.Navigator>

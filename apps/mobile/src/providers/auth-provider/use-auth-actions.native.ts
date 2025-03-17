@@ -1,3 +1,4 @@
+import { Coordinates } from '@animavita/types';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useReducer } from 'react';
 
@@ -34,7 +35,14 @@ const useAuthActions = (): UseAuthActions => {
         if (tokens !== null) {
           persistUserToken(tokens.accessToken);
           const { data } = await userInfoQuery.refetch();
-          dispatch({ type: 'SIGN_IN', payload: { name: data?.data.name || '', ...tokens } });
+
+          if (!data) return;
+          const { name, location } = data.data;
+
+          dispatch({
+            type: 'SIGN_IN',
+            payload: { ...tokens, name, location },
+          });
         } else {
           dispatch({ type: 'SIGN_OUT' });
         }
@@ -58,6 +66,9 @@ const useAuthActions = (): UseAuthActions => {
       signOut: async () => {
         await removeUserCredentials();
         dispatch({ type: 'SIGN_OUT' });
+      },
+      completeSignUp: (location: Coordinates) => {
+        dispatch({ type: 'SIGN_UP_COMPLETED', payload: { location } });
       },
     }),
     []

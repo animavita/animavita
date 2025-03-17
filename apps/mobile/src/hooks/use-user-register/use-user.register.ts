@@ -4,24 +4,32 @@ import { AxiosError } from 'axios';
 
 import { useAuth } from '../use-auth-provider';
 
-import { signUp } from '@/services/sign-up';
+import { useNavigation } from '@/navigation/use-navigation';
+import { completeSignUp, signUp } from '@/services/sign-up';
 
 const useUserRegister = () => {
   const auth = useAuth();
+  const { navigate } = useNavigation();
 
   const mutation = useMutation({
     mutationFn: signUp,
   });
 
-  const registerUser = async (
-    user: Pick<UserType, 'name' | 'email' | 'password'>,
-    coords: Coordinates
-  ) => {
-    const newUser = { ...user, location: coords };
-    const response = await mutation.mutateAsync(newUser);
+  const completeSignUpMutation = useMutation({
+    mutationFn: completeSignUp,
+    onSuccess: () => navigate('Home'),
+  });
+
+  const registerUser = async (user: Pick<UserType, 'name' | 'email' | 'password'>) => {
+    const response = await mutation.mutateAsync(user);
     const credentials = response.data;
 
     auth.signIn(credentials);
+  };
+
+  const complete = async (coordinates: Coordinates) => {
+    const response = await completeSignUpMutation.mutateAsync({ location: coordinates });
+    auth.completeSignUp(response.data.location);
   };
 
   const networkErrorMessage = (mutation.error as AxiosError<{ message: string }>)?.response?.data
@@ -32,6 +40,7 @@ const useUserRegister = () => {
   return {
     registerUser,
     isRegistering: mutation.isLoading,
+    complete,
     error,
   };
 };
