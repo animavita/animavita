@@ -7,7 +7,11 @@ import {
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
-import { CreateUserRequest, SignInRequest } from '@animavita/types';
+import {
+  Coordinates,
+  CreateUserRequest,
+  SignInRequest,
+} from '@animavita/types';
 import { AuthService } from '../../auth/auth.service';
 import { JwtPayload } from '../../auth/strategies/accessToken.strategy';
 import { RefreshPayload } from '../../auth/strategies/refreshToken.strategy';
@@ -15,6 +19,7 @@ import { User } from '../../decorators/user.decorator';
 import { AccessTokenGuard } from '../../guards/accessToken.guard';
 import { RefreshTokenGuard } from '../../guards/refreshToken.guard';
 import SignIn from '../../core/application/usecases/common/sign-in/sign-in';
+import CompleteSignUp from '../../core/application/usecases/common/complete-sign-up/complete-sign-up';
 import GetCurrentUserInfo from '../../core/application/usecases/common/get-current-user-info/get-current-user-info';
 
 @Controller('api/v1/auth')
@@ -23,6 +28,7 @@ export class AuthController {
     private readonly authService: AuthService,
     private readonly signIn: SignIn,
     private readonly getCurrentUserInfo: GetCurrentUserInfo,
+    private readonly completeSignUp: CompleteSignUp,
   ) {}
 
   @Post('signUp')
@@ -38,6 +44,17 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   async me(@User() { sub }: JwtPayload) {
     return await this.getCurrentUserInfo.execute(sub);
+  }
+
+  @Post('completeSignUp')
+  @UseGuards(AccessTokenGuard)
+  async completeRegister(
+    @Body() data: { location?: Coordinates },
+    @User() { sub }: JwtPayload,
+  ) {
+    return await this.completeSignUp.execute(sub, {
+      location: data.location,
+    });
   }
 
   @UseInterceptors(ClassSerializerInterceptor)

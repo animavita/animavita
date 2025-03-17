@@ -49,4 +49,19 @@ export class MongoUserRepository implements UserRepository {
         : undefined,
     });
   }
+
+  async store(user: User): Promise<void> {
+    await this.userModel.findOneAndUpdate(
+      { _id: user.id },
+      {
+        $set: {
+          location: {
+            type: 'Point',
+            coordinates: [user.location.longitude, user.location.latitude],
+          },
+        },
+      },
+      { new: true },
+    );
+  }
 }

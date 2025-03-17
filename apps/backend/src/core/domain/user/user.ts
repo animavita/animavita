@@ -2,7 +2,7 @@ import { Email } from '../email/email';
 import Location from '../location/location';
 import { HasherService } from '../services/hasher.service';
 
-interface Attributes {
+export interface Attributes {
   id: string;
   name: string;
   email: string;
@@ -30,10 +30,7 @@ export class User {
     this._photoUri = attributes.photoUri;
 
     if (attributes.location) {
-      this._location = new Location(
-        attributes.location.longitude,
-        attributes.location.latitude,
-      );
+      this.setLocation(attributes.location);
     }
   }
 
@@ -55,6 +52,10 @@ export class User {
 
   verifyPassword(plainPassword: string, hasher: HasherService) {
     return hasher.compare(plainPassword, this._hashedPassword);
+  }
+
+  setLocation(location: Attributes['location']) {
+    this._location = new Location(location.longitude, location.latitude);
   }
 
   static create(attributes: Attributes) {
