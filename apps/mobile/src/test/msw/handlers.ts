@@ -24,4 +24,14 @@ export const handlers = [
       name: 'John Due',
     });
   }),
+
+  http.get('*/api/v1/auth/me', () => {
+    return HttpResponse.json({
+      name: 'John',
+    });
+  }),
+
+  http.post('*/api/v1/auth/signUp', () => {
+    return HttpResponse.json({ accessToken: '123', refreshToken: 'abc', name: 'John' });
+  }),
 ];

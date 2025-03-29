@@ -4,20 +4,20 @@ import useAuthActions from './use-auth-actions.native';
 
 import * as SecureStoreHelpers from '@/helpers/secure-store';
 import * as SignIn from '@/services/sign-in';
+import { QueryClientWrapper } from '@/test/test-utils';
 
 describe('useAuthActions', () => {
   beforeEach(jest.clearAllMocks);
 
   it('persists the user token', async () => {
-    jest.spyOn(SecureStoreHelpers, 'getUser').mockResolvedValueOnce({
+    jest.spyOn(SecureStoreHelpers, 'getUserCredentials').mockResolvedValueOnce({
       accessToken: '189-xyz',
       refreshToken: 'abc-123',
-      name: 'John Due',
     });
 
     jest.spyOn(SignIn, 'persistUserToken');
 
-    const { result } = renderHook(useAuthActions);
+    const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
 
     await act(async () => expect(result.current.state).toBeDefined());
 
@@ -28,9 +28,9 @@ describe('useAuthActions', () => {
   describe('when calling the signIn method', () => {
     it('persists the user token', async () => {
       jest.spyOn(SignIn, 'persistUserToken');
-      jest.spyOn(SecureStoreHelpers, 'getUser');
+      jest.spyOn(SecureStoreHelpers, 'getUserCredentials');
 
-      const { result } = renderHook(useAuthActions);
+      const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
 
       await act(async () => {
         await result.current.authActions.signIn({

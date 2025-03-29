@@ -30,15 +30,19 @@ const queryClient = new QueryClient({
   },
 });
 
+export const QueryClientWrapper = ({ children }: { children: React.ReactElement }) => (
+  <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+);
+
 const renderWithProviders = (children: React.ReactElement) => {
   return render(
-    <QueryClientProvider client={queryClient}>
+    <QueryClientWrapper>
       <NavigationContainer>
         <NativeBaseProvider theme={theme} initialWindowMetrics={inset}>
           <I18nextProvider i18n={initI18n('pt-BR')}>{children}</I18nextProvider>
         </NativeBaseProvider>
       </NavigationContainer>
-    </QueryClientProvider>
+    </QueryClientWrapper>
   );
 };
 
