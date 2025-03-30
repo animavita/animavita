@@ -12,6 +12,7 @@ import useLocale from '@/hooks/use-locale';
 import useProfile from '@/hooks/use-profile';
 import useGeolocation, { Warnings } from '@/hooks/use-user-location/use-user-location';
 import useUserRegister from '@/hooks/use-user-register/use-user.register';
+import { useNavigation } from '@/navigation/use-navigation';
 import theme from '@/theme';
 
 const errorAlert = (msg: string, onPress: () => void, text?: string) =>
@@ -29,10 +30,15 @@ const GetLocation = () => {
   const { isRegistering, error, complete } = useUserRegister();
   const toast = useToast();
   const { t } = useLocale();
+  const { navigate } = useNavigation();
 
   const onConfirmLocation = async () => {
     if (!coords) throw new Error('Coordinates not defined!');
     await complete(coords);
+  };
+
+  const onSkipLocation = () => {
+    navigate('Home');
   };
 
   useEffect(() => {
@@ -81,6 +87,7 @@ const GetLocation = () => {
           onPress={getLocation}
           onConfirm={onConfirmLocation}
           hasLocation={!!address}
+          onSkip={onSkipLocation}
         >
           <Text color={theme.colors.gray[400]}>{t('SHARE_LOCATION.WHERE')}</Text>
           <Text my={2} fontSize={20} fontWeight="extrabold">

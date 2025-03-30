@@ -7,6 +7,7 @@ type ButtonGroupProps = {
   hasLocation: boolean;
   onPress: () => void;
   onConfirm: () => void;
+  onSkip: () => void;
   children: React.ReactNode;
 };
 
@@ -15,15 +16,22 @@ export const ActionButtonsGroup = ({
   hasLocation,
   onPress,
   onConfirm,
+  onSkip,
   children,
 }: ButtonGroupProps) => {
   const { t } = useLocale();
 
   if (!isLoading && !hasLocation)
     return (
-      <Button variant="solid" onPress={onPress}>
-        {t('SHARE_LOCATION.GET_LOCATION')}
-      </Button>
+      <>
+        <Button variant="solid" onPress={onPress}>
+          {t('SHARE_LOCATION.GET_LOCATION')}
+        </Button>
+
+        <Button variant="link" onPress={onSkip}>
+          {t('SHARE_LOCATION.SKIP')}
+        </Button>
+      </>
     );
 
   if (isLoading && !hasLocation) return <Spinner />;
