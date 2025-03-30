@@ -36,7 +36,11 @@ const useAuthActions = (): UseAuthActions => {
           persistUserToken(tokens.accessToken);
           const { data } = await userInfoQuery.refetch();
 
-          if (!data) return;
+          if (!data) {
+            await authActions.signOut();
+            return;
+          }
+
           const { name, location } = data.data;
 
           dispatch({
