@@ -15,7 +15,7 @@ RUN pnpm -r build
 
 FROM build as pruned
 WORKDIR /app
-RUN pnpm --filter backend deploy pruned
+RUN pnpm --filter backend deploy pruned --legacy
 
 FROM base as development
 WORKDIR /app
