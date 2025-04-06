@@ -3,10 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "",
-  "main": "dist/src/index.js",
-  "scripts": {
-    "build": "tsc"
-  },
+  "main": "src/index.ts",
   "keywords": [],
   "author": "",
   "license": "ISC",

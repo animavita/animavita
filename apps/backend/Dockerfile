@@ -6,11 +6,9 @@ WORKDIR /app
 COPY . .
 RUN pnpm install
 
-FROM dependencies as build
-RUN pnpm -r build
-
-FROM build as pruned
+FROM dependencies as pruned
 WORKDIR /app
+RUN pnpm --filter backend build
 RUN pnpm --filter backend deploy pruned
 
 FROM base as development
