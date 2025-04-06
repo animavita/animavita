@@ -6,11 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "pnpm --filter backend",
-    "mobile": "pnpm --filter mobile",
-    "validation:build": "pnpm --filter validation-schemas run build",
-    "shared:watch": "nx watch --projects=@animavita/validation-schemas -- pnpm run validation:build",
-    "shared:setup": "pnpm --filter \"./shared/**\" run build",
-    "postinstall": "pnpm shared:setup"
+    "mobile": "pnpm --filter mobile"
   },
   "keywords": [],
   "author": "Gabriel Belgamo",

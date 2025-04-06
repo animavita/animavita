@@ -28,12 +28,6 @@ Install dependencies:
 $ pnpm install
 ```
 
-In order to reflect the changes made in the shared packages to the mobile app, you must run:
-
-```sh
-$ pnpm shared:watch
-```
-
 [Click here if you want to work only on the mobile app](#developing-with-staging-backend)
 
 ### Running the infra & backend with docker
@@ -42,12 +36,6 @@ We have a `docker-compose` file that sets up a mongodb database and the backend 
 
 ```sh
 $ docker-compose up -d
-```
-
-We're caching the `node_modules` folder to leverage cross-platform compatibility. So the first time the container is up, an anonymous volume gets created for the dependencies. With that said, whenever you change the shared packages or install a new dependency, you must rebuild the docker image telling docker to **NOT** use the existing volume from the previous container:
-
-```sh
-$ docker-compose up --build --force-recreate -V
 ```
 
 ### Running without docker
