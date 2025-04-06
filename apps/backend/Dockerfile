@@ -8,8 +8,9 @@ RUN npm i -g pnpm@9.15.9
 
 FROM base AS dependencies
 WORKDIR /app
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 COPY . .
-RUN pnpm install
 
 FROM dependencies as pruned
 WORKDIR /app
