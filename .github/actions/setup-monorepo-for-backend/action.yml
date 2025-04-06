@@ -8,7 +8,7 @@ inputs:
 
   pnpm-version:
     description: Version of pnpm to use
-    default: 7.x
+    default: 9.15.9
 
   eas-version:
     description: Version of EAS CLI to use
@@ -35,10 +35,6 @@ runs:
       with:
         node-version: ${{ inputs.node-version }}
         cache: pnpm
-
-    - name: 📦 Replace .npmrc
-      run: rm .npmrc && mv .npmrc-default-node-linker .npmrc
-      shell: bash
 
     - name: 📦 Install dependencies
       run: pnpm install
