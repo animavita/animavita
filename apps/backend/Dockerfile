@@ -3,8 +3,10 @@ RUN npm i -g pnpm@9.15.9
 
 FROM base AS dependencies
 WORKDIR /app
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+COPY apps/backend/package.json ./apps/backend/
+RUN pnpm install --frozen-lockfile
 COPY . .
-RUN pnpm install
 
 FROM dependencies as pruned
 WORKDIR /app
