@@ -17,6 +17,9 @@ importers:
       '@animavita/types':
         specifier: workspace:*
         version: link:../../shared/types
+      '@animavita/validation-schemas':
+        specifier: workspace:*
+        version: link:../../shared/validation-schemas
       '@nestjs/common':
         specifier: ^9.0.0
         version: 9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7)
@@ -34,7 +37,7 @@ importers:
         version: 1.2.0(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(class-transformer@0.5.1)(reflect-metadata@0.1.13)
       '@nestjs/mongoose':
         specifier: ^9.2.0
-        version: 9.2.0(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6)(mongoose@6.11.4)(reflect-metadata@0.1.13)(rxjs@7.5.7)
+        version: 9.2.0(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6)(reflect-metadata@0.1.13)(rxjs@7.5.7))(mongoose@6.11.4)(reflect-metadata@0.1.13)(rxjs@7.5.7)
       '@nestjs/passport':
         specifier: ^9.0.0
         version: 9.0.0(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(passport@0.6.0)
@@ -80,7 +83,7 @@ importers:
         version: 9.0.3(chokidar@3.5.3)(typescript@4.8.4)
       '@nestjs/testing':
         specifier: ^9.0.0
-        version: 9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6)(@nestjs/platform-express@9.1.6)
+        version: 9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6))
       '@types/express':
         specifier: ^4.17.13
         version: 4.17.14
@@ -1670,7 +1673,6 @@ packages:
   '@faker-js/faker@8.1.0':
     resolution: {integrity: sha512-38DT60rumHfBYynif3lmtxMqMqmsOQIxQgEuPZxCk2yUYN0eqWpTACgxi0VpidvsJB8CRxCpvP7B3anK85FjtQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0, npm: '>=6.14.13'}
-    deprecated: Please update to a newer version
 
   '@formatjs/ecma402-abstract@1.14.3':
     resolution: {integrity: sha512-SlsbRC/RX+/zg4AApWIFNDdkLtFbkq3LNoZWXZCE/nHVKqoIJyaoQyge/I0Y38vLxowUn9KTtXgusLD91+orbg==}
@@ -6153,7 +6155,6 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
-    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.has@4.5.2:
     resolution: {integrity: sha512-rnYUdIo6xRCJnQmbVFEwcxF144erlD+M3YcJUVesflU9paQaE8p+fJDcIQrlMYbxoANFL+AB9hZrzSBBk5PL+g==}
@@ -6169,7 +6170,6 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
-    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.isinteger@4.0.4:
     resolution: {integrity: sha512-DBwtEWN2caHQ9/imiNeEA5ys1JoRtRfY3d7V9wkqtbycnAmTvRRmbHKDV4a0EYc678/dia0jrte4tjYwVBaZUA==}
@@ -6197,7 +6197,6 @@ packages:
 
   lodash.omit@4.5.0:
     resolution: {integrity: sha512-XeqSp49hNGmlkj2EJlfrQFIzQ6lXdNro9sddtQzcJY8QaoC2GO0DT7xaIokHeyM+mIT0mPMlPvkYzg2xCuHdZg==}
-    deprecated: This package is deprecated. Use destructuring assignment syntax instead.
 
   lodash.omitby@4.6.0:
     resolution: {integrity: sha512-5OrRcIVR75M288p4nbI2WLAf3ndw2GD9fyNv3Bc15+WCxJDdZ4lYndSxGd7hnG6PVjiJTeJE2dHEGhIuKGicIQ==}
@@ -6207,7 +6206,6 @@ packages:
 
   lodash.pick@4.4.0:
     resolution: {integrity: sha512-hXt6Ul/5yWjfklSGvLQl8vM//l3FtyHZeuelpzK6mm99pNvN9yTDruNZPEJZD1oWrqo+izBmB7oUfWgcCX7s4Q==}
-    deprecated: This package is deprecated. Use destructuring assignment syntax instead.
 
   lodash.throttle@4.1.1:
     resolution: {integrity: sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==}
@@ -11749,7 +11747,7 @@ snapshots:
     optionalDependencies:
       class-transformer: 0.5.1
 
-  '@nestjs/mongoose@9.2.0(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6)(mongoose@6.11.4)(reflect-metadata@0.1.13)(rxjs@7.5.7)':
+  '@nestjs/mongoose@9.2.0(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6)(reflect-metadata@0.1.13)(rxjs@7.5.7))(mongoose@6.11.4)(reflect-metadata@0.1.13)(rxjs@7.5.7)':
     dependencies:
       '@nestjs/common': 9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7)
       '@nestjs/core': 9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6)(reflect-metadata@0.1.13)(rxjs@7.5.7)
@@ -11796,7 +11794,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@nestjs/testing@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6)(@nestjs/platform-express@9.1.6)':
+  '@nestjs/testing@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/core@9.1.6))':
     dependencies:
       '@nestjs/common': 9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7)
       '@nestjs/core': 9.1.6(@nestjs/common@9.1.6(class-transformer@0.5.1)(reflect-metadata@0.1.13)(rxjs@7.5.7))(@nestjs/platform-express@9.1.6)(reflect-metadata@0.1.13)(rxjs@7.5.7)
