@@ -10,6 +10,7 @@ export const userFactory = Factory.define<UserType>(({ params }) => {
     name,
     email: params.email || faker.internet.email({ firstName: name }),
     password: params.password || faker.internet.password(),
+    phoneNumber: params.phoneNumber || faker.phone.number(),
     location: {
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),

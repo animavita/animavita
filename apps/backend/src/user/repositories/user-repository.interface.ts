@@ -8,6 +8,8 @@ export class UserEntity {
   @Exclude()
   password: string;
 
+  phoneNumber?: string;
+
   location?: {
     longitude: number;
     latitude: number;
