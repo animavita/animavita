@@ -10,7 +10,7 @@ concurrency:
 
 jobs:
   run-e2e:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     env:
       JWT_ACCESS_SECRET: ntxrNROULC23kz95igkbulmxuRQhnLYe9tt46Fk2mTs=
       JWT_ACCESS_TOKEN_EXPIRATION: 5m
