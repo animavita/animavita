@@ -7,6 +7,7 @@ export interface Attributes {
   name: string;
   email: string;
   password: string;
+  phoneNumber?: string;
   photoUri?: string;
   location?: {
     latitude: number;
@@ -19,6 +20,7 @@ export class User {
   private _name: string;
   private _email: Email;
   private _hashedPassword: string;
+  private _phoneNumber?: string;
   private _photoUri?: string;
   private _location?: Location;
 
@@ -27,6 +29,7 @@ export class User {
     this._name = attributes.name;
     this._email = Email.create(attributes.email);
     this._hashedPassword = attributes.password;
+    this._phoneNumber = attributes.phoneNumber;
     this._photoUri = attributes.photoUri;
 
     if (attributes.location) {
@@ -40,6 +43,10 @@ export class User {
 
   get email() {
     return this._email.getValue();
+  }
+
+  get phoneNumber() {
+    return this._phoneNumber;
   }
 
   get photoUri() {

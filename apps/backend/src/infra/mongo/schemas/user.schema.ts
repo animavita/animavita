@@ -14,6 +14,9 @@ export class MongoUser {
   password: string;
 
   @Prop()
+  phoneNumber: string;
+
+  @Prop()
   location: MongoLocation;
 
   @Prop()

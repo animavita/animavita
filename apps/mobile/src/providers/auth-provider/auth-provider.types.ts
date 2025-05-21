@@ -1,6 +1,6 @@
 import { UserType, CredentialsType, Coordinates } from '@animavita/types';
 
-type UserInfo = Pick<UserType, 'name' | 'location'>;
+type UserInfo = Pick<UserType, 'name' | 'location' | 'phoneNumber'>;
 
 export type UserPayload = CredentialsType & UserInfo;
 

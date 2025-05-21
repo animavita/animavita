@@ -8,6 +8,7 @@ const attributes = {
   email: faker.internet.email(),
   password: faker.internet.password(),
   photoUri: faker.internet.avatar(),
+  phoneNumber: faker.phone.number(),
   location: {
     latitude: faker.location.latitude(),
     longitude: faker.location.longitude(),
@@ -22,6 +23,7 @@ describe('User Entity', () => {
     expect(user.name).toBe(attributes.name);
     expect(user.email).toBe(attributes.email);
     expect(user.photoUri).toBe(attributes.photoUri);
+    expect(user.phoneNumber).toBe(attributes.phoneNumber);
     expect(user.location).toStrictEqual(attributes.location);
   });
 

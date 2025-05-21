@@ -16,6 +16,7 @@ export default class GetCurrentUserInfo {
     return {
       name: user.name,
       location: user.location,
+      phoneNumber: user.phoneNumber,
     };
   }
 }
@@ -26,4 +27,5 @@ export type Output = {
     latitude: number;
     longitude: number;
   };
+  phoneNumber?: string;
 };

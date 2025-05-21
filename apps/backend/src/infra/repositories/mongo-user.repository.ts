@@ -20,6 +20,7 @@ export class MongoUserRepository implements UserRepository {
       email: document.email,
       password: document.password,
       name: document.name,
+      phoneNumber: document.phoneNumber,
       photoUri: document.photoUri,
       location: document.location
         ? {
@@ -40,6 +41,7 @@ export class MongoUserRepository implements UserRepository {
       email: document.email,
       password: document.password,
       name: document.name,
+      phoneNumber: document.phoneNumber,
       photoUri: document.photoUri,
       location: document.location
         ? {
@@ -55,6 +57,7 @@ export class MongoUserRepository implements UserRepository {
       { _id: user.id },
       {
         $set: {
+          phoneNumber: user.phoneNumber,
           location: {
             type: 'Point',
             coordinates: [user.location.longitude, user.location.latitude],
