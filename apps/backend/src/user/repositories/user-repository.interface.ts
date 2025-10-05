@@ -9,6 +9,7 @@ export class UserEntity {
   password: string;
 
   phoneNumber?: string;
+  role?: string;
 
   location?: {
     longitude: number;

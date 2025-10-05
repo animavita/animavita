@@ -8,23 +8,25 @@ import { UserService } from '../../../../../user/user.service';
 import PostPetForAdoption from '../../owner/post-pet-for-adoption/post-pet-for-adoption';
 import FindNearestPets from '../../adopter/find-nearest-pets/find-nearest-pets';
 import { adoptionFactory as petFactory } from '../../../../../../test/factories/adoption';
-import { userEntityFactory } from '../../../../../../test/factories/user';
+import { userFactory } from '../../../../../../test/factories/user';
+import CompleteSignUp from '../../common/complete-sign-up/complete-sign-up';
+import { UserType } from '@animavita/types';
 
-const owner1 = userEntityFactory.build({
+const owner1 = userFactory.build({
   location: {
     // times square
     longitude: -73.98911,
     latitude: 40.75783,
   },
 });
-const adopter = userEntityFactory.build({
+const adopter = userFactory.build({
   location: {
     // 8th Ave
     longitude: -73.98956,
     latitude: 40.75751,
   },
 });
-const owner2 = userEntityFactory.build({
+const owner2 = userFactory.build({
   location: {
     // 3d ave
     longitude: -73.97288,
@@ -37,18 +39,32 @@ describe('FindNearestPets', () => {
   let app: INestApplication;
   let postPetForAdoption: PostPetForAdoption;
   let findNearestPets: FindNearestPets;
+  let completeSignUp: CompleteSignUp;
   let userService: UserService;
+
+  const createOwner = async (user: UserType) => {
+    const created = await userService.create(user);
+    await completeSignUp.execute(created.id, {
+      role: 'owner',
+    });
+  };
 
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       imports: [TestMongoDataServicesModule],
-      providers: [UserService, PostPetForAdoption, FindNearestPets],
+      providers: [
+        UserService,
+        PostPetForAdoption,
+        FindNearestPets,
+        CompleteSignUp,
+      ],
     }).compile();
 
     app = fixture.createNestApplication();
     userService = fixture.get<UserService>(UserService);
     postPetForAdoption = fixture.get<PostPetForAdoption>(PostPetForAdoption);
     findNearestPets = fixture.get<FindNearestPets>(FindNearestPets);
+    completeSignUp = fixture.get<CompleteSignUp>(CompleteSignUp);
 
     await app.init();
   });
@@ -59,8 +75,8 @@ describe('FindNearestPets', () => {
     const availablePet3 = petFactory.build();
 
     beforeEach(async () => {
-      await userService.create(owner1);
-      await userService.create(owner2);
+      await createOwner(owner1);
+      await createOwner(owner2);
       await userService.create(adopter);
 
       await postPetForAdoption.execute(availablePet1, owner1.email);

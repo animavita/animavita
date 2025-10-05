@@ -6,7 +6,7 @@ import { UserService } from '../../../../../user/user.service';
 import { UserRepository } from '../../../../../user/repositories/user-repository.interface';
 import { UnauthorizedError } from '../../../../domain/errors/unauthorized.error';
 import { NotFoundError } from '../../../../domain/errors/not-found.error';
-import type { Input as UpdatablePetData } from '../post-pet-for-adoption/post-pet-for-adoption';
+import type { PostPetForAdoptionInput as UpdatablePetData } from '../post-pet-for-adoption/post-pet-for-adoption';
 
 type Input = Partial<UpdatablePetData> & {
   id: string;

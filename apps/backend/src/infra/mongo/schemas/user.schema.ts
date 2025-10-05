@@ -17,6 +17,9 @@ export class MongoUser {
   phoneNumber: string;
 
   @Prop()
+  role: string;
+
+  @Prop()
   location: MongoLocation;
 
   @Prop()

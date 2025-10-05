@@ -49,11 +49,12 @@ export class AuthController {
   @Post('completeSignUp')
   @UseGuards(AccessTokenGuard)
   async completeRegister(
-    @Body() data: { location?: Coordinates },
+    @Body() data: { location?: Coordinates; role: string },
     @User() { sub }: JwtPayload,
   ) {
     return await this.completeSignUp.execute(sub, {
       location: data.location,
+      role: data.role,
     });
   }
 

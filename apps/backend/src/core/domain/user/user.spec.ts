@@ -1,18 +1,17 @@
 import { faker } from '@faker-js/faker';
 import { User } from './user';
 import { HasherService } from '../services/hasher.service';
+import { Email } from '../email/email';
+import Location from '../location/location';
 
 const attributes = {
   id: faker.string.uuid(),
   name: faker.person.firstName(),
-  email: faker.internet.email(),
+  email: Email.create(faker.internet.email()),
   password: faker.internet.password(),
   photoUri: faker.internet.avatar(),
   phoneNumber: faker.phone.number(),
-  location: {
-    latitude: faker.location.latitude(),
-    longitude: faker.location.longitude(),
-  },
+  location: new Location(faker.location.longitude(), faker.location.latitude()),
 };
 
 describe('User Entity', () => {
@@ -21,10 +20,10 @@ describe('User Entity', () => {
 
     expect(user.id).toBe(attributes.id);
     expect(user.name).toBe(attributes.name);
-    expect(user.email).toBe(attributes.email);
+    expect(user.email).toBe(attributes.email.getValue());
     expect(user.photoUri).toBe(attributes.photoUri);
     expect(user.phoneNumber).toBe(attributes.phoneNumber);
-    expect(user.location).toStrictEqual(attributes.location);
+    expect(user.location).toStrictEqual(attributes.location.getValue());
   });
 
   describe('verifyPassword', () => {
