@@ -13,6 +13,7 @@ export const userValidationSchema = Joi.object({
   phoneNumber: Joi.string().pattern(/^\+?[1-9]\d{1,14}$/).messages({
     'string.pattern.base': 'Phone number must be a valid format'
   }),
+  role: Joi.string().valid('adopter', 'owner'),
   location: coordinates,
   photoUri: Joi.string(),
 });

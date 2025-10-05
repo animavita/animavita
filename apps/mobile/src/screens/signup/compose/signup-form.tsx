@@ -1,7 +1,7 @@
 import { UserType } from '@animavita/types';
 import { signUpValidationSchema } from '@animavita/validation-schemas';
 import { joiResolver } from '@hookform/resolvers/joi';
-import { Button, FormControl, Stack, useToast } from 'native-base';
+import { Button, FormControl, Stack, useToast, Radio } from 'native-base';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { KeyboardAvoidingView } from 'react-native';
 
@@ -82,6 +82,24 @@ const Form = () => {
         name="phoneNumber"
         label={t('SIGN_UP.FORM.PHONE_INPUT')}
       />
+
+      <FormControl isRequired>
+        <FormControl.Label>{t('SIGN_UP.FORM.ROLE_LABEL')}</FormControl.Label>
+        <Radio.Group 
+          name="role" 
+          value={signupForm.watch('role')}
+          onChange={(value) => signupForm.setValue('role', value as 'adopter' | 'owner')}
+        >
+          <Stack space={2}>
+            <Radio value="adopter" testID="signup-form-role-adopter">
+              {t('SIGN_UP.FORM.ROLE_ADOPTER')}
+            </Radio>
+            <Radio value="owner" testID="signup-form-role-owner">
+              {t('SIGN_UP.FORM.ROLE_OWNER')}
+            </Radio>
+          </Stack>
+        </Radio.Group>
+      </FormControl>
 
       <RHFInput
         input={{

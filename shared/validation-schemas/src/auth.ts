@@ -2,7 +2,7 @@ import { userValidationSchema } from "./user";
 
 export const signUpValidationSchema = userValidationSchema
   .fork(["id"], (schema) => schema.forbidden())
-  .fork(["name", "email", "password", "phoneNumber", "location"], (schema) =>
+  .fork(["name", "email", "password", "phoneNumber", "role", "location"], (schema) =>
     schema.required()
   );
 

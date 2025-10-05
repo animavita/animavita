@@ -34,7 +34,7 @@ const GetLocation = () => {
 
   const onConfirmLocation = async () => {
     if (!coords) throw new Error('Coordinates not defined!');
-    await complete({ coordinates: coords });
+    await complete(coords);
   };
 
   const onSkipLocation = () => {

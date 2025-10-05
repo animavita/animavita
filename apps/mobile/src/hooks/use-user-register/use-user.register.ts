@@ -20,21 +20,16 @@ const useUserRegister = () => {
     onSuccess: () => navigate('Home'),
   });
 
-  const registerUser = async (user: Pick<UserType, 'name' | 'email' | 'password' | 'phoneNumber'>) => {
+  const registerUser = async (user: Pick<UserType, 'name' | 'email' | 'password' | 'phoneNumber' | 'role'>) => {
     const response = await mutation.mutateAsync(user);
     const credentials = response.data;
 
     auth.signIn(credentials);
   };
 
-  const complete = async (data: { coordinates?: Coordinates; role?: string }) => {
-    const response = await completeSignUpMutation.mutateAsync({ 
-      location: data.coordinates, 
-      role: data.role 
-    });
-    if (data.coordinates) {
-      auth.completeSignUp(response.data.location);
-    }
+  const complete = async (coordinates: Coordinates) => {
+    const response = await completeSignUpMutation.mutateAsync({ location: coordinates });
+    auth.completeSignUp(response.data.location);
   };
 
   const networkErrorMessage = (mutation.error as AxiosError<{ message: string }>)?.response?.data

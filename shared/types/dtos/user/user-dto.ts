@@ -7,6 +7,7 @@ export type UserType = {
   email: string;
   password: string;
   phoneNumber: string;
+  role: 'adopter' | 'owner';
   location?: Coordinates;
   photoUri?: string;
   refreshToken?: CredentialsType["refreshToken"];
