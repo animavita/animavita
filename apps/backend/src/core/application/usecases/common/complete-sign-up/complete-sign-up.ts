@@ -2,10 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import UserRepository, {
   USER_REPOSITORY,
 } from '../../../repositories/user.repository';
-import { Attributes } from '../../../../domain/user/user';
+import Location from '../../../../domain/location/location';
 
 type Input = {
-  location?: Attributes['location'];
+  location?: {
+    latitude: number;
+    longitude: number;
+  };
   role?: string;
 };
 
@@ -17,7 +20,13 @@ export default class CompleteSignUp {
 
   async execute(userId: string, input: Input): Promise<Output> {
     const user = await this.userRepository.getById(userId);
-    if (input.location) user.setLocation(input.location);
+    if (input.location) {
+      const location = new Location(
+        input.location.longitude,
+        input.location.latitude,
+      );
+      user.setLocation(location);
+    }
     if (input.role) user.assignRole(input.role);
     await this.userRepository.store(user);
 

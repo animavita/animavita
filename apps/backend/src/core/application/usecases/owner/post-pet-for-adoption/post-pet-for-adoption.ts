@@ -6,6 +6,7 @@ import PetRepository, {
 import UserRepository, {
   USER_REPOSITORY,
 } from '../../../repositories/user.repository';
+import { NotFoundError, UnauthorizedError } from '../../../../domain/errors';
 
 export type PostPetForAdoptionInput = {
   name: string;
@@ -29,11 +30,13 @@ export default class PostPetForAdoption {
     const user = await this.userRepository.getByEmail(ownerEmail);
 
     if (!user) {
-      throw new Error('User not found');
+      throw new NotFoundError('User not found');
     }
 
     if (!user.isOwner) {
-      throw new Error('User is not authorized to post a pet for adoption');
+      throw new UnauthorizedError(
+        'User is not authorized to post a pet for adoption',
+      );
     }
 
     const owner = user;

@@ -7,15 +7,12 @@ export type Role = 'admin' | 'adopter' | 'owner';
 export interface Attributes {
   id: string;
   name: string;
-  email: string;
+  email: Email;
   password: string;
   phoneNumber?: string;
   photoUri?: string;
   role?: Role;
-  location?: {
-    latitude: number;
-    longitude: number;
-  };
+  location?: Location;
 }
 
 export class User {
@@ -31,7 +28,7 @@ export class User {
   private constructor(attributes: Attributes) {
     this.id = attributes.id;
     this._name = attributes.name;
-    this._email = Email.create(attributes.email);
+    this._email = attributes.email;
     this._hashedPassword = attributes.password;
     this._phoneNumber = attributes.phoneNumber;
     this._photoUri = attributes.photoUri;
@@ -41,7 +38,7 @@ export class User {
     }
 
     if (attributes.location) {
-      this.setLocation(attributes.location);
+      this._location = attributes.location;
     }
   }
 
@@ -85,8 +82,8 @@ export class User {
     return hasher.compare(plainPassword, this._hashedPassword);
   }
 
-  setLocation(location: Attributes['location']) {
-    this._location = new Location(location.longitude, location.latitude);
+  setLocation(location: Location) {
+    this._location = location;
   }
 
   assignRole(role: string) {
