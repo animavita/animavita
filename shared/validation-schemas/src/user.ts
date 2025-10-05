@@ -10,6 +10,9 @@ export const userValidationSchema = Joi.object({
   name: Joi.string(),
   email: Joi.string(),
   password: Joi.string(),
+  phoneNumber: Joi.string().pattern(/^\+?[1-9]\d{1,14}$/).messages({
+    'string.pattern.base': 'Phone number must be a valid format'
+  }),
   location: coordinates,
   photoUri: Joi.string(),
 });

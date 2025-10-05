@@ -71,6 +71,7 @@
     "FORM": {
       "NAME_INPUT": "Nome completo",
       "EMAIL_INPUT": "Email",
+      "PHONE_INPUT": "Telefone",
       "PASSWORD_INPUT": "Senha",
       "SIGN_UP_BUTTON": "Registre-se",
       "SIGN_IN_LINK_BUTTON": "Já tenho uma conta"
@@ -96,6 +97,12 @@
   },
   "PROFILE": {
     "LOGOUT": "Sair"
+  },
+  "ROLE_SELECTION": {
+    "TITLE": "Qual é a sua função?",
+    "SUBTITLE": "Escolha como você gostaria de usar o aplicativo",
+    "ADOPTER": "Quero adotar um pet",
+    "OWNER": "Quero disponibilizar um pet para adoção"
   },
   "SHARE_LOCATION": {
     "GREETINGS": "Olá, {{ name }} precisamos da sua",

@@ -6,6 +6,6 @@ export const signUp = (user: SignUpRequest) => {
   return client.post<SignUpResponse>('/auth/signUp', user);
 };
 
-export const completeSignUp = (data: { location: Coordinates }) => {
-  return client.post<{ location: Coordinates }>('/auth/completeSignUp', data);
+export const completeSignUp = (data: { location?: Coordinates; role: string }) => {
+  return client.post<{ location?: Coordinates }>('/auth/completeSignUp', data);
 };

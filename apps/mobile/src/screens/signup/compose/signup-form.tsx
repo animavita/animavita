@@ -71,6 +71,20 @@ const Form = () => {
 
       <RHFInput
         input={{
+          placeholder: t('SIGN_UP.FORM.PHONE_INPUT'),
+          testID: 'signup-form-phone-input',
+          returnKeyType: 'next',
+          isRequired: true,
+          keyboardType: 'phone-pad',
+          inputMode: 'tel',
+        }}
+        control={signupForm.control}
+        name="phoneNumber"
+        label={t('SIGN_UP.FORM.PHONE_INPUT')}
+      />
+
+      <RHFInput
+        input={{
           placeholder: t('SIGN_UP.FORM.PASSWORD_INPUT'),
           testID: 'signup-form-password-input',
           returnKeyType: 'go',

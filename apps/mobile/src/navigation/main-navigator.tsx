@@ -10,6 +10,7 @@ import HomeScreen from '@/screens/home/home.screen';
 import RegisterPet from '@/screens/owner/register-pet/register-pet.screen';
 import UpdatePetScreen from '@/screens/owner/update-pet/update-pet.screen';
 import Profile from '@/screens/profile/profile.screen';
+import RoleSelectionScreen from '@/screens/role-selection/role-selection.screen';
 import SignInScreen from '@/screens/signin/signin.screen';
 import SignUpScreen from '@/screens/signup/signup.screen';
 import SplashScreen from '@/screens/splash/splash.screen';
@@ -22,6 +23,7 @@ export type StackParamsList = {
   UpdatePet: { pet: AdoptionType };
   SignIn: undefined;
   SignUp: undefined;
+  RoleSelection: undefined;
   GeoLocation: { user: UserType };
 };
 
@@ -32,13 +34,14 @@ const MainNavigator = () => {
 
   if (auth.status === 'IDLE') return <SplashScreen />;
 
-  const initialRouteName = !auth.user?.location ? 'GeoLocation' : 'Home';
+  const initialRouteName = !auth.user?.location ? 'RoleSelection' : 'Home';
 
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
         {auth.status === 'LOGGED' ? (
           <>
+            <Stack.Screen name="RoleSelection" component={RoleSelectionScreen} />
             <Stack.Screen name="GeoLocation" component={GetLocationScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="RegisterPet" component={RegisterPet} />
