@@ -18,7 +18,6 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         working-directory: apps/mobile
-        ruby-version: 2.6.10
         bundler-cache: true
 
     - name: Run Expo Prebuild
