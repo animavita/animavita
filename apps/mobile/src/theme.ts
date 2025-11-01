@@ -35,6 +35,12 @@ const theme = extendTheme({
         rounded: 'xl',
       },
     },
+    // https://github.com/GeekyAnts/NativeBase/issues/5821
+    Input: {
+      defaultProps: {
+        _stack: { style: {} },
+      },
+    },
   },
   config: {
     initialColorMode: 'light',
