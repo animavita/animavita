@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "pnpm --filter backend",
-    "mobile": "pnpm --filter mobile"
+    "mobile": "pnpm --filter mobile",
+    "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
   },
   "keywords": [],
   "author": "Gabriel Belgamo",

@@ -137,7 +137,7 @@ importers:
         version: 6.3.1
       ts-jest:
         specifier: 28.0.8
-        version: 28.0.8(@babel/core@7.23.2)(@jest/types@28.1.3)(babel-jest@28.1.3(@babel/core@7.23.2))(jest@28.1.3(@types/node@16.18.0)(ts-node@10.9.1(@types/node@16.18.0)(typescript@4.8.4)))(typescript@4.8.4)
+        version: 28.0.8(@babel/core@7.26.7)(@jest/types@28.1.3)(babel-jest@28.1.3(@babel/core@7.26.7))(jest@28.1.3(@types/node@16.18.0)(ts-node@10.9.1(@types/node@16.18.0)(typescript@4.8.4)))(typescript@4.8.4)
       ts-loader:
         specifier: ^9.2.3
         version: 9.4.1(typescript@4.8.4)(webpack@5.74.0)
@@ -187,8 +187,8 @@ importers:
         specifier: ~0.12.5
         version: 0.12.5(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
       expo-image-picker:
-        specifier: ~15.0.7
-        version: 15.0.7(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
+        specifier: ~15.1.0
+        version: 15.1.0(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
       expo-location:
         specifier: ~17.0.1
         version: 17.0.1(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
@@ -199,8 +199,8 @@ importers:
         specifier: ~1.12.1
         version: 1.12.1
       expo-updates:
-        specifier: ~0.25.27
-        version: 0.25.27(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
+        specifier: ~0.25.28
+        version: 0.25.28(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
       i18next:
         specifier: ^23.2.10
         version: 23.2.10
@@ -4731,8 +4731,8 @@ packages:
     peerDependencies:
       expo: '*'
 
-  expo-image-picker@15.0.7:
-    resolution: {integrity: sha512-u8qiPZNfDb+ap6PJ8pq2iTO7JKX+ikAUQ0K0c7gXGliKLxoXgDdDmXxz9/6QdICTshJBJlBvI0MwY5NWu7A/uw==}
+  expo-image-picker@15.1.0:
+    resolution: {integrity: sha512-6cE10S7d0qG7+pcHtsYukRKuFL44ssOM0/v+5JIBzRwxpIgGA6qokr8PxasFEpxOA9NpN0gwry33jmq1qLXJTg==}
     peerDependencies:
       expo: '*'
 
@@ -4783,8 +4783,8 @@ packages:
     peerDependencies:
       expo: '*'
 
-  expo-updates@0.25.27:
-    resolution: {integrity: sha512-1hyYZqBEXcAiEuSRPJ6dINTndGlWi6/bwlyYGjSnyoYfu/vzZQrJ+XA8JUP4EvJ3b0g8a0UOIjlDJ9ke9kMcfg==}
+  expo-updates@0.25.28:
+    resolution: {integrity: sha512-NTI1r7wvXel36qCzKwCjCJ9HExBo6GX9wkA9WzaNsysmg+eEd5BCmcaxvQGZUQkfDocEfI78N5vRBSuMi0iS1w==}
     hasBin: true
     peerDependencies:
       expo: '*'
@@ -4813,10 +4813,6 @@ packages:
   fast-glob@3.2.7:
     resolution: {integrity: sha512-rYGMRwip6lUMvYD3BTScMwT1HtAs2d71SMv66Vrxs0IekGZEjhM0pcMfjQPnknBt2zeCwQMEupiN02ZP4DiT1Q==}
     engines: {node: '>=8'}
-
-  fast-glob@3.3.1:
-    resolution: {integrity: sha512-kNFPyjhh5cKjrUltxs+wFx+ZkbRaxxmZ+X0ZU31SOsxCEtP9VPgtq2teZw1DebupL5GmDaNQ6yKMMVcM41iqDg==}
-    engines: {node: '>=8.6.0'}
 
   fast-glob@3.3.3:
     resolution: {integrity: sha512-7MptL8U0cqcFdzIzwOTHoilX9x5BrNqye7Z/LuC7kCMRio1EMSyqRK3BEAUD7sXRq4iT4AzTVuZdhgQ2TCvYLg==}
@@ -4979,6 +4975,7 @@ packages:
 
   formidable@2.0.1:
     resolution: {integrity: sha512-rjTMNbp2BpfQShhFbR3Ruk3qk2y9jKpvMW78nJgx8QKtxjDVrwbZG+wvDOmVbifHyOUOQJXxqEy6r0faRrPzTQ==}
+    deprecated: 'ACTION REQUIRED: SWITCH TO v3 - v1 and v2 are VULNERABLE! v1 is DEPRECATED FOR OVER 2 YEARS! Use formidable@latest or try formidable-mini for fresh projects'
 
   forwarded@0.2.0:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
@@ -6540,6 +6537,7 @@ packages:
   multer@1.4.4-lts.1:
     resolution: {integrity: sha512-WeSGziVj6+Z2/MwQo3GvqzgR+9Uc+qt8SwHKh3gvNPiISKfsMfG4SvCOFYlxxgkXt7yIV2i1yczehm0EOKIxIg==}
     engines: {node: '>= 6.0.0'}
+    deprecated: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
 
   multicast-dns@7.2.5:
     resolution: {integrity: sha512-2eznPJP8z2BFLX50tf0LuODrpINqP1RVIm/CObbTcBRITQgmC/TjcREF1NeTBzIcR5XO/ukWo+YHOjBbFwIupg==}
@@ -7426,6 +7424,7 @@ packages:
 
   react-native-vector-icons@9.2.0:
     resolution: {integrity: sha512-wKYLaFuQST/chH3AJRjmOLoLy3JEs1JR6zMNgTaemFpNoXs0ztRnTxcxFD9xhX7cJe1/zoN5BpQYe7kL0m5yyA==}
+    deprecated: react-native-vector-icons package has moved to a new model of per-icon-family packages. See the https://github.com/oblador/react-native-vector-icons/blob/master/MIGRATION.md on how to migrate
     hasBin: true
 
   react-native-web@0.19.13:
@@ -8093,11 +8092,12 @@ packages:
   superagent@8.0.3:
     resolution: {integrity: sha512-oBC+aNsCjzzjmO5AOPBPFS+Z7HPzlx+DQr/aHwM08kI+R24gsDmAS1LMfza1fK+P+SKlTAoNZpOvooE/pRO1HA==}
     engines: {node: '>=6.4.0 <13 || >=14'}
-    deprecated: Please upgrade to v9.0.0+ as we have fixed a public vulnerability with formidable dependency. Note that v9.0.0+ requires Node.js v14.18.0+. See https://github.com/ladjs/superagent/pull/1800 for insight. This project is supported and maintained by the team at Forward Email @ https://forwardemail.net
+    deprecated: Please upgrade to superagent v10.2.2+, see release notes at https://github.com/forwardemail/superagent/releases/tag/v10.2.2 - maintenance is supported by Forward Email @ https://forwardemail.net
 
   supertest@6.3.1:
     resolution: {integrity: sha512-hRohNeIfk/cA48Cxpa/w48hktP6ZaRqXb0QV5rLvW0C7paRsBU3Q5zydzYrslOJtj/gd48qx540jKtcs6vG1fQ==}
     engines: {node: '>=6.4.0'}
+    deprecated: Please upgrade to supertest v7.1.3+, see release notes at https://github.com/forwardemail/supertest/releases/tag/v7.1.3 - maintenance is supported by Forward Email @ https://forwardemail.net
 
   supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
@@ -8399,6 +8399,7 @@ packages:
 
   ua-parser-js@0.7.32:
     resolution: {integrity: sha512-f9BESNVhzlhEFf2CHMSj40NWOjYPl1YKYbrvIr/hFTDEmLq7SRbWvm7FcdcpCYT95zrOhC7gZSxjdnnTpBcwVw==}
+    deprecated: You are using an outdated version of ua-parser-js. Please update to ua-parser-js v0.7.33 / v1.0.33 / v2.0.0 (or later) to avoid ReDoS vulnerability [CVE-2022-25927](https://github.com/advisories/GHSA-fhg7-m89q-25r3)
 
   unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -13826,6 +13827,20 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  babel-jest@28.1.3(@babel/core@7.26.7):
+    dependencies:
+      '@babel/core': 7.26.7
+      '@jest/transform': 28.1.3
+      '@types/babel__core': 7.1.19
+      babel-plugin-istanbul: 6.1.1
+      babel-preset-jest: 28.1.3(@babel/core@7.26.7)
+      chalk: 4.1.2
+      graceful-fs: 4.2.10
+      slash: 3.0.0
+    transitivePeerDependencies:
+      - supports-color
+    optional: true
+
   babel-jest@29.7.0(@babel/core@7.26.7):
     dependencies:
       '@babel/core': 7.26.7
@@ -14011,6 +14026,13 @@ snapshots:
       '@babel/core': 7.23.2
       babel-plugin-jest-hoist: 28.1.3
       babel-preset-current-node-syntax: 1.0.1(@babel/core@7.23.2)
+
+  babel-preset-jest@28.1.3(@babel/core@7.26.7):
+    dependencies:
+      '@babel/core': 7.26.7
+      babel-plugin-jest-hoist: 28.1.3
+      babel-preset-current-node-syntax: 1.0.1(@babel/core@7.26.7)
+    optional: true
 
   babel-preset-jest@29.6.3(@babel/core@7.26.7):
     dependencies:
@@ -15268,7 +15290,7 @@ snapshots:
     dependencies:
       expo: 51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))
 
-  expo-image-picker@15.0.7(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))):
+  expo-image-picker@15.1.0(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))):
     dependencies:
       expo: 51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))
       expo-image-loader: 4.7.0(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7)))
@@ -15295,7 +15317,7 @@ snapshots:
     dependencies:
       chalk: 4.1.2
       commander: 7.2.0
-      fast-glob: 3.3.1
+      fast-glob: 3.3.3
       find-up: 5.0.0
       fs-extra: 9.1.0
       require-from-string: 2.0.2
@@ -15327,7 +15349,7 @@ snapshots:
     dependencies:
       expo: 51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))
 
-  expo-updates@0.25.27(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))):
+  expo-updates@0.25.28(expo@51.0.39(@babel/core@7.26.7)(@babel/preset-env@7.23.2(@babel/core@7.26.7))):
     dependencies:
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 9.0.4
@@ -15429,14 +15451,6 @@ snapshots:
       glob-parent: 5.1.2
       merge2: 1.4.1
       micromatch: 4.0.5
-
-  fast-glob@3.3.1:
-    dependencies:
-      '@nodelib/fs.stat': 2.0.5
-      '@nodelib/fs.walk': 1.2.8
-      glob-parent: 5.1.2
-      merge2: 1.4.1
-      micromatch: 4.0.8
 
   fast-glob@3.3.3:
     dependencies:
@@ -15831,7 +15845,7 @@ snapshots:
       array-union: 2.1.0
       dir-glob: 3.0.1
       fast-glob: 3.3.3
-      ignore: 5.2.4
+      ignore: 5.3.2
       merge2: 1.4.1
       slash: 3.0.0
 
@@ -15840,7 +15854,7 @@ snapshots:
       array-union: 3.0.1
       dir-glob: 3.0.1
       fast-glob: 3.3.3
-      ignore: 5.2.4
+      ignore: 5.3.2
       merge2: 1.4.1
       slash: 4.0.0
 
@@ -19667,7 +19681,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-jest@28.0.8(@babel/core@7.23.2)(@jest/types@28.1.3)(babel-jest@28.1.3(@babel/core@7.23.2))(jest@28.1.3(@types/node@16.18.0)(ts-node@10.9.1(@types/node@16.18.0)(typescript@4.8.4)))(typescript@4.8.4):
+  ts-jest@28.0.8(@babel/core@7.26.7)(@jest/types@28.1.3)(babel-jest@28.1.3(@babel/core@7.26.7))(jest@28.1.3(@types/node@16.18.0)(ts-node@10.9.1(@types/node@16.18.0)(typescript@4.8.4)))(typescript@4.8.4):
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
@@ -19680,9 +19694,9 @@ snapshots:
       typescript: 4.8.4
       yargs-parser: 21.1.1
     optionalDependencies:
-      '@babel/core': 7.23.2
+      '@babel/core': 7.26.7
       '@jest/types': 28.1.3
-      babel-jest: 28.1.3(@babel/core@7.23.2)
+      babel-jest: 28.1.3(@babel/core@7.26.7)
 
   ts-loader@9.4.1(typescript@4.8.4)(webpack@5.74.0):
     dependencies:
