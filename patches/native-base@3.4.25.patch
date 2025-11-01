@@ -1,0 +1,85 @@
+diff --git a/lib/commonjs/hooks/useKeyboardDismissable.js b/lib/commonjs/hooks/useKeyboardDismissable.js
+index e9364fb5447904ba67052f80fc14279c6a4da28f..242a1df918004c7ea4fbc43afd4009f7972540cc 100644
+--- a/lib/commonjs/hooks/useKeyboardDismissable.js
++++ b/lib/commonjs/hooks/useKeyboardDismissable.js
+@@ -64,18 +64,15 @@ function useBackHandler({
+   callback
+ }) {
+   (0, _react.useEffect)(() => {
+-    let backHandler = () => {
++    if (!enabled) return;
++
++    const backHandler = () => {
+       callback();
+       return true;
+     };
+ 
+-    if (enabled) {
+-      _reactNative.BackHandler.addEventListener('hardwareBackPress', backHandler);
+-    } else {
+-      _reactNative.BackHandler.removeEventListener('hardwareBackPress', backHandler);
+-    }
+-
+-    return () => _reactNative.BackHandler.removeEventListener('hardwareBackPress', backHandler);
++    const subscription = _reactNative.BackHandler.addEventListener('hardwareBackPress', backHandler);
++    return () => subscription.remove();
+   }, [enabled, callback]);
+ }
+ //# sourceMappingURL=useKeyboardDismissable.js.map
+\ No newline at end of file
+diff --git a/lib/module/hooks/useKeyboardDismissable.js b/lib/module/hooks/useKeyboardDismissable.js
+index 266ed746056cbfad1fa247bd384761cb6325a626..96e539a7c638352c0043eae7ce2bb63f97b6a3ce 100644
+--- a/lib/module/hooks/useKeyboardDismissable.js
++++ b/lib/module/hooks/useKeyboardDismissable.js
+@@ -45,18 +45,15 @@ export function useBackHandler({
+   callback
+ }) {
+   useEffect(() => {
+-    let backHandler = () => {
++    if (!enabled) return;
++
++    const backHandler = () => {
+       callback();
+       return true;
+     };
+ 
+-    if (enabled) {
+-      BackHandler.addEventListener('hardwareBackPress', backHandler);
+-    } else {
+-      BackHandler.removeEventListener('hardwareBackPress', backHandler);
+-    }
+-
+-    return () => BackHandler.removeEventListener('hardwareBackPress', backHandler);
++    const subscription = BackHandler.addEventListener('hardwareBackPress', backHandler);
++    return () => subscription.remove();
+   }, [enabled, callback]);
+ }
+ //# sourceMappingURL=useKeyboardDismissable.js.map
+\ No newline at end of file
+diff --git a/src/hooks/useKeyboardDismissable.ts b/src/hooks/useKeyboardDismissable.ts
+index f3cfa44402b472db06be9fb6d5b9c376ddf539cb..3e28d9bfc73c7cae82017b1d9a0e1c5beabddbe3 100644
+--- a/src/hooks/useKeyboardDismissable.ts
++++ b/src/hooks/useKeyboardDismissable.ts
+@@ -44,16 +44,14 @@ export const useKeyboardDismissable = ({ enabled, callback }: IParams) => {
+ 
+ export function useBackHandler({ enabled, callback }: IParams) {
+   useEffect(() => {
+-    let backHandler = () => {
++    if (!enabled) return;
++
++    const backHandler = () => {
+       callback();
+       return true;
+     };
+-    if (enabled) {
+-      BackHandler.addEventListener('hardwareBackPress', backHandler);
+-    } else {
+-      BackHandler.removeEventListener('hardwareBackPress', backHandler);
+-    }
+-    return () =>
+-      BackHandler.removeEventListener('hardwareBackPress', backHandler);
++
++    const subscription = BackHandler.addEventListener('hardwareBackPress', backHandler);
++    return () => subscription.remove();
+   }, [enabled, callback]);
+ }

@@ -14,5 +14,11 @@
   "license": "ISC",
   "devDependencies": {
     "nx": "15.9.2"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "native-base@3.4.25": "patches/native-base@3.4.25.patch"
+    },
+    "allowNonAppliedPatches": true
   }
 }
