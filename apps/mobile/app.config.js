@@ -32,7 +32,7 @@ module.exports = ({ config }) => {
       policy: 'appVersion',
     },
     android: {
-      package: 'com.belgamo.animavita',
+      package: 'com.ggbelgamo.animavita',
     },
     ios: {
       bundleIdentifier: 'com.ggbelgamo.animavita',
