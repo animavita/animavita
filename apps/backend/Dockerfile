@@ -5,6 +5,7 @@ FROM base AS dependencies
 WORKDIR /app
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY apps/backend/package.json ./apps/backend/
+COPY patches ./patches
 RUN pnpm install --frozen-lockfile
 COPY . .
 
