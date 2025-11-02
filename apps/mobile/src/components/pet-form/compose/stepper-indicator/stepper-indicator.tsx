@@ -13,7 +13,7 @@ const StepperIndicator = ({ activeStep, title }: StepperIndicatorProps) => {
 
   const totalSteps = Object.keys(stepsLibrary).length;
   const stepNumber = stepsLibrary[activeStep].order + 1;
-  const processValue = (stepNumber * 100) / totalSteps;
+  const processValue = Math.round((stepNumber * 100) / totalSteps);
   const label = stepsLibrary[activeStep].label;
 
   return (
