@@ -1,9 +1,10 @@
 name: App Build & Deploy
  
 on:
-  # workflow_dispatch:
-  pull_request:
-    types: [opened, synchronize]
+  workflow_dispatch:
+  push:
+    branches:
+      - v2
  
 jobs:
   deploy:
@@ -45,10 +46,9 @@ jobs:
         ANDROID_SIGNING_KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
         ANDROID_SIGNING_KEY_ALIAS: ${{ secrets.KEY_ALIAS}}
         ANDROID_JSON_KEY_FILE: ${{ steps.service_account_json_file.outputs.filePath }}
-        RUBYOPT: '-rostruct' # TODO: Remove when https://github.com/fastlane/fastlane/pull/21950 gets released
 
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: assets
         path: |
