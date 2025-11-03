@@ -15,6 +15,7 @@
   "dependencies": {
     "@animavita/types": "workspace:*",
     "@animavita/validation-schemas": "workspace:*",
+    "@expo/metro-runtime": "~5.0.5",
     "@expo/webpack-config": "^19.0.1",
     "@hookform/resolvers": "^2.9.10",
     "@react-navigation/native": "^6.0.13",
