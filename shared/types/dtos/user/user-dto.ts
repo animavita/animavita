@@ -10,6 +10,7 @@ export type UserType = {
   location?: Coordinates;
   photoUri?: string;
   refreshToken?: CredentialsType["refreshToken"];
+  role?: string;
 };
 
 export type UserResponse = UserType & {

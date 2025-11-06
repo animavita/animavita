@@ -33,7 +33,7 @@ export default class PostPetForAdoption {
       throw new NotFoundError('User not found');
     }
 
-    if (!user.isOwner) {
+    if (!user.role.isOwner) {
       throw new UnauthorizedError(
         'User is not authorized to post a pet for adoption',
       );

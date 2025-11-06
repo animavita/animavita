@@ -50,6 +50,12 @@ describe('PostPetForAdoption', () => {
   });
 
   describe('when the user is not an owner', () => {
+    beforeEach(async () => {
+      await completeSignUp.execute(user.id, {
+        role: 'adopter',
+      });
+    });
+
     it('throws an error', async () => {
       await expect(
         postPetForAdoption.execute({} as PostPetForAdoptionInput, user.email),
