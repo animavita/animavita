@@ -3,6 +3,7 @@ import { User } from './user';
 import { HasherService } from '../services/hasher.service';
 import { Email } from '../email/email';
 import Location from '../location/location';
+import { UserRole, UserRoles } from '../role/role';
 
 const attributes = {
   id: faker.string.uuid(),
@@ -50,6 +51,39 @@ describe('User Entity', () => {
 
       expect(hasher.compare).toHaveBeenCalledTimes(1);
       expect(result).toBe(false);
+    });
+  });
+
+  describe('assignRole', () => {
+    it('assigns a valid role to user without existing role', () => {
+      const user = User.create(attributes);
+      const role = UserRole.create(UserRoles.Owner);
+
+      user.assignRole(role);
+
+      expect(user.role).toBe(role);
+    });
+
+    it('throws error when trying to assign role to user that already has one', () => {
+      const roleAttributes = {
+        ...attributes,
+        role: UserRole.create(UserRoles.Adopter),
+      };
+      const user = User.create(roleAttributes);
+      const newRole = UserRole.create(UserRoles.Owner);
+
+      expect(() => user.assignRole(newRole)).toThrowError(
+        'Role can only be assigned once',
+      );
+    });
+
+    it('throws error when trying to assign admin role', () => {
+      const user = User.create(attributes);
+      const adminRole = UserRole.create(UserRoles.Admin);
+
+      expect(() => user.assignRole(adminRole)).toThrowError(
+        'Cannot assign admin role to user',
+      );
     });
   });
 });

@@ -1,8 +1,8 @@
 import { Email } from '../email/email';
+import { EntityError } from '../errors';
 import Location from '../location/location';
+import { UserRole } from '../role/role';
 import { HasherService } from '../services/hasher.service';
-
-export type Role = 'admin' | 'adopter' | 'owner';
 
 export interface Attributes {
   id: string;
@@ -11,7 +11,7 @@ export interface Attributes {
   password: string;
   phoneNumber?: string;
   photoUri?: string;
-  role?: Role;
+  role?: UserRole;
   location?: Location;
 }
 
@@ -19,7 +19,7 @@ export class User {
   readonly id: string;
   private _name: string;
   private _email: Email;
-  private _role: Role;
+  private _role: UserRole;
   private _hashedPassword: string;
   private _phoneNumber?: string;
   private _photoUri?: string;
@@ -66,18 +66,6 @@ export class User {
     return this._role;
   }
 
-  get isOwner() {
-    return this._role === 'owner';
-  }
-
-  get isAdopter() {
-    return this._role === 'adopter';
-  }
-
-  get isAdmin() {
-    return this._role === 'admin';
-  }
-
   verifyPassword(plainPassword: string, hasher: HasherService) {
     return hasher.compare(plainPassword, this._hashedPassword);
   }
@@ -86,12 +74,16 @@ export class User {
     this._location = location;
   }
 
-  assignRole(role: string) {
-    if (!['adopter', 'owner'].includes(role)) {
-      throw new Error('Invalid role assignment');
+  assignRole(role: UserRole) {
+    if (this._role) {
+      throw new EntityError('Role can only be assigned once');
     }
 
-    this._role = role as Role;
+    if (role.isAdmin) {
+      throw new EntityError('Cannot assign admin role to user');
+    }
+
+    this._role = role;
   }
 
   static create(attributes: Attributes) {

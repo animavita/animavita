@@ -16,6 +16,7 @@ export const userFactory = Factory.define<UserType>(({ params }) => {
       longitude: faker.location.longitude(),
     },
     photoUri: params.photoUri || faker.image.avatar(),
+    role: params.role,
   };
 });
 

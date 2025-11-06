@@ -3,6 +3,7 @@ import UserRepository, {
   USER_REPOSITORY,
 } from '../../../repositories/user.repository';
 import Location from '../../../../domain/location/location';
+import { UserRole } from '../../../../domain/role/role';
 
 type Input = {
   location?: {
@@ -20,6 +21,7 @@ export default class CompleteSignUp {
 
   async execute(userId: string, input: Input): Promise<Output> {
     const user = await this.userRepository.getById(userId);
+
     if (input.location) {
       const location = new Location(
         input.location.longitude,
@@ -27,11 +29,17 @@ export default class CompleteSignUp {
       );
       user.setLocation(location);
     }
-    if (input.role) user.assignRole(input.role);
+
+    if (input.role) {
+      const role = UserRole.create(input.role);
+      user.assignRole(role);
+    }
+
     await this.userRepository.store(user);
 
     return {
       location: user.location,
+      role: user.role ? user.role.getValue() : undefined,
     };
   }
 }
@@ -41,4 +49,5 @@ export type Output = {
     latitude: number;
     longitude: number;
   };
+  role?: string;
 };
