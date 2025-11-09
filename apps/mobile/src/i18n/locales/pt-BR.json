@@ -98,7 +98,7 @@
     "LOGOUT": "Sair"
   },
   "SHARE_LOCATION": {
-    "GREETINGS": "Olá, {{ name }} precisamos da sua",
+    "GREETINGS": "Ok, agora precisamos da sua",
     "WHERE": "Você está em",
     "CONFIRM_BUTTON": "Confirmar minha localização",
     "GET_LOCATION": "Compartilhar minha localização",
@@ -109,6 +109,13 @@
     "LOCATION_REQUIRED_WARNING": "A sua localização é realmente necessária para uma melhor experiência no app.",
     "GPS_DISABLED_WARNING": "Por favor, verifique se o seu GPS está habilitado!",
     "GO_TO_SETTINGS": "Go to settings"
+  },
+  "ROLE_SELECTION": {
+    "GREETINGS": "Como você deseja usar o <highlight>Animavita</highlight>, {{ name }}?",
+    "IMAGE_ALT_TEXT": "Uma menina abraçando um coelho",
+    "ADOPTER_OPTION": "Quero encontrar um pet",
+    "OWNER_OPTION": "Quero por um pet para adoção",
+    "CONTINUE_BUTTON": "Continuar"
   },
   "MY_PETS_SCREEN": {
     "TITLE":"Meus Pets",
@@ -123,5 +130,8 @@
       "DELETE": "Deletar"
     },
     "EMPTY_LIST": "Você ainda não registou nenhum pet para adoção"
+  },
+  "ERRORS": {
+    "GENERIC": "Ocorreu um erro. Tente novamente mais tarde."
   }
 }
