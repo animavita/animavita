@@ -8,6 +8,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "web:build": "expo export --platform web",
     "test": "pnpm run lint && jest --coverage",
     "lint": "eslint . --fix",
     "check-types": "tsc --project tsconfig.json"
@@ -15,6 +16,7 @@
   "dependencies": {
     "@animavita/types": "workspace:*",
     "@animavita/validation-schemas": "workspace:*",
+    "@expo/metro-runtime": "~5.0.5",
     "@expo/webpack-config": "^19.0.1",
     "@hookform/resolvers": "^2.9.10",
     "@react-navigation/native": "^6.0.13",
