@@ -1,5 +1,5 @@
 import Illustration from '@assets/pet-hug-illustration.png';
-import { Button, Heading, View, Image } from 'native-base';
+import { Button, Heading, View, Image, useToast } from 'native-base';
 import { useState } from 'react';
 import { Trans } from 'react-i18next';
 
@@ -7,13 +7,16 @@ import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
 import useProfile from '@/hooks/use-profile';
+import useUserRegister from '@/hooks/use-user-register';
 import { useNavigation } from '@/navigation/use-navigation';
 
 type Role = 'adopter' | 'owner';
 
 const RoleSelectionScreen = () => {
   const { firstName } = useProfile();
+  const { saveRole, isSavingRole } = useUserRegister();
   const { t } = useLocale();
+  const toast = useToast();
   const [role, setRole] = useState<Role | null>(null);
   const navigation = useNavigation();
 
@@ -28,8 +31,17 @@ const RoleSelectionScreen = () => {
     return 'outline';
   };
 
-  const handleContinue = () => {
-    navigation.navigate('GeoLocation');
+  const handleContinue = async () => {
+    if (!role) return;
+
+    try {
+      await saveRole(role);
+      navigation.navigate('GeoLocation');
+    } catch {
+      toast.show({
+        description: t('ERRORS.GENERIC'),
+      });
+    }
   };
 
   return (
@@ -74,7 +86,14 @@ const RoleSelectionScreen = () => {
           {t('ROLE_SELECTION.OWNER_OPTION')}
         </Button>
 
-        <Button variant="ghost" marginY="2" isDisabled={!role} onPress={handleContinue}>
+        <Button
+          variant="ghost"
+          marginY="2"
+          isDisabled={!role}
+          onPress={handleContinue}
+          isLoading={isSavingRole}
+          isLoadingText={t('ROLE_SELECTION.CONTINUE_BUTTON')}
+        >
           {t('ROLE_SELECTION.CONTINUE_BUTTON')}
         </Button>
       </SafeArea>

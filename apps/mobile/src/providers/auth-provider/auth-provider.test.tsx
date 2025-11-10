@@ -1,4 +1,9 @@
-import { screen, waitForElementToBeRemoved } from '@testing-library/react-native';
+import {
+  screen,
+  waitForElementToBeRemoved,
+  waitFor,
+  fireEvent,
+} from '@testing-library/react-native';
 import { Text } from 'react-native';
 
 import { AuthContext, AuthProvider } from '.';
@@ -16,14 +21,29 @@ const setup = async () => {
       <AuthContext.Consumer>
         {(value) => {
           const { accessToken, refreshToken } = value.tokens || {};
-          const { name } = value.user || {};
+          const { name, location, role } = value.user || {};
 
           return (
             <>
               <Text>access token: {accessToken}</Text>
               <Text>refresh token: {refreshToken}</Text>
               <Text>name: {name}</Text>
+              <Text>role: {role}</Text>
+              <Text>latitude: {location?.latitude}</Text>
+              <Text>longitude: {location?.longitude}</Text>
               <Text>status: {JSON.stringify(value.status)}</Text>
+              <Text
+                testID="update-location"
+                onPress={() => value.completeSignUp({ latitude: 40.7128, longitude: -74.006 })}
+              >
+                Update Location
+              </Text>
+              <Text testID="choose-adopter" onPress={() => value.choseRole('adopter')}>
+                Choose Adopter
+              </Text>
+              <Text testID="choose-rescuer" onPress={() => value.choseRole('rescuer')}>
+                Choose Rescuer
+              </Text>
             </>
           );
         }}
@@ -78,6 +98,53 @@ describe('AuthProvider native', () => {
       expect(screen.queryByText('refresh token: abc-123')).toBeOnTheScreen();
       expect(screen.queryByText('name: John')).toBeOnTheScreen();
       expect(screen.queryByText('status: "LOGGED"')).toBeOnTheScreen();
+    });
+  });
+
+  describe('location management', () => {
+    it('updates user location when completeSignUp is called', async () => {
+      (getUserCredentials as jest.Mock).mockReturnValue({
+        accessToken: '123-abc',
+        refreshToken: 'abc-123',
+      });
+
+      setup();
+
+      await waitForElementToBeRemoved(() => screen.getByText('status: "IDLE"'));
+
+      expect(screen.getByText('latitude:')).toBeOnTheScreen();
+      expect(screen.getByText('longitude:')).toBeOnTheScreen();
+
+      const updateButton = screen.getByTestId('update-location');
+      fireEvent.press(updateButton);
+
+      expect(screen.getByText('latitude: 40.7128')).toBeOnTheScreen();
+      expect(screen.getByText('longitude: -74.006')).toBeOnTheScreen();
+    });
+  });
+
+  describe('role management', () => {
+    it('updates user role when choseRole is called', async () => {
+      (getUserCredentials as jest.Mock).mockReturnValue({
+        accessToken: '123-abc',
+        refreshToken: 'abc-123',
+      });
+
+      setup();
+
+      await waitForElementToBeRemoved(() => screen.getByText('status: "IDLE"'));
+
+      expect(screen.getByText('role:')).toBeOnTheScreen();
+
+      const adopterButton = screen.getByTestId('choose-adopter');
+      fireEvent.press(adopterButton);
+
+      expect(screen.getByText('role: adopter')).toBeOnTheScreen();
+
+      const rescuerButton = screen.getByTestId('choose-rescuer');
+      fireEvent.press(rescuerButton);
+
+      expect(screen.getByText('role: rescuer')).toBeOnTheScreen();
     });
   });
 });

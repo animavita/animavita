@@ -1,6 +1,6 @@
 import { UserType, CredentialsType, Coordinates } from '@animavita/types';
 
-type UserInfo = Pick<UserType, 'name' | 'location' | 'phoneNumber'>;
+type UserInfo = Pick<UserType, 'name' | 'location' | 'phoneNumber' | 'role'>;
 
 export type UserPayload = CredentialsType & UserInfo;
 
@@ -12,13 +12,14 @@ export type AuthState = {
 
 export type AuthAction =
   | { type: 'SIGN_IN'; payload: UserPayload }
-  | { type: 'SIGN_UP_COMPLETED'; payload: Pick<UserPayload, 'location'> }
+  | { type: 'SIGN_UP_COMPLETED'; payload: Pick<UserPayload, 'location' | 'role'> }
   | { type: 'SIGN_OUT' };
 
 export type AuthContextActions = {
   signIn: (payload: UserPayload) => void;
   signOut: () => void;
   completeSignUp: (coordinates: Coordinates) => void;
+  choseRole: (role: UserType['role']) => void;
 };
 
 export type AuthContextType = AuthState & AuthContextActions;

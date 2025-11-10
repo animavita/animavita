@@ -1,4 +1,4 @@
-import { Coordinates } from '@animavita/types';
+import { Coordinates, UserType } from '@animavita/types';
 import { useMemo, useReducer } from 'react';
 
 import AuthReducer from './auth-provider.reducer';
@@ -24,6 +24,9 @@ const useAuthActions = (): UseAuthActions => {
       },
       completeSignUp: (location: Coordinates) => {
         dispatch({ type: 'SIGN_UP_COMPLETED', payload: { location } });
+      },
+      choseRole: (role: UserType['role']) => {
+        dispatch({ type: 'SIGN_UP_COMPLETED', payload: { role } });
       },
     }),
     []

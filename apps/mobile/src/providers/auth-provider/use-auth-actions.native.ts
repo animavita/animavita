@@ -1,4 +1,4 @@
-import { Coordinates } from '@animavita/types';
+import { Coordinates, UserType } from '@animavita/types';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useMemo, useReducer } from 'react';
 
@@ -73,6 +73,9 @@ const useAuthActions = (): UseAuthActions => {
       },
       completeSignUp: (location: Coordinates) => {
         dispatch({ type: 'SIGN_UP_COMPLETED', payload: { location } });
+      },
+      choseRole: (role: UserType['role']) => {
+        dispatch({ type: 'SIGN_UP_COMPLETED', payload: { role } });
       },
     }),
     []

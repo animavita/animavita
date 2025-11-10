@@ -4,6 +4,7 @@ import { Text } from 'react-native';
 
 import RoleSelectionScreen from './role-selection';
 
+import useUserRegister from '@/hooks/use-user-register';
 import { StackParamsList } from '@/navigation/main-navigator';
 import { renderWithProviders } from '@/test/test-utils';
 
@@ -14,7 +15,35 @@ jest.mock('@/hooks/use-profile', () => ({
   }),
 }));
 
+const mockSaveRole = jest.fn().mockResolvedValue(undefined);
+
+jest.mock('@/hooks/use-user-register', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    saveRole: mockSaveRole,
+    isSavingRole: false,
+  })),
+}));
+
+const mockShow = jest.fn();
+jest.mock('native-base', () => ({
+  ...jest.requireActual('native-base'),
+  useToast: () => ({
+    show: mockShow,
+    isActive: () => false,
+  }),
+}));
+
 describe('RoleSelection Screen', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+
+    (useUserRegister as jest.Mock).mockImplementation(() => ({
+      saveRole: mockSaveRole,
+      isSavingRole: false,
+    }));
+  });
+
   const user = userEvent.setup();
 
   it('renders the title with the user first name', () => {
@@ -51,14 +80,59 @@ describe('RoleSelection Screen', () => {
   });
 
   describe('when the continue button is pressed', () => {
-    it('navigates to the GeoLocation screen', async () => {
-      renderWithProviders(<MainNavigator />);
+    const pressContinueButton = async () => {
       const roleButton = screen.getByRole('button', { name: ROLE_TO_BUTTON_TEXT['adopter'] });
       await user.press(roleButton);
       const continueButton = screen.getByRole('button', { name: 'Continuar' });
       await user.press(continueButton);
 
-      expect(screen.getByText('Geolocation screen')).toBeVisible();
+      return { continueButton };
+    };
+
+    it('`saveRole` is called with the selected role', async () => {
+      renderWithProviders(<MainNavigator />);
+      await pressContinueButton();
+
+      expect(mockSaveRole).toHaveBeenCalledTimes(1);
+      expect(mockSaveRole).toHaveBeenCalledWith('adopter');
+    });
+
+    it('continue button is disabled while saving the role', async () => {
+      (useUserRegister as jest.Mock).mockImplementation(() => ({
+        saveRole: jest.fn(),
+        isSavingRole: true,
+      }));
+
+      renderWithProviders(<MainNavigator />);
+      const { continueButton } = await pressContinueButton();
+
+      expect(continueButton).toBeDisabled();
+    });
+
+    describe('and saving the role succeeds', () => {
+      it('navigates to the GeoLocation screen', async () => {
+        renderWithProviders(<MainNavigator />);
+        await pressContinueButton();
+
+        expect(screen.getByText('Geolocation screen')).toBeVisible();
+      });
+    });
+
+    describe('and saving the role fails', () => {
+      beforeEach(() => {
+        mockSaveRole.mockRejectedValueOnce(new Error('Network error'));
+      });
+
+      it('shows a generic error toast', async () => {
+        renderWithProviders(<RoleSelectionScreen />);
+        await pressContinueButton();
+
+        expect(mockShow).toHaveBeenCalledWith(
+          expect.objectContaining({
+            description: 'Ocorreu um erro. Tente novamente mais tarde.',
+          })
+        );
+      });
     });
   });
 });

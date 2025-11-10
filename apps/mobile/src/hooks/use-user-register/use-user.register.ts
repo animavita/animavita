@@ -17,7 +17,6 @@ const useUserRegister = () => {
 
   const completeSignUpMutation = useMutation({
     mutationFn: completeSignUp,
-    onSuccess: () => navigate('Home'),
   });
 
   const registerUser = async (user: Pick<UserType, 'name' | 'email' | 'password'>) => {
@@ -28,8 +27,16 @@ const useUserRegister = () => {
   };
 
   const complete = async (coordinates: Coordinates) => {
-    const response = await completeSignUpMutation.mutateAsync({ location: coordinates });
-    auth.completeSignUp(response.data.location);
+    try {
+      const response = await completeSignUpMutation.mutateAsync({ location: coordinates });
+      auth.completeSignUp(response.data.location);
+      navigate('Home');
+    } catch {}
+  };
+
+  const saveRole = async (role: UserType['role']) => {
+    const response = await completeSignUpMutation.mutateAsync({ role });
+    auth.choseRole(response.data.role);
   };
 
   const networkErrorMessage = (mutation.error as AxiosError<{ message: string }>)?.response?.data
@@ -40,6 +47,8 @@ const useUserRegister = () => {
   return {
     registerUser,
     isRegistering: mutation.isLoading,
+    isSavingRole: completeSignUpMutation.isLoading,
+    saveRole,
     complete,
     error,
   };

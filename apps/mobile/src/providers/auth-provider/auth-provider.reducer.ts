@@ -13,13 +13,13 @@ const AuthReducer = (state: AuthState, action: AuthAction): AuthState => {
       };
     }
     case 'SIGN_UP_COMPLETED': {
-      const { location } = action.payload;
+      const { location, role } = action.payload;
 
       if (!state.user) throw new Error('User not logged in');
 
       return {
         ...state,
-        user: { ...state.user, location },
+        user: { ...state.user, location, role },
       };
     }
     case 'SIGN_OUT':

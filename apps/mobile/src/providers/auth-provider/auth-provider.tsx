@@ -11,6 +11,7 @@ export const AuthContext = createContext<AuthContextType>({
   signIn: () => {},
   signOut: () => {},
   completeSignUp: () => {},
+  choseRole: () => {},
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
