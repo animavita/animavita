@@ -41,11 +41,11 @@ const useAuthActions = (): UseAuthActions => {
             return;
           }
 
-          const { name, location } = data.data;
+          const { name, location, role } = data.data;
 
           dispatch({
             type: 'SIGN_IN',
-            payload: { ...tokens, name, location },
+            payload: { ...tokens, name, location, role },
           });
         } else {
           dispatch({ type: 'SIGN_OUT' });

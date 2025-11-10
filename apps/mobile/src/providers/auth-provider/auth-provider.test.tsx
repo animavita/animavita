@@ -9,10 +9,17 @@ import { Text } from 'react-native';
 import { AuthContext, AuthProvider } from '.';
 
 import { getUserCredentials } from '@/helpers/secure-store';
+import { getCurrentUserInfo } from '@/services/user';
 import { renderWithProviders } from '@/test/test-utils';
 
 jest.mock('@/helpers/secure-store', () => ({
   getUserCredentials: jest.fn(() => null),
+}));
+
+jest.mock('@/services/user', () => ({
+  getCurrentUserInfo: jest.fn(async () => ({
+    data: {},
+  })),
 }));
 
 const setup = async () => {
@@ -90,6 +97,14 @@ describe('AuthProvider native', () => {
         refreshToken: 'abc-123',
       });
 
+      (getCurrentUserInfo as jest.Mock).mockResolvedValueOnce({
+        data: {
+          name: 'John',
+          role: 'adopter',
+          location: { latitude: 0, longitude: 0 },
+        },
+      });
+
       setup();
 
       await waitForElementToBeRemoved(() => screen.getByText('status: "IDLE"'));
@@ -97,6 +112,9 @@ describe('AuthProvider native', () => {
       expect(screen.queryByText('access token: 123-abc')).toBeOnTheScreen();
       expect(screen.queryByText('refresh token: abc-123')).toBeOnTheScreen();
       expect(screen.queryByText('name: John')).toBeOnTheScreen();
+      expect(screen.queryByText('role: adopter')).toBeOnTheScreen();
+      expect(screen.queryByText('latitude: 0')).toBeOnTheScreen();
+      expect(screen.queryByText('longitude: 0')).toBeOnTheScreen();
       expect(screen.queryByText('status: "LOGGED"')).toBeOnTheScreen();
     });
   });
