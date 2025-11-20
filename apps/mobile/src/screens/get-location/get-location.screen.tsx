@@ -64,10 +64,10 @@ const GetLocation = () => {
   }, [warning]);
 
   return (
-    <View flex="1" padding={8}>
+    <View flex="1" padding={8} alignItems="center">
       <AppStatusBar />
       <SafeArea>
-        <View width={260}>
+        <View width={260} _web={{ width: 'full' }}>
           <Heading fontSize={35}>
             {t('SHARE_LOCATION.GREETINGS', { name: firstName })}
             <Heading fontSize={35} color={theme.colors.primary[600]}>
@@ -81,6 +81,7 @@ const GetLocation = () => {
           resizeMode="contain"
           flex="1"
           alt={t('SHARE_LOCATION.IMAGE_ALT_TEXT')}
+          alignSelf="center"
         />
         <ActionButtonsGroup
           isLoading={isLoading || isRegistering}

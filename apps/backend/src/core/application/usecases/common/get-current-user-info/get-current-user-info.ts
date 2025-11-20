@@ -17,6 +17,7 @@ export default class GetCurrentUserInfo {
       name: user.name,
       location: user.location,
       phoneNumber: user.phoneNumber,
+      role: user.role ? user.role.getValue() : undefined,
     };
   }
 }
@@ -28,4 +29,5 @@ export type Output = {
     longitude: number;
   };
   phoneNumber?: string;
+  role?: string;
 };
