@@ -239,6 +239,9 @@ importers:
       react-native-gesture-handler:
         specifier: ~2.24.0
         version: 2.24.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+      react-native-international-phone-number:
+        specifier: ^0.11.4
+        version: 0.11.4(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       react-native-pager-view:
         specifier: 6.7.1
         version: 6.7.1(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -5625,6 +5628,9 @@ packages:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
 
+  libphonenumber-js@1.12.29:
+    resolution: {integrity: sha512-P2aLrbeqHbmh8+9P35LXQfXOKc7XJ0ymUKl7tyeyQjdRNfzunXWxQXGc4yl3fUf28fqLRfPY+vIVvFXK7KEBTw==}
+
   lighthouse-logger@1.4.2:
     resolution: {integrity: sha512-gPWxznF6TKmUHrOQjlVo2UbaL2EJ71mb2CCeRs/2qBpi4L/g4LUVc9+3lKQ6DTUZwJswfM7ainGrLO1+fOqa2g==}
 
@@ -6880,6 +6886,13 @@ packages:
   react-is@19.2.0:
     resolution: {integrity: sha512-x3Ax3kNSMIIkyVYhWPyO09bu0uttcAIoecO/um/rKGQ4EltYWVYtyiGkS/3xMynrbVQdS69Jhlv8FXUEZehlzA==}
 
+  react-native-country-select@0.3.8:
+    resolution: {integrity: sha512-tkh6D6DCI1WlGEyl7sCA3qMVnQFUX+WZ4Iodxz5VALo45Tv5vkPuTetLzbVTLlzhXUJLTcrT6jjdGXWNmNCvZw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+      react-native-safe-area-context: '>=4.0.0'
+
   react-native-edge-to-edge@1.6.0:
     resolution: {integrity: sha512-2WCNdE3Qd6Fwg9+4BpbATUxCLcouF6YRY7K+J36KJ4l3y+tWN6XCqAC4DuoGblAAbb2sLkhEDp4FOlbOIot2Og==}
     peerDependencies:
@@ -6888,6 +6901,12 @@ packages:
 
   react-native-gesture-handler@2.24.0:
     resolution: {integrity: sha512-ZdWyOd1C8axKJHIfYxjJKCcxjWEpUtUWgTOVY2wynbiveSQDm8X/PDyAKXSer/GOtIpjudUbACOndZXCN3vHsw==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+
+  react-native-international-phone-number@0.11.4:
+    resolution: {integrity: sha512-PceupPXbAxRYhm6dCbvbYlzQltaVTLN7z/V+PIUIZphESm09ITkp5v3y4+T9+7ov0Y4Xpt/DXmTrFgUtecRypA==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -15900,6 +15919,8 @@ snapshots:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
+  libphonenumber-js@1.12.29: {}
+
   lighthouse-logger@1.4.2:
     dependencies:
       debug: 2.6.9
@@ -17286,6 +17307,12 @@ snapshots:
 
   react-is@19.2.0: {}
 
+  react-native-country-select@0.3.8(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      react: 19.0.0
+      react-native: 0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)
+      react-native-safe-area-context: 5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+
   react-native-edge-to-edge@1.6.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:
       react: 19.0.0
@@ -17298,6 +17325,15 @@ snapshots:
       invariant: 2.2.4
       react: 19.0.0
       react-native: 0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)
+
+  react-native-international-phone-number@0.11.4(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
+    dependencies:
+      libphonenumber-js: 1.12.29
+      react: 19.0.0
+      react-native: 0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)
+      react-native-country-select: 0.3.8(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+    transitivePeerDependencies:
+      - react-native-safe-area-context
 
   react-native-is-edge-to-edge@1.2.1(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:

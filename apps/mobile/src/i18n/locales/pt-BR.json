@@ -133,5 +133,17 @@
   },
   "ERRORS": {
     "GENERIC": "Ocorreu um erro. Tente novamente mais tarde."
+  },
+  "PHONE_NUMBER_ENTRY": {
+    "TITLE": "Vamos verificar seu celular?",
+    "SUBTITLE": "Precisamos verificar seu número de telefone",
+    "INFO_OWNER": "Quando você aprovar uma adoção, compartilharemos seu número com o adotante para que vocês possam se conectar.",
+    "INFO_ADOPTER": "Quando sua solicitação de adoção for aprovada, compartilharemos seu número com o dono do pet para que vocês possam se conectar.",
+    "PHONE_PLACEHOLDER": "Número de celular",
+    "SEND_OTP_BUTTON": "Enviar código",
+    "VERIFY_TITLE": "Digite o código",
+    "VERIFY_SUBTITLE": "Enviamos um código SMS para {{phone}}",
+    "VERIFY_BUTTON": "Verificar",
+    "CHANGE_NUMBER": "Alterar número"
   }
 }
