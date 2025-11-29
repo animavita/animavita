@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import { TextInput } from 'react-native';
 import PhoneInput, { isValidPhoneNumber } from 'react-native-international-phone-number';
 
+import useResendTimer from './compose/hooks/use-resend-timer';
+
 import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
@@ -19,6 +21,7 @@ const PhoneNumberEntryScreen = () => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [isLoading, setIsLoading] = useState(false);
   const inputRefs = useRef<(TextInput | null)[]>([]);
+  const { timer: resendTimer, startTimer, resetTimer } = useResendTimer();
 
   const handleSendOtp = async () => {
     setIsLoading(true);
@@ -26,7 +29,14 @@ const PhoneNumberEntryScreen = () => {
     setTimeout(() => {
       setIsLoading(false);
       setStep('otp');
+      startTimer();
     }, 1000);
+  };
+
+  const handleChangeNumber = () => {
+    setStep('phone');
+    setOtp(['', '', '', '', '', '']);
+    resetTimer();
   };
 
   const handleVerifyOtp = async () => {
@@ -185,13 +195,13 @@ const PhoneNumberEntryScreen = () => {
               <Button
                 width="100%"
                 variant="ghost"
-                onPress={() => {
-                  setStep('phone');
-                  setOtp(['', '', '', '', '', '']);
-                }}
+                onPress={handleChangeNumber}
+                isDisabled={resendTimer > 0}
                 size="lg"
               >
-                {t('PHONE_NUMBER_ENTRY.CHANGE_NUMBER')}
+                {resendTimer > 0
+                  ? t('PHONE_NUMBER_ENTRY.RESEND_TIMER', { seconds: resendTimer })
+                  : t('PHONE_NUMBER_ENTRY.RESEND_CODE')}
               </Button>
             </>
           )}

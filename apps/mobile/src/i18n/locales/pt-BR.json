@@ -144,6 +144,7 @@
     "VERIFY_TITLE": "Digite o código",
     "VERIFY_SUBTITLE": "Enviamos um código SMS para {{phone}}",
     "VERIFY_BUTTON": "Verificar",
-    "CHANGE_NUMBER": "Alterar número"
+    "RESEND_CODE": "Alterar número ou reenviar código",
+    "RESEND_TIMER": "Aguarde {{seconds}}s para alterar número ou reenviar"
   }
 }
