@@ -174,7 +174,7 @@ const PhoneNumberEntryScreen = () => {
                       borderColor: 'primary.500',
                       bg: 'primary.50',
                     }}
-                    testID={`otp-input-${index}`}
+                    accessibilityLabel={`OTP code position ${index + 1}`}
                   />
                 ))}
               </HStack>
