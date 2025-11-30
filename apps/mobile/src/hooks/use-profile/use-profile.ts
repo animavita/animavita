@@ -23,6 +23,7 @@ const useProfile = () => {
     firstName,
     lastName,
     initials,
+    role: auth.user.role,
   };
 };
 
