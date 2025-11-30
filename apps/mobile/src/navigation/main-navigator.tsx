@@ -1,65 +1,27 @@
-import { AdoptionType } from '@animavita/types';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useFeatureFlag } from 'posthog-react-native';
 import React from 'react';
 
+import LoggedInNavigator, {
+  StackParamsList as LoggedInStackParamsList,
+} from './logged-in-navigator';
+import LoggedOutNavigator, {
+  StackParamsList as LoggedOutStackParamsList,
+} from './logged-out-navigator';
+
 import { useAuth } from '@/hooks/use-auth-provider';
-import MyPetsScreen from '@/screens/adoptions/my-pets.screen';
-import GetLocationScreen from '@/screens/get-location/get-location.screen';
-import HomeScreen from '@/screens/home/home.screen';
-import RegisterPet from '@/screens/owner/register-pet/register-pet.screen';
-import UpdatePetScreen from '@/screens/owner/update-pet/update-pet.screen';
-import Profile from '@/screens/profile/profile.screen';
-import RoleSelectionScreen from '@/screens/role-selection/role-selection';
-import SignInScreen from '@/screens/signin/signin.screen';
-import SignUpScreen from '@/screens/signup/signup.screen';
 import SplashScreen from '@/screens/splash/splash.screen';
 
-export type StackParamsList = {
-  Home: undefined;
-  RegisterPet: undefined;
-  Profile: undefined;
-  MyPets: undefined;
-  UpdatePet: { pet: AdoptionType };
-  SignIn: undefined;
-  SignUp: undefined;
-  GeoLocation: undefined;
-  RoleSelection: undefined;
-};
-
-const Stack = createNativeStackNavigator<StackParamsList>();
+export type StackParamsList = LoggedInStackParamsList & LoggedOutStackParamsList;
 
 const MainNavigator = () => {
   const auth = useAuth();
+  const requirePhoneNumber = useFeatureFlag('require_phone_number');
 
-  if (auth.status === 'IDLE') return <SplashScreen />;
+  if (auth.status === 'IDLE' || requirePhoneNumber === undefined) return <SplashScreen />;
 
-  const initialRouteName = (() => {
-    if (!auth.user?.role) return 'RoleSelection';
-    if (!auth.user?.location) return 'GeoLocation';
+  if (auth.status === 'NOT_LOGGED') return <LoggedOutNavigator />;
 
-    return 'Home';
-  })();
-
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
-      {auth.status === 'LOGGED' ? (
-        <>
-          <Stack.Screen name="RoleSelection" component={RoleSelectionScreen} />
-          <Stack.Screen name="GeoLocation" component={GetLocationScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="RegisterPet" component={RegisterPet} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="MyPets" component={MyPetsScreen} />
-          <Stack.Screen name="UpdatePet" component={UpdatePetScreen} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="SignIn" component={SignInScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
-        </>
-      )}
-    </Stack.Navigator>
-  );
+  return <LoggedInNavigator />;
 };
 
 export default MainNavigator;

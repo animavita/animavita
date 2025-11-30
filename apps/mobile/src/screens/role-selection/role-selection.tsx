@@ -8,17 +8,19 @@ import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
 import useProfile from '@/hooks/use-profile';
 import useUserRegister from '@/hooks/use-user-register';
+import useNextOnboardingScreen from '@/navigation/hooks/use-next-onboarding-screen';
 import { useNavigation } from '@/navigation/use-navigation';
 
 type Role = 'adopter' | 'owner';
 
 const RoleSelectionScreen = () => {
   const { firstName } = useProfile();
-  const { saveRole, isSavingRole } = useUserRegister();
+  const { saveRole, isSavingRole, user } = useUserRegister();
   const { t } = useLocale();
   const toast = useToast();
   const [role, setRole] = useState<Role | null>(null);
   const navigation = useNavigation();
+  const getNextOnboardingScreen = useNextOnboardingScreen();
 
   const handleRoleSelection = (selectedRole: Role) => {
     setRole(selectedRole);
@@ -36,7 +38,8 @@ const RoleSelectionScreen = () => {
 
     try {
       await saveRole(role);
-      navigation.navigate('GeoLocation');
+      if (!user) throw new Error('User not found after saving role');
+      navigation.navigate(getNextOnboardingScreen({ ...user, role }));
     } catch {
       toast.show({
         description: t('ERRORS.GENERIC'),

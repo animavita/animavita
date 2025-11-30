@@ -22,6 +22,7 @@ jest.mock('@/hooks/use-user-register', () => ({
   default: jest.fn(() => ({
     saveRole: mockSaveRole,
     isSavingRole: false,
+    user: { name: 'John' },
   })),
 }));
 
@@ -34,6 +35,11 @@ jest.mock('native-base', () => ({
   }),
 }));
 
+jest.mock('@/navigation/hooks/use-next-onboarding-screen', () => ({
+  __esModule: true,
+  default: () => jest.fn(() => 'GeoLocation'),
+}));
+
 describe('RoleSelection Screen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -41,6 +47,7 @@ describe('RoleSelection Screen', () => {
     (useUserRegister as jest.Mock).mockImplementation(() => ({
       saveRole: mockSaveRole,
       isSavingRole: false,
+      user: { name: 'John' },
     }));
   });
 
@@ -110,7 +117,7 @@ describe('RoleSelection Screen', () => {
     });
 
     describe('and saving the role succeeds', () => {
-      it('navigates to the GeoLocation screen', async () => {
+      it('navigates to the next sign up screen', async () => {
         renderWithProviders(<MainNavigator />);
         await pressContinueButton();
 
