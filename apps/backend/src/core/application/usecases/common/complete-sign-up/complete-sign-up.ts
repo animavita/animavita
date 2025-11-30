@@ -4,6 +4,7 @@ import UserRepository, {
 } from '../../../repositories/user.repository';
 import Location from '../../../../domain/location/location';
 import { UserRole } from '../../../../domain/role/role';
+import { UserPhoneNumber } from '../../../../domain/phone-number/phone-number';
 
 type Input = {
   location?: {
@@ -11,6 +12,7 @@ type Input = {
     longitude: number;
   };
   role?: string;
+  phoneNumber?: string;
 };
 
 @Injectable()
@@ -35,11 +37,21 @@ export default class CompleteSignUp {
       user.assignRole(role);
     }
 
+    // TODO: ignore if feature flag for phone number verification is off
+    if (input.phoneNumber) {
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('OTP code verification not implemented yet');
+      }
+
+      user.updatePhoneNumber(UserPhoneNumber.create(input.phoneNumber));
+    }
+
     await this.userRepository.store(user);
 
     return {
       location: user.location,
       role: user.role ? user.role.getValue() : undefined,
+      phoneNumber: user.phoneNumber ? user.phoneNumber.getValue() : undefined,
     };
   }
 }
@@ -50,4 +62,5 @@ export type Output = {
     longitude: number;
   };
   role?: string;
+  phoneNumber?: string;
 };

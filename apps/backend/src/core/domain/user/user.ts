@@ -1,6 +1,7 @@
 import { Email } from '../email/email';
 import { EntityError } from '../errors';
 import Location from '../location/location';
+import { UserPhoneNumber } from '../phone-number/phone-number';
 import { UserRole } from '../role/role';
 import { HasherService } from '../services/hasher.service';
 
@@ -9,7 +10,7 @@ export interface Attributes {
   name: string;
   email: Email;
   password: string;
-  phoneNumber?: string;
+  phoneNumber?: UserPhoneNumber;
   photoUri?: string;
   role?: UserRole;
   location?: Location;
@@ -21,7 +22,7 @@ export class User {
   private _email: Email;
   private _role: UserRole;
   private _hashedPassword: string;
-  private _phoneNumber?: string;
+  private _phoneNumber?: UserPhoneNumber;
   private _photoUri?: string;
   private _location?: Location;
 
@@ -84,6 +85,10 @@ export class User {
     }
 
     this._role = role;
+  }
+
+  updatePhoneNumber(phoneNumber: UserPhoneNumber) {
+    this._phoneNumber = phoneNumber;
   }
 
   static create(attributes: Attributes) {

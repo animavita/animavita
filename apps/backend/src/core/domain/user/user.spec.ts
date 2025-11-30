@@ -4,6 +4,7 @@ import { HasherService } from '../services/hasher.service';
 import { Email } from '../email/email';
 import Location from '../location/location';
 import { UserRole, UserRoles } from '../role/role';
+import { UserPhoneNumber } from '../phone-number/phone-number';
 
 const attributes = {
   id: faker.string.uuid(),
@@ -11,7 +12,7 @@ const attributes = {
   email: Email.create(faker.internet.email()),
   password: faker.internet.password(),
   photoUri: faker.internet.avatar(),
-  phoneNumber: faker.phone.number(),
+  phoneNumber: UserPhoneNumber.create('+1234567890'),
   location: new Location(faker.location.longitude(), faker.location.latitude()),
 };
 
@@ -84,6 +85,29 @@ describe('User Entity', () => {
       expect(() => user.assignRole(adminRole)).toThrowError(
         'Cannot assign admin role to user',
       );
+    });
+  });
+
+  describe('updatePhoneNumber', () => {
+    it('updates phone number for user without existing phone number', () => {
+      const userWithoutPhone = User.create({
+        ...attributes,
+        phoneNumber: undefined,
+      });
+      const phoneNumber = UserPhoneNumber.create('+1987654321');
+
+      userWithoutPhone.updatePhoneNumber(phoneNumber);
+
+      expect(userWithoutPhone.phoneNumber).toBe(phoneNumber);
+    });
+
+    it('updates phone number for user with existing phone number', () => {
+      const user = User.create(attributes);
+      const newPhoneNumber = UserPhoneNumber.create('+1987654321');
+
+      user.updatePhoneNumber(newPhoneNumber);
+
+      expect(user.phoneNumber).toBe(newPhoneNumber);
     });
   });
 });
