@@ -1,5 +1,4 @@
 import { AdoptionType } from '@animavita/types';
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
@@ -42,26 +41,24 @@ const MainNavigator = () => {
   })();
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
-        {auth.status === 'LOGGED' ? (
-          <>
-            <Stack.Screen name="RoleSelection" component={RoleSelectionScreen} />
-            <Stack.Screen name="GeoLocation" component={GetLocationScreen} />
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="RegisterPet" component={RegisterPet} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="MyPets" component={MyPetsScreen} />
-            <Stack.Screen name="UpdatePet" component={UpdatePetScreen} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="SignIn" component={SignInScreen} />
-            <Stack.Screen name="SignUp" component={SignUpScreen} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator screenOptions={{ headerShown: false }} initialRouteName={initialRouteName}>
+      {auth.status === 'LOGGED' ? (
+        <>
+          <Stack.Screen name="RoleSelection" component={RoleSelectionScreen} />
+          <Stack.Screen name="GeoLocation" component={GetLocationScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="RegisterPet" component={RegisterPet} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="MyPets" component={MyPetsScreen} />
+          <Stack.Screen name="UpdatePet" component={UpdatePetScreen} />
+        </>
+      ) : (
+        <>
+          <Stack.Screen name="SignIn" component={SignInScreen} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} />
+        </>
+      )}
+    </Stack.Navigator>
   );
 };
 
