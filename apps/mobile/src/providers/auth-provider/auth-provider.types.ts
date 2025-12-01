@@ -12,7 +12,7 @@ export type AuthState = {
 
 export type AuthAction =
   | { type: 'SIGN_IN'; payload: UserPayload }
-  | { type: 'SIGN_UP_COMPLETED'; payload: Pick<UserPayload, 'location' | 'role'> }
+  | { type: 'SIGN_UP_COMPLETED'; payload: Pick<UserPayload, 'location' | 'role' | 'phoneNumber'> }
   | { type: 'SIGN_OUT' };
 
 export type AuthContextActions = {
@@ -20,6 +20,7 @@ export type AuthContextActions = {
   signOut: () => void;
   completeSignUp: (coordinates: Coordinates) => void;
   choseRole: (role: UserType['role']) => void;
+  updatePhoneNumber: (phoneNumber: UserType['phoneNumber']) => void;
 };
 
 export type AuthContextType = AuthState & AuthContextActions;

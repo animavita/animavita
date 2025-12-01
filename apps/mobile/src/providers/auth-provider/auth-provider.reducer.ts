@@ -3,23 +3,29 @@ import { AuthAction, AuthState } from './auth-provider.types';
 const AuthReducer = (state: AuthState, action: AuthAction): AuthState => {
   switch (action.type) {
     case 'SIGN_IN': {
-      const { name, accessToken, refreshToken, location, role } = action.payload;
+      const { name, accessToken, refreshToken, location, role, phoneNumber } = action.payload;
 
       return {
         ...state,
         status: 'LOGGED',
         tokens: { accessToken, refreshToken },
-        user: { name, location, role },
+        user: { name, location, role, phoneNumber },
       };
     }
     case 'SIGN_UP_COMPLETED': {
-      const { location, role } = action.payload;
+      const { location, role, phoneNumber } = action.payload;
 
       if (!state.user) throw new Error('User not logged in');
 
+      const user = { ...state.user };
+
+      if (location) user.location = location;
+      if (role) user.role = role;
+      if (phoneNumber) user.phoneNumber = phoneNumber;
+
       return {
         ...state,
-        user: { ...state.user, location, role },
+        user,
       };
     }
     case 'SIGN_OUT':

@@ -1,9 +1,12 @@
-import { act, screen, userEvent } from '@testing-library/react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { act, screen, userEvent, waitFor } from '@testing-library/react-native';
+import { Text } from 'react-native';
 
 import PhoneNumberEntryScreen from './phone-number-entry.screen';
 
 import useProfile from '@/hooks/use-profile';
 import useUserRegister from '@/hooks/use-user-register';
+import { StackParamsList } from '@/navigation/main-navigator';
 import { renderWithProviders } from '@/test/test-utils';
 
 jest.mock('@/hooks/use-profile', () => ({
@@ -20,6 +23,7 @@ jest.mock('@/hooks/use-user-register', () => ({
   default: jest.fn(() => ({
     saveRole: mockSaveRole,
     isSavingRole: false,
+    user: { id: 'user-id' },
   })),
 }));
 
@@ -30,6 +34,22 @@ jest.mock('native-base', () => ({
     show: mockShow,
     isActive: () => false,
   }),
+}));
+
+const mockRequestOtp = jest.fn().mockResolvedValue(undefined);
+const mockVerifyOtp = jest.fn().mockResolvedValue('+5511999999999');
+jest.mock('@/hooks/use-otp-verification', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({
+    requestOtp: mockRequestOtp,
+    verifyOtp: mockVerifyOtp,
+    isLoading: false,
+  })),
+}));
+
+jest.mock('@/navigation/hooks/use-next-onboarding-screen', () => ({
+  __esModule: true,
+  default: jest.fn(() => () => 'Home'),
 }));
 
 const makeOTPInputsFiller = (user: ReturnType<typeof userEvent.setup>) => {
@@ -57,6 +77,7 @@ describe('PhoneNumberEntry Screen', () => {
     (useUserRegister as jest.Mock).mockImplementation(() => ({
       saveRole: mockSaveRole,
       isSavingRole: false,
+      user: { id: 'user-id' },
     }));
   });
 
@@ -99,13 +120,15 @@ describe('PhoneNumberEntry Screen', () => {
       expect(continueButton).toBeEnabled();
     });
 
-    describe('when the user taps the continue button', () => {
+    describe('and taps the continue button', () => {
       beforeEach(async () => {
         const continueButton = screen.getByRole('button', { name: 'Enviar código' });
         await user.press(continueButton);
       });
 
-      it.skip('`sendsOtp` is called with the entered phone number', () => {});
+      it('`sendsOtp` is called with the entered phone number', () => {
+        expect(mockRequestOtp).toHaveBeenCalledWith('+5511 99999 9999');
+      });
 
       it('shows the OTP verification step', async () => {
         expect(await screen.findByText('Digite o código', {}, { timeout: 1100 })).toBeVisible();
@@ -120,15 +143,14 @@ describe('PhoneNumberEntry Screen', () => {
     beforeEach(async () => {
       jest.useFakeTimers();
 
-      renderWithProviders(<PhoneNumberEntryScreen />);
+      renderWithProviders(<MainNavigator />);
       const phoneInput = screen.getByPlaceholderText('Número de celular');
       await user.type(phoneInput, '11999999999');
       const continueButton = screen.getByRole('button', { name: 'Enviar código' });
       await user.press(continueButton);
 
-      // Advance past the 1000ms setTimeout in handleSendOtp to show OTP screen
-      act(() => {
-        jest.advanceTimersByTime(1000);
+      await waitFor(() => {
+        expect(screen.getByText('Digite o código')).toBeVisible();
       });
     });
 
@@ -143,12 +165,26 @@ describe('PhoneNumberEntry Screen', () => {
     });
 
     describe('when the user taps the verify button', () => {
-      beforeEach(async () => await fillAllOTPInputs());
+      beforeEach(async () => {
+        await fillAllOTPInputs();
+        const verifyButton = screen.getByRole('button', { name: 'Verificar' });
+        await user.press(verifyButton);
 
-      it.skip('`verifyCode` is called with the entered code', () => {});
+        await waitFor(() => {
+          expect(screen.getByText('Home screen')).toBeVisible();
+        });
+      });
+
+      it('`verifyCode` is called with the entered code', () => {
+        expect(mockVerifyOtp).toHaveBeenCalledWith('+5511 99999 9999', '123456');
+      });
+
+      it('navigates to the next onboarding screen', () => {
+        expect(screen.getByText('Home screen')).toBeVisible();
+      });
     });
 
-    it('countdown is started and decreases correctly', () => {
+    it('countdown is started and decreases correctly', async () => {
       expect(screen.getByText('Aguarde 60s para alterar número ou reenviar')).toBeVisible();
       act(() => jest.advanceTimersByTime(1000));
       expect(screen.getByText('Aguarde 59s para alterar número ou reenviar')).toBeVisible();
@@ -178,17 +214,17 @@ const ROLE_TO_NOTE: Record<string, string> = {
   owner: 'Quando você aprovar uma adoção',
 };
 
-// const Stack = createNativeStackNavigator<StackParamsList>();
+const Stack = createNativeStackNavigator<StackParamsList>();
 
-// const MainNavigator = () => {
-//   return (
-//     <Stack.Navigator initialRouteName="PhoneNumber">
-//       <Stack.Screen name="PhoneNumber" component={PhoneNumberEntryScreen} />
-//       <Stack.Screen name="Home">
-//         {() => {
-//           return <Text>Home screen</Text>;
-//         }}
-//       </Stack.Screen>
-//     </Stack.Navigator>
-//   );
-// };
+const MainNavigator = () => {
+  return (
+    <Stack.Navigator initialRouteName="PhoneNumber">
+      <Stack.Screen name="PhoneNumber" component={PhoneNumberEntryScreen} />
+      <Stack.Screen name="Home">
+        {() => {
+          return <Text>Home screen</Text>;
+        }}
+      </Stack.Screen>
+    </Stack.Navigator>
+  );
+};

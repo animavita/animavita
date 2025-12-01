@@ -41,11 +41,11 @@ const useAuthActions = (): UseAuthActions => {
             return;
           }
 
-          const { name, location, role } = data.data;
+          const { name, location, role, phoneNumber } = data.data;
 
           dispatch({
             type: 'SIGN_IN',
-            payload: { ...tokens, name, location, role },
+            payload: { ...tokens, name, location, role, phoneNumber },
           });
         } else {
           dispatch({ type: 'SIGN_OUT' });
@@ -64,7 +64,17 @@ const useAuthActions = (): UseAuthActions => {
     () => ({
       signIn: async (payload: UserPayload) => {
         persistUserToken(payload.accessToken);
-        dispatch({ type: 'SIGN_IN', payload });
+
+        const { data } = await userInfoQuery.refetch();
+
+        if (!data) {
+          await authActions.signOut();
+          return;
+        }
+
+        const { name, location, role, phoneNumber } = data.data;
+
+        dispatch({ type: 'SIGN_IN', payload: { ...payload, name, location, role, phoneNumber } });
         await saveUserCredentials(payload);
       },
       signOut: async () => {
@@ -76,6 +86,9 @@ const useAuthActions = (): UseAuthActions => {
       },
       choseRole: (role: UserType['role']) => {
         dispatch({ type: 'SIGN_UP_COMPLETED', payload: { role } });
+      },
+      updatePhoneNumber: (phoneNumber: UserType['phoneNumber']) => {
+        dispatch({ type: 'SIGN_UP_COMPLETED', payload: { phoneNumber } });
       },
     }),
     []

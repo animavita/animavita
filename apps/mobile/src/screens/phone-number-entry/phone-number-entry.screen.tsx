@@ -8,29 +8,38 @@ import useResendTimer from './compose/hooks/use-resend-timer';
 import SafeArea from '@/components/safe-area/safe-area';
 import AppStatusBar from '@/components/status-bar/status-bar.component';
 import useLocale from '@/hooks/use-locale';
+import useOtpVerification from '@/hooks/use-otp-verification';
 import useProfile from '@/hooks/use-profile';
+import useUserRegister from '@/hooks/use-user-register';
+import useNextOnboardingScreen from '@/navigation/hooks/use-next-onboarding-screen';
+import { useNavigation } from '@/navigation/use-navigation';
 
 type Step = 'phone' | 'otp';
 
 const PhoneNumberEntryScreen = () => {
   const { t } = useLocale();
   const { role } = useProfile();
+  const { user } = useUserRegister();
+  const { requestOtp, verifyOtp, isLoading } = useOtpVerification();
+  const navigation = useNavigation();
+  const getNextOnboardingScreen = useNextOnboardingScreen();
   const [step, setStep] = useState<Step>('phone');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [isLoading, setIsLoading] = useState(false);
   const inputRefs = useRef<(TextInput | null)[]>([]);
   const { timer: resendTimer, startTimer, resetTimer } = useResendTimer();
 
+  const getFullPhoneNumber = () => {
+    if (!selectedCountry) throw new Error('Selected country is missing');
+
+    return `${selectedCountry?.idd?.root}${phoneNumber}`;
+  };
+
   const handleSendOtp = async () => {
-    setIsLoading(true);
-    // TODO: Integrate with backend to send OTP
-    setTimeout(() => {
-      setIsLoading(false);
-      setStep('otp');
-      startTimer();
-    }, 1000);
+    await requestOtp(getFullPhoneNumber());
+    setStep('otp');
+    startTimer();
   };
 
   const handleChangeNumber = () => {
@@ -40,11 +49,9 @@ const PhoneNumberEntryScreen = () => {
   };
 
   const handleVerifyOtp = async () => {
-    setIsLoading(true);
-    // TODO: Verify OTP with backend
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+    const phoneNumber = await verifyOtp(getFullPhoneNumber(), otp.join(''));
+    if (!user) throw new Error('User not found after saving role');
+    navigation.navigate(getNextOnboardingScreen({ ...user, phoneNumber }));
   };
 
   const handleOtpChange = (value: string, index: number) => {

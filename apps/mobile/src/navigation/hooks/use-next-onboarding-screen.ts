@@ -6,7 +6,7 @@ import { UserInfo } from '@/providers/auth-provider/auth-provider.types';
 
 const useNextOnboardingScreen = (): ((
   user: UserInfo | undefined | null
-) => keyof StackParamsList) => {
+) => keyof Pick<StackParamsList, 'RoleSelection' | 'PhoneNumber' | 'GeoLocation' | 'Home'>) => {
   const requirePhoneNumber = useFeatureFlag('require_phone_number');
 
   return (user: UserInfo | undefined | null) => {

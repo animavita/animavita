@@ -6,7 +6,11 @@ export const signUp = (user: SignUpRequest) => {
   return client.post<SignUpResponse>('/auth/signUp', user);
 };
 
-export const completeSignUp = (data: { location?: Coordinates; role?: UserType['role'] }) => {
+export const completeSignUp = (data: {
+  location?: Coordinates;
+  role?: UserType['role'];
+  phoneNumber?: UserType['phoneNumber'];
+}) => {
   let payload = {};
 
   if (data.location) {
@@ -17,8 +21,13 @@ export const completeSignUp = (data: { location?: Coordinates; role?: UserType['
     payload = { ...payload, role: data.role };
   }
 
-  return client.post<{ location: Coordinates; role: UserType['role'] }>(
-    '/auth/completeSignUp',
-    payload
-  );
+  if (data.phoneNumber) {
+    payload = { ...payload, phoneNumber: data.phoneNumber };
+  }
+
+  return client.post<{
+    location: Coordinates;
+    role: UserType['role'];
+    phoneNumber: UserType['phoneNumber'];
+  }>('/auth/completeSignUp', payload);
 };
