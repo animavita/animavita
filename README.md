@@ -34,7 +34,7 @@ In v2, we aim to rebuild a simpler version of Animavita with a cleaner UI and a 
 
 ### Onboarding
 -   [x] User can register and log in https://github.com/animavita/animavita/issues/234
--   [ ] User must inform their phone number and role https://github.com/animavita/animavita/issues/256
+-   [x] User must inform their phone number and role https://github.com/animavita/animavita/issues/256
 
 ### Pet Owner
 -   [ ] Owner can post a pet for adoption https://github.com/animavita/animavita/issues/237

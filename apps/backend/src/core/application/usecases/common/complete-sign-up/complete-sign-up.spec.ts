@@ -97,6 +97,41 @@ describe('CompleteSignUp', () => {
     });
   });
 
+  describe('when completing sign up with phone number', () => {
+    it('updates user with phone number', async () => {
+      const createdUser = await userService.create(testUser);
+
+      const input = {
+        phoneNumber: '+1234567890',
+      };
+
+      const result = await completeSignUp.execute(createdUser.id, input);
+
+      expect(result.phoneNumber).toBe('+1234567890');
+    });
+  });
+
+  describe('when completing sign up with location, role, and phone number', () => {
+    it('updates user with all fields', async () => {
+      const createdUser = await userService.create(testUser);
+
+      const input = {
+        location: {
+          latitude: 40.75783,
+          longitude: -73.98911,
+        },
+        role: UserRoles.Owner,
+        phoneNumber: '+1234567890',
+      };
+
+      const result = await completeSignUp.execute(createdUser.id, input);
+
+      expect(result.location).toEqual(input.location);
+      expect(result.role).toBe(UserRoles.Owner);
+      expect(result.phoneNumber).toBe('+1234567890');
+    });
+  });
+
   afterEach(async () => {
     await app.close();
     await closeInMongodConnection();

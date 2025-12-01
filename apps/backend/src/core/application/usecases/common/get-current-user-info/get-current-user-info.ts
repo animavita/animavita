@@ -16,7 +16,7 @@ export default class GetCurrentUserInfo {
     return {
       name: user.name,
       location: user.location,
-      phoneNumber: user.phoneNumber,
+      phoneNumber: user.phoneNumber ? user.phoneNumber.getValue() : undefined,
       role: user.role ? user.role.getValue() : undefined,
     };
   }

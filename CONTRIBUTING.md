@@ -76,6 +76,8 @@ Then, run the app:
 $ pnpm mobile start
 ```
 
+> **Note:** During development, you can bypass the phone number verification step by entering any fake/random OTP code when prompted.
+
 ### Developing with staging backend
 
 In this case, you don't need to worry about the backend part.  We have a hosted staging environment you can use while developing locally. Keep in mind it might be unstable, so in case you face any problems follow the above steps to get the backend running locally as well.

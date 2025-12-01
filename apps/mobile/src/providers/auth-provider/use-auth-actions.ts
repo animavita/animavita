@@ -28,6 +28,9 @@ const useAuthActions = (): UseAuthActions => {
       choseRole: (role: UserType['role']) => {
         dispatch({ type: 'SIGN_UP_COMPLETED', payload: { role } });
       },
+      updatePhoneNumber: (phoneNumber: UserType['phoneNumber']) => {
+        dispatch({ type: 'SIGN_UP_COMPLETED', payload: { phoneNumber } });
+      },
     }),
     []
   );

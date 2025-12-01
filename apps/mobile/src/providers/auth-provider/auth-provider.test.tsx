@@ -28,7 +28,7 @@ const setup = async () => {
       <AuthContext.Consumer>
         {(value) => {
           const { accessToken, refreshToken } = value.tokens || {};
-          const { name, location, role } = value.user || {};
+          const { name, location, role, phoneNumber } = value.user || {};
 
           return (
             <>
@@ -38,6 +38,7 @@ const setup = async () => {
               <Text>role: {role}</Text>
               <Text>latitude: {location?.latitude}</Text>
               <Text>longitude: {location?.longitude}</Text>
+              <Text>phoneNumber: {phoneNumber}</Text>
               <Text>status: {JSON.stringify(value.status)}</Text>
               <Text
                 testID="update-location"
@@ -50,6 +51,9 @@ const setup = async () => {
               </Text>
               <Text testID="choose-rescuer" onPress={() => value.choseRole('rescuer')}>
                 Choose Rescuer
+              </Text>
+              <Text testID="update-phone" onPress={() => value.updatePhoneNumber('+1234567890')}>
+                Update Phone
               </Text>
             </>
           );
@@ -163,6 +167,26 @@ describe('AuthProvider native', () => {
       fireEvent.press(rescuerButton);
 
       expect(screen.getByText('role: rescuer')).toBeOnTheScreen();
+    });
+  });
+
+  describe('phone number management', () => {
+    it('updates user phone number when updatePhoneNumber is called', async () => {
+      (getUserCredentials as jest.Mock).mockReturnValue({
+        accessToken: '123-abc',
+        refreshToken: 'abc-123',
+      });
+
+      setup();
+
+      await waitForElementToBeRemoved(() => screen.getByText('status: "IDLE"'));
+
+      expect(screen.getByText('phoneNumber:')).toBeOnTheScreen();
+
+      const updatePhoneButton = screen.getByTestId('update-phone');
+      fireEvent.press(updatePhoneButton);
+
+      expect(screen.getByText('phoneNumber: +1234567890')).toBeOnTheScreen();
     });
   });
 });

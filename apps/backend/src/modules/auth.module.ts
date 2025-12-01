@@ -12,10 +12,11 @@ import { TOKEN_SERVICE } from '../core/application/services/token.service';
 import { NestJwtTokenService } from '../auth/nest-jwt-token-service';
 import CompleteSignUp from '../core/application/usecases/common/complete-sign-up/complete-sign-up';
 import GetCurrentUserInfo from '../core/application/usecases/common/get-current-user-info/get-current-user-info';
+import { PhoneNumberController } from '../infra/controllers/phone-number.controller';
 
 @Module({
   imports: [JwtModule.register({}), UserModule],
-  controllers: [AuthController],
+  controllers: [AuthController, PhoneNumberController],
   providers: [
     AuthService,
     AccessTokenStrategy,

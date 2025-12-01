@@ -7,6 +7,7 @@ import { Email } from '../../core/domain/email/email';
 import Location from '../../core/domain/location/location';
 import { DatabaseError } from '../../core/application/errors/database-error';
 import { UserRole } from '../../core/domain/role/role';
+import { UserPhoneNumber } from '../../core/domain/phone-number/phone-number';
 
 export class MongoUserRepository implements UserRepository {
   constructor(
@@ -20,7 +21,9 @@ export class MongoUserRepository implements UserRepository {
       email: Email.create(document.email),
       password: document.password,
       name: document.name,
-      phoneNumber: document.phoneNumber,
+      phoneNumber: document.phoneNumber
+        ? UserPhoneNumber.create(document.phoneNumber)
+        : undefined,
       photoUri: document.photoUri,
       role: document.role ? UserRole.create(document.role) : undefined,
       location: document.location
@@ -67,7 +70,7 @@ export class MongoUserRepository implements UserRepository {
         { _id: user.id },
         {
           $set: {
-            phoneNumber: user.phoneNumber,
+            phoneNumber: user.phoneNumber ? user.phoneNumber.getValue() : null,
             ...optionalData,
           },
         },
