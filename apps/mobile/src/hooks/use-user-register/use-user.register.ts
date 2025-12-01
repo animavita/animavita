@@ -51,6 +51,7 @@ const useUserRegister = () => {
     saveRole,
     complete,
     error,
+    user: auth.user,
   };
 };
 
