@@ -1,8 +1,12 @@
 import { useFeatureFlag } from 'posthog-react-native';
 
+import { StackParamsList } from '../main-navigator';
+
 import { UserInfo } from '@/providers/auth-provider/auth-provider.types';
 
-const useNextOnboardingScreen = () => {
+const useNextOnboardingScreen = (): ((
+  user: UserInfo | undefined | null
+) => keyof StackParamsList) => {
   const requirePhoneNumber = useFeatureFlag('require_phone_number');
 
   return (user: UserInfo | undefined | null) => {
