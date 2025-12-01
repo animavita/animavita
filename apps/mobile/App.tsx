@@ -16,7 +16,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <PostHogProvider
-          apiKey="phc_gx8bzWv7D9lGd232EgOrXEiWmfdMMhplEMiFnp8mIZV"
+          apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
           options={{
             host: 'https://us.i.posthog.com',
           }}
