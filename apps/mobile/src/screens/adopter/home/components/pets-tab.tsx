@@ -3,10 +3,8 @@ import { Badge, Box, Button, Icon, VStack } from 'native-base';
 import React from 'react';
 
 import useLocale from '@/hooks/use-locale';
-import { useNavigation } from '@/navigation/use-navigation';
 
-const AdoptionsTab = () => {
-  const navigation = useNavigation();
+const PetsTab = () => {
   const { t } = useLocale();
 
   return (
@@ -31,19 +29,9 @@ const AdoptionsTab = () => {
             {t('HOME.FILTER')}
           </Button>
         </VStack>
-        <Button
-          variant="solid"
-          size="sm"
-          onPress={() => {
-            navigation.navigate('RegisterPet');
-          }}
-          marginTop="auto"
-        >
-          {t('HOME.REGISTER_ADOPTION')}
-        </Button>
       </Box>
     </Box>
   );
 };
 
-export default AdoptionsTab;
+export default PetsTab;

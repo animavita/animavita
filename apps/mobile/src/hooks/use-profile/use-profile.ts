@@ -17,6 +17,8 @@ const useProfile = () => {
   const firstName = names?.[0].trim();
   const lastName = names?.slice(-1)[0].trim();
   const initials = getInitials(firstName, lastName);
+  const isAdopter = auth.user.role === 'adopter';
+  const isOwner = auth.user.role === 'owner';
 
   return {
     fullname,
@@ -24,6 +26,8 @@ const useProfile = () => {
     lastName,
     initials,
     role: auth.user.role,
+    isAdopter,
+    isOwner,
   };
 };
 
