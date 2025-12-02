@@ -2,11 +2,13 @@ import { Inject, Injectable } from '@nestjs/common';
 import PetRepository, {
   PET_REPOSITORY,
 } from '../../../repositories/pet.repository';
-import { UserService } from '../../../../../user/user.service';
-import { UserRepository } from '../../../../../user/repositories/user-repository.interface';
 import { UnauthorizedError } from '../../../../domain/errors/unauthorized.error';
 import { NotFoundError } from '../../../../domain/errors/not-found.error';
 import type { PostPetForAdoptionInput as UpdatablePetData } from '../post-pet-for-adoption/post-pet-for-adoption';
+
+import UserRepository, {
+  USER_REPOSITORY,
+} from '../../../repositories/user.repository';
 
 type Input = Partial<UpdatablePetData> & {
   id: string;
@@ -16,11 +18,11 @@ type Input = Partial<UpdatablePetData> & {
 export default class UpdatePostedPet {
   constructor(
     @Inject(PET_REPOSITORY) private readonly petRepository: PetRepository,
-    @Inject(UserService) private readonly userService: UserRepository,
+    @Inject(USER_REPOSITORY) private readonly userRepository: UserRepository,
   ) {}
 
-  async execute({ id: petId, ...input }: Input, ownerEmail: string) {
-    const owner = await this.userService.findByEmail(ownerEmail);
+  async execute({ id: petId, ...input }: Input, ownerId: string) {
+    const owner = await this.userRepository.getById(ownerId);
     const pet = await this.petRepository.getById(petId);
 
     if (!pet) {

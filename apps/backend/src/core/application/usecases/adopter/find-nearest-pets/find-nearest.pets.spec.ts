@@ -35,7 +35,7 @@ const owner2 = userFactory.build({
 });
 
 // integration tests
-describe('FindNearestPets', () => {
+describe.only('FindNearestPets', () => {
   let app: INestApplication;
   let postPetForAdoption: PostPetForAdoption;
   let findNearestPets: FindNearestPets;
@@ -47,6 +47,7 @@ describe('FindNearestPets', () => {
     await completeSignUp.execute(created.id, {
       role: 'owner',
     });
+    return created.id;
   };
 
   beforeEach(async () => {
@@ -73,22 +74,23 @@ describe('FindNearestPets', () => {
     const availablePet1 = petFactory.build();
     const availablePet2 = petFactory.build();
     const availablePet3 = petFactory.build();
+    let adopterId: string;
 
     beforeEach(async () => {
-      await createOwner(owner1);
-      await createOwner(owner2);
-      await userService.create(adopter);
+      const owner1Id = await createOwner(owner1);
+      const owner2Id = await createOwner(owner2);
+      adopterId = (await userService.create(adopter)).id;
 
-      await postPetForAdoption.execute(availablePet1, owner1.email);
-      await postPetForAdoption.execute(availablePet2, owner1.email);
-      await postPetForAdoption.execute(availablePet3, owner2.email);
+      await postPetForAdoption.execute(availablePet1, owner1Id);
+      await postPetForAdoption.execute(availablePet2, owner1Id);
+      await postPetForAdoption.execute(availablePet3, owner2Id);
     });
 
     describe("when posted pets are within the adopter's search radius", () => {
       it('returns them in the nearest ones list', async () => {
         const pets = await findNearestPets.execute({
           radius: 2,
-          adopterEmail: adopter.email,
+          adopterId,
         });
 
         expect(pets.length).toBe(3);
@@ -102,7 +104,7 @@ describe('FindNearestPets', () => {
       it('does not include them in the nearest ones list', async () => {
         const pets = await findNearestPets.execute({
           radius: 1,
-          adopterEmail: adopter.email,
+          adopterId,
         });
 
         expect(pets.length).toBe(2);
@@ -113,14 +115,16 @@ describe('FindNearestPets', () => {
   });
 
   describe('when no pets have been posted', () => {
+    let adopterId: string;
+
     beforeEach(async () => {
-      await userService.create(adopter);
+      adopterId = (await userService.create(adopter)).id;
     });
 
     it('returns an empty list', async () => {
       const pets = await findNearestPets.execute({
         radius: 1,
-        adopterEmail: adopter.email,
+        adopterId: adopterId,
       });
 
       expect(pets.length).toEqual(0);

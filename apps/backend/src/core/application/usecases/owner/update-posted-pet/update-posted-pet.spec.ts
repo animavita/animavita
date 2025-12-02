@@ -54,18 +54,18 @@ describe('UpdatePostedPet', () => {
 
   describe('when the user is the pet owner', () => {
     let petId: string;
-    let ownerEmail: string;
+    let ownerId: string;
 
     beforeEach(async () => {
       const user = await createOwner(user1Mock);
-      ownerEmail = user.email;
+      ownerId = user.id;
       const input = petFactory.build();
-      const { id } = await postPetForAdoption.execute(input, ownerEmail);
+      const { id } = await postPetForAdoption.execute(input, ownerId);
       petId = id;
     });
 
     it('updates the pet data', async () => {
-      await updatePostedPet.execute({ id: petId, name: 'Alf' }, ownerEmail);
+      await updatePostedPet.execute({ id: petId, name: 'Alf' }, ownerId);
 
       const pet = await getPet.execute(petId);
 
@@ -80,7 +80,7 @@ describe('UpdatePostedPet', () => {
       const owner1 = await createOwner(user1Mock);
 
       const input = petFactory.build();
-      const { id } = await postPetForAdoption.execute(input, owner1.email);
+      const { id } = await postPetForAdoption.execute(input, owner1.id);
       petId = id;
     });
 
@@ -88,7 +88,7 @@ describe('UpdatePostedPet', () => {
       const owner2 = await createOwner(user2Mock);
 
       await expect(
-        updatePostedPet.execute({ id: petId, name: 'Simba' }, owner2.email),
+        updatePostedPet.execute({ id: petId, name: 'Simba' }, owner2.id),
       ).rejects.toThrowError("You're not authorized to update this pet");
     });
   });
@@ -100,7 +100,7 @@ describe('UpdatePostedPet', () => {
       await expect(
         updatePostedPet.execute(
           { id: '678cf57a89333cd9e22567db', name: 'Alf' },
-          owner1.email,
+          owner1.id,
         ),
       ).rejects.toThrowError('Pet not found');
     });

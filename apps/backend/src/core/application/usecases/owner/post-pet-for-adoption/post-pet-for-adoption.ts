@@ -26,8 +26,8 @@ export default class PostPetForAdoption {
     @Inject(USER_REPOSITORY) private readonly userRepository: UserRepository,
   ) {}
 
-  async execute(input: PostPetForAdoptionInput, ownerEmail: string) {
-    const user = await this.userRepository.getByEmail(ownerEmail);
+  async execute(input: PostPetForAdoptionInput, ownerId: string) {
+    const user = await this.userRepository.getById(ownerId);
 
     if (!user) {
       throw new NotFoundError('User not found');

@@ -33,38 +33,41 @@ export class PetsController {
   @UseGuards(AccessTokenGuard)
   async create(
     @Body() petData: CreateAdoptionRequest,
-    @User() { email }: JwtPayload,
+    @User() { sub: userId }: JwtPayload,
   ) {
-    await this.postPetForAdoption.execute(petData, email);
+    await this.postPetForAdoption.execute(petData, userId);
   }
 
   @Patch()
   @UseGuards(AccessTokenGuard)
   async update(
     @Body() petData: UpdateAdoptionRequest,
-    @User() { email }: JwtPayload,
+    @User() { sub: userId }: JwtPayload,
   ) {
-    await this.updatePostedPet.execute({ id: petData.id, ...petData }, email);
+    await this.updatePostedPet.execute({ id: petData.id, ...petData }, userId);
   }
 
   @UseGuards(AccessTokenGuard)
   @Delete(':id')
-  async delete(@Param('id') petId: string, @User() { email }: JwtPayload) {
-    return this.removePostedPet.execute({ id: petId }, email);
+  async delete(
+    @Param('id') petId: string,
+    @User() { sub: userId }: JwtPayload,
+  ) {
+    return this.removePostedPet.execute({ id: petId }, userId);
   }
 
   @UseGuards(AccessTokenGuard)
   @Get('/my')
-  async myPets(@User() { sub }: JwtPayload) {
-    return this.getMyPets.execute(sub);
+  async myPets(@User() { sub: userId }: JwtPayload) {
+    return this.getMyPets.execute(userId);
   }
 
   @UseGuards(AccessTokenGuard)
   @Get('nearMe')
   async findNearMe(
-    @User() { email }: JwtPayload,
+    @User() { sub: userId }: JwtPayload,
     @Query() { radius }: { radius: number },
   ) {
-    return await this.findNearestPets.execute({ radius, adopterEmail: email });
+    return await this.findNearestPets.execute({ radius, adopterId: userId });
   }
 }
