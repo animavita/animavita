@@ -50,21 +50,21 @@ describe('RemovePostedPet', () => {
 
   describe('when the user is the pet owner', () => {
     let petId: string;
-    let ownerEmail: string;
+    let ownerId: string;
 
     beforeEach(async () => {
       const user = await createOwner(user1Mock);
-      ownerEmail = user.email;
+      ownerId = user.id;
       const input = petFactory.build();
-      const { id } = await postPetForAdoption.execute(input, ownerEmail);
+      const { id } = await postPetForAdoption.execute(input, ownerId);
       petId = id;
     });
 
     it('removes the pet', async () => {
-      await removePostedPet.execute({ id: petId }, ownerEmail);
+      await removePostedPet.execute({ id: petId }, ownerId);
 
       await expect(
-        removePostedPet.execute({ id: petId }, ownerEmail),
+        removePostedPet.execute({ id: petId }, ownerId),
       ).rejects.toThrowError('Pet not found');
     });
   });
@@ -76,7 +76,7 @@ describe('RemovePostedPet', () => {
       const owner1 = await createOwner(user1Mock);
 
       const input = petFactory.build();
-      const { id } = await postPetForAdoption.execute(input, owner1.email);
+      const { id } = await postPetForAdoption.execute(input, owner1.id);
       petId = id;
     });
 
@@ -84,7 +84,7 @@ describe('RemovePostedPet', () => {
       const owner2 = await userService.create(user2Mock);
 
       await expect(
-        removePostedPet.execute({ id: petId }, owner2.email),
+        removePostedPet.execute({ id: petId }, owner2.id),
       ).rejects.toThrowError("You're not authorized to remove this pet");
     });
   });
@@ -94,10 +94,7 @@ describe('RemovePostedPet', () => {
       const owner1 = await userService.create(user1Mock);
 
       await expect(
-        removePostedPet.execute(
-          { id: '678cf57a89333cd9e22567db' },
-          owner1.email,
-        ),
+        removePostedPet.execute({ id: '678cf57a89333cd9e22567db' }, owner1.id),
       ).rejects.toThrowError('Pet not found');
     });
   });

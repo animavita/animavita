@@ -41,10 +41,7 @@ describe('PostPetForAdoption', () => {
   describe('when the user is not found', () => {
     it('throws an error', async () => {
       await expect(
-        postPetForAdoption.execute(
-          {} as PostPetForAdoptionInput,
-          'invalid@example.com',
-        ),
+        postPetForAdoption.execute({} as PostPetForAdoptionInput, 'invalid-id'),
       ).rejects.toThrow('User not found');
     });
   });
@@ -58,7 +55,7 @@ describe('PostPetForAdoption', () => {
 
     it('throws an error', async () => {
       await expect(
-        postPetForAdoption.execute({} as PostPetForAdoptionInput, user.email),
+        postPetForAdoption.execute({} as PostPetForAdoptionInput, user.id),
       ).rejects.toThrow('User is not authorized to post a pet for adoption');
     });
   });
@@ -82,7 +79,7 @@ describe('PostPetForAdoption', () => {
         photos: [],
       };
 
-      const { id } = await postPetForAdoption.execute(input, user.email);
+      const { id } = await postPetForAdoption.execute(input, user.id);
 
       const pet = await getPet.execute(id);
 

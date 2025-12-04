@@ -88,11 +88,11 @@
   },
   "HOME": {
     "HELLO": "Olá, {{name}}",
-    "ADOPTIONS": "Adoções",
+    "PETS": "Pets",
     "REQUESTS": "Solicitações",
     "FAVORITES": "Favoritos",
     "FILTER": "Filtrar",
-    "REGISTER_ADOPTION": "Cadastrar Adoção"
+    "REGISTER_ADOPTION": "Adicionar Pet para Adoção"
   },
   "PROFILE": {
     "LOGOUT": "Sair"

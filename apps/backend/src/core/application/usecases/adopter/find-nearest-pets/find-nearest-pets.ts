@@ -5,7 +5,7 @@ import { PET_DAO, PetDao } from '../../../dao/pet.dao';
 
 type Input = {
   radius: number;
-  adopterEmail: string;
+  adopterId: string;
 };
 
 @Injectable()
@@ -16,7 +16,7 @@ export default class FindNearestPets {
   ) {}
 
   async execute(input: Input) {
-    const adopter = await this.userService.findByEmail(input.adopterEmail);
+    const adopter = await this.userService.findById(input.adopterId);
 
     const pets = await this.petDAO.findNearest({
       radius: input.radius,

@@ -1,7 +1,7 @@
 import UserRepository from '../../core/application/repositories/user.repository';
 import { InjectModel } from '@nestjs/mongoose';
 import { MongoUser, UserDocument } from '../mongo/schemas/user.schema';
-import { AnyKeys, Model } from 'mongoose';
+import { AnyKeys, isValidObjectId, Model } from 'mongoose';
 import { User } from '../../core/domain/user/user';
 import { Email } from '../../core/domain/email/email';
 import Location from '../../core/domain/location/location';
@@ -36,6 +36,10 @@ export class MongoUserRepository implements UserRepository {
   }
 
   async getById(id: string): Promise<User> {
+    if (!isValidObjectId(id)) {
+      return null;
+    }
+
     const document = await this.userModel.findById(id);
 
     if (!document) return null;
