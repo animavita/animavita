@@ -3,7 +3,7 @@ import { Box, Heading, Avatar, Pressable } from 'native-base';
 import AdopterHome from '../adopter/home/home.screen';
 import OwnerHome from '../owner/home/home.screen';
 
-import Delimiter from '@/components/delimiter';
+import { Delimiter } from '@/components/delimiter/delimiter';
 import SafeArea from '@/components/safe-area/safe-area';
 import useLocale from '@/hooks/use-locale';
 import useProfile from '@/hooks/use-profile/use-profile';
@@ -25,7 +25,7 @@ const Home = () => {
 
   return (
     <SafeArea>
-      <Delimiter flex="1">
+      <Delimiter>
         <Pressable onPress={() => navigate('Profile')}>
           <Box
             display="flex"
@@ -37,9 +37,9 @@ const Home = () => {
             <Avatar size="sm">{initials}</Avatar>
           </Box>
         </Pressable>
-
-        {content}
       </Delimiter>
+
+      {content}
     </SafeArea>
   );
 };

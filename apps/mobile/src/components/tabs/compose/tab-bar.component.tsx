@@ -10,6 +10,7 @@ const CustomTabBar = (props: SceneRendererProps & { navigationState: NavigationS
       {...props}
       style={{
         backgroundColor: 'transparent',
+        marginHorizontal: theme.space[6],
       }}
       indicatorContainerStyle={{
         borderBottomWidth: 1,
