@@ -60,7 +60,7 @@ const PetForm = ({ defaultValues, initialStep, title }: PetFormProps) => {
     <KeyboardAvoidingView flex="1" behavior="padding" enabled={Platform.OS === 'ios'}>
       <FormProvider {...petForm}>
         <StepperIndicator activeStep={activeStep} title={title} />
-        <Delimiter flex="1">
+        <Delimiter flex="1" marginBottom="4">
           <Box
             position="relative"
             marginTop="8"

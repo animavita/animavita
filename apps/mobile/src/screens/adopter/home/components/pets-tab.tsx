@@ -68,7 +68,7 @@ const PetsTab = () => {
           </VStack>
         </Box>
       </Delimiter>
-      <View flex="1" marginX="6">
+      <View flex="1" marginX="6" _web={{ marginBottom: 4 }}>
         {cards.map((card) => (
           <TinderCard
             key={card.id}

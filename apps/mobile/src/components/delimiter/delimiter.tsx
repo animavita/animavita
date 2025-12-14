@@ -5,7 +5,13 @@ import { Props } from '@/shared/types';
 
 const PageDelimiter: React.FC<Props & InterfaceViewProps> = ({ children, ...remainingProps }) => {
   return (
-    <Box marginX="6" marginBottom="4" _android={{ marginTop: 4 }} {...remainingProps}>
+    <Box
+      marginX="6"
+      marginBottom="4"
+      _android={{ marginTop: 4 }}
+      _web={{ marginY: 4 }}
+      {...remainingProps}
+    >
       {children}
     </Box>
   );
