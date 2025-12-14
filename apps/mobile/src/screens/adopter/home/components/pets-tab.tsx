@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Badge, Box, Button, Icon, View, VStack } from 'native-base';
 import React, { useState } from 'react';
+import { useSharedValue } from 'react-native-reanimated';
 
 import { TinderCard } from './card';
 
@@ -22,16 +23,24 @@ const cardsData = [
 const PetsTab = () => {
   const { t } = useLocale();
   const [cards, setCards] = useState(cardsData);
+  const [activeCardId, setActiveCardId] = useState(cardsData[cardsData.length - 1]?.id);
+  const swipeProgress = useSharedValue(0);
 
-  const onSwipeLeft = (id: number) => {
+  const handleSwipe = (cardId: number) => {
+    // Find the card that was just swiped
+    const swipedIndex = cards.findIndex((card) => card.id === cardId);
+    const nextCard = cards[swipedIndex - 1];
+
+    // Immediately activate the next card (if exists) for seamless interaction
+    if (nextCard) {
+      setActiveCardId(nextCard.id);
+    }
+
+    // Remove the swiped card after animation completes (400ms)
     setTimeout(() => {
-      setCards((old) => old.filter((card) => card.id !== id));
-    }, 300);
-  };
-  const onSwipeRight = (id: number) => {
-    setTimeout(() => {
-      setCards((old) => old.filter((card) => card.id !== id));
-    }, 300);
+      setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
+      swipeProgress.value = 0; // Reset progress for next card
+    }, 400);
   };
 
   return (
@@ -63,9 +72,11 @@ const PetsTab = () => {
         {cards.map((card) => (
           <TinderCard
             key={card.id}
-            {...card}
-            onSwipeLeft={() => onSwipeLeft(card.id)}
-            onSwipeRight={() => onSwipeRight(card.id)}
+            image={card.image}
+            isActive={card.id === activeCardId}
+            swipeProgress={swipeProgress}
+            onSwipeLeft={() => handleSwipe(card.id)}
+            onSwipeRight={() => handleSwipe(card.id)}
           />
         ))}
       </View>
