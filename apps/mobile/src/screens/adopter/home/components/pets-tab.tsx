@@ -23,21 +23,10 @@ const cardsData = [
 const PetsTab = () => {
   const { t } = useLocale();
   const [cards, setCards] = useState(cardsData);
-  const [activeCardId, setActiveCardId] = useState(cardsData[cardsData.length - 1]?.id);
   const swipeProgress = useSharedValue(0);
 
-  const handleSwipe = (cardId: number) => {
-    // Find the card that was just swiped
-    const swipedIndex = cards.findIndex((card) => card.id === cardId);
-    const nextCard = cards[swipedIndex - 1];
-
-    // Immediately activate the next card (if exists) for seamless interaction
-    if (nextCard) {
-      setActiveCardId(nextCard.id);
-    }
-  };
-
-  const handleSwipeComplete = (cardId: number) => {
+  const handleSwipeComplete = (cardId: number, direction: 'left' | 'right') => {
+    console.log(`Card ${cardId} swiped ${direction}`);
     setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
   };
 
@@ -67,15 +56,13 @@ const PetsTab = () => {
         </Box>
       </Delimiter>
       <View flex="1" marginX="6" _web={{ marginBottom: 4 }}>
-        {cards.map((card) => (
+        {cards.map((card, index) => (
           <TinderCard
             key={card.id}
             image={card.image}
-            isActive={card.id === activeCardId}
+            isActive={index === cards.length - 1}
             swipeProgress={swipeProgress}
-            onSwipeLeft={() => handleSwipe(card.id)}
-            onSwipeRight={() => handleSwipe(card.id)}
-            onSwipeComplete={() => handleSwipeComplete(card.id)}
+            onSwipeComplete={(direction) => handleSwipeComplete(card.id, direction)}
           />
         ))}
       </View>

@@ -18,17 +18,13 @@ type TinderCardProps = {
   image: string;
   isActive: boolean;
   swipeProgress: SharedValue<number>;
-  onSwipeLeft: () => void;
-  onSwipeRight: () => void;
-  onSwipeComplete: () => void;
+  onSwipeComplete: (direction: 'left' | 'right') => void;
 };
 
 export const TinderCard = ({
   image,
   isActive,
   swipeProgress,
-  onSwipeLeft,
-  onSwipeRight,
   onSwipeComplete,
 }: TinderCardProps) => {
   // Animation values for the card's position and rotation
@@ -59,8 +55,8 @@ export const TinderCard = ({
         translateX.value = withTiming(direction * width * 2, { duration: 400 });
         swipeProgress.value = withTiming(1, { duration: 400 }, (finished) => {
           if (finished) {
-            runOnJS(swipedRight ? onSwipeRight : onSwipeLeft)();
-            runOnJS(onSwipeComplete)();
+            // Trigger callback on JS thread when animation completes
+            runOnJS(onSwipeComplete)(swipedRight ? 'right' : 'left');
           }
         });
       } else {
