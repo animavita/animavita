@@ -35,12 +35,10 @@ const PetsTab = () => {
     if (nextCard) {
       setActiveCardId(nextCard.id);
     }
+  };
 
-    // Remove the swiped card after animation completes (400ms)
-    setTimeout(() => {
-      setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
-      swipeProgress.value = 0; // Reset progress for next card
-    }, 400);
+  const handleSwipeComplete = (cardId: number) => {
+    setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
   };
 
   return (
@@ -77,6 +75,7 @@ const PetsTab = () => {
             swipeProgress={swipeProgress}
             onSwipeLeft={() => handleSwipe(card.id)}
             onSwipeRight={() => handleSwipe(card.id)}
+            onSwipeComplete={() => handleSwipeComplete(card.id)}
           />
         ))}
       </View>

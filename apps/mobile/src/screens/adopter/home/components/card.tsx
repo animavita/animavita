@@ -20,6 +20,7 @@ type TinderCardProps = {
   swipeProgress: SharedValue<number>;
   onSwipeLeft: () => void;
   onSwipeRight: () => void;
+  onSwipeComplete: () => void;
 };
 
 export const TinderCard = ({
@@ -28,6 +29,7 @@ export const TinderCard = ({
   swipeProgress,
   onSwipeLeft,
   onSwipeRight,
+  onSwipeComplete,
 }: TinderCardProps) => {
   // Animation values for the card's position and rotation
   const translateX = useSharedValue(0);
@@ -55,10 +57,12 @@ export const TinderCard = ({
         // Animate card off screen
         const direction = swipedRight ? 1 : -1;
         translateX.value = withTiming(direction * width * 2, { duration: 400 });
-        swipeProgress.value = withTiming(1, { duration: 400 });
-
-        // Trigger callback on JS thread
-        runOnJS(swipedRight ? onSwipeRight : onSwipeLeft)();
+        swipeProgress.value = withTiming(1, { duration: 400 }, (finished) => {
+          if (finished) {
+            runOnJS(swipedRight ? onSwipeRight : onSwipeLeft)();
+            runOnJS(onSwipeComplete)();
+          }
+        });
       } else {
         // Snap back to center if swipe was too short
         translateX.value = withTiming(0);
