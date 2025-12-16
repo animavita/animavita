@@ -6,6 +6,7 @@ import { act, renderHook } from '@testing-library/react-native';
 import useAuthActions from './use-auth-actions.ts';
 
 import * as SignIn from '@/services/sign-in';
+import { QueryClientWrapper } from '@/test/test-utils';
 
 describe('useAuthActions', () => {
   beforeEach(jest.clearAllMocks);
@@ -14,7 +15,7 @@ describe('useAuthActions', () => {
     it('persists the user token', async () => {
       jest.spyOn(SignIn, 'persistUserToken');
 
-      const { result } = renderHook(useAuthActions);
+      const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
 
       await act(async () => {
         await result.current.authActions.signIn({
