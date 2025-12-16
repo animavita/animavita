@@ -92,7 +92,11 @@
     "REQUESTS": "Solicitações",
     "FAVORITES": "Favoritos",
     "FILTER": "Filtrar",
-    "REGISTER_ADOPTION": "Adicionar Pet para Adoção"
+    "REGISTER_ADOPTION": "Adicionar Pet para Adoção",
+    "NO_PETS_NEARBY": "Nenhum pet por perto",
+    "NO_PETS_NEARBY_DESCRIPTION": "Não encontramos nenhum pet disponível para adoção na sua região. Tente ajustar os filtros ou verifique novamente mais tarde.",
+    "NO_MORE_PETS": "Você viu todos os pets!",
+    "NO_MORE_PETS_DESCRIPTION": "Não há mais pets para mostrar no momento. Volte mais tarde para ver novos amiguinhos disponíveis para adoção."
   },
   "PROFILE": {
     "LOGOUT": "Sair"
