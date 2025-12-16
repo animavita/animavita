@@ -31,6 +31,7 @@
     "expo-device": "~7.1.4",
     "expo-file-system": "~18.1.11",
     "expo-image-picker": "~16.1.4",
+    "expo-linear-gradient": "^15.0.8",
     "expo-localization": "~16.1.6",
     "expo-location": "~18.1.6",
     "expo-secure-store": "~14.2.4",

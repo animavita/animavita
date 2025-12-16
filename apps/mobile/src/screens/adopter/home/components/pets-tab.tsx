@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useQuery } from '@tanstack/react-query';
 import { Badge, Box, Button, Icon, View, VStack } from 'native-base';
 import React, { useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
@@ -7,25 +8,29 @@ import { TinderCard } from './card';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
 import useLocale from '@/hooks/use-locale';
-
-const cardsData = [
-  { id: 1, name: 'John Doe', image: 'https://picsum.photos/200/300' },
-  { id: 2, name: 'Jane Doe', image: 'https://picsum.photos/200/300' },
-  { id: 3, name: 'John Smith', image: 'https://picsum.photos/200/300' },
-  { id: 4, name: 'John Doe', image: 'https://picsum.photos/200/300' },
-  { id: 5, name: 'Jane Doe', image: 'https://picsum.photos/200/300' },
-  { id: 6, name: 'John Smith', image: 'https://picsum.photos/200/300' },
-  { id: 7, name: 'John Doe', image: 'https://picsum.photos/200/300' },
-  { id: 8, name: 'Jane Doe', image: 'https://picsum.photos/200/300' },
-  { id: 9, name: 'John Smith', image: 'https://picsum.photos/200/300' },
-];
+import { getPetsNearMe } from '@/services/pets';
 
 const PetsTab = () => {
   const { t } = useLocale();
-  const [cards, setCards] = useState(cardsData);
   const swipeProgress = useSharedValue(0);
 
-  const handleSwipeComplete = (cardId: number, direction: 'left' | 'right') => {
+  const { data: pets = [], isLoading } = useQuery({
+    queryKey: ['pets', 'nearMe'],
+    queryFn: async () => {
+      const response = await getPetsNearMe(20);
+      return response.data;
+    },
+  });
+
+  const [cards, setCards] = useState(pets);
+
+  React.useEffect(() => {
+    if (pets.length > 0) {
+      setCards(pets);
+    }
+  }, [pets]);
+
+  const handleSwipeComplete = (cardId: string, direction: 'left' | 'right') => {
     console.log(`Card ${cardId} swiped ${direction}`);
     setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
   };
@@ -56,15 +61,20 @@ const PetsTab = () => {
         </Box>
       </Delimiter>
       <View flex="1" marginX="6" _web={{ marginBottom: 4 }}>
-        {cards.map((card, index) => (
-          <TinderCard
-            key={card.id}
-            image={card.image}
-            isActive={index === cards.length - 1}
-            swipeProgress={swipeProgress}
-            onSwipeComplete={(direction) => handleSwipeComplete(card.id, direction)}
-          />
-        ))}
+        {isLoading
+          ? null
+          : cards.map((card, index) => (
+              <TinderCard
+                key={card.id}
+                image={card.photos[0]}
+                name={card.name}
+                age={card.age}
+                size={card.size}
+                isActive={index === cards.length - 1}
+                swipeProgress={swipeProgress}
+                onSwipeComplete={(direction) => handleSwipeComplete(card.id, direction)}
+              />
+            ))}
       </View>
     </Box>
   );
