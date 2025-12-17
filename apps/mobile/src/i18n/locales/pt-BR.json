@@ -1,5 +1,19 @@
 {
   "YEAR": "ano(s)",
+  "ACCESSIBILITY": {
+    "PET_CARD_IMAGE": "Foto de {{name}}, {{age}}, {{size}}"
+  },
+  "AGE": {
+    "PUPPY": "Filhote (menos de 1 ano)",
+    "YOUNG": "Jovem (1-3 anos)",
+    "ADULT": "Adulto (3-8 anos)",
+    "SENIOR": "Idoso (mais de 8 anos)"
+  },
+  "SIZE": {
+    "SMALL": "Pequeno",
+    "MEDIUM": "Médio",
+    "BIG": "Grande"
+  },
   "REGISTER_ADOPTION": {
     "TITLE": "Cadastrar Pet",
     "STEP": "Passo",
