@@ -85,7 +85,7 @@ const PetAgeStep = () => {
   const { t } = useLocale();
 
   const options = ['puppy', 'young', 'adult', 'senior'].map((age) => ({
-    label: t(`REGISTER_ADOPTION.FORM.AGE_OPTIONS.${age.toUpperCase()}`),
+    label: t(`AGE.${age.toUpperCase()}`),
     value: age,
   }));
 
@@ -96,7 +96,7 @@ const PetSizeStep = () => {
   const { t } = useLocale();
 
   const options = ['small', 'medium', 'big'].map((size) => ({
-    label: t(`REGISTER_ADOPTION.FORM.SIZE.${size.toUpperCase()}`),
+    label: t(`SIZE.${size.toUpperCase()}`),
     value: size,
   }));
 

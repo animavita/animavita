@@ -43,7 +43,10 @@ const useUserLocation = () => {
 
       const {
         coords: { latitude, longitude },
-      } = await Location.getCurrentPositionAsync();
+      } = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.BestForNavigation,
+        mayShowUserSettingsDialog: true,
+      });
 
       setCoords({ latitude, longitude });
 

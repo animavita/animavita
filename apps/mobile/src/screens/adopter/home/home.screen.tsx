@@ -17,14 +17,14 @@ const AdopterHome = () => {
           component: PetsTab,
         },
         {
-          key: 'requests',
-          title: t('HOME.REQUESTS'),
-          component: RequestsTab,
-        },
-        {
           key: 'favorites',
           title: t('HOME.FAVORITES'),
           component: FavoritesTab,
+        },
+        {
+          key: 'requests',
+          title: t('HOME.REQUESTS'),
+          component: RequestsTab,
         },
       ]}
     />
