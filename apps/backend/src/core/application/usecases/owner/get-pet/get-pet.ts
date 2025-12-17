@@ -9,7 +9,7 @@ import {
 type Output = {
   name: string;
   breed: string;
-  age: string;
+  maturity: string;
   type: string;
   gender: string;
   size: string;
@@ -30,7 +30,7 @@ export default class GetPet {
     return {
       name: document.name,
       breed: document.breed,
-      age: document.age,
+      maturity: document.maturity,
       type: document.type,
       gender: document.gender,
       size: document.size,

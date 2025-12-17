@@ -71,7 +71,7 @@ describe('PostPetForAdoption', () => {
       const input = {
         name: 'Mike',
         type: 'dog',
-        age: 'adult',
+        maturity: 'adult',
         breed: 'mutt',
         gender: 'male',
         observations: 'very friendly',
@@ -85,7 +85,7 @@ describe('PostPetForAdoption', () => {
 
       expect(pet.name).toBe(input.name);
       expect(pet.type).toBe(input.type);
-      expect(pet.age).toBe(input.age);
+      expect(pet.maturity).toBe(input.maturity);
       expect(pet.breed).toBe(input.breed);
       expect(pet.gender).toBe(input.gender);
       expect(pet.size).toBe(input.size);

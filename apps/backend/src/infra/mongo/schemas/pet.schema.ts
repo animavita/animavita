@@ -24,7 +24,7 @@ export class MongoPet {
   type: 'dog' | 'cat' | 'other';
 
   @Prop({ required: true })
-  age: 'puppy' | 'young' | 'adult' | 'senior';
+  maturity: 'puppy' | 'young' | 'adult' | 'senior';
 
   @Prop({ required: true })
   size: 'small' | 'medium' | 'big';

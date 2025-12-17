@@ -16,7 +16,7 @@ describe('getStepsByOrder', () => {
       0: AdoptionSteps.PetName,
       1: AdoptionSteps.PetBreed,
       2: AdoptionSteps.PetType,
-      3: AdoptionSteps.PetAge,
+      3: AdoptionSteps.PetMaturity,
       4: AdoptionSteps.PetGender,
       5: AdoptionSteps.PetSize,
       6: AdoptionSteps.PetPhotos,
@@ -44,7 +44,7 @@ describe('useMultiStepNavigation', () => {
   });
 
   describe('when handleBack is triggered', () => {
-    it('the activeStep is PetAge', () => {
+    it('the activeStep is PetMaturity', () => {
       const { result } = setup(AdoptionSteps.PetGender);
 
       act(() => {
@@ -52,7 +52,7 @@ describe('useMultiStepNavigation', () => {
       });
 
       expect(result.current.isLastStep).toBeFalsy();
-      expect(result.current.activeStep).toBe(AdoptionSteps.PetAge);
+      expect(result.current.activeStep).toBe(AdoptionSteps.PetMaturity);
     });
   });
 

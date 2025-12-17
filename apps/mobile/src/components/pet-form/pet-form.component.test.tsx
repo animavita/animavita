@@ -52,7 +52,7 @@ const goToLastStep = async () => {
 const Stack = createNativeStackNavigator<StackParamsList>();
 
 const MainNavigator = ({ petForm }: { petForm?: () => React.ReactNode }) => {
-  const defaultForm = () => <PetForm defaultValues={{ age: 'adult' }} title="Register Pet" />;
+  const defaultForm = () => <PetForm defaultValues={{ maturity: 'adult' }} title="Register Pet" />;
 
   return (
     <Stack.Navigator initialRouteName="RegisterPet">
@@ -80,7 +80,7 @@ const stepErrors: { step: AdoptionSteps; errorMessage: string }[] = [
     errorMessage: 'Informe o tipo do seu Pet',
   },
   {
-    step: AdoptionSteps.PetAge,
+    step: AdoptionSteps.PetMaturity,
     errorMessage: 'Informe a maturidade do seu Pet',
   },
   {

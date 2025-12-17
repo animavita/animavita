@@ -16,7 +16,7 @@ export default class GetMyPets {
       id: pet.id,
       name: pet.name,
       breed: pet.breed,
-      age: pet.age,
+      maturity: pet.maturity,
       type: pet.type,
       gender: pet.gender,
       size: pet.size,

@@ -23,7 +23,7 @@ export class MongoPetRepository implements PetRepository {
       id: document.id,
       name: document.name,
       breed: document.breed,
-      age: document.age,
+      maturity: document.maturity,
       gender: document.gender,
       size: document.size,
       photos: document.photos,
@@ -47,7 +47,7 @@ export class MongoPetRepository implements PetRepository {
     const doc: MongoPet = {
       name: pet.name,
       breed: pet.breed,
-      age: pet.age,
+      maturity: pet.maturity,
       gender: pet.gender,
       size: pet.size,
       photos: pet.photos,

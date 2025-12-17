@@ -11,7 +11,7 @@ export const handlers = [
       gender: 'male',
       breed: 'pitbull',
       type: 'dog',
-      age: 2,
+      maturity: 2,
       size: 'big',
       photos: [],
     });

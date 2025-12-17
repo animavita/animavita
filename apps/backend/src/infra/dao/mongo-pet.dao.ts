@@ -36,7 +36,7 @@ export class MongoPetDAO implements PetDao {
     return documents.map((document) => ({
       id: document._id.toString(),
       name: document.name,
-      age: document.age,
+      maturity: document.maturity,
       breed: document.breed,
       gender: document.gender,
       location: {
@@ -66,7 +66,7 @@ export class MongoPetDAO implements PetDao {
     return documents.map((document) => ({
       id: document._id.toString(),
       name: document.name,
-      age: document.age,
+      maturity: document.amaturityge,
       breed: document.breed,
       gender: document.gender,
       observations: document.observations,

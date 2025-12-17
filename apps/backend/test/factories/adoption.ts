@@ -12,7 +12,7 @@ export const adoptionFactory = Factory.define<AdoptionType>(({ params }) => {
     gender: params.gender || faker.helpers.arrayElement(['male', 'female']),
     breed,
     type,
-    age: faker.helpers.arrayElement(['puppy', 'young', 'adult', 'senior']),
+    maturity: faker.helpers.arrayElement(['puppy', 'young', 'adult', 'senior']),
     size: faker.helpers.arrayElement(['small', 'medium', 'big']),
     observations: faker.word.adjective(),
     photos: [faker.image.url()],

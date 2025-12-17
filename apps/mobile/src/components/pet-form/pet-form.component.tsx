@@ -17,7 +17,7 @@ import useLocale from '@/hooks/use-locale';
 import usePets from '@/hooks/use-pets/use-pets';
 
 export const validationSchema = adoptionValidationSchema.fork(
-  ['name', 'gender', 'breed', 'type', 'age', 'size'],
+  ['name', 'gender', 'breed', 'type', 'maturity', 'size'],
   (schema) => schema.required()
 );
 

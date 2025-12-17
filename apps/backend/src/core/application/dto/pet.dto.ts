@@ -1,7 +1,7 @@
 export interface Pet {
   id: string;
   name: string;
-  age: string;
+  maturity: string;
   breed: string;
   gender: string;
   size: string;
