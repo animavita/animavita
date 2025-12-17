@@ -81,7 +81,7 @@ const stepErrors: { step: AdoptionSteps; errorMessage: string }[] = [
   },
   {
     step: AdoptionSteps.PetAge,
-    errorMessage: 'Informe a idade do seu Pet',
+    errorMessage: 'Informe a maturidade do seu Pet',
   },
   {
     step: AdoptionSteps.PetGender,

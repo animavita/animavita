@@ -17,7 +17,7 @@
         "OTHER": "Outro"
       },
       "AGE_OPTIONS": {
-        "LABEL": "Idade do Pet",
+        "LABEL": "Maturidade do Pet",
         "PUPPY": "Filhote (menos de 1 ano)",
         "YOUNG": "Jovem (1-3 anos)",
         "ADULT": "Adulto (3-8 anos)",
@@ -48,7 +48,7 @@
       "NAME_REQUIRED": "Nome do Pet não pode ser vazio",
       "BREED_REQUIRED": "Raça do Pet não pode ser vazia",
       "TYPE_REQUIRED": "Informe o tipo do seu Pet",
-      "AGE_REQUIRED": "Informe a idade do seu Pet",
+      "AGE_REQUIRED": "Informe a maturidade do seu Pet",
       "GENDER_REQUIRED": "Informe o sexo do seu Pet",
       "SIZE_REQUIRED": "Informe o porte do seu Pet",
       "INVALID_DATA": "Dados inválidos!",
