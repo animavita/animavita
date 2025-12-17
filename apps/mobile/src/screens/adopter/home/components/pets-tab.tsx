@@ -27,6 +27,7 @@ const PetsTab = () => {
     data: pets = [],
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ['pets', 'nearMe'],
     queryFn: async () => {
@@ -54,7 +55,7 @@ const PetsTab = () => {
     }
 
     if (error) {
-      return <ErrorState />;
+      return <ErrorState onRetry={() => refetch()} />;
     }
 
     const isLastCard = cards.length === 1;
@@ -210,7 +211,7 @@ const LoadingState = () => {
   );
 };
 
-const ErrorState = () => {
+const ErrorState = ({ onRetry }: { onRetry: () => void }) => {
   const { t } = useLocale();
 
   return (
@@ -222,6 +223,14 @@ const ErrorState = () => {
       <Text fontSize="md" color="gray.500" textAlign="center" mb="4">
         {t('ERRORS.LOAD_PETS_ERROR')}
       </Text>
+      <Button
+        variant="solid"
+        colorScheme="primary"
+        leftIcon={<Icon as={Ionicons} name="refresh" />}
+        onPress={onRetry}
+      >
+        {t('ERRORS.RETRY_BUTTON')}
+      </Button>
     </Center>
   );
 };

@@ -30,24 +30,13 @@
         "CAT": "Gato",
         "OTHER": "Outro"
       },
-      "AGE_OPTIONS": {
-        "LABEL": "Idade do Pet",
-        "PUPPY": "Filhote (menos de 1 ano)",
-        "YOUNG": "Jovem (1-3 anos)",
-        "ADULT": "Adulto (3-8 anos)",
-        "SENIOR": "Idoso (mais de 8 anos)"
-      },
+      "PET_AGE_LABEL": "Idade do Pet",
       "GENDER": {
         "LABEL": "Sexo do Pet",
         "MALE": "Macho",
         "FEMALE": "Fêmea"
       },
-      "SIZE": {
-        "LABEL": "Porte do Pet",
-        "SMALL": "Pequeno",
-        "MEDIUM": "Médio",
-        "BIG": "Grande"
-      },
+      "PET_SIZE_LABEL": "Porte do Pet",
       "PHOTOS": {
         "LABEL": "Fotos",
         "HINT_PICTURE_ONE": "selecione a principal foto do pet",
@@ -151,7 +140,8 @@
   },
   "ERRORS": {
     "GENERIC": "Ocorreu um erro. Tente novamente mais tarde.",
-    "LOAD_PETS_ERROR": "Não foi possível carregar os pets. Verifique sua conexão e tente novamente."
+    "LOAD_PETS_ERROR": "Não foi possível carregar os pets. Verifique sua conexão e tente novamente.",
+    "RETRY_BUTTON": "Tentar novamente"
   },
   "PHONE_NUMBER_ENTRY": {
     "TITLE": "Vamos verificar seu celular?",
