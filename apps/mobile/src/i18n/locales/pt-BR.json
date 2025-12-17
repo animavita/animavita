@@ -96,6 +96,7 @@
     "FAVORITES": "Favoritos",
     "FILTER": "Filtrar",
     "REGISTER_ADOPTION": "Adicionar Pet para Adoção",
+    "LOADING_PETS": "Carregando pets disponíveis",
     "NO_PETS_NEARBY": "Nenhum pet por perto",
     "NO_PETS_NEARBY_DESCRIPTION": "Não encontramos nenhum pet disponível para adoção na sua região. Tente ajustar os filtros ou verifique novamente mais tarde.",
     "NO_MORE_PETS": "Você viu todos os pets!",

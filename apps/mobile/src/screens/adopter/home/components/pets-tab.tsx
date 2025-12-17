@@ -177,6 +177,7 @@ const EmptyState = ({ hasPets, swipeProgress, isLastCard }: EmptyStateProps) => 
 };
 
 const LoadingState = () => {
+  const { t } = useLocale();
   const shimmerOpacity = useSharedValue(0.3);
 
   useEffect(() => {
@@ -199,6 +200,7 @@ const LoadingState = () => {
       borderRadius={8}
       overflow="hidden"
       bg="gray.100"
+      accessibilityLabel={t('HOME.LOADING_PETS')}
     >
       <Animated.View style={[{ flex: 1 }, shimmerStyle]}>
         <Skeleton height="100%" borderRadius={8} startColor="gray.200" endColor="gray.300" />

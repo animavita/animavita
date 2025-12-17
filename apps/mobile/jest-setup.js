@@ -7,6 +7,10 @@ jest.mock('posthog-react-native', () => ({
   useFeatureFlag: jest.fn(),
 }));
 
+// Setup Reanimated for testing
+// https://docs.swmansion.com/react-native-reanimated/docs/guides/testing/
+require('react-native-reanimated').setUpTests();
+
 beforeAll(() => server.listen());
 
 afterEach(() => server.resetHandlers());
