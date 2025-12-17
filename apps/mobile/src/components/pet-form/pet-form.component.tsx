@@ -12,7 +12,7 @@ import StepperIndicator from './compose/stepper-indicator';
 import { useMultiStepNavigation } from './hooks/use-multi-step-navigation.hook';
 import { AdoptionSteps } from './pet-form.types';
 
-import Delimiter from '@/components/delimiter';
+import { Delimiter } from '@/components/delimiter/delimiter';
 import useLocale from '@/hooks/use-locale';
 import usePets from '@/hooks/use-pets/use-pets';
 
@@ -60,7 +60,7 @@ const PetForm = ({ defaultValues, initialStep, title }: PetFormProps) => {
     <KeyboardAvoidingView flex="1" behavior="padding" enabled={Platform.OS === 'ios'}>
       <FormProvider {...petForm}>
         <StepperIndicator activeStep={activeStep} title={title} />
-        <Delimiter marginTop={0} flex="1">
+        <Delimiter flex="1" marginBottom="4">
           <Box
             position="relative"
             marginTop="8"

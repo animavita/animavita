@@ -3,6 +3,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { NativeBaseProvider } from 'native-base';
 import { PostHogProvider } from 'posthog-react-native';
 import { I18nextProvider } from 'react-i18next';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { initI18n } from './src/i18n/i18n.config';
 
@@ -21,13 +22,15 @@ const App = () => {
             host: 'https://us.i.posthog.com',
           }}
         >
-          <NativeBaseProvider theme={theme}>
-            <I18nextProvider i18n={initI18n('pt-BR')}>
-              <AuthProvider>
-                <MainNavigator />
-              </AuthProvider>
-            </I18nextProvider>
-          </NativeBaseProvider>
+          <GestureHandlerRootView>
+            <NativeBaseProvider theme={theme}>
+              <I18nextProvider i18n={initI18n('pt-BR')}>
+                <AuthProvider>
+                  <MainNavigator />
+                </AuthProvider>
+              </I18nextProvider>
+            </NativeBaseProvider>
+          </GestureHandlerRootView>
         </PostHogProvider>
       </NavigationContainer>
     </QueryClientProvider>

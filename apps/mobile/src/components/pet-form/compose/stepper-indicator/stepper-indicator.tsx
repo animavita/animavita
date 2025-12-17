@@ -2,7 +2,7 @@ import StepIcon from '@assets/step-background.png';
 import { Box, Heading, Progress, Text, Image } from 'native-base';
 import React from 'react';
 
-import Delimiter from '@/components/delimiter/delimiter';
+import { Delimiter } from '@/components/delimiter/delimiter';
 import { stepsLibrary } from '@/components/pet-form/pet-form.constants';
 import { StepperIndicatorProps } from '@/components/pet-form/pet-form.types';
 import useLocale from '@/hooks/use-locale';
@@ -27,7 +27,7 @@ const StepperIndicator = ({ activeStep, title }: StepperIndicatorProps) => {
           display: 'none',
         }}
       />
-      <Delimiter marginY={0}>
+      <Delimiter>
         <Box
           position="relative"
           display="flex"

@@ -1,10 +1,13 @@
 import { Coordinates, UserType } from '@animavita/types';
+import { useQuery } from '@tanstack/react-query';
 import { useMemo, useReducer } from 'react';
 
 import AuthReducer from './auth-provider.reducer';
 import { AuthContextActions, UseAuthActions, UserPayload } from './auth-provider.types';
 
+import { QUERY_KEYS } from '@/services/query-keys';
 import { persistUserToken } from '@/services/sign-in';
+import { getCurrentUserInfo } from '@/services/user';
 
 const useAuthActions = (): UseAuthActions => {
   const [state, dispatch] = useReducer(AuthReducer, {
@@ -13,11 +16,27 @@ const useAuthActions = (): UseAuthActions => {
     status: 'NOT_LOGGED',
   });
 
+  const userInfoQuery = useQuery({
+    queryKey: [QUERY_KEYS.getUserInfo],
+    queryFn: getCurrentUserInfo,
+    enabled: false,
+  });
+
   const authActions: AuthContextActions = useMemo(
     () => ({
       signIn: async (payload: UserPayload) => {
         persistUserToken(payload.accessToken);
-        dispatch({ type: 'SIGN_IN', payload });
+
+        const { data } = await userInfoQuery.refetch();
+
+        if (!data) {
+          await authActions.signOut();
+          return;
+        }
+
+        const { name, location, role, phoneNumber } = data.data;
+
+        dispatch({ type: 'SIGN_IN', payload: { ...payload, name, location, role, phoneNumber } });
       },
       signOut: async () => {
         dispatch({ type: 'SIGN_OUT' });

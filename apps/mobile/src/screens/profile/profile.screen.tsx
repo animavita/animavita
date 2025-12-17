@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Button, FlatList, Icon, Pressable, Text } from 'native-base';
 
-import Delimiter from '@/components/delimiter/delimiter';
+import PageDelimiter from '@/components/delimiter/delimiter';
 import SafeArea from '@/components/safe-area/safe-area';
 import Topbar from '@/components/topbar/topbar';
 import { useAuth } from '@/hooks/use-auth-provider';
@@ -17,7 +17,7 @@ const ProfileScreen = () => {
 
   return (
     <SafeArea>
-      <Delimiter flex="1">
+      <PageDelimiter flex="1">
         <Topbar />
         <FlatList
           mt={4}
@@ -46,7 +46,7 @@ const ProfileScreen = () => {
         >
           {t('PROFILE.LOGOUT')}
         </Button>
-      </Delimiter>
+      </PageDelimiter>
     </SafeArea>
   );
 };
