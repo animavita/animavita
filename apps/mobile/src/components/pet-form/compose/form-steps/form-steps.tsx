@@ -81,15 +81,15 @@ const PetTypeStep = () => {
   return <RHFListSelector name={stepsLibrary.PetType.fieldName} options={options} />;
 };
 
-const PetAgeStep = () => {
+const PetMaturityStep = () => {
   const { t } = useLocale();
 
-  const options = ['puppy', 'young', 'adult', 'senior'].map((age) => ({
-    label: t(`AGE.${age.toUpperCase()}`),
-    value: age,
+  const options = ['puppy', 'young', 'adult', 'senior'].map((maturity) => ({
+    label: t(`REGISTER_ADOPTION.FORM.MATURITY_OPTIONS.${maturity.toUpperCase()}`),
+    value: maturity,
   }));
 
-  return <RHFListSelector name={stepsLibrary.PetAge.fieldName} options={options} />;
+  return <RHFListSelector name={stepsLibrary.PetMaturity.fieldName} options={options} />;
 };
 
 const PetSizeStep = () => {
@@ -122,8 +122,8 @@ const FormSteps = ({ activeStep }: { activeStep: AdoptionSteps }) => {
       return <PetBreedStep />;
     case AdoptionSteps.PetType:
       return <PetTypeStep />;
-    case AdoptionSteps.PetAge:
-      return <PetAgeStep />;
+    case AdoptionSteps.PetMaturity:
+      return <PetMaturityStep />;
     case AdoptionSteps.PetGender:
       return <PetGenderStep />;
     case AdoptionSteps.PetSize:

@@ -27,7 +27,7 @@ describe('<MyPetsList />', () => {
 const DATA = [
   {
     id: '1',
-    age: 'young',
+    maturity: 'young',
     name: 'pet 1',
     size: 'small',
     type: 'dog',
@@ -38,7 +38,7 @@ const DATA = [
   },
   {
     id: '2',
-    age: 'young',
+    maturity: 'young',
     name: 'pet 2',
     size: 'small',
     type: 'cat',
@@ -49,7 +49,7 @@ const DATA = [
   },
   {
     id: '3',
-    age: 'young',
+    maturity: 'young',
     name: 'pet 3',
     size: 'small',
     type: 'cat',

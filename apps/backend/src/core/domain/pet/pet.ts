@@ -1,14 +1,14 @@
 import PetSize, { PetSizeType } from './size/size';
 import PetGender, { PetGenderType } from './gender/gender';
 import PetType, { PetTypeType } from './type/type';
-import PetAge, { PetAgeType } from './age/age';
 import Location from '../location/location';
+import PetMaturity, { PetMaturityType } from './maturity/maturity';
 
 interface Attributes {
   id?: string;
   name: string;
   breed: string;
-  age: string;
+  maturity: string;
   type: string;
   gender: string;
   size: string;
@@ -32,7 +32,7 @@ export class Pet {
   private _observations: string;
   private _photos: string[];
   readonly ownerId: string;
-  private _age: PetAge;
+  private _maturity: PetMaturity;
   private _type: PetType;
   private _gender: PetGender;
   private _size: PetSize;
@@ -45,7 +45,7 @@ export class Pet {
     this.observations = attributes.observations || '';
     this.photos = attributes.photos || [];
     this.ownerId = attributes.ownerId;
-    this.age = attributes.age;
+    this.maturity = attributes.maturity;
     this.type = attributes.type;
     this.gender = attributes.gender;
     this.size = attributes.size;
@@ -87,12 +87,12 @@ export class Pet {
     return this._photos;
   }
 
-  private set age(anAge: string) {
-    this._age = new PetAge(anAge);
+  private set maturity(anMaturity: string) {
+    this._maturity = new PetMaturity(anMaturity);
   }
 
-  get age(): PetAgeType {
-    return this._age.getValue();
+  get maturity(): PetMaturityType {
+    return this._maturity.getValue();
   }
 
   private set type(aType: string) {
@@ -122,7 +122,7 @@ export class Pet {
   update({
     name,
     breed,
-    age,
+    maturity,
     gender,
     size,
     type,
@@ -131,7 +131,7 @@ export class Pet {
   }: UpdatableAttributes) {
     if (name) this.name = name;
     if (breed) this.breed = breed;
-    if (age) this.age = age;
+    if (maturity) this.maturity = maturity;
     if (gender) this.gender = gender;
     if (size) this.size = size;
     if (type) this.type = type;

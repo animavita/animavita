@@ -11,7 +11,7 @@ import { NotFoundError, UnauthorizedError } from '../../../../domain/errors';
 export type PostPetForAdoptionInput = {
   name: string;
   breed: string;
-  age: string;
+  maturity: string;
   type: string;
   gender: string;
   size: string;

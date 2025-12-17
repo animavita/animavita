@@ -1,9 +1,9 @@
 import { EntityError } from '../../errors/entity.error';
 
-export type PetAgeType = 'puppy' | 'young' | 'adult' | 'senior';
+export type PetMaturityType = 'puppy' | 'young' | 'adult' | 'senior';
 
-export default class PetAge {
-  private value: PetAgeType;
+export default class PetMaturity {
+  private value: PetMaturityType;
 
   private allowedValues = ['puppy', 'young', 'adult', 'senior'];
 
@@ -12,11 +12,11 @@ export default class PetAge {
 
     if (!this.allowedValues.includes(value)) {
       throw new EntityError(
-        `Invalid age. Allowed values are ${this.allowedValues.join(',')}`,
+        `Invalid maturity. Allowed values are ${this.allowedValues.join(',')}`,
       );
     }
 
-    this.value = formattedValued as PetAgeType;
+    this.value = formattedValued as PetMaturityType;
   }
 
   getValue() {

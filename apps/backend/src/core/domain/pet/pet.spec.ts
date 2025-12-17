@@ -5,7 +5,7 @@ const attributes = {
   id: faker.string.uuid(),
   name: faker.person.firstName(),
   breed: faker.animal.dog(),
-  age: 'adult',
+  maturity: 'adult',
   type: 'cat',
   gender: 'male',
   size: 'medium',
@@ -25,7 +25,7 @@ describe('Pet', () => {
 
       pet.update({
         name: 'Mike',
-        age: 'young',
+        maturity: 'young',
         breed: 'shitzu',
         gender: 'female',
         observations: 'very friendly',
@@ -35,7 +35,7 @@ describe('Pet', () => {
       });
 
       expect(pet.name).toBe('Mike');
-      expect(pet.age).toBe('young');
+      expect(pet.maturity).toBe('young');
       expect(pet.breed).toBe('shitzu');
       expect(pet.gender).toBe('female');
       expect(pet.observations).toBe('very friendly');
