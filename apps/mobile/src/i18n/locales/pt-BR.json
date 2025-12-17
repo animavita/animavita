@@ -150,7 +150,8 @@
     "EMPTY_LIST": "Você ainda não registou nenhum pet para adoção"
   },
   "ERRORS": {
-    "GENERIC": "Ocorreu um erro. Tente novamente mais tarde."
+    "GENERIC": "Ocorreu um erro. Tente novamente mais tarde.",
+    "LOAD_PETS_ERROR": "Não foi possível carregar os pets. Verifique sua conexão e tente novamente."
   },
   "PHONE_NUMBER_ENTRY": {
     "TITLE": "Vamos verificar seu celular?",

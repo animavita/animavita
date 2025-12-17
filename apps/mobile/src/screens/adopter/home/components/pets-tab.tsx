@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
-import { Badge, Box, Button, Icon, View, VStack, Text, Center } from 'native-base';
-import React, { useState } from 'react';
+import { Badge, Box, Button, Icon, View, VStack, Text, Center, Skeleton } from 'native-base';
+import React, { useState, useEffect } from 'react';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -9,6 +9,8 @@ import Animated, {
   SharedValue,
   interpolate,
   Extrapolation,
+  withRepeat,
+  Easing,
 } from 'react-native-reanimated';
 
 import { TinderCard } from './card';
@@ -21,7 +23,11 @@ const PetsTab = () => {
   const { t } = useLocale();
   const swipeProgress = useSharedValue(0);
 
-  const { data: pets = [], isLoading } = useQuery({
+  const {
+    data: pets = [],
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ['pets', 'nearMe'],
     queryFn: async () => {
       const response = await getPetsNearMe(20);
@@ -29,22 +35,26 @@ const PetsTab = () => {
     },
   });
 
-  const [cards, setCards] = useState(pets);
+  const [cards, setCards] = useState<PetNearMeResponse[] | null>(null);
 
   React.useEffect(() => {
-    if (pets.length > 0) {
+    if (!isLoading) {
       setCards(pets);
     }
-  }, [pets]);
+  }, [pets, isLoading]);
 
   const handleSwipeComplete = (cardId: string, direction: 'left' | 'right') => {
     console.log(`Card ${cardId} swiped ${direction}`);
-    setCards((prevCards) => prevCards.filter((card) => card.id !== cardId));
+    setCards((prevCards) => (prevCards || []).filter((card) => card.id !== cardId));
   };
 
   const renderContent = () => {
-    if (isLoading) {
-      return null;
+    if (cards === null) {
+      return <LoadingState />;
+    }
+
+    if (error) {
+      return <ErrorState />;
     }
 
     const isLastCard = cards.length === 1;
@@ -104,6 +114,31 @@ const PetsTab = () => {
 
 export default PetsTab;
 
+type CardsListProps = {
+  cards: PetNearMeResponse[];
+  swipeProgress: SharedValue<number>;
+  onSwipeComplete: (cardId: string, direction: 'left' | 'right') => void;
+};
+
+const CardsList = ({ cards, swipeProgress, onSwipeComplete }: CardsListProps) => {
+  return (
+    <>
+      {cards.map((card, index) => (
+        <TinderCard
+          key={card.id}
+          image={card.photos[0]}
+          name={card.name}
+          age={card.age}
+          size={card.size}
+          isActive={index === cards.length - 1}
+          swipeProgress={swipeProgress}
+          onSwipeComplete={(direction) => onSwipeComplete(card.id, direction)}
+        />
+      ))}
+    </>
+  );
+};
+
 type EmptyStateProps = {
   hasPets: boolean;
   swipeProgress: SharedValue<number>;
@@ -140,27 +175,53 @@ const EmptyState = ({ hasPets, swipeProgress, isLastCard }: EmptyStateProps) => 
   );
 };
 
-type CardsListProps = {
-  cards: PetNearMeResponse[];
-  swipeProgress: any;
-  onSwipeComplete: (cardId: string, direction: 'left' | 'right') => void;
+const LoadingState = () => {
+  const shimmerOpacity = useSharedValue(0.3);
+
+  useEffect(() => {
+    shimmerOpacity.value = withRepeat(
+      withTiming(1, { duration: 1000, easing: Easing.inOut(Easing.ease) }),
+      -1,
+      true
+    );
+  }, [shimmerOpacity]);
+
+  const shimmerStyle = useAnimatedStyle(() => ({
+    opacity: shimmerOpacity.value,
+  }));
+
+  return (
+    <Box
+      position="absolute"
+      height="100%"
+      width="100%"
+      borderRadius={8}
+      overflow="hidden"
+      bg="gray.100"
+    >
+      <Animated.View style={[{ flex: 1 }, shimmerStyle]}>
+        <Skeleton height="100%" borderRadius={8} startColor="gray.200" endColor="gray.300" />
+      </Animated.View>
+      <Box position="absolute" bottom={0} left={0} right={0} p={5}>
+        <Skeleton.Text lines={1} mb={2} w="60%" />
+        <Skeleton.Text lines={1} w="40%" />
+      </Box>
+    </Box>
+  );
 };
 
-const CardsList = ({ cards, swipeProgress, onSwipeComplete }: CardsListProps) => {
+const ErrorState = () => {
+  const { t } = useLocale();
+
   return (
-    <>
-      {cards.map((card, index) => (
-        <TinderCard
-          key={card.id}
-          image={card.photos[0]}
-          name={card.name}
-          age={card.age}
-          size={card.size}
-          isActive={index === cards.length - 1}
-          swipeProgress={swipeProgress}
-          onSwipeComplete={(direction) => onSwipeComplete(card.id, direction)}
-        />
-      ))}
-    </>
+    <Center flex="1" paddingX="6">
+      <Icon as={Ionicons} name="alert-circle-outline" size="64px" color="red.400" mb="4" />
+      <Text fontSize="xl" fontWeight="bold" color="gray.600" textAlign="center" mb="2">
+        {t('ERRORS.GENERIC')}
+      </Text>
+      <Text fontSize="md" color="gray.500" textAlign="center" mb="4">
+        {t('ERRORS.LOAD_PETS_ERROR')}
+      </Text>
+    </Center>
   );
 };
