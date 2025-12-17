@@ -5,6 +5,10 @@ export const handlers = [
     return HttpResponse.json([]);
   }),
 
+  http.get('*/api/v1/pets/nearMe', () => {
+    return HttpResponse.json([]);
+  }),
+
   http.post('*/api/v1/pets', () => {
     return HttpResponse.json({
       name: 'Bob',

@@ -1,5 +1,19 @@
 {
   "YEAR": "ano(s)",
+  "ACCESSIBILITY": {
+    "PET_CARD_IMAGE": "Foto de {{name}}, {{age}}, {{size}}"
+  },
+  "AGE": {
+    "PUPPY": "Filhote (menos de 1 ano)",
+    "YOUNG": "Jovem (1-3 anos)",
+    "ADULT": "Adulto (3-8 anos)",
+    "SENIOR": "Idoso (mais de 8 anos)"
+  },
+  "SIZE": {
+    "SMALL": "Pequeno",
+    "MEDIUM": "Médio",
+    "BIG": "Grande"
+  },
   "REGISTER_ADOPTION": {
     "TITLE": "Cadastrar Pet",
     "STEP": "Passo",
@@ -28,12 +42,7 @@
         "MALE": "Macho",
         "FEMALE": "Fêmea"
       },
-      "SIZE": {
-        "LABEL": "Porte do Pet",
-        "SMALL": "Pequeno",
-        "MEDIUM": "Médio",
-        "BIG": "Grande"
-      },
+      "PET_SIZE_LABEL": "Porte do Pet",
       "PHOTOS": {
         "LABEL": "Fotos",
         "HINT_PICTURE_ONE": "selecione a principal foto do pet",
@@ -92,7 +101,12 @@
     "REQUESTS": "Solicitações",
     "FAVORITES": "Favoritos",
     "FILTER": "Filtrar",
-    "REGISTER_ADOPTION": "Adicionar Pet para Adoção"
+    "REGISTER_ADOPTION": "Adicionar Pet para Adoção",
+    "LOADING_PETS": "Carregando pets disponíveis",
+    "NO_PETS_NEARBY": "Nenhum pet por perto",
+    "NO_PETS_NEARBY_DESCRIPTION": "Não encontramos nenhum pet disponível para adoção na sua região. Tente ajustar os filtros ou verifique novamente mais tarde.",
+    "NO_MORE_PETS": "Você viu todos os pets!",
+    "NO_MORE_PETS_DESCRIPTION": "Não há mais pets para mostrar no momento. Volte mais tarde para ver novos amiguinhos disponíveis para adoção."
   },
   "PROFILE": {
     "LOGOUT": "Sair"
@@ -132,7 +146,9 @@
     "EMPTY_LIST": "Você ainda não registou nenhum pet para adoção"
   },
   "ERRORS": {
-    "GENERIC": "Ocorreu um erro. Tente novamente mais tarde."
+    "GENERIC": "Ocorreu um erro. Tente novamente mais tarde.",
+    "LOAD_PETS_ERROR": "Não foi possível carregar os pets. Verifique sua conexão e tente novamente.",
+    "RETRY_BUTTON": "Tentar novamente"
   },
   "PHONE_NUMBER_ENTRY": {
     "TITLE": "Vamos verificar seu celular?",

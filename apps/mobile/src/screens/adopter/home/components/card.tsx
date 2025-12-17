@@ -1,5 +1,7 @@
+import { LinearGradient } from 'expo-linear-gradient';
 import { useMemo, useRef } from 'react';
-import { Dimensions, Image } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { Dimensions, Image, StyleSheet } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   interpolate,
@@ -17,6 +19,9 @@ const INACTIVE_SCALE = 0.92;
 
 type TinderCardProps = {
   image: string;
+  name: string;
+  age: string;
+  size: string;
   isActive: boolean;
   swipeProgress: SharedValue<number>;
   onSwipeComplete: (direction: 'left' | 'right') => void;
@@ -24,10 +29,34 @@ type TinderCardProps = {
 
 export const TinderCard = ({
   image,
+  name,
+  age,
+  size,
   isActive,
   swipeProgress,
   onSwipeComplete,
 }: TinderCardProps) => {
+  const { t } = useTranslation();
+
+  // Translation helpers
+  const getAgeTranslation = (ageValue: string) => {
+    const ageKey = ageValue.toUpperCase();
+    return t(`AGE.${ageKey}`);
+  };
+
+  const getSizeTranslation = (sizeValue: string) => {
+    const sizeKey = sizeValue.toUpperCase();
+    return t(`SIZE.${sizeKey}`);
+  };
+
+  const translatedAge = getAgeTranslation(age);
+  const translatedSize = getSizeTranslation(size);
+  const accessibilityLabel = t('ACCESSIBILITY.PET_CARD_IMAGE', {
+    name,
+    age: translatedAge,
+    size: translatedSize,
+  });
+
   // Animation values for the card's position and rotation
   // Use useRef to ensure shared values persist across renders
   const translateX = useRef(useSharedValue(0)).current;
@@ -110,7 +139,13 @@ export const TinderCard = ({
   if (!isActive) {
     return (
       <Animated.View pointerEvents="none" style={[cardStyle, animatedStyle]}>
-        <Image source={{ uri: image }} style={imageStyle} />
+        <Image source={{ uri: image }} style={imageStyle} accessibilityLabel={accessibilityLabel} />
+        <LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.gradient}>
+          <Animated.Text style={styles.petName}>{name}</Animated.Text>
+          <Animated.Text style={styles.petInfo}>
+            {translatedSize} • {translatedAge}
+          </Animated.Text>
+        </LinearGradient>
       </Animated.View>
     );
   }
@@ -119,8 +154,39 @@ export const TinderCard = ({
   return (
     <GestureDetector gesture={panGesture}>
       <Animated.View style={[cardStyle, animatedStyle]}>
-        <Image source={{ uri: image }} style={imageStyle} />
+        <Image source={{ uri: image }} style={imageStyle} accessibilityLabel={accessibilityLabel} />
+        <LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.gradient}>
+          <Animated.Text style={styles.petName}>{name}</Animated.Text>
+          <Animated.Text style={styles.petInfo}>
+            {translatedSize} • {translatedAge}
+          </Animated.Text>
+        </LinearGradient>
       </Animated.View>
     </GestureDetector>
   );
 };
+
+const styles = StyleSheet.create({
+  gradient: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 100,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+    justifyContent: 'flex-end',
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+  },
+  petName: {
+    color: 'white',
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+  petInfo: {
+    color: 'white',
+    fontSize: 16,
+    marginTop: 4,
+  },
+});

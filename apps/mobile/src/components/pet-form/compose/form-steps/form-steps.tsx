@@ -96,7 +96,7 @@ const PetSizeStep = () => {
   const { t } = useLocale();
 
   const options = ['small', 'medium', 'big'].map((size) => ({
-    label: t(`REGISTER_ADOPTION.FORM.SIZE.${size.toUpperCase()}`),
+    label: t(`SIZE.${size.toUpperCase()}`),
     value: size,
   }));
 
