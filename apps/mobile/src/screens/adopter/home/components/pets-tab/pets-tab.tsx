@@ -15,7 +15,7 @@ import Animated, {
 
 import { TinderCard } from './card';
 import { FiltersModal } from './filters-modal';
-import { useSearchRadius } from '../hooks/use-search-radius';
+import { useSearchRadius } from '../../hooks/use-search-radius';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
 import useLocale from '@/hooks/use-locale';

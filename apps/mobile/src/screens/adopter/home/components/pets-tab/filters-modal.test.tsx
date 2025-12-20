@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react-native';
 
-import { FiltersModal } from '@/screens/adopter/home/components/filters-modal';
+import { FiltersModal } from '@/screens/adopter/home/components/pets-tab/filters-modal';
 import { renderWithProviders, screen } from '@/test/test-utils';
 
 describe('<FiltersModal />', () => {
