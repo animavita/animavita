@@ -67,6 +67,7 @@ const PetsTab = () => {
   const handleApplyFilters = async (newRadius: number) => {
     setRadius(newRadius);
     await saveSearchRadius(newRadius);
+    refetch();
   };
 
   const renderContent = () => {
