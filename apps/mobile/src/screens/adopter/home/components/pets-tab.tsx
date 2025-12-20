@@ -15,28 +15,16 @@ import Animated, {
 
 import { TinderCard } from './card';
 import { FiltersModal } from './filters-modal';
+import { useSearchRadius } from '../hooks/use-search-radius';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
-import { getSearchRadius, saveSearchRadius } from '@/helpers/secure-store';
 import useLocale from '@/hooks/use-locale';
 import { getPetsNearMe, PetNearMeResponse } from '@/services/pets';
 
 const PetsTab = () => {
   const { t } = useLocale();
   const swipeProgress = useSharedValue(0);
-  const [radius, setRadius] = useState(20);
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
-
-  // Load saved radius on mount
-  useEffect(() => {
-    const loadRadius = async () => {
-      const savedRadius = await getSearchRadius();
-      if (savedRadius !== null && savedRadius !== undefined) {
-        setRadius(savedRadius);
-      }
-    };
-    loadRadius();
-  }, []);
+  const { radius, isFiltersOpen, openFilters, closeFilters, onApply } = useSearchRadius();
 
   const {
     data: pets = [],
@@ -62,12 +50,6 @@ const PetsTab = () => {
   const handleSwipeComplete = (cardId: string, direction: 'left' | 'right') => {
     console.log(`Card ${cardId} swiped ${direction}`);
     setCards((prevCards) => (prevCards || []).filter((card) => card.id !== cardId));
-  };
-
-  const handleApplyFilters = async (newRadius: number) => {
-    setRadius(newRadius);
-    await saveSearchRadius(newRadius);
-    refetch();
   };
 
   const renderContent = () => {
@@ -125,7 +107,7 @@ const PetsTab = () => {
               variant="solid"
               size="sm"
               leftIcon={<Icon as={Ionicons} name="filter" />}
-              onPress={() => setIsFiltersOpen(true)}
+              onPress={openFilters}
             >
               {t('HOME.FILTER')}
             </Button>
@@ -137,9 +119,9 @@ const PetsTab = () => {
       </View>
       <FiltersModal
         isOpen={isFiltersOpen}
-        onClose={() => setIsFiltersOpen(false)}
+        onClose={closeFilters}
         currentRadius={radius}
-        onApply={handleApplyFilters}
+        onApply={onApply}
       />
     </Box>
   );
