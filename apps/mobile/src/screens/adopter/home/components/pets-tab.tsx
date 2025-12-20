@@ -160,7 +160,7 @@ const CardsList = ({ cards, swipeProgress, onSwipeComplete }: CardsListProps) =>
           key={card.id}
           image={card.photos[0]}
           name={card.name}
-          age={card.age}
+          age={card.maturity}
           size={card.size}
           isActive={index === cards.length - 1}
           swipeProgress={swipeProgress}

@@ -20,7 +20,7 @@ const mockPets: PetNearMeResponse[] = [
   {
     id: '1',
     name: 'Rex',
-    age: 'young',
+    maturity: 'young',
     breed: 'Labrador',
     gender: 'male',
     location: {
@@ -41,7 +41,7 @@ const mockPets: PetNearMeResponse[] = [
   {
     id: '2',
     name: 'Mittens',
-    age: 'puppy',
+    maturity: 'puppy',
     breed: 'Persian',
     gender: 'female',
     location: {
