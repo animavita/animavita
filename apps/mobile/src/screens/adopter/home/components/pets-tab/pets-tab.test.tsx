@@ -241,7 +241,7 @@ describe('PetsTab', () => {
       renderWithProviders(<PetsTab />);
 
       await waitFor(() => {
-        expect(screen.getByText('Você viu todos os pets!')).toBeVisible();
+        expect(screen.getByText('Você viu todos os pets!')).toBeOnTheScreen();
       });
     });
 

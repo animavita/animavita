@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import { getSearchRadius, saveSearchRadius } from '@/helpers/local-storage';
 
+export const DEFAULT_RADIUS = 20;
+
 export const useSearchRadius = () => {
-  const [radius, setRadius] = useState(20);
-  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [radius, setRadius] = useState(DEFAULT_RADIUS);
+  const radiusRef = useRef(radius);
 
   useEffect(() => {
     const loadRadius = async () => {
@@ -12,6 +14,7 @@ export const useSearchRadius = () => {
         const savedRadius = await getSearchRadius();
         if (savedRadius !== null && savedRadius !== undefined) {
           setRadius(savedRadius);
+          radiusRef.current = savedRadius;
         }
       } catch (error) {
         console.error('Failed to load search radius from storage:', error);
@@ -20,23 +23,25 @@ export const useSearchRadius = () => {
     loadRadius();
   }, []);
 
-  const handleApplyFilters = async (newRadius: number) => {
-    setRadius(newRadius);
+  const saveRadius = async () => {
+    setRadius(radiusRef.current);
     try {
-      await saveSearchRadius(newRadius);
+      await saveSearchRadius(radiusRef.current);
     } catch (error) {
       console.error('Failed to save search radius to storage:', error);
     }
   };
 
-  const openFilters = () => setIsFiltersOpen(true);
-  const closeFilters = () => setIsFiltersOpen(false);
+  const changeRadius = (newRadius: number) => {
+    radiusRef.current = newRadius;
+  };
+
+  const isApplied = radius !== DEFAULT_RADIUS;
 
   return {
-    radius,
-    isFiltersOpen,
-    openFilters,
-    closeFilters,
-    onApply: handleApplyFilters,
+    value: radius,
+    isApplied,
+    save: saveRadius,
+    change: changeRadius,
   };
 };
