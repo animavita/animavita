@@ -4,6 +4,7 @@ import * as SecureStore from 'expo-secure-store';
 type KeyType = string;
 
 const userCredentialsKey = 'userCredentials';
+const searchRadiusKey = 'searchRadius';
 
 const getValueFor = async <T>(key: KeyType): Promise<T | null> => {
   const value = await SecureStore.getItemAsync(key);
@@ -22,3 +23,6 @@ const save = async <T>(key: KeyType, value: T) => {
 export const getUserCredentials = () => getValueFor<CredentialsType>(userCredentialsKey);
 export const removeUserCredentials = () => removeValueFor(userCredentialsKey);
 export const saveUserCredentials = (value: CredentialsType) => save(userCredentialsKey, value);
+
+export const getSearchRadius = () => getValueFor<number>(searchRadiusKey);
+export const saveSearchRadius = (value: number) => save(searchRadiusKey, value);

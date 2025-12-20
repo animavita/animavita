@@ -14,14 +14,29 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { TinderCard } from './card';
+import { FiltersModal } from './filters-modal';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
+import { getSearchRadius, saveSearchRadius } from '@/helpers/secure-store';
 import useLocale from '@/hooks/use-locale';
 import { getPetsNearMe, PetNearMeResponse } from '@/services/pets';
 
 const PetsTab = () => {
   const { t } = useLocale();
   const swipeProgress = useSharedValue(0);
+  const [radius, setRadius] = useState(20);
+  const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+
+  // Load saved radius on mount
+  useEffect(() => {
+    const loadRadius = async () => {
+      const savedRadius = await getSearchRadius();
+      if (savedRadius !== null && savedRadius !== undefined) {
+        setRadius(savedRadius);
+      }
+    };
+    loadRadius();
+  }, []);
 
   const {
     data: pets = [],
@@ -29,9 +44,9 @@ const PetsTab = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ['pets', 'nearMe'],
+    queryKey: ['pets', 'nearMe', radius],
     queryFn: async () => {
-      const response = await getPetsNearMe(20);
+      const response = await getPetsNearMe(radius);
       return response.data;
     },
   });
@@ -47,6 +62,11 @@ const PetsTab = () => {
   const handleSwipeComplete = (cardId: string, direction: 'left' | 'right') => {
     console.log(`Card ${cardId} swiped ${direction}`);
     setCards((prevCards) => (prevCards || []).filter((card) => card.id !== cardId));
+  };
+
+  const handleApplyFilters = async (newRadius: number) => {
+    setRadius(newRadius);
+    await saveSearchRadius(newRadius);
   };
 
   const renderContent = () => {
@@ -100,7 +120,12 @@ const PetsTab = () => {
             >
               2
             </Badge>
-            <Button variant="solid" size="sm" leftIcon={<Icon as={Ionicons} name="filter" />}>
+            <Button
+              variant="solid"
+              size="sm"
+              leftIcon={<Icon as={Ionicons} name="filter" />}
+              onPress={() => setIsFiltersOpen(true)}
+            >
               {t('HOME.FILTER')}
             </Button>
           </VStack>
@@ -109,6 +134,12 @@ const PetsTab = () => {
       <View flex="1" marginX="6" _web={{ marginBottom: 4 }}>
         {renderContent()}
       </View>
+      <FiltersModal
+        isOpen={isFiltersOpen}
+        onClose={() => setIsFiltersOpen(false)}
+        currentRadius={radius}
+        onApply={handleApplyFilters}
+      />
     </Box>
   );
 };
