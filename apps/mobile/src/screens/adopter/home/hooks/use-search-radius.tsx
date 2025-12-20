@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { getSearchRadius, saveSearchRadius } from '@/helpers/secure-store';
+import { getSearchRadius, saveSearchRadius } from '@/helpers/local-storage';
 
 export const useSearchRadius = () => {
   const [radius, setRadius] = useState(20);
@@ -8,9 +8,13 @@ export const useSearchRadius = () => {
 
   useEffect(() => {
     const loadRadius = async () => {
-      const savedRadius = await getSearchRadius();
-      if (savedRadius !== null && savedRadius !== undefined) {
-        setRadius(savedRadius);
+      try {
+        const savedRadius = await getSearchRadius();
+        if (savedRadius !== null && savedRadius !== undefined) {
+          setRadius(savedRadius);
+        }
+      } catch (error) {
+        console.error('Failed to load search radius from storage:', error);
       }
     };
     loadRadius();
@@ -18,7 +22,11 @@ export const useSearchRadius = () => {
 
   const handleApplyFilters = async (newRadius: number) => {
     setRadius(newRadius);
-    await saveSearchRadius(newRadius);
+    try {
+      await saveSearchRadius(newRadius);
+    } catch (error) {
+      console.error('Failed to save search radius to storage:', error);
+    }
   };
 
   const openFilters = () => setIsFiltersOpen(true);
