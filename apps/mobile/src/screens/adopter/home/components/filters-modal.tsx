@@ -1,5 +1,5 @@
 import { Actionsheet, Box, Button, HStack, Slider, Text, VStack } from 'native-base';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import useLocale from '@/hooks/use-locale';
 
@@ -13,6 +13,11 @@ type FiltersModalProps = {
 export const FiltersModal = ({ isOpen, onClose, currentRadius, onApply }: FiltersModalProps) => {
   const { t } = useLocale();
   const [radius, setRadius] = useState(currentRadius);
+
+  // Sync with prop changes
+  useEffect(() => {
+    setRadius(currentRadius);
+  }, [currentRadius]);
 
   const handleApply = () => {
     onApply(radius);
