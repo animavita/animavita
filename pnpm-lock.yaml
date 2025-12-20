@@ -6,7 +6,7 @@ settings:
 
 patchedDependencies:
   native-base@3.4.25:
-    hash: cb5f3aacd0aa1b313f9eb1b2f0915eb6c37638d3a7f1f2ff783a091ad3de1022
+    hash: 7l2ialv3sqisf65a67uepmvfmm
     path: patches/native-base@3.4.25.patch
 
 importers:
@@ -235,13 +235,13 @@ importers:
         version: 2.7.0(@types/node@18.11.5)(typescript@5.9.3)
       native-base:
         specifier: ^3.4.25
-        version: 3.4.25(patch_hash=cb5f3aacd0aa1b313f9eb1b2f0915eb6c37638d3a7f1f2ff783a091ad3de1022)(@types/react-native@0.72.3(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)))(@types/react@19.0.14)(react-dom@19.0.0(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-svg@15.11.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
+        version: 3.4.25(patch_hash=7l2ialv3sqisf65a67uepmvfmm)(@types/react-native@0.72.3(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)))(@types/react@19.0.14)(react-dom@19.0.0(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-svg@15.11.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
       normalize-css-color:
         specifier: ^1.0.2
         version: 1.0.2
       posthog-react-native:
         specifier: ^4.14.0
-        version: 4.14.0(ecf66b7dbcf79dca30bad6a39307b5d4)
+        version: 4.14.0(cu3hziyvd6rload5mlk6lu7qvm)
       react:
         specifier: 19.0.0
         version: 19.0.0
@@ -7107,7 +7107,6 @@ packages:
   react-server-dom-webpack@19.0.0:
     resolution: {integrity: sha512-hLug9KEXLc8vnU9lDNe2b2rKKDaqrp5gNiES4uyu2Up3FZfZJZmdwLFXlWzdA9gTB/6/cWduSB2K1Lfag2pSvw==}
     engines: {node: '>=0.10.0'}
-    deprecated: Critical Security Vulnerability in React Server Components
     peerDependencies:
       react: ^19.0.0
       react-dom: ^19.0.0
@@ -16684,7 +16683,7 @@ snapshots:
 
   nanoid@3.3.8: {}
 
-  native-base@3.4.25(patch_hash=cb5f3aacd0aa1b313f9eb1b2f0915eb6c37638d3a7f1f2ff783a091ad3de1022)(@types/react-native@0.72.3(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)))(@types/react@19.0.14)(react-dom@19.0.0(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-svg@15.11.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
+  native-base@3.4.25(patch_hash=7l2ialv3sqisf65a67uepmvfmm)(@types/react-native@0.72.3(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)))(@types/react@19.0.14)(react-dom@19.0.0(react@19.0.0))(react-native-safe-area-context@5.4.0(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native-svg@15.11.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0):
     dependencies:
       '@react-aria/visually-hidden': 3.6.1(react@19.0.0)
       '@react-native-aria/button': 0.2.4(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -17323,7 +17322,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  posthog-react-native@4.14.0(ecf66b7dbcf79dca30bad6a39307b5d4):
+  posthog-react-native@4.14.0(cu3hziyvd6rload5mlk6lu7qvm):
     dependencies:
       '@posthog/core': 1.6.0
       react-native-svg: 15.11.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
