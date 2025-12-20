@@ -1,3 +1,4 @@
+import { SSRProvider } from '@react-aria/ssr';
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { NativeBaseProvider } from 'native-base';
@@ -23,13 +24,16 @@ const App = () => {
           }}
         >
           <GestureHandlerRootView>
-            <NativeBaseProvider theme={theme}>
-              <I18nextProvider i18n={initI18n('pt-BR')}>
-                <AuthProvider>
-                  <MainNavigator />
-                </AuthProvider>
-              </I18nextProvider>
-            </NativeBaseProvider>
+            {/* SSRProvider is only necessary to get rid of NativeBase SSR warning */}
+            <SSRProvider>
+              <NativeBaseProvider theme={theme}>
+                <I18nextProvider i18n={initI18n('pt-BR')}>
+                  <AuthProvider>
+                    <MainNavigator />
+                  </AuthProvider>
+                </I18nextProvider>
+              </NativeBaseProvider>
+            </SSRProvider>
           </GestureHandlerRootView>
         </PostHogProvider>
       </NavigationContainer>
