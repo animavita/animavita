@@ -173,12 +173,12 @@ importers:
       '@hookform/resolvers':
         specifier: ^2.9.10
         version: 2.9.11(react-hook-form@7.43.1(react@19.0.0))
-      '@react-aria/ssr':
-        specifier: ^3.9.10
-        version: 3.9.10(react@19.0.0)
       '@react-native-async-storage/async-storage':
         specifier: 2.1.2
         version: 2.1.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))
+      '@react-native-community/slider':
+        specifier: 4.5.6
+        version: 4.5.6
       '@react-navigation/native':
         specifier: ^6.0.13
         version: 6.1.18(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -2128,6 +2128,9 @@ packages:
     resolution: {integrity: sha512-hFJL4cgLPxncJJd/epQ4dHnMg5Jy/7Q56jFvA3MHViuKpzzfTCJCB+pGY54maZbtym53UJON9WTGpM3S81UfjQ==}
     engines: {node: '>=18'}
     hasBin: true
+
+  '@react-native-community/slider@4.5.6':
+    resolution: {integrity: sha512-UhLPFeqx0YfPLrEz8ffT3uqAyXWu6iqFjohNsbp4cOU7hnJwg2RXtDnYHoHMr7MOkZDVdlLMdrSrAuzY6KGqrg==}
 
   '@react-native/assets-registry@0.79.6':
     resolution: {integrity: sha512-UVSP1224PWg0X+mRlZNftV5xQwZGfawhivuW8fGgxNK9MS/U84xZ+16lkqcPh1ank6MOt239lIWHQ1S33CHgqA==}
@@ -10631,7 +10634,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 16.18.0
+      '@types/node': 18.11.5
       '@types/yargs': 15.0.14
       chalk: 4.1.2
     optional: true
@@ -10709,7 +10712,7 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
-      '@jridgewell/sourcemap-codec': 1.4.14
+      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@leichtgewicht/ip-codec@2.0.4': {}
 
@@ -11470,6 +11473,8 @@ snapshots:
       - supports-color
       - utf-8-validate
     optional: true
+
+  '@react-native-community/slider@4.5.6': {}
 
   '@react-native/assets-registry@0.79.6': {}
 
@@ -18575,7 +18580,7 @@ snapshots:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
       '@types/node': 18.11.5
-      acorn: 8.8.1
+      acorn: 8.15.0
       acorn-walk: 8.2.0
       arg: 4.1.0
       create-require: 1.1.1

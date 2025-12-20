@@ -1,4 +1,5 @@
-import { Actionsheet, Box, Button, HStack, Slider, Text, VStack } from 'native-base';
+import Slider from '@react-native-community/slider';
+import { Actionsheet, Box, Button, HStack, Text, VStack, useTheme } from 'native-base';
 import React, { useState, useEffect } from 'react';
 
 import useLocale from '@/hooks/use-locale';
@@ -12,6 +13,7 @@ type FiltersModalProps = {
 
 export const FiltersModal = ({ isOpen, onClose, currentRadius, onApply }: FiltersModalProps) => {
   const { t } = useLocale();
+  const theme = useTheme();
   const [radius, setRadius] = useState(currentRadius);
 
   // Sync with prop changes
@@ -32,12 +34,12 @@ export const FiltersModal = ({ isOpen, onClose, currentRadius, onApply }: Filter
   return (
     <Actionsheet isOpen={isOpen} onClose={handleCancel}>
       <Actionsheet.Content>
-        <Box width="100%" px={4} py={6}>
+        <Box width="100%" px={4}>
           <Text fontSize="lg" fontWeight="bold" mb={6}>
             {t('HOME.FILTERS_MODAL.TITLE')}
           </Text>
 
-          <VStack space={4} mb={6}>
+          <VStack mb={6}>
             <HStack justifyContent="space-between" alignItems="center">
               <Text fontSize="md" fontWeight="medium">
                 {t('HOME.FILTERS_MODAL.RADIUS_LABEL')}
@@ -47,20 +49,19 @@ export const FiltersModal = ({ isOpen, onClose, currentRadius, onApply }: Filter
               </Text>
             </HStack>
 
-            <Slider
-              defaultValue={currentRadius}
-              minValue={5}
-              maxValue={100}
-              step={5}
-              value={radius}
-              onChange={(value) => setRadius(value)}
-              accessibilityLabel={t('HOME.FILTERS_MODAL.RADIUS_LABEL')}
-            >
-              <Slider.Track>
-                <Slider.FilledTrack />
-              </Slider.Track>
-              <Slider.Thumb />
-            </Slider>
+            <Box _android={{ mx: -4, mt: 2 }}>
+              <Slider
+                minimumValue={5}
+                maximumValue={100}
+                step={5}
+                value={radius}
+                onValueChange={(value) => setRadius(value)}
+                minimumTrackTintColor={theme.colors.primary[500]}
+                maximumTrackTintColor={theme.colors.gray[300]}
+                thumbTintColor={theme.colors.primary[500]}
+                accessibilityLabel={t('HOME.FILTERS_MODAL.RADIUS_LABEL')}
+              />
+            </Box>
 
             <HStack justifyContent="space-between">
               <Text fontSize="xs" color="gray.500">
