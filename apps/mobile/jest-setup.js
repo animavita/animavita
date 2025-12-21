@@ -85,5 +85,3 @@ beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 
 afterAll(() => server.close());
-
-// Configure batching via notifyManager in tests if act warnings surface.
