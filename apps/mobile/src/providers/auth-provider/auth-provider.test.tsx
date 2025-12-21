@@ -1,9 +1,4 @@
-import {
-  screen,
-  waitForElementToBeRemoved,
-  waitFor,
-  fireEvent,
-} from '@testing-library/react-native';
+import { screen, waitForElementToBeRemoved, fireEvent } from '@testing-library/react-native';
 import { Text } from 'react-native';
 
 import { AuthContext, AuthProvider } from '.';
