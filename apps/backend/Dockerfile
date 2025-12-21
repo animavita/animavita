@@ -23,6 +23,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=pruned /app/pruned/dist .
 COPY --from=pruned /app/pruned/node_modules node_modules
-EXPOSE 3001
-ENTRYPOINT ["node", "main.js"]
+EXPOSE 3000
+ENTRYPOINT ["node", "src/main.js"]
 
