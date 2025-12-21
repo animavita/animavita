@@ -38,7 +38,6 @@ export const TinderCard = ({
 }: TinderCardProps) => {
   const { t } = useTranslation();
 
-  // Translation helpers
   const getAgeTranslation = (ageValue: string) => {
     const ageKey = ageValue.toUpperCase();
     return t(`AGE.${ageKey}`);

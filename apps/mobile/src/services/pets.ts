@@ -5,7 +5,7 @@ import client from './http-client';
 export type PetNearMeResponse = {
   id: string;
   name: string;
-  age: string;
+  maturity: string;
   breed: string;
   gender: string;
   location: {

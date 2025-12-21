@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
-import { Badge, Box, Button, Icon, View, VStack, Text, Center, Skeleton } from 'native-base';
+import { Box, Button, Icon, View, Text, Center, Skeleton } from 'native-base';
 import React, { useState, useEffect } from 'react';
 import Animated, {
   useSharedValue,
@@ -14,14 +14,20 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import { TinderCard } from './card';
+import { SearchRadius } from './filters/search-radius';
+import { FiltersModal } from './filters-modal';
+import { FiltersTrigger } from './filters-trigger';
+import { useFilters } from '../../hooks/use-filters';
+import { useSearchRadius } from '../../hooks/use-search-radius';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
 import useLocale from '@/hooks/use-locale';
 import { getPetsNearMe, PetNearMeResponse } from '@/services/pets';
 
 const PetsTab = () => {
-  const { t } = useLocale();
   const swipeProgress = useSharedValue(0);
+  const searchRadius = useSearchRadius();
+  const { isOpen, open, close, apply, appliedCount } = useFilters({ filters: [searchRadius] });
 
   const {
     data: pets = [],
@@ -29,9 +35,9 @@ const PetsTab = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ['pets', 'nearMe'],
+    queryKey: ['pets', 'nearMe', searchRadius.value],
     queryFn: async () => {
-      const response = await getPetsNearMe(20);
+      const response = await getPetsNearMe(searchRadius.value);
       return response.data;
     },
   });
@@ -85,30 +91,17 @@ const PetsTab = () => {
     <Box flex="1">
       <Delimiter>
         <Box marginY="4" display="flex" flexDirection="row" justifyContent="space-between">
-          <VStack>
-            <Badge
-              colorScheme="orange"
-              rounded="full"
-              mb={-4}
-              mr={-4}
-              zIndex={1}
-              variant="solid"
-              alignSelf="flex-end"
-              _text={{
-                fontSize: 12,
-              }}
-            >
-              2
-            </Badge>
-            <Button variant="solid" size="sm" leftIcon={<Icon as={Ionicons} name="filter" />}>
-              {t('HOME.FILTER')}
-            </Button>
-          </VStack>
+          <FiltersTrigger onPress={open} appliedCount={appliedCount} />
         </Box>
       </Delimiter>
+
       <View flex="1" marginX="6" _web={{ marginBottom: 4 }}>
         {renderContent()}
       </View>
+
+      <FiltersModal isOpen={isOpen} onClose={close} onApply={apply}>
+        <SearchRadius currentRadius={searchRadius.value} onChange={searchRadius.change} />
+      </FiltersModal>
     </Box>
   );
 };
@@ -129,7 +122,7 @@ const CardsList = ({ cards, swipeProgress, onSwipeComplete }: CardsListProps) =>
           key={card.id}
           image={card.photos[0]}
           name={card.name}
-          age={card.age}
+          age={card.maturity}
           size={card.size}
           isActive={index === cards.length - 1}
           swipeProgress={swipeProgress}

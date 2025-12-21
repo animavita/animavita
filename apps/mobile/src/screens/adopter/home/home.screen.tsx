@@ -1,5 +1,5 @@
 import FavoritesTab from './components/favorites-tab';
-import PetsTab from './components/pets-tab';
+import PetsTab from './components/pets-tab/pets-tab';
 import RequestsTab from './components/requests-tab';
 
 import TabsComponent from '@/components/tabs';

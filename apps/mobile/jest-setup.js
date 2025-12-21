@@ -7,6 +7,12 @@ jest.mock('posthog-react-native', () => ({
   useFeatureFlag: jest.fn(),
 }));
 
+// Mock AsyncStorage for tests
+// https://react-native-async-storage.github.io/async-storage/docs/advanced/jest
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+);
+
 // Setup Reanimated for testing
 // https://docs.swmansion.com/react-native-reanimated/docs/guides/testing/
 require('react-native-reanimated').setUpTests();

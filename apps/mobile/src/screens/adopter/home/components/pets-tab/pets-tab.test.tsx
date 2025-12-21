@@ -1,4 +1,4 @@
-import { screen, waitFor } from '@testing-library/react-native';
+import { screen, waitFor, fireEvent } from '@testing-library/react-native';
 import { http, HttpResponse } from 'msw';
 import React from 'react';
 
@@ -20,7 +20,7 @@ const mockPets: PetNearMeResponse[] = [
   {
     id: '1',
     name: 'Rex',
-    age: 'young',
+    maturity: 'young',
     breed: 'Labrador',
     gender: 'male',
     location: {
@@ -41,7 +41,7 @@ const mockPets: PetNearMeResponse[] = [
   {
     id: '2',
     name: 'Mittens',
-    age: 'puppy',
+    maturity: 'puppy',
     breed: 'Persian',
     gender: 'female',
     location: {
@@ -105,6 +105,56 @@ describe('PetsTab', () => {
         const filterButton = screen.getByRole('button', { name: 'Filtrar' });
         expect(filterButton).toBeVisible();
         expect(screen.getByText('Rex')).toBeVisible();
+      });
+    });
+
+    describe('when user applies a new radius', () => {
+      beforeEach(() => {
+        server.use(
+          http.get('*/api/v1/pets/nearMe', ({ request }) => {
+            const url = new URL(request.url);
+            const radius = url.searchParams.get('radius');
+
+            if (radius === '50') {
+              return HttpResponse.json([
+                {
+                  ...mockPets[0],
+                  id: '3',
+                  name: 'Buddy',
+                },
+              ]);
+            }
+
+            return HttpResponse.json(mockPets);
+          })
+        );
+      });
+
+      it('updates pets list based on filter criteria', async () => {
+        const { user } = renderWithProviders(<PetsTab />);
+
+        await waitFor(() => {
+          expect(screen.getByText('Rex')).toBeVisible();
+        });
+
+        const filterButton = screen.getByRole('button', { name: 'Filtrar' });
+        await user.press(filterButton);
+
+        await waitFor(() => {
+          expect(screen.getByText('Filtros')).toBeOnTheScreen();
+        });
+
+        const slider = screen.getByLabelText('Raio de busca');
+        fireEvent(slider, 'valueChange', 50);
+
+        const applyButton = screen.getByRole('button', { name: 'Aplicar' });
+        await user.press(applyButton);
+
+        await waitFor(() => {
+          expect(screen.getByText('Buddy')).toBeVisible();
+        });
+
+        expect(screen.queryByText('Rex')).not.toBeOnTheScreen();
       });
     });
   });
@@ -191,7 +241,7 @@ describe('PetsTab', () => {
       renderWithProviders(<PetsTab />);
 
       await waitFor(() => {
-        expect(screen.getByText('Você viu todos os pets!')).toBeVisible();
+        expect(screen.getByText('Você viu todos os pets!')).toBeOnTheScreen();
       });
     });
 

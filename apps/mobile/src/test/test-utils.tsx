@@ -1,6 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { render } from '@testing-library/react-native';
+import { render, userEvent } from '@testing-library/react-native';
 import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
@@ -35,15 +35,19 @@ export const QueryClientWrapper = ({ children }: { children: React.ReactElement 
 );
 
 const renderWithProviders = (children: React.ReactElement) => {
-  return render(
-    <QueryClientWrapper>
-      <NavigationContainer>
-        <NativeBaseProvider theme={theme} initialWindowMetrics={inset}>
-          <I18nextProvider i18n={initI18n('pt-BR')}>{children}</I18nextProvider>
-        </NativeBaseProvider>
-      </NavigationContainer>
-    </QueryClientWrapper>
-  );
+  const user = userEvent.setup();
+  return {
+    user,
+    ...render(
+      <QueryClientWrapper>
+        <NavigationContainer>
+          <NativeBaseProvider theme={theme} initialWindowMetrics={inset}>
+            <I18nextProvider i18n={initI18n('pt-BR')}>{children}</I18nextProvider>
+          </NativeBaseProvider>
+        </NavigationContainer>
+      </QueryClientWrapper>
+    ),
+  };
 };
 
 export * from '@testing-library/react-native';

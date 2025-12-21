@@ -2,7 +2,7 @@ export enum AdoptionSteps {
   PetName = 'PetName',
   PetBreed = 'PetBreed',
   PetType = 'PetType',
-  PetMaturity= 'PetMaturity',
+  PetMaturity = 'PetMaturity',
   PetGender = 'PetGender',
   PetSize = 'PetSize',
   PetObservations = 'PetObservations',

@@ -176,6 +176,9 @@ importers:
       '@react-native-async-storage/async-storage':
         specifier: 2.1.2
         version: 2.1.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))
+      '@react-native-community/slider':
+        specifier: 4.5.6
+        version: 4.5.6
       '@react-navigation/native':
         specifier: ^6.0.13
         version: 6.1.18(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)
@@ -1979,10 +1982,11 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
 
-  '@react-aria/ssr@3.4.1':
-    resolution: {integrity: sha512-NmhoilMDyIfQiOSdQgxpVH2tC2u85Y0mVijtBNbI9kcDYLEiW/r6vKYVKtkyU+C4qobXhGMPfZ70PTc0lysSVA==}
+  '@react-aria/ssr@3.9.10':
+    resolution: {integrity: sha512-hvTm77Pf+pMBhuBm760Li0BVIO38jv1IBws1xFm1NoL26PU+fe+FMW5+VZWyANR6nYL65joaJKZqOdTQMkO9IQ==}
+    engines: {node: '>= 12'}
     peerDependencies:
-      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0
+      react: ^16.8.0 || ^17.0.0-rc.1 || ^18.0.0 || ^19.0.0-rc.1
 
   '@react-aria/tabs@3.0.0-alpha.2':
     resolution: {integrity: sha512-yHpz1HujxBcMq8e4jrHkkowzrJwuVyssCB+DuA91kt6LC0eIMZsDZY9tEhhOq+TyOhI3nbyXaDKJG6y1qB0A5A==}
@@ -2124,6 +2128,9 @@ packages:
     resolution: {integrity: sha512-hFJL4cgLPxncJJd/epQ4dHnMg5Jy/7Q56jFvA3MHViuKpzzfTCJCB+pGY54maZbtym53UJON9WTGpM3S81UfjQ==}
     engines: {node: '>=18'}
     hasBin: true
+
+  '@react-native-community/slider@4.5.6':
+    resolution: {integrity: sha512-UhLPFeqx0YfPLrEz8ffT3uqAyXWu6iqFjohNsbp4cOU7hnJwg2RXtDnYHoHMr7MOkZDVdlLMdrSrAuzY6KGqrg==}
 
   '@react-native/assets-registry@0.79.6':
     resolution: {integrity: sha512-UVSP1224PWg0X+mRlZNftV5xQwZGfawhivuW8fGgxNK9MS/U84xZ+16lkqcPh1ank6MOt239lIWHQ1S33CHgqA==}
@@ -2462,6 +2469,9 @@ packages:
 
   '@swc/helpers@0.4.14':
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
+
+  '@swc/helpers@0.5.17':
+    resolution: {integrity: sha512-5IKx/Y13RsYd+sauPb2x+U/xZikHjolzfuDgTAl/Tdf3Q8rslRvC19NKDLgAJQ6wsqADk10ntlv08nPFw/gO/A==}
 
   '@tanstack/query-core@4.24.4':
     resolution: {integrity: sha512-9dqjv9eeB6VHN7lD3cLo16ZAjfjCsdXetSAD5+VyKqLUvcKTL0CklGQRJu+bWzdrS69R6Ea4UZo8obHYZnG6aA==}
@@ -7951,6 +7961,9 @@ packages:
   tslib@2.6.2:
     resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
 
+  tslib@2.8.1:
+    resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
+
   tsutils@3.21.0:
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}
     engines: {node: '>= 6'}
@@ -8779,7 +8792,7 @@ snapshots:
       '@aws-sdk/property-provider': 3.198.0
       '@aws-sdk/shared-ini-file-loader': 3.198.0
       '@aws-sdk/types': 3.198.0
-      tslib: 2.4.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     optional: true
@@ -10621,7 +10634,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 16.18.0
+      '@types/node': 18.11.5
       '@types/yargs': 15.0.14
       chalk: 4.1.2
     optional: true
@@ -10699,7 +10712,7 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
-      '@jridgewell/sourcemap-codec': 1.4.14
+      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@leichtgewicht/ip-codec@2.0.4': {}
 
@@ -11003,7 +11016,7 @@ snapshots:
       '@internationalized/message': 3.0.10
       '@internationalized/number': 3.1.2
       '@internationalized/string': 3.0.1
-      '@react-aria/ssr': 3.4.1(react@19.0.0)
+      '@react-aria/ssr': 3.9.10(react@19.0.0)
       '@react-aria/utils': 3.14.2(react@19.0.0)
       '@react-types/shared': 3.16.0(react@19.0.0)
       '@swc/helpers': 0.4.14
@@ -11064,7 +11077,7 @@ snapshots:
       '@react-aria/focus': 3.10.1(react@19.0.0)
       '@react-aria/i18n': 3.6.3(react@19.0.0)
       '@react-aria/interactions': 3.13.1(react@19.0.0)
-      '@react-aria/ssr': 3.4.1(react@19.0.0)
+      '@react-aria/ssr': 3.9.10(react@19.0.0)
       '@react-aria/utils': 3.14.2(react@19.0.0)
       '@react-aria/visually-hidden': 3.6.1(react@19.0.0)
       '@react-stately/overlays': 3.4.4(react@19.0.0)
@@ -11115,9 +11128,9 @@ snapshots:
       '@swc/helpers': 0.4.14
       react: 19.0.0
 
-  '@react-aria/ssr@3.4.1(react@19.0.0)':
+  '@react-aria/ssr@3.9.10(react@19.0.0)':
     dependencies:
-      '@swc/helpers': 0.4.14
+      '@swc/helpers': 0.5.17
       react: 19.0.0
 
   '@react-aria/tabs@3.0.0-alpha.2(react@19.0.0)':
@@ -11157,7 +11170,7 @@ snapshots:
 
   '@react-aria/utils@3.14.2(react@19.0.0)':
     dependencies:
-      '@react-aria/ssr': 3.4.1(react@19.0.0)
+      '@react-aria/ssr': 3.9.10(react@19.0.0)
       '@react-stately/utils': 3.5.2(react@19.0.0)
       '@react-types/shared': 3.16.0(react@19.0.0)
       '@swc/helpers': 0.4.14
@@ -11292,7 +11305,7 @@ snapshots:
 
   '@react-native-aria/utils@0.2.8(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@react-aria/ssr': 3.4.1(react@19.0.0)
+      '@react-aria/ssr': 3.9.10(react@19.0.0)
       '@react-aria/utils': 3.14.2(react@19.0.0)
       react: 19.0.0
       react-native: 0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)
@@ -11460,6 +11473,8 @@ snapshots:
       - supports-color
       - utf-8-validate
     optional: true
+
+  '@react-native-community/slider@4.5.6': {}
 
   '@react-native/assets-registry@0.79.6': {}
 
@@ -11961,6 +11976,10 @@ snapshots:
   '@swc/helpers@0.4.14':
     dependencies:
       tslib: 2.6.2
+
+  '@swc/helpers@0.5.17':
+    dependencies:
+      tslib: 2.8.1
 
   '@tanstack/query-core@4.24.4': {}
 
@@ -12798,7 +12817,7 @@ snapshots:
 
   async-mutex@0.3.2:
     dependencies:
-      tslib: 2.4.0
+      tslib: 2.6.2
 
   asynckit@0.4.0: {}
 
@@ -18561,7 +18580,7 @@ snapshots:
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
       '@types/node': 18.11.5
-      acorn: 8.8.1
+      acorn: 8.15.0
       acorn-walk: 8.2.0
       arg: 4.1.0
       create-require: 1.1.1
@@ -18602,6 +18621,8 @@ snapshots:
   tslib@2.4.0: {}
 
   tslib@2.6.2: {}
+
+  tslib@2.8.1: {}
 
   tsutils@3.21.0(typescript@4.8.4):
     dependencies:

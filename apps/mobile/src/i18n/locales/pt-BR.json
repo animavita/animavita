@@ -106,7 +106,14 @@
     "NO_PETS_NEARBY": "Nenhum pet por perto",
     "NO_PETS_NEARBY_DESCRIPTION": "Não encontramos nenhum pet disponível para adoção na sua região. Tente ajustar os filtros ou verifique novamente mais tarde.",
     "NO_MORE_PETS": "Você viu todos os pets!",
-    "NO_MORE_PETS_DESCRIPTION": "Não há mais pets para mostrar no momento. Volte mais tarde para ver novos amiguinhos disponíveis para adoção."
+    "NO_MORE_PETS_DESCRIPTION": "Não há mais pets para mostrar no momento. Volte mais tarde para ver novos amiguinhos disponíveis para adoção.",
+    "FILTERS_MODAL": {
+      "TITLE": "Filtros",
+      "RADIUS_LABEL": "Raio de busca",
+      "RADIUS_VALUE": "{{value}} km",
+      "APPLY_BUTTON": "Aplicar",
+      "CANCEL_BUTTON": "Cancelar"
+    }
   },
   "PROFILE": {
     "LOGOUT": "Sair"
