@@ -47,7 +47,7 @@ In v2, we aim to rebuild a simpler version of Animavita with a cleaner UI and a 
 -   [ ] Owner can deny adoption requests https://github.com/animavita/animavita/issues/263
 
 ### Pet Adopter
--   [ ] Adopter can see a list of nearest pets for adoption (based on their location) https://github.com/animavita/animavita/issues/278
+-   [x] Adopter can see a list of nearest pets for adoption (based on their location) https://github.com/animavita/animavita/issues/278
 -   [ ] Adopter can see pet details
 -   [ ] Adopter can like pets from the list (which will be added to the wishlist)
 -   [ ] Adopter can request to adopt a pet https://github.com/animavita/animavita/issues/258
