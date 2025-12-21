@@ -38,6 +38,23 @@ We have a `docker-compose` file that sets up a mongodb database and the backend 
 $ docker-compose up -d
 ```
 
+#### Seeding the database
+
+For development, it's useful to have some initial data to work with. We provide a seed script that creates:
+- An owner account (`owner@email.com` / `Password123`)
+- An adopter account (`adopter@email.com` / `Password123`)
+- 5 pets associated with the owner
+
+To seed the database:
+
+```sh
+$ docker-compose exec backend pnpm seed
+```
+
+This can be run at any time and is safe to run multiple times (it will recreate the seed data).
+
+See [apps/backend/scripts/README.md](apps/backend/scripts/README.md) for more details about the seeded data.
+
 ### 📦 Dependency Caching Strategy
 
 We're using an anonymous volume for node_modules to ensure consistent, cross-platform dependency management. This means the container handles installing and storing node_modules, rather than relying on your local system.
