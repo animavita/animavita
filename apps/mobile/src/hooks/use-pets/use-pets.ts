@@ -20,9 +20,10 @@ const usePets = () => {
     queryFn: getMyPets,
   });
 
-  const mutation = useMutation(saveOrCreate, {
+  const mutation = useMutation({
+    mutationFn: saveOrCreate,
     onSuccess: () => {
-      client.invalidateQueries([QUERY_KEYS.getMyPets]);
+      client.invalidateQueries({ queryKey: [QUERY_KEYS.getMyPets] });
       navigation.navigate('Home');
     },
     onError: () => {
@@ -37,7 +38,7 @@ const usePets = () => {
   return {
     loading: query.isFetching,
     myPets: query.data?.data || [],
-    saving: mutation.isLoading,
+    saving: mutation.isPending,
     saveOrCreatePet,
   };
 };

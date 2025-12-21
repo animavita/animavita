@@ -42,26 +42,25 @@ const PetsTab = () => {
     },
   });
 
-  const [cards, setCards] = useState<PetNearMeResponse[] | null>(null);
-
-  React.useEffect(() => {
-    if (!isLoading) {
-      setCards(pets);
-    }
-  }, [pets, isLoading]);
+  const [swipedIds, setSwipedIds] = useState<Set<string>>(new Set());
+  const cards = (pets || []).filter((p) => !swipedIds.has(p.id));
 
   const handleSwipeComplete = (cardId: string, direction: 'left' | 'right') => {
     console.log(`Card ${cardId} swiped ${direction}`);
-    setCards((prevCards) => (prevCards || []).filter((card) => card.id !== cardId));
+    setSwipedIds((prev) => {
+      const next = new Set(prev);
+      next.add(cardId);
+      return next;
+    });
   };
 
   const renderContent = () => {
-    if (cards === null) {
-      return <LoadingState />;
-    }
-
     if (error) {
       return <ErrorState onRetry={() => refetch()} />;
+    }
+
+    if (isLoading) {
+      return <LoadingState />;
     }
 
     const isLastCard = cards.length === 1;

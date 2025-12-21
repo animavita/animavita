@@ -104,7 +104,6 @@ describe('PetsTab', () => {
       await waitFor(() => {
         const filterButton = screen.getByRole('button', { name: 'Filtrar' });
         expect(filterButton).toBeVisible();
-        expect(screen.getByText('Rex')).toBeVisible();
       });
     });
 

@@ -30,7 +30,7 @@ const useUserSignIn = () => {
   return {
     signIn,
     error,
-    isSigningIn: mutation.isLoading,
+    isSigningIn: mutation.isPending,
   };
 };
 
