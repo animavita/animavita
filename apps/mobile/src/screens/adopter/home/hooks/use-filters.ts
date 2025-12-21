@@ -16,17 +16,7 @@ export const useFilters = ({ filters }: { filters: PetFilter[] }) => {
     await Promise.all(filters.map((filter) => filter.save()));
   };
 
-  const getAppliedFiltersCount = () => {
-    let count = 0;
-
-    filters.forEach((filter) => {
-      if (filter.isApplied) {
-        count++;
-      }
-    });
-
-    return count;
-  };
+  const getAppliedFiltersCount = () => filters.filter((f) => f.isApplied).length;
 
   return {
     isOpen,
