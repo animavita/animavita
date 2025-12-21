@@ -29,7 +29,7 @@ const useOtpVerification = () => {
   return {
     requestOtp,
     verifyOtp,
-    isLoading: requestOtpMutation.isLoading || verifyOtpMutation.isLoading,
+    isLoading: requestOtpMutation.isPending || verifyOtpMutation.isPending,
   };
 };
 

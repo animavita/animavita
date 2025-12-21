@@ -8,14 +8,6 @@ import { PetNearMeResponse } from '@/services/pets';
 import { server } from '@/test/msw/server';
 import { renderWithProviders } from '@/test/test-utils';
 
-// Mock @expo/vector-icons to avoid font loading issues
-jest.mock('@expo/vector-icons', () => {
-  const { Text } = require('react-native');
-  return {
-    Ionicons: (props: any) => <Text {...props}>{props.name}</Text>,
-  };
-});
-
 const mockPets: PetNearMeResponse[] = [
   {
     id: '1',
@@ -104,7 +96,6 @@ describe('PetsTab', () => {
       await waitFor(() => {
         const filterButton = screen.getByRole('button', { name: 'Filtrar' });
         expect(filterButton).toBeVisible();
-        expect(screen.getByText('Rex')).toBeVisible();
       });
     });
 

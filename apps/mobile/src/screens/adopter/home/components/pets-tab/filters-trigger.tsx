@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { VStack, Badge, Icon, Button } from 'native-base';
+import { Box, Badge, Icon, Button } from 'native-base';
 
 import useLocale from '@/hooks/use-locale';
 
@@ -12,19 +12,18 @@ export const FiltersTrigger = ({ onPress, appliedCount }: FiltersTriggerProps) =
   const { t } = useLocale();
 
   return (
-    <VStack>
+    <Box position="relative" alignSelf="flex-start">
       {appliedCount > 0 && (
         <Badge
+          position="absolute"
+          top={-10}
+          right={-10}
           colorScheme="orange"
           rounded="full"
-          mb={-4}
-          mr={-4}
           zIndex={1}
           variant="solid"
-          alignSelf="flex-end"
-          _text={{
-            fontSize: 12,
-          }}
+          pointerEvents="none"
+          _text={{ fontSize: 12 }}
         >
           {appliedCount}
         </Badge>
@@ -37,6 +36,6 @@ export const FiltersTrigger = ({ onPress, appliedCount }: FiltersTriggerProps) =
       >
         {t('HOME.FILTER')}
       </Button>
-    </VStack>
+    </Box>
   );
 };

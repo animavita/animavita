@@ -27,15 +27,6 @@ jest.mock('@/hooks/use-user-register', () => ({
   })),
 }));
 
-const mockShow = jest.fn();
-jest.mock('native-base', () => ({
-  ...jest.requireActual('native-base'),
-  useToast: () => ({
-    show: mockShow,
-    isActive: () => false,
-  }),
-}));
-
 const mockRequestOtp = jest.fn().mockResolvedValue(undefined);
 const mockVerifyOtp = jest.fn().mockResolvedValue('+5511999999999');
 jest.mock('@/hooks/use-otp-verification', () => ({

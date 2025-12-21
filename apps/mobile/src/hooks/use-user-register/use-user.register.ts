@@ -46,8 +46,8 @@ const useUserRegister = () => {
 
   return {
     registerUser,
-    isRegistering: mutation.isLoading,
-    isSavingRole: completeSignUpMutation.isLoading,
+    isRegistering: mutation.isPending,
+    isSavingRole: completeSignUpMutation.isPending,
     saveRole,
     complete,
     error,

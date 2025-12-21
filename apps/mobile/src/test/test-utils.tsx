@@ -17,16 +17,11 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
-      cacheTime: 0,
+      gcTime: 0,
     },
     mutations: {
-      cacheTime: 0,
+      gcTime: 0,
     },
-  },
-  logger: {
-    log: console.log,
-    warn: console.warn,
-    error: () => {},
   },
 });
 
