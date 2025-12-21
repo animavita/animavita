@@ -8,7 +8,6 @@ import useFormValidation, { mountErrorMessage } from './use-form-validation.hook
 import useLocale from '@/hooks/use-locale';
 
 jest.mock('@/hooks/use-locale');
-jest.mock('native-base');
 jest.mock('react-hook-form');
 
 // eslint-disable-next-line react-hooks/rules-of-hooks

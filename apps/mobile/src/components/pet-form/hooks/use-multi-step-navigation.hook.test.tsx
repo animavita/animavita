@@ -5,11 +5,6 @@ import { getStepsByOrder, useMultiStepNavigation } from './use-multi-step-naviga
 import { stepsLibrary } from '../pet-form.constants';
 import { AdoptionSteps } from '../pet-form.types';
 
-jest.mock('native-base', () => ({
-  ...jest.requireActual('native-base'),
-  useToast: jest.fn(),
-}));
-
 describe('getStepsByOrder', () => {
   it('returns step ids ordered', () => {
     expect(getStepsByOrder(stepsLibrary)).toStrictEqual({

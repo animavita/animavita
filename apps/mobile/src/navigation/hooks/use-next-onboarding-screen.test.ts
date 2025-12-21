@@ -5,8 +5,6 @@ import useNextOnboardingScreen from './use-next-onboarding-screen';
 
 import { UserInfo } from '@/providers/auth-provider/auth-provider.types';
 
-jest.mock('posthog-react-native');
-
 describe('useNextOnboardingScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
