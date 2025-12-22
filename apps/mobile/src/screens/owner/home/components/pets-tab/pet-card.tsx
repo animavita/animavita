@@ -9,6 +9,9 @@ export const PetCard = (pet: AdoptionType) => {
   const { t } = useLocale();
   const { navigate } = useNavigation();
   const petTypeTranslateKey = `MY_PETS_SCREEN.PET_TYPE.${pet.type.toUpperCase()}`;
+  const petSizeTranslateKey = `SIZE.${pet.size.toUpperCase()}`;
+  const petMaturityTranslateKey = `MATURITY.${pet.maturity.toUpperCase()}`;
+  const petGenderTranslateKey = `GENDER.${pet.gender.toUpperCase()}`;
   const petImage = pet.photos[0];
 
   return (
@@ -50,13 +53,13 @@ export const PetCard = (pet: AdoptionType) => {
               <HStack space={1} alignItems="center">
                 <Icon as={Ionicons} name="resize-outline" size="xs" color="coolGray.400" />
                 <Text fontSize="xs" color="coolGray.500">
-                  {pet.size}
+                  {t(petSizeTranslateKey)}
                 </Text>
               </HStack>
               <HStack space={1} alignItems="center">
                 <Icon as={Ionicons} name="time-outline" size="xs" color="coolGray.400" />
                 <Text fontSize="xs" color="coolGray.500">
-                  {pet.maturity}
+                  {t(petMaturityTranslateKey)}
                 </Text>
               </HStack>
               <HStack space={1} alignItems="center">
@@ -67,7 +70,7 @@ export const PetCard = (pet: AdoptionType) => {
                   color="coolGray.400"
                 />
                 <Text fontSize="xs" color="coolGray.500">
-                  {pet.gender}
+                  {t(petGenderTranslateKey)}
                 </Text>
               </HStack>
             </HStack>

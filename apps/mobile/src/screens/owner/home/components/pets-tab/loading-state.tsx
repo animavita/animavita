@@ -25,16 +25,13 @@ export const LoadingState = () => {
               </Box>
 
               <VStack flex={1} space={1} justifyContent="center">
-                {/* Pet name - fontSize lg */}
                 <Skeleton.Text lines={1} w="60%" fontSize="lg" />
 
-                {/* Badge + breed - HStack with alignItems center */}
                 <HStack space={2} alignItems="center">
                   <Skeleton h={5} w={12} borderRadius="md" />
                   <Skeleton.Text lines={1} w="40%" />
                 </HStack>
 
-                {/* Icons row with mt={1} */}
                 <HStack space={2} mt={1}>
                   <Skeleton.Text lines={1} w="20%" />
                   <Skeleton.Text lines={1} w="20%" />
