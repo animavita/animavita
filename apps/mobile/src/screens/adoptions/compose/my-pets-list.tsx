@@ -1,5 +1,6 @@
 import { AdoptionType } from '@animavita/types';
-import { Box, Heading, Text, Spacer } from 'native-base';
+import { Ionicons } from '@expo/vector-icons';
+import { Box, Heading, Text, VStack, Icon, Center } from 'native-base';
 import React from 'react';
 import { FlatList } from 'react-native';
 
@@ -26,18 +27,19 @@ export const MyPetsList = ({ pets }: MyPetsListProps) => {
       renderItem={({ item }) => <AdoptionCard {...item} />}
       data={pets}
       keyExtractor={({ id }) => id}
-      ItemSeparatorComponent={() => <Spacer size={4} />}
+      ItemSeparatorComponent={() => <Box h={3} />}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 80 }}
       ListHeaderComponent={
         <>
           <Topbar />
-          <Box mt={4} mb={6}>
-            <Heading size="xl" color="primary.500">
+          <VStack mt={4} mb={6} space={1}>
+            <Heading size="xl" color="primary.600">
               {t('MY_PETS_SCREEN.TITLE')}
             </Heading>
-            <Text mt={1} color="coolGray.500">
+            <Text color="coolGray.500" fontSize="md">
               {t('MY_PETS_SCREEN.SUB_TITLE')}
             </Text>
-          </Box>
+          </VStack>
         </>
       }
     />
@@ -47,10 +49,35 @@ export const MyPetsList = ({ pets }: MyPetsListProps) => {
 const EmptyList = () => {
   const { t } = useLocale();
   return (
-    <Box height="xl" flexDir="row" justifyContent="center" alignItems="center" color="primary.300">
-      <Heading color="primary.200" size="sm">
-        {t('MY_PETS_SCREEN.EMPTY_LIST')}
-      </Heading>
+    <Box flex={1} bg="white">
+      <Box px={4}>
+        <Topbar />
+        <VStack mt={4} mb={6} space={1}>
+          <Heading size="xl" color="primary.600">
+            {t('MY_PETS_SCREEN.TITLE')}
+          </Heading>
+          <Text color="coolGray.500" fontSize="md">
+            {t('MY_PETS_SCREEN.SUB_TITLE')}
+          </Text>
+        </VStack>
+      </Box>
+
+      <Center flex={1} px={8}>
+        <VStack space={4} alignItems="center">
+          <Box bg="primary.50" p={6} borderRadius="full">
+            <Icon as={Ionicons} name="paw-outline" size="4xl" color="primary.300" />
+          </Box>
+          <VStack space={2} alignItems="center">
+            <Heading size="md" color="coolGray.600" textAlign="center">
+              {t('MY_PETS_SCREEN.EMPTY_LIST')}
+            </Heading>
+            <Text color="coolGray.400" textAlign="center" fontSize="sm">
+              {t('MY_PETS_SCREEN.EMPTY_LIST_DESCRIPTION') ||
+                'Tap the + button to post your first pet for adoption'}
+            </Text>
+          </VStack>
+        </VStack>
+      </Center>
     </Box>
   );
 };
