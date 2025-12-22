@@ -5,7 +5,7 @@ import { Box, HStack, Icon, IconButton, Image, Text, VStack, Badge, Pressable } 
 import useLocale from '@/hooks/use-locale';
 import { useNavigation } from '@/navigation/use-navigation';
 
-export const AdoptionCard = (pet: AdoptionType) => {
+export const PetCard = (pet: AdoptionType) => {
   const { t } = useLocale();
   const { navigate } = useNavigation();
   const petTypeTranslateKey = `MY_PETS_SCREEN.PET_TYPE.${pet.type.toUpperCase()}`;

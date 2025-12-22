@@ -6,11 +6,11 @@ import { FlatList } from 'react-native';
 import { EmptyState } from './empty-state';
 import { ErrorState } from './error-state';
 import { LoadingState } from './loading-state';
+import { PetCard } from './pet-card';
 
 import useLocale from '@/hooks/use-locale';
 import usePets from '@/hooks/use-pets/use-pets';
 import { useNavigation } from '@/navigation/use-navigation';
-import { AdoptionCard } from '@/screens/adoptions/compose/adoption-card';
 
 const PetsTab = () => {
   const navigation = useNavigation();
@@ -32,7 +32,7 @@ const PetsTab = () => {
 
     return (
       <FlatList
-        renderItem={({ item }) => <AdoptionCard {...item} />}
+        renderItem={({ item }) => <PetCard {...item} />}
         data={myPets}
         keyExtractor={({ id }) => id}
         ItemSeparatorComponent={() => <Box h={3} />}
