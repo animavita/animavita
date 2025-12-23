@@ -5,7 +5,6 @@ import React from 'react';
 import useNextOnboardingScreen from './hooks/use-next-onboarding-screen';
 
 import { useAuth } from '@/hooks/use-auth-provider';
-import MyPetsScreen from '@/screens/adoptions/my-pets.screen';
 import GetLocationScreen from '@/screens/get-location/get-location.screen';
 import HomeScreen from '@/screens/home/home.screen';
 import RegisterPet from '@/screens/owner/register-pet/register-pet.screen';
@@ -18,7 +17,6 @@ export type StackParamsList = {
   Home: undefined;
   RegisterPet: undefined;
   Profile: undefined;
-  MyPets: undefined;
   UpdatePet: { pet: AdoptionType };
   GeoLocation: undefined;
   RoleSelection: undefined;
@@ -41,7 +39,6 @@ const LoggedInNavigator = () => {
       <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="RegisterPet" component={RegisterPet} />
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="MyPets" component={MyPetsScreen} />
       <Stack.Screen name="UpdatePet" component={UpdatePetScreen} />
     </Stack.Navigator>
   );

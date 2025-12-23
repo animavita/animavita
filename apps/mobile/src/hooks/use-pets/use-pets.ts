@@ -38,6 +38,8 @@ const usePets = () => {
   return {
     loading: query.isFetching,
     myPets: query.data?.data || [],
+    error: query.error,
+    refetch: query.refetch,
     saving: mutation.isPending,
     saveOrCreatePet,
   };

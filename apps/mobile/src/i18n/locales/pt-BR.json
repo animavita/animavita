@@ -14,6 +14,16 @@
     "MEDIUM": "Médio",
     "BIG": "Grande"
   },
+  "MATURITY": {
+    "PUPPY": "Filhote",
+    "YOUNG": "Jovem",
+    "ADULT": "Adulto",
+    "SENIOR": "Idoso"
+  },
+  "GENDER": {
+    "MALE": "Macho",
+    "FEMALE": "Fêmea"
+  },
   "REGISTER_ADOPTION": {
     "TITLE": "Cadastrar Pet",
     "STEP": "Passo",
@@ -150,7 +160,8 @@
       "EDIT": "Editar",
       "DELETE": "Deletar"
     },
-    "EMPTY_LIST": "Você ainda não registou nenhum pet para adoção"
+    "EMPTY_LIST": "Você ainda não registou nenhum pet para adoção",
+    "EMPTY_LIST_DESCRIPTION": "Toque no botão + para registrar seu primeiro pet para adoção"
   },
   "ERRORS": {
     "GENERIC": "Ocorreu um erro. Tente novamente mais tarde.",
