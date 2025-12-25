@@ -37,10 +37,6 @@ export default class SignIn {
 
     if (!isValid) throw new UnauthorizedError('Wrong email or password');
 
-    const accessToken = await this.tokenService.generateAccessToken({
-      user: { id: user.id, email: user.email },
-    });
-
     const refreshToken = await this.tokenService.generateRefreshToken({
       user: { id: user.id, email: user.email },
     });
@@ -48,9 +44,13 @@ export default class SignIn {
     const hashedRefreshToken = await this.hasher.encrypt(refreshToken);
     const userSession = UserSession.create(user.id, hashedRefreshToken);
 
-    await this.userSessionRepository.store(userSession);
+    const sessionId = await this.userSessionRepository.store(userSession);
 
-    return { accessToken, refreshToken, name: user.name };
+    const accessToken = await this.tokenService.generateAccessToken({
+      user: { id: user.id, email: user.email, sessionId },
+    });
+
+    return { sessionId, accessToken, refreshToken, name: user.name };
   }
 }
 
@@ -58,4 +58,5 @@ export type Output = {
   accessToken: string;
   refreshToken: string;
   name: string;
+  sessionId: string;
 };

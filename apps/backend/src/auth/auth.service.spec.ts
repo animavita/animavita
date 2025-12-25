@@ -9,6 +9,8 @@ import { userMock } from '../../test/mocks/user';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { TOKEN_SERVICE } from '../core/application/services/token.service';
+import { USER_SESSION_REPOSITORY } from '../core/application/repositories/user-session.repository';
+import { UserSession } from '../core/domain/user-session/user-session';
 
 jest.mock('argon2', () => ({
   verify: jest.fn().mockResolvedValue(true),
@@ -16,8 +18,10 @@ jest.mock('argon2', () => ({
 }));
 
 const setup = async () => {
+  const userId = '123'; // Use the same ID as userMock
+
   const persistedUser = {
-    id: 'someId',
+    id: userId,
     refreshToken: 'oldToken',
     ...userMock,
   };
@@ -29,13 +33,32 @@ const setup = async () => {
     update: jest.fn().mockResolvedValue(persistedUser),
   };
 
+  const sessionRepositoryMock = {
+    getByUserId: jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(
+          UserSession.create(userId, 'hashedRefreshToken', 'sessionId123'),
+        ),
+      ),
+    getById: jest
+      .fn()
+      .mockImplementation(() =>
+        Promise.resolve(
+          UserSession.create(userId, 'hashedRefreshToken', 'sessionId123'),
+        ),
+      ),
+    store: jest.fn().mockResolvedValue('sessionId123'),
+    delete: jest.fn().mockResolvedValue(undefined),
+  };
+
   const jwtServiceMock = {
     generateAccessToken: jest
       .fn()
-      .mockImplementation(() => Promise.resolve('token')),
+      .mockImplementation(() => Promise.resolve('newAccessToken')),
     generateRefreshToken: jest
       .fn()
-      .mockImplementation(() => Promise.resolve('token')),
+      .mockImplementation(() => Promise.resolve('newRefreshToken')),
   };
 
   const module: TestingModule = await Test.createTestingModule({
@@ -51,6 +74,10 @@ const setup = async () => {
         provide: UserService,
         useValue: userServiceMock,
       },
+      {
+        provide: USER_SESSION_REPOSITORY,
+        useValue: sessionRepositoryMock,
+      },
     ],
   }).compile();
 
@@ -65,6 +92,7 @@ const setup = async () => {
     jwtService,
     configService,
     userService,
+    sessionRepository: sessionRepositoryMock,
   };
 };
 
@@ -103,32 +131,43 @@ describe('AuthService', () => {
   });
 
   describe('logout', () => {
-    it('should update users refresh token to null', async () => {
-      const { service, userService } = await setup();
+    it('should delete user session', async () => {
+      const { service, sessionRepository } = await setup();
 
-      const userServiceUpdate = jest.spyOn(userService, 'update');
+      await service.logout('sessionId123');
 
-      await service.logout('someId');
+      expect(sessionRepository.delete).toHaveBeenCalledWith('sessionId123');
+    });
 
-      expect(userServiceUpdate).toBeCalledWith('someId', {
-        refreshToken: null,
-      });
+    it('should throw ForbiddenException if no sessionId provided', async () => {
+      const { service } = await setup();
+
+      await expect(service.logout('')).rejects.toThrow(ForbiddenException);
+      await expect(service.logout(null)).rejects.toThrow(ForbiddenException);
     });
   });
 
   describe('refreshTokens', () => {
-    it('should generate new pair of tokens', async () => {
-      const { service, persistedUser } = await setup();
+    it('should generate new pair of tokens and update session', async () => {
+      const { service, persistedUser, sessionRepository } = await setup();
 
       const newTokens = await service.refreshTokens(
         persistedUser.id,
+        'sessionId123',
         'oldToken',
       );
 
       expect(newTokens).toEqual(
         expect.objectContaining({
-          accessToken: expect.any(String),
-          refreshToken: expect.any(String),
+          accessToken: 'newAccessToken',
+          refreshToken: 'newRefreshToken',
+          sessionId: 'sessionId123',
+        }),
+      );
+      expect(sessionRepository.store).toHaveBeenCalledWith(
+        expect.objectContaining({
+          userId: '123',
+          id: 'sessionId123',
         }),
       );
     });
@@ -139,20 +178,34 @@ describe('AuthService', () => {
       jest.spyOn(userService, 'findById').mockResolvedValueOnce(null);
 
       await expect(
-        service.refreshTokens('someId', 'oldToken'),
+        service.refreshTokens('someId', 'sessionId123', 'oldToken'),
       ).rejects.toThrowError(ForbiddenException);
     });
 
-    it('should throw if user has never logged in or has recently logout', async () => {
-      const { service, userService, persistedUser } = await setup();
+    it('should throw if session not found', async () => {
+      const { service, persistedUser, sessionRepository } = await setup();
 
-      jest.spyOn(userService, 'findById').mockResolvedValueOnce({
-        ...persistedUser,
-        refreshToken: null,
-      });
+      jest.spyOn(sessionRepository, 'getById').mockResolvedValueOnce(null);
 
       await expect(
-        service.refreshTokens(persistedUser.id, 'some_token'),
+        service.refreshTokens(persistedUser.id, 'invalidSession', 'oldToken'),
+      ).rejects.toThrowError(ForbiddenException);
+    });
+
+    it('should throw if session does not belong to user', async () => {
+      const { service, persistedUser, sessionRepository } = await setup();
+
+      const otherUserSession = UserSession.create(
+        'differentUserId',
+        'hash',
+        'sessionId123',
+      );
+      jest
+        .spyOn(sessionRepository, 'getById')
+        .mockResolvedValueOnce(otherUserSession);
+
+      await expect(
+        service.refreshTokens(persistedUser.id, 'sessionId123', 'oldToken'),
       ).rejects.toThrowError(ForbiddenException);
     });
 
@@ -160,18 +213,20 @@ describe('AuthService', () => {
       const { service, persistedUser } = await setup();
 
       await expect(
-        service.refreshTokens(persistedUser.id, null),
+        service.refreshTokens(persistedUser.id, 'sessionId123', null),
       ).rejects.toThrowError(ForbiddenException);
     });
 
-    it('should throw if given token its not the current', async () => {
-      const { service, persistedUser } = await setup();
+    it('should throw if given token does not match session refresh token', async () => {
+      const { service, persistedUser, sessionRepository } = await setup();
 
       jest.spyOn(argon, 'verify').mockResolvedValueOnce(false);
 
       await expect(
-        service.refreshTokens(persistedUser.id, 'differentToken'),
+        service.refreshTokens(persistedUser.id, 'sessionId123', 'wrongToken'),
       ).rejects.toThrowError(ForbiddenException);
+
+      expect(sessionRepository.delete).toHaveBeenCalledWith('sessionId123');
     });
   });
 });

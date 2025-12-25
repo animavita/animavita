@@ -17,7 +17,11 @@ describe('UserSession Entity', () => {
     const tokenService: TokenService = {
       decodeToken: jest.fn(() => {
         return {
-          user: { id: userId, email: faker.internet.email() },
+          user: {
+            id: userId,
+            email: faker.internet.email(),
+            sessionId: faker.string.uuid(),
+          },
         };
       }),
       generateAccessToken: jest.fn(),

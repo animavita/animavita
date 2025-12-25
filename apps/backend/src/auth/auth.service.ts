@@ -8,12 +8,17 @@ import {
   TOKEN_SERVICE,
   TokenService,
 } from '../core/application/services/token.service';
+import UserSessionRepository, {
+  USER_SESSION_REPOSITORY,
+} from '../core/application/repositories/user-session.repository';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     @Inject(TOKEN_SERVICE) private readonly tokenService: TokenService,
+    @Inject(USER_SESSION_REPOSITORY)
+    private readonly sessionRepository: UserSessionRepository,
   ) {}
 
   async signUp(user: CreateUserRequest) {
@@ -23,41 +28,60 @@ export class AuthService {
     });
   }
 
-  async logout(userId: string) {
-    await this.userService.update(userId, {
-      refreshToken: null,
-    });
+  async logout(sessionId: string) {
+    if (!sessionId) {
+      throw new ForbiddenException('No session ID provided');
+    }
+
+    await this.sessionRepository.delete(sessionId);
   }
 
   async refreshTokens(
     userId: string,
+    sessionId: string,
     refreshToken: string,
   ): Promise<CredentialsType> {
     const user = await this.userService.findById(userId);
 
-    if (!user || !user.refreshToken || !refreshToken)
+    if (!user || !refreshToken) {
       throw new ForbiddenException('Access Denied');
+    }
 
-    const matches = await verify(user.refreshToken, refreshToken);
+    const userSession = await this.sessionRepository.getById(sessionId);
 
-    if (!matches) throw new ForbiddenException('Access Denied');
+    if (!userSession) {
+      throw new ForbiddenException('Session not found');
+    }
+
+    if (userSession.userId !== userId) {
+      throw new ForbiddenException('Session mismatch');
+    }
+
+    const matches = await verify(userSession.refreshToken, refreshToken);
+
+    if (!matches) {
+      await this.sessionRepository.delete(sessionId);
+      throw new ForbiddenException(
+        'Token reuse detected - session invalidated',
+      );
+    }
 
     const newAccessToken = await this.tokenService.generateAccessToken({
+      user: { id: user.id, email: user.email, sessionId: userSession.id },
+    });
+
+    const newRefreshToken = await this.tokenService.generateRefreshToken({
       user: { id: user.id, email: user.email },
     });
 
-    const newRefreshToken = await this.tokenService.generateAccessToken({
-      user: { id: user.id, email: user.email },
-    });
+    const hashedRefreshToken = await hash(newRefreshToken);
+    userSession.refreshToken = hashedRefreshToken;
+    await this.sessionRepository.store(userSession);
 
-    await this.updateRefreshToken(user.id, newRefreshToken);
-
-    return { accessToken: newAccessToken, refreshToken: newRefreshToken };
-  }
-
-  private async updateRefreshToken(userId: string, refreshToken: string) {
-    await this.userService.update(userId, {
-      refreshToken: await hash(refreshToken),
-    });
+    return {
+      accessToken: newAccessToken,
+      refreshToken: newRefreshToken,
+      sessionId,
+    };
   }
 }

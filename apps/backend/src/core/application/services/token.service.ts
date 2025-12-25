@@ -1,11 +1,15 @@
 export const TOKEN_SERVICE = 'TOKEN_SERVICE';
 
-export interface TokenPayload {
+export interface AccessTokenPayload {
+  user: { id: string; email: string; sessionId: string };
+}
+
+export interface RefreshTokenPayload {
   user: { id: string; email: string };
 }
 
 export interface TokenService {
-  generateAccessToken: (payload: TokenPayload) => Promise<string>;
-  generateRefreshToken: (payload: TokenPayload) => Promise<string>;
-  decodeToken: (token: string) => TokenPayload;
+  generateAccessToken: (payload: AccessTokenPayload) => Promise<string>;
+  generateRefreshToken: (payload: RefreshTokenPayload) => Promise<string>;
+  decodeToken: (token: string) => AccessTokenPayload;
 }
