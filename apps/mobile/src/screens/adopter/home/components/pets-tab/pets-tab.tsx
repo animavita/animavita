@@ -1,15 +1,16 @@
 import { useQuery } from '@tanstack/react-query';
 import { Box, View } from 'native-base';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
 
+import { ActionButtons } from './action-buttons';
 import { EmptyState } from './empty-state';
 import { ErrorState } from './error-state';
 import { SearchRadius } from './filters/search-radius';
 import { FiltersModal } from './filters-modal';
 import { FiltersTrigger } from './filters-trigger';
 import { LoadingState } from './loading-state';
-import { SwipeDeck } from './swipe-deck';
+import { SwipeDeck, SwipeDeckRef } from './swipe-deck';
 import { useFilters } from '../../hooks/use-filters';
 import { useSearchRadius } from '../../hooks/use-search-radius';
 
@@ -18,6 +19,7 @@ import { getPetsNearMe } from '@/services/pets';
 
 const PetsTab = () => {
   const swipeProgress = useSharedValue(0);
+  const deckRef = useRef<SwipeDeckRef>(null);
   const searchRadius = useSearchRadius();
   const { isOpen, open, close, apply, appliedCount } = useFilters({ filters: [searchRadius] });
 
@@ -46,6 +48,20 @@ const PetsTab = () => {
     });
   };
 
+  const handlePass = () => {
+    deckRef.current?.swipeLeft();
+  };
+
+  const handleAdopt = () => {
+    deckRef.current?.swipeRight();
+    // TODO: Trigger adoption request API call
+  };
+
+  const handleFavorite = () => {
+    deckRef.current?.swipeRight();
+    // TODO: Add to favorites API call
+  };
+
   const renderContent = () => {
     if (error) {
       return <ErrorState onRetry={() => refetch()} />;
@@ -69,6 +85,7 @@ const PetsTab = () => {
         )}
         {cards.length > 0 && (
           <SwipeDeck
+            ref={deckRef}
             cards={cards}
             swipeProgress={swipeProgress}
             onSwipeComplete={handleSwipeComplete}
@@ -89,6 +106,17 @@ const PetsTab = () => {
       <View flex="1" marginX="6" _web={{ marginBottom: 4 }}>
         {renderContent()}
       </View>
+
+      {!isLoading && !error && cards.length > 0 && (
+        <Delimiter>
+          <ActionButtons
+            onPass={handlePass}
+            onAdopt={handleAdopt}
+            onFavorite={handleFavorite}
+            disabled={cards.length === 0}
+          />
+        </Delimiter>
+      )}
 
       <FiltersModal isOpen={isOpen} onClose={close} onApply={apply}>
         <SearchRadius currentRadius={searchRadius.value} onChange={searchRadius.change} />
