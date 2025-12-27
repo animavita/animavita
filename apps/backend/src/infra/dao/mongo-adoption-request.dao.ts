@@ -131,4 +131,13 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
       };
     });
   }
+
+  async getRequestedPetIds(adopterId: string): Promise<string[]> {
+    const documents = await this.adoptionRequestModel
+      .find({ adopterId })
+      .select('petId')
+      .lean();
+
+    return documents.map((doc) => doc.petId.toString());
+  }
 }
