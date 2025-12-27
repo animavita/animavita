@@ -15,8 +15,8 @@ const removeValueFor = async (key: KeyType) => {
 };
 
 const save = async <T>(key: KeyType, value: T) => {
-  const stringfiedValue = JSON.stringify(value);
-  return await SecureStore.setItemAsync(key, stringfiedValue);
+  const stringifiedValue = JSON.stringify(value);
+  return await SecureStore.setItemAsync(key, stringifiedValue);
 };
 
 export const getUserCredentials = () => getValueFor<CredentialsType>(userCredentialsKey);

@@ -102,7 +102,7 @@ describe('sign-in service', () => {
       expect(mockClient.get).toHaveBeenCalledWith('/auth/refresh', {
         headers: {
           Authorization: 'Bearer valid-refresh-token',
-          'session-Id': 'session-123',
+          'session-id': 'session-123',
         },
       });
       expect(SecureStoreHelpers.saveUserCredentials).toHaveBeenCalledWith(mockNewCredentials);
@@ -136,7 +136,7 @@ describe('sign-in service', () => {
       expect(mockClient.get).toHaveBeenCalledWith('/auth/refresh', {
         headers: {
           Authorization: 'Bearer expired-refresh-token',
-          'session-Id': 'session-123',
+          'session-id': 'session-123',
         },
       });
       expect(SecureStoreHelpers.removeUserCredentials).toHaveBeenCalledTimes(1);

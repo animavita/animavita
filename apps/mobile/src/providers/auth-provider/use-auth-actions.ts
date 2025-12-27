@@ -27,6 +27,8 @@ const useAuthActions = (): UseAuthActions => {
     enabled: false,
   });
 
+  const { refetch: refetchUserInfo } = userInfoQuery;
+
   useEffect(() => {
     const initState = async () => {
       try {
@@ -34,10 +36,11 @@ const useAuthActions = (): UseAuthActions => {
 
         if (tokens !== null) {
           persistUserToken(tokens.accessToken);
-          const { data, failureCount } = await userInfoQuery.refetch();
+          const { data, failureCount } = await refetchUserInfo();
 
           if (failureCount >= 3) {
             dispatch({ type: 'SIGN_OUT' });
+            return;
           }
 
           if (!data || !data.data) {
@@ -54,14 +57,12 @@ const useAuthActions = (): UseAuthActions => {
           dispatch({ type: 'SIGN_OUT' });
         }
       } catch (e) {
-        // catch error here
-        // Maybe sign_out user!
         console.error(e);
       }
     };
 
     initState();
-  }, []);
+  }, [refetchUserInfo]);
 
   const authActions: AuthContextActions = useMemo(
     () => ({
@@ -71,7 +72,8 @@ const useAuthActions = (): UseAuthActions => {
         const { data } = await userInfoQuery.refetch();
 
         if (!data) {
-          await authActions.signOut();
+          await removeUserCredentials();
+          dispatch({ type: 'SIGN_OUT' });
           return;
         }
 

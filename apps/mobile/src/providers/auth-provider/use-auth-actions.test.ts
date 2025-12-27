@@ -4,17 +4,21 @@ import useAuthActions from './use-auth-actions';
 
 import * as SecureStoreHelpers from '@/helpers/secure-store';
 import * as SignIn from '@/services/sign-in';
+import * as User from '@/services/user';
 import { QueryClientWrapper } from '@/test/test-utils';
 
 describe('useAuthActions', () => {
   beforeEach(jest.clearAllMocks);
 
   it('persists the user token on initialization', async () => {
-    jest.spyOn(SecureStoreHelpers, 'getUserCredentials').mockResolvedValueOnce({
-      accessToken: '189-xyz',
-      refreshToken: 'abc-123',
-      sessionId: 'session-123',
-    });
+    jest
+      .spyOn(SecureStoreHelpers, 'getUserCredentials')
+      .mockResolvedValueOnce({
+        accessToken: '189-xyz',
+        refreshToken: 'abc-123',
+        sessionId: 'session-123',
+      })
+      .mockResolvedValueOnce(null);
 
     jest.spyOn(SignIn, 'persistUserToken');
 
@@ -49,6 +53,37 @@ describe('useAuthActions', () => {
       expect(SignIn.persistUserToken).toHaveBeenCalledWith('123-abc');
       expect(SecureStoreHelpers.saveUserCredentials).toHaveBeenCalledTimes(1);
       expect(SecureStoreHelpers.saveUserCredentials).toHaveBeenCalledWith(credentials);
+    });
+
+    describe('and user info fetch returns no data', () => {
+      beforeEach(() => {
+        jest.spyOn(SignIn, 'persistUserToken');
+        jest.spyOn(SecureStoreHelpers, 'getUserCredentials').mockResolvedValueOnce(null);
+        jest.spyOn(SecureStoreHelpers, 'removeUserCredentials').mockResolvedValueOnce(undefined);
+        jest.spyOn(SecureStoreHelpers, 'saveUserCredentials');
+        // Mock getCurrentUserInfo to return undefined (simulating no data from server)
+        jest.spyOn(User, 'getCurrentUserInfo').mockResolvedValueOnce(null as any);
+      });
+
+      it('signs out when user info fetch returns no data', async () => {
+        const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
+
+        const credentials = {
+          accessToken: '123-abc',
+          refreshToken: 'abc-123',
+          sessionId: 'session-456',
+          name: 'John Due',
+        };
+
+        await act(async () => {
+          await result.current.authActions.signIn(credentials);
+        });
+
+        expect(SignIn.persistUserToken).toHaveBeenCalledWith('123-abc');
+        expect(User.getCurrentUserInfo).toHaveBeenCalled();
+        expect(SecureStoreHelpers.removeUserCredentials).toHaveBeenCalledTimes(1);
+        expect(SecureStoreHelpers.saveUserCredentials).not.toHaveBeenCalled();
+      });
     });
   });
 

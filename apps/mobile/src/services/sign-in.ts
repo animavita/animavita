@@ -10,6 +10,8 @@ import {
 
 const REFRESH_TOKEN_URL = '/auth/refresh';
 
+let refreshTokenPromise: Promise<CredentialsType> | null = null;
+
 const setAuthorizationHeader = (token: string) => {
   return `Bearer ${token}`;
 };
@@ -19,13 +21,13 @@ export const signInRequest = (user: SignInRequest) => {
 };
 
 export const refreshTokens = (
-  refreshToken: CredentialsType['accessToken'],
+  refreshToken: CredentialsType['refreshToken'],
   sessionId: CredentialsType['sessionId']
 ) => {
   return client.get<CredentialsType>(REFRESH_TOKEN_URL, {
     headers: {
       Authorization: setAuthorizationHeader(refreshToken),
-      'session-Id': sessionId,
+      'session-id': sessionId,
     },
   });
 };
@@ -59,13 +61,21 @@ export const handleTokenRefreshError = async (error: any) => {
   }
 
   try {
-    const renewedTokens = await refreshTokens(tokens.refreshToken, tokens.sessionId);
-    await saveUserCredentials(renewedTokens.data);
-    persistUserToken(renewedTokens.data.accessToken);
+    if (!refreshTokenPromise) {
+      refreshTokenPromise = refreshTokens(tokens.refreshToken, tokens.sessionId)
+        .then(async (renewedTokens) => {
+          await saveUserCredentials(renewedTokens.data);
+          persistUserToken(renewedTokens.data.accessToken);
+          return renewedTokens.data;
+        })
+        .finally(() => {
+          refreshTokenPromise = null;
+        });
+    }
 
-    originalRequest.headers['Authorization'] = setAuthorizationHeader(
-      renewedTokens.data.accessToken
-    );
+    const renewedTokens = await refreshTokenPromise;
+
+    originalRequest.headers['Authorization'] = setAuthorizationHeader(renewedTokens.accessToken);
     return client(originalRequest);
   } catch (refreshError) {
     await removeUserCredentials();

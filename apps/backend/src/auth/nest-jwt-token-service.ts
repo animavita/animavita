@@ -6,6 +6,7 @@ import {
   TokenService,
 } from '../core/application/services/token.service';
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class NestJwtTokenService implements TokenService {
@@ -22,7 +23,7 @@ export class NestJwtTokenService implements TokenService {
     return await this.jwtService.signAsync(
       {
         sub: payload.user.id,
-        email: payload.user.id,
+        email: payload.user.email,
         sessionId: payload.user.sessionId,
       },
       {
@@ -39,7 +40,7 @@ export class NestJwtTokenService implements TokenService {
       {
         sub: payload.user.id,
         email: payload.user.email,
-        jti: this.makeUniqueToken(payload.user.id),
+        jti: randomUUID(),
       },
       {
         secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
@@ -48,9 +49,5 @@ export class NestJwtTokenService implements TokenService {
         ),
       },
     );
-  }
-
-  private makeUniqueToken(userId: string) {
-    return `${userId}-${Date.now()}-${Math.random()}`;
   }
 }
