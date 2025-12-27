@@ -6,6 +6,7 @@ import FindNearestPets from '../core/application/usecases/adopter/find-nearest-p
 import UpdatePostedPet from '../core/application/usecases/owner/update-posted-pet/update-posted-pet';
 import RemovePostedPet from '../core/application/usecases/owner/remove-posted-pet/remove-posted-pet';
 import GetMyPets from '../core/application/usecases/owner/get-my-pets/get-my-pets';
+import RequestPetAdoption from '../core/application/usecases/adopter/request-pet-adoption/request-pet-adoption';
 
 @Module({
   imports: [UserModule],
@@ -16,6 +17,7 @@ import GetMyPets from '../core/application/usecases/owner/get-my-pets/get-my-pet
     RemovePostedPet,
     FindNearestPets,
     GetMyPets,
+    RequestPetAdoption,
   ],
 })
 export class PetModule {}

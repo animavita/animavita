@@ -6,11 +6,13 @@ import {
   UnprocessableEntityException,
   UnauthorizedException,
   NotFoundException,
+  ConflictException,
 } from '@nestjs/common';
 import { Observable, catchError } from 'rxjs';
 import { EntityError } from '../../core/domain/errors/entity.error';
 import { NotFoundError } from '../../core/domain/errors/not-found.error';
 import { UnauthorizedError } from '../../core/domain/errors/unauthorized.error';
+import { ConflictError } from '../../core/domain/errors/conflict.error';
 import { DatabaseError } from '../../core/application/errors/database-error';
 
 @Injectable()
@@ -28,6 +30,10 @@ export class ErrorMapperInterceptor implements NestInterceptor {
 
         if (error instanceof NotFoundError) {
           throw new NotFoundException(error.message);
+        }
+
+        if (error instanceof ConflictError) {
+          throw new ConflictException(error.message);
         }
 
         if (error instanceof DatabaseError) {
