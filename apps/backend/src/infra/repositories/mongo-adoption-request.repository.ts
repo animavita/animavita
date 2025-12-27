@@ -60,7 +60,10 @@ export class MongoAdoptionRequestRepository
       status: request.status,
     };
 
-    const existingDoc = await this.adoptionRequestModel.findById(request.id);
+    const existingDoc =
+      request.id && isValidObjectId(request.id)
+        ? await this.adoptionRequestModel.findById(request.id)
+        : null;
 
     let id: string;
 
