@@ -1,4 +1,4 @@
-import { AdoptionType } from '@animavita/types';
+import { AdoptionType, AdoptionRequestResponse } from '@animavita/types';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 
@@ -7,6 +7,7 @@ import useNextOnboardingScreen from './hooks/use-next-onboarding-screen';
 import { useAuth } from '@/hooks/use-auth-provider';
 import GetLocationScreen from '@/screens/get-location/get-location.screen';
 import HomeScreen from '@/screens/home/home.screen';
+import { AdoptionRequestDetail } from '@/screens/owner/adoption-request-detail/adoption-request-detail';
 import RegisterPet from '@/screens/owner/register-pet/register-pet.screen';
 import UpdatePetScreen from '@/screens/owner/update-pet/update-pet.screen';
 import PhoneNumberEntryScreen from '@/screens/phone-number-entry/phone-number-entry.screen';
@@ -18,6 +19,7 @@ export type StackParamsList = {
   RegisterPet: undefined;
   Profile: undefined;
   UpdatePet: { pet: AdoptionType };
+  AdoptionRequestDetail: { request: AdoptionRequestResponse };
   GeoLocation: undefined;
   RoleSelection: undefined;
   PhoneNumber: undefined;
@@ -40,6 +42,7 @@ const LoggedInNavigator = () => {
       <Stack.Screen name="RegisterPet" component={RegisterPet} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="UpdatePet" component={UpdatePetScreen} />
+      <Stack.Screen name="AdoptionRequestDetail" component={AdoptionRequestDetail} />
     </Stack.Navigator>
   );
 };

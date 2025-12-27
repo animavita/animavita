@@ -163,6 +163,50 @@
     "EMPTY_LIST": "Você ainda não registou nenhum pet para adoção",
     "EMPTY_LIST_DESCRIPTION": "Toque no botão + para registrar seu primeiro pet para adoção"
   },
+  "ADOPTION_REQUESTS": {
+    "ADOPTER": {
+      "TITLE": "Minhas Solicitações",
+      "SUBTITLE": "Acompanhe o status das suas solicitações de adoção",
+      "EMPTY_LIST": "Você ainda não solicitou a adoção de nenhum pet",
+      "EMPTY_LIST_DESCRIPTION": "Navegue pelos pets disponíveis e solicite adoção quando encontrar seu novo amigo!",
+      "CARD": {
+        "STATUS_PENDING": "Aguardando resposta",
+        "STATUS_ACCEPTED": "Aprovada",
+        "STATUS_DENIED": "Recusada",
+        "REQUESTED_ON": "Solicitado em"
+      }
+    },
+    "OWNER": {
+      "TITLE": "Solicitações Recebidas",
+      "SUBTITLE": "Gerencie as solicitações de adoção dos seus pets",
+      "EMPTY_LIST": "Você ainda não recebeu solicitações de adoção",
+      "EMPTY_LIST_DESCRIPTION": "Quando alguém se interessar em adotar um dos seus pets, as solicitações aparecerão aqui.",
+      "CARD": {
+        "STATUS_PENDING": "Aguardando sua resposta",
+        "STATUS_ACCEPTED": "Aprovada",
+        "STATUS_DENIED": "Recusada",
+        "REQUESTED_BY": "Solicitado por",
+        "REQUESTED_ON": "Solicitado em",
+        "VIEW_INFO": "Ver informações",
+        "ACCEPT": "Aprovar",
+        "DENY": "Recusar"
+      },
+      "DETAIL": {
+        "REQUESTED_ON": "Solicitado em",
+        "ADOPTER_INFO": "Informações do Adotante",
+        "CONTACT_INFO_NOTICE": "As informações de contato serão compartilhadas após a aprovação da solicitação.",
+        "ACCEPT_REQUEST": "Aprovar Adoção",
+        "DENY_REQUEST": "Recusar Solicitação",
+        "ACCEPT_SUCCESS": "Solicitação aprovada com sucesso!",
+        "DENY_SUCCESS": "Solicitação recusada",
+        "ALREADY_ACCEPTED": "Esta solicitação já foi aprovada",
+        "ALREADY_DENIED": "Esta solicitação já foi recusada"
+      }
+    },
+    "LOADING": "Carregando solicitações...",
+    "ERROR": "Não foi possível carregar as solicitações",
+    "RETRY": "Tentar novamente"
+  },
   "ERRORS": {
     "GENERIC": "Ocorreu um erro. Tente novamente mais tarde.",
     "LOAD_PETS_ERROR": "Não foi possível carregar os pets. Verifique sua conexão e tente novamente.",
