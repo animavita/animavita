@@ -1,10 +1,12 @@
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import {
-  TokenPayload,
+  AccessTokenPayload,
+  RefreshTokenPayload,
   TokenService,
 } from '../core/application/services/token.service';
 import { Injectable } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 
 @Injectable()
 export class NestJwtTokenService implements TokenService {
@@ -14,14 +16,15 @@ export class NestJwtTokenService implements TokenService {
   ) {}
 
   decodeToken(token: string) {
-    return this.jwtService.decode(token) as TokenPayload;
+    return this.jwtService.decode(token) as AccessTokenPayload;
   }
 
-  async generateAccessToken(payload: TokenPayload) {
+  async generateAccessToken(payload: AccessTokenPayload) {
     return await this.jwtService.signAsync(
       {
         sub: payload.user.id,
-        email: payload.user.id,
+        email: payload.user.email,
+        sessionId: payload.user.sessionId,
       },
       {
         secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
@@ -32,11 +35,12 @@ export class NestJwtTokenService implements TokenService {
     );
   }
 
-  generateRefreshToken(payload: TokenPayload) {
+  generateRefreshToken(payload: RefreshTokenPayload) {
     return this.jwtService.signAsync(
       {
         sub: payload.user.id,
         email: payload.user.email,
+        jti: randomUUID(),
       },
       {
         secret: this.configService.get<string>('JWT_REFRESH_SECRET'),

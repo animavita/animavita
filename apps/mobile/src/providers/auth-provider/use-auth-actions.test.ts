@@ -1,32 +1,125 @@
 import { act, renderHook } from '@testing-library/react-native';
 
-// @ts-ignore
-// ignoring because of RN platform-specific code
-// otherwise test runner is gonna import the mobile version
-import useAuthActions from './use-auth-actions.ts';
+import useAuthActions from './use-auth-actions';
 
+import * as SecureStoreHelpers from '@/helpers/secure-store';
 import * as SignIn from '@/services/sign-in';
+import * as User from '@/services/user';
 import { QueryClientWrapper } from '@/test/test-utils';
 
 describe('useAuthActions', () => {
   beforeEach(jest.clearAllMocks);
 
+  it('persists the user token on initialization', async () => {
+    jest
+      .spyOn(SecureStoreHelpers, 'getUserCredentials')
+      .mockResolvedValueOnce({
+        accessToken: '189-xyz',
+        refreshToken: 'abc-123',
+        sessionId: 'session-123',
+      })
+      .mockResolvedValueOnce(null);
+
+    jest.spyOn(SignIn, 'persistUserToken');
+
+    const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
+
+    await act(async () => expect(result.current.state).toBeDefined());
+
+    expect(SignIn.persistUserToken).toHaveBeenCalledTimes(1);
+    expect(SignIn.persistUserToken).toHaveBeenCalledWith('189-xyz');
+  });
+
   describe('when calling the signIn method', () => {
-    it('persists the user token', async () => {
+    it('persists the user token and saves credentials', async () => {
       jest.spyOn(SignIn, 'persistUserToken');
+      jest.spyOn(SecureStoreHelpers, 'getUserCredentials');
+      jest.spyOn(SecureStoreHelpers, 'saveUserCredentials').mockResolvedValueOnce(undefined);
+
+      const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
+
+      const credentials = {
+        accessToken: '123-abc',
+        refreshToken: 'abc-123',
+        sessionId: 'session-456',
+        name: 'John Due',
+      };
+
+      await act(async () => {
+        await result.current.authActions.signIn(credentials);
+      });
+
+      expect(SignIn.persistUserToken).toHaveBeenCalledTimes(1);
+      expect(SignIn.persistUserToken).toHaveBeenCalledWith('123-abc');
+      expect(SecureStoreHelpers.saveUserCredentials).toHaveBeenCalledTimes(1);
+      expect(SecureStoreHelpers.saveUserCredentials).toHaveBeenCalledWith(credentials);
+    });
+
+    describe('and user info fetch returns no data', () => {
+      beforeEach(() => {
+        jest.spyOn(SignIn, 'persistUserToken');
+        jest.spyOn(SecureStoreHelpers, 'getUserCredentials').mockResolvedValueOnce(null);
+        jest.spyOn(SecureStoreHelpers, 'removeUserCredentials').mockResolvedValueOnce(undefined);
+        jest.spyOn(SecureStoreHelpers, 'saveUserCredentials');
+        // Mock getCurrentUserInfo to return undefined (simulating no data from server)
+        jest.spyOn(User, 'getCurrentUserInfo').mockResolvedValueOnce(null as any);
+      });
+
+      it('signs out when user info fetch returns no data', async () => {
+        const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
+
+        const credentials = {
+          accessToken: '123-abc',
+          refreshToken: 'abc-123',
+          sessionId: 'session-456',
+          name: 'John Due',
+        };
+
+        await act(async () => {
+          await result.current.authActions.signIn(credentials);
+        });
+
+        expect(SignIn.persistUserToken).toHaveBeenCalledWith('123-abc');
+        expect(User.getCurrentUserInfo).toHaveBeenCalled();
+        expect(SecureStoreHelpers.removeUserCredentials).toHaveBeenCalledTimes(1);
+        expect(SecureStoreHelpers.saveUserCredentials).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('when calling the signOut method', () => {
+    it('calls logout API and removes credentials', async () => {
+      jest.spyOn(SecureStoreHelpers, 'getUserCredentials').mockResolvedValueOnce(null);
+      jest.spyOn(SignIn, 'logoutRequest').mockResolvedValueOnce({} as any);
+      jest.spyOn(SecureStoreHelpers, 'removeUserCredentials').mockResolvedValueOnce(undefined);
 
       const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
 
       await act(async () => {
-        await result.current.authActions.signIn({
-          accessToken: '345-zyx',
-          refreshToken: 'abc-123',
-          name: 'John Due',
-        });
+        await result.current.authActions.signOut();
       });
 
-      expect(SignIn.persistUserToken).toHaveBeenCalledTimes(1);
-      expect(SignIn.persistUserToken).toHaveBeenCalledWith('345-zyx');
+      expect(SignIn.logoutRequest).toHaveBeenCalledTimes(1);
+      expect(SecureStoreHelpers.removeUserCredentials).toHaveBeenCalledTimes(1);
+    });
+
+    it('removes credentials even if logout API fails', async () => {
+      jest.spyOn(SecureStoreHelpers, 'getUserCredentials').mockResolvedValueOnce(null);
+      jest.spyOn(SignIn, 'logoutRequest').mockRejectedValueOnce(new Error('Network error'));
+      jest.spyOn(SecureStoreHelpers, 'removeUserCredentials').mockResolvedValueOnce(undefined);
+      const consoleLogSpy = jest.spyOn(console, 'log').mockImplementation();
+
+      const { result } = renderHook(useAuthActions, { wrapper: QueryClientWrapper });
+
+      await act(async () => {
+        await result.current.authActions.signOut();
+      });
+
+      expect(SignIn.logoutRequest).toHaveBeenCalledTimes(1);
+      expect(consoleLogSpy).toHaveBeenCalledWith('Logout API call failed:', expect.any(Error));
+      expect(SecureStoreHelpers.removeUserCredentials).toHaveBeenCalledTimes(1);
+
+      consoleLogSpy.mockRestore();
     });
   });
 });

@@ -3,7 +3,9 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
+  Headers,
   Post,
+  UnprocessableEntityException,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -70,7 +72,7 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   async logout(@User() user: JwtPayload) {
-    await this.authService.logout(user.sub);
+    await this.authService.logout(user.sessionId);
 
     return {
       message: 'User successfully logout',
@@ -79,7 +81,18 @@ export class AuthController {
 
   @UseGuards(RefreshTokenGuard)
   @Get('refresh')
-  async refresh(@User() user: RefreshPayload) {
-    return this.authService.refreshTokens(user.sub, user.refreshToken);
+  async refresh(
+    @User() user: RefreshPayload,
+    @Headers('session-id') sessionId: string,
+  ) {
+    if (!sessionId) {
+      throw new UnprocessableEntityException('No session id provided');
+    }
+
+    return this.authService.refreshTokens(
+      user.sub,
+      sessionId,
+      user.refreshToken,
+    );
   }
 }

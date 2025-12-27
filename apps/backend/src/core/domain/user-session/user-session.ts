@@ -1,6 +1,8 @@
 import { TokenService } from '../../application/services/token.service';
 
 export class UserSession {
+  id: string;
+
   private constructor(readonly userId: string, private _refreshToken: string) {}
 
   get refreshToken() {
@@ -22,7 +24,11 @@ export class UserSession {
     this.refreshToken = newToken;
   }
 
-  static create(userId: string, refreshToken: string) {
-    return new UserSession(userId, refreshToken);
+  static create(userId: string, refreshToken: string, id?: string) {
+    const session = new UserSession(userId, refreshToken);
+    if (id) {
+      session.id = id;
+    }
+    return session;
   }
 }

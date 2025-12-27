@@ -24,6 +24,8 @@ import {
   MongoUserSession,
   UserSessionSchema,
 } from '../../infra/mongo/schemas/user-session.schema';
+import { PASSWORD_HASHER } from '../../core/domain/services/hasher.service';
+import { Argon2Hasher } from '../../auth/argon2-password-hasher';
 
 @Module({
   imports: [
@@ -43,6 +45,10 @@ import {
     }),
   ],
   providers: [
+    {
+      provide: PASSWORD_HASHER,
+      useClass: Argon2Hasher,
+    },
     {
       provide: UserRepository,
       useClass: UserMongoDBRepository,

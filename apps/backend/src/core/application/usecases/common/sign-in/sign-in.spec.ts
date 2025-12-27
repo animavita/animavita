@@ -74,6 +74,11 @@ describe('SignIn', () => {
       expect(payload.refreshToken).not.toEqual(payload.accessToken);
     });
 
+    it('returns a session id', () => {
+      expect(payload.sessionId).toEqual(expect.any(String));
+      expect(payload.sessionId).toBeTruthy();
+    });
+
     it('returns the user name', () => {
       expect(payload.name).toBe(user1Mock.name);
     });
