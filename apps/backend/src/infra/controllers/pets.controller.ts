@@ -18,6 +18,7 @@ import FindNearestPets from '../../core/application/usecases/adopter/find-neares
 import UpdatePostedPet from '../../core/application/usecases/owner/update-posted-pet/update-posted-pet';
 import RemovePostedPet from '../../core/application/usecases/owner/remove-posted-pet/remove-posted-pet';
 import GetMyPets from '../../core/application/usecases/owner/get-my-pets/get-my-pets';
+import RequestPetAdoption from '../../core/application/usecases/adopter/request-pet-adoption/request-pet-adoption';
 
 @Controller('api/v1/pets')
 export class PetsController {
@@ -27,6 +28,7 @@ export class PetsController {
     private readonly removePostedPet: RemovePostedPet,
     private readonly findNearestPets: FindNearestPets,
     private readonly getMyPets: GetMyPets,
+    private readonly requestPetAdoption: RequestPetAdoption,
   ) {}
 
   @Post()
@@ -69,5 +71,14 @@ export class PetsController {
     @Query() { radius }: { radius: number },
   ) {
     return await this.findNearestPets.execute({ radius, adopterId: userId });
+  }
+
+  @Post(':petId/request')
+  @UseGuards(AccessTokenGuard)
+  async requestAdoption(
+    @Param('petId') petId: string,
+    @User() { sub: userId }: JwtPayload,
+  ) {
+    return await this.requestPetAdoption.execute({ petId }, userId);
   }
 }

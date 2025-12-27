@@ -26,6 +26,12 @@ import {
 } from '../../infra/mongo/schemas/user-session.schema';
 import { PASSWORD_HASHER } from '../../core/domain/services/hasher.service';
 import { Argon2Hasher } from '../../auth/argon2-password-hasher';
+import {
+  MongoAdoptionRequest,
+  AdoptionRequestSchema,
+} from '../../infra/mongo/schemas/adoption-request.schema';
+import { ADOPTION_REQUEST_REPOSITORY } from '../../core/application/repositories/adoption-request.repository';
+import { MongoAdoptionRequestRepository } from '../../infra/repositories/mongo-adoption-request.repository';
 
 @Module({
   imports: [
@@ -34,6 +40,7 @@ import { Argon2Hasher } from '../../auth/argon2-password-hasher';
       { name: MongoPet.name, schema: PetSchema },
       { name: MongoUserV2.name, schema: UserSchemaV2 },
       { name: MongoUserSession.name, schema: UserSessionSchema },
+      { name: MongoAdoptionRequest.name, schema: AdoptionRequestSchema },
     ]),
 
     MongooseModule.forRootAsync({
@@ -69,6 +76,10 @@ import { Argon2Hasher } from '../../auth/argon2-password-hasher';
       provide: PET_DAO,
       useClass: MongoPetDAO,
     },
+    {
+      provide: ADOPTION_REQUEST_REPOSITORY,
+      useClass: MongoAdoptionRequestRepository,
+    },
   ],
   exports: [
     UserRepository,
@@ -76,6 +87,7 @@ import { Argon2Hasher } from '../../auth/argon2-password-hasher';
     PET_DAO,
     USER_REPOSITORY,
     USER_SESSION_REPOSITORY,
+    ADOPTION_REQUEST_REPOSITORY,
   ],
 })
 export class MongoDataServicesModule {}
