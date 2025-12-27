@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
 import * as request from 'supertest';
-import { INestApplication } from '@nestjs/common';
 
 import {
   TestMongoDataServicesModule,
@@ -50,18 +49,12 @@ const setup = async () => {
 };
 
 const createOwnerWithPet = async (
-  app: INestApplication,
   authService: AuthService,
   signInUsecase: SignIn,
   completeSignUp: CompleteSignUp,
   postPetForAdoption: PostPetForAdoption,
 ) => {
-  const ownerData = userFactory.build({
-    name: 'Owner User',
-    email: 'owner@example.com',
-    phoneNumber: '+5551234567890',
-    location: { longitude: -47.58849, latitude: -20.90038 },
-  });
+  const ownerData = userFactory.build();
 
   const { id: ownerId } = await authService.signUp(ownerData);
   await completeSignUp.execute(ownerId, { role: 'owner' });
@@ -82,12 +75,7 @@ const createAdopter = async (
   signInUsecase: SignIn,
   completeSignUp: CompleteSignUp,
 ) => {
-  const adopterData = userFactory.build({
-    name: 'Adopter User',
-    email: 'adopter@example.com',
-    phoneNumber: '+5551987654321',
-    location: { longitude: -47.58839, latitude: -20.9064 },
-  });
+  const adopterData = userFactory.build();
 
   const { id: adopterId } = await authService.signUp(adopterData);
   await completeSignUp.execute(adopterId, { role: 'adopter' });
@@ -112,7 +100,6 @@ describe('Adoption Requests (e2e)', () => {
       } = await setup();
 
       const { petId } = await createOwnerWithPet(
-        app,
         authService,
         signInUsecase,
         completeSignUp,
@@ -146,7 +133,6 @@ describe('Adoption Requests (e2e)', () => {
       } = await setup();
 
       const { petId } = await createOwnerWithPet(
-        app,
         authService,
         signInUsecase,
         completeSignUp,
@@ -181,7 +167,6 @@ describe('Adoption Requests (e2e)', () => {
       } = await setup();
 
       const { petId } = await createOwnerWithPet(
-        app,
         authService,
         signInUsecase,
         completeSignUp,
@@ -194,18 +179,11 @@ describe('Adoption Requests (e2e)', () => {
         completeSignUp,
       );
 
-      const adopter2Data = userFactory.build({
-        name: 'Adopter User 2',
-        email: 'adopter2@example.com',
-        phoneNumber: '+5551123456789',
-        location: { longitude: -47.58839, latitude: -20.9064 },
-      });
-      const { id: adopter2Id } = await authService.signUp(adopter2Data);
-      await completeSignUp.execute(adopter2Id, { role: 'adopter' });
-      const { accessToken: adopterToken2 } = await signInUsecase.execute({
-        email: adopter2Data.email,
-        password: adopter2Data.password,
-      });
+      const { adopterToken: adopterToken2 } = await createAdopter(
+        authService,
+        signInUsecase,
+        completeSignUp,
+      );
 
       await request(app.getHttpServer())
         .post(`/api/v1/pets/${petId}/request`)
@@ -230,25 +208,17 @@ describe('Adoption Requests (e2e)', () => {
       } = await setup();
 
       const { petId: petId1 } = await createOwnerWithPet(
-        app,
         authService,
         signInUsecase,
         completeSignUp,
         postPetForAdoption,
       );
 
-      const ownerData2 = userFactory.build({
-        name: 'Owner 2',
-        email: 'owner2@example.com',
-        phoneNumber: '+5551111111111',
-        location: { longitude: -47.58849, latitude: -20.90038 },
-      });
-      const { id: owner2Id } = await authService.signUp(ownerData2);
-      await completeSignUp.execute(owner2Id, { role: 'owner' });
-      const pet2Data = adoptionFactory.build();
-      const { id: petId2 } = await postPetForAdoption.execute(
-        pet2Data,
-        owner2Id,
+      const { petId: petId2 } = await createOwnerWithPet(
+        authService,
+        signInUsecase,
+        completeSignUp,
+        postPetForAdoption,
       );
 
       const { adopterToken } = await createAdopter(
@@ -280,7 +250,6 @@ describe('Adoption Requests (e2e)', () => {
       } = await setup();
 
       const { ownerToken, petId } = await createOwnerWithPet(
-        app,
         authService,
         signInUsecase,
         completeSignUp,
@@ -322,7 +291,6 @@ describe('Adoption Requests (e2e)', () => {
       } = await setup();
 
       const { petId } = await createOwnerWithPet(
-        app,
         authService,
         signInUsecase,
         completeSignUp,
