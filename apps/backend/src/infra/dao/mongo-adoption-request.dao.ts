@@ -1,38 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, PipelineStage } from 'mongoose';
 import { AdoptionRequestDao } from '../../core/application/dao/adoption-request.dao';
 import {
   MongoAdoptionRequest,
   AdoptionRequestDocument,
 } from '../mongo/schemas/adoption-request.schema';
 import { AdoptionRequestDto } from '../../core/application/dto/adoption-request.dto';
-
-type AdoptionRequestWithPet = AdoptionRequestDocument & {
-  pet: {
-    _id: string;
-    name: string;
-    breed: string;
-    type: string;
-  };
-};
-
-type AdoptionRequestWithAdopter = AdoptionRequestDocument & {
-  adopter: {
-    _id: string;
-    name: string;
-  };
-};
-
-type AdoptionRequestWithPetOwner = AdoptionRequestDocument & {
-  pet: {
-    _id: string;
-    name: string;
-    breed: string;
-    type: string;
-    user: string;
-  };
-};
 
 @Injectable()
 export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
@@ -41,95 +15,121 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
     private readonly adoptionRequestModel: Model<AdoptionRequestDocument>,
   ) {}
 
-  async getByAdopter(adopterId: string): Promise<AdoptionRequestDto[]> {
-    const documents = await this.adoptionRequestModel
-      .find({ adopterId })
-      .populate<{ petId: AdoptionRequestWithPet['pet'] }>(
-        'petId',
-        'name breed type',
-      )
-      .populate<{ adopterId: AdoptionRequestWithAdopter['adopter'] }>(
-        'adopterId',
-        'name',
-      )
-      .sort({ createdAt: -1 });
+  private buildLookupAndProjectPipeline(): PipelineStage[] {
+    return [
+      {
+        $addFields: {
+          petIdAsObjectId: { $toObjectId: '$petId' },
+          adopterIdAsObjectId: { $toObjectId: '$adopterId' },
+        },
+      },
+      {
+        $lookup: {
+          from: 'pets',
+          localField: 'petIdAsObjectId',
+          foreignField: '_id',
+          as: 'petData',
+        },
+      },
+      {
+        $unwind: {
+          path: '$petData',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'adopterIdAsObjectId',
+          foreignField: '_id',
+          as: 'adopterData',
+        },
+      },
+      {
+        $unwind: {
+          path: '$adopterData',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $project: {
+          _id: 1,
+          petId: 1,
+          adopterId: 1,
+          status: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          pet: {
+            _id: '$petData._id',
+            name: '$petData.name',
+            breed: '$petData.breed',
+            type: '$petData.type',
+          },
+          adopter: {
+            _id: '$adopterData._id',
+            name: '$adopterData.name',
+          },
+        },
+      },
+    ];
+  }
 
-    return documents.map((doc) => {
-      const petData = doc.petId as any;
-      const adopterData = doc.adopterId as any;
-      return {
-        id: doc._id.toString(),
-        petId:
-          typeof doc.petId === 'string' ? doc.petId : petData._id?.toString(),
-        adopterId:
-          typeof doc.adopterId === 'string'
-            ? doc.adopterId
-            : adopterData._id?.toString(),
-        status: doc.status,
-        createdAt: doc.createdAt.toString(),
-        updatedAt: doc.updatedAt.toString(),
-        pet: {
-          id: petData._id.toString(),
-          name: petData.name,
-          breed: petData.breed,
-          type: petData.type,
+  private mapToDto(doc: any): AdoptionRequestDto {
+    return {
+      id: doc._id.toString(),
+      petId: doc.petId.toString(),
+      adopterId: doc.adopterId.toString(),
+      status: doc.status,
+      createdAt: doc.createdAt.toString(),
+      updatedAt: doc.updatedAt.toString(),
+      pet: {
+        id: doc.pet._id.toString(),
+        name: doc.pet.name,
+        breed: doc.pet.breed,
+        type: doc.pet.type,
+      },
+      adopter: {
+        id: doc.adopter._id.toString(),
+        name: doc.adopter.name,
+      },
+    };
+  }
+
+  async getByAdopter(adopterId: string): Promise<AdoptionRequestDto[]> {
+    const pipeline: PipelineStage[] = [
+      {
+        $match: {
+          adopterId,
         },
-        adopter: {
-          id: adopterData._id.toString(),
-          name: adopterData.name,
-        },
-      };
-    });
+      },
+      ...this.buildLookupAndProjectPipeline(),
+    ];
+
+    const documents = await this.adoptionRequestModel.aggregate(pipeline);
+    return documents.map((doc) => this.mapToDto(doc));
   }
 
   async getByOwner(ownerId: string): Promise<AdoptionRequestDto[]> {
-    const documents = await this.adoptionRequestModel
-      .find()
-      .populate<{ petId: AdoptionRequestWithPetOwner['pet'] }>(
-        'petId',
-        'name breed type user',
-      )
-      .populate<{ adopterId: AdoptionRequestWithAdopter['adopter'] }>(
-        'adopterId',
-        'name',
-      )
-      .sort({ createdAt: -1 });
+    const pipeline: PipelineStage[] = [...this.buildLookupAndProjectPipeline()];
 
-    const filtered = documents.filter((doc) => {
-      const petData = doc.petId as any;
-      return (
-        petData &&
-        typeof petData === 'object' &&
-        petData.user?.toString() === ownerId
-      );
+    const petLookupIndex = pipeline.findIndex(
+      (stage: any) => stage.$lookup?.from === 'pets',
+    );
+    const unwindIndex = petLookupIndex + 1;
+
+    pipeline.splice(unwindIndex + 1, 0, {
+      $match: {
+        $expr: {
+          $eq: [{ $toString: '$petData.user' }, ownerId],
+        },
+      },
     });
 
-    return filtered.map((doc) => {
-      const petData = doc.petId as any;
-      const adopterData = doc.adopterId as any;
-      return {
-        id: doc._id.toString(),
-        petId:
-          typeof doc.petId === 'string' ? doc.petId : petData._id?.toString(),
-        adopterId:
-          typeof doc.adopterId === 'string'
-            ? doc.adopterId
-            : adopterData._id?.toString(),
-        status: doc.status,
-        createdAt: doc.createdAt.toString(),
-        updatedAt: doc.updatedAt.toString(),
-        pet: {
-          id: petData._id.toString(),
-          name: petData.name,
-          breed: petData.breed,
-          type: petData.type,
-        },
-        adopter: {
-          id: adopterData._id.toString(),
-          name: adopterData.name,
-        },
-      };
-    });
+    const documents = await this.adoptionRequestModel.aggregate(pipeline);
+    return documents.map((doc) => this.mapToDto(doc));
   }
 
   async getRequestedPetIds(adopterId: string): Promise<string[]> {
