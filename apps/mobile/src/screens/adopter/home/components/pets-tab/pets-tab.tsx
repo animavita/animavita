@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Box, View } from 'native-base';
 import React, { useRef, useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
@@ -15,13 +15,20 @@ import { useFilters } from '../../hooks/use-filters';
 import { useSearchRadius } from '../../hooks/use-search-radius';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
+import { useNewRequests } from '@/contexts/new-requests-context';
+import useLocale from '@/hooks/use-locale';
+import { requestPetAdoption } from '@/services/adoptions';
 import { getPetsNearMe } from '@/services/pets';
+import { QUERY_KEYS } from '@/services/query-keys';
 
 const PetsTab = () => {
   const swipeProgress = useSharedValue(0);
   const deckRef = useRef<SwipeDeckRef>(null);
   const searchRadius = useSearchRadius();
   const { isOpen, open, close, apply, appliedCount } = useFilters({ filters: [searchRadius] });
+  const queryClient = useQueryClient();
+  const { setHasNewRequests } = useNewRequests();
+  const { t } = useLocale();
 
   const {
     data: pets = [],
@@ -33,6 +40,18 @@ const PetsTab = () => {
     queryFn: async () => {
       const response = await getPetsNearMe(searchRadius.value);
       return response.data;
+    },
+  });
+
+  const adoptionMutation = useMutation({
+    mutationFn: requestPetAdoption,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getMyAdoptionRequests] });
+      queryClient.invalidateQueries({ queryKey: ['pets', 'nearMe'] });
+      setHasNewRequests(true);
+    },
+    onError: (error) => {
+      console.error('Failed to request adoption:', error);
     },
   });
 
@@ -58,8 +77,11 @@ const PetsTab = () => {
   };
 
   const handleFavorite = () => {
-    deckRef.current?.swipeRight();
-    // TODO: Add to favorites API call
+    if (cards.length > 0) {
+      const currentPet = cards[cards.length - 1];
+      adoptionMutation.mutate(currentPet.id);
+      deckRef.current?.swipeRight();
+    }
   };
 
   const renderContent = () => {

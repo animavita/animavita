@@ -117,6 +117,8 @@
     "NO_PETS_NEARBY_DESCRIPTION": "Não encontramos nenhum pet disponível para adoção na sua região. Tente ajustar os filtros ou verifique novamente mais tarde.",
     "NO_MORE_PETS": "Você viu todos os pets!",
     "NO_MORE_PETS_DESCRIPTION": "Não há mais pets para mostrar no momento. Volte mais tarde para ver novos amiguinhos disponíveis para adoção.",
+    "ADOPTION_REQUEST_SUCCESS": "Solicitação de adoção enviada com sucesso!",
+    "ADOPTION_REQUEST_ERROR": "Erro ao enviar solicitação de adoção. Tente novamente.",
     "FILTERS_MODAL": {
       "TITLE": "Filtros",
       "RADIUS_LABEL": "Raio de busca",

@@ -12,6 +12,7 @@ type Tab = {
 
 type Tabs = {
   tabs: Tab[];
+  onIndexChange?: (index: number) => void;
 };
 
 const TabsComponent = (props: Tabs) => {
@@ -19,6 +20,11 @@ const TabsComponent = (props: Tabs) => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState(() => props.tabs.map(({ key, title }) => ({ key, title })));
+
+  const handleIndexChange = (newIndex: number) => {
+    setIndex(newIndex);
+    props.onIndexChange?.(newIndex);
+  };
 
   const sceneObject = props.tabs.reduce((object, tab) => {
     return { ...object, [tab.key]: tab.component };
@@ -30,7 +36,7 @@ const TabsComponent = (props: Tabs) => {
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
-      onIndexChange={setIndex}
+      onIndexChange={handleIndexChange}
       initialLayout={{ width: layout.width }}
       renderTabBar={CustomTabBar}
     />
