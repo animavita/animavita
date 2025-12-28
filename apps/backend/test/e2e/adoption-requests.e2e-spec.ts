@@ -350,6 +350,10 @@ describe('GET /api/v1/adoption-requests/my (e2e)', () => {
           name: expect.any(String),
           breed: expect.any(String),
           type: expect.any(String),
+          owner: {
+            id: expect.any(String),
+            name: expect.any(String),
+          },
         },
         adopter: {
           id: expect.any(String),
@@ -419,6 +423,10 @@ describe('GET /api/v1/adoption-requests/my (e2e)', () => {
           name: expect.any(String),
           breed: expect.any(String),
           type: expect.any(String),
+          owner: {
+            id: expect.any(String),
+            name: expect.any(String),
+          },
         },
         adopter: {
           name: expect.any(String),

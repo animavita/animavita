@@ -10,6 +10,10 @@ export type AdoptionRequestDto = {
     name: string;
     breed: string;
     type: string;
+    owner: {
+      id: string;
+      name: string;
+    };
   };
   adopter: {
     id: string;

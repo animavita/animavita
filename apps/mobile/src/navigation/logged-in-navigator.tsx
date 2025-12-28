@@ -5,9 +5,9 @@ import React from 'react';
 import useNextOnboardingScreen from './hooks/use-next-onboarding-screen';
 
 import { useAuth } from '@/hooks/use-auth-provider';
+import { AdoptionRequestDetail } from '@/screens/adoption-request-detail/adoption-request-detail';
 import GetLocationScreen from '@/screens/get-location/get-location.screen';
 import HomeScreen from '@/screens/home/home.screen';
-import { AdoptionRequestDetail } from '@/screens/owner/adoption-request-detail/adoption-request-detail';
 import RegisterPet from '@/screens/owner/register-pet/register-pet.screen';
 import UpdatePetScreen from '@/screens/owner/update-pet/update-pet.screen';
 import PhoneNumberEntryScreen from '@/screens/phone-number-entry/phone-number-entry.screen';

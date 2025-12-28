@@ -174,6 +174,15 @@
         "STATUS_ACCEPTED": "Aprovada",
         "STATUS_DENIED": "Recusada",
         "REQUESTED_ON": "Solicitado em"
+      },
+      "DETAIL": {
+        "REQUESTED_ON": "Solicitado em",
+        "OWNER_INFO": "Informações do Dono",
+        "CONTACT_INFO_NOTICE": "As informações de contato serão compartilhadas após a aprovação da solicitação.",
+        "CANCEL_REQUEST": "Cancelar Solicitação",
+        "CANCEL_SUCCESS": "Solicitação cancelada com sucesso!",
+        "ALREADY_ACCEPTED": "Esta solicitação já foi aprovada",
+        "ALREADY_DENIED": "Esta solicitação já foi recusada"
       }
     },
     "OWNER": {

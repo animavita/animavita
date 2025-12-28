@@ -57,6 +57,10 @@ describe('GetMyAdoptionRequests', () => {
             name: 'Rex',
             breed: 'Labrador',
             type: 'dog',
+            owner: {
+              id: 'owner-1',
+              name: 'Owner',
+            },
           },
           adopter: {
             id: adopterId,
@@ -103,6 +107,10 @@ describe('GetMyAdoptionRequests', () => {
             name: 'Rex',
             breed: 'Labrador',
             type: 'dog',
+            owner: {
+              id: ownerId,
+              name: 'Owner',
+            },
           },
           adopter: {
             id: 'adopter-1',

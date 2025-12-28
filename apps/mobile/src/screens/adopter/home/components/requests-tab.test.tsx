@@ -11,7 +11,7 @@ import { mockAdoptionRequests } from '@/test/fixtures/adoption-requests';
 import { server } from '@/test/msw/server';
 import { renderWithProviders } from '@/test/test-utils';
 
-describe('RequestsTab (Owner)', () => {
+describe('RequestsTab (Adopter)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -20,6 +20,7 @@ describe('RequestsTab (Owner)', () => {
     beforeEach(() => {
       server.use(
         http.get('*/api/v1/adoption-requests/my', async () => {
+          await new Promise((resolve) => setTimeout(resolve, 100));
           return HttpResponse.json(mockAdoptionRequests);
         })
       );
@@ -67,21 +68,11 @@ describe('RequestsTab (Owner)', () => {
       });
     });
 
-    it('displays adopter names for each request', async () => {
-      renderWithProviders(<RequestsTab />);
-
-      await waitFor(() => {
-        expect(screen.getByText(/John Doe/)).toBeVisible();
-        expect(screen.getByText(/Jane Smith/)).toBeVisible();
-        expect(screen.getByText(/Bob Johnson/)).toBeVisible();
-      });
-    });
-
     it('displays status badges with correct colors', async () => {
       renderWithProviders(<RequestsTab />);
 
       await waitFor(() => {
-        expect(screen.getByText('Aguardando sua resposta')).toBeVisible();
+        expect(screen.getByText('Aguardando resposta')).toBeVisible();
         expect(screen.getByText('Aprovada')).toBeVisible();
         expect(screen.getByText('Recusada')).toBeVisible();
       });
@@ -97,34 +88,6 @@ describe('RequestsTab (Owner)', () => {
       });
     });
 
-    it('navigates to detail screen when request card is pressed', async () => {
-      const Stack = createNativeStackNavigator<StackParamsList>();
-
-      const MainNavigator = () => {
-        return (
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={RequestsTab} />
-            <Stack.Screen name="AdoptionRequestDetail">
-              {() => {
-                return <Text>AdoptionRequestDetail screen</Text>;
-              }}
-            </Stack.Screen>
-          </Stack.Navigator>
-        );
-      };
-
-      const { user } = renderWithProviders(<MainNavigator />);
-
-      await waitFor(() => {
-        expect(screen.getByText('Rex')).toBeVisible();
-      });
-
-      const requestCard = screen.getByText('Rex').parent?.parent?.parent;
-      await user.press(requestCard!);
-
-      expect(screen.getByText('AdoptionRequestDetail screen')).toBeVisible();
-    });
-
     it('displays pet type icons', async () => {
       renderWithProviders(<RequestsTab />);
 
@@ -133,6 +96,30 @@ describe('RequestsTab (Owner)', () => {
         expect(dogTypes.length).toBeGreaterThan(0);
         expect(screen.getByText('Gato')).toBeVisible();
       });
+    });
+
+    it('navigates to detail screen when request is pressed', async () => {
+      const Stack = createNativeStackNavigator<StackParamsList>();
+
+      const { user } = renderWithProviders(
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={RequestsTab} options={{ headerShown: false }} />
+          <Stack.Screen name="AdoptionRequestDetail">
+            {() => {
+              return <Text>AdoptionRequestDetail screen</Text>;
+            }}
+          </Stack.Screen>
+        </Stack.Navigator>
+      );
+
+      await waitFor(() => {
+        expect(screen.getByText('Rex')).toBeVisible();
+      });
+
+      const requestCard = screen.getByText('Rex');
+      await user.press(requestCard);
+
+      expect(screen.getByText('AdoptionRequestDetail screen')).toBeVisible();
     });
   });
 
@@ -197,7 +184,7 @@ describe('RequestsTab (Owner)', () => {
       renderWithProviders(<RequestsTab />);
 
       await waitFor(() => {
-        expect(screen.getByText('Você ainda não recebeu solicitações de adoção')).toBeVisible();
+        expect(screen.getByText('Você ainda não solicitou a adoção de nenhum pet')).toBeVisible();
       });
     });
 
@@ -207,7 +194,7 @@ describe('RequestsTab (Owner)', () => {
       await waitFor(() => {
         expect(
           screen.getByText(
-            'Quando alguém se interessar em adotar um dos seus pets, as solicitações aparecerão aqui.'
+            'Navegue pelos pets disponíveis e solicite adoção quando encontrar seu novo amigo!'
           )
         ).toBeVisible();
       });

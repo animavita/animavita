@@ -53,6 +53,11 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
 
     stages.push(
       {
+        $addFields: {
+          ownerIdAsObjectId: { $toObjectId: '$petData.user' },
+        },
+      },
+      {
         $lookup: {
           from: 'users',
           localField: 'adopterIdAsObjectId',
@@ -63,6 +68,20 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
       {
         $unwind: {
           path: '$adopterData',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'ownerIdAsObjectId',
+          foreignField: '_id',
+          as: 'ownerData',
+        },
+      },
+      {
+        $unwind: {
+          path: '$ownerData',
           preserveNullAndEmptyArrays: false,
         },
       },
@@ -82,6 +101,10 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
             name: '$petData.name',
             breed: '$petData.breed',
             type: '$petData.type',
+            owner: {
+              _id: '$ownerData._id',
+              name: '$ownerData.name',
+            },
           },
           adopter: {
             _id: '$adopterData._id',
@@ -107,6 +130,10 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
         name: doc.pet.name,
         breed: doc.pet.breed,
         type: doc.pet.type,
+        owner: {
+          id: doc.pet.owner._id.toString(),
+          name: doc.pet.owner.name,
+        },
       },
       adopter: {
         id: doc.adopter._id.toString(),
