@@ -138,11 +138,15 @@ const RequestsTab = () => {
         data={requests}
         renderItem={renderRequestCard}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{ padding: 16 }}
+        contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
       />
     </Box>
   );
+};
+
+const styles = {
+  contentContainer: { padding: 16 },
 };
 
 export default RequestsTab;

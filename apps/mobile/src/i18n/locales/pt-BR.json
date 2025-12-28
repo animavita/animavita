@@ -182,8 +182,7 @@
         "CANCEL_REQUEST": "Cancelar Solicitação",
         "CANCEL_SUCCESS": "Solicitação cancelada com sucesso!",
         "ALREADY_ACCEPTED": "Esta solicitação já foi aprovada",
-        "ALREADY_DENIED": "Esta solicitação já foi recusada",
-        "ALREADY_CANCELLED": "Esta solicitação já foi cancelada"
+        "ALREADY_DENIED": "Esta solicitação já foi recusada"
       }
     },
     "OWNER": {

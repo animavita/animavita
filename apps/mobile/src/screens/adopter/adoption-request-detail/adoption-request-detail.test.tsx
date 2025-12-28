@@ -3,7 +3,8 @@ import React from 'react';
 
 import { AdoptionRequestDetail } from './adoption-request-detail';
 
-import { AdoptionRequestResponse, AdoptionRequestStatus } from '@/services/adoptions';
+import { AdoptionRequestStatus } from '@/services/adoptions';
+import { mockAdoptionRequests } from '@/test/fixtures/adoption-requests';
 import { renderWithProviders } from '@/test/test-utils';
 
 const mockGoBack = jest.fn();
@@ -14,24 +15,7 @@ jest.mock('@/navigation/use-navigation', () => ({
   }),
 }));
 
-const mockRequest: AdoptionRequestResponse = {
-  id: '1',
-  petId: 'pet1',
-  adopterId: 'adopter1',
-  status: AdoptionRequestStatus.PENDING,
-  pet: {
-    id: 'pet1',
-    name: 'Rex',
-    breed: 'Labrador',
-    type: 'dog',
-  },
-  adopter: {
-    id: 'adopter1',
-    name: 'John Doe',
-  },
-  createdAt: '2024-12-31T00:00:00.000Z',
-  updatedAt: '2024-12-31T00:00:00.000Z',
-};
+const mockRequest = mockAdoptionRequests[0];
 
 describe('AdoptionRequestDetail (Adopter)', () => {
   beforeEach(() => {

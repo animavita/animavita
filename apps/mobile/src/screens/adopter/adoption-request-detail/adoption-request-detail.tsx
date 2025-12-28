@@ -48,7 +48,6 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
   };
 
   const handleCancelRequest = () => {
-    console.log('Cancel request:', request.id);
     // TODO: Call API to cancel request
     goBack();
   };
