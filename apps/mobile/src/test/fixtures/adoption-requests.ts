@@ -11,6 +11,10 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
       name: 'Rex',
       breed: 'Labrador',
       type: 'dog',
+      owner: {
+        id: 'owner1',
+        name: 'Maria Silva',
+      },
     },
     adopter: {
       id: 'adopter1',
@@ -29,6 +33,10 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
       name: 'Mittens',
       breed: 'Persian',
       type: 'cat',
+      owner: {
+        id: 'owner2',
+        name: 'Carlos Santos',
+      },
     },
     adopter: {
       id: 'adopter2',
@@ -47,6 +55,10 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
       name: 'Buddy',
       breed: 'Golden Retriever',
       type: 'dog',
+      owner: {
+        id: 'owner3',
+        name: 'Ana Costa',
+      },
     },
     adopter: {
       id: 'adopter3',

@@ -108,7 +108,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
               <HStack space={2} alignItems="center">
                 <Icon as={Ionicons} name="person" size="sm" color="primary.500" />
                 <Text fontSize="md" color="coolGray.700">
-                  {request.adopter.name}
+                  {request.pet.owner.name}
                 </Text>
               </HStack>
 

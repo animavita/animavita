@@ -76,11 +76,11 @@ describe('AdoptionRequestDetail (Adopter)', () => {
     });
   });
 
-  describe('adopter information', () => {
-    it('displays adopter name', () => {
+  describe('owner information', () => {
+    it('displays owner name', () => {
       renderWithProviders(<AdoptionRequestDetail route={route} />);
 
-      expect(screen.getByText('John Doe')).toBeVisible();
+      expect(screen.getByText('Maria Silva')).toBeVisible();
     });
 
     it('displays contact info notice', () => {
