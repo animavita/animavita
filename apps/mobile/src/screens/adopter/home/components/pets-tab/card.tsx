@@ -206,6 +206,8 @@ export const TinderCard = forwardRef<TinderCardRef, TinderCardProps>(
   }
 );
 
+TinderCard.displayName = 'TinderCard';
+
 const styles = StyleSheet.create({
   gradient: {
     position: 'absolute',

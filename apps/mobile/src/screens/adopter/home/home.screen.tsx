@@ -11,31 +11,34 @@ const AdopterHome = () => {
   const hasNewRequests = useNewRequestsStore((state) => state.hasNewRequests);
   const setHasNewRequests = useNewRequestsStore((state) => state.setHasNewRequests);
 
+  const tabs = [
+    {
+      key: 'pets',
+      title: t('HOME.PETS'),
+      component: PetsTab,
+    },
+    {
+      key: 'favorites',
+      title: t('HOME.FAVORITES'),
+      component: FavoritesTab,
+    },
+    {
+      key: 'requests',
+      title: t('HOME.REQUESTS'),
+      component: RequestsTab,
+    },
+  ];
+
   const handleTabChange = (index: number) => {
-    if (index === 2) {
+    const selectedTab = tabs[index];
+    if (selectedTab?.key === 'requests') {
       setHasNewRequests(false);
     }
   };
 
   return (
     <TabsComponent
-      tabs={[
-        {
-          key: 'pets',
-          title: t('HOME.PETS'),
-          component: PetsTab,
-        },
-        {
-          key: 'favorites',
-          title: t('HOME.FAVORITES'),
-          component: FavoritesTab,
-        },
-        {
-          key: 'requests',
-          title: t('HOME.REQUESTS'),
-          component: RequestsTab,
-        },
-      ]}
+      tabs={tabs}
       badgeConfig={{
         tabKey: 'requests',
         shouldShow: (focused) => !focused && hasNewRequests,

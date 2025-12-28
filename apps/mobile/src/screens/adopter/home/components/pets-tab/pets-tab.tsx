@@ -39,8 +39,19 @@ const PetsTab = () => {
   });
 
   const [swipedIds, setSwipedIds] = useState<Set<string>>(new Set());
-  const cards = (pets || []).filter((p) => !swipedIds.has(p.id));
-  const { pass, adopt, like } = useAdoption();
+  const cards = pets.filter((p) => !swipedIds.has(p.id));
+
+  const removeSwipedPet = (petId: string) => {
+    setSwipedIds((prev) => {
+      const next = new Set(prev);
+      next.delete(petId);
+      return next;
+    });
+  };
+
+  const { pass, adopt, like, isRequesting } = useAdoption({
+    onAdoptionError: removeSwipedPet,
+  });
 
   const handleGestureSwipe = (cardId: string, direction: 'left' | 'right') => {
     if (direction === 'left') {
@@ -134,7 +145,7 @@ const PetsTab = () => {
             onPass={handlePass}
             onAdopt={handleAdopt}
             onFavorite={handleFavorite}
-            disabled={cards.length === 0}
+            disabled={cards.length === 0 || isRequesting}
           />
         </Delimiter>
       )}

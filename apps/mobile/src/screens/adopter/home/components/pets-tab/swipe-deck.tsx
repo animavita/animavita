@@ -57,3 +57,5 @@ export const SwipeDeck = forwardRef<SwipeDeckRef, SwipeDeckProps>(
     );
   }
 );
+
+SwipeDeck.displayName = 'SwipeDeck';

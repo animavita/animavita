@@ -1,11 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useToast } from 'native-base';
+import { useTranslation } from 'react-i18next';
 
 import { requestPetAdoption } from '@/services/adoptions';
 import { QUERY_KEYS } from '@/services/query-keys';
 import { useNewRequestsStore } from '@/state/requests/requests.store';
 
-export const useAdoption = () => {
+type UseAdoptionProps = {
+  onAdoptionError?: (petId: string) => void;
+};
+
+export const useAdoption = ({ onAdoptionError }: UseAdoptionProps = {}) => {
   const queryClient = useQueryClient();
+  const toast = useToast();
+  const { t } = useTranslation();
   const setHasNewRequests = useNewRequestsStore((state) => state.setHasNewRequests);
 
   const adoptionMutation = useMutation({
@@ -15,9 +23,16 @@ export const useAdoption = () => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.petsNearMe] });
       setHasNewRequests(true);
     },
-    onError: (error) => {
-      console.error('Failed to request adoption:', error);
+    onError: (_error, petId) => {
+      onAdoptionError?.(petId);
+
+      toast.show({
+        title: t('HOME.ADOPTION_REQUEST_ERROR'),
+        placement: 'bottom',
+        duration: 3000,
+      });
     },
+    retry: false,
   });
 
   const pass = (petId: string) => {
