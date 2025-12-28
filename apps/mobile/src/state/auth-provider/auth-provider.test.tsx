@@ -3,11 +3,11 @@ import { Text } from 'react-native';
 
 import { AuthContext, AuthProvider } from '.';
 
-import { getUserCredentials } from '@/helpers/secure-store';
+import { getUserCredentials } from '@/services/secure-store';
 import { getCurrentUserInfo } from '@/services/user';
 import { renderWithProviders } from '@/test/test-utils';
 
-jest.mock('@/helpers/secure-store', () => ({
+jest.mock('@/services/secure-store', () => ({
   getUserCredentials: jest.fn(() => null),
 }));
 

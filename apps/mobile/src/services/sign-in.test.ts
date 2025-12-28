@@ -1,6 +1,6 @@
 import { handleTokenRefreshError, persistUserToken } from './sign-in';
 
-import * as SecureStoreHelpers from '@/helpers/secure-store';
+import * as SecureStoreHelpers from '@/services/secure-store';
 import client from '@/services/http-client';
 
 jest.mock('@/services/http-client', () => {

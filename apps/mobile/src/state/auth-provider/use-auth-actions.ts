@@ -9,7 +9,7 @@ import {
   getUserCredentials,
   removeUserCredentials,
   saveUserCredentials,
-} from '@/helpers/secure-store';
+} from '@/services/secure-store';
 import { QUERY_KEYS } from '@/services/query-keys';
 import { persistUserToken, logoutRequest } from '@/services/sign-in';
 import { getCurrentUserInfo } from '@/services/user';

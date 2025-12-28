@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react-native';
 
 import useAuthActions from './use-auth-actions';
 
-import * as SecureStoreHelpers from '@/helpers/secure-store';
+import * as SecureStoreHelpers from '@/services/secure-store';
 import * as SignIn from '@/services/sign-in';
 import * as User from '@/services/user';
 import { QueryClientWrapper } from '@/test/test-utils';
