@@ -15,8 +15,10 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
     private readonly adoptionRequestModel: Model<AdoptionRequestDocument>,
   ) {}
 
-  private buildLookupAndProjectPipeline(): PipelineStage[] {
-    return [
+  private buildLookupAndProjectPipeline(options?: {
+    filterByPetOwner?: string;
+  }): PipelineStage[] {
+    const stages: PipelineStage[] = [
       {
         $addFields: {
           petIdAsObjectId: { $toObjectId: '$petId' },
@@ -37,6 +39,19 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
           preserveNullAndEmptyArrays: false,
         },
       },
+    ];
+
+    if (options?.filterByPetOwner) {
+      stages.push({
+        $match: {
+          $expr: {
+            $eq: [{ $toString: '$petData.user' }, options.filterByPetOwner],
+          },
+        },
+      });
+    }
+
+    stages.push(
       {
         $lookup: {
           from: 'users',
@@ -74,7 +89,9 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
           },
         },
       },
-    ];
+    );
+
+    return stages;
   }
 
   private mapToDto(doc: any): AdoptionRequestDto {
@@ -113,20 +130,9 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
   }
 
   async getByOwner(ownerId: string): Promise<AdoptionRequestDto[]> {
-    const pipeline: PipelineStage[] = [...this.buildLookupAndProjectPipeline()];
-
-    const petLookupIndex = pipeline.findIndex(
-      (stage: any) => stage.$lookup?.from === 'pets',
-    );
-    const unwindIndex = petLookupIndex + 1;
-
-    pipeline.splice(unwindIndex + 1, 0, {
-      $match: {
-        $expr: {
-          $eq: [{ $toString: '$petData.user' }, ownerId],
-        },
-      },
-    });
+    const pipeline: PipelineStage[] = [
+      ...this.buildLookupAndProjectPipeline({ filterByPetOwner: ownerId }),
+    ];
 
     const documents = await this.adoptionRequestModel.aggregate(pipeline);
     return documents.map((doc) => this.mapToDto(doc));
