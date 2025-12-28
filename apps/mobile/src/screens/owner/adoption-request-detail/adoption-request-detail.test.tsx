@@ -1,0 +1,247 @@
+import { AdoptionRequestResponse, AdoptionRequestStatus } from '@animavita/types';
+import { screen } from '@testing-library/react-native';
+import React from 'react';
+
+import { AdoptionRequestDetail } from './adoption-request-detail';
+
+import { renderWithProviders } from '@/test/test-utils';
+
+const mockGoBack = jest.fn();
+const mockNavigate = jest.fn();
+
+jest.mock('@/navigation/use-navigation', () => ({
+  useNavigation: () => ({
+    goBack: mockGoBack,
+    navigate: mockNavigate,
+  }),
+}));
+
+const mockPendingRequest: AdoptionRequestResponse = {
+  id: '1',
+  status: AdoptionRequestStatus.PENDING,
+  petId: 'pet1',
+  adopterId: 'adopter1',
+  pet: {
+    id: 'pet1',
+    name: 'Rex',
+    breed: 'Labrador',
+    type: 'dog',
+  },
+  adopter: {
+    id: 'adopter1',
+    name: 'John Doe',
+  },
+  createdAt: '2025-01-15T10:30:00.000Z',
+  updatedAt: '2025-01-15T10:30:00.000Z',
+};
+
+const mockAcceptedRequest: AdoptionRequestResponse = {
+  ...mockPendingRequest,
+  id: '2',
+  status: AdoptionRequestStatus.ACCEPTED,
+  updatedAt: '2025-01-15T14:30:00.000Z',
+};
+
+const mockDeniedRequest: AdoptionRequestResponse = {
+  ...mockPendingRequest,
+  id: '3',
+  status: AdoptionRequestStatus.DENIED,
+  updatedAt: '2025-01-15T16:30:00.000Z',
+};
+
+describe('AdoptionRequestDetail (Owner)', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('pending request', () => {
+    const route = {
+      params: {
+        request: mockPendingRequest,
+      },
+    };
+
+    it('displays pet name', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Rex')).toBeVisible();
+    });
+
+    it('displays pet breed', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Labrador')).toBeVisible();
+    });
+
+    it('displays pet type', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Cão')).toBeVisible();
+    });
+
+    it('displays pending status badge', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Aguardando sua resposta')).toBeVisible();
+    });
+
+    it('displays formatted request date', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText(/15 de janeiro de 2025/)).toBeVisible();
+    });
+
+    it('displays adopter name', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('John Doe')).toBeVisible();
+    });
+
+    it('displays adopter info section title', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Informações do Adotante')).toBeVisible();
+    });
+
+    it('displays contact info notice', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(
+        screen.getByText(
+          'As informações de contato serão compartilhadas após a aprovação da solicitação.'
+        )
+      ).toBeVisible();
+    });
+
+    it('displays accept button', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Aprovar Adoção')).toBeVisible();
+    });
+
+    it('displays deny button', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Recusar Solicitação')).toBeVisible();
+    });
+
+    it('calls handleAcceptRequest when accept button is pressed', async () => {
+      const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      const acceptButton = screen.getByText('Aprovar Adoção');
+      await user.press(acceptButton);
+
+      expect(mockGoBack).toHaveBeenCalled();
+    });
+
+    it('calls handleDenyRequest when deny button is pressed', async () => {
+      const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      const denyButton = screen.getByText('Recusar Solicitação');
+      await user.press(denyButton);
+
+      expect(mockGoBack).toHaveBeenCalled();
+    });
+
+    it('does not show already handled message', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.queryByText('Esta solicitação já foi aprovada')).not.toBeOnTheScreen();
+      expect(screen.queryByText('Esta solicitação já foi recusada')).not.toBeOnTheScreen();
+    });
+  });
+
+  describe('accepted request', () => {
+    const route = {
+      params: {
+        request: mockAcceptedRequest,
+      },
+    };
+
+    it('displays accepted status badge', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Aprovada')).toBeVisible();
+    });
+
+    it('displays already accepted message', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Esta solicitação já foi aprovada')).toBeVisible();
+    });
+
+    it('does not display accept button', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.queryByText('Aprovar Adoção')).not.toBeOnTheScreen();
+    });
+
+    it('does not display deny button', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.queryByText('Recusar Solicitação')).not.toBeOnTheScreen();
+    });
+  });
+
+  describe('denied request', () => {
+    const route = {
+      params: {
+        request: mockDeniedRequest,
+      },
+    };
+
+    it('displays denied status badge', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Recusada')).toBeVisible();
+    });
+
+    it('displays already denied message', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Esta solicitação já foi recusada')).toBeVisible();
+    });
+
+    it('does not display accept button', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.queryByText('Aprovar Adoção')).not.toBeOnTheScreen();
+    });
+
+    it('does not display deny button', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.queryByText('Recusar Solicitação')).not.toBeOnTheScreen();
+    });
+  });
+
+  describe('cat adoption request', () => {
+    const catRequest: AdoptionRequestResponse = {
+      ...mockPendingRequest,
+      pet: {
+        ...mockPendingRequest.pet,
+        name: 'Mittens',
+        breed: 'Persian',
+        type: 'cat',
+      },
+    };
+
+    const route = {
+      params: {
+        request: catRequest,
+      },
+    };
+
+    it('displays cat type correctly', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Gato')).toBeVisible();
+    });
+
+    it('displays cat name', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Mittens')).toBeVisible();
+    });
+  });
+});

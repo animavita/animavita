@@ -1,6 +1,15 @@
-import { CreateAdoptionRequest, UpdateAdoptionRequest, AdoptionResponse } from '@animavita/types';
+import {
+  CreateAdoptionRequest,
+  UpdateAdoptionRequest,
+  AdoptionResponse,
+  AdoptionRequestResponse,
+  AdoptionRequestStatus,
+} from '@animavita/types';
 
 import client from './http-client';
+
+export type { AdoptionRequestResponse };
+export { AdoptionRequestStatus };
 
 export const getAllAdoptions = () => {
   return client.get<AdoptionResponse[]>('/adoptions');
@@ -12,4 +21,8 @@ export const saveOrCreate = (adoption: CreateAdoptionRequest | UpdateAdoptionReq
   }
 
   return client.post<AdoptionResponse>('/pets', adoption);
+};
+
+export const getMyAdoptionRequests = () => {
+  return client.get<AdoptionRequestResponse[]>('/adoption-requests/my');
 };
