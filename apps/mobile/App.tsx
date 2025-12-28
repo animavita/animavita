@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { initI18n } from './src/i18n/i18n.config';
 
 import MainNavigator from '@/navigation/main-navigator';
-import { AuthProvider } from '@/providers/auth-provider';
+import { AuthProvider } from '@/state/auth-provider';
 import queryClient from '@/services/query-client-instance';
 import theme from '@/theme';
 
