@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 
-import CustomTabBar from './compose/tab-bar.component';
+import CustomTabBar, { TabBarBadgeConfig } from './compose/tab-bar.component';
 
 type Tab = {
   key: string;
@@ -12,6 +12,8 @@ type Tab = {
 
 type Tabs = {
   tabs: Tab[];
+  onIndexChange?: (index: number) => void;
+  badgeConfig?: TabBarBadgeConfig;
 };
 
 const TabsComponent = (props: Tabs) => {
@@ -19,6 +21,11 @@ const TabsComponent = (props: Tabs) => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState(() => props.tabs.map(({ key, title }) => ({ key, title })));
+
+  const handleIndexChange = (newIndex: number) => {
+    setIndex(newIndex);
+    props.onIndexChange?.(newIndex);
+  };
 
   const sceneObject = props.tabs.reduce((object, tab) => {
     return { ...object, [tab.key]: tab.component };
@@ -30,9 +37,11 @@ const TabsComponent = (props: Tabs) => {
     <TabView
       navigationState={{ index, routes }}
       renderScene={renderScene}
-      onIndexChange={setIndex}
+      onIndexChange={handleIndexChange}
       initialLayout={{ width: layout.width }}
-      renderTabBar={CustomTabBar}
+      renderTabBar={(tabBarProps) => (
+        <CustomTabBar {...tabBarProps} badgeConfig={props.badgeConfig} />
+      )}
     />
   );
 };

@@ -3,4 +3,5 @@ export const QUERY_KEYS = {
   getMyPets: 'getMyPets',
   getUserInfo: 'getUserInfo',
   getMyAdoptionRequests: 'getMyAdoptionRequests',
+  petsNearMe: 'petsNearMe',
 };

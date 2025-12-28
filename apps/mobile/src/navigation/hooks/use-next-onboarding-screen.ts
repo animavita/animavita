@@ -2,7 +2,7 @@ import { useFeatureFlag } from 'posthog-react-native';
 
 import { StackParamsList } from '../main-navigator';
 
-import { UserInfo } from '@/providers/auth-provider/auth-provider.types';
+import { UserInfo } from '@/state/auth-provider/auth-provider.types';
 
 const useNextOnboardingScreen = (): ((
   user: UserInfo | undefined | null

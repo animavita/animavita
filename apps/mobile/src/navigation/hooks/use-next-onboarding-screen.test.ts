@@ -3,7 +3,7 @@ import { useFeatureFlag } from 'posthog-react-native';
 
 import useNextOnboardingScreen from './use-next-onboarding-screen';
 
-import { UserInfo } from '@/providers/auth-provider/auth-provider.types';
+import { UserInfo } from '@/state/auth-provider/auth-provider.types';
 
 describe('useNextOnboardingScreen', () => {
   beforeEach(() => {

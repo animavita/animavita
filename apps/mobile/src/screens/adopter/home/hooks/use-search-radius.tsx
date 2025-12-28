@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-import { getSearchRadius, saveSearchRadius } from '@/helpers/local-storage';
+import { getSearchRadius, saveSearchRadius } from '@/services/local-storage';
 
 export const DEFAULT_RADIUS = 20;
 

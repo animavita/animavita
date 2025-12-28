@@ -26,3 +26,7 @@ export const saveOrCreate = (adoption: CreateAdoptionRequest | UpdateAdoptionReq
 export const getMyAdoptionRequests = () => {
   return client.get<AdoptionRequestResponse[]>('/adoption-requests/my');
 };
+
+export const requestPetAdoption = (petId: string) => {
+  return client.post<AdoptionRequestResponse>(`/pets/${petId}/request`);
+};

@@ -6,7 +6,7 @@ import {
   getUserCredentials,
   removeUserCredentials,
   saveUserCredentials,
-} from '@/helpers/secure-store';
+} from '@/services/secure-store';
 
 const REFRESH_TOKEN_URL = '/auth/refresh';
 
