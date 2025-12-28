@@ -309,3 +309,167 @@ describe('Adoption Requests (e2e)', () => {
     await closeInMongodConnection();
   });
 });
+
+describe('GET /api/v1/adoption-requests/my (e2e)', () => {
+  describe('as adopter', () => {
+    it('returns placed requests with pet info', async () => {
+      const {
+        app,
+        authService,
+        signInUsecase,
+        completeSignUp,
+        postPetForAdoption,
+      } = await setup();
+
+      const { petId } = await createOwnerWithPet(
+        authService,
+        signInUsecase,
+        completeSignUp,
+        postPetForAdoption,
+      );
+
+      const { adopterToken } = await createAdopter(
+        authService,
+        signInUsecase,
+        completeSignUp,
+      );
+
+      await request(app.getHttpServer())
+        .post(`/api/v1/pets/${petId}/request`)
+        .set('Authorization', `Bearer ${adopterToken}`);
+
+      const response = await request(app.getHttpServer())
+        .get('/api/v1/adoption-requests/my')
+        .set('Authorization', `Bearer ${adopterToken}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveLength(1);
+      expect(response.body[0]).toMatchObject({
+        status: 'pending',
+        pet: {
+          name: expect.any(String),
+          breed: expect.any(String),
+          type: expect.any(String),
+        },
+        adopter: {
+          id: expect.any(String),
+          name: expect.any(String),
+        },
+      });
+
+      await app.close();
+    });
+
+    it('returns empty array when no requests placed', async () => {
+      const { app, authService, signInUsecase, completeSignUp } = await setup();
+
+      const { adopterToken } = await createAdopter(
+        authService,
+        signInUsecase,
+        completeSignUp,
+      );
+
+      const response = await request(app.getHttpServer())
+        .get('/api/v1/adoption-requests/my')
+        .set('Authorization', `Bearer ${adopterToken}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual([]);
+
+      await app.close();
+    });
+  });
+
+  describe('as owner', () => {
+    it('returns received requests with pet and adopter info', async () => {
+      const {
+        app,
+        authService,
+        signInUsecase,
+        completeSignUp,
+        postPetForAdoption,
+      } = await setup();
+
+      const { ownerToken, petId } = await createOwnerWithPet(
+        authService,
+        signInUsecase,
+        completeSignUp,
+        postPetForAdoption,
+      );
+
+      const { adopterToken } = await createAdopter(
+        authService,
+        signInUsecase,
+        completeSignUp,
+      );
+
+      await request(app.getHttpServer())
+        .post(`/api/v1/pets/${petId}/request`)
+        .set('Authorization', `Bearer ${adopterToken}`);
+
+      const response = await request(app.getHttpServer())
+        .get('/api/v1/adoption-requests/my')
+        .set('Authorization', `Bearer ${ownerToken}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toHaveLength(1);
+      expect(response.body[0]).toMatchObject({
+        status: 'pending',
+        pet: {
+          name: expect.any(String),
+          breed: expect.any(String),
+          type: expect.any(String),
+        },
+        adopter: {
+          name: expect.any(String),
+        },
+      });
+
+      await app.close();
+    });
+
+    it('returns empty array when no requests received', async () => {
+      const {
+        app,
+        authService,
+        signInUsecase,
+        completeSignUp,
+        postPetForAdoption,
+      } = await setup();
+
+      const { ownerToken } = await createOwnerWithPet(
+        authService,
+        signInUsecase,
+        completeSignUp,
+        postPetForAdoption,
+      );
+
+      const response = await request(app.getHttpServer())
+        .get('/api/v1/adoption-requests/my')
+        .set('Authorization', `Bearer ${ownerToken}`);
+
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual([]);
+
+      await app.close();
+    });
+  });
+
+  describe('authentication', () => {
+    it('fails when not authenticated', async () => {
+      const { app } = await setup();
+
+      const response = await request(app.getHttpServer()).get(
+        '/api/v1/adoption-requests/my',
+      );
+
+      expect(response.status).toBe(401);
+
+      await app.close();
+    });
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection();
+  });
+});

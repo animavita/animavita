@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PetsController } from '../infra/controllers/pets.controller';
+import { AdoptionRequestsController } from '../infra/controllers/adoption-requests.controller';
 import { UserModule } from './user.module';
 import PostPetForAdoption from '../core/application/usecases/owner/post-pet-for-adoption/post-pet-for-adoption';
 import FindNearestPets from '../core/application/usecases/adopter/find-nearest-pets/find-nearest-pets';
@@ -7,10 +8,11 @@ import UpdatePostedPet from '../core/application/usecases/owner/update-posted-pe
 import RemovePostedPet from '../core/application/usecases/owner/remove-posted-pet/remove-posted-pet';
 import GetMyPets from '../core/application/usecases/owner/get-my-pets/get-my-pets';
 import RequestPetAdoption from '../core/application/usecases/adopter/request-pet-adoption/request-pet-adoption';
+import GetMyAdoptionRequests from '../core/application/usecases/common/get-my-adoption-requests/get-my-adoption-requests';
 
 @Module({
   imports: [UserModule],
-  controllers: [PetsController],
+  controllers: [PetsController, AdoptionRequestsController],
   providers: [
     PostPetForAdoption,
     UpdatePostedPet,
@@ -18,6 +20,7 @@ import RequestPetAdoption from '../core/application/usecases/adopter/request-pet
     FindNearestPets,
     GetMyPets,
     RequestPetAdoption,
+    GetMyAdoptionRequests,
   ],
 })
 export class PetModule {}

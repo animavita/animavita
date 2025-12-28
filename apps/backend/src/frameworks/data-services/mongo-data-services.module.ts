@@ -32,6 +32,8 @@ import {
 } from '../../infra/mongo/schemas/adoption-request.schema';
 import { ADOPTION_REQUEST_REPOSITORY } from '../../core/application/repositories/adoption-request.repository';
 import { MongoAdoptionRequestRepository } from '../../infra/repositories/mongo-adoption-request.repository';
+import { ADOPTION_REQUEST_DAO } from '../../core/application/dao/adoption-request.dao';
+import { MongoAdoptionRequestDAO } from '../../infra/dao/mongo-adoption-request.dao';
 
 @Module({
   imports: [
@@ -80,6 +82,10 @@ import { MongoAdoptionRequestRepository } from '../../infra/repositories/mongo-a
       provide: ADOPTION_REQUEST_REPOSITORY,
       useClass: MongoAdoptionRequestRepository,
     },
+    {
+      provide: ADOPTION_REQUEST_DAO,
+      useClass: MongoAdoptionRequestDAO,
+    },
   ],
   exports: [
     UserRepository,
@@ -88,6 +94,7 @@ import { MongoAdoptionRequestRepository } from '../../infra/repositories/mongo-a
     USER_REPOSITORY,
     USER_SESSION_REPOSITORY,
     ADOPTION_REQUEST_REPOSITORY,
+    ADOPTION_REQUEST_DAO,
   ],
 })
 export class MongoDataServicesModule {}

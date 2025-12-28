@@ -18,10 +18,10 @@ export class MongoPetDAO implements PetDao {
     private readonly petModel: Model<PetDocument>,
   ) {}
 
-  async findNearest({ coordinates, adopterId, radius }) {
+  async findNearest({ coordinates, adopterId, radius, excludePetIds = [] }) {
     const finalRadius = radius * 10; // 1.2 = 12km
 
-    const documents = await this.petModel
+    const query = this.petModel
       .find({
         location: {
           $geoWithin: {
@@ -30,8 +30,16 @@ export class MongoPetDAO implements PetDao {
         },
       })
       .where('user')
-      .ne(adopterId)
-      .populate<PetDocumentWithUser>('user', 'id name');
+      .ne(adopterId);
+
+    if (excludePetIds.length > 0) {
+      query.where('_id').nin(excludePetIds);
+    }
+
+    const documents = await query.populate<PetDocumentWithUser>(
+      'user',
+      'id name',
+    );
 
     return documents.map((document) => ({
       id: document._id.toString(),

@@ -9,6 +9,7 @@ interface FindNearestInput {
     longitude: number;
     latitude: number;
   };
+  excludePetIds?: string[];
 }
 
 export interface PetDao {

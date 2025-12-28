@@ -7,6 +7,7 @@ import {
 import { UserService } from '../../../../../user/user.service';
 import PostPetForAdoption from '../../owner/post-pet-for-adoption/post-pet-for-adoption';
 import FindNearestPets from '../../adopter/find-nearest-pets/find-nearest-pets';
+import RequestPetAdoption from '../../adopter/request-pet-adoption/request-pet-adoption';
 import { adoptionFactory as petFactory } from '../../../../../../test/factories/adoption';
 import { userFactory } from '../../../../../../test/factories/user';
 import CompleteSignUp from '../../common/complete-sign-up/complete-sign-up';
@@ -39,6 +40,7 @@ describe.only('FindNearestPets', () => {
   let app: INestApplication;
   let postPetForAdoption: PostPetForAdoption;
   let findNearestPets: FindNearestPets;
+  let requestPetAdoption: RequestPetAdoption;
   let completeSignUp: CompleteSignUp;
   let userService: UserService;
 
@@ -50,6 +52,14 @@ describe.only('FindNearestPets', () => {
     return created.id;
   };
 
+  const createAdopter = async (user: UserType) => {
+    const created = await userService.create(user);
+    await completeSignUp.execute(created.id, {
+      role: 'adopter',
+    });
+    return created.id;
+  };
+
   beforeEach(async () => {
     const fixture: TestingModule = await Test.createTestingModule({
       imports: [TestMongoDataServicesModule],
@@ -57,6 +67,7 @@ describe.only('FindNearestPets', () => {
         UserService,
         PostPetForAdoption,
         FindNearestPets,
+        RequestPetAdoption,
         CompleteSignUp,
       ],
     }).compile();
@@ -65,6 +76,7 @@ describe.only('FindNearestPets', () => {
     userService = fixture.get<UserService>(UserService);
     postPetForAdoption = fixture.get<PostPetForAdoption>(PostPetForAdoption);
     findNearestPets = fixture.get<FindNearestPets>(FindNearestPets);
+    requestPetAdoption = fixture.get<RequestPetAdoption>(RequestPetAdoption);
     completeSignUp = fixture.get<CompleteSignUp>(CompleteSignUp);
 
     await app.init();
@@ -79,7 +91,7 @@ describe.only('FindNearestPets', () => {
     beforeEach(async () => {
       const owner1Id = await createOwner(owner1);
       const owner2Id = await createOwner(owner2);
-      adopterId = (await userService.create(adopter)).id;
+      adopterId = await createAdopter(adopter);
 
       await postPetForAdoption.execute(availablePet1, owner1Id);
       await postPetForAdoption.execute(availablePet2, owner1Id);
@@ -110,6 +122,37 @@ describe.only('FindNearestPets', () => {
         expect(pets.length).toBe(2);
         expect(pets[0].name).toBe(availablePet1.name);
         expect(pets[1].name).toBe(availablePet2.name);
+      });
+    });
+
+    describe('when adopter has already requested a pet', () => {
+      it('filters out the requested pet from the results', async () => {
+        const petsBeforeRequest = await findNearestPets.execute({
+          radius: 2,
+          adopterId,
+        });
+        const petToRequest = petsBeforeRequest.find(
+          (p) => p.name === availablePet1.name,
+        );
+
+        await requestPetAdoption.execute(
+          {
+            petId: petToRequest.id,
+          },
+          adopterId,
+        );
+
+        const petsAfterRequest = await findNearestPets.execute({
+          radius: 2,
+          adopterId,
+        });
+
+        expect(petsAfterRequest.length).toBe(2);
+        expect(
+          petsAfterRequest.find((p) => p.name === availablePet1.name),
+        ).toBeUndefined();
+        expect(petsAfterRequest[0].name).toBe(availablePet2.name);
+        expect(petsAfterRequest[1].name).toBe(availablePet3.name);
       });
     });
   });

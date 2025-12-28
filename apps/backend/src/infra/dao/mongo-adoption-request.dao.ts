@@ -1,0 +1,143 @@
+import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, PipelineStage } from 'mongoose';
+import { AdoptionRequestDao } from '../../core/application/dao/adoption-request.dao';
+import {
+  MongoAdoptionRequest,
+  AdoptionRequestDocument,
+} from '../mongo/schemas/adoption-request.schema';
+import { AdoptionRequestDto } from '../../core/application/dto/adoption-request.dto';
+
+@Injectable()
+export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
+  constructor(
+    @InjectModel(MongoAdoptionRequest.name)
+    private readonly adoptionRequestModel: Model<AdoptionRequestDocument>,
+  ) {}
+
+  private buildLookupAndProjectPipeline(): PipelineStage[] {
+    return [
+      {
+        $addFields: {
+          petIdAsObjectId: { $toObjectId: '$petId' },
+          adopterIdAsObjectId: { $toObjectId: '$adopterId' },
+        },
+      },
+      {
+        $lookup: {
+          from: 'pets',
+          localField: 'petIdAsObjectId',
+          foreignField: '_id',
+          as: 'petData',
+        },
+      },
+      {
+        $unwind: {
+          path: '$petData',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'adopterIdAsObjectId',
+          foreignField: '_id',
+          as: 'adopterData',
+        },
+      },
+      {
+        $unwind: {
+          path: '$adopterData',
+          preserveNullAndEmptyArrays: false,
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $project: {
+          _id: 1,
+          petId: 1,
+          adopterId: 1,
+          status: 1,
+          createdAt: 1,
+          updatedAt: 1,
+          pet: {
+            _id: '$petData._id',
+            name: '$petData.name',
+            breed: '$petData.breed',
+            type: '$petData.type',
+          },
+          adopter: {
+            _id: '$adopterData._id',
+            name: '$adopterData.name',
+          },
+        },
+      },
+    ];
+  }
+
+  private mapToDto(doc: any): AdoptionRequestDto {
+    return {
+      id: doc._id.toString(),
+      petId: doc.petId.toString(),
+      adopterId: doc.adopterId.toString(),
+      status: doc.status,
+      createdAt: doc.createdAt.toString(),
+      updatedAt: doc.updatedAt.toString(),
+      pet: {
+        id: doc.pet._id.toString(),
+        name: doc.pet.name,
+        breed: doc.pet.breed,
+        type: doc.pet.type,
+      },
+      adopter: {
+        id: doc.adopter._id.toString(),
+        name: doc.adopter.name,
+      },
+    };
+  }
+
+  async getByAdopter(adopterId: string): Promise<AdoptionRequestDto[]> {
+    const pipeline: PipelineStage[] = [
+      {
+        $match: {
+          adopterId,
+        },
+      },
+      ...this.buildLookupAndProjectPipeline(),
+    ];
+
+    const documents = await this.adoptionRequestModel.aggregate(pipeline);
+    return documents.map((doc) => this.mapToDto(doc));
+  }
+
+  async getByOwner(ownerId: string): Promise<AdoptionRequestDto[]> {
+    const pipeline: PipelineStage[] = [...this.buildLookupAndProjectPipeline()];
+
+    const petLookupIndex = pipeline.findIndex(
+      (stage: any) => stage.$lookup?.from === 'pets',
+    );
+    const unwindIndex = petLookupIndex + 1;
+
+    pipeline.splice(unwindIndex + 1, 0, {
+      $match: {
+        $expr: {
+          $eq: [{ $toString: '$petData.user' }, ownerId],
+        },
+      },
+    });
+
+    const documents = await this.adoptionRequestModel.aggregate(pipeline);
+    return documents.map((doc) => this.mapToDto(doc));
+  }
+
+  async getRequestedPetIds(adopterId: string): Promise<string[]> {
+    const documents = await this.adoptionRequestModel
+      .find({ adopterId })
+      .select('petId')
+      .lean();
+
+    return documents.map((doc) => doc.petId.toString());
+  }
+}

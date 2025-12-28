@@ -31,6 +31,8 @@ import {
 } from '../../src/infra/mongo/schemas/adoption-request.schema';
 import { ADOPTION_REQUEST_REPOSITORY } from '../../src/core/application/repositories/adoption-request.repository';
 import { MongoAdoptionRequestRepository } from '../../src/infra/repositories/mongo-adoption-request.repository';
+import { ADOPTION_REQUEST_DAO } from '../../src/core/application/dao/adoption-request.dao';
+import { MongoAdoptionRequestDAO } from '../../src/infra/dao/mongo-adoption-request.dao';
 
 let mongod: MongoMemoryServer;
 
@@ -83,6 +85,10 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
       provide: ADOPTION_REQUEST_REPOSITORY,
       useClass: MongoAdoptionRequestRepository,
     },
+    {
+      provide: ADOPTION_REQUEST_DAO,
+      useClass: MongoAdoptionRequestDAO,
+    },
   ],
   exports: [
     UserRepository,
@@ -91,6 +97,7 @@ export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
     USER_REPOSITORY,
     USER_SESSION_REPOSITORY,
     ADOPTION_REQUEST_REPOSITORY,
+    ADOPTION_REQUEST_DAO,
     MongooseModule.forFeature([{ name: MongoPet.name, schema: PetSchema }]),
   ],
 })
