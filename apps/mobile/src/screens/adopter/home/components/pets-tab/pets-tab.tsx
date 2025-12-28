@@ -70,16 +70,16 @@ const PetsTab = () => {
   };
 
   const handleAdopt = () => {
-    deckRef.current?.swipeRight();
-    // TODO: Trigger adoption request API call
-  };
-
-  const handleFavorite = () => {
     if (cards.length > 0) {
       const currentPet = cards[cards.length - 1];
       adoptionMutation.mutate(currentPet.id);
       deckRef.current?.swipeRight();
     }
+  };
+
+  const handleFavorite = () => {
+    deckRef.current?.swipeRight();
+    // TODO: Trigger add to favorites API call
   };
 
   const renderContent = () => {

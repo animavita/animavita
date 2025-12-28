@@ -2,6 +2,8 @@ import { HStack, IconButton } from 'native-base';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import useLocale from '@/hooks/use-locale';
+
 type ActionButtonsProps = {
   onPass: () => void;
   onAdopt: () => void;
@@ -10,9 +12,10 @@ type ActionButtonsProps = {
 };
 
 export const ActionButtons = ({ onPass, onAdopt, onFavorite, disabled }: ActionButtonsProps) => {
+  const { t } = useLocale();
+
   return (
     <HStack justifyContent="center" alignItems="center" space={4} paddingY={4}>
-      {/* Pass/Dislike Button - Red */}
       <IconButton
         icon={<Icon name="close" size={32} color="white" />}
         borderRadius="full"
@@ -23,35 +26,33 @@ export const ActionButtons = ({ onPass, onAdopt, onFavorite, disabled }: ActionB
         disabled={disabled}
         width={16}
         height={16}
-        accessibilityLabel="Pass on this pet"
+        accessibilityLabel={t('ACCESSIBILITY.PASS_PET')}
       />
 
-      {/* Adopt Button - Green */}
       <IconButton
         icon={<Icon name="favorite" size={36} color="white" />}
         borderRadius="full"
         backgroundColor="green.500"
         _pressed={{ backgroundColor: 'green.600' }}
         size="xl"
-        onPress={onAdopt}
+        onPress={onFavorite}
         disabled={disabled}
         width={20}
         height={20}
-        accessibilityLabel="Request adoption"
+        accessibilityLabel={t('ACCESSIBILITY.ADD_TO_FAVORITES')}
       />
 
-      {/* Favorite Button - Blue */}
       <IconButton
         icon={<Icon name="star" size={32} color="white" />}
         borderRadius="full"
         backgroundColor="blue.500"
         _pressed={{ backgroundColor: 'blue.600' }}
         size="lg"
-        onPress={onFavorite}
+        onPress={onAdopt}
         disabled={disabled}
         width={16}
         height={16}
-        accessibilityLabel="Add to favorites"
+        accessibilityLabel={t('ACCESSIBILITY.REQUEST_ADOPTION')}
       />
     </HStack>
   );

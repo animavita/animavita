@@ -1,7 +1,10 @@
 {
   "YEAR": "ano(s)",
   "ACCESSIBILITY": {
-    "PET_CARD_IMAGE": "Foto de {{name}}, {{age}}, {{size}}"
+    "PET_CARD_IMAGE": "Foto de {{name}}, {{age}}, {{size}}",
+    "PASS_PET": "Pular este pet",
+    "REQUEST_ADOPTION": "Solicitar adoção",
+    "ADD_TO_FAVORITES": "Adicionar aos favoritos"
   },
   "AGE": {
     "PUPPY": "Filhote (menos de 1 ano)",
