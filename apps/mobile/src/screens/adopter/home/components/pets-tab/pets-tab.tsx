@@ -15,11 +15,10 @@ import { useFilters } from '../../hooks/use-filters';
 import { useSearchRadius } from '../../hooks/use-search-radius';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
-import { useNewRequests } from '@/contexts/new-requests-context';
-import useLocale from '@/hooks/use-locale';
 import { requestPetAdoption } from '@/services/adoptions';
 import { getPetsNearMe } from '@/services/pets';
 import { QUERY_KEYS } from '@/services/query-keys';
+import { useNewRequestsStore } from '@/state/requests/requests.store';
 
 const PetsTab = () => {
   const swipeProgress = useSharedValue(0);
@@ -27,8 +26,7 @@ const PetsTab = () => {
   const searchRadius = useSearchRadius();
   const { isOpen, open, close, apply, appliedCount } = useFilters({ filters: [searchRadius] });
   const queryClient = useQueryClient();
-  const { setHasNewRequests } = useNewRequests();
-  const { t } = useLocale();
+  const setHasNewRequests = useNewRequestsStore((state) => state.setHasNewRequests);
 
   const {
     data: pets = [],

@@ -1,17 +1,25 @@
 import { Text, useTheme } from 'native-base';
-import { TextStyle, View } from 'react-native';
+import { View } from 'react-native';
 import { NavigationState, Route, SceneRendererProps, TabBar } from 'react-native-tab-view';
 
 import { PulsingBadge } from '@/components/pulsing-badge/pulsing-badge';
-import { useNewRequests } from '@/contexts/new-requests-context';
 
-const CustomTabBar = (props: SceneRendererProps & { navigationState: NavigationState<Route> }) => {
+export type TabBarBadgeConfig = {
+  tabKey: string;
+  shouldShow: (focused: boolean) => boolean;
+};
+
+type CustomTabBarProps = SceneRendererProps & {
+  navigationState: NavigationState<Route>;
+  badgeConfig?: TabBarBadgeConfig;
+};
+
+const CustomTabBar = (props: CustomTabBarProps) => {
   const theme = useTheme();
-  const { hasNewRequests } = useNewRequests();
+  const { badgeConfig } = props;
 
   const renderLabel = ({ route, focused }: { route: Route; focused: boolean }) => {
-    const isRequestsTab = route.key === 'requests';
-    const showBadge = isRequestsTab && hasNewRequests && !focused;
+    const showBadge = badgeConfig?.tabKey === route.key && badgeConfig?.shouldShow(focused);
 
     return (
       <View style={{ position: 'relative' }}>
