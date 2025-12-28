@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { Box, View } from 'native-base';
 import React, { useRef, useState } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
@@ -11,22 +11,19 @@ import { FiltersModal } from './filters-modal';
 import { FiltersTrigger } from './filters-trigger';
 import { LoadingState } from './loading-state';
 import { SwipeDeck, SwipeDeckRef } from './swipe-deck';
+import { useAdoption } from '../../hooks/use-adoption';
 import { useFilters } from '../../hooks/use-filters';
 import { useSearchRadius } from '../../hooks/use-search-radius';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
-import { requestPetAdoption } from '@/services/adoptions';
 import { getPetsNearMe } from '@/services/pets';
 import { QUERY_KEYS } from '@/services/query-keys';
-import { useNewRequestsStore } from '@/state/requests/requests.store';
 
 const PetsTab = () => {
   const swipeProgress = useSharedValue(0);
   const deckRef = useRef<SwipeDeckRef>(null);
   const searchRadius = useSearchRadius();
   const { isOpen, open, close, apply, appliedCount } = useFilters({ filters: [searchRadius] });
-  const queryClient = useQueryClient();
-  const setHasNewRequests = useNewRequestsStore((state) => state.setHasNewRequests);
 
   const {
     data: pets = [],
@@ -34,30 +31,26 @@ const PetsTab = () => {
     error,
     refetch,
   } = useQuery({
-    queryKey: ['pets', 'nearMe', searchRadius.value],
+    queryKey: [QUERY_KEYS.petsNearMe, searchRadius.value],
     queryFn: async () => {
       const response = await getPetsNearMe(searchRadius.value);
       return response.data;
     },
   });
 
-  const adoptionMutation = useMutation({
-    mutationFn: requestPetAdoption,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getMyAdoptionRequests] });
-      queryClient.invalidateQueries({ queryKey: ['pets', 'nearMe'] });
-      setHasNewRequests(true);
-    },
-    onError: (error) => {
-      console.error('Failed to request adoption:', error);
-    },
-  });
-
   const [swipedIds, setSwipedIds] = useState<Set<string>>(new Set());
   const cards = (pets || []).filter((p) => !swipedIds.has(p.id));
+  const { pass, adopt, like } = useAdoption();
 
-  const handleSwipeComplete = (cardId: string, direction: 'left' | 'right') => {
-    console.log(`Card ${cardId} swiped ${direction}`);
+  const handleGestureSwipe = (cardId: string, direction: 'left' | 'right') => {
+    if (direction === 'left') {
+      pass(cardId);
+    } else {
+      like(cardId);
+    }
+  };
+
+  const handleAnimationComplete = (cardId: string) => {
     setSwipedIds((prev) => {
       const next = new Set(prev);
       next.add(cardId);
@@ -66,20 +59,27 @@ const PetsTab = () => {
   };
 
   const handlePass = () => {
-    deckRef.current?.swipeLeft();
+    if (cards.length > 0) {
+      const currentPet = cards[cards.length - 1];
+      pass(currentPet.id);
+      deckRef.current?.swipeLeft();
+    }
   };
 
   const handleAdopt = () => {
     if (cards.length > 0) {
       const currentPet = cards[cards.length - 1];
-      adoptionMutation.mutate(currentPet.id);
+      adopt(currentPet.id);
       deckRef.current?.swipeRight();
     }
   };
 
   const handleFavorite = () => {
-    deckRef.current?.swipeRight();
-    // TODO: Trigger add to favorites API call
+    if (cards.length > 0) {
+      const currentPet = cards[cards.length - 1];
+      like(currentPet.id);
+      deckRef.current?.swipeRight();
+    }
   };
 
   const renderContent = () => {
@@ -108,7 +108,8 @@ const PetsTab = () => {
             ref={deckRef}
             cards={cards}
             swipeProgress={swipeProgress}
-            onSwipeComplete={handleSwipeComplete}
+            onGestureSwipe={handleGestureSwipe}
+            onAnimationComplete={handleAnimationComplete}
           />
         )}
       </>

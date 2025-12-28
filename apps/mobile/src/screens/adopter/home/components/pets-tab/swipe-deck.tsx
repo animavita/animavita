@@ -8,7 +8,8 @@ import { PetNearMeResponse } from '@/services/pets';
 export type SwipeDeckProps = {
   cards: PetNearMeResponse[];
   swipeProgress: SharedValue<number>;
-  onSwipeComplete: (cardId: string, direction: 'left' | 'right') => void;
+  onGestureSwipe?: (cardId: string, direction: 'left' | 'right') => void;
+  onAnimationComplete: (cardId: string) => void;
 };
 
 export type SwipeDeckRef = {
@@ -17,7 +18,7 @@ export type SwipeDeckRef = {
 };
 
 export const SwipeDeck = forwardRef<SwipeDeckRef, SwipeDeckProps>(
-  ({ cards, swipeProgress, onSwipeComplete }, ref) => {
+  ({ cards, swipeProgress, onGestureSwipe, onAnimationComplete }, ref) => {
     const activeCardRef = useRef<TinderCardRef>(null);
 
     useImperativeHandle(ref, () => ({
@@ -43,7 +44,12 @@ export const SwipeDeck = forwardRef<SwipeDeckRef, SwipeDeckProps>(
               size={card.size}
               isActive={isActive}
               swipeProgress={swipeProgress}
-              onSwipeComplete={(direction) => onSwipeComplete(card.id, direction)}
+              onSwipeComplete={(direction, isGesture) => {
+                if (isGesture && onGestureSwipe) {
+                  onGestureSwipe(card.id, direction);
+                }
+                onAnimationComplete(card.id);
+              }}
             />
           );
         })}

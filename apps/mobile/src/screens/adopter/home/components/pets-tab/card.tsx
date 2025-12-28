@@ -24,7 +24,7 @@ type TinderCardProps = {
   size: string;
   isActive: boolean;
   swipeProgress: SharedValue<number>;
-  onSwipeComplete: (direction: 'left' | 'right') => void;
+  onSwipeComplete: (direction: 'left' | 'right', isGesture: boolean) => void;
 };
 
 export type TinderCardRef = {
@@ -77,7 +77,7 @@ export const TinderCard = forwardRef<TinderCardRef, TinderCardProps>(
         translateX.value = withTiming(-width * 2, { duration: 400 });
         swipeProgress.value = withTiming(1, { duration: 400 }, (finished) => {
           if (finished) {
-            runOnJS(onSwipeComplete)('left');
+            runOnJS(onSwipeComplete)('left', false);
           }
         });
       },
@@ -86,7 +86,7 @@ export const TinderCard = forwardRef<TinderCardRef, TinderCardProps>(
         translateX.value = withTiming(width * 2, { duration: 400 });
         swipeProgress.value = withTiming(1, { duration: 400 }, (finished) => {
           if (finished) {
-            runOnJS(onSwipeComplete)('right');
+            runOnJS(onSwipeComplete)('right', false);
           }
         });
       },
@@ -120,7 +120,7 @@ export const TinderCard = forwardRef<TinderCardRef, TinderCardProps>(
               swipeProgress.value = withTiming(1, { duration: 400 }, (finished) => {
                 if (finished) {
                   // Trigger callback on JS thread when animation completes
-                  runOnJS(onSwipeComplete)(swipedRight ? 'right' : 'left');
+                  runOnJS(onSwipeComplete)(swipedRight ? 'right' : 'left', true);
                 }
               });
             } else {

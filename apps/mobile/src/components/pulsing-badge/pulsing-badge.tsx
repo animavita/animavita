@@ -1,5 +1,6 @@
 import { Box } from 'native-base';
 import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -13,6 +14,7 @@ type PulsingBadgeProps = {
 };
 
 export const PulsingBadge = ({ show }: PulsingBadgeProps) => {
+  const { t } = useTranslation();
   const scale = useSharedValue(1);
   const opacity = useSharedValue(1);
 
@@ -43,6 +45,8 @@ export const PulsingBadge = ({ show }: PulsingBadgeProps) => {
 
   return (
     <Animated.View
+      accessible
+      accessibilityLabel={t('ACCESSIBILITY.NEW_REQUEST')}
       style={[
         {
           position: 'absolute',

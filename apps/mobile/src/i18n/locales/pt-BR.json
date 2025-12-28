@@ -4,7 +4,8 @@
     "PET_CARD_IMAGE": "Foto de {{name}}, {{age}}, {{size}}",
     "PASS_PET": "Pular este pet",
     "REQUEST_ADOPTION": "Solicitar adoção",
-    "ADD_TO_FAVORITES": "Adicionar aos favoritos"
+    "ADD_TO_FAVORITES": "Adicionar aos favoritos",
+    "NEW_REQUEST": "Nova solicitação"
   },
   "AGE": {
     "PUPPY": "Filhote (menos de 1 ano)",
