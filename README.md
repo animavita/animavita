@@ -47,7 +47,7 @@ In v2, we aim to rebuild a simpler version of Animavita with a cleaner UI and a 
 -   [x] Owner can see a list of their posted pets https://github.com/animavita/animavita/issues/238
 -   [x] Owner can edit a posted pet https://github.com/animavita/animavita/issues/240
 -   [ ] Owner can delete a posted pet https://github.com/animavita/animavita/issues/259
--   [ ] Owner can receive adoption requests https://github.com/animavita/animavita/issues/260
+-   [x] Owner can receive adoption requests https://github.com/animavita/animavita/issues/260
 -   [ ] Owner can meet adopters by calling them
 -   [ ] Owner can accept adoption requests https://github.com/animavita/animavita/issues/262
 -   [ ] Owner can deny adoption requests https://github.com/animavita/animavita/issues/263
@@ -56,8 +56,8 @@ In v2, we aim to rebuild a simpler version of Animavita with a cleaner UI and a 
 -   [x] Adopter can see a list of nearest pets for adoption (based on their location) https://github.com/animavita/animavita/issues/278
 -   [ ] Adopter can see pet details
 -   [ ] Adopter can like pets from the list (which will be added to the wishlist)
--   [ ] Adopter can request to adopt a pet https://github.com/animavita/animavita/issues/258
--   [ ] Adopter can see a list of their requested pets https://github.com/animavita/animavita/issues/257
+-   [x] Adopter can request to adopt a pet https://github.com/animavita/animavita/issues/258
+-   [x] Adopter can see a list of their requested pets https://github.com/animavita/animavita/issues/257
 -   [ ] Adopter can give up on a pet https://github.com/animavita/animavita/issues/261
 
 ### Administration
