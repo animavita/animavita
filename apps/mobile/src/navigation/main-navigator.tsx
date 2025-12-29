@@ -1,4 +1,3 @@
-import { useFeatureFlag } from 'posthog-react-native';
 import React from 'react';
 
 import LoggedInNavigator, {
@@ -9,6 +8,7 @@ import LoggedOutNavigator, {
 } from './logged-out-navigator';
 
 import { useAuth } from '@/hooks/use-auth-provider';
+import { useFeatureFlag } from '@/hooks/use-feature-flag';
 import SplashScreen from '@/screens/splash/splash.screen';
 
 export type StackParamsList = LoggedInStackParamsList & LoggedOutStackParamsList;

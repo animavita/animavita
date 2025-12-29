@@ -86,6 +86,15 @@ $ pnpm backend start
 
 ### Running the mobile app
 
+Copy the env file:
+
+```sh
+$ cp apps/mobile/.env.example apps/mobile/.env
+```
+
+The `.env` file includes:
+- `ENV=dev`
+- `EXPO_PUBLIC_POSTHOG_API_KEY` - Optional, leave empty unless you need to test PostHog integration
 
 Then, run the app:
 
@@ -94,6 +103,22 @@ $ pnpm mobile start
 ```
 
 > **Note:** During development, you can bypass the phone number verification step by entering any fake/random OTP code when prompted.
+
+#### Feature flags in development
+
+Feature flags are controlled by PostHog. In development mode:
+- **If you have a valid `EXPO_PUBLIC_POSTHOG_API_KEY`:** Feature flags will be fetched from PostHog unless overridden locally
+- **If `EXPO_PUBLIC_POSTHOG_API_KEY` is empty:** All analytics and feature flag requests are disabled
+
+To override specific flags for local testing, edit `apps/mobile/src/config/local-feature-flags.ts`:
+
+```typescript
+export const LOCAL_FEATURE_FLAGS: Record<string, boolean | undefined> = {
+  require_phone_number: false,  // Set to true/false to override PostHog value
+};
+```
+
+Local overrides take precedence over PostHog values in development mode.
 
 ### Developing with staging backend
 
