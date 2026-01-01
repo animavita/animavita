@@ -1,5 +1,3 @@
-import { Box } from 'native-base';
-
 import PetsTab from './components/pets-tab/pets-tab';
 import RequestsTab from './components/requests-tab';
 
@@ -10,22 +8,20 @@ const OwnerHome = () => {
   const { t } = useLocale();
 
   return (
-    <Box marginTop="4" flex="1">
-      <TabsComponent
-        tabs={[
-          {
-            key: 'my-pets',
-            title: t('MY_PETS_SCREEN.TITLE'),
-            component: PetsTab,
-          },
-          {
-            key: 'requests',
-            title: t('HOME.REQUESTS'),
-            component: RequestsTab,
-          },
-        ]}
-      />
-    </Box>
+    <TabsComponent
+      tabs={[
+        {
+          key: 'my-pets',
+          title: t('MY_PETS_SCREEN.TITLE'),
+          component: PetsTab,
+        },
+        {
+          key: 'requests',
+          title: t('HOME.REQUESTS'),
+          component: RequestsTab,
+        },
+      ]}
+    />
   );
 };
 
