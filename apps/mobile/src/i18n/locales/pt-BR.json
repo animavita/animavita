@@ -61,7 +61,25 @@
         "LABEL": "Fotos",
         "HINT_PICTURE_ONE": "selecione a principal foto do pet",
         "HINT_PICTURE_TWO": "selecione a segunda foto do pet",
-        "HINT_PICTURE_THREE": "selecione a terceira foto do pet"
+        "HINT_PICTURE_THREE": "selecione a terceira foto do pet",
+        "MIN_PHOTOS_REQUIRED": "Selecione pelo menos 3 fotos do pet",
+        "UPLOADING": "Enviando fotos...",
+        "UPLOAD_SUCCESS": "Fotos enviadas com sucesso!",
+        "ERRORS": {
+          "ACCESS_DENIED": "Acesso negado. Tente novamente.",
+          "POLICY_EXPIRED": "Sessão expirada. Tente novamente.",
+          "FILE_TOO_LARGE": "Arquivo muito grande. Máximo: 10MB.",
+          "INVALID_ARGUMENT": "Arquivo inválido. Tente outro.",
+          "MALFORMED_REQUEST": "Erro no envio. Tente novamente.",
+          "SIGNATURE_MISMATCH": "Erro de autenticação. Tente novamente.",
+          "INVALID_TOKEN": "Token inválido. Faça login novamente.",
+          "EXPIRED_TOKEN": "Sessão expirada. Faça login novamente.",
+          "INVALID_FILE_TYPE": "Tipo de arquivo não suportado. Use JPG, PNG, GIF ou WebP.",
+          "FILE_READ_ERROR": "Não foi possível ler o arquivo.",
+          "UNKNOWN_ERROR": "Erro desconhecido. Tente novamente.",
+          "NETWORK_ERROR": "Erro de conexão. Verifique sua internet.",
+          "UPLOAD_FAILED": "Falha no envio da foto {{index}}. Tente novamente."
+        }
       },
       "BACK_BUTTON": "Voltar",
       "NEXT_BUTTON": "Próxima etapa",
@@ -74,6 +92,8 @@
       "MATURITY_REQUIRED": "Informe a maturidade do seu Pet",
       "GENDER_REQUIRED": "Informe o sexo do seu Pet",
       "SIZE_REQUIRED": "Informe o porte do seu Pet",
+      "PHOTOS_REQUIRED": "Selecione pelo menos 3 fotos do pet",
+      "PHOTOS_MIN": "Selecione pelo menos 3 fotos do pet",
       "INVALID_DATA": "Dados inválidos!",
       "GENERIC_ERROR": "Erro ao salvar dados do pet!"
     }
