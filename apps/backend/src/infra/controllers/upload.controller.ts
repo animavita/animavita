@@ -7,14 +7,16 @@ import {
   HttpStatus,
   HttpException,
   Inject,
+  UseGuards,
 } from '@nestjs/common';
 import {
   STORAGE_PROVIDER,
   StorageProvider,
   PresignedUrlRequest,
 } from '../../core/application/services/storage-provider.service';
+import { AccessTokenGuard } from '../../guards/accessToken.guard';
 
-@Controller('uploads')
+@Controller('api/v1/uploads')
 export class UploadController {
   constructor(
     @Inject(STORAGE_PROVIDER)
@@ -22,6 +24,7 @@ export class UploadController {
   ) {}
 
   @Get('presigned-url')
+  @UseGuards(AccessTokenGuard)
   async getPresignedUrl(
     @Query('filename') filename?: string,
     @Query('contentType') contentType?: string,
@@ -30,6 +33,7 @@ export class UploadController {
   }
 
   @Post('presigned-urls')
+  @UseGuards(AccessTokenGuard)
   async getPresignedUrls(@Body() body: { files: PresignedUrlRequest[] }) {
     if (!body.files || !Array.isArray(body.files) || body.files.length === 0) {
       throw new HttpException(

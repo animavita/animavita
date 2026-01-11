@@ -64,8 +64,8 @@ export class S3StorageProvider implements StorageProvider {
     const fileUrl = this.buildFileUrl(key);
 
     return {
-      presignedUrl,
-      fileUrl,
+      presignedUrl: this.replaceLocalhostForDev(presignedUrl),
+      fileUrl: this.replaceLocalhostForDev(fileUrl),
       key,
       expiresIn,
       maxFileSize: this.MAX_FILE_SIZE,
@@ -86,5 +86,13 @@ export class S3StorageProvider implements StorageProvider {
     }
 
     return `https://${this.bucketName}.s3.${this.region}.amazonaws.com/${key}`;
+  }
+
+  private replaceLocalhostForDev(url: string) {
+    const urlObject = new URL(url);
+    if (urlObject.hostname === 'localstack') {
+      urlObject.hostname = 'localhost';
+    }
+    return urlObject.toString();
   }
 }
