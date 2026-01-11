@@ -381,6 +381,9 @@ importers:
 
   shared/validation-schemas:
     dependencies:
+      '@animavita/types':
+        specifier: workspace:*
+        version: link:../types
       fast-text-encoding:
         specifier: ^1.0.6
         version: 1.0.6
