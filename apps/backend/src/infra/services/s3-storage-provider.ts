@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { S3Client } from '@aws-sdk/client-s3';
+import { createPresignedPost } from '@aws-sdk/s3-presigned-post';
 import {
   StorageProvider,
   PresignedUrlRequest,
@@ -10,7 +10,7 @@ import { randomUUID } from 'crypto';
 import * as path from 'path';
 
 const TEN_MB = 10 * 1024 * 1024;
-const FIVE_MINUTES = 300;
+const FIVE_MINUTES_IN_SECONDS = 300;
 
 @Injectable()
 export class S3StorageProvider implements StorageProvider {
@@ -46,28 +46,28 @@ export class S3StorageProvider implements StorageProvider {
     const { filename, contentType = 'image/*' } = request || {};
     const fileExtension = filename ? path.extname(filename) : '';
     const key = `uploads/${randomUUID()}${fileExtension}`;
-    const expiresIn = FIVE_MINUTES;
 
-    const command = new PutObjectCommand({
+    const { url, fields } = await createPresignedPost(this.s3Client, {
       Bucket: this.bucketName,
       Key: key,
-      ContentType: contentType,
-    });
-
-    const presignedUrl = await getSignedUrl(this.s3Client, command, {
-      expiresIn,
-      signableHeaders: new Set(['content-length']),
-      // Enforce max file size at S3 level - clients cannot bypass this
-      unhoistableHeaders: new Set(['x-amz-content-sha256']),
+      Expires: FIVE_MINUTES_IN_SECONDS,
+      Conditions: [
+        ['content-length-range', 0, this.MAX_FILE_SIZE], // Enforced by S3
+        ['starts-with', '$Content-Type', contentType.replace('/*', '/')],
+      ],
+      Fields: {
+        'Content-Type': contentType,
+      },
     });
 
     const fileUrl = this.buildFileUrl(key);
 
     return {
-      presignedUrl: this.replaceLocalhostForDev(presignedUrl),
+      presignedUrl: this.replaceLocalhostForDev(url),
+      fields,
       fileUrl: this.replaceLocalhostForDev(fileUrl),
       key,
-      expiresIn,
+      expiresIn: FIVE_MINUTES_IN_SECONDS,
       maxFileSize: this.MAX_FILE_SIZE,
     };
   }

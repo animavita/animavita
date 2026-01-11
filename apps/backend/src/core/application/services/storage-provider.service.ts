@@ -7,6 +7,7 @@ export interface PresignedUrlRequest {
 
 export interface PresignedUrlResponse {
   presignedUrl: string;
+  fields: Record<string, string>; // Required fields for POST upload
   fileUrl: string;
   key: string;
   expiresIn: number;
