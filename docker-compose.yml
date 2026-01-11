@@ -11,6 +11,7 @@ services:
       - /app/node_modules
     depends_on:
       - mongodb
+      - localstack
     ports:
       - 3000:3000
     environment:
@@ -19,7 +20,13 @@ services:
       - JWT_ACCESS_TOKEN_EXPIRATION=24h
       - JWT_REFRESH_SECRET=321
       - JWT_REFRESH_TOKEN_EXPIRATION=14d
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_S3_BUCKET_NAME=animavita-uploads
+      - AWS_ENDPOINT=http://localstack:4566
     command: pnpm run start:dev
+
   mongodb:
     container_name: animavita_mongo
     image: mongo:7.0.0
@@ -31,5 +38,20 @@ services:
       - MONGO_INITDB_DATABASE=animavita
     volumes:
       - mongo:/data/db
+
+  localstack:
+    container_name: animavita_localstack
+    image: localstack/localstack:3.0
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - PERSISTENCE=1
+    volumes:
+      - localstack-data:/var/lib/localstack
+      - ./apps/backend/scripts/localstack-init.sh:/etc/localstack/init/ready.d/init-aws.sh
+
 volumes:
   mongo:
+  localstack-data:

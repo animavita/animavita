@@ -5,6 +5,7 @@ import { AuthModule } from './auth.module';
 import { UserModule } from './user.module';
 import { PetModule } from './pet.module';
 import { GeolocationModule } from './geolocation.module';
+import { StorageModule } from './storage.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { GeolocationModule } from './geolocation.module';
     UserModule,
     AuthModule,
     GeolocationModule,
+    StorageModule,
   ],
   controllers: [],
   providers: [],
