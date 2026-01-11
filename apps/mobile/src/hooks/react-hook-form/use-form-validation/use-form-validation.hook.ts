@@ -1,5 +1,4 @@
 import { useToast } from 'native-base';
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import useLocale from '@/hooks/use-locale';
@@ -13,16 +12,28 @@ export const mountErrorMessage = (fieldName: string, type: string) => {
 const useFormValidation = (formName: string, translationPath: string) => {
   const { t } = useLocale();
 
-  const { trigger, getFieldState } = useFormContext();
+  const { trigger, getFieldState, getValues } = useFormContext();
   const { show, isActive } = useToast();
 
-  const showFeedback = (fieldName: string) => {
-    const fieldError = getFieldState(fieldName);
+  const getInlineArrayError = (fieldName: string): string | null => {
+    const values = getValues(fieldName);
+    if (!Array.isArray(values)) return null;
 
+    return values.find((item) => item?.error)?.error || null;
+  };
+
+  const showFeedback = (fieldName: string) => {
     const id = `${formName}-form-toast`;
 
+    const inlineError = getInlineArrayError(fieldName);
+    if (inlineError) {
+      if (!isActive(id)) show({ id, description: inlineError });
+      return;
+    }
+
+    const fieldError = getFieldState(fieldName);
     const errorMessage = mountErrorMessage(fieldName, fieldError?.error?.type as string);
-    const description = t(`${translationPath}.${errorMessage}`) as React.ReactNode;
+    const description = t(`${translationPath}.${errorMessage}`);
 
     if (!isActive(id)) show({ id, description });
   };
