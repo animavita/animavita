@@ -25,11 +25,20 @@ export class S3StorageProvider implements StorageProvider {
     this.endpoint = process.env.AWS_ENDPOINT;
     this.bucketName = process.env.AWS_S3_BUCKET_NAME || 'animavita-uploads';
 
+    const accessKeyId = process.env.AWS_ACCESS_KEY_ID;
+    const secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+
+    if (!accessKeyId || !secretAccessKey) {
+      throw new Error(
+        'AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY must be set in environment variables',
+      );
+    }
+
     this.s3Client = new S3Client({
       region: this.region,
       credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+        accessKeyId,
+        secretAccessKey,
       },
       requestChecksumCalculation: 'WHEN_REQUIRED',
       responseChecksumValidation: 'WHEN_REQUIRED',
