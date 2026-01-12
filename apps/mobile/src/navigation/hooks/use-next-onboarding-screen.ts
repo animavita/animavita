@@ -1,7 +1,6 @@
-import { useFeatureFlag } from 'posthog-react-native';
-
 import { StackParamsList } from '../main-navigator';
 
+import { useFeatureFlag } from '@/hooks/use-feature-flag';
 import { UserInfo } from '@/state/auth-provider/auth-provider.types';
 
 const useNextOnboardingScreen = (): ((

@@ -8,8 +8,8 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { initI18n } from './src/i18n/i18n.config';
 
 import MainNavigator from '@/navigation/main-navigator';
-import { AuthProvider } from '@/state/auth-provider';
 import queryClient from '@/services/query-client-instance';
+import { AuthProvider } from '@/state/auth-provider';
 import theme from '@/theme';
 
 const App = () => {
@@ -20,6 +20,7 @@ const App = () => {
           apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
           options={{
             host: 'https://us.i.posthog.com',
+            disabled: process.env.EXPO_PUBLIC_POSTHOG_API_KEY === 'dev',
           }}
         >
           <GestureHandlerRootView>

@@ -1,9 +1,11 @@
 import { renderHook } from '@testing-library/react-native';
-import { useFeatureFlag } from 'posthog-react-native';
 
 import useNextOnboardingScreen from './use-next-onboarding-screen';
 
+import { useFeatureFlag } from '@/hooks/use-feature-flag';
 import { UserInfo } from '@/state/auth-provider/auth-provider.types';
+
+jest.mock('@/hooks/use-feature-flag');
 
 describe('useNextOnboardingScreen', () => {
   beforeEach(() => {
