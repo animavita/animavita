@@ -13,8 +13,6 @@ import { AuthProvider } from '@/state/auth-provider';
 import theme from '@/theme';
 
 const App = () => {
-  const isDev = process.env.NODE_ENV === 'development';
-
   return (
     <QueryClientProvider client={queryClient}>
       <NavigationContainer>
@@ -22,7 +20,7 @@ const App = () => {
           apiKey={process.env.EXPO_PUBLIC_POSTHOG_API_KEY}
           options={{
             host: 'https://us.i.posthog.com',
-            disabled: isDev,
+            disabled: process.env.EXPO_PUBLIC_POSTHOG_API_KEY === 'dev',
           }}
         >
           <GestureHandlerRootView>

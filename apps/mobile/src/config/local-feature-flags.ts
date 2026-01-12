@@ -1,3 +1,3 @@
 export const LOCAL_FEATURE_FLAGS: Record<string, boolean | undefined> = {
-  require_phone_number: true,
+  require_phone_number: false,
 };
