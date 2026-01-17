@@ -1,18 +1,8 @@
+import { PresignedUrlRequest, PresignedUrlResponse } from '@animavita/types';
+
 export const STORAGE_PROVIDER = 'StorageProvider';
 
-export interface PresignedUrlRequest {
-  filename?: string;
-  contentType?: string;
-}
-
-export interface PresignedUrlResponse {
-  presignedUrl: string;
-  fields: Record<string, string>; // Required fields for POST upload
-  fileUrl: string;
-  key: string;
-  expiresIn: number;
-  maxFileSize: number;
-}
+export type { PresignedUrlRequest, PresignedUrlResponse };
 
 export interface StorageProvider {
   getPresignedUrl(request?: PresignedUrlRequest): Promise<PresignedUrlResponse>;
