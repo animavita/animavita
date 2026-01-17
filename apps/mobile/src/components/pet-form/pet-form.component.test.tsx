@@ -31,6 +31,12 @@ const pickOptionFromList = async (optionText: string | RegExp) => {
   fireEvent.press(option);
 };
 
+const VALID_PHOTOS = [
+  { uri: 'https://example.com/photo1.jpg', isUploaded: true },
+  { uri: 'https://example.com/photo2.jpg', isUploaded: true },
+  { uri: 'https://example.com/photo3.jpg', isUploaded: true },
+];
+
 const goToLastStep = async () => {
   await fillOutTextInput('name', 'Bob');
   forwardStep();
@@ -44,7 +50,7 @@ const goToLastStep = async () => {
   forwardStep();
   await pickOptionFromList(/grande/i);
   forwardStep();
-  await screen.findByText(/fotos/i);
+  await screen.findByAccessibilityHint(/selecione a principal foto do pet/i);
   forwardStep();
   await screen.findByText(/confirmar/i);
 };
@@ -52,7 +58,9 @@ const goToLastStep = async () => {
 const Stack = createNativeStackNavigator<StackParamsList>();
 
 const MainNavigator = ({ petForm }: { petForm?: () => React.ReactNode }) => {
-  const defaultForm = () => <PetForm defaultValues={{ maturity: 'adult' }} title="Register Pet" />;
+  const defaultForm = () => (
+    <PetForm defaultValues={{ maturity: 'adult', photos: VALID_PHOTOS }} title="Register Pet" />
+  );
 
   return (
     <Stack.Navigator initialRouteName="RegisterPet">
@@ -117,7 +125,11 @@ describe('PetForm', () => {
         renderWithProviders(
           <MainNavigator
             petForm={() => (
-              <PetForm initialStep={AdoptionSteps.PetObservations} title="Register Pet" />
+              <PetForm
+                initialStep={AdoptionSteps.PetObservations}
+                defaultValues={{ photos: VALID_PHOTOS }}
+                title="Register Pet"
+              />
             )}
           />
         );

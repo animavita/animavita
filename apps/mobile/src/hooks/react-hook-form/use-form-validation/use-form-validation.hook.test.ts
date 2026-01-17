@@ -60,6 +60,10 @@ describe('useFormValidation', () => {
         jest.mocked(useFormContext).mockReturnValue({
           ...useFormContext(),
           trigger: () => Promise.resolve(false),
+          getValues: jest.fn().mockReturnValue(null),
+          getFieldState: () => {
+            return { error: { type: 'any.required' } as Record<string, any> } as any;
+          },
           formState: {
             errors: { name: { type: 'any.required' } } as Record<string, any>,
           } as any,
@@ -83,6 +87,7 @@ describe('useFormValidation', () => {
           jest.mocked(useFormContext).mockReturnValue({
             ...useFormContext(),
             trigger: () => Promise.resolve(false),
+            getValues: jest.fn().mockReturnValue(null),
             getFieldState: () => {
               return { error: { type: 'any.required' } as Record<string, any> } as any;
             },
@@ -110,6 +115,7 @@ describe('useFormValidation', () => {
           jest.mocked(useFormContext).mockReturnValue({
             ...useFormContext(),
             trigger: () => Promise.resolve(false),
+            getValues: jest.fn().mockReturnValue(null),
             getFieldState: () => {
               return { error: { type: 'any.required' } as Record<string, any> } as any;
             },

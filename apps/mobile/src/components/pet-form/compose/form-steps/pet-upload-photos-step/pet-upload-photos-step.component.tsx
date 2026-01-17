@@ -26,7 +26,7 @@ const PhotoPicker = ({
 
   return (
     <Box {...boxProps}>
-      <Pressable onPress={onPress}>
+      <Pressable onPress={onPress} accessibilityHint={accessibilityHint}>
         {imageUri ? (
           <Image
             rounded="md"
@@ -36,7 +36,6 @@ const PhotoPicker = ({
             borderColor={borderColor}
             borderWidth={borderWidth}
             alt={alt || 'Pet photo'}
-            accessibilityHint={accessibilityHint}
           />
         ) : (
           <Center
