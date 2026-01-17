@@ -27,6 +27,12 @@ export type UploadResult = {
   error?: UploadError;
 };
 
+export type ReactNativeFile = {
+  uri: string;
+  type: string;
+  name: string;
+};
+
 export const AWS_ERROR_CODES = {
   AccessDenied: 'ACCESS_DENIED',
   PolicyExpired: 'POLICY_EXPIRED',
@@ -70,11 +76,12 @@ export const uploadFileToS3 = async (
   });
 
   const fileName = presignedData.key.split('/').pop() || 'image';
-  formData.append('file', {
+  const file: ReactNativeFile = {
     uri: fileUri,
     type: contentType,
     name: fileName,
-  } as unknown as Blob);
+  };
+  formData.append('file', file as unknown as Blob);
 
   const response = await fetch(presignedData.presignedUrl, {
     method: 'POST',
@@ -160,7 +167,7 @@ export const uploadMultipleFiles = async (
     }
   }
 
-  if (errors.length > 0) {
+  if (validFiles.length === 0) {
     return { urls: [], errors };
   }
 
@@ -170,6 +177,12 @@ export const uploadMultipleFiles = async (
   }));
 
   const { uploads } = await getPresignedUrls(presignedRequests);
+
+  if (uploads.length !== validFiles.length) {
+    throw new Error(
+      `Presigned URL count mismatch: expected ${validFiles.length}, received ${uploads.length}`
+    );
+  }
 
   const uploadPromises = validFiles.map(async (file, idx) => {
     const presignedData = uploads[idx];
