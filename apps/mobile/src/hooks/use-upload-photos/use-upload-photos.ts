@@ -70,10 +70,17 @@ export const useUploadPhotos = () => {
     },
     onSuccess: ({ urls }) => {
       const currentPhotos = getValues('photos') as ImageState[];
-      const updatedPhotos = currentPhotos.map((photo, index) => {
-        const uploadedUrl = urls.find((_, urlIdx) => urlIdx === index);
-        if (uploadedUrl && !photo.isUploaded) {
-          return { uri: uploadedUrl, isUploaded: true };
+      let urlIdx = 0;
+      const updatedPhotos = currentPhotos.map((photo) => {
+        if (!photo.uri) {
+          return photo;
+        }
+        const uploadedUrl = urls[urlIdx];
+        if (uploadedUrl) {
+          urlIdx += 1;
+          if (!photo.isUploaded) {
+            return { uri: uploadedUrl, isUploaded: true };
+          }
         }
         return photo;
       });
