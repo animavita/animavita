@@ -9,7 +9,7 @@ import { LoadingState } from './loading-state';
 import { PetCard } from './pet-card';
 
 import useLocale from '@/hooks/use-locale';
-import usePets from '@/hooks/use-pets/use-pets';
+import { usePets } from '@/hooks/use-pets/use-pets';
 import { useNavigation } from '@/navigation/use-navigation';
 
 const PetsTab = () => {

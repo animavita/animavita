@@ -17,8 +17,9 @@ jest.mock('@/shared/image-picker', () => ({
 
 const mockUsePetPhotos = (pickImage = jest.fn()) => {
   (usePetPhotosPicker as jest.Mock).mockReturnValue({
-    images: [null, null, null],
+    photos: [{ uri: null }, { uri: null }, { uri: null }],
     pickImage,
+    getPhotoError: jest.fn().mockReturnValue(null),
   });
 };
 
