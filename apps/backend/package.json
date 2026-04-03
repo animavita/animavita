@@ -29,7 +29,7 @@
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.2.0",
     "@nestjs/core": "^9.0.0",
-    "@nestjs/jwt": "^9.0.0",
+    "@nestjs/jwt": "^10.0.0",
     "@nestjs/mapped-types": "*",
     "@nestjs/mongoose": "^9.2.0",
     "@nestjs/passport": "^9.0.0",
@@ -37,9 +37,9 @@
     "argon2": "^0.30.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.3",
-    "mongoose": "^6.11.3",
+    "mongoose": "^6.13.6",
     "passport": "^0.6.0",
-    "passport-jwt": "^4.0.0",
+    "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0"
@@ -59,7 +59,7 @@
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
-    "axios": "1.2.0-alpha.1",
+    "axios": "^1.13.5",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -72,7 +72,7 @@
     "ts-jest": "28.0.8",
     "ts-loader": "^9.2.3",
     "ts-node": "^10.0.0",
-    "tsconfig-paths": "4.1.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^4.7.4"
   },
   "jest": {
