@@ -2,15 +2,25 @@ export const AdoptionRequestStatus = {
   PENDING: 'pending',
   ACCEPTED: 'accepted',
   DENIED: 'denied',
+  CANCELLED: 'cancelled',
 } as const;
 
-export type AdoptionRequestStatusType = 'pending' | 'accepted' | 'denied';
+export type AdoptionRequestStatusType = 'pending' | 'accepted' | 'denied' | 'cancelled';
+
+export const DenialReason = {
+  REJECTED_BY_OWNER: 'rejected_by_owner',
+  PET_ADOPTED: 'pet_adopted',
+  PET_REMOVED: 'pet_removed',
+} as const;
+
+export type DenialReasonType = 'rejected_by_owner' | 'pet_adopted' | 'pet_removed';
 
 export type AdoptionRequestResponse = {
   id: string;
   petId: string;
   adopterId: string;
   status: AdoptionRequestStatusType;
+  denialReason: DenialReasonType | null;
   createdAt: string;
   updatedAt: string;
   pet: {

@@ -4,12 +4,14 @@ import {
   AdoptionResponse,
   AdoptionRequestResponse,
   AdoptionRequestStatus,
+  DenialReason,
+  DenialReasonType,
 } from '@animavita/types';
 
 import client from './http-client';
 
-export type { AdoptionRequestResponse };
-export { AdoptionRequestStatus };
+export type { AdoptionRequestResponse, DenialReasonType };
+export { AdoptionRequestStatus, DenialReason };
 
 export const getAllAdoptions = () => {
   return client.get<AdoptionResponse[]>('/adoptions');
@@ -29,4 +31,8 @@ export const getMyAdoptionRequests = () => {
 
 export const requestPetAdoption = (petId: string) => {
   return client.post<AdoptionRequestResponse>(`/pets/${petId}/request`);
+};
+
+export const denyAdoptionRequest = (requestId: string) => {
+  return client.patch<void>(`/adoption-requests/${requestId}/deny`);
 };

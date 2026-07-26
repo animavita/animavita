@@ -1,4 +1,4 @@
-import { AdoptionRequestResponse, AdoptionRequestStatus } from '@/services/adoptions';
+import { AdoptionRequestResponse, AdoptionRequestStatus, DenialReason } from '@/services/adoptions';
 
 export const mockAdoptionRequests: AdoptionRequestResponse[] = [
   {
@@ -6,6 +6,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     petId: 'pet1',
     adopterId: 'adopter1',
     status: AdoptionRequestStatus.PENDING,
+    denialReason: null,
     pet: {
       id: 'pet1',
       name: 'Rex',
@@ -28,6 +29,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     petId: 'pet2',
     adopterId: 'adopter2',
     status: AdoptionRequestStatus.ACCEPTED,
+    denialReason: null,
     pet: {
       id: 'pet2',
       name: 'Mittens',
@@ -50,6 +52,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     petId: 'pet3',
     adopterId: 'adopter3',
     status: AdoptionRequestStatus.DENIED,
+    denialReason: DenialReason.REJECTED_BY_OWNER,
     pet: {
       id: 'pet3',
       name: 'Buddy',

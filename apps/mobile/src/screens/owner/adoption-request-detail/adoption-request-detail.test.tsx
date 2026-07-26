@@ -1,9 +1,12 @@
 import { AdoptionRequestResponse, AdoptionRequestStatus } from '@animavita/types';
-import { screen } from '@testing-library/react-native';
+import { screen, waitFor } from '@testing-library/react-native';
+import { http, HttpResponse } from 'msw';
+import { useToast } from 'native-base';
 import React from 'react';
 
 import { AdoptionRequestDetail } from './adoption-request-detail';
 
+import { server } from '@/test/msw/server';
 import { renderWithProviders } from '@/test/test-utils';
 
 const mockGoBack = jest.fn();
@@ -19,6 +22,7 @@ jest.mock('@/navigation/use-navigation', () => ({
 const mockPendingRequest: AdoptionRequestResponse = {
   id: '1',
   status: AdoptionRequestStatus.PENDING,
+  denialReason: null,
   petId: 'pet1',
   adopterId: 'adopter1',
   pet: {
@@ -26,6 +30,10 @@ const mockPendingRequest: AdoptionRequestResponse = {
     name: 'Rex',
     breed: 'Labrador',
     type: 'dog',
+    owner: {
+      id: 'owner1',
+      name: 'Maria Silva',
+    },
   },
   adopter: {
     id: 'adopter1',
@@ -46,12 +54,16 @@ const mockDeniedRequest: AdoptionRequestResponse = {
   ...mockPendingRequest,
   id: '3',
   status: AdoptionRequestStatus.DENIED,
+  denialReason: 'rejected_by_owner',
   updatedAt: '2025-01-15T16:30:00.000Z',
 };
+
+const mockToastShow = jest.fn();
 
 describe('AdoptionRequestDetail (Owner)', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    (useToast as jest.Mock).mockReturnValue({ show: mockToastShow, isActive: jest.fn() });
   });
 
   describe('pending request', () => {
@@ -134,13 +146,71 @@ describe('AdoptionRequestDetail (Owner)', () => {
       expect(mockGoBack).toHaveBeenCalled();
     });
 
-    it('calls handleDenyRequest when deny button is pressed', async () => {
+    it('denies the request and leaves the screen when deny button is pressed', async () => {
+      const deniedRequestIds: string[] = [];
+
+      server.use(
+        http.patch('*/api/v1/adoption-requests/:id/deny', ({ params }) => {
+          deniedRequestIds.push(params.id as string);
+          return new HttpResponse(null, { status: 200 });
+        })
+      );
+
       const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
 
       const denyButton = screen.getByText('Recusar Solicitação');
       await user.press(denyButton);
 
-      expect(mockGoBack).toHaveBeenCalled();
+      await waitFor(() => {
+        expect(deniedRequestIds).toEqual(['1']);
+      });
+
+      await waitFor(() => {
+        expect(mockGoBack).toHaveBeenCalled();
+      });
+    });
+
+    it('confirms the denial to the owner', async () => {
+      server.use(
+        http.patch('*/api/v1/adoption-requests/:id/deny', () => {
+          return new HttpResponse(null, { status: 200 });
+        })
+      );
+
+      const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      await user.press(screen.getByText('Recusar Solicitação'));
+
+      await waitFor(() => {
+        expect(mockToastShow).toHaveBeenCalledWith(
+          expect.objectContaining({ title: 'Solicitação recusada' })
+        );
+      });
+    });
+
+    it('tells the owner when the request had already been resolved elsewhere', async () => {
+      server.use(
+        http.patch('*/api/v1/adoption-requests/:id/deny', () => {
+          return HttpResponse.json(
+            { message: 'Only pending adoption requests can be denied' },
+            { status: 409 }
+          );
+        })
+      );
+
+      const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      await user.press(screen.getByText('Recusar Solicitação'));
+
+      await waitFor(() => {
+        expect(mockToastShow).toHaveBeenCalledWith(
+          expect.objectContaining({ title: 'Esta solicitação já foi respondida' })
+        );
+      });
+
+      await waitFor(() => {
+        expect(mockGoBack).toHaveBeenCalled();
+      });
     });
 
     it('does not show already handled message', () => {

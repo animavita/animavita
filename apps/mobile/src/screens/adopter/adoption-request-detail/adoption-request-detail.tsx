@@ -33,7 +33,25 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
   };
 
   const getStatusLabel = (status: string) => {
+    if (status === AdoptionRequestStatus.DENIED && request.denialReason) {
+      return t(
+        `ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_DENIED_${request.denialReason.toUpperCase()}`
+      );
+    }
+
     return t(`ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_${status.toUpperCase()}`);
+  };
+
+  const getResolutionMessage = () => {
+    if (request.status === AdoptionRequestStatus.ACCEPTED) {
+      return t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_ACCEPTED');
+    }
+
+    if (request.denialReason) {
+      return t(`ADOPTION_REQUESTS.ADOPTER.DETAIL.DENIED_${request.denialReason.toUpperCase()}`);
+    }
+
+    return t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_DENIED');
   };
 
   const formatDate = (dateString: string) => {
@@ -122,9 +140,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
           {request.status !== AdoptionRequestStatus.PENDING && (
             <Box bg="coolGray.100" borderRadius="lg" p={4}>
               <Text textAlign="center" color="coolGray.600">
-                {request.status === AdoptionRequestStatus.ACCEPTED
-                  ? t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_ACCEPTED')
-                  : t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_DENIED')}
+                {getResolutionMessage()}
               </Text>
             </Box>
           )}

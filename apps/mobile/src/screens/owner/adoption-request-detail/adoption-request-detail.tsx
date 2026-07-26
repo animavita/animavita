@@ -3,6 +3,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Box, Button, HStack, Icon, Text, VStack, Badge, Divider } from 'native-base';
 import { useTranslation } from 'react-i18next';
 
+import { useDenyRequest } from './hooks/use-deny-request';
+
 import PageDelimiter from '@/components/delimiter/delimiter';
 import SafeArea from '@/components/safe-area/safe-area';
 import Topbar from '@/components/topbar/topbar';
@@ -20,6 +22,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
   const { t } = useTranslation();
   const { goBack } = useNavigation();
   const { request } = route.params;
+  const { deny, isDenying } = useDenyRequest();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -54,9 +57,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
   };
 
   const handleDenyRequest = () => {
-    console.log('Deny request:', request.id);
-    // TODO: Call API to deny request
-    goBack();
+    deny(request.id);
   };
 
   return (
@@ -142,6 +143,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
             <Button
               colorScheme="success"
               size="lg"
+              isDisabled={isDenying}
               leftIcon={<Icon as={Ionicons} name="checkmark-circle" />}
               onPress={handleAcceptRequest}
             >
@@ -152,6 +154,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
               colorScheme="danger"
               variant="solid"
               size="lg"
+              isLoading={isDenying}
               leftIcon={<Icon as={Ionicons} name="close-circle" />}
               onPress={handleDenyRequest}
             >

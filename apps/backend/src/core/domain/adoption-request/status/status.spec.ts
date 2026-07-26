@@ -16,18 +16,36 @@ describe('AdoptionRequestStatus Value Object', () => {
       const status = new AdoptionRequestStatus('denied');
       expect(status.getValue()).toBe('denied');
     });
+
+    it('creates a cancelled status', () => {
+      const status = new AdoptionRequestStatus('cancelled');
+      expect(status.getValue()).toBe('cancelled');
+    });
   });
 
   describe('when input is invalid', () => {
     it('throws an error for invalid status', () => {
       expect(() => new AdoptionRequestStatus('invalid')).toThrow(
-        'Invalid status: invalid. Must be one of: pending, accepted, denied',
+        'Invalid status: invalid. Must be one of: pending, accepted, denied, cancelled',
       );
     });
 
     it('throws an error for empty string', () => {
       expect(() => new AdoptionRequestStatus('')).toThrow('Invalid status');
     });
+  });
+
+  describe('isPending', () => {
+    it('is true for a pending status', () => {
+      expect(AdoptionRequestStatus.pending().isPending()).toBe(true);
+    });
+
+    it.each(['accepted', 'denied', 'cancelled'])(
+      'is false for a %s status',
+      (status) => {
+        expect(new AdoptionRequestStatus(status).isPending()).toBe(false);
+      },
+    );
   });
 
   describe('factory methods', () => {
@@ -44,6 +62,11 @@ describe('AdoptionRequestStatus Value Object', () => {
     it('creates denied status via factory', () => {
       const status = AdoptionRequestStatus.denied();
       expect(status.getValue()).toBe('denied');
+    });
+
+    it('creates cancelled status via factory', () => {
+      const status = AdoptionRequestStatus.cancelled();
+      expect(status.getValue()).toBe('cancelled');
     });
   });
 });

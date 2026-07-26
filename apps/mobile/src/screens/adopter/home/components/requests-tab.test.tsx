@@ -7,6 +7,7 @@ import { Text } from 'react-native';
 import RequestsTab from './requests-tab';
 
 import { StackParamsList } from '@/navigation/main-navigator';
+import { DenialReason, DenialReasonType } from '@/services/adoptions';
 import { mockAdoptionRequests } from '@/test/fixtures/adoption-requests';
 import { server } from '@/test/msw/server';
 import { renderWithProviders } from '@/test/test-utils';
@@ -74,7 +75,7 @@ describe('RequestsTab (Adopter)', () => {
       await waitFor(() => {
         expect(screen.getByText('Aguardando resposta')).toBeVisible();
         expect(screen.getByText('Aprovada')).toBeVisible();
-        expect(screen.getByText('Recusada')).toBeVisible();
+        expect(screen.getByText('Recusada pelo dono')).toBeVisible();
       });
     });
 
@@ -120,6 +121,42 @@ describe('RequestsTab (Adopter)', () => {
       await user.press(requestCard);
 
       expect(screen.getByText('AdoptionRequestDetail screen')).toBeVisible();
+    });
+  });
+
+  describe('denied requests', () => {
+    const deniedWith = (denialReason: DenialReasonType) => [
+      { ...mockAdoptionRequests[2], denialReason },
+    ];
+
+    it('tells an adopter turned down by the owner apart from one whose pet found a home', async () => {
+      server.use(
+        http.get('*/api/v1/adoption-requests/my', () => {
+          return HttpResponse.json(deniedWith(DenialReason.PET_ADOPTED));
+        })
+      );
+
+      renderWithProviders(<RequestsTab />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Pet já adotado')).toBeVisible();
+      });
+
+      expect(screen.queryByText('Recusada pelo dono')).not.toBeOnTheScreen();
+    });
+
+    it('falls back to the plain denied label when no reason was recorded', async () => {
+      server.use(
+        http.get('*/api/v1/adoption-requests/my', () => {
+          return HttpResponse.json([{ ...mockAdoptionRequests[2], denialReason: null }]);
+        })
+      );
+
+      renderWithProviders(<RequestsTab />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Recusada')).toBeVisible();
+      });
     });
   });
 

@@ -21,6 +21,10 @@ export const handlers = [
     });
   }),
 
+  http.patch('*/api/v1/adoption-requests/:id/deny', () => {
+    return new HttpResponse(null, { status: 200 });
+  }),
+
   http.post('*/api/v1/auth/signIn', () => {
     return HttpResponse.json({
       accessToken: '123',
