@@ -28,7 +28,9 @@ pnpm test                   # jest in backend and mobile
 
 Per app: `pnpm backend test`, `pnpm mobile check-types`, etc.
 
-Use the Node version in `.nvmrc` (v20.13.1) and pnpm 9 or 10. On a newer Node, `argon2` fails to compile its native binding and the sign-in specs won't run.
+Use the Node version in `.nvmrc` (v20.13.1). On a newer Node, `argon2` fails to compile its native binding and the sign-in specs won't run.
+
+**Use pnpm 9, not 10.** `packageManager` pins `pnpm@9.15.9`, so pnpm 10 switches itself to 9.15.9 for you; corepack does the same. The version matters because CI and the backend Dockerfile both run 9.15.9, and the two majors disagree about the `pnpm` field in `package.json` — pnpm 10 renamed settings that 9 then silently ignores, which is how staging once broke without any test noticing. Upgrading the whole toolchain to pnpm 10 is tracked in issue #316; until then, don't hand-edit that field to match whatever your local pnpm prints.
 
 CI runs backend and mobile tests separately (`.github/workflows/run-*-tests.yml`). Note that CI currently runs only backend **e2e** tests and does **not** typecheck either app — so a green CI does not mean `pnpm verify` passes. Run it locally.
 
