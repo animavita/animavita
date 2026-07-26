@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "pnpm --filter backend",
     "mobile": "pnpm --filter mobile",
+    "test": "pnpm backend test && pnpm mobile test",
+    "lint": "pnpm backend lint && pnpm mobile lint",
+    "check-types": "pnpm backend check-types && pnpm mobile check-types",
+    "verify": "pnpm check-types && pnpm lint && pnpm test",
     "clean": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
   },
   "keywords": [],
@@ -19,9 +22,13 @@
     "patchedDependencies": {
       "native-base@3.4.25": "patches/native-base@3.4.25.patch"
     },
-    "allowNonAppliedPatches": true,
+    "allowUnusedPatches": true,
     "overrides": {
       "@aws-sdk/client-s3": "^3.966.0"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "argon2",
+      "mongodb-memory-server"
+    ]
   }
 }

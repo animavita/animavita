@@ -1,0 +1,58 @@
+name: Bug
+description: Something behaves differently from what it should.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: expected-actual
+    attributes:
+      label: Expected vs actual
+      description: Two sentences. What should happen, and what happens instead.
+      value: |
+        **Expected:**
+
+        **Actual:**
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Start from a known state. The seeded accounts (`owner@email.com` / `adopter@email.com`, both `Password123`) are the best starting point — see CONTRIBUTING.md.
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: Where
+      description: Platform, and whether you were on a local or staging backend.
+      placeholder: iOS simulator, ENV=dev (local backend)
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Paste any error output. Screenshots help a lot for UI bugs.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - backend
+        - mobile
+        - shared types / validation
+        - infra / CI
+        - not sure
+    validations:
+      required: true

@@ -1,0 +1,52 @@
+name: Chore / refactor
+description: Work with no user-visible behaviour change — dependencies, tooling, CI, refactors.
+labels: ["chore"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What needs to change
+      description: Be specific about the current state and the target state.
+      placeholder: |
+        `native-base` is unmaintained and we carry a local patch for it (patches/native-base@3.4.25.patch). Move the component layer to gluestack.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: Why now
+      description: What this unblocks, or what it costs us to leave alone.
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: Done when
+      value: |
+        - [ ]
+        - [ ] `pnpm verify` passes
+    validations:
+      required: true
+
+  - type: textarea
+    id: migration
+    attributes:
+      label: Migration plan
+      description: For anything that touches many files, describe how CI stays green throughout — usually add the new form alongside the old one, migrate in batches, then delete the old one. Say how the batches are split.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - backend
+        - mobile
+        - shared types / validation
+        - infra / CI
+    validations:
+      required: true

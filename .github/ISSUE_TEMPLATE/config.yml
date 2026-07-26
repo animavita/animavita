@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discord
+    url: https://discord.gg/BHHz77rhb6
+    about: Questions, setup help, or anything you want to talk through before opening an issue.
+  - name: v2 architecture discussion
+    url: https://github.com/animavita/animavita/discussions/120
+    about: Background on the decisions behind the v2 rebuild.
