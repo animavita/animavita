@@ -150,7 +150,9 @@ The five canonical triage roles map 1:1 to label strings of the same name. See `
 
 ### Domain docs
 
-Single-context: one `CONTEXT.md` and `docs/adr/` at the repo root. Neither exists yet — `/domain-modeling` creates them lazily. See `docs/agents/domain.md`.
+Single-context: `CONTEXT.md` at the repo root holds the glossary, `docs/adr/` holds the decisions. **Read both before working on adoption logic** — several decisions there deliberately reverse what the current code does. See `docs/agents/domain.md`.
+
+Use the glossary's vocabulary in code, tickets and tests. Note the `@animavita/types` package predates it and contradicts it (`AdoptionType` means Pet, `CreateAdoptionRequest` means a pet posting, not a request) — CONTEXT.md has the mapping under "Known vocabulary debt".
 
 ## Pull requests
 
