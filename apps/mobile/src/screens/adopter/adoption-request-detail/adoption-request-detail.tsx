@@ -32,8 +32,26 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
     }
   };
 
-  const getStatusLabel = (status: string) => {
-    return t(`ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_${status.toUpperCase()}`);
+  const getStatusLabel = () => {
+    if (request.status === AdoptionRequestStatus.DENIED && request.denialReason) {
+      return t(
+        `ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_DENIED_${request.denialReason.toUpperCase()}`
+      );
+    }
+
+    return t(`ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_${request.status.toUpperCase()}`);
+  };
+
+  const getStatusMessage = () => {
+    if (request.status === AdoptionRequestStatus.ACCEPTED) {
+      return t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_ACCEPTED');
+    }
+
+    if (request.denialReason) {
+      return t(`ADOPTION_REQUESTS.ADOPTER.DETAIL.DENIED_${request.denialReason.toUpperCase()}`);
+    }
+
+    return t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_DENIED');
   };
 
   const formatDate = (dateString: string) => {
@@ -69,7 +87,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
                 px={3}
                 py={1}
               >
-                {getStatusLabel(request.status)}
+                {getStatusLabel()}
               </Badge>
             </HStack>
 
@@ -122,9 +140,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
           {request.status !== AdoptionRequestStatus.PENDING && (
             <Box bg="coolGray.100" borderRadius="lg" p={4}>
               <Text textAlign="center" color="coolGray.600">
-                {request.status === AdoptionRequestStatus.ACCEPTED
-                  ? t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_ACCEPTED')
-                  : t('ADOPTION_REQUESTS.ADOPTER.DETAIL.ALREADY_DENIED')}
+                {getStatusMessage()}
               </Text>
             </Box>
           )}

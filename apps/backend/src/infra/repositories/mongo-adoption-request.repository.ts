@@ -17,6 +17,16 @@ export class MongoAdoptionRequestRepository
     private readonly adoptionRequestModel: Model<AdoptionRequestDocument>,
   ) {}
 
+  private mapToDomain(document: AdoptionRequestDocument): AdoptionRequest {
+    return AdoptionRequest.create({
+      id: document.id,
+      petId: document.petId,
+      adopterId: document.adopterId,
+      status: document.status,
+      denialReason: document.denialReason,
+    });
+  }
+
   async getById(_id: string): Promise<AdoptionRequest> {
     if (!isValidObjectId(_id)) return null;
 
@@ -24,12 +34,7 @@ export class MongoAdoptionRequestRepository
 
     if (!document) return null;
 
-    return AdoptionRequest.create({
-      id: document.id,
-      petId: document.petId,
-      adopterId: document.adopterId,
-      status: document.status,
-    });
+    return this.mapToDomain(document);
   }
 
   async getByPetAndAdopter(
@@ -45,12 +50,7 @@ export class MongoAdoptionRequestRepository
 
     if (!document) return null;
 
-    return AdoptionRequest.create({
-      id: document.id,
-      petId: document.petId,
-      adopterId: document.adopterId,
-      status: document.status,
-    });
+    return this.mapToDomain(document);
   }
 
   async store(request: AdoptionRequest) {
@@ -58,6 +58,7 @@ export class MongoAdoptionRequestRepository
       petId: request.petId,
       adopterId: request.adopterId,
       status: request.status,
+      denialReason: request.denialReason,
     };
 
     const existingDoc =

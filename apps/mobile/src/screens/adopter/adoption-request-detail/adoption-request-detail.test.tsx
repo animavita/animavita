@@ -3,7 +3,7 @@ import React from 'react';
 
 import { AdoptionRequestDetail } from './adoption-request-detail';
 
-import { AdoptionRequestStatus } from '@/services/adoptions';
+import { AdoptionRequestStatus, DenialReason } from '@/services/adoptions';
 import { mockAdoptionRequests } from '@/test/fixtures/adoption-requests';
 import { renderWithProviders } from '@/test/test-utils';
 
@@ -156,6 +156,40 @@ describe('AdoptionRequestDetail (Adopter)', () => {
       renderWithProviders(<AdoptionRequestDetail route={deniedRoute} />);
 
       expect(screen.getByText('Esta solicitação já foi recusada')).toBeVisible();
+    });
+
+    it('says the owner turned the request down when that is the reason', () => {
+      const deniedRoute = {
+        params: {
+          request: {
+            ...mockRequest,
+            status: AdoptionRequestStatus.DENIED,
+            denialReason: DenialReason.REJECTED_BY_OWNER,
+          },
+        },
+      };
+
+      renderWithProviders(<AdoptionRequestDetail route={deniedRoute} />);
+
+      expect(screen.getByText('O dono do pet recusou a sua solicitação')).toBeVisible();
+      expect(screen.getByText('Recusada pelo dono')).toBeVisible();
+    });
+
+    it('says the pet found a home when it was adopted by someone else', () => {
+      const deniedRoute = {
+        params: {
+          request: {
+            ...mockRequest,
+            status: AdoptionRequestStatus.DENIED,
+            denialReason: DenialReason.PET_ADOPTED,
+          },
+        },
+      };
+
+      renderWithProviders(<AdoptionRequestDetail route={deniedRoute} />);
+
+      expect(screen.getByText('Este pet encontrou um lar com outro adotante')).toBeVisible();
+      expect(screen.queryByText('O dono do pet recusou a sua solicitação')).not.toBeOnTheScreen();
     });
 
     it('does not show status message for pending requests', () => {

@@ -1,3 +1,4 @@
+import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConfigModule } from '@nestjs/config';
 import * as request from 'supertest';
@@ -68,6 +69,19 @@ const createOwnerWithPet = async (
   const { id: petId } = await postPetForAdoption.execute(petData, ownerId);
 
   return { ownerId, ownerToken, petId };
+};
+
+const placeRequest = async (
+  app: INestApplication,
+  petId: string,
+  adopterToken: string,
+) => {
+  const { body } = await request(app.getHttpServer())
+    .post(`/api/v1/pets/${petId}/request`)
+    .auth(adopterToken, { type: 'bearer' })
+    .expect(201);
+
+  return body.id as string;
 };
 
 const createAdopter = async (
@@ -475,6 +489,282 @@ describe('GET /api/v1/adoption-requests/my (e2e)', () => {
 
       await app.close();
     });
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection();
+  });
+});
+
+describe('PATCH /api/v1/adoption-requests/:id/deny (e2e)', () => {
+  it('denies a pending request the owner received', async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    } = await setup();
+
+    const { ownerToken, petId } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const { adopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+
+    const requestId = await placeRequest(app, petId, adopterToken);
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${requestId}/deny`)
+      .auth(ownerToken, { type: 'bearer' })
+      .expect(200);
+
+    const { body } = await request(app.getHttpServer())
+      .get('/api/v1/adoption-requests/my')
+      .auth(adopterToken, { type: 'bearer' })
+      .expect(200);
+
+    expect(body).toEqual([
+      expect.objectContaining({
+        id: requestId,
+        status: 'denied',
+        denialReason: 'rejected_by_owner',
+      }),
+    ]);
+
+    await app.close();
+  });
+
+  it('fails as a conflict when the request has already been resolved', async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    } = await setup();
+
+    const { ownerToken, petId } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const { adopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+
+    const requestId = await placeRequest(app, petId, adopterToken);
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${requestId}/deny`)
+      .auth(ownerToken, { type: 'bearer' })
+      .expect(200);
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${requestId}/deny`)
+      .auth(ownerToken, { type: 'bearer' })
+      .expect(409);
+
+    await app.close();
+  });
+
+  it('fails when the caller does not own the pet', async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    } = await setup();
+
+    const { petId } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const { ownerToken: otherOwnerToken } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const { adopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+
+    const requestId = await placeRequest(app, petId, adopterToken);
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${requestId}/deny`)
+      .auth(otherOwnerToken, { type: 'bearer' })
+      .expect(401);
+
+    const { body } = await request(app.getHttpServer())
+      .get('/api/v1/adoption-requests/my')
+      .auth(adopterToken, { type: 'bearer' })
+      .expect(200);
+
+    expect(body[0]).toMatchObject({ status: 'pending', denialReason: null });
+
+    await app.close();
+  });
+
+  it('leaves the other requests for the same pet untouched', async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    } = await setup();
+
+    const { ownerToken, petId } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const { adopterToken: firstAdopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+    const { adopterToken: secondAdopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+
+    const deniedRequestId = await placeRequest(app, petId, firstAdopterToken);
+    const untouchedRequestId = await placeRequest(
+      app,
+      petId,
+      secondAdopterToken,
+    );
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${deniedRequestId}/deny`)
+      .auth(ownerToken, { type: 'bearer' })
+      .expect(200);
+
+    const { body } = await request(app.getHttpServer())
+      .get('/api/v1/adoption-requests/my')
+      .auth(ownerToken, { type: 'bearer' })
+      .expect(200);
+
+    expect(body).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          id: deniedRequestId,
+          status: 'denied',
+          denialReason: 'rejected_by_owner',
+        }),
+        expect.objectContaining({
+          id: untouchedRequestId,
+          status: 'pending',
+          denialReason: null,
+        }),
+      ]),
+    );
+
+    await app.close();
+  });
+
+  it('fails when an adopter tries to deny', async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    } = await setup();
+
+    const { petId } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const { adopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+
+    const requestId = await placeRequest(app, petId, adopterToken);
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${requestId}/deny`)
+      .auth(adopterToken, { type: 'bearer' })
+      .expect(401);
+
+    await app.close();
+  });
+
+  it('fails when the request does not exist', async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    } = await setup();
+
+    const { ownerToken } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+
+    await request(app.getHttpServer())
+      .patch('/api/v1/adoption-requests/507f1f77bcf86cd799439011/deny')
+      .auth(ownerToken, { type: 'bearer' })
+      .expect(404);
+
+    await app.close();
+  });
+
+  it('fails when the caller is not authenticated', async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    } = await setup();
+
+    const { petId } = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const { adopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+
+    const requestId = await placeRequest(app, petId, adopterToken);
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${requestId}/deny`)
+      .expect(401);
+
+    await app.close();
   });
 
   afterEach(async () => {

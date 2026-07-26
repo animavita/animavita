@@ -30,8 +30,14 @@ const RequestsTab = () => {
     }
   };
 
-  const getStatusLabel = (status: string) => {
-    return t(`ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_${status.toUpperCase()}`);
+  const getStatusLabel = (request: AdoptionRequestResponse) => {
+    if (request.status === AdoptionRequestStatus.DENIED && request.denialReason) {
+      return t(
+        `ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_DENIED_${request.denialReason.toUpperCase()}`
+      );
+    }
+
+    return t(`ADOPTION_REQUESTS.ADOPTER.CARD.STATUS_${request.status.toUpperCase()}`);
   };
 
   const formatDate = (dateString: string) => {
@@ -69,7 +75,7 @@ const RequestsTab = () => {
               </Text>
             </VStack>
             <Badge colorScheme={getStatusColor(item.status)} variant="solid" borderRadius="md">
-              {getStatusLabel(item.status)}
+              {getStatusLabel(item)}
             </Badge>
           </HStack>
 
