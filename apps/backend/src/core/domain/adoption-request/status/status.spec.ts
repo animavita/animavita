@@ -37,13 +37,13 @@ describe('AdoptionRequestStatus Value Object', () => {
 
   describe('isPending', () => {
     it('is true for a pending status', () => {
-      expect(AdoptionRequestStatus.pending().isPending()).toBe(true);
+      expect(AdoptionRequestStatus.pending().isPending).toBe(true);
     });
 
     it.each(['accepted', 'denied', 'cancelled'])(
       'is false for a %s status',
       (status) => {
-        expect(new AdoptionRequestStatus(status).isPending()).toBe(false);
+        expect(new AdoptionRequestStatus(status).isPending).toBe(false);
       },
     );
   });

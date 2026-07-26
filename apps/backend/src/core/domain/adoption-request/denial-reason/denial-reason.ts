@@ -33,16 +33,4 @@ export default class DenialReason {
   getValue(): DenialReasonType {
     return this.reason;
   }
-
-  static rejectedByOwner(): DenialReason {
-    return new DenialReason('rejected_by_owner');
-  }
-
-  static petAdopted(): DenialReason {
-    return new DenialReason('pet_adopted');
-  }
-
-  static petRemoved(): DenialReason {
-    return new DenialReason('pet_removed');
-  }
 }

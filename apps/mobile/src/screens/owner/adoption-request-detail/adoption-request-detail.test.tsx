@@ -188,6 +188,27 @@ describe('AdoptionRequestDetail (Owner)', () => {
       });
     });
 
+    it('keeps the owner on the screen when the deny fails', async () => {
+      server.use(
+        http.patch('*/api/v1/adoption-requests/:id/deny', () => {
+          return HttpResponse.json({ message: 'Server error' }, { status: 500 });
+        })
+      );
+
+      const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      await user.press(screen.getByText('Recusar Solicitação'));
+
+      await waitFor(() => {
+        expect(mockToastShow).toHaveBeenCalledWith(
+          expect.objectContaining({ title: 'Não foi possível recusar a solicitação' })
+        );
+      });
+
+      expect(mockGoBack).not.toHaveBeenCalled();
+      expect(screen.getByText('Recusar Solicitação')).toBeVisible();
+    });
+
     it('tells the owner when the request had already been resolved elsewhere', async () => {
       server.use(
         http.patch('*/api/v1/adoption-requests/:id/deny', () => {

@@ -13,6 +13,11 @@ export const useDenyRequest = () => {
   const { t } = useTranslation();
   const { goBack } = useNavigation();
 
+  const leaveWithFreshList = async () => {
+    await queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getMyAdoptionRequests] });
+    goBack();
+  };
+
   const denyMutation = useMutation({
     mutationFn: denyAdoptionRequest,
     onSuccess: () => {
@@ -21,6 +26,8 @@ export const useDenyRequest = () => {
         placement: 'bottom',
         duration: 3000,
       });
+
+      return leaveWithFreshList();
     },
     onError: (error) => {
       const wasAlreadyResolved = axios.isAxiosError(error) && error.response?.status === 409;
@@ -32,12 +39,10 @@ export const useDenyRequest = () => {
         placement: 'bottom',
         duration: 3000,
       });
-    },
-    onSettled: async () => {
-      // The request the screen was opened with is stale either way: it was just
-      // denied, or someone had already resolved it.
-      await queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.getMyAdoptionRequests] });
-      goBack();
+
+      // A 409 means someone already resolved this request, so the screen is
+      // stale. Anything else leaves the owner here to try again.
+      if (wasAlreadyResolved) return leaveWithFreshList();
     },
     retry: false,
   });

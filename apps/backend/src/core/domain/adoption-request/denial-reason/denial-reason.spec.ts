@@ -29,20 +29,4 @@ describe('DenialReason Value Object', () => {
       expect(() => new DenialReason('')).toThrow('Invalid denial reason');
     });
   });
-
-  describe('factory methods', () => {
-    it('creates rejected_by_owner via factory', () => {
-      expect(DenialReason.rejectedByOwner().getValue()).toBe(
-        'rejected_by_owner',
-      );
-    });
-
-    it('creates pet_adopted via factory', () => {
-      expect(DenialReason.petAdopted().getValue()).toBe('pet_adopted');
-    });
-
-    it('creates pet_removed via factory', () => {
-      expect(DenialReason.petRemoved().getValue()).toBe('pet_removed');
-    });
-  });
 });

@@ -36,7 +36,7 @@ export default class AdoptionRequestStatus {
     return this.status;
   }
 
-  isPending(): boolean {
+  get isPending() {
     return this.status === 'pending';
   }
 

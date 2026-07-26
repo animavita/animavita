@@ -44,7 +44,7 @@ export class AdoptionRequest {
   }
 
   deny(reason: DenialReasonType) {
-    if (!this._status.isPending()) {
+    if (!this._status.isPending) {
       throw new ConflictError(
         `Only pending adoption requests can be denied, this one is ${this.status}`,
       );

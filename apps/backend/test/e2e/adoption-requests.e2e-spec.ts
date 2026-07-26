@@ -71,6 +71,19 @@ const createOwnerWithPet = async (
   return { ownerId, ownerToken, petId };
 };
 
+const placeRequest = async (
+  app: INestApplication,
+  petId: string,
+  adopterToken: string,
+) => {
+  const { body } = await request(app.getHttpServer())
+    .post(`/api/v1/pets/${petId}/request`)
+    .auth(adopterToken, { type: 'bearer' })
+    .expect(201);
+
+  return body.id as string;
+};
+
 const createAdopter = async (
   authService: AuthService,
   signInUsecase: SignIn,
@@ -484,19 +497,6 @@ describe('GET /api/v1/adoption-requests/my (e2e)', () => {
 });
 
 describe('PATCH /api/v1/adoption-requests/:id/deny (e2e)', () => {
-  const placeRequest = async (
-    app: INestApplication,
-    petId: string,
-    adopterToken: string,
-  ) => {
-    const { body } = await request(app.getHttpServer())
-      .post(`/api/v1/pets/${petId}/request`)
-      .auth(adopterToken, { type: 'bearer' })
-      .expect(201);
-
-    return body.id as string;
-  };
-
   it('denies a pending request the owner received', async () => {
     const {
       app,
