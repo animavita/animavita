@@ -1,13 +1,12 @@
-import {
-  MAX_FILE_SIZE_BYTES,
-  PresignedUrlRequest,
-  PresignedUrlResponse,
-  PresignedUrlsResponse,
-} from '@animavita/types';
+import { MAX_FILE_SIZE_BYTES, PresignedUrlRequest, PresignedUrlsResponse } from '@animavita/types';
 
+import { getFileInfo, FileInfo } from './get-file-info';
 import client from './http-client';
+import { uploadFileToS3, ReactNativeFile } from './upload-file-to-s3';
 
 export { MAX_FILE_SIZE_BYTES };
+export { getFileInfo, uploadFileToS3 };
+export type { FileInfo, ReactNativeFile };
 
 export type UploadError = {
   index: number;
@@ -15,22 +14,10 @@ export type UploadError = {
   message: string;
 };
 
-export type FileInfo = {
-  size: number;
-  mimeType: string;
-  name: string;
-};
-
 export type UploadResult = {
   success: boolean;
   fileUrl?: string;
   error?: UploadError;
-};
-
-export type ReactNativeFile = {
-  uri: string;
-  type: string;
-  name: string;
 };
 
 export const AWS_ERROR_CODES = {
@@ -62,59 +49,6 @@ export const getPresignedUrls = async (
 ): Promise<PresignedUrlsResponse> => {
   const response = await client.post<PresignedUrlsResponse>('/uploads/presigned-urls', { files });
   return response.data;
-};
-
-export const uploadFileToS3 = async (
-  fileUri: string,
-  presignedData: PresignedUrlResponse,
-  contentType: string
-): Promise<void> => {
-  const formData = new FormData();
-
-  Object.entries(presignedData.fields).forEach(([key, value]) => {
-    formData.append(key, value);
-  });
-
-  const fileName = presignedData.key.split('/').pop() || 'image';
-  const file: ReactNativeFile = {
-    uri: fileUri,
-    type: contentType,
-    name: fileName,
-  };
-  formData.append('file', file as unknown as Blob);
-
-  const response = await fetch(presignedData.presignedUrl, {
-    method: 'POST',
-    body: formData,
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(errorText);
-  }
-};
-
-export const getFileInfo = async (uri: string): Promise<FileInfo> => {
-  const response = await fetch(uri);
-  const blob = await response.blob();
-
-  const uriParts = uri.split('/');
-  const name = uriParts[uriParts.length - 1] || 'image.jpg';
-
-  const extension = name.split('.').pop()?.toLowerCase() || 'jpg';
-  const mimeTypeMap: Record<string, string> = {
-    jpg: 'image/jpeg',
-    jpeg: 'image/jpeg',
-    png: 'image/png',
-    gif: 'image/gif',
-    webp: 'image/webp',
-  };
-
-  return {
-    size: blob.size,
-    mimeType: mimeTypeMap[extension] || 'image/jpeg',
-    name,
-  };
 };
 
 export const validateFile = async (
