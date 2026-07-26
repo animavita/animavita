@@ -1,0 +1,90 @@
+name: Feature
+description: A vertical slice of user-visible behaviour.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        One ticket = one **vertical slice**: a thin path through every layer it touches (schema → API → app → tests) that is demoable on its own when finished.
+
+        If your idea only makes sense once three other tickets land too, it's a horizontal slice — split it differently, or open it as a discussion first.
+
+  - type: textarea
+    id: what-to-build
+    attributes:
+      label: What to build
+      description: The end-to-end behaviour this ticket makes work, from the user's point of view — not a layer-by-layer implementation list.
+      placeholder: An owner can deny an adoption request, and the adopter sees the request as denied in their list.
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Why this matters, and any business rule from the README that governs it. Link related issues or discussions.
+      placeholder: |
+        Owners currently receive requests (#260) but have no way to respond, so a pet with one bad match stays stuck.
+
+        Business rule: when the owner accepts a request, all other requests for the same pet are automatically denied.
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Testable statements. Someone else should be able to read these and know whether the ticket is done without asking you.
+      value: |
+        - [ ]
+        - [ ]
+        - [ ] Covered by tests
+    validations:
+      required: true
+
+  - type: textarea
+    id: slice
+    attributes:
+      label: Layers touched
+      description: Rough shape of the slice. Not a file-by-file plan — just where the work lands, so reviewers and contributors can size it.
+      placeholder: |
+        - Domain: AdoptionRequest gains a `deny()` transition
+        - Usecase: core/application/usecases/owner/deny-adoption-request/
+        - API: PATCH on the adoption requests controller
+        - Shared types: DenyAdoptionRequestDto
+        - Mobile: action on the request detail screen
+    validations:
+      required: false
+
+  - type: textarea
+    id: blocked-by
+    attributes:
+      label: Blocked by
+      description: Issues that must land before this one can start. Leave empty if it's ready to pick up.
+      placeholder: "#191"
+    validations:
+      required: false
+
+  - type: textarea
+    id: out-of-scope
+    attributes:
+      label: Out of scope
+      description: What a reviewer might reasonably expect here but should not be in this PR. This is what keeps the slice thin.
+      placeholder: |
+        - Notifying the adopter (no push notifications in v2)
+        - Letting the owner explain why they denied
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - backend
+        - mobile
+        - shared types / validation
+        - infra / CI
+    validations:
+      required: true

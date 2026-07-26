@@ -37,6 +37,9 @@ apps/mobile/coverage
 .settings/
 *.sublime-workspace
 
+# Claude Code — shared settings are committed, personal ones are not
+.claude/settings.local.json
+
 # IDE - VSCode
 .vscode/*
 !.vscode/tasks.json

@@ -1,0 +1,10 @@
+# Generated / build output. Without this, `eslint .` walks the native build
+# directories (android/ios, Pods included) and effectively never finishes.
+android/
+ios/
+dist/
+web-build/
+coverage/
+.expo/
+fastlane/
+node_modules/
