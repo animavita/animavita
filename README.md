@@ -36,40 +36,28 @@ Animavita is a combination of two Latin words, ‘Animal’ and ‘Vitae’, whi
 Animavita's purpose is not to change how people use facebook to the activities described above, but to centralize the helpful information in a single application. Anyone can make an adoption request, but it doesn’t mean that the pet will be automatically adopted. It means that the person interested can talk to the person who registered the pet, allowing both sides to have a conversation, and the user to research and decide his favorite pet.
 
 ## :dizzy: **Roadmap**
-In v2, we aim to rebuild a simpler version of Animavita with a cleaner UI and a much better codebase that will make it easier for us to add new features over time and attract more and more contributors. The following epics list was thought to be completed as soon as possible to see whether the decisions made on https://github.com/animavita/animavita/discussions/120 work. Complex features such as in-app chat and push notifications will be considered in the future.
 
-### Onboarding
--   [x] User can register and log in https://github.com/animavita/animavita/issues/234
--   [x] User must inform their phone number and role https://github.com/animavita/animavita/issues/256
+v2 is a rebuild: a simpler Animavita with a cleaner UI and a codebase that makes new features cheap to add. The goal is to get the whole owner-to-adopter loop working end to end — post a pet, find one nearby, request it, talk it over, agree — and to find out whether the decisions in [discussion #120](https://github.com/animavita/animavita/discussions/120) hold up in practice.
 
-### Pet Owner
--   [ ] Owner can post a pet for adoption https://github.com/animavita/animavita/issues/237
--   [x] Owner can see a list of their posted pets https://github.com/animavita/animavita/issues/238
--   [x] Owner can edit a posted pet https://github.com/animavita/animavita/issues/240
--   [ ] Owner can delete a posted pet https://github.com/animavita/animavita/issues/259
--   [x] Owner can receive adoption requests https://github.com/animavita/animavita/issues/260
--   [ ] Owner can meet adopters by calling them
--   [ ] Owner can accept adoption requests https://github.com/animavita/animavita/issues/262
--   [ ] Owner can deny adoption requests https://github.com/animavita/animavita/issues/263
+Complex features like in-app chat and push notifications come later.
 
-### Pet Adopter
--   [x] Adopter can see a list of nearest pets for adoption (based on their location) https://github.com/animavita/animavita/issues/278
--   [ ] Adopter can see pet details
--   [ ] Adopter can like pets from the list (which will be added to the wishlist)
--   [x] Adopter can request to adopt a pet https://github.com/animavita/animavita/issues/258
--   [x] Adopter can see a list of their requested pets https://github.com/animavita/animavita/issues/257
--   [ ] Adopter can give up on a pet https://github.com/animavita/animavita/issues/261
+**→ [What's left for v2, and how far along it is](https://github.com/animavita/animavita/milestone/5)**
 
-### Administration
-TBD
+That milestone is the single source of truth for v2 status. It used to be a checklist here, which drifted out of step with both the issues and the code — so status now lives in one place only, where it's computed rather than typed.
 
-### Business rules
-- During onboarding, the user can choose to be either an owner or an adopter, never both
-- When the owner meets an adopter, both should be able to see each other phone number
-- When the owner accepts an adoption request, all other requests for the same pet should be automatically denied
-- When the owner deletes a pet or accepts an adoption request, that pet should no longer be displayed in the adopter nearest pets list
+## :bulb: **How the app works**
 
+The domain — what a Pet, an Adopter, an Adoption Request and a Wishlist actually are, and the rules that govern them — is documented in **[CONTEXT.md](./CONTEXT.md)**. The decisions behind those rules, and the trade-offs they cost, are in **[docs/adr/](./docs/adr/)**.
+
+Read both before working on adoption logic. Several decisions there deliberately differ from what the current code does.
 
 ## Contributing
 
 Read the [contribution guidelines](https://github.com/animavita/animavita/blob/v2/CONTRIBUTING.md) before contributing.
+
+Good places to start:
+
+- **[`good first issue`](https://github.com/animavita/animavita/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)** — small, self-contained, and a gentle introduction to the codebase.
+- **[`ready-for-agent`](https://github.com/animavita/animavita/issues?q=is%3Aissue+is%3Aopen+label%3Aready-for-agent)** — fully specified, with acceptance criteria and scope boundaries written down. Nothing left to guess at.
+
+Some issues declare which others must land first. GitHub shows those as blocking relationships, so if an issue looks blocked, pick a different one — the frontier is whatever has no open blockers.
