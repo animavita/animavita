@@ -28,7 +28,7 @@ Whether the pet is a dog, a cat, or other.
 _Avoid_: type, animal type
 
 **Pet Status**
-A Pet is `available`, `adopted`, or `removed`. Only `available` pets appear in Nearest Pets. `adopted` is set by the cascade when a request is accepted; `removed` is set when the Owner deletes the posting, which is a soft delete so existing Adoption Requests still resolve. See ADR-0002 and ADR-0003.
+A Pet is `available`, `adopted`, or `removed`. Only `available` pets appear in Nearest Pets. `adopted` is set by the cascade when a request is accepted; `removed` is set when the Owner withdraws the posting, which is a soft delete so existing Adoption Requests still resolve. An `adopted` Pet cannot become `removed` — the posting has already concluded, and one field cannot say both. See ADR-0002, ADR-0003 and ADR-0007.
 _Avoid_: deleted, archived, inactive
 
 **Nearest Pets**
