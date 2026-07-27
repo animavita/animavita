@@ -1,3 +1,5 @@
+import { DenialReason } from '@animavita/types';
+
 import { AdoptionRequestResponse, AdoptionRequestStatus } from '@/services/adoptions';
 
 export const mockAdoptionRequests: AdoptionRequestResponse[] = [
@@ -6,6 +8,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     petId: 'pet1',
     adopterId: 'adopter1',
     status: AdoptionRequestStatus.PENDING,
+    denialReason: null,
     pet: {
       id: 'pet1',
       name: 'Rex',
@@ -28,6 +31,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     petId: 'pet2',
     adopterId: 'adopter2',
     status: AdoptionRequestStatus.ACCEPTED,
+    denialReason: null,
     pet: {
       id: 'pet2',
       name: 'Mittens',
@@ -50,6 +54,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     petId: 'pet3',
     adopterId: 'adopter3',
     status: AdoptionRequestStatus.DENIED,
+    denialReason: DenialReason.REJECTED_BY_OWNER,
     pet: {
       id: 'pet3',
       name: 'Buddy',
@@ -68,3 +73,22 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     updatedAt: '2025-01-02T00:00:00.000Z',
   },
 ];
+
+/**
+ * A request closed by the accept cascade rather than by the owner turning this
+ * adopter down. Kept out of `mockAdoptionRequests` so tests that assert on the
+ * default list stay unambiguous.
+ */
+export const mockCascadeDeniedRequest: AdoptionRequestResponse = {
+  ...mockAdoptionRequests[2],
+  id: '4',
+  petId: 'pet4',
+  denialReason: DenialReason.PET_ADOPTED,
+  pet: {
+    ...mockAdoptionRequests[2].pet,
+    id: 'pet4',
+    name: 'Luna',
+    breed: 'Siamese',
+    type: 'cat',
+  },
+};
