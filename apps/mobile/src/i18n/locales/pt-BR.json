@@ -199,6 +199,10 @@
         "STATUS_PENDING": "Aguardando resposta",
         "STATUS_ACCEPTED": "Aprovada",
         "STATUS_DENIED": "Recusada",
+        "STATUS_DENIED_REJECTED_BY_OWNER": "Recusada pelo dono",
+        "STATUS_DENIED_PET_ADOPTED": "Pet já adotado",
+        "STATUS_DENIED_PET_REMOVED": "Anúncio removido",
+        "STATUS_CANCELLED": "Cancelada",
         "REQUESTED_ON": "Solicitado em"
       },
       "DETAIL": {
@@ -208,7 +212,11 @@
         "CANCEL_REQUEST": "Cancelar Solicitação",
         "CANCEL_SUCCESS": "Solicitação cancelada com sucesso!",
         "ALREADY_ACCEPTED": "Esta solicitação já foi aprovada",
-        "ALREADY_DENIED": "Esta solicitação já foi recusada"
+        "ALREADY_DENIED": "Esta solicitação já foi recusada",
+        "ALREADY_DENIED_REJECTED_BY_OWNER": "O dono decidiu não seguir com esta adoção",
+        "ALREADY_DENIED_PET_ADOPTED": "Este pet encontrou um lar com outro adotante",
+        "ALREADY_DENIED_PET_REMOVED": "O dono removeu o anúncio deste pet",
+        "ALREADY_CANCELLED": "Você cancelou esta solicitação"
       }
     },
     "OWNER": {
@@ -220,6 +228,7 @@
         "STATUS_PENDING": "Aguardando sua resposta",
         "STATUS_ACCEPTED": "Aprovada",
         "STATUS_DENIED": "Recusada",
+        "STATUS_CANCELLED": "Cancelada pelo adotante",
         "REQUESTED_BY": "Solicitado por",
         "REQUESTED_ON": "Solicitado em",
         "VIEW_INFO": "Ver informações",
@@ -234,8 +243,10 @@
         "DENY_REQUEST": "Recusar Solicitação",
         "ACCEPT_SUCCESS": "Solicitação aprovada com sucesso!",
         "DENY_SUCCESS": "Solicitação recusada",
+        "DENY_ERROR": "Não foi possível recusar a solicitação. Tente novamente.",
         "ALREADY_ACCEPTED": "Esta solicitação já foi aprovada",
-        "ALREADY_DENIED": "Esta solicitação já foi recusada"
+        "ALREADY_DENIED": "Esta solicitação já foi recusada",
+        "ALREADY_CANCELLED": "O adotante cancelou esta solicitação"
       }
     },
     "LOADING": "Carregando solicitações...",
