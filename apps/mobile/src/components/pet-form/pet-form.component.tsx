@@ -50,7 +50,7 @@ const PetFormInner = ({ initialStep, title }: PetFormInnerProps) => {
     useMultiStepNavigation(initialStep);
 
   const { trigger, getValues } = useFormContext<Partial<PetFormValues>>();
-  const { saveOrCreatePet, saving } = useSavePet();
+  const { saveOrCreatePet, saving, uploadProgress } = useSavePet();
 
   const onConfirm = async () => {
     const isValid = await trigger();
@@ -84,6 +84,7 @@ const PetFormInner = ({ initialStep, title }: PetFormInnerProps) => {
           isFirstStep={isFirstStep}
           activeStep={activeStep}
           saving={saving}
+          uploadProgress={uploadProgress}
           handleBack={handleBack}
           handleNext={handleNext}
           onConfirm={onConfirm}

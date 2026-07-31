@@ -143,7 +143,8 @@ export const validateFile = async (
 };
 
 export const uploadMultipleFiles = async (
-  fileUris: string[]
+  fileUris: string[],
+  onFileUploaded?: (completed: number) => void
 ): Promise<{ urls: string[]; errors: UploadError[] }> => {
   const errors: UploadError[] = [];
   const validFiles: {
@@ -184,11 +185,14 @@ export const uploadMultipleFiles = async (
     );
   }
 
+  let completedUploads = 0;
   const uploadPromises = validFiles.map(async (file, idx) => {
     const presignedData = uploads[idx];
 
     try {
       await uploadFileToS3(file.uri, presignedData, file.fileInfo.mimeType);
+      completedUploads += 1;
+      onFileUploaded?.(completedUploads);
       return { success: true, index: file.index, fileUrl: presignedData.fileUrl };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';

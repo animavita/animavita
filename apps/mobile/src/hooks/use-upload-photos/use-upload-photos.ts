@@ -1,5 +1,6 @@
 import { PHOTOS_LIMIT } from '@animavita/types';
 import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import useLocale from '../use-locale';
@@ -15,9 +16,15 @@ type UploadPhotosResult = {
   urls: string[];
 };
 
+export type UploadProgress = {
+  completed: number;
+  total: number;
+};
+
 export const useUploadPhotos = () => {
   const { t } = useLocale();
   const { setError, setValue, getValues } = useFormContext();
+  const [uploadProgress, setUploadProgress] = useState<UploadProgress | null>(null);
 
   const getErrorTranslation = (errorCode: string): string => {
     const errorKey = `REGISTER_ADOPTION.FORM.PHOTOS.ERRORS.${errorCode}`;
@@ -48,7 +55,10 @@ export const useUploadPhotos = () => {
       }
 
       const urisToUpload = imagesToUpload.map((img) => img.uri);
-      const { urls, errors } = await uploadMultipleFiles(urisToUpload);
+      setUploadProgress({ completed: 0, total: imagesToUpload.length });
+      const { urls, errors } = await uploadMultipleFiles(urisToUpload, (completed) => {
+        setUploadProgress({ completed, total: imagesToUpload.length });
+      });
 
       if (errors.length > 0) {
         const errorWithDetails = new Error('Upload failed') as Error & {
@@ -104,6 +114,9 @@ export const useUploadPhotos = () => {
         });
       }
     },
+    onSettled: () => {
+      setUploadProgress(null);
+    },
   });
 
   const uploadPhotos = async (): Promise<string[]> => {
@@ -120,6 +133,7 @@ export const useUploadPhotos = () => {
   return {
     uploadPhotos,
     isUploading: mutation.isPending,
+    uploadProgress,
     uploadError: mutation.error,
     resetUploadError: mutation.reset,
   };

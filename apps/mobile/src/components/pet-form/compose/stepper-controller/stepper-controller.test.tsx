@@ -27,6 +27,7 @@ const setup = (propsOverride: Partial<StepperControllerProps> = {}) => {
         isFirstStep={false}
         activeStep={AdoptionSteps.PetName}
         saving={false}
+        uploadProgress={null}
         {...propsOverride}
       />
     </Providers>
@@ -77,6 +78,27 @@ describe('StepperController', () => {
       const { getByText } = setup({ saving: true, isLastStep: true });
 
       expect(getByText(/confirmar/i)).toBeDisabled();
+    });
+
+    it('shows photo upload progress for multiple photos', () => {
+      const { getByText } = setup({
+        saving: true,
+        isLastStep: true,
+        uploadProgress: { completed: 1, total: 3 },
+      });
+
+      expect(getByText(/1 de 3 fotos enviadas/i)).toBeDisabled();
+    });
+
+    it('keeps the plain loading label for one photo', () => {
+      const { getByText, queryByText } = setup({
+        saving: true,
+        isLastStep: true,
+        uploadProgress: { completed: 0, total: 1 },
+      });
+
+      expect(getByText(/confirmar/i)).toBeDisabled();
+      expect(queryByText(/0 de 1 fotos enviadas/i)).not.toBeOnTheScreen();
     });
   });
 });

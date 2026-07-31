@@ -15,7 +15,7 @@ export const useSavePet = () => {
   const navigation = useNavigation();
   const toast = useToast();
   const client = useQueryClient();
-  const { uploadPhotos, isUploading } = useUploadPhotos();
+  const { uploadPhotos, isUploading, uploadProgress } = useUploadPhotos();
 
   const mutation = useMutation({
     mutationFn: saveOrCreate,
@@ -46,6 +46,7 @@ export const useSavePet = () => {
 
   return {
     saving: mutation.isPending || isUploading,
+    uploadProgress: isUploading ? uploadProgress : null,
     saveOrCreatePet,
   };
 };
