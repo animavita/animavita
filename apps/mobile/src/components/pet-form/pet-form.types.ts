@@ -1,3 +1,5 @@
+import type { UploadProgress } from '@/hooks/use-upload-photos';
+
 export enum AdoptionSteps {
   PetName = 'PetName',
   PetBreed = 'PetBreed',
@@ -25,6 +27,7 @@ export type StepperControllerProps = {
   handleNext: () => void;
   onConfirm: () => void;
   saving: boolean;
+  uploadProgress: UploadProgress | null;
   isLastStep: boolean;
   isFirstStep: boolean;
   activeStep: AdoptionSteps;

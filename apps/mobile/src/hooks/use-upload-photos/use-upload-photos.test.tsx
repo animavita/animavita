@@ -43,6 +43,7 @@ describe('useUploadPhotos', () => {
 
     expect(typeof result.current.uploadPhotos).toBe('function');
     expect(result.current.isUploading).toBe(false);
+    expect(result.current.uploadProgress).toBeNull();
     expect(result.current.uploadError).toBeNull();
     expect(typeof result.current.resetUploadError).toBe('function');
   });
@@ -96,10 +97,10 @@ describe('useUploadPhotos', () => {
       uploadResult = await result.current.uploadPhotos();
     });
 
-    expect(uploadMultipleFilesMock).toHaveBeenCalledWith([
-      'file:///photo1.jpg',
-      'file:///photo2.jpg',
-    ]);
+    expect(uploadMultipleFilesMock).toHaveBeenCalledWith(
+      ['file:///photo1.jpg', 'file:///photo2.jpg'],
+      expect.any(Function)
+    );
     expect(uploadResult).toEqual([
       'https://s3.example.com/photo1.jpg',
       'https://s3.example.com/photo2.jpg',
@@ -127,7 +128,10 @@ describe('useUploadPhotos', () => {
       uploadResult = await result.current.uploadPhotos();
     });
 
-    expect(uploadMultipleFilesMock).toHaveBeenCalledWith(['file:///new-photo.jpg']);
+    expect(uploadMultipleFilesMock).toHaveBeenCalledWith(
+      ['file:///new-photo.jpg'],
+      expect.any(Function)
+    );
     expect(uploadResult).toEqual([
       'https://s3.example.com/existing.jpg',
       'https://s3.example.com/new-photo.jpg',

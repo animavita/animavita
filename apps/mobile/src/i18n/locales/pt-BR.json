@@ -64,6 +64,7 @@
         "HINT_PICTURE_THREE": "selecione a terceira foto do pet",
         "MIN_PHOTOS_REQUIRED": "Selecione pelo menos 3 fotos do pet",
         "UPLOADING": "Enviando fotos...",
+        "UPLOAD_PROGRESS": "{{completed}} de {{total}} fotos enviadas",
         "UPLOAD_SUCCESS": "Fotos enviadas com sucesso!",
         "ERRORS": {
           "ACCESS_DENIED": "Acesso negado. Tente novamente.",

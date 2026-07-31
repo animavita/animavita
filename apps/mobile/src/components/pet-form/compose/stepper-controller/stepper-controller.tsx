@@ -14,6 +14,7 @@ const StepperController = ({
   isLastStep,
   activeStep,
   saving,
+  uploadProgress,
 }: StepperControllerProps) => {
   const { t } = useLocale();
   const { validateField } = useFormValidation('adoption', 'REGISTER_ADOPTION.FORM_ERROR_MESSAGES');
@@ -37,6 +38,10 @@ const StepperController = ({
   const label = isLastStep
     ? t('REGISTER_ADOPTION.FORM.CONFIRM_BUTTON')
     : t('REGISTER_ADOPTION.FORM.NEXT_BUTTON');
+  const loadingLabel =
+    uploadProgress && uploadProgress.total > 1
+      ? t('REGISTER_ADOPTION.FORM.PHOTOS.UPLOAD_PROGRESS', uploadProgress)
+      : label;
 
   return (
     <Box marginTop="auto" display="flex" flexDirection="row" justifyContent="space-between">
@@ -54,7 +59,7 @@ const StepperController = ({
         marginLeft="auto"
         disabled={saving}
         isLoading={saving}
-        isLoadingText={label}
+        isLoadingText={loadingLabel}
       >
         {label}
       </Button>
