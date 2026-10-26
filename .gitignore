@@ -1,62 +1,29 @@
-node_modules/
-**/.env
-.expo/
-dist/
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-
-# macOS
+# =========================
+# Sistemas Operacionais
+# =========================
 .DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# Logs
-logs
-*.log
-npm-debug.log*
-pnpm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
-
-# Tests
-**/coverage
-apps/mobile/coverage
-/.nyc_output
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# Claude Code — shared settings are committed, personal ones are not
-.claude/settings.local.json
-
-# IDE - VSCode
+# =========================
+# Editores e IDEs
+# =========================
+.idea/
 .vscode/*
 !.vscode/tasks.json
-!.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/launch.json
+*.sublime-project
+*.sublime-workspace
 
-# fastlane
-**/fastlane/report.xml
-
-# deliver temporary files
-**/fastlane/Preview.html
-
-# snapshot generated screenshots
-**/fastlane/screenshots
-
-# scan temporary files
-**/fastlane/test_output
-
-**/android
-**/ios
+# =========================
+# Logs e Temporários
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+.tmp
+.temp
