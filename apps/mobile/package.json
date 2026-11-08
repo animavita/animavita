@@ -5,14 +5,18 @@
   "scripts": {
     "start": "expo start",
     "prebuild": "npx expo prebuild --clean",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "web:build": "expo export --platform web",
     "test": "TZ=UTC jest --coverage",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "check-types": "tsc --project tsconfig.json"
+    "check-types": "tsc --project tsconfig.json",
+    "build:e2e:android": "EXPO_NO_GIT_STATUS=1 EXPO_PUBLIC_E2E=true ENV=dev expo prebuild --platform android --no-install && EXPO_PUBLIC_E2E=true ENV=dev expo run:android --variant release --no-bundler",
+    "build:e2e:ios": "EXPO_NO_GIT_STATUS=1 EXPO_PUBLIC_E2E=true ENV=dev expo prebuild --platform ios --no-install && EXPO_PUBLIC_E2E=true ENV=dev expo run:ios --configuration Release --no-bundler",
+    "build:e2e:debug": "ENV=dev expo run:android --no-bundler",
+    "start:e2e": "ENV=dev EXPO_PUBLIC_E2E=true expo start --localhost --port 8081 --clear"
   },
   "dependencies": {
     "@animavita/types": "workspace:*",

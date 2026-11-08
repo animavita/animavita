@@ -1,0 +1,15 @@
+appId: com.ggbelgamo.animavita
+---
+# iOS keeps the saved login (Keychain) through clearState
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - clearKeychain
+- launchApp:
+    clearState: true
+# A cold start on a busy emulator can take longer than the default 17s
+- extendedWaitUntil:
+    visible:
+      id: signin-form-email-input
+    timeout: 30000

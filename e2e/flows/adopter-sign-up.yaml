@@ -1,0 +1,65 @@
+appId: com.ggbelgamo.animavita
+name: New adopter signs up, picks a role, verifies the phone, shares a location and sees nearby pets
+---
+- evalScript: ${output.email = 'signup-' + Date.now() + '@email.com'}
+- runFlow: ../subflows/launch-signed-out.yaml
+- tapOn: "Ou registre-se"
+- tapOn:
+    id: signup-form-name-input
+- inputText: Maria Silva
+- tapOn:
+    id: signup-form-email-input
+- inputText: ${output.email}
+- tapOn:
+    id: signup-form-password-input
+- inputText: Password123
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - hideKeyboard
+# The header also says "Registre-se"
+- tapOn:
+    text: "Registre-se"
+    below:
+      id: signup-form-password-input
+- tapOn: "Quero encontrar um pet"
+- tapOn: "Continuar"
+
+- tapOn: "Número de celular"
+- inputText: "11987654321"
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - hideKeyboard
+- tapOn: "Enviar código"
+# Any code works outside production. One box at a time: typing fast drops digits.
+- tapOn: "OTP code position 1"
+- inputText: "1"
+- tapOn: "OTP code position 2"
+- inputText: "2"
+- tapOn: "OTP code position 3"
+- inputText: "3"
+- tapOn: "OTP code position 4"
+- inputText: "4"
+- tapOn: "OTP code position 5"
+- inputText: "5"
+- tapOn: "OTP code position 6"
+- inputText: "6"
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - hideKeyboard
+- tapOn: "Verificar"
+
+# Near the seeded pets in Central Park
+- setLocation:
+    latitude: 40.7812
+    longitude: -73.9665
+- tapOn: "Compartilhar minha localização"
+- tapOn: "Confirmar minha localização"
+- assertVisible: "Olá, Maria.*"
+- assertVisible:
+    id: pet-card-active

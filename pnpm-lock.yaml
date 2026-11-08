@@ -373,6 +373,8 @@ importers:
         specifier: ^5.8.3
         version: 5.9.3
 
+  e2e: {}
+
   shared/types:
     devDependencies:
       typescript:

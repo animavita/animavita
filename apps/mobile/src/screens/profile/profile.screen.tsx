@@ -15,6 +15,7 @@ const ProfileScreen = () => {
       <PageDelimiter flex="1">
         <Topbar />
         <Button
+          testID="profile-logout-button"
           variant="solid"
           onPress={() => {
             signOut();

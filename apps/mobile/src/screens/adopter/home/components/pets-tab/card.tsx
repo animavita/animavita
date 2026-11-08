@@ -188,14 +188,16 @@ export const TinderCard = forwardRef<TinderCardRef, TinderCardProps>(
     // Active card: wrapped with gesture detector to enable swiping
     return (
       <GestureDetector gesture={panGesture}>
-        <Animated.View style={[cardStyle, animatedStyle]}>
+        <Animated.View testID="pet-card-active" style={[cardStyle, animatedStyle]}>
           <Image
             source={{ uri: image }}
             style={imageStyle}
             accessibilityLabel={accessibilityLabel}
           />
           <LinearGradient colors={['transparent', 'rgba(0,0,0,0.8)']} style={styles.gradient}>
-            <Animated.Text style={styles.petName}>{name}</Animated.Text>
+            <Animated.Text testID="pet-card-active-name" style={styles.petName}>
+              {name}
+            </Animated.Text>
             <Animated.Text style={styles.petInfo}>
               {translatedSize} • {translatedAge}
             </Animated.Text>

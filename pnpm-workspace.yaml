@@ -1,4 +1,5 @@
 packages:
   - apps/*
   - shared/*
+  - e2e
 

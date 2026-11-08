@@ -136,6 +136,19 @@ Then, run the app:
 pnpm mobile start
 ```
 
+### End-to-end tests
+
+Maestro smoke tests drive the Android or iOS app against your local backend. Run them before a production deployment, after upgrading dependencies, or after a risky change:
+
+```sh
+$ pnpm e2e start   # backend + emulator + app build
+$ pnpm e2e test    # seed + run every flow
+```
+
+For iOS: `pnpm e2e start:ios`, then `pnpm e2e test:ios`.
+
+See [e2e/README.md](e2e/README.md) for the one-time setup and how to write flows.
+
 ### Sending a pull request
 
 #### **PR description**

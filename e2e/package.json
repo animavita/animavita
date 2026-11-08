@@ -1,0 +1,16 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Maestro smoke tests that drive the Android and iOS app against the local backend. See README.md.",
+  "scripts": {
+    "start": "./scripts/start.sh",
+    "start:ios": "./scripts/start.sh --ios",
+    "build": "pnpm --filter mobile build:e2e:android",
+    "build:ios": "pnpm --filter mobile build:e2e:ios",
+    "test": "./scripts/test.sh",
+    "test:ios": "./scripts/test.sh --ios",
+    "debug:build": "pnpm --filter mobile build:e2e:debug",
+    "debug:metro": "adb reverse tcp:8081 tcp:8081 && pnpm --filter mobile start:e2e"
+  }
+}
