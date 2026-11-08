@@ -56,7 +56,7 @@
     "@types/jest": "28.1.8",
     "@types/joi": "^17.2.3",
     "@types/multer": "^2.0.0",
-    "@types/node": "^16.0.0",
+    "@types/node": "^22.20.5",
     "@types/passport-jwt": "^3.0.7",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",

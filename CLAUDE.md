@@ -28,7 +28,7 @@ pnpm test                   # jest in backend and mobile
 
 Per app: `pnpm backend test`, `pnpm mobile check-types`, etc.
 
-Use the Node version in `.nvmrc` (v22). `argon2` ships prebuilt N-API binaries, so it no longer needs to compile against your exact Node version.
+Use the Node version in `.nvmrc`.
 
 **Use pnpm 9, not 10.** `packageManager` pins `pnpm@9.15.9`, so pnpm 10 switches itself to 9.15.9 for you; corepack does the same. The version matters because CI and the backend Dockerfile both run 9.15.9, and the two majors disagree about the `pnpm` field in `package.json` — pnpm 10 renamed settings that 9 then silently ignores, which is how staging once broke without any test noticing. Upgrading the whole toolchain to pnpm 10 is tracked in issue #316; until then, don't hand-edit that field to match whatever your local pnpm prints.
 
