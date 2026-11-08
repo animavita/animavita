@@ -39,6 +39,6 @@ module.exports = ({ config }) => {
       ...config.ios,
       bundleIdentifier: 'com.ggbelgamo.animavita',
     },
-    plugins: [...(config.plugins ?? []), 'expo-localization'],
+    plugins: [...(config.plugins ?? []), 'expo-localization', './plugins/with-fmt-cxx17'],
   };
 };
