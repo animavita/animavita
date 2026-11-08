@@ -32,11 +32,13 @@ module.exports = ({ config }) => {
       policy: 'appVersion',
     },
     android: {
+      ...config.android,
       package: 'com.ggbelgamo.animavita',
     },
     ios: {
+      ...config.ios,
       bundleIdentifier: 'com.ggbelgamo.animavita',
     },
-    plugins: ['expo-localization'],
+    plugins: [...(config.plugins ?? []), 'expo-localization'],
   };
 };
