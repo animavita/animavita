@@ -2,10 +2,6 @@ name: Setup Monorepo For Backend
 description: Prepare and install everything for the monorepo
 
 inputs:
-  node-version:
-    description: Version of Node to use
-    default: 20.x
-
   pnpm-version:
     description: Version of pnpm to use
     default: 9.15.9
@@ -33,7 +29,7 @@ runs:
     - name: 🏗 Setup Node
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version-file: .nvmrc
         cache: pnpm
 
     - name: 📦 Install dependencies

@@ -1,4 +1,5 @@
-FROM node:20.13.1 AS base
+# Keep in sync with .nvmrc
+FROM node:22.23.4 AS base
 RUN npm i -g pnpm@9.15.9
 
 FROM base AS dependencies
