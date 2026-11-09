@@ -36,6 +36,3 @@ runs:
       run: pnpm install
       shell: bash
 
-    - name: Build shared dependencies
-      run: pnpm --filter "./shared/**" run build
-      shell: bash
