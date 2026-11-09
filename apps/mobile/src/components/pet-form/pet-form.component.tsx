@@ -2,7 +2,6 @@ import { adoptionValidationSchema } from '@animavita/validation-schemas';
 import { Box, KeyboardAvoidingView, useToast } from 'native-base';
 import React from 'react';
 import { FormProvider, useFormContext } from 'react-hook-form';
-import { Platform } from 'react-native';
 
 import FormSteps from './compose/form-steps';
 import StepperController from './compose/stepper-controller';
@@ -34,7 +33,7 @@ const PetForm = ({ defaultValues, initialStep, title }: PetFormProps) => {
   const petForm = usePetForm(defaultValues);
 
   return (
-    <KeyboardAvoidingView flex="1" behavior="padding" enabled={Platform.OS === 'ios'}>
+    <KeyboardAvoidingView flex="1" behavior="padding">
       <FormProvider {...petForm}>
         <PetFormInner initialStep={initialStep} title={title} />
       </FormProvider>

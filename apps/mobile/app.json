@@ -28,19 +28,8 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "newArchEnabled": true,
     "plugins": [
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "newArchEnabled": true
-          },
-          "ios": {
-            "newArchEnabled": true
-          }
-        }
-      ],
+      ["expo-build-properties", {}],
       "expo-secure-store",
       [
         "expo-location",
