@@ -97,7 +97,7 @@ Guidelines:
   internet. `pnpm e2e test` forwards port 4566 to the emulator; if you run Maestro
   directly, run `adb reverse tcp:4566 tcp:4566` first.
 - **The app shows an old version of your change.** You're running the release app
-  without rebuilding it. Run `pnpm e2e build`, or use the debug setup above.
+  without rebuilding it. Run `pnpm e2e build:android` (or `build:ios`), or use the debug setup above.
 - **In debug mode, taps near the bottom of the screen do nothing.** React Native's
   dev warning popups cover them. Start Metro with `pnpm e2e debug:metro` (it hides
   them), not `pnpm mobile start`.

@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <SafeArea>
       <Delimiter _android={{ marginTop: 4 }} _web={{ marginTop: 4 }}>
-        <Pressable testID="home-profile-button" onPress={() => navigate('Profile')}>
+        <Pressable onPress={() => navigate('Profile')}>
           <Box
             display="flex"
             flexDirection="row"
