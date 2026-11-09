@@ -56,6 +56,7 @@ export const Form = () => {
             inputMode: 'email',
             autoCapitalize: 'none',
             autoFocus: true,
+            testID: 'signin-form-email-input',
           }}
           control={signinForm.control}
           name="email"
@@ -68,6 +69,7 @@ export const Form = () => {
             returnKeyType: 'go',
             isRequired: true,
             type: 'password',
+            testID: 'signin-form-password-input',
           }}
           control={signinForm.control}
           name="password"
@@ -75,7 +77,13 @@ export const Form = () => {
         />
 
         <FormControl>
-          <Button marginTop={5} width="full" onPress={() => onSignIn()} disabled={isSigningIn}>
+          <Button
+            testID="signin-form-submit-button"
+            marginTop={5}
+            width="full"
+            onPress={() => onSignIn()}
+            disabled={isSigningIn}
+          >
             {t('SIGN_IN.FORM.LOGIN_BUTTON')}
           </Button>
         </FormControl>

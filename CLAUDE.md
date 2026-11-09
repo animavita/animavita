@@ -32,6 +32,8 @@ Use the Node version in `.nvmrc`.
 
 **Use pnpm 9, not 10.** `packageManager` pins `pnpm@9.15.9`, so pnpm 10 switches itself to 9.15.9 for you; corepack does the same. The version matters because CI and the backend Dockerfile both run 9.15.9, and the two majors disagree about the `pnpm` field in `package.json` — pnpm 10 renamed settings that 9 then silently ignores, which is how staging once broke without any test noticing. Upgrading the whole toolchain to pnpm 10 is tracked in issue #316; until then, don't hand-edit that field to match whatever your local pnpm prints.
 
+For an end-to-end check (before a deploy, after an upgrade or a risky change), run the Maestro smoke tests: `pnpm e2e start` then `pnpm e2e test` (`start:ios` / `test:ios` for iOS). See `e2e/README.md`.
+
 CI runs backend and mobile tests separately (`.github/workflows/run-*-tests.yml`). Note that CI currently runs only backend **e2e** tests and does **not** typecheck either app — so a green CI does not mean `pnpm verify` passes. Run it locally.
 
 ## Running it

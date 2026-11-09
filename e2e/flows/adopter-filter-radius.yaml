@@ -1,0 +1,16 @@
+appId: com.ggbelgamo.animavita
+name: Adopter narrows the search radius and sees that no pets are nearby
+---
+# The seeded pets are about 9 km from the adopter
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: adopter@email.com
+- assertVisible:
+    id: pet-card-active
+- tapOn: ".*Filtrar"
+- tapOn:
+    id: filters-radius-slider
+    point: "1%,50%"
+- tapOn: "Aplicar"
+- assertVisible: "(.* )?Nenhum pet por perto( .*)?"

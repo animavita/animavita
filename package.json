@@ -6,6 +6,7 @@
   "scripts": {
     "backend": "pnpm --filter backend",
     "mobile": "pnpm --filter mobile",
+    "e2e": "pnpm --filter e2e",
     "test": "pnpm backend test && pnpm mobile test",
     "lint": "pnpm backend lint && pnpm mobile lint",
     "check-types": "pnpm backend check-types && pnpm mobile check-types",

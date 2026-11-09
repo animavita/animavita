@@ -1,0 +1,14 @@
+# Params: EMAIL, PASSWORD
+appId: com.ggbelgamo.animavita
+---
+# ids, because the form repeats its texts: "Email" and "Senha" are both a label
+# and a placeholder, "Entrar" is both the title and the button.
+- tapOn:
+    id: signin-form-email-input
+- inputText: ${EMAIL}
+- tapOn:
+    id: signin-form-password-input
+- inputText: ${PASSWORD}
+- runFlow: hide-keyboard-android.yaml
+- tapOn:
+    id: signin-form-submit-button

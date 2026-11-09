@@ -1,0 +1,31 @@
+appId: com.ggbelgamo.animavita
+name: Owner renames a pet and sees the new name in their list
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: owner@email.com
+- addMedia:
+    - ../media/pet.jpg
+# On iOS the whole card is one element, hence the patterns
+- tapOn: "Max( .*)?"
+- tapOn:
+    id: adoption-form-name-input
+- eraseText
+- inputText: Maximus
+- tapOn: "Próxima etapa"
+- tapOn: "Próxima etapa"
+- tapOn: "Próxima etapa"
+- tapOn: "Próxima etapa"
+- tapOn: "Próxima etapa"
+- tapOn: "Próxima etapa"
+# Max is seeded with 2 photos and the form requires 3
+- runFlow:
+    file: ../subflows/pick-photo.yaml
+    env:
+      SLOT: selecione a terceira foto do pet
+- tapOn: "Próxima etapa"
+- tapOn: "Confirmar"
+- assertVisible: "Meus Pets"
+- assertVisible: "Maximus( .*)?"
+- assertNotVisible: "Max( .*)?"

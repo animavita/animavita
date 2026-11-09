@@ -1,0 +1,15 @@
+appId: com.ggbelgamo.animavita
+name: Adopter swipes right to like a pet and the next pet shows
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: adopter@email.com
+- runFlow: ../subflows/remember-active-pet.yaml
+- swipe:
+    start: 15%, 50%
+    end: 95%, 50%
+    duration: 400
+- assertNotVisible: ${output.pet}
+- assertVisible:
+    id: pet-card-active

@@ -1,0 +1,12 @@
+appId: com.ggbelgamo.animavita
+name: Adopter signs in and sees the adopter home
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: adopter@email.com
+# On iOS the greeting and the avatar initials are one element ("Olá, Jane JA")
+- assertVisible: "Olá, Jane.*"
+- assertVisible: "Pets"
+- assertVisible: "Favoritos"
+- assertVisible: "Solicitações"

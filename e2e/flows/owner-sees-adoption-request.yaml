@@ -1,0 +1,20 @@
+appId: com.ggbelgamo.animavita
+name: Owner sees an adopter's request for their pet and its details
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: adopter@email.com
+- runFlow: ../subflows/remember-active-pet.yaml
+- tapOn: "Solicitar adoção"
+- assertNotVisible: ${output.pet}
+
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: owner@email.com
+- tapOn: "Solicitações"
+# On iOS the whole card is one element, hence the patterns
+- tapOn: "${output.pet}( .*)?"
+- assertVisible: "(.* )?Informações do Adotante( .*)?"
+- assertVisible: "(.* )?Jane Adopter( .*)?"
