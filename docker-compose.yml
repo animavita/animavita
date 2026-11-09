@@ -25,6 +25,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=test
       - AWS_S3_BUCKET_NAME=animavita-uploads
       - AWS_ENDPOINT=http://localstack:4566
+      # pnpm 12 would otherwise try an install before the script and fail: /app is the bind-mounted backend, not a workspace.
+      - pnpm_config_verify_deps_before_run=false
     command: pnpm run start:dev
 
   mongodb:

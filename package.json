@@ -16,7 +16,7 @@
   "keywords": [],
   "author": "Gabriel Belgamo",
   "license": "ISC",
-  "packageManager": "pnpm@11.28.9",
+  "packageManager": "pnpm@12.18.0",
   "devDependencies": {
     "nx": "15.9.2"
   }
