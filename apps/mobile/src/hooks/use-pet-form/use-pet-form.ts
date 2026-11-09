@@ -21,12 +21,17 @@ export type PetFormValues = {
   photos: ImageState[];
 };
 
+// Pets from the API carry photo URLs; the form turns them into ImageStates
+export type PetFormDefaultValues = Partial<Omit<PetFormValues, 'photos'>> & {
+  photos?: (string | ImageState)[];
+};
+
 export const validationSchema = adoptionValidationSchema.fork(
   ['name', 'gender', 'breed', 'type', 'maturity', 'size', 'photos'],
   (schema) => schema.required()
 );
 
-export const usePetForm = (defaultValues?: Partial<PetFormValues>) => {
+export const usePetForm = (defaultValues?: PetFormDefaultValues) => {
   const transformedDefaults: Partial<PetFormValues> | undefined = defaultValues
     ? {
         ...defaultValues,

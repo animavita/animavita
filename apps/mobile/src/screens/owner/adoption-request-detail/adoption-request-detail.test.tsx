@@ -26,6 +26,10 @@ const mockPendingRequest: AdoptionRequestResponse = {
     name: 'Rex',
     breed: 'Labrador',
     type: 'dog',
+    owner: {
+      id: 'owner1',
+      name: 'Jane Doe',
+    },
   },
   adopter: {
     id: 'adopter1',
