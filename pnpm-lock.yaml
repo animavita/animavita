@@ -189,8 +189,8 @@ importers:
         specifier: ^19.0.1
         version: 19.0.1(expo@53.0.23(@babel/core@7.26.7)(@expo/metro-runtime@5.0.5(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0)))(graphql@16.10.0)(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))(react@19.0.0))
       '@hookform/resolvers':
-        specifier: ^2.9.10
-        version: 2.9.11(react-hook-form@7.43.1(react@19.0.0))
+        specifier: ^3.10.0
+        version: 3.10.0(react-hook-form@7.43.1(react@19.0.0))
       '@react-native-async-storage/async-storage':
         specifier: 2.1.2
         version: 2.1.2(react-native@0.79.6(@babel/core@7.26.7)(@react-native-community/cli@13.6.9)(@types/react@19.0.14)(react@19.0.0))
@@ -1636,8 +1636,8 @@ packages:
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
 
-  '@hookform/resolvers@2.9.11':
-    resolution: {integrity: sha512-bA3aZ79UgcHj7tFV7RlgThzwSSHZgvfbt2wprldRkYBcMopdMvHyO17Wwp/twcJasNFischFfS7oz8Katz8DdQ==}
+  '@hookform/resolvers@3.10.0':
+    resolution: {integrity: sha512-79Dv+3mDF7i+2ajj7SkypSKHhl1cbln1OGavqrsF7p6mbUv11xpqpacPsGDCTRvCSjEEIez2ef1NveSVL3b0Ag==}
     peerDependencies:
       react-hook-form: ^7.0.0
 
@@ -11166,7 +11166,7 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
 
-  '@hookform/resolvers@2.9.11(react-hook-form@7.43.1(react@19.0.0))':
+  '@hookform/resolvers@3.10.0(react-hook-form@7.43.1(react@19.0.0))':
     dependencies:
       react-hook-form: 7.43.1(react@19.0.0)
 

@@ -9,7 +9,11 @@ import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
 import { useMultiStepNavigation } from './hooks/use-multi-step-navigation.hook';
 import { AdoptionSteps } from './pet-form.types';
-import { PetFormValues, usePetForm } from '../../hooks/use-pet-form/use-pet-form';
+import {
+  PetFormDefaultValues,
+  PetFormValues,
+  usePetForm,
+} from '../../hooks/use-pet-form/use-pet-form';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
 import useLocale from '@/hooks/use-locale';
@@ -21,7 +25,7 @@ export const validationSchema = adoptionValidationSchema.fork(
 );
 
 type PetFormProps = {
-  defaultValues?: Partial<PetFormValues>;
+  defaultValues?: PetFormDefaultValues;
   initialStep?: AdoptionSteps;
   title: string;
 };
