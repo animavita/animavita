@@ -42,4 +42,4 @@ name: Owner registers a pet with photos and sees it in their list
 - assertVisible: "Meus Pets"
 # New pets go to the end of the list
 - scrollUntilVisible:
-    element: "${output.name}( .*)?"
+    element: "${output.name}([ ,].*)?"

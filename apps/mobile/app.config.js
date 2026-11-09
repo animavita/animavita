@@ -57,7 +57,6 @@ module.exports = ({ config }) => {
     plugins: [
       ...(isE2E ? withCleartextTraffic(appJsonPlugins) : appJsonPlugins),
       'expo-localization',
-      './plugins/with-fmt-cxx17',
     ],
   };
 };

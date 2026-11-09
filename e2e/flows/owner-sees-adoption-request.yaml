@@ -15,6 +15,6 @@ name: Owner sees an adopter's request for their pet and its details
       EMAIL: owner@email.com
 - tapOn: "Solicitações"
 # On iOS the whole card is one element, hence the patterns
-- tapOn: "${output.pet}( .*)?"
-- assertVisible: "(.* )?Informações do Adotante( .*)?"
-- assertVisible: "(.* )?Jane Adopter( .*)?"
+- tapOn: "${output.pet}([ ,].*)?"
+- assertVisible: "(.*[ ,])?Informações do Adotante([ ,].*)?"
+- assertVisible: "(.*[ ,])?Jane Adopter([ ,].*)?"

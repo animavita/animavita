@@ -87,7 +87,7 @@ Guidelines:
 - Run new flows on both platforms. iOS differs in a few ways the existing flows
   already handle: everything inside a tappable area (a `Pressable` card, a header
   button) is one element there, so match its text with a pattern like
-  `"Rocky( .*)?"`; and `runFlow` with `when: platform:` holds platform-only steps.
+  `"Rocky([ ,].*)?"`; and `runFlow` with `when: platform:` holds platform-only steps.
 - Passing (swipe left) and liking (swipe right) only change the screen for now:
   `pass` and `like` in `use-adoption.ts` are TODOs. Their flows only check that the
   card leaves the deck; add checks when those endpoints exist.
