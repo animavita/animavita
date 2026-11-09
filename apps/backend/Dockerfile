@@ -1,6 +1,6 @@
 # Keep in sync with .nvmrc
 FROM node:22.23.4 AS base
-RUN npm i -g pnpm@10.34.9
+RUN npm i -g pnpm@11.28.9
 
 FROM base AS dependencies
 WORKDIR /app

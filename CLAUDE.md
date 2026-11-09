@@ -30,7 +30,7 @@ Per app: `pnpm backend test`, `pnpm mobile check-types`, etc.
 
 Use the Node version in `.nvmrc`.
 
-**Use pnpm 10.** `packageManager` pins `pnpm@10.34.9`, and pnpm (or corepack) switches itself to that version for you. CI and the backend Dockerfile run the same version, so keep the three in sync. pnpm settings (patches, overrides, allowed build scripts) live in `pnpm-workspace.yaml`, not in `package.json` or `.npmrc`. A setting an older pnpm doesn't know is silently ignored, which is how staging once broke without any test noticing, so don't hand-edit the pin to match whatever your local pnpm prints.
+**Use pnpm 11.** `packageManager` pins `pnpm@11.28.9`, and pnpm (or corepack) switches itself to that version for you. CI reads the same pin (the setup actions have no version input), but the backend Dockerfile repeats it, so keep those two in sync. pnpm settings (patches, overrides, `allowBuilds` for dependency build scripts) live in `pnpm-workspace.yaml`, not in `package.json` or `.npmrc`; pnpm 11 reads only auth and registry from `.npmrc`. A dependency with a build script that is not listed in `allowBuilds` makes `pnpm install` fail. A setting an older pnpm doesn't know is silently ignored, which is how staging once broke without any test noticing, so don't hand-edit the pin to match whatever your local pnpm prints.
 
 For an end-to-end check (before a deploy, after an upgrade or a risky change), run the Maestro smoke tests: `pnpm e2e start` then `pnpm e2e test` (`start:ios` / `test:ios` for iOS). See `e2e/README.md`.
 
