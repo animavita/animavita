@@ -93,7 +93,7 @@ $ cp apps/mobile/.env.example apps/mobile/.env
 ```
 
 The `.env` file includes:
-- `ENV=staging` - Default value pointing the mobile app to the hosted staging backend. Change this to `dev` if you want to use your local backend instead
+- `APP_ENV=staging` - Default value pointing the mobile app to the hosted staging backend. Change this to `dev` if you want to use your local backend instead
 - `EXPO_PUBLIC_POSTHOG_API_KEY=dev`
 
 Then, run the app:
@@ -124,7 +124,7 @@ Local overrides take precedence over PostHog values in development mode.
 
 In this case, you don't need to worry about the backend part.  We have a hosted staging environment you can use while developing locally. Keep in mind it might be unstable, so in case you face any problems follow the above steps to get the backend running locally as well.
 
-To point the app to staging, create a .env file and set the `ENV` variable to `staging`.
+To point the app to staging, create a .env file and set the `APP_ENV` variable to `staging`.
 
 ```sh
 cp .env.example .env

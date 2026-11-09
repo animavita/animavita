@@ -12,6 +12,8 @@ import {
 
 import { server } from '@/test/msw/server';
 
+jest.mock('expo-file-system', () => ({ File: jest.fn() }));
+
 jest.mock('./http-client', () => ({
   __esModule: true,
   default: {

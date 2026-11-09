@@ -46,7 +46,7 @@ pnpm mobile start                          # Expo
 
 Seeded accounts: `owner@email.com` and `adopter@email.com`, both `Password123`, plus 5 pets owned by the owner. Use these instead of registering new users.
 
-`apps/mobile/.env` defaults to `ENV=staging`, which points at the hosted staging backend. Set `ENV=dev` to use your local one.
+`apps/mobile/.env` defaults to `APP_ENV=staging`, which points at the hosted staging backend. Set `APP_ENV=dev` to use your local one.
 
 Two things that will waste your time if you don't know them:
 
