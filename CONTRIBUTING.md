@@ -9,7 +9,7 @@
 - Linux based distro or MacOS (we don't recommend Windows due to compatibility issues)
 - _Node:_ see `.nvmrc`.
 - _Npm:_ `10.5.2` or higher.
-- _Pnpm:_ `9.15.9` — pnpm 9, **not** 10. `packageManager` in the root `package.json` pins it, so a pnpm 10 install switches itself to 9.15.9 automatically. CI and the backend Docker image run 9.15.9, and the two majors read the `pnpm` config field differently.
+- _Pnpm:_ `10.34.9` — `packageManager` in the root `package.json` pins it, so a different local pnpm switches itself to this version automatically. CI and the backend Docker image run the same version.
 
 ### Getting started
 > The `master` and `next` are stale branches, please do not use them.

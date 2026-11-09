@@ -1,6 +1,6 @@
 # Keep in sync with .nvmrc
 FROM node:22.23.4 AS base
-RUN npm i -g pnpm@9.15.9
+RUN npm i -g pnpm@10.34.9
 
 FROM base AS dependencies
 WORKDIR /app
@@ -13,7 +13,7 @@ COPY . .
 FROM dependencies as pruned
 WORKDIR /app
 RUN pnpm --filter backend build
-RUN pnpm --filter backend deploy pruned
+RUN pnpm --filter backend deploy --legacy pruned
 
 FROM base as development
 WORKDIR /app

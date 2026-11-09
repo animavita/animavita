@@ -4,7 +4,7 @@ description: Prepare and install everything for the monorepo
 inputs:
   pnpm-version:
     description: Version of pnpm to use
-    default: 9.15.9
+    default: 10.34.9
 
   eas-version:
     description: Version of EAS CLI to use
@@ -22,7 +22,7 @@ runs:
   using: composite
   steps:
     - name: 🏗 Setup pnpm
-      uses: pnpm/action-setup@v2
+      uses: pnpm/action-setup@v4
       with:
         version: ${{ inputs.pnpm-version }}
 
