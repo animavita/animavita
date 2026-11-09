@@ -25,6 +25,7 @@
     },
     "plugins": [
       ["expo-build-properties", {}],
+      "expo-status-bar",
       [
         "expo-splash-screen",
         {
