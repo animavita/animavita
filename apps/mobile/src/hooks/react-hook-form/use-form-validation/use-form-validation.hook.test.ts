@@ -99,7 +99,7 @@ describe('useFormValidation', () => {
             await result.current.validateField('name');
           });
 
-          expect(show).toBeCalledWith({
+          expect(show).toHaveBeenCalledWith({
             description: 'REGISTER_ADOPTION.FORM_ERROR_MESSAGES.NAME_REQUIRED',
             id: 'adoption-form-toast',
           });
@@ -127,7 +127,7 @@ describe('useFormValidation', () => {
             await result.current.validateField('name');
           });
 
-          expect(show).not.toBeCalled();
+          expect(show).not.toHaveBeenCalled();
         });
       });
     });
