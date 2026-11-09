@@ -231,7 +231,7 @@ describe('picture-upload service', () => {
         maxFileSize: 5242880,
       };
 
-      await uploadFileToS3('file:///path/to/photo.jpg', presignedData, 'image/jpeg');
+      await uploadFileToS3('file:///path/to/photo.jpg', presignedData);
 
       expect(mockFetch).toHaveBeenCalledWith(
         'https://s3.example.com/upload',
@@ -262,9 +262,9 @@ describe('picture-upload service', () => {
         maxFileSize: 5242880,
       };
 
-      await expect(
-        uploadFileToS3('file:///path/to/photo.jpg', presignedData, 'image/jpeg')
-      ).rejects.toThrow('<Error><Code>AccessDenied</Code><Message>Access denied</Message></Error>');
+      await expect(uploadFileToS3('file:///path/to/photo.jpg', presignedData)).rejects.toThrow(
+        '<Error><Code>AccessDenied</Code><Message>Access denied</Message></Error>'
+      );
     });
   });
 

@@ -13,7 +13,8 @@ COPY . .
 FROM dependencies as pruned
 WORKDIR /app
 RUN pnpm --filter backend build
-RUN pnpm --filter backend deploy --legacy pruned
+# The deployed backend has no native-base, so the workspace's native-base patch is unused here
+RUN pnpm_config_allow_unused_patches=true pnpm --filter backend deploy --legacy pruned
 
 FROM base as development
 WORKDIR /app
