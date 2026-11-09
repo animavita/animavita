@@ -60,3 +60,5 @@ apps/mobile/coverage
 
 **/android
 **/ios
+# pnpm store created by the backend dev container bind mount
+apps/backend/.pnpm-store/
