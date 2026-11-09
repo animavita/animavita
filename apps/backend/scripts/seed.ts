@@ -122,7 +122,7 @@ async function uploadSeedPhotos(): Promise<Record<string, string>> {
   // Same public host the app gets for uploads (see S3StorageProvider)
   const publicEndpoint = endpoint.replace('//localstack:', '//localhost:');
 
-  const files = await readdir(PHOTOS_DIR);
+  const files = (await readdir(PHOTOS_DIR)).filter((file) => file.endsWith('.jpg'));
   const entries = await Promise.all(
     files.map(async (file) => {
       const key = `seed/${file}`;

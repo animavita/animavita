@@ -5,8 +5,8 @@
   "scripts": {
     "start": "expo start",
     "prebuild": "npx expo prebuild --clean",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
     "web": "expo start --web",
     "web:build": "expo export --platform web",
     "test": "TZ=UTC jest --coverage",

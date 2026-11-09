@@ -4,7 +4,13 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 PLATFORM=android
-if [ "${1:-}" = "--ios" ]; then PLATFORM=ios; shift; fi
+FLOWS=()
+for arg in "$@"; do
+  case $arg in
+    --ios) PLATFORM=ios ;;
+    *) FLOWS+=("$arg") ;;
+  esac
+done
 
 docker-compose -f ../docker-compose.yml exec -T backend pnpm seed
 
@@ -15,4 +21,4 @@ if [ "$PLATFORM" = android ]; then
   adb shell 'for s in window_animation_scale transition_animation_scale animator_duration_scale; do settings put global $s 0; done'
 fi
 
-MAESTRO_CLI_NO_ANALYTICS=1 maestro test --platform "$PLATFORM" "${@:-.}"
+MAESTRO_CLI_NO_ANALYTICS=1 maestro test --platform "$PLATFORM" "${FLOWS[@]:-.}"

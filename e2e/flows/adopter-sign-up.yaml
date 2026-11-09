@@ -13,11 +13,7 @@ name: New adopter signs up, picks a role, verifies the phone, shares a location 
 - tapOn:
     id: signup-form-password-input
 - inputText: Password123
-- runFlow:
-    when:
-      platform: Android
-    commands:
-      - hideKeyboard
+- runFlow: ../subflows/hide-keyboard-android.yaml
 # The header also says "Registre-se"
 - tapOn:
     text: "Registre-se"
@@ -28,11 +24,7 @@ name: New adopter signs up, picks a role, verifies the phone, shares a location 
 
 - tapOn: "Número de celular"
 - inputText: "11987654321"
-- runFlow:
-    when:
-      platform: Android
-    commands:
-      - hideKeyboard
+- runFlow: ../subflows/hide-keyboard-android.yaml
 - tapOn: "Enviar código"
 # Any code works outside production. One box at a time: typing fast drops digits.
 - tapOn: "OTP code position 1"
@@ -47,11 +39,7 @@ name: New adopter signs up, picks a role, verifies the phone, shares a location 
 - inputText: "5"
 - tapOn: "OTP code position 6"
 - inputText: "6"
-- runFlow:
-    when:
-      platform: Android
-    commands:
-      - hideKeyboard
+- runFlow: ../subflows/hide-keyboard-android.yaml
 - tapOn: "Verificar"
 
 # Near the seeded pets in Central Park

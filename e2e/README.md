@@ -16,7 +16,8 @@ on (`require_phone_number` in `local-feature-flags.ts`).
 
 ## One-time setup
 
-1. Install Maestro: `brew tap mobile-dev-inc/tap && brew install mobile-dev-inc/tap/maestro`
+1. Install Maestro: `brew tap mobile-dev-inc/tap && brew install mobile-dev-inc/tap/maestro`.
+   The flows are tested with Maestro 2.12.1; newer versions may match or wait differently.
 2. Install the repo's dependencies (`pnpm install`). See `CONTRIBUTING.md`.
 3. For Android: install Android Studio and create an emulator in **Device Manager**.
    Make sure JDK 17 is installed too.
@@ -97,7 +98,7 @@ Guidelines:
   internet. `pnpm e2e test` forwards port 4566 to the emulator; if you run Maestro
   directly, run `adb reverse tcp:4566 tcp:4566` first.
 - **The app shows an old version of your change.** You're running the release app
-  without rebuilding it. Run `pnpm e2e build:android` (or `build:ios`), or use the debug setup above.
+  without rebuilding it. Run `pnpm e2e start` (it rebuilds the app), or use the debug setup above.
 - **In debug mode, taps near the bottom of the screen do nothing.** React Native's
   dev warning popups cover them. Start Metro with `pnpm e2e debug:metro` (it hides
   them), not `pnpm mobile start`.

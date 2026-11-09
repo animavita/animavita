@@ -2,6 +2,12 @@
 
 This directory contains scripts to seed the database with initial data for development.
 
+## Requirements
+
+- MongoDB
+- LocalStack (local S3), with `AWS_ENDPOINT` pointing at it. The script uploads the pet photos
+  there and fails without it. Docker Compose sets this up for you.
+
 ## Running the Seed Script
 
 ### Option 1: Using Docker Compose (Recommended)
@@ -58,4 +64,4 @@ All pets have the same location as the owner and should appear in the adopter's 
 - It will delete and recreate the seed users and their pets on each run
 - Other data in the database will not be affected
 - The locations are real New York coordinates approximately 10km apart
-- Pet photos come from `seed-photos/` (Unsplash) and are uploaded to the local S3 bucket (LocalStack), so `AWS_ENDPOINT` must point at LocalStack. The app gets `http://localhost:4566/...` URLs; an Android emulator needs `adb reverse tcp:4566 tcp:4566` to load them
+- Pet photos come from `seed-photos/` (Unsplash) and are uploaded to the local S3 bucket (LocalStack). The app gets `http://localhost:4566/...` URLs; an Android emulator needs `adb reverse tcp:4566 tcp:4566` to load them

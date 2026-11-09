@@ -6,8 +6,6 @@
   "scripts": {
     "start": "./scripts/start.sh",
     "start:ios": "./scripts/start.sh --ios",
-    "build:android": "pnpm --filter mobile build:e2e:android",
-    "build:ios": "pnpm --filter mobile build:e2e:ios",
     "test": "./scripts/test.sh",
     "test:ios": "./scripts/test.sh --ios",
     "debug:build": "pnpm --filter mobile build:e2e:debug",
