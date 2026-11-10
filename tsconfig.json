@@ -1,11 +1,50 @@
 {
-  "exclude": ["apps/**/tests/**", "shared/**/dist/**"],
-  "references": [
-    {
-      "path": "./apps/backend"
-    },
-    {
-      "path": "./shared/validation-schemas"
-    }
-  ]
+  "name": "animavita",
+  "private": true,
+  "packageManager": "pnpm@10",
+  "scripts": {
+    "dev": "pnpm --filter backend start:dev",
+    "dev:debug": "pnpm --filter backend start:debug",
+
+    "build": "tsc --build",
+    "build:clean": "tsc --build --clean",
+    "build:backend": "pnpm --filter backend build",
+    "build:schemas": "pnpm --filter validation-schemas build",
+
+    "start": "pnpm --filter backend start",
+    "start:prod": "pnpm --filter backend start:prod",
+
+    "typecheck": "tsc --build --noEmit",
+    "typecheck:watch": "tsc --build --watch",
+
+    "lint": "pnpm -r lint",
+    "lint:fix": "pnpm -r lint --fix",
+
+    "test": "pnpm -r test",
+    "test:watch": "pnpm -r test:watch",
+    "test:coverage": "pnpm -r test:cov",
+    "test:e2e": "pnpm --filter backend test:e2e",
+
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "docker:restart": "docker compose restart",
+    "docker:logs": "docker compose logs -f",
+    "docker:build": "docker compose build",
+
+    "db:logs": "docker compose logs -f mongodb",
+    "db:shell": "docker exec -it animavita_mongo mongosh",
+
+    "s3:logs": "docker compose logs -f localstack",
+    "s3:list": "docker exec animavita_localstack awslocal s3 ls",
+    "s3:create-bucket": "docker exec animavita_localstack awslocal s3 mb s3://animavita-uploads",
+
+    "clean": "rimraf apps/**/dist shared/**/dist",
+    "clean:all": "rimraf node_modules apps/**/dist shared/**/dist .turbo",
+
+    "check": "pnpm lint && pnpm typecheck",
+    "ci": "pnpm check && pnpm test && pnpm build"
+  }
 }
