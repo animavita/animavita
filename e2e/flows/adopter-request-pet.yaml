@@ -9,13 +9,13 @@ name: Adopter requests a pet, sees the pending request and its details, and the 
 - tapOn: "Solicitar adoção"
 - assertNotVisible: ${output.pet}
 
-# On iOS the whole card is one element ("Rocky Aguardando resposta ..."), hence the patterns
+# On iOS the whole card is one element ("Rocky, Rocky, Aguardando resposta, ..."), hence the patterns
 - tapOn: "Solicitações"
-- assertVisible: "${output.pet}( .*)?"
-- assertVisible: "(.* )?Aguardando resposta( .*)?"
-- tapOn: "${output.pet}( .*)?"
-- assertVisible: "(.* )?Informações do Dono( .*)?"
-- assertVisible: "(.* )?John Owner( .*)?"
+- assertVisible: "${output.pet}([ ,].*)?"
+- assertVisible: "(.*[ ,])?Aguardando resposta([ ,].*)?"
+- tapOn: "${output.pet}([ ,].*)?"
+- assertVisible: "(.*[ ,])?Informações do Dono([ ,].*)?"
+- assertVisible: "(.*[ ,])?John Owner([ ,].*)?"
 
 - launchApp
 - tapOn: "Pets"

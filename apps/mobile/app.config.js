@@ -13,7 +13,7 @@ module.exports = ({ config }) => {
   const appJsonPlugins = config.plugins ?? [];
 
   const getApiUrl = () => {
-    switch (process.env.ENV) {
+    switch (process.env.APP_ENV) {
       case 'dev': {
         return {
           android: 'http://10.0.2.2:3000',
@@ -57,7 +57,6 @@ module.exports = ({ config }) => {
     plugins: [
       ...(isE2E ? withCleartextTraffic(appJsonPlugins) : appJsonPlugins),
       'expo-localization',
-      './plugins/with-fmt-cxx17',
     ],
   };
 };

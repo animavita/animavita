@@ -13,4 +13,4 @@ name: Adopter narrows the search radius and sees that no pets are nearby
     id: filters-radius-slider
     point: "1%,50%"
 - tapOn: "Aplicar"
-- assertVisible: "(.* )?Nenhum pet por perto( .*)?"
+- assertVisible: "(.*[ ,])?Nenhum pet por perto([ ,].*)?"

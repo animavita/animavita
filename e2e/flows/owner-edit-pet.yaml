@@ -8,7 +8,7 @@ name: Owner renames a pet and sees the new name in their list
 - addMedia:
     - ../media/pet.jpg
 # On iOS the whole card is one element, hence the patterns
-- tapOn: "Max( .*)?"
+- tapOn: "Max([ ,].*)?"
 - tapOn:
     id: adoption-form-name-input
 - eraseText
@@ -27,5 +27,5 @@ name: Owner renames a pet and sees the new name in their list
 - tapOn: "Próxima etapa"
 - tapOn: "Confirmar"
 - assertVisible: "Meus Pets"
-- assertVisible: "Maximus( .*)?"
-- assertNotVisible: "Max( .*)?"
+- assertVisible: "Maximus([ ,].*)?"
+- assertNotVisible: "Max([ ,].*)?"

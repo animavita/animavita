@@ -4,6 +4,7 @@ import { render, userEvent } from '@testing-library/react-native';
 import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 import { I18nextProvider } from 'react-i18next';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { initI18n } from '@/i18n/i18n.config';
 import theme from '@/theme';
@@ -37,7 +38,9 @@ const renderWithProviders = (children: React.ReactElement) => {
       <QueryClientWrapper>
         <NavigationContainer>
           <NativeBaseProvider theme={theme} initialWindowMetrics={inset}>
-            <I18nextProvider i18n={initI18n('pt-BR')}>{children}</I18nextProvider>
+            <GestureHandlerRootView>
+              <I18nextProvider i18n={initI18n('pt-BR')}>{children}</I18nextProvider>
+            </GestureHandlerRootView>
           </NativeBaseProvider>
         </NavigationContainer>
       </QueryClientWrapper>

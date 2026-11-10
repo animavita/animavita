@@ -21,7 +21,7 @@ on (`require_phone_number` in `local-feature-flags.ts`).
 2. Install the repo's dependencies (`pnpm install`). See `CONTRIBUTING.md`.
 3. For Android: install Android Studio and create an emulator in **Device Manager**.
    Make sure JDK 17 is installed too.
-4. For iOS (macOS only): install Xcode and its iOS platform (**Xcode › Settings ›
+4. For iOS (macOS only): install Xcode 26.4 or newer (Expo SDK 58 needs it) and its iOS platform (**Xcode › Settings ›
    Components**, or `xcodebuild -downloadPlatform iOS`, about 8 GB). It comes with
    iPhone simulators.
 
@@ -87,7 +87,7 @@ Guidelines:
 - Run new flows on both platforms. iOS differs in a few ways the existing flows
   already handle: everything inside a tappable area (a `Pressable` card, a header
   button) is one element there, so match its text with a pattern like
-  `"Rocky( .*)?"`; and `runFlow` with `when: platform:` holds platform-only steps.
+  `"Rocky([ ,].*)?"`; and `runFlow` with `when: platform:` holds platform-only steps.
 - Passing (swipe left) and liking (swipe right) only change the screen for now:
   `pass` and `like` in `use-adoption.ts` are TODOs. Their flows only check that the
   card leaves the deck; add checks when those endpoints exist.

@@ -31,7 +31,7 @@ body:
     attributes:
       label: Where
       description: Platform, and whether you were on a local or staging backend.
-      placeholder: iOS simulator, ENV=dev (local backend)
+      placeholder: iOS simulator, APP_ENV=dev (local backend)
     validations:
       required: true
 
