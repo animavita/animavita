@@ -6,7 +6,13 @@ import { useTranslation } from 'react-i18next';
 import PageDelimiter from '@/components/delimiter/delimiter';
 import SafeArea from '@/components/safe-area/safe-area';
 import Topbar from '@/components/topbar/topbar';
+import { useDenyAdoptionRequest } from '@/hooks/use-deny-adoption-request/use-deny-adoption-request';
 import { useNavigation } from '@/navigation/use-navigation';
+import {
+  ownerOutcomeNoticeKey,
+  ownerStatusLabelKey,
+  requestStatusColor,
+} from '@/shared/adoption-request-labels';
 
 type AdoptionRequestDetailProps = {
   route: {
@@ -19,22 +25,8 @@ type AdoptionRequestDetailProps = {
 export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => {
   const { t } = useTranslation();
   const { goBack } = useNavigation();
+  const { deny, isDenying } = useDenyAdoptionRequest();
   const { request } = route.params;
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case AdoptionRequestStatus.ACCEPTED:
-        return 'success';
-      case AdoptionRequestStatus.DENIED:
-        return 'danger';
-      default:
-        return 'warning';
-    }
-  };
-
-  const getStatusLabel = (status: string) => {
-    return t(`ADOPTION_REQUESTS.OWNER.CARD.STATUS_${status.toUpperCase()}`);
-  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -54,9 +46,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
   };
 
   const handleDenyRequest = () => {
-    console.log('Deny request:', request.id);
-    // TODO: Call API to deny request
-    goBack();
+    deny(request.id);
   };
 
   return (
@@ -70,13 +60,13 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
                 {request.pet.name}
               </Text>
               <Badge
-                colorScheme={getStatusColor(request.status)}
+                colorScheme={requestStatusColor(request)}
                 variant="solid"
                 borderRadius="md"
                 px={3}
                 py={1}
               >
-                {getStatusLabel(request.status)}
+                {t(ownerStatusLabelKey(request))}
               </Badge>
             </HStack>
 
@@ -129,9 +119,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
           {request.status !== AdoptionRequestStatus.PENDING && (
             <Box bg="coolGray.100" borderRadius="lg" p={4}>
               <Text textAlign="center" color="coolGray.600">
-                {request.status === AdoptionRequestStatus.ACCEPTED
-                  ? t('ADOPTION_REQUESTS.OWNER.DETAIL.ALREADY_ACCEPTED')
-                  : t('ADOPTION_REQUESTS.OWNER.DETAIL.ALREADY_DENIED')}
+                {t(ownerOutcomeNoticeKey(request))}
               </Text>
             </Box>
           )}
@@ -142,6 +130,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
             <Button
               colorScheme="success"
               size="lg"
+              isDisabled={isDenying}
               leftIcon={<Icon as={Ionicons} name="checkmark-circle" />}
               onPress={handleAcceptRequest}
             >
@@ -152,6 +141,8 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
               colorScheme="danger"
               variant="solid"
               size="lg"
+              isLoading={isDenying}
+              isDisabled={isDenying}
               leftIcon={<Icon as={Ionicons} name="close-circle" />}
               onPress={handleDenyRequest}
             >

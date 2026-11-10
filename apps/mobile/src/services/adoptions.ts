@@ -30,3 +30,7 @@ export const getMyAdoptionRequests = () => {
 export const requestPetAdoption = (petId: string) => {
   return client.post<AdoptionRequestResponse>(`/pets/${petId}/request`);
 };
+
+export const denyAdoptionRequest = (requestId: string) => {
+  return client.patch<void>(`/adoption-requests/${requestId}/deny`);
+};

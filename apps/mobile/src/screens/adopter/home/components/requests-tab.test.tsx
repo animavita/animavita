@@ -7,7 +7,7 @@ import { Text } from 'react-native';
 import RequestsTab from './requests-tab';
 
 import { StackParamsList } from '@/navigation/main-navigator';
-import { mockAdoptionRequests } from '@/test/fixtures/adoption-requests';
+import { mockAdoptionRequests, mockCascadeDeniedRequest } from '@/test/fixtures/adoption-requests';
 import { server } from '@/test/msw/server';
 import { renderWithProviders } from '@/test/test-utils';
 
@@ -74,7 +74,22 @@ describe('RequestsTab (Adopter)', () => {
       await waitFor(() => {
         expect(screen.getByText('Aguardando resposta')).toBeVisible();
         expect(screen.getByText('Aprovada')).toBeVisible();
-        expect(screen.getByText('Recusada')).toBeVisible();
+        expect(screen.getByText('Recusada pelo dono')).toBeVisible();
+      });
+    });
+
+    it('distinguishes a pet that found a home from an owner turning the adopter down', async () => {
+      server.use(
+        http.get('*/api/v1/adoption-requests/my', () =>
+          HttpResponse.json([mockAdoptionRequests[2], mockCascadeDeniedRequest])
+        )
+      );
+
+      renderWithProviders(<RequestsTab />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Recusada pelo dono')).toBeVisible();
+        expect(screen.getByText('Pet já adotado')).toBeVisible();
       });
     });
 

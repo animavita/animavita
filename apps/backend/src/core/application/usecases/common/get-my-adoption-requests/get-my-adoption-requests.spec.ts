@@ -48,6 +48,7 @@ describe('GetMyAdoptionRequests', () => {
         {
           id: 'req-1',
           status: 'pending',
+          denialReason: null,
           petId: 'pet-1',
           adopterId,
           createdAt: new Date().toISOString(),
@@ -98,6 +99,7 @@ describe('GetMyAdoptionRequests', () => {
         {
           id: 'req-1',
           status: 'pending',
+          denialReason: null,
           petId: 'pet-1',
           adopterId: 'adopter-1',
           createdAt: new Date().toISOString(),

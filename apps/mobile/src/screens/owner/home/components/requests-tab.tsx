@@ -1,4 +1,4 @@
-import { AdoptionRequestResponse, AdoptionRequestStatus } from '@animavita/types';
+import { AdoptionRequestResponse } from '@animavita/types';
 import { Ionicons } from '@expo/vector-icons';
 import { useQuery } from '@tanstack/react-query';
 import { Box, Center, HStack, Icon, Spinner, Text, VStack, Badge, Pressable } from 'native-base';
@@ -8,6 +8,7 @@ import { FlatList } from 'react-native';
 import { useNavigation } from '@/navigation/use-navigation';
 import { getMyAdoptionRequests } from '@/services/adoptions';
 import { QUERY_KEYS } from '@/services/query-keys';
+import { ownerStatusLabelKey, requestStatusColor } from '@/shared/adoption-request-labels';
 
 const RequestsTab = () => {
   const { t } = useTranslation();
@@ -18,21 +19,6 @@ const RequestsTab = () => {
 
   const requests = data?.data;
   const { navigate } = useNavigation();
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case AdoptionRequestStatus.ACCEPTED:
-        return 'success';
-      case AdoptionRequestStatus.DENIED:
-        return 'danger';
-      default:
-        return 'warning';
-    }
-  };
-
-  const getStatusLabel = (status: string) => {
-    return t(`ADOPTION_REQUESTS.OWNER.CARD.STATUS_${status.toUpperCase()}`);
-  };
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -74,8 +60,8 @@ const RequestsTab = () => {
                 </Text>
               </HStack>
             </VStack>
-            <Badge colorScheme={getStatusColor(item.status)} variant="solid" borderRadius="md">
-              {getStatusLabel(item.status)}
+            <Badge colorScheme={requestStatusColor(item)} variant="solid" borderRadius="md">
+              {t(ownerStatusLabelKey(item))}
             </Badge>
           </HStack>
 

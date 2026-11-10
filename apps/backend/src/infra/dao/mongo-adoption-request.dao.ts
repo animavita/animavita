@@ -94,6 +94,7 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
           petId: 1,
           adopterId: 1,
           status: 1,
+          denialReason: 1,
           createdAt: 1,
           updatedAt: 1,
           pet: {
@@ -123,6 +124,7 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
       petId: doc.petId.toString(),
       adopterId: doc.adopterId.toString(),
       status: doc.status,
+      denialReason: doc.denialReason ?? null,
       createdAt: doc.createdAt.toString(),
       updatedAt: doc.updatedAt.toString(),
       pet: {

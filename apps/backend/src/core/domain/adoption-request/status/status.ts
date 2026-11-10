@@ -1,11 +1,16 @@
 import { InvalidParamError } from '../../errors';
 
-export type AdoptionRequestStatusType = 'pending' | 'accepted' | 'denied';
+export type AdoptionRequestStatusType =
+  | 'pending'
+  | 'accepted'
+  | 'denied'
+  | 'cancelled';
 
 const validStatuses: AdoptionRequestStatusType[] = [
   'pending',
   'accepted',
   'denied',
+  'cancelled',
 ];
 
 export default class AdoptionRequestStatus {
@@ -31,6 +36,10 @@ export default class AdoptionRequestStatus {
     return this.status;
   }
 
+  isPending(): boolean {
+    return this.status === 'pending';
+  }
+
   static pending(): AdoptionRequestStatus {
     return new AdoptionRequestStatus('pending');
   }
@@ -41,5 +50,9 @@ export default class AdoptionRequestStatus {
 
   static denied(): AdoptionRequestStatus {
     return new AdoptionRequestStatus('denied');
+  }
+
+  static cancelled(): AdoptionRequestStatus {
+    return new AdoptionRequestStatus('cancelled');
   }
 }

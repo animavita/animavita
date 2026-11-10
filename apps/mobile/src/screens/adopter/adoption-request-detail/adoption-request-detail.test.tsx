@@ -1,3 +1,4 @@
+import { DenialReason } from '@animavita/types';
 import { screen, waitFor } from '@testing-library/react-native';
 import React from 'react';
 
@@ -143,7 +144,7 @@ describe('AdoptionRequestDetail (Adopter)', () => {
       expect(screen.getByText('Esta solicitação já foi aprovada')).toBeVisible();
     });
 
-    it('shows already denied message for denied requests', () => {
+    it('shows already denied message for denied requests without a reason', () => {
       const deniedRoute = {
         params: {
           request: {
@@ -156,6 +157,41 @@ describe('AdoptionRequestDetail (Adopter)', () => {
       renderWithProviders(<AdoptionRequestDetail route={deniedRoute} />);
 
       expect(screen.getByText('Esta solicitação já foi recusada')).toBeVisible();
+    });
+
+    it('tells the adopter the owner turned them down', () => {
+      const deniedRoute = {
+        params: {
+          request: {
+            ...mockRequest,
+            status: AdoptionRequestStatus.DENIED,
+            denialReason: DenialReason.REJECTED_BY_OWNER,
+          },
+        },
+      };
+
+      renderWithProviders(<AdoptionRequestDetail route={deniedRoute} />);
+
+      expect(screen.getByText('O dono decidiu não seguir com esta adoção')).toBeVisible();
+      expect(screen.getByText('Recusada pelo dono')).toBeVisible();
+    });
+
+    it('tells the adopter the pet found a home, not that they were rejected', () => {
+      const cascadedRoute = {
+        params: {
+          request: {
+            ...mockRequest,
+            status: AdoptionRequestStatus.DENIED,
+            denialReason: DenialReason.PET_ADOPTED,
+          },
+        },
+      };
+
+      renderWithProviders(<AdoptionRequestDetail route={cascadedRoute} />);
+
+      expect(screen.getByText('Este pet encontrou um lar com outro adotante')).toBeVisible();
+      expect(screen.getByText('Pet já adotado')).toBeVisible();
+      expect(screen.queryByText('O dono decidiu não seguir com esta adoção')).not.toBeOnTheScreen();
     });
 
     it('does not show status message for pending requests', () => {
