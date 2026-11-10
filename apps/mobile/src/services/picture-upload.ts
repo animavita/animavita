@@ -4,6 +4,7 @@ import {
   PresignedUrlResponse,
   PresignedUrlsResponse,
 } from '@animavita/types';
+import { File } from 'expo-file-system';
 
 import client from './http-client';
 
@@ -25,12 +26,6 @@ export type UploadResult = {
   success: boolean;
   fileUrl?: string;
   error?: UploadError;
-};
-
-export type ReactNativeFile = {
-  uri: string;
-  type: string;
-  name: string;
 };
 
 export const AWS_ERROR_CODES = {
@@ -66,8 +61,7 @@ export const getPresignedUrls = async (
 
 export const uploadFileToS3 = async (
   fileUri: string,
-  presignedData: PresignedUrlResponse,
-  contentType: string
+  presignedData: PresignedUrlResponse
 ): Promise<void> => {
   const formData = new FormData();
 
@@ -75,13 +69,9 @@ export const uploadFileToS3 = async (
     formData.append(key, value);
   });
 
-  const fileName = presignedData.key.split('/').pop() || 'image';
-  const file: ReactNativeFile = {
-    uri: fileUri,
-    type: contentType,
-    name: fileName,
-  };
-  formData.append('file', file as unknown as Blob);
+  // Expo's fetch (the global fetch since SDK 56) can't send React Native's { uri, type, name }
+  // file parts, so the file is passed as an expo-file-system File, which it reads itself
+  formData.append('file', new File(fileUri));
 
   const response = await fetch(presignedData.presignedUrl, {
     method: 'POST',
@@ -188,7 +178,7 @@ export const uploadMultipleFiles = async (
     const presignedData = uploads[idx];
 
     try {
-      await uploadFileToS3(file.uri, presignedData, file.fileInfo.mimeType);
+      await uploadFileToS3(file.uri, presignedData);
       return { success: true, index: file.index, fileUrl: presignedData.fileUrl };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';

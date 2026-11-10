@@ -28,9 +28,11 @@ pnpm test                   # jest in backend and mobile
 
 Per app: `pnpm backend test`, `pnpm mobile check-types`, etc.
 
-Use the Node version in `.nvmrc` (v20.13.1). On a newer Node, `argon2` fails to compile its native binding and the sign-in specs won't run.
+Use the Node version in `.nvmrc`.
 
-**Use pnpm 9, not 10.** `packageManager` pins `pnpm@9.15.9`, so pnpm 10 switches itself to 9.15.9 for you; corepack does the same. The version matters because CI and the backend Dockerfile both run 9.15.9, and the two majors disagree about the `pnpm` field in `package.json` — pnpm 10 renamed settings that 9 then silently ignores, which is how staging once broke without any test noticing. Upgrading the whole toolchain to pnpm 10 is tracked in issue #316; until then, don't hand-edit that field to match whatever your local pnpm prints.
+**Use pnpm 12.** `packageManager` pins `pnpm@12.18.0` and pnpm (or corepack) switches to it for you. CI reads that pin; the backend Dockerfile repeats it, so keep the two in sync. All pnpm settings (patches, overrides, `allowBuilds`) live in `pnpm-workspace.yaml`; `.npmrc` is for auth and registry only. A dependency with a build script that isn't listed in `allowBuilds` makes `pnpm install` fail, and so does an unknown key in `pnpm-workspace.yaml`. Don't regenerate `pnpm-lock.yaml` from scratch: it would move native-base off the version `patches/` targets. The first YAML document in the lockfile (pnpm's own version) is expected. `docker-compose.yml` sets `pnpm_config_verify_deps_before_run=false` because `/app` in the dev container is not a workspace.
+
+For an end-to-end check (before a deploy, after an upgrade or a risky change), run the Maestro smoke tests: `pnpm e2e start` then `pnpm e2e test` (`start:ios` / `test:ios` for iOS). See `e2e/README.md`.
 
 CI runs backend and mobile tests separately (`.github/workflows/run-*-tests.yml`). Note that CI currently runs only backend **e2e** tests and does **not** typecheck either app — so a green CI does not mean `pnpm verify` passes. Run it locally.
 
@@ -44,7 +46,7 @@ pnpm mobile start                          # Expo
 
 Seeded accounts: `owner@email.com` and `adopter@email.com`, both `Password123`, plus 5 pets owned by the owner. Use these instead of registering new users.
 
-`apps/mobile/.env` defaults to `ENV=staging`, which points at the hosted staging backend. Set `ENV=dev` to use your local one.
+`apps/mobile/.env` defaults to `APP_ENV=staging`, which points at the hosted staging backend. Set `APP_ENV=dev` to use your local one.
 
 Two things that will waste your time if you don't know them:
 

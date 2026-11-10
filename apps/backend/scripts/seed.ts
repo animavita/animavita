@@ -5,6 +5,9 @@ import { Model } from 'mongoose';
 import { MongoUser } from '../src/infra/mongo/schemas/user.schema';
 import { MongoPet } from '../src/infra/mongo/schemas/pet.schema';
 import { hash } from 'argon2';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { readdir, readFile } from 'fs/promises';
+import * as path from 'path';
 
 // Seed accounts configuration
 const SEED_ACCOUNTS = {
@@ -30,7 +33,7 @@ const LOCATIONS = {
   lowerManhattan: { longitude: -73.9862, latitude: 40.7061 },
 } as const;
 
-function createPetData(ownerId: string) {
+function createPetData(ownerId: string, photoUrls: Record<string, string>) {
   const ownerLocation = {
     type: 'Point' as const,
     coordinates: [
@@ -48,10 +51,7 @@ function createPetData(ownerId: string) {
       maturity: 'adult' as const,
       size: 'big' as const,
       observations: 'Friendly and energetic dog, loves to play fetch!',
-      photos: [
-        'https://images.unsplash.com/photo-1633722715463-d30f4f325e24?w=400',
-        'https://images.unsplash.com/photo-1552053831-71594a27632d?w=400',
-      ],
+      photos: [photoUrls['max-1.jpg'], photoUrls['max-2.jpg']],
       user: ownerId,
       location: ownerLocation,
     },
@@ -63,9 +63,7 @@ function createPetData(ownerId: string) {
       maturity: 'young' as const,
       size: 'small' as const,
       observations: 'Calm and affectionate cat, perfect for apartments.',
-      photos: [
-        'https://images.unsplash.com/photo-1513360371669-4adf3dd7dff8?w=400',
-      ],
+      photos: [photoUrls['luna.jpg']],
       user: ownerId,
       location: ownerLocation,
     },
@@ -77,9 +75,7 @@ function createPetData(ownerId: string) {
       maturity: 'puppy' as const,
       size: 'medium' as const,
       observations: 'Playful puppy looking for an active family.',
-      photos: [
-        'https://images.unsplash.com/photo-1505628346881-b72b27e84530?w=400',
-      ],
+      photos: [photoUrls['buddy.jpg']],
       user: ownerId,
       location: ownerLocation,
     },
@@ -91,9 +87,7 @@ function createPetData(ownerId: string) {
       maturity: 'senior' as const,
       size: 'small' as const,
       observations: 'Gentle senior cat, loves quiet environments.',
-      photos: [
-        'https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400',
-      ],
+      photos: [photoUrls['mittens.jpg']],
       user: ownerId,
       location: ownerLocation,
     },
@@ -105,13 +99,45 @@ function createPetData(ownerId: string) {
       maturity: 'adult' as const,
       size: 'big' as const,
       observations: 'Well-trained guard dog, great with kids.',
-      photos: [
-        'https://images.unsplash.com/photo-1568572933382-74d440642117?w=400',
-      ],
+      photos: [photoUrls['rocky.jpg']],
       user: ownerId,
       location: ownerLocation,
     },
   ];
+}
+
+// Pet photos live in scripts/seed-photos (from Unsplash) and are uploaded to the
+// same bucket as user uploads, so the app never needs the internet to show them.
+const PHOTOS_DIR = path.join(__dirname, 'seed-photos');
+
+async function uploadSeedPhotos(): Promise<Record<string, string>> {
+  const endpoint = process.env.AWS_ENDPOINT;
+  const bucket = process.env.AWS_S3_BUCKET_NAME || 'animavita-uploads';
+  const region = process.env.AWS_REGION || 'us-east-1';
+  if (!endpoint) {
+    throw new Error('AWS_ENDPOINT must point at LocalStack to seed photos');
+  }
+
+  const s3 = new S3Client({ region, endpoint, forcePathStyle: true });
+  // Same public host the app gets for uploads (see S3StorageProvider)
+  const publicEndpoint = endpoint.replace('//localstack:', '//localhost:');
+
+  const files = (await readdir(PHOTOS_DIR)).filter((file) => file.endsWith('.jpg'));
+  const entries = await Promise.all(
+    files.map(async (file) => {
+      const key = `seed/${file}`;
+      await s3.send(
+        new PutObjectCommand({
+          Bucket: bucket,
+          Key: key,
+          Body: await readFile(path.join(PHOTOS_DIR, file)),
+          ContentType: 'image/jpeg',
+        }),
+      );
+      return [file, `${publicEndpoint}/${bucket}/${key}`] as const;
+    }),
+  );
+  return Object.fromEntries(entries);
 }
 
 async function seed() {
@@ -124,6 +150,10 @@ async function seed() {
 
   try {
     const hashedPassword = await hash(SEED_ACCOUNTS.owner.password);
+
+    console.log('🖼️  Uploading pet photos...');
+    const photoUrls = await uploadSeedPhotos();
+    console.log(`   ✅ Uploaded ${Object.keys(photoUrls).length} photos\n`);
 
     console.log('🧹 Clearing existing seed data...');
     const seedEmails = [SEED_ACCOUNTS.owner.email, SEED_ACCOUNTS.adopter.email];
@@ -180,7 +210,7 @@ async function seed() {
     console.log(`   ✅ Adopter created (ID: ${adopter._id})\n`);
 
     console.log('🐕 Creating pets...');
-    const pets = createPetData(owner._id.toString());
+    const pets = createPetData(owner._id.toString(), photoUrls);
     await petModel.insertMany(pets);
     console.log(`   ✅ Created ${pets.length} pets\n`);
 

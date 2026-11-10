@@ -9,7 +9,7 @@ const stepKeys = Object.keys(stepsLibrary);
 describe('StepperIndicator', () => {
   it('renders the correct label', () => {
     const { getByText } = renderWithProviders(
-      <StepperIndicator activeStep={AdoptionSteps.PetGender} />
+      <StepperIndicator activeStep={AdoptionSteps.PetGender} title="Title" />
     );
 
     expect(getByText(/sexo do pet/i)).toBeOnTheScreen();
@@ -20,7 +20,7 @@ describe('StepperIndicator', () => {
 
     it(`renders ${currentStepNumber}/8`, () => {
       const { getByText } = renderWithProviders(
-        <StepperIndicator activeStep={step as AdoptionSteps} />
+        <StepperIndicator activeStep={step as AdoptionSteps} title="Title" />
       );
 
       expect(getByText(`${currentStepNumber}/8`)).toBeOnTheScreen();

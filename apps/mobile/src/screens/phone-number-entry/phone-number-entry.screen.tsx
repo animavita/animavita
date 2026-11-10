@@ -1,6 +1,6 @@
 import { Button, Heading, HStack, Input, Text, View } from 'native-base';
 import { useRef, useState } from 'react';
-import { TextInput } from 'react-native';
+import { TextInputInstance } from 'react-native';
 import PhoneInput, { isValidPhoneNumber } from 'react-native-international-phone-number';
 
 import useResendTimer from './compose/hooks/use-resend-timer';
@@ -27,7 +27,7 @@ const PhoneNumberEntryScreen = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [selectedCountry, setSelectedCountry] = useState<any>(null);
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const inputRefs = useRef<(TextInput | null)[]>([]);
+  const inputRefs = useRef<(TextInputInstance | null)[]>([]);
   const { timer: resendTimer, startTimer, resetTimer } = useResendTimer();
 
   const getFullPhoneNumber = () => {

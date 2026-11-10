@@ -1,0 +1,6 @@
+# Sets ${output.pet} to the top card's pet name, so flows don't depend on card order.
+appId: com.ggbelgamo.animavita
+---
+- copyTextFrom:
+    id: pet-card-active-name
+- evalScript: ${output.pet = maestro.copiedText}

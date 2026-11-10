@@ -1,0 +1,17 @@
+# Param: SLOT, the label of the photo slot to fill. Run addMedia first so the
+# gallery has a photo.
+appId: com.ggbelgamo.animavita
+---
+- tapOn: ${SLOT}
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - tapOn: "Photo taken on.*"
+      - tapOn: "CROP"
+- runFlow:
+    when:
+      platform: iOS
+    commands:
+      - tapOn: "Photo, .*"
+      - tapOn: "Choose"

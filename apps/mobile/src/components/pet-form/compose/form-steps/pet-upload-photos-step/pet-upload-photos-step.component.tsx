@@ -26,7 +26,12 @@ const PhotoPicker = ({
 
   return (
     <Box {...boxProps}>
-      <Pressable onPress={onPress} accessibilityHint={accessibilityHint}>
+      <Pressable
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={alt}
+        accessibilityHint={accessibilityHint}
+      >
         {imageUri ? (
           <Image
             rounded="md"

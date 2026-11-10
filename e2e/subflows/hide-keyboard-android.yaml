@@ -1,0 +1,9 @@
+appId: com.ggbelgamo.animavita
+---
+# The Android keyboard covers buttons below the fields. iOS shows no keyboard in
+# the simulator, and hideKeyboard there taps whatever is below the fields.
+- runFlow:
+    when:
+      platform: Android
+    commands:
+      - hideKeyboard

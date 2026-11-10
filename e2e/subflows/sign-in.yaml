@@ -1,0 +1,11 @@
+# Param: EMAIL of a seeded account (all seeded accounts use Password123).
+appId: com.ggbelgamo.animavita
+---
+- runFlow: launch-signed-out.yaml
+- runFlow:
+    file: submit-sign-in.yaml
+    env:
+      EMAIL: ${EMAIL}
+      PASSWORD: Password123
+- runFlow: dismiss-save-password.yaml
+- assertVisible: "Olá, .*"

@@ -7,9 +7,9 @@
 ### Pre-requisites
 
 - Linux based distro or MacOS (we don't recommend Windows due to compatibility issues)
-- _Node:_ `20.13.1` or higher.
+- _Node:_ see `.nvmrc`.
 - _Npm:_ `10.5.2` or higher.
-- _Pnpm:_ `9.15.9` — pnpm 9, **not** 10. `packageManager` in the root `package.json` pins it, so a pnpm 10 install switches itself to 9.15.9 automatically. CI and the backend Docker image run 9.15.9, and the two majors read the `pnpm` config field differently.
+- _Pnpm:_ `12.18.0` — `packageManager` in the root `package.json` pins it, so a different local pnpm switches itself to this version automatically. CI and the backend Docker image run the same version.
 
 ### Getting started
 > The `master` and `next` are stale branches, please do not use them.
@@ -93,7 +93,7 @@ $ cp apps/mobile/.env.example apps/mobile/.env
 ```
 
 The `.env` file includes:
-- `ENV=staging` - Default value pointing the mobile app to the hosted staging backend. Change this to `dev` if you want to use your local backend instead
+- `APP_ENV=staging` - Default value pointing the mobile app to the hosted staging backend. Change this to `dev` if you want to use your local backend instead
 - `EXPO_PUBLIC_POSTHOG_API_KEY=dev`
 
 Then, run the app:
@@ -124,7 +124,7 @@ Local overrides take precedence over PostHog values in development mode.
 
 In this case, you don't need to worry about the backend part.  We have a hosted staging environment you can use while developing locally. Keep in mind it might be unstable, so in case you face any problems follow the above steps to get the backend running locally as well.
 
-To point the app to staging, create a .env file and set the `ENV` variable to `staging`.
+To point the app to staging, create a .env file and set the `APP_ENV` variable to `staging`.
 
 ```sh
 cp .env.example .env
@@ -135,6 +135,19 @@ Then, run the app:
 ```sh
 pnpm mobile start
 ```
+
+### End-to-end tests
+
+Maestro smoke tests drive the Android or iOS app against your local backend. Run them before a production deployment, after upgrading dependencies, or after a risky change:
+
+```sh
+$ pnpm e2e start   # backend + emulator + app build
+$ pnpm e2e test    # seed + run every flow
+```
+
+For iOS: `pnpm e2e start:ios`, then `pnpm e2e test:ios`.
+
+See [e2e/README.md](e2e/README.md) for the one-time setup and how to write flows.
 
 ### Sending a pull request
 

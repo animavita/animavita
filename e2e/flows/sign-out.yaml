@@ -1,0 +1,10 @@
+appId: com.ggbelgamo.animavita
+name: Signed-in user signs out and returns to the sign-in screen
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: adopter@email.com
+- tapOn: "Olá, .*"
+- tapOn: "Sair"
+- assertVisible: "Entrar"

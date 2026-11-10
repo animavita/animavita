@@ -6,11 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -28,17 +23,16 @@
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "newArchEnabled": true,
     "plugins": [
+      "expo-build-properties",
+      "expo-status-bar",
       [
-        "expo-build-properties",
+        "expo-splash-screen",
         {
-          "android": {
-            "newArchEnabled": true
-          },
-          "ios": {
-            "newArchEnabled": true
-          }
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "enableFullScreenImage_legacy": true
         }
       ],
       "expo-secure-store",

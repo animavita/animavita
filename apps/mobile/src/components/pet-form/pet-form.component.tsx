@@ -2,14 +2,17 @@ import { adoptionValidationSchema } from '@animavita/validation-schemas';
 import { Box, KeyboardAvoidingView, useToast } from 'native-base';
 import React from 'react';
 import { FormProvider, useFormContext } from 'react-hook-form';
-import { Platform } from 'react-native';
 
 import FormSteps from './compose/form-steps';
 import StepperController from './compose/stepper-controller';
 import StepperIndicator from './compose/stepper-indicator';
 import { useMultiStepNavigation } from './hooks/use-multi-step-navigation.hook';
 import { AdoptionSteps } from './pet-form.types';
-import { PetFormValues, usePetForm } from '../../hooks/use-pet-form/use-pet-form';
+import {
+  PetFormDefaultValues,
+  PetFormValues,
+  usePetForm,
+} from '../../hooks/use-pet-form/use-pet-form';
 
 import { Delimiter } from '@/components/delimiter/delimiter';
 import useLocale from '@/hooks/use-locale';
@@ -21,7 +24,7 @@ export const validationSchema = adoptionValidationSchema.fork(
 );
 
 type PetFormProps = {
-  defaultValues?: Partial<PetFormValues>;
+  defaultValues?: PetFormDefaultValues;
   initialStep?: AdoptionSteps;
   title: string;
 };
@@ -30,7 +33,7 @@ const PetForm = ({ defaultValues, initialStep, title }: PetFormProps) => {
   const petForm = usePetForm(defaultValues);
 
   return (
-    <KeyboardAvoidingView flex="1" behavior="padding" enabled={Platform.OS === 'ios'}>
+    <KeyboardAvoidingView flex="1" behavior="padding">
       <FormProvider {...petForm}>
         <PetFormInner initialStep={initialStep} title={title} />
       </FormProvider>

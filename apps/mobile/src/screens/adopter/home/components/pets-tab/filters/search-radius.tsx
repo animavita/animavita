@@ -30,6 +30,8 @@ export const SearchRadius = ({ currentRadius, onChange }: SearchRadiusProps) => 
 
       <Box _android={{ mx: -4, mt: 2 }}>
         <Slider
+          testID="filters-radius-slider"
+          tapToSeek
           minimumValue={5}
           maximumValue={100}
           step={5}

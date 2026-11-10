@@ -1,0 +1,45 @@
+appId: com.ggbelgamo.animavita
+name: Owner registers a pet with photos and sees it in their list
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: owner@email.com
+- addMedia:
+    - ../media/pet.jpg
+- evalScript: ${output.name = 'Thor ' + Date.now().toString().slice(-4)}
+- tapOn: "Adicionar Pet para Adoção"
+- tapOn:
+    id: adoption-form-name-input
+- inputText: ${output.name}
+- tapOn: "Próxima etapa"
+- tapOn:
+    id: adoption-form-breed-input
+- inputText: Labrador
+- tapOn: "Próxima etapa"
+- tapOn: "Cão"
+- tapOn: "Próxima etapa"
+- tapOn: "Filhote (menos de 1 ano)"
+- tapOn: "Próxima etapa"
+- tapOn: "Macho"
+- tapOn: "Próxima etapa"
+- tapOn: "Médio"
+- tapOn: "Próxima etapa"
+- runFlow:
+    file: ../subflows/pick-photo.yaml
+    env:
+      SLOT: selecione a principal foto do pet
+- runFlow:
+    file: ../subflows/pick-photo.yaml
+    env:
+      SLOT: selecione a segunda foto do pet
+- runFlow:
+    file: ../subflows/pick-photo.yaml
+    env:
+      SLOT: selecione a terceira foto do pet
+- tapOn: "Próxima etapa"
+- tapOn: "Confirmar"
+- assertVisible: "Meus Pets"
+# New pets go to the end of the list
+- scrollUntilVisible:
+    element: "${output.name}([ ,].*)?"

@@ -76,6 +76,10 @@ jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock')
 );
 
+// Worklets has no native part under Jest, so use its mock
+// https://docs.swmansion.com/react-native-worklets/docs/guides/testing
+jest.mock('react-native-worklets', () => require('react-native-worklets/lib/module/mock'));
+
 // Setup Reanimated for testing
 // https://docs.swmansion.com/react-native-reanimated/docs/guides/testing/
 require('react-native-reanimated').setUpTests();

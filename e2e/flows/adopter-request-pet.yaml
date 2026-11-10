@@ -1,0 +1,24 @@
+appId: com.ggbelgamo.animavita
+name: Adopter requests a pet, sees the pending request and its details, and the pet leaves the deck
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: adopter@email.com
+- runFlow: ../subflows/remember-active-pet.yaml
+- tapOn: "Solicitar adoção"
+- assertNotVisible: ${output.pet}
+
+# On iOS the whole card is one element ("Rocky, Rocky, Aguardando resposta, ..."), hence the patterns
+- tapOn: "Solicitações"
+- assertVisible: "${output.pet}([ ,].*)?"
+- assertVisible: "(.*[ ,])?Aguardando resposta([ ,].*)?"
+- tapOn: "${output.pet}([ ,].*)?"
+- assertVisible: "(.*[ ,])?Informações do Dono([ ,].*)?"
+- assertVisible: "(.*[ ,])?John Owner([ ,].*)?"
+
+- launchApp
+- tapOn: "Pets"
+- assertVisible:
+    id: pet-card-active
+- assertNotVisible: ${output.pet}

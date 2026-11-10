@@ -1,5 +1,6 @@
-FROM node:20.13.1 AS base
-RUN npm i -g pnpm@9.15.9
+# Keep in sync with .nvmrc
+FROM node:22.23.4 AS base
+RUN npm i -g pnpm@12.18.0
 
 FROM base AS dependencies
 WORKDIR /app
@@ -12,7 +13,8 @@ COPY . .
 FROM dependencies as pruned
 WORKDIR /app
 RUN pnpm --filter backend build
-RUN pnpm --filter backend deploy pruned
+# The deployed backend has no native-base, so the workspace's native-base patch is unused here
+RUN pnpm_config_allow_unused_patches=true pnpm --filter backend deploy --legacy pruned
 
 FROM base as development
 WORKDIR /app
