@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { MongooseModule, MongooseModuleOptions } from '@nestjs/mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryReplSet } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
 import {
   MongoUser,
@@ -34,12 +34,13 @@ import { MongoAdoptionRequestRepository } from '../../src/infra/repositories/mon
 import { ADOPTION_REQUEST_DAO } from '../../src/core/application/dao/adoption-request.dao';
 import { MongoAdoptionRequestDAO } from '../../src/infra/dao/mongo-adoption-request.dao';
 
-let mongod: MongoMemoryServer;
+let mongod: MongoMemoryReplSet;
 
 export const rootMongooseTestModule = (options: MongooseModuleOptions = {}) =>
   MongooseModule.forRootAsync({
     useFactory: async () => {
-      mongod = await MongoMemoryServer.create();
+      // Transactions only work on a replica set, so run a single-node one.
+      mongod = await MongoMemoryReplSet.create({ replSet: { count: 1 } });
       const mongoUri = mongod.getUri();
       return {
         uri: mongoUri,

@@ -38,6 +38,28 @@ We have a `docker-compose` file that sets up a mongodb database and the backend 
 $ docker-compose up -d
 ```
 
+#### MongoDB runs as a single-node replica set
+
+MongoDB only supports transactions (several writes that all succeed or all fail) on a **replica set**: a group of servers that hold the same data. The accept-a-request flow needs this. So the local database runs as a replica set with one member. There is no extra container and no redundancy.
+
+You do nothing by hand. `docker-compose up -d` starts MongoDB, sets up the replica set the first time, and only then starts the backend (the backend waits for MongoDB's healthcheck). If you already have a local database volume, just recreate the container: `docker-compose up -d --force-recreate mongodb`. Your data is kept.
+
+Connection strings:
+- **Inside docker** (the backend): `...@animavita_mongo/?authMechanism=DEFAULT&replicaSet=rs0` (already set in `docker-compose.yml`).
+- **From your machine** (backend without docker, seed script, a GUI): add `directConnection=true`, as in `apps/backend/.env.example`. Without it the driver tries the hostname `animavita_mongo`, which only exists inside docker, and fails with `ENOTFOUND animavita_mongo`.
+
+The in-memory MongoDB used by the backend tests is also a single-node replica set, so nothing to set up there.
+
+**If MongoDB does not start properly.** A half-set-up replica set gives confusing errors such as `ENOTFOUND animavita_mongo`, `not primary`, `Transaction numbers are only allowed on a replica set member`, or the backend never starting. Check, in this order:
+
+```sh
+$ docker-compose ps mongodb          # should say "healthy"
+$ docker-compose logs mongodb        # look for keyfile or replica set errors
+$ docker exec animavita_mongo mongosh -u mongo -p mongo --quiet --eval 'rs.status().ok'   # should print 1
+```
+
+If it is stuck and you do not need the local data, reset it: `docker-compose down -v && docker-compose up -d` (`-v` deletes the database volume, so re-run the seed afterwards).
+
 #### Seeding the database
 
 For development, it's useful to have some initial data to work with. We provide a seed script that creates:
