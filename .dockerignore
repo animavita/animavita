@@ -1,19 +1,31 @@
-# Files
-.env
-.env.*
-README.md
-.git
-.gitignore
-npm-debug.log
-.dockerignore
-Dockerfile
-docker-compose
-LICENSE.md
+{
+	"type": "module",
+	"scripts": {
+		"prepare": "husky",
 
-# Directories
-**/node_modules
-test
-dist
-.github
-.vscode
-apps/mobile
+		"lint": "eslint . --cache",
+		"lint:fix": "eslint . --cache --fix",
+
+		"format": "prettier . --write --ignore-unknown",
+		"format:check": "prettier . --check --ignore-unknown",
+
+		"test": "vitest run",
+		"test:watch": "vitest",
+
+		"check-types": "tsc --noEmit",
+
+		"check": "npm run check-types && npm run lint && npm run format:check && npm run test"
+	},
+	"lint-staged": {
+		"*.{js,mjs,cjs,ts,tsx}": [
+			"eslint --cache --fix",
+			"prettier --write"
+		],
+		"src/**/*.{js,mjs,cjs,ts,tsx}": [
+			"vitest related --run"
+		],
+		"*.{json,md,yaml,yml}": [
+			"prettier --write"
+		]
+	}
+}
