@@ -7,6 +7,7 @@ import { Text } from 'react-native';
 import RequestsTab from './requests-tab';
 
 import { StackParamsList } from '@/navigation/main-navigator';
+import { AdoptionRequestStatus } from '@/services/adoptions';
 import { mockAdoptionRequests } from '@/test/fixtures/adoption-requests';
 import { server } from '@/test/msw/server';
 import { renderWithProviders } from '@/test/test-utils';
@@ -85,6 +86,23 @@ describe('RequestsTab (Owner)', () => {
         expect(screen.getByText('Aprovada')).toBeVisible();
         expect(screen.getByText('Recusada')).toBeVisible();
       });
+    });
+
+    it('shows a request the adopter cancelled as withdrawn, not as declined', async () => {
+      server.use(
+        http.get('*/api/v1/adoption-requests/my', async () => {
+          return HttpResponse.json([
+            { ...mockAdoptionRequests[0], status: AdoptionRequestStatus.CANCELLED },
+          ]);
+        })
+      );
+
+      renderWithProviders(<RequestsTab />);
+
+      await waitFor(() => {
+        expect(screen.getByText('Cancelada pelo adotante')).toBeVisible();
+      });
+      expect(screen.queryByText('Recusada')).not.toBeOnTheScreen();
     });
 
     it('displays formatted request dates', async () => {

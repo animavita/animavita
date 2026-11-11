@@ -9,6 +9,7 @@ import RemovePostedPet from '../core/application/usecases/owner/remove-posted-pe
 import GetMyPets from '../core/application/usecases/owner/get-my-pets/get-my-pets';
 import RequestPetAdoption from '../core/application/usecases/adopter/request-pet-adoption/request-pet-adoption';
 import GetMyAdoptionRequests from '../core/application/usecases/common/get-my-adoption-requests/get-my-adoption-requests';
+import CancelAdoptionRequest from '../core/application/usecases/adopter/cancel-adoption-request/cancel-adoption-request';
 import DenyAdoptionRequest from '../core/application/usecases/owner/deny-adoption-request/deny-adoption-request';
 
 @Module({
@@ -23,6 +24,7 @@ import DenyAdoptionRequest from '../core/application/usecases/owner/deny-adoptio
     RequestPetAdoption,
     GetMyAdoptionRequests,
     DenyAdoptionRequest,
+    CancelAdoptionRequest,
   ],
 })
 export class PetModule {}

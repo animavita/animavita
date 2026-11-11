@@ -1,11 +1,13 @@
 import { DenialReason } from '@animavita/types';
 import { screen, waitFor } from '@testing-library/react-native';
+import { http, HttpResponse } from 'msw';
 import React from 'react';
 
 import { AdoptionRequestDetail } from './adoption-request-detail';
 
 import { AdoptionRequestStatus } from '@/services/adoptions';
 import { mockAdoptionRequests } from '@/test/fixtures/adoption-requests';
+import { server } from '@/test/msw/server';
 import { renderWithProviders } from '@/test/test-utils';
 
 const mockGoBack = jest.fn();
@@ -86,15 +88,39 @@ describe('AdoptionRequestDetail (Adopter)', () => {
       expect(screen.getByText('Cancelar Solicitação')).toBeVisible();
     });
 
-    it('calls handleCancelRequest when cancel button is pressed', async () => {
+    it('cancels the request and goes back when the cancel button is pressed', async () => {
+      const cancelled: string[] = [];
+      server.use(
+        http.patch('*/api/v1/adoption-requests/:id/cancel', ({ params }) => {
+          cancelled.push(params.id as string);
+          return new HttpResponse(null, { status: 200 });
+        })
+      );
+
       const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
 
-      const cancelButton = screen.getByText('Cancelar Solicitação');
-      await user.press(cancelButton);
+      await user.press(screen.getByText('Cancelar Solicitação'));
 
-      await waitFor(() => {
-        expect(mockGoBack).toHaveBeenCalled();
-      });
+      await waitFor(() => expect(cancelled).toEqual(['1']));
+      await waitFor(() => expect(mockGoBack).toHaveBeenCalled());
+    });
+
+    it('stays on the screen when the request has already been resolved', async () => {
+      let attempts = 0;
+      server.use(
+        http.patch('*/api/v1/adoption-requests/:id/cancel', () => {
+          attempts += 1;
+          return HttpResponse.json({ message: 'conflict' }, { status: 409 });
+        })
+      );
+
+      const { user } = renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      await user.press(screen.getByText('Cancelar Solicitação'));
+
+      await waitFor(() => expect(attempts).toBe(1));
+      expect(mockGoBack).not.toHaveBeenCalled();
+      expect(screen.getByText('Cancelar Solicitação')).toBeVisible();
     });
 
     it('does not display cancel button for accepted requests', () => {
@@ -192,6 +218,19 @@ describe('AdoptionRequestDetail (Adopter)', () => {
       expect(screen.getByText('Este pet encontrou um lar com outro adotante')).toBeVisible();
       expect(screen.getByText('Pet já adotado')).toBeVisible();
       expect(screen.queryByText('O dono decidiu não seguir com esta adoção')).not.toBeOnTheScreen();
+    });
+
+    it('tells the adopter they cancelled', () => {
+      const cancelledRoute = {
+        params: {
+          request: { ...mockRequest, status: AdoptionRequestStatus.CANCELLED },
+        },
+      };
+
+      renderWithProviders(<AdoptionRequestDetail route={cancelledRoute} />);
+
+      expect(screen.getByText('Você cancelou esta solicitação')).toBeVisible();
+      expect(screen.queryByText('Cancelar Solicitação')).not.toBeOnTheScreen();
     });
 
     it('does not show status message for pending requests', () => {

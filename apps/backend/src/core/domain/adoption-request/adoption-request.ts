@@ -50,6 +50,11 @@ export class AdoptionRequest {
     this._denialReason = new DenialReason(reason);
   }
 
+  cancel() {
+    this.guardPending('cancelled');
+    this._status = AdoptionRequestStatus.cancelled();
+  }
+
   /**
    * Only pending requests can change — the other statuses are terminal, so a
    * stale screen cannot silently undo a decision. See ADR-0001.
