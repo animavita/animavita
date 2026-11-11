@@ -10,12 +10,14 @@ services:
       - ./apps/backend:/app
       - /app/node_modules
     depends_on:
-      - mongodb
-      - localstack
+      mongodb:
+        condition: service_healthy
+      localstack:
+        condition: service_started
     ports:
       - 3000:3000
     environment:
-      - MONGODB_URI=mongodb://mongo:mongo@animavita_mongo/?authMechanism=DEFAULT
+      - MONGODB_URI=mongodb://mongo:mongo@animavita_mongo/?authMechanism=DEFAULT&replicaSet=rs0
       - JWT_ACCESS_SECRET=123
       - JWT_ACCESS_TOKEN_EXPIRATION=24h
       - JWT_REFRESH_SECRET=321
@@ -38,6 +40,35 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=mongo
       - MONGO_INITDB_ROOT_PASSWORD=mongo
       - MONGO_INITDB_DATABASE=animavita
+    # Single-node replica set: MongoDB only supports transactions on a replica set.
+    # A replica set with auth needs a keyfile, so we generate one on start.
+    entrypoint:
+      - bash
+      - -c
+      - |
+        openssl rand -base64 756 > /data/keyfile
+        chmod 400 /data/keyfile
+        chown mongodb:mongodb /data/keyfile
+        exec docker-entrypoint.sh mongod --replSet rs0 --keyFile /data/keyfile --bind_ip_all
+    # Initiates the replica set on first run, then reports healthy once it is primary.
+    # The backend waits for this, so it never starts against a half-ready database.
+    healthcheck:
+      test:
+        - CMD
+        - mongosh
+        - -u
+        - mongo
+        - -p
+        - mongo
+        - --quiet
+        - --eval
+        - |
+          try { rs.status() } catch (e) { rs.initiate({ _id: 'rs0', members: [{ _id: 0, host: 'animavita_mongo:27017' }] }) }
+          quit(db.hello().isWritablePrimary ? 0 : 1)
+      interval: 5s
+      timeout: 10s
+      retries: 20
+      start_period: 10s
     volumes:
       - mongo:/data/db
 
