@@ -10,6 +10,7 @@ import FindNearestPets from '../../adopter/find-nearest-pets/find-nearest-pets';
 import RequestPetAdoption from '../../adopter/request-pet-adoption/request-pet-adoption';
 import { adoptionFactory as petFactory } from '../../../../../../test/factories/adoption';
 import { userFactory } from '../../../../../../test/factories/user';
+import CancelAdoptionRequest from '../../adopter/cancel-adoption-request/cancel-adoption-request';
 import CompleteSignUp from '../../common/complete-sign-up/complete-sign-up';
 import { UserType } from '@animavita/types';
 
@@ -41,6 +42,7 @@ describe.only('FindNearestPets', () => {
   let postPetForAdoption: PostPetForAdoption;
   let findNearestPets: FindNearestPets;
   let requestPetAdoption: RequestPetAdoption;
+  let cancelAdoptionRequest: CancelAdoptionRequest;
   let completeSignUp: CompleteSignUp;
   let userService: UserService;
 
@@ -68,6 +70,7 @@ describe.only('FindNearestPets', () => {
         PostPetForAdoption,
         FindNearestPets,
         RequestPetAdoption,
+        CancelAdoptionRequest,
         CompleteSignUp,
       ],
     }).compile();
@@ -77,6 +80,9 @@ describe.only('FindNearestPets', () => {
     postPetForAdoption = fixture.get<PostPetForAdoption>(PostPetForAdoption);
     findNearestPets = fixture.get<FindNearestPets>(FindNearestPets);
     requestPetAdoption = fixture.get<RequestPetAdoption>(RequestPetAdoption);
+    cancelAdoptionRequest = fixture.get<CancelAdoptionRequest>(
+      CancelAdoptionRequest,
+    );
     completeSignUp = fixture.get<CompleteSignUp>(CompleteSignUp);
 
     await app.init();
@@ -153,6 +159,26 @@ describe.only('FindNearestPets', () => {
         ).toBeUndefined();
         expect(petsAfterRequest[0].name).toBe(availablePet2.name);
         expect(petsAfterRequest[1].name).toBe(availablePet3.name);
+      });
+    });
+
+    describe('when adopter cancelled their request', () => {
+      it('does not bring the pet back, since one request per pet is final', async () => {
+        const [petToRequest] = await findNearestPets.execute({
+          radius: 2,
+          adopterId,
+        });
+        const { id: requestId } = await requestPetAdoption.execute(
+          { petId: petToRequest.id },
+          adopterId,
+        );
+
+        await cancelAdoptionRequest.execute({ requestId }, adopterId);
+
+        const pets = await findNearestPets.execute({ radius: 2, adopterId });
+
+        expect(pets.length).toBe(2);
+        expect(pets.find((p) => p.id === petToRequest.id)).toBeUndefined();
       });
     });
   });

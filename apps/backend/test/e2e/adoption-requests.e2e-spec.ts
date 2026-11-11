@@ -89,6 +89,28 @@ const createAdopter = async (
   return { adopterId, adopterToken };
 };
 
+const placeRequest = async (
+  app: INestApplication,
+  petId: string,
+  adopterToken: string,
+) => {
+  const { body } = await request(app.getHttpServer())
+    .post(`/api/v1/pets/${petId}/request`)
+    .auth(adopterToken, { type: 'bearer' })
+    .expect(201);
+
+  return body.id as string;
+};
+
+const readMyRequests = async (app: INestApplication, token: string) => {
+  const { body } = await request(app.getHttpServer())
+    .get('/api/v1/adoption-requests/my')
+    .auth(token, { type: 'bearer' })
+    .expect(200);
+
+  return body;
+};
+
 describe('Adoption Requests (e2e)', () => {
   describe('POST /api/v1/pets/:petId/request', () => {
     it('allows adopter to request pet adoption', async () => {
@@ -311,6 +333,130 @@ describe('Adoption Requests (e2e)', () => {
   });
 });
 
+describe('PATCH /api/v1/adoption-requests/:id/cancel (e2e)', () => {
+  const setupPendingRequest = async () => {
+    const ctx = await setup();
+    const { authService, signInUsecase, completeSignUp, postPetForAdoption } =
+      ctx;
+
+    const owner = await createOwnerWithPet(
+      authService,
+      signInUsecase,
+      completeSignUp,
+      postPetForAdoption,
+    );
+    const adopter = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+    const requestId = await placeRequest(
+      ctx.app,
+      owner.petId,
+      adopter.adopterToken,
+    );
+
+    return { ...ctx, owner, adopter, requestId };
+  };
+
+  const cancel = (app: INestApplication, requestId: string, token?: string) => {
+    const req = request(app.getHttpServer()).patch(
+      `/api/v1/adoption-requests/${requestId}/cancel`,
+    );
+    return token ? req.auth(token, { type: 'bearer' }) : req;
+  };
+
+  it('lets the adopter cancel a pending request, and the owner sees it as withdrawn', async () => {
+    const { app, owner, adopter, requestId } = await setupPendingRequest();
+
+    await cancel(app, requestId, adopter.adopterToken).expect(200);
+
+    const ownerRequests = await readMyRequests(app, owner.ownerToken);
+    expect(ownerRequests).toHaveLength(1);
+    expect(ownerRequests[0]).toMatchObject({
+      id: requestId,
+      status: 'cancelled',
+      denialReason: null,
+    });
+
+    await app.close();
+  });
+
+  it('is a conflict when the request is already cancelled', async () => {
+    const { app, adopter, requestId } = await setupPendingRequest();
+
+    await cancel(app, requestId, adopter.adopterToken).expect(200);
+    await cancel(app, requestId, adopter.adopterToken).expect(409);
+
+    await app.close();
+  });
+
+  it('is a conflict when the owner already denied the request', async () => {
+    const { app, owner, adopter, requestId } = await setupPendingRequest();
+
+    await request(app.getHttpServer())
+      .patch(`/api/v1/adoption-requests/${requestId}/deny`)
+      .auth(owner.ownerToken, { type: 'bearer' })
+      .expect(200);
+
+    await cancel(app, requestId, adopter.adopterToken).expect(409);
+
+    const adopterRequests = await readMyRequests(app, adopter.adopterToken);
+    expect(adopterRequests[0]).toMatchObject({
+      status: 'denied',
+      denialReason: 'rejected_by_owner',
+    });
+
+    await app.close();
+  });
+
+  it("rejects another adopter cancelling someone else's request", async () => {
+    const {
+      app,
+      authService,
+      signInUsecase,
+      completeSignUp,
+      adopter,
+      requestId,
+    } = await setupPendingRequest();
+    const { adopterToken: otherAdopterToken } = await createAdopter(
+      authService,
+      signInUsecase,
+      completeSignUp,
+    );
+
+    await cancel(app, requestId, otherAdopterToken).expect(401);
+
+    const adopterRequests = await readMyRequests(app, adopter.adopterToken);
+    expect(adopterRequests[0]).toMatchObject({ status: 'pending' });
+
+    await app.close();
+  });
+
+  it('rejects the owner cancelling on the adopter’s behalf', async () => {
+    const { app, owner, adopter, requestId } = await setupPendingRequest();
+
+    await cancel(app, requestId, owner.ownerToken).expect(401);
+
+    const adopterRequests = await readMyRequests(app, adopter.adopterToken);
+    expect(adopterRequests[0]).toMatchObject({ status: 'pending' });
+
+    await app.close();
+  });
+
+  it('fails when the user is not authenticated', async () => {
+    const { app, requestId } = await setupPendingRequest();
+
+    await cancel(app, requestId).expect(401);
+
+    await app.close();
+  });
+
+  afterEach(async () => {
+    await closeInMongodConnection();
+  });
+});
+
 describe('GET /api/v1/adoption-requests/my (e2e)', () => {
   describe('as adopter', () => {
     it('returns placed requests with pet info', async () => {
@@ -484,28 +630,6 @@ describe('GET /api/v1/adoption-requests/my (e2e)', () => {
 });
 
 describe('PATCH /api/v1/adoption-requests/:id/deny (e2e)', () => {
-  const placeRequest = async (
-    app: INestApplication,
-    petId: string,
-    adopterToken: string,
-  ) => {
-    const { body } = await request(app.getHttpServer())
-      .post(`/api/v1/pets/${petId}/request`)
-      .auth(adopterToken, { type: 'bearer' })
-      .expect(201);
-
-    return body.id as string;
-  };
-
-  const readMyRequests = async (app: INestApplication, token: string) => {
-    const { body } = await request(app.getHttpServer())
-      .get('/api/v1/adoption-requests/my')
-      .auth(token, { type: 'bearer' })
-      .expect(200);
-
-    return body;
-  };
-
   it('lets the owner deny a pending request, and the adopter sees why', async () => {
     const {
       app,

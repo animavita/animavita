@@ -123,4 +123,24 @@ describe('AdoptionRequest Entity', () => {
       expect(request.denialReason).toBe('pet_adopted');
     });
   });
+
+  describe('cancel', () => {
+    it('changes status to cancelled without a denial reason', () => {
+      const request = aRequest();
+
+      request.cancel();
+
+      expect(request.status).toBe('cancelled');
+      expect(request.denialReason).toBeNull();
+    });
+
+    it.each(TERMINAL_STATUSES)(
+      'is a conflict when the request is already %s',
+      (status) => {
+        expect(() => aRequest(status).cancel()).toThrow(
+          `This adoption request is already ${status} and cannot be cancelled`,
+        );
+      },
+    );
+  });
 });

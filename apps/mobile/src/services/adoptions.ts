@@ -34,3 +34,7 @@ export const requestPetAdoption = (petId: string) => {
 export const denyAdoptionRequest = (requestId: string) => {
   return client.patch<void>(`/adoption-requests/${requestId}/deny`);
 };
+
+export const cancelAdoptionRequest = (requestId: string) => {
+  return client.patch<void>(`/adoption-requests/${requestId}/cancel`);
+};

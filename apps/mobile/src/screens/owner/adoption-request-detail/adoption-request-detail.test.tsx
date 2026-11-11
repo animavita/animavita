@@ -217,6 +217,30 @@ describe('AdoptionRequestDetail (Owner)', () => {
     });
   });
 
+  describe('cancelled request', () => {
+    const route = {
+      params: {
+        request: { ...mockPendingRequest, status: AdoptionRequestStatus.CANCELLED },
+      },
+    };
+
+    it('says the adopter withdrew, not that the owner declined', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.getByText('Cancelada pelo adotante')).toBeVisible();
+      expect(screen.getByText('O adotante cancelou esta solicitação')).toBeVisible();
+      expect(screen.queryByText('Recusada')).not.toBeOnTheScreen();
+      expect(screen.queryByText('Esta solicitação já foi recusada')).not.toBeOnTheScreen();
+    });
+
+    it('offers no actions', () => {
+      renderWithProviders(<AdoptionRequestDetail route={route} />);
+
+      expect(screen.queryByText('Recusar Solicitação')).not.toBeOnTheScreen();
+      expect(screen.queryByText('Aprovar Adoção')).not.toBeOnTheScreen();
+    });
+  });
+
   describe('denied request', () => {
     const route = {
       params: {

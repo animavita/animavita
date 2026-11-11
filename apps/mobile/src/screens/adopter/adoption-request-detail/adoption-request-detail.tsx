@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import PageDelimiter from '@/components/delimiter/delimiter';
 import SafeArea from '@/components/safe-area/safe-area';
 import Topbar from '@/components/topbar/topbar';
-import { useNavigation } from '@/navigation/use-navigation';
+import { useCancelAdoptionRequest } from '@/hooks/use-cancel-adoption-request/use-cancel-adoption-request';
 import {
   adopterOutcomeNoticeKey,
   adopterStatusLabelKey,
@@ -23,7 +23,7 @@ type AdoptionRequestDetailProps = {
 
 export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => {
   const { t } = useTranslation();
-  const { goBack } = useNavigation();
+  const { cancel, isCancelling } = useCancelAdoptionRequest();
   const { request } = route.params;
 
   const formatDate = (dateString: string) => {
@@ -38,8 +38,7 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
   };
 
   const handleCancelRequest = () => {
-    // TODO: Call API to cancel request
-    goBack();
+    cancel(request.id);
   };
 
   return (
@@ -124,6 +123,8 @@ export const AdoptionRequestDetail = ({ route }: AdoptionRequestDetailProps) => 
               colorScheme="danger"
               variant="solid"
               size="lg"
+              isLoading={isCancelling}
+              isDisabled={isCancelling}
               leftIcon={<Icon as={Ionicons} name="close-circle" />}
               onPress={handleCancelRequest}
             >

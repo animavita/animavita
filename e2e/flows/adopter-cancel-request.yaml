@@ -1,0 +1,29 @@
+appId: com.ggbelgamo.animavita
+name: Adopter cancels a pending request; the pet stays out of the deck and the owner sees it as withdrawn
+---
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: adopter@email.com
+- runFlow: ../subflows/remember-active-pet.yaml
+- tapOn: "Solicitar adoção"
+
+# On iOS the whole card is one element, hence the patterns
+- tapOn: "Solicitações"
+- tapOn: "${output.pet}([ ,].*)?"
+- tapOn: "(.*[ ,])?Cancelar Solicitação([ ,].*)?"
+- assertVisible: "(.*[ ,])?Cancelada([ ,].*)?"
+
+# One request per pet, ever: cancelling does not bring the pet back
+- tapOn: "Pets"
+- assertNotVisible: ${output.pet}
+
+- runFlow:
+    file: ../subflows/sign-in.yaml
+    env:
+      EMAIL: owner@email.com
+- tapOn: "Solicitações"
+- assertVisible: "(.*[ ,])?Cancelada pelo adotante([ ,].*)?"
+- assertNotVisible: "(.*[ ,])?Recusada([ ,].*)?"
+- tapOn: "${output.pet}([ ,].*)?"
+- assertVisible: "(.*[ ,])?O adotante cancelou esta solicitação([ ,].*)?"

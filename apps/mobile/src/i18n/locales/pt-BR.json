@@ -211,6 +211,7 @@
         "CONTACT_INFO_NOTICE": "As informações de contato serão compartilhadas após a aprovação da solicitação.",
         "CANCEL_REQUEST": "Cancelar Solicitação",
         "CANCEL_SUCCESS": "Solicitação cancelada com sucesso!",
+        "CANCEL_ERROR": "Não foi possível cancelar a solicitação. Tente novamente.",
         "ALREADY_ACCEPTED": "Esta solicitação já foi aprovada",
         "ALREADY_DENIED": "Esta solicitação já foi recusada",
         "ALREADY_DENIED_REJECTED_BY_OWNER": "O dono decidiu não seguir com esta adoção",
