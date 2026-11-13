@@ -11,6 +11,11 @@ import { Pet } from '../../core/application/dto/pet.dto';
 
 export const RADIUS_OF_EARTH = 63781; // km
 
+// Pets stored before the status existed have none, and are available. Mongo
+// matches `null` against a missing field too, so no migration is needed. Reading
+// them back needs no care either: the schema default fills the status in.
+const AVAILABLE_STATUSES = ['available', null];
+
 @Injectable()
 export class MongoPetDAO implements PetDao {
   constructor(
@@ -29,6 +34,8 @@ export class MongoPetDAO implements PetDao {
           },
         },
       })
+      .where('status')
+      .in(AVAILABLE_STATUSES)
       .where('user')
       .ne(adopterId);
 
@@ -55,6 +62,7 @@ export class MongoPetDAO implements PetDao {
       photos: document.photos,
       size: document.size,
       type: document.type,
+      status: document.status,
       user: {
         id: document.user._id.toString(),
         name: document.user.name,
@@ -81,6 +89,7 @@ export class MongoPetDAO implements PetDao {
       photos: document.photos,
       size: document.size,
       type: document.type,
+      status: document.status,
     }));
   }
 }

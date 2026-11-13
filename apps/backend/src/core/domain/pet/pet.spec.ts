@@ -19,6 +19,24 @@ const attributes = {
 };
 
 describe('Pet', () => {
+  describe('status', () => {
+    it('is available when none is given', () => {
+      expect(Pet.create(attributes).status).toBe('available');
+    });
+
+    it('keeps an adopted status', () => {
+      expect(Pet.create({ ...attributes, status: 'adopted' }).status).toBe(
+        'adopted',
+      );
+    });
+
+    it('rejects an unknown status', () => {
+      expect(() => Pet.create({ ...attributes, status: 'lost' })).toThrowError(
+        'Invalid status. Allowed values are available,adopted',
+      );
+    });
+  });
+
   describe('update', () => {
     it('updates pet name', () => {
       const pet = Pet.create(attributes);

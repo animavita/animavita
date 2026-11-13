@@ -103,6 +103,20 @@ function createPetData(ownerId: string, photoUrls: Record<string, string>) {
       user: ownerId,
       location: ownerLocation,
     },
+    {
+      // Already adopted: listed for the owner, absent from the adopter's feed.
+      name: 'Shadow',
+      breed: 'Labrador Retriever',
+      gender: 'male' as const,
+      type: 'dog' as const,
+      maturity: 'young' as const,
+      size: 'big' as const,
+      observations: 'Found a loving home already.',
+      photos: [photoUrls['max-1.jpg']],
+      status: 'adopted' as const,
+      user: ownerId,
+      location: ownerLocation,
+    },
   ];
 }
 
@@ -122,7 +136,9 @@ async function uploadSeedPhotos(): Promise<Record<string, string>> {
   // Same public host the app gets for uploads (see S3StorageProvider)
   const publicEndpoint = endpoint.replace('//localstack:', '//localhost:');
 
-  const files = (await readdir(PHOTOS_DIR)).filter((file) => file.endsWith('.jpg'));
+  const files = (await readdir(PHOTOS_DIR)).filter((file) =>
+    file.endsWith('.jpg'),
+  );
   const entries = await Promise.all(
     files.map(async (file) => {
       const key = `seed/${file}`;
@@ -238,6 +254,7 @@ async function seed() {
     console.log('   • Buddy (Beagle, Dog, Puppy, Medium)');
     console.log('   • Mittens (Persian, Cat, Senior, Small)');
     console.log('   • Rocky (German Shepherd, Dog, Adult, Big)');
+    console.log('   • Shadow (Labrador Retriever, Dog, Young, Big) - adopted');
 
     console.log('\n✨ Database seeded successfully!\n');
   } catch (error) {

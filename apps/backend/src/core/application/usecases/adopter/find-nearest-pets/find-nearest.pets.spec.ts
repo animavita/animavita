@@ -13,6 +13,13 @@ import { userFactory } from '../../../../../../test/factories/user';
 import CancelAdoptionRequest from '../../adopter/cancel-adoption-request/cancel-adoption-request';
 import CompleteSignUp from '../../common/complete-sign-up/complete-sign-up';
 import { UserType } from '@animavita/types';
+import { getModelToken } from '@nestjs/mongoose';
+import { Model, Types } from 'mongoose';
+import {
+  MongoPet,
+  PetDocument,
+} from '../../../../../infra/mongo/schemas/pet.schema';
+import GetMyPets from '../../owner/get-my-pets/get-my-pets';
 
 const owner1 = userFactory.build({
   location: {
@@ -45,6 +52,8 @@ describe.only('FindNearestPets', () => {
   let cancelAdoptionRequest: CancelAdoptionRequest;
   let completeSignUp: CompleteSignUp;
   let userService: UserService;
+  let getMyPets: GetMyPets;
+  let petModel: Model<PetDocument>;
 
   const createOwner = async (user: UserType) => {
     const created = await userService.create(user);
@@ -72,6 +81,7 @@ describe.only('FindNearestPets', () => {
         RequestPetAdoption,
         CancelAdoptionRequest,
         CompleteSignUp,
+        GetMyPets,
       ],
     }).compile();
 
@@ -84,6 +94,8 @@ describe.only('FindNearestPets', () => {
       CancelAdoptionRequest,
     );
     completeSignUp = fixture.get<CompleteSignUp>(CompleteSignUp);
+    getMyPets = fixture.get<GetMyPets>(GetMyPets);
+    petModel = fixture.get<Model<PetDocument>>(getModelToken(MongoPet.name));
 
     await app.init();
   });
@@ -180,6 +192,72 @@ describe.only('FindNearestPets', () => {
         expect(pets.length).toBe(2);
         expect(pets.find((p) => p.id === petToRequest.id)).toBeUndefined();
       });
+    });
+  });
+
+  describe('pet status', () => {
+    const availablePet = petFactory.build();
+    const adoptedPet = petFactory.build();
+    const legacyPet = petFactory.build();
+    let ownerId: string;
+    let adopterId: string;
+
+    beforeEach(async () => {
+      ownerId = await createOwner(owner1);
+      adopterId = await createAdopter(adopter);
+
+      await postPetForAdoption.execute(availablePet, ownerId);
+      const { id: adoptedPetId } = await postPetForAdoption.execute(
+        adoptedPet,
+        ownerId,
+      );
+      const { id: legacyPetId } = await postPetForAdoption.execute(
+        legacyPet,
+        ownerId,
+      );
+
+      await petModel.updateOne({ _id: adoptedPetId }, { status: 'adopted' });
+      // Pets stored before the status existed have no such field at all
+      await petModel.collection.updateOne(
+        { _id: new Types.ObjectId(legacyPetId) },
+        { $unset: { status: '' } },
+      );
+    });
+
+    it('posts new pets as available', async () => {
+      const pets = await getMyPets.execute(ownerId);
+
+      expect(pets.find((p) => p.name === availablePet.name).status).toBe(
+        'available',
+      );
+    });
+
+    it('leaves adopted pets out of the nearest ones list', async () => {
+      const pets = await findNearestPets.execute({ radius: 2, adopterId });
+
+      expect(pets.map((p) => p.name).sort()).toEqual(
+        [availablePet.name, legacyPet.name].sort(),
+      );
+    });
+
+    it('treats pets stored without a status as available', async () => {
+      const pets = await findNearestPets.execute({ radius: 2, adopterId });
+
+      expect(pets.find((p) => p.name === legacyPet.name).status).toBe(
+        'available',
+      );
+    });
+
+    it("lists both available and adopted pets in the owner's own list", async () => {
+      const pets = await getMyPets.execute(ownerId);
+
+      expect(pets.map((p) => [p.name, p.status]).sort()).toEqual(
+        [
+          [availablePet.name, 'available'],
+          [adoptedPet.name, 'adopted'],
+          [legacyPet.name, 'available'],
+        ].sort(),
+      );
     });
   });
 
