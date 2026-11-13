@@ -4,6 +4,7 @@ export type AnimalGendersType = "male" | "female";
 export type AnimalType = "dog" | "cat" | "other";
 export type AnimalSizesType = "small" | "medium" | "big";
 export type AnimalMaturitiesType = "puppy" | "young" | "adult" | "senior";
+export type AnimalStatusType = "available" | "adopted";
 
 export type AdoptionType = {
   name: string;
@@ -18,6 +19,7 @@ export type AdoptionType = {
 
 export type AdoptionResponse = AdoptionType & {
   id: string;
+  status: AnimalStatusType;
   user: Pick<UserResponse, "id" | "name">;
   createdAt: string;
   updatedAt: string;
