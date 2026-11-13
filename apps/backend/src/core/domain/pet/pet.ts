@@ -3,6 +3,7 @@ import PetGender, { PetGenderType } from './gender/gender';
 import PetType, { PetTypeType } from './type/type';
 import Location from '../location/location';
 import PetMaturity, { PetMaturityType } from './maturity/maturity';
+import PetStatus, { PetStatusType } from './status/status';
 
 interface Attributes {
   id?: string;
@@ -15,6 +16,7 @@ interface Attributes {
   observations: string;
   photos: string[];
   ownerId: string;
+  status?: string;
   location: {
     latitude: number;
     longitude: number;
@@ -22,7 +24,7 @@ interface Attributes {
 }
 
 type UpdatableAttributes = Partial<
-  Omit<Attributes, 'id' | 'ownerId' | 'location'>
+  Omit<Attributes, 'id' | 'ownerId' | 'location' | 'status'>
 >;
 
 export class Pet {
@@ -36,6 +38,7 @@ export class Pet {
   private _type: PetType;
   private _gender: PetGender;
   private _size: PetSize;
+  private _status: PetStatus;
   readonly location: Location;
 
   private constructor(attributes: Attributes) {
@@ -49,6 +52,7 @@ export class Pet {
     this.type = attributes.type;
     this.gender = attributes.gender;
     this.size = attributes.size;
+    this.status = attributes.status || 'available';
     this.location = new Location(
       attributes.location.longitude,
       attributes.location.latitude,
@@ -117,6 +121,14 @@ export class Pet {
 
   get size(): PetSizeType {
     return this._size.getValue();
+  }
+
+  private set status(aStatus: string) {
+    this._status = new PetStatus(aStatus);
+  }
+
+  get status(): PetStatusType {
+    return this._status.getValue();
   }
 
   update({

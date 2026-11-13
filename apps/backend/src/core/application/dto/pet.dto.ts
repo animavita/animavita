@@ -8,6 +8,7 @@ export interface Pet {
   type: string;
   observations: string;
   photos: string[];
+  status: string;
 }
 
 export type NearPet = Pet & {

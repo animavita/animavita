@@ -29,6 +29,7 @@ export class MongoPetRepository implements PetRepository {
       photos: document.photos,
       type: document.type,
       observations: document.observations,
+      status: document.status,
       ownerId: document.user,
       location: {
         longitude: document.location.coordinates[0],
@@ -53,6 +54,7 @@ export class MongoPetRepository implements PetRepository {
       photos: pet.photos,
       type: pet.type,
       observations: pet.observations,
+      status: pet.status,
       user: pet.ownerId,
       location: {
         type: 'Point',

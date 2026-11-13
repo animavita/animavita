@@ -29,6 +29,9 @@ export class MongoPet {
   @Prop({ required: true })
   size: 'small' | 'medium' | 'big';
 
+  @Prop({ required: true, default: 'available' })
+  status: 'available' | 'adopted';
+
   @Prop()
   observations: string;
 

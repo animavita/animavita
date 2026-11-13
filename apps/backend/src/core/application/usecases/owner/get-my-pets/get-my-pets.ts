@@ -22,6 +22,7 @@ export default class GetMyPets {
       size: pet.size,
       observations: pet.observations,
       photos: pet.photos,
+      status: pet.status,
     }));
   }
 }

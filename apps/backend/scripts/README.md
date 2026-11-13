@@ -48,15 +48,16 @@ The seed script creates:
 
 ### Pets
 
-5 pets are created and associated with the owner:
+6 pets are created and associated with the owner:
 
 1. **Max** - Golden Retriever (Adult, Male, Big)
 2. **Luna** - Siamese Cat (Young, Female, Small)
 3. **Buddy** - Beagle (Puppy, Male, Medium)
 4. **Mittens** - Persian Cat (Senior, Female, Small)
 5. **Rocky** - German Shepherd (Adult, Male, Big)
+6. **Shadow** - Labrador Retriever (Young, Male, Big), already **adopted**
 
-All pets have the same location as the owner and should appear in the adopter's feed.
+All pets have the same location as the owner. The five available ones appear in the adopter's feed; Shadow does not, but still shows in the owner's list.
 
 ## Notes
 
