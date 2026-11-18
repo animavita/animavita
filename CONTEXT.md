@@ -57,7 +57,7 @@ An Adopter withdrawing their own request. Distinct from `denied`, which is alway
 _Avoid_: withdrawn, abandoned, given up
 
 **Contact Sharing**
-The Owner revealing phone numbers on a pending request so the two can talk. It does not change the Request Status and does not commit the Owner to anything — the point is to allow a conversation *before* deciding. This is what the roadmap means by an Owner "meeting" an Adopter. See ADR-0004.
+The Owner revealing phone numbers on a pending request so the two can talk. It does not change the Request Status and does not commit the Owner to anything — the point is to allow a conversation *before* deciding. It cannot be undone, but the numbers are only shown while the request is `pending` or `accepted`. This is what the roadmap means by an Owner "meeting" an Adopter. See ADR-0004.
 _Avoid_: meeting, match, connection, introduction
 
 **Pet Like**

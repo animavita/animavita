@@ -1,14 +1,56 @@
 import GetMyAdoptionRequests from './get-my-adoption-requests';
 import UserRepository from '../../../repositories/user.repository';
-import { AdoptionRequestDao } from '../../../dao/adoption-request.dao';
+import {
+  AdoptionRequestDao,
+  AdoptionRequestRecord,
+} from '../../../dao/adoption-request.dao';
 import { User } from '../../../../domain/user/user';
 import { Email } from '../../../../domain/email/email';
 import { UserPhoneNumber } from '../../../../domain/phone-number/phone-number';
 import Location from '../../../../domain/location/location';
 import { UserRole, UserRoles } from '../../../../domain/role/role';
-import { AdoptionRequestDto } from '../../../dto/adoption-request.dto';
 import { NotFoundError } from '../../../../domain/errors/not-found.error';
 import { faker } from '@faker-js/faker';
+
+const OWNER_PHONE = '+5511911111111';
+const ADOPTER_PHONE = '+5511922222222';
+
+type Role = typeof UserRoles[keyof typeof UserRoles];
+
+const aUser = (id: string, role: Role) =>
+  User.create({
+    id,
+    email: Email.create(`${role}@test.com`),
+    name: role,
+    password: 'hashed-password',
+    phoneNumber: UserPhoneNumber.create('+5511999999999'),
+    role: UserRole.create(role),
+    location: new Location(-46.63, -23.55),
+  });
+
+const aRecord = (
+  overrides: Partial<AdoptionRequestRecord> = {},
+): AdoptionRequestRecord => ({
+  id: 'req-1',
+  status: 'pending',
+  denialReason: null,
+  contactShared: false,
+  petId: 'pet-1',
+  adopterId: 'adopter-1',
+  createdAt: '2026-01-01T00:00:00.000Z',
+  updatedAt: '2026-01-01T00:00:00.000Z',
+  pet: {
+    id: 'pet-1',
+    name: 'Rex',
+    breed: 'Labrador',
+    type: 'dog',
+    owner: { id: 'owner-1', name: 'Owner' },
+  },
+  adopter: { id: 'adopter-1', name: 'Adopter' },
+  ownerPhoneNumber: OWNER_PHONE,
+  adopterPhoneNumber: ADOPTER_PHONE,
+  ...overrides,
+});
 
 describe('GetMyAdoptionRequests', () => {
   let getMyAdoptionRequests: GetMyAdoptionRequests;
@@ -34,102 +76,122 @@ describe('GetMyAdoptionRequests', () => {
   describe('for adopter', () => {
     it('should return requests placed by adopter', async () => {
       const adopterId = faker.string.uuid();
-      const adopter = User.create({
-        id: adopterId,
-        email: Email.create('adopter@test.com'),
-        name: 'Adopter',
-        password: 'hashed-password',
-        phoneNumber: UserPhoneNumber.create('+5511999999999'),
-        role: UserRole.create(UserRoles.Adopter),
-        location: new Location(-46.63, -23.55),
-      });
+      userRepository.getById.mockResolvedValue(
+        aUser(adopterId, UserRoles.Adopter),
+      );
+      adoptionRequestDao.getByAdopter.mockResolvedValue([aRecord()]);
 
-      const mockRequests: AdoptionRequestDto[] = [
+      const result = await getMyAdoptionRequests.execute(adopterId);
+
+      expect(adoptionRequestDao.getByAdopter).toHaveBeenCalledWith(adopterId);
+      expect(adoptionRequestDao.getByOwner).not.toHaveBeenCalled();
+      expect(result).toEqual([
         {
           id: 'req-1',
           status: 'pending',
           denialReason: null,
+          contactShared: false,
           petId: 'pet-1',
-          adopterId,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
+          adopterId: 'adopter-1',
+          createdAt: '2026-01-01T00:00:00.000Z',
+          updatedAt: '2026-01-01T00:00:00.000Z',
           pet: {
             id: 'pet-1',
             name: 'Rex',
             breed: 'Labrador',
             type: 'dog',
-            owner: {
-              id: 'owner-1',
-              name: 'Owner',
-            },
+            owner: { id: 'owner-1', name: 'Owner', phoneNumber: null },
           },
-          adopter: {
-            id: adopterId,
-            name: 'Adopter',
-          },
+          adopter: { id: 'adopter-1', name: 'Adopter', phoneNumber: null },
         },
-      ];
-
-      userRepository.getById.mockResolvedValue(adopter);
-      adoptionRequestDao.getByAdopter.mockResolvedValue(mockRequests);
-
-      const result = await getMyAdoptionRequests.execute(adopterId);
-
-      expect(userRepository.getById).toHaveBeenCalledWith(adopterId);
-      expect(adoptionRequestDao.getByAdopter).toHaveBeenCalledWith(adopterId);
-      expect(adoptionRequestDao.getByOwner).not.toHaveBeenCalled();
-      expect(result).toEqual(mockRequests);
+      ]);
     });
   });
 
   describe('for owner', () => {
     it('should return requests received for owner pets', async () => {
       const ownerId = faker.string.uuid();
-      const owner = User.create({
-        id: ownerId,
-        email: Email.create('owner@test.com'),
-        name: 'Owner',
-        password: 'hashed-password',
-        phoneNumber: UserPhoneNumber.create('+5511999999999'),
-        role: UserRole.create(UserRoles.Owner),
-        location: new Location(-46.63, -23.55),
-      });
-
-      const mockRequests: AdoptionRequestDto[] = [
-        {
-          id: 'req-1',
-          status: 'pending',
-          denialReason: null,
-          petId: 'pet-1',
-          adopterId: 'adopter-1',
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-          pet: {
-            id: 'pet-1',
-            name: 'Rex',
-            breed: 'Labrador',
-            type: 'dog',
-            owner: {
-              id: ownerId,
-              name: 'Owner',
-            },
-          },
-          adopter: {
-            id: 'adopter-1',
-            name: 'Adopter',
-          },
-        },
-      ];
-
-      userRepository.getById.mockResolvedValue(owner);
-      adoptionRequestDao.getByOwner.mockResolvedValue(mockRequests);
+      userRepository.getById.mockResolvedValue(aUser(ownerId, UserRoles.Owner));
+      adoptionRequestDao.getByOwner.mockResolvedValue([aRecord()]);
 
       const result = await getMyAdoptionRequests.execute(ownerId);
 
-      expect(userRepository.getById).toHaveBeenCalledWith(ownerId);
       expect(adoptionRequestDao.getByOwner).toHaveBeenCalledWith(ownerId);
       expect(adoptionRequestDao.getByAdopter).not.toHaveBeenCalled();
-      expect(result).toEqual(mockRequests);
+      expect(result).toHaveLength(1);
+      expect(result[0].id).toBe('req-1');
+    });
+  });
+
+  describe('phone numbers', () => {
+    const readAs = async (role: Role, record: AdoptionRequestRecord) => {
+      userRepository.getById.mockResolvedValue(aUser('user-1', role));
+      adoptionRequestDao.getByAdopter.mockResolvedValue([record]);
+      adoptionRequestDao.getByOwner.mockResolvedValue([record]);
+
+      const [request] = await getMyAdoptionRequests.execute('user-1');
+      return request;
+    };
+
+    describe.each([UserRoles.Owner, UserRoles.Adopter])(
+      'read by the %s',
+      (role) => {
+        it('are absent while contact has not been shared', async () => {
+          const request = await readAs(role, aRecord({ contactShared: false }));
+
+          expect(request.pet.owner.phoneNumber).toBeNull();
+          expect(request.adopter.phoneNumber).toBeNull();
+          expect(JSON.stringify(request)).not.toContain(OWNER_PHONE);
+          expect(JSON.stringify(request)).not.toContain(ADOPTER_PHONE);
+        });
+
+        it.each(['pending', 'accepted'] as const)(
+          'are both present on a shared %s request',
+          async (status) => {
+            const request = await readAs(
+              role,
+              aRecord({ contactShared: true, status }),
+            );
+
+            expect(request.pet.owner.phoneNumber).toBe(OWNER_PHONE);
+            expect(request.adopter.phoneNumber).toBe(ADOPTER_PHONE);
+          },
+        );
+
+        it.each(['denied', 'cancelled'] as const)(
+          'are hidden again once a shared request is %s, while the request stays marked as shared',
+          async (status) => {
+            const request = await readAs(
+              role,
+              aRecord({ contactShared: true, status }),
+            );
+
+            expect(request.contactShared).toBe(true);
+            expect(JSON.stringify(request)).not.toContain(OWNER_PHONE);
+            expect(JSON.stringify(request)).not.toContain(ADOPTER_PHONE);
+          },
+        );
+      },
+    );
+
+    it('shows a missing adopter number as absent on a shared request', async () => {
+      const request = await readAs(
+        UserRoles.Owner,
+        aRecord({ contactShared: true, adopterPhoneNumber: null }),
+      );
+
+      expect(request.pet.owner.phoneNumber).toBe(OWNER_PHONE);
+      expect(request.adopter.phoneNumber).toBeNull();
+    });
+
+    it('does not leak the raw record fields', async () => {
+      const request = await readAs(
+        UserRoles.Owner,
+        aRecord({ contactShared: true }),
+      );
+
+      expect(request).not.toHaveProperty('ownerPhoneNumber');
+      expect(request).not.toHaveProperty('adopterPhoneNumber');
     });
   });
 

@@ -5,8 +5,10 @@ import UserRepository, {
 import { NotFoundError } from '../../../../domain/errors';
 import {
   AdoptionRequestDao,
+  AdoptionRequestRecord,
   ADOPTION_REQUEST_DAO,
 } from '../../../dao/adoption-request.dao';
+import { isContactVisible } from '../../../../domain/adoption-request/contact-visibility/contact-visibility';
 import { AdoptionRequestDto } from '../../../dto/adoption-request.dto';
 
 @Injectable()
@@ -25,14 +27,50 @@ export default class GetMyAdoptionRequests {
       throw new NotFoundError('User not found');
     }
 
-    if (user.role.isAdopter) {
+    const records = await this.findRecordsFor(user.role, userId);
+
+    return records.map(toAdoptionRequestDto);
+  }
+
+  private findRecordsFor(
+    role: { isAdopter: boolean; isOwner: boolean },
+    userId: string,
+  ): Promise<AdoptionRequestRecord[]> {
+    if (role.isAdopter) {
       return this.adoptionRequestDao.getByAdopter(userId);
     }
 
-    if (user.role.isOwner) {
+    if (role.isOwner) {
       return this.adoptionRequestDao.getByOwner(userId);
     }
 
-    return [];
+    return Promise.resolve([]);
   }
 }
+
+/**
+ * The only way a stored request becomes a response. Both parties see the same
+ * thing: both phone numbers when contact is visible, neither otherwise.
+ */
+const toAdoptionRequestDto = ({
+  ownerPhoneNumber,
+  adopterPhoneNumber,
+  ...record
+}: AdoptionRequestRecord): AdoptionRequestDto => {
+  const visible = isContactVisible(record);
+
+  return {
+    ...record,
+    pet: {
+      ...record.pet,
+      owner: {
+        ...record.pet.owner,
+        phoneNumber: visible ? ownerPhoneNumber : null,
+      },
+    },
+    adopter: {
+      ...record.adopter,
+      phoneNumber: visible ? adopterPhoneNumber : null,
+    },
+  };
+};

@@ -9,6 +9,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     adopterId: 'adopter1',
     status: AdoptionRequestStatus.PENDING,
     denialReason: null,
+    contactShared: false,
     pet: {
       id: 'pet1',
       name: 'Rex',
@@ -17,11 +18,13 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
       owner: {
         id: 'owner1',
         name: 'Maria Silva',
+        phoneNumber: null,
       },
     },
     adopter: {
       id: 'adopter1',
       name: 'John Doe',
+      phoneNumber: null,
     },
     createdAt: '2024-12-31T00:00:00.000Z',
     updatedAt: '2024-12-31T00:00:00.000Z',
@@ -32,6 +35,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     adopterId: 'adopter2',
     status: AdoptionRequestStatus.ACCEPTED,
     denialReason: null,
+    contactShared: false,
     pet: {
       id: 'pet2',
       name: 'Mittens',
@@ -40,11 +44,13 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
       owner: {
         id: 'owner2',
         name: 'Carlos Santos',
+        phoneNumber: null,
       },
     },
     adopter: {
       id: 'adopter2',
       name: 'Jane Smith',
+      phoneNumber: null,
     },
     createdAt: '2025-01-01T00:00:00.000Z',
     updatedAt: '2025-01-01T00:00:00.000Z',
@@ -55,6 +61,7 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
     adopterId: 'adopter3',
     status: AdoptionRequestStatus.DENIED,
     denialReason: DenialReason.REJECTED_BY_OWNER,
+    contactShared: false,
     pet: {
       id: 'pet3',
       name: 'Buddy',
@@ -63,11 +70,13 @@ export const mockAdoptionRequests: AdoptionRequestResponse[] = [
       owner: {
         id: 'owner3',
         name: 'Ana Costa',
+        phoneNumber: null,
       },
     },
     adopter: {
       id: 'adopter3',
       name: 'Bob Johnson',
+      phoneNumber: null,
     },
     createdAt: '2025-01-02T00:00:00.000Z',
     updatedAt: '2025-01-02T00:00:00.000Z',

@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, PipelineStage } from 'mongoose';
-import { AdoptionRequestDao } from '../../core/application/dao/adoption-request.dao';
+import {
+  AdoptionRequestDao,
+  AdoptionRequestRecord,
+} from '../../core/application/dao/adoption-request.dao';
 import {
   MongoAdoptionRequest,
   AdoptionRequestDocument,
 } from '../mongo/schemas/adoption-request.schema';
-import { AdoptionRequestDto } from '../../core/application/dto/adoption-request.dto';
 
 @Injectable()
 export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
@@ -95,6 +97,9 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
           adopterId: 1,
           status: 1,
           denialReason: 1,
+          contactShared: 1,
+          ownerPhoneNumber: '$ownerData.phoneNumber',
+          adopterPhoneNumber: '$adopterData.phoneNumber',
           createdAt: 1,
           updatedAt: 1,
           pet: {
@@ -118,13 +123,16 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
     return stages;
   }
 
-  private mapToDto(doc: any): AdoptionRequestDto {
+  private mapToRecord(doc: any): AdoptionRequestRecord {
     return {
       id: doc._id.toString(),
       petId: doc.petId.toString(),
       adopterId: doc.adopterId.toString(),
       status: doc.status,
       denialReason: doc.denialReason ?? null,
+      contactShared: doc.contactShared ?? false,
+      ownerPhoneNumber: doc.ownerPhoneNumber ?? null,
+      adopterPhoneNumber: doc.adopterPhoneNumber ?? null,
       createdAt: doc.createdAt.toString(),
       updatedAt: doc.updatedAt.toString(),
       pet: {
@@ -144,7 +152,7 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
     };
   }
 
-  async getByAdopter(adopterId: string): Promise<AdoptionRequestDto[]> {
+  async getByAdopter(adopterId: string): Promise<AdoptionRequestRecord[]> {
     const pipeline: PipelineStage[] = [
       {
         $match: {
@@ -155,16 +163,16 @@ export class MongoAdoptionRequestDAO implements AdoptionRequestDao {
     ];
 
     const documents = await this.adoptionRequestModel.aggregate(pipeline);
-    return documents.map((doc) => this.mapToDto(doc));
+    return documents.map((doc) => this.mapToRecord(doc));
   }
 
-  async getByOwner(ownerId: string): Promise<AdoptionRequestDto[]> {
+  async getByOwner(ownerId: string): Promise<AdoptionRequestRecord[]> {
     const pipeline: PipelineStage[] = [
       ...this.buildLookupAndProjectPipeline({ filterByPetOwner: ownerId }),
     ];
 
     const documents = await this.adoptionRequestModel.aggregate(pipeline);
-    return documents.map((doc) => this.mapToDto(doc));
+    return documents.map((doc) => this.mapToRecord(doc));
   }
 
   async getRequestedPetIds(adopterId: string): Promise<string[]> {

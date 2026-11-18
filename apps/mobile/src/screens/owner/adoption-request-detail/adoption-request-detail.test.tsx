@@ -24,6 +24,7 @@ const mockPendingRequest: AdoptionRequestResponse = {
   petId: 'pet1',
   adopterId: 'adopter1',
   denialReason: null,
+  contactShared: false,
   pet: {
     id: 'pet1',
     name: 'Rex',
@@ -32,11 +33,13 @@ const mockPendingRequest: AdoptionRequestResponse = {
     owner: {
       id: 'owner1',
       name: 'Maria Silva',
+      phoneNumber: null,
     },
   },
   adopter: {
     id: 'adopter1',
     name: 'John Doe',
+    phoneNumber: null,
   },
   createdAt: '2025-01-15T10:30:00.000Z',
   updatedAt: '2025-01-15T10:30:00.000Z',
