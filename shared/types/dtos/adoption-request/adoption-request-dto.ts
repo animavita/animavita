@@ -32,6 +32,11 @@ export type AdoptionRequestResponse = {
   adopterId: string;
   status: AdoptionRequestStatusType;
   denialReason: DenialReasonType | null;
+  /**
+   * Whether the owner has shared contact on this request. Stays true after the
+   * request is resolved, as a record that the two were put in touch.
+   */
+  contactShared: boolean;
   createdAt: string;
   updatedAt: string;
   pet: {
@@ -42,10 +47,17 @@ export type AdoptionRequestResponse = {
     owner: {
       id: string;
       name: string;
+      /**
+       * Null unless contact is shared and the request is pending or accepted,
+       * and also null when the owner has no phone number on file.
+       */
+      phoneNumber: string | null;
     };
   };
   adopter: {
     id: string;
     name: string;
+    /** Null under the same rule as the owner's number. */
+    phoneNumber: string | null;
   };
 };

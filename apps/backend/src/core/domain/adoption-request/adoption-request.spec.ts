@@ -124,6 +124,76 @@ describe('AdoptionRequest Entity', () => {
     });
   });
 
+  describe('shareContact', () => {
+    it('has not shared contact by default', () => {
+      expect(aRequest().contactShared).toBe(false);
+    });
+
+    it('restores a shared contact when provided', () => {
+      const request = AdoptionRequest.create({
+        petId: 'pet-123',
+        adopterId: 'adopter-456',
+        contactShared: true,
+      });
+
+      expect(request.contactShared).toBe(true);
+    });
+
+    it('shares contact without changing the status', () => {
+      const request = aRequest();
+
+      request.shareContact();
+
+      expect(request.contactShared).toBe(true);
+      expect(request.status).toBe('pending');
+    });
+
+    it('succeeds without changing anything when contact is already shared', () => {
+      const request = aRequest();
+      request.shareContact();
+
+      request.shareContact();
+
+      expect(request.contactShared).toBe(true);
+      expect(request.status).toBe('pending');
+    });
+
+    it('still lets the owner deny after sharing contact', () => {
+      const request = aRequest();
+      request.shareContact();
+
+      request.deny('rejected_by_owner');
+
+      expect(request.status).toBe('denied');
+      expect(request.contactShared).toBe(true);
+    });
+
+    it.each(TERMINAL_STATUSES)(
+      'is a conflict when the request is already %s',
+      (status) => {
+        expect(() => aRequest(status).shareContact()).toThrow(
+          `This adoption request is already ${status} and cannot have contact shared`,
+        );
+      },
+    );
+
+    it.each(TERMINAL_STATUSES)(
+      'is a conflict when the request is already %s, even if contact was shared before',
+      (status) => {
+        const request = AdoptionRequest.create({
+          petId: 'pet-123',
+          adopterId: 'adopter-456',
+          status,
+          contactShared: true,
+        });
+
+        expect(() => request.shareContact()).toThrow(
+          `This adoption request is already ${status} and cannot have contact shared`,
+        );
+      },
+    );
+  });
+
   describe('cancel', () => {
     it('changes status to cancelled without a denial reason', () => {
       const request = aRequest();

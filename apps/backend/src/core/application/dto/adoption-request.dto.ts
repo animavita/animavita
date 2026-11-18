@@ -4,6 +4,7 @@ export type AdoptionRequestDto = {
   adopterId: string;
   status: 'pending' | 'accepted' | 'denied' | 'cancelled';
   denialReason: 'rejected_by_owner' | 'pet_adopted' | 'pet_removed' | null;
+  contactShared: boolean;
   createdAt: string;
   updatedAt: string;
   pet: {
@@ -14,10 +15,12 @@ export type AdoptionRequestDto = {
     owner: {
       id: string;
       name: string;
+      phoneNumber: string | null;
     };
   };
   adopter: {
     id: string;
     name: string;
+    phoneNumber: string | null;
   };
 };

@@ -30,6 +30,7 @@ export class MongoAdoptionRequestRepository
       adopterId: document.adopterId,
       status: document.status,
       denialReason: document.denialReason,
+      contactShared: document.contactShared,
     });
   }
 
@@ -52,6 +53,7 @@ export class MongoAdoptionRequestRepository
       adopterId: document.adopterId,
       status: document.status,
       denialReason: document.denialReason,
+      contactShared: document.contactShared,
     });
   }
 
@@ -61,6 +63,7 @@ export class MongoAdoptionRequestRepository
       adopterId: request.adopterId,
       status: request.status,
       denialReason: request.denialReason,
+      contactShared: request.contactShared,
     };
 
     const existingDoc =

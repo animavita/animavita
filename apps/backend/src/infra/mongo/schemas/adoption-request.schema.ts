@@ -23,6 +23,11 @@ export class MongoAdoptionRequest {
     enum: ['rejected_by_owner', 'pet_adopted', 'pet_removed', null],
   })
   denialReason?: 'rejected_by_owner' | 'pet_adopted' | 'pet_removed' | null;
+
+  // Requests saved before Contact Sharing existed have no value and read as
+  // not shared.
+  @Prop({ required: false, default: false })
+  contactShared?: boolean;
 }
 
 export type AdoptionRequestDocument = HydratedDocument<MongoAdoptionRequest> &
